@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.runtime.ldap.client.internal.LDAPConfigurationTracker" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.ldap.client.internal.LDAPConfigurationTracker"/>
+    </service>
+    <reference name="ConfigurationAdmin" interface="org.osgi.service.cm.ConfigurationAdmin" cardinality="1..1" policy="static" bind="setConfigurationAdmin" unbind="unsetConfigurationAdmin"/>
+    <implementation class="eu.agno3.runtime.ldap.client.internal.LDAPConfigurationTracker"/>
+</scr:component>

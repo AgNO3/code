@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" immediate="true" name="eu.agno3.runtime.logging.bridge.internal.LoggerBridge" activate="activate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.logging.bridge.internal.LoggerBridge"/>
+    </service>
+    <reference name="ExtendedLogReaderService" interface="org.eclipse.equinox.log.ExtendedLogReaderService" cardinality="1..1" policy="static" bind="setExtendedLogReaderService" unbind="unsetExtendedLogReaderService"/>
+    <reference name="PaxLoggingService" interface="org.ops4j.pax.logging.PaxLoggingService" cardinality="1..1" policy="static" bind="setPaxLoggingService" unbind="unsetPaxLoggingService" policy-option="greedy"/>
+    <reference name="LogConfigService" interface="eu.agno3.runtime.logging.LogConfigurationService" cardinality="1..1" policy="static" bind="setLogConfigService" unbind="unsetLogConfigService"/>
+    <implementation class="eu.agno3.runtime.logging.bridge.internal.LoggerBridge"/>
+</scr:component>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="scheduler-feature"
+      label="Scheduler Feature"
+      version="0.0.18"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <prerequisites>
+	   <required id="deps-quartz-feature" version="2.2.1.AG2"/>
+   </prerequisites>
+
+   <plugin
+         id="eu.agno3.runtime.scheduler"
+         download-size="0"
+         install-size="0"
+         version="0.0.18"
+         unpack="false"/>
+
+</feature>

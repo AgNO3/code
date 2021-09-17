@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.config.model.realm.server.util.InheritanceProxyBuilder">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.config.model.realm.server.util.InheritanceProxyBuilder"/>
+    </service>
+    <reference name="ObjectTypeRegistry" interface="eu.agno3.orchestrator.config.model.descriptors.ObjectTypeRegistry" cardinality="1..1" policy="static" bind="setObjectTypeRegistry" unbind="unsetObjectTypeRegistry"/>
+    <reference name="ObjectPoolProvider" interface="eu.agno3.orchestrator.config.model.realm.server.util.ObjectPoolProvider" cardinality="1..1" policy="static" bind="setObjectPoolProvider" unbind="unsetObjectPoolProvider"/>
+    <reference name="PersistenceUtil" interface="eu.agno3.orchestrator.config.model.realm.server.util.PersistenceUtil" cardinality="1..1" policy="static" bind="setPersistenceUtil" unbind="unsetPersistenceUtil"/>
+    <implementation class="eu.agno3.orchestrator.config.model.realm.server.util.InheritanceProxyBuilder"/>
+</scr:component>

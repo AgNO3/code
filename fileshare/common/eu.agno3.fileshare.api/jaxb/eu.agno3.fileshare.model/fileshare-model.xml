@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.fileshare.model" xml-mapping-metadata-complete="true"
+	version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-from-default="QUALIFIED" namespace="urn:agno3:fileshare:1.0:model">
+		<xml-ns prefix="fsm" namespace-uri="urn:agno3:fileshare:1.0:model" />
+		<xml-ns prefix="user" namespace-uri="urn:agno3:security:1.0:principal" />
+	</xml-schema>
+
+	<java-types>
+		<java-type name="Subject" xml-accessor-type="NONE">
+			<xml-type name="subjectBaseType" />
+			<xml-root-element name="subject" />
+
+			<java-attributes>
+				<xml-element name="id" java-attribute="id">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.UUIDAdapter" />
+				</xml-element>
+
+
+				<xml-element name="version" java-attribute="version" />
+				<xml-element name="type" java-attribute="type" />
+				<xml-element name="quota" java-attribute="quota" />
+
+				<xml-element name="role" java-attribute="roles">
+					<xml-element-wrapper name="roles" />
+				</xml-element>
+
+				<xml-element name="expiration" java-attribute="expiration">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter" />
+				</xml-element>
+				<xml-element name="created" java-attribute="created">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter" />
+				</xml-element>
+
+				<xml-element name="creator" java-attribute="creator" />
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="User" xml-accessor-type="NONE">
+			<xml-type name="userType" />
+			<xml-root-element name="user" />
+
+			<java-attributes>
+				<xml-element name="principal" java-attribute="principal" />
+				<xml-element name="userDetails" java-attribute="userDetails" />
+				<xml-element name="securityLabel" java-attribute="securityLabel" />
+				<xml-element name="noSubjectRoot" java-attribute="noSubjectRoot" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="UserDetails" xml-accessor-type="NONE">
+			<xml-type name="userDetailsType" />
+			<xml-root-element name="userDetails" />
+
+			<java-attributes>
+
+				<xml-element name="id" java-attribute="id">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.UUIDAdapter" />
+				</xml-element>
+				<xml-element name="version" java-attribute="version" />
+
+				<xml-element name="fullName" java-attribute="fullName" />
+				<xml-element name="fullNameVerified" java-attribute="fullNameVerified" />
+
+				<xml-element name="preferredName" java-attribute="preferredName" />
+				<xml-element name="preferredNameVerified"
+					java-attribute="preferredNameVerified" />
+
+				<xml-element name="mailAddress" java-attribute="mailAddress" />
+				<xml-element name="mailAddressVerified" java-attribute="mailAddressVerified" />
+
+				<xml-element name="preferTextMail" java-attribute="preferTextMail" />
+				<xml-element name="jobTitle" java-attribute="jobTitle" />
+				<xml-element name="organization" java-attribute="organization" />
+				<xml-element name="organizationUnit" java-attribute="organizationUnit" />
+				<xml-element name="salutationName" java-attribute="salutationName" />
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="Group" xml-accessor-type="NONE">
+			<xml-type name="groupType" />
+			<xml-root-element name="group" />
+
+			<java-attributes>
+				<xml-element name="realm" java-attribute="realm" />
+				<xml-element name="name" java-attribute="name" />
+				<xml-element name="notificationOverrideAddress"
+					java-attribute="notificationOverrideAddress" />
+				<xml-element name="disableNotifications" java-attribute="disableNotifications" />
+				<xml-element name="groupLocale" java-attribute="groupLocale">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.LocaleAdapter" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="SecurityLabel" xml-accessor-type="NONE">
+			<xml-type name="securityLabelType" />
+			<xml-root-element name="securityLabelType" />
+
+			<java-attributes>
+				<xml-element name="label" java-attribute="label" />
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="UserCreateData" xml-accessor-type="NONE">
+
+
+			<xml-type name="userCreateDataType" />
+			<xml-root-element name="userCreateData" />
+
+			<java-attributes>
+				<xml-element name="userName" java-attribute="userName" />
+				<xml-element name="disabled" java-attribute="disabled" />
+				<xml-element name="forcePasswordChange" java-attribute="forcePasswordChange" />
+				<xml-element name="noSubjectRoot" java-attribute="noSubjectRoot" />
+
+				<xml-element name="expires" java-attribute="expires">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter" />
+				</xml-element>
+				
+				<xml-element name="userDetails" java-attribute="userDetails" />
+				<xml-element name="password" java-attribute="password" />
+				<xml-element name="quota" java-attribute="quota" />
+				<xml-element name="securityLabel" java-attribute="securityLabel" />
+				
+				<xml-element name="role" java-attribute="roles">
+					<xml-element-wrapper name="roles" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+	</java-types>
+</xml-bindings>

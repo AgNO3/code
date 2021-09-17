@@ -1,0 +1,63 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+
+<composite:interface>
+</composite:interface>
+
+<composite:implementation>
+
+	<p:outputPanel id="terms">
+
+		<h:outputStylesheet library="agsec" name="login.static.css" />
+
+		<ui:fragment rendered="#{not empty agsec_termsAcceptBean.definition}">
+
+			<h1>
+				<h:outputText value="#{agsec_termsAcceptBean.label}" />
+			</h1>
+
+			<p:outputPanel
+				rendered="#{not empty agsec_termsAcceptBean.description}">
+				<p>
+					<h:outputText value="#{agsec_termsAcceptBean.description}" />
+				</p>
+			</p:outputPanel>
+
+			<iframe class="terms" seamless="" sandbox=""
+				src="#{request.contextPath}/terms/#{agsec_termsAcceptBean.definition.id}.html" />
+
+			<p:fieldset>
+				<p:messages />
+
+				<p:selectBooleanCheckbox id="accept"
+					value="#{agsec_termsAcceptBean.accept}" />
+				<p:outputLabel for="accept" styleClass="inline-space">
+					<h:outputFormat styleClass="terms-extra inline-space"
+						value="#{_login['terms.check.label']}">
+						<f:param value="#{agsec_termsAcceptBean.label}" />
+					</h:outputFormat>
+				</p:outputLabel>
+			</p:fieldset>
+
+			<div class="buttons">
+				<p:commandButton value="#{_login['termsAcceptButton']}"
+					icon="ui-icon-check" action="#{agsec_termsAcceptBean.doAccept}"
+					update="terms">
+					<p:resetInput target="terms" />
+				</p:commandButton>
+			</div>
+		</ui:fragment>
+
+		<h:outputText rendered="#{empty agsec_termsAcceptBean.definition}"
+			value="#{_login['termsAcceptComplete']}" />
+
+	</p:outputPanel>
+</composite:implementation>
+</html>

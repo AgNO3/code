@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0"
+	template="/tpl/common/dialog.xhtml">
+	<ui:param name="title"
+		value="#{msgs.formatEL('crypto.generateKey.title', keystoreContext.keystore)}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="instance"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}">
+			</f:viewParam>
+
+			<f:viewParam name="keystore" value="#{keystoreContext.keystore}"
+				required="true" requiredMessage="#{_gui['require.param']}">
+			</f:viewParam>
+
+			<f:viewParam name="suggestSubject"
+				value="#{keystoreContext.suggestSubject}" required="false" />
+
+			<f:viewParam name="suggestSANs"
+				value="#{keystoreContext.suggestSANs}" required="false" />
+
+			<f:viewParam name="suggestKeyUsage"
+				value="#{keystoreContext.suggestKeyUsage}" required="false" />
+
+			<f:viewParam name="suggestEKUs"
+				value="#{keystoreContext.suggestEKUs}" required="false" />
+
+			<f:viewParam name="key" value="#{keystoreContext.keyAliasInitial}"
+				required="false" />
+				
+			<f:viewParam name="templateKey" value="#{keystoreContext.templateKeyAlias}"
+				required="false" />
+				
+			<f:viewParam name="allowAnonymous"
+				value="#{keystoreContext.allowAnonymous}" required="false"
+				default="#{false}" />
+				
+			<f:event type="preRenderView" listener="#{keystoreContext.initCertificateRequest}" />
+		</f:metadata>
+	</ui:define>
+
+
+	<ui:define name="content">
+		<h:form>
+			<ag:dialogContextHolder />
+
+			<p:messages autoUpdate="true" />
+
+			<h:outputScript>
+				// <!-- 					
+function copyToClipboard(itm) {
+	console.log(itm);
+	if ( itm[0] ) {
+		itm[0].select();
+		itm[0].setSelectionRange(0, itm[0].value.length);
+		var successful = false;
+		try {
+		    successful = document.execCommand('copy');
+		} catch (err) {
+		    console.log(err);
+		    successful = false;
+		}
+		
+		if ( ! successful ) {
+			itm.closest('div').find('.copy-failure').fadeIn(300).delay(3000).fadeOut(300);
+			itm.closest('div').find('div.copy-button').disable();
+			
+		} else {
+			itm.closest('div').find('.copy-success').fadeIn(300).delay(3000).fadeOut(300);
+		}
+	}
+}
+//  -->
+			</h:outputScript>
+
+			<p:outputPanel id="options">
+				<p:fieldset legend="#{_gui['crypto.generateKey.keyOpts.title']}"
+					rendered="#{empty keystoreContext.keyGenerationJob.jobId}">
+
+					<ag:simpleField
+						label="#{_gui['crypto.generateKey.keyOpts.alias.label']}"
+						description="#{_gui['crypto.generateKey.keyOpts.alias.description']}"
+						inputId="keyAlias" value="#{keystoreContext.keyAlias}"
+						readOnly="#{not empty keystoreContext.keyAliasInitial}">
+						<p:inputText id="keyAlias" value="#{keystoreContext.keyAlias}"
+							required="#{not keystoreContext.allowAnonymous and empty keystoreContext.keyAliasInitial}" />
+					</ag:simpleField>
+
+					<ag:simpleField
+						label="#{_gui['crypto.generateKey.keyOpts.keyType.label']}"
+						description="#{_gui['crypto.generateKey.keyOpts.keySize.description']}"
+						inputId="keyType">
+						<p:selectOneMenu id="keyType" value="#{keystoreContext.keyType}">
+							<f:selectItems value="#{keyTypeBean.keyTypes}" var="kt"
+								itemLabel="#{keyTypeBean.translateKeyType(kt)}" />
+						</p:selectOneMenu>
+					</ag:simpleField>
+				</p:fieldset>
+
+				<p:fieldset legend="#{_gui['crypto.generateKey.certOpts.title']}"
+					rendered="#{empty keystoreContext.keyGenerationJob.jobId}">
+					<ag:simpleField
+						label="#{_gui['crypto.keystore.certificateType.label']}"
+						inputId="certificateType">
+						<p:selectOneRadio value="#{keystoreContext.certificateType}"
+							id="certificateType">
+							<p:ajax event="change"
+								update="@composite:@parent:certificateOptions" />
+							<f:selectItem itemValue="1"
+								itemLabel="#{_gui['crypto.keystore.certificateType.csr']}" />
+							<f:selectItem itemValue="2"
+								itemLabel="#{_gui['crypto.keystore.certificateType.selfsigned']}"
+								itemDisabled="#{not empty keystoreContext.keystoreInfo.validationTrustStore}" />
+							<f:selectItem itemValue="3"
+								itemLabel="#{_gui['crypto.keystore.certificateType.none']}" />
+						</p:selectOneRadio>
+					</ag:simpleField>
+
+					<p:outputPanel id="certificateOptions">
+						<p:outputPanel rendered="#{keystoreContext.certificateType != 3}">
+							<ag:simpleField
+								label="#{_gui['crypto.keystore.newCert.req.subject.label']}"
+								description="#{_gui['crypto.keystore.newCert.req.subject.description']}"
+								inputId="subject">
+								<p:inputText style="width: 90%" id="subject"
+									value="#{keystoreContext.subject}" required="true" />
+								<p:watermark for="subject"
+									value="#{_gui['crypto.keystore.newCert.req.subject.watermark']}" />
+							</ag:simpleField>
+
+							<ag:simpleField
+								label="#{_gui['crypto.keystore.newCert.req.lifetime.label']}"
+								description="#{_gui['crypto.keystore.newCert.req.lifetime.description']}"
+								inputId="lifetime"
+								onlyIf="#{keystoreContext.certificateType == 2}">
+								<ag:inputDuration id="lifetime"
+									value="#{keystoreContext.certReq.lifetime}" minUnit="days" />
+							</ag:simpleField>
+
+							<ui:include src="/tpl/crypto/keystores/certAttributes.xhtml" />
+						</p:outputPanel>
+					</p:outputPanel>
+				</p:fieldset>
+
+				<div class="buttons">
+					<p:commandButton action="#{keystoreContext.generateKey()}"
+						rendered="#{empty keystoreContext.keyGenerationJob.jobId}"
+						value="#{_gui['crypto.generateKey.generate']}"
+						icon="ui-icon-check" update="generatingKey options" />
+
+					<p:commandButton immediate="true" action="#{dialog.close}"
+						styleClass="close-button"
+						rendered="#{empty keystoreContext.keyGenerationJob.jobId}"
+						icon="ui-icon-cancel" value="#{_gui['crypto.generateKey.cancel']}" />
+				</div>
+			</p:outputPanel>
+
+			<p:remoteCommand name="keyGenerated" update="generatedKey"
+				autoRun="false" actionListener="#{keystoreContext.generatedKey}" />
+
+			<p:outputPanel id="generatingKey">
+				<p:fieldset legend="#{_gui['crypto.generateKey.generating.title']}"
+					rendered="#{not empty keystoreContext.keyGenerationJob.jobId}">
+					<orch:jobDetail jobCtx="#{keystoreContext.keyGenerationJob}"
+						showOutput="false" onFinish="keyGenerated()" />
+				</p:fieldset>
+			</p:outputPanel>
+
+			<p:outputPanel id="generatedKey">
+				<p:fieldset
+					legend="#{_gui['crypto.keystore.newCert.request.title']}"
+					rendered="#{keystoreContext.keyGenComplete and not empty keystoreContext.csr}">
+					<ag:simpleField id="csrField" styleClass="csr-field"
+						label="#{_gui['crypto.keystore.newCert.request.csr.label']}"
+						description="#{_gui['crypto.keystore.newCert.request.csr.description']}">
+						<p:inputTextarea readonly="true"
+							style="font-size: 10pt; font-family: monospace"
+							value="#{keystoreContext.csr}" cols="60" rows="10"
+							autoResize="false" />
+
+						<p:outputPanel style="margin-top: 0.5em">
+							<p:commandButton
+								title="#{_gui['crypto.keystore.newCert.request.csr.download']}"
+								icon="ui-icon-download" ajax="false">
+								<p:fileDownload value="#{keystoreContext.csrDownload}" />
+							</p:commandButton>
+
+							<p:commandButton type="button" icon="ui-icon-copy"
+								title="#{_gui['crypto.keystore.newCert.request.csr.copy']}"
+								onclick="copyToClipboard($(this).closest('.csr-field').find('textarea')); return false;" />
+
+							<div style="padding-left: 1em; display: inline-block;">
+								<h:outputText styleClass="copy-success" style="display: none;"
+									value="#{_gui['crypto.keystore.newCert.request.csr.copySuccess']}" />
+								<h:outputText styleClass="copy-failure"
+									style="display: none; color: red"
+									value="#{_gui['crypto.keystore.newCert.request.csr.copyFailure']}" />
+							</div>
+						</p:outputPanel>
+					</ag:simpleField>
+				</p:fieldset>
+
+				<p:fieldset
+					rendered="#{keystoreContext.keyGenComplete and not empty keystoreContext.csr}"
+					legend="#{_gui['crypto.keystore.import.title']}">
+
+					<ag:simpleField
+						label="#{_gui['crypto.keystore.import.chain.label']}">
+						<ag:certificateChainEditor openInitial="true"
+							value="#{keystoreContext.importOrExistingChain}"
+							publicKey="#{keystoreContext.publicKey}" />
+					</ag:simpleField>
+
+					<ag:simpleField
+						label="#{_gui['crypto.keystore.import.disableValidation.label']}"
+						description="#{_gui['crypto.keystore.import.disableValidation.description']}"
+						onlyIf="#{keystoreContext.certValidationFailed}"
+						inputId="disableValidation">
+						<p:selectBooleanCheckbox id="disableValidation"
+							value="#{keystoreContext.disableValidation}" />
+					</ag:simpleField>
+
+					<div class="buttons">
+						<p:commandButton action="#{keystoreContext.updateChain()}"
+							icon="ui-icon-check"
+							value="#{_gui['crypto.keystore.import.confirm']}" update="@form" />
+
+						<p:commandButton immediate="true" action="#{keystoreContext.dialogClose}"
+							styleClass="close-button"
+							rendered="#{keystoreContext.keyGenComplete and not empty keystoreContext.csr}"
+							icon="#{dialog.closeIcon}" value="#{dialog.closeLabel}" />
+					</div>
+				</p:fieldset>
+				<div class="buttons">
+					<p:commandButton immediate="true" action="#{keystoreContext.dialogClose}"
+						styleClass="close-button"
+						rendered="#{keystoreContext.keyGenComplete and empty keystoreContext.csr}"
+						icon="#{dialog.closeIcon}" value="#{dialog.closeLabel}" />
+				</div>
+			</p:outputPanel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

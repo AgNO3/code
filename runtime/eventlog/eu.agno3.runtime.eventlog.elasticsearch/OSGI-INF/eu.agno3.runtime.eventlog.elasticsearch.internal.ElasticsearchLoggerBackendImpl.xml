@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.eventlog.elasticsearch.internal.ElasticsearchLoggerBackendImpl" configuration-policy="require" activate="activate" configuration-pid="event.es.backend">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.eventlog.EventLoggerBackend"/>
+    </service>
+    <reference name="MappingManager" interface="eu.agno3.runtime.elasticsearch.MappingManager" cardinality="1..1" policy="static" bind="setMappingManager" unbind="unsetMappingManager"/>
+    <reference name="ClientProvider" interface="eu.agno3.runtime.elasticsearch.ClientProvider" cardinality="1..1" policy="static" bind="setClientProvider" unbind="unsetClientProvider"/>
+    <reference name="LoggerConfig" interface="eu.agno3.runtime.eventlog.elasticsearch.internal.ElasticsearchLoggerConfig" cardinality="1..1" policy="static" bind="setLoggerConfig" unbind="unsetLoggerConfig"/>
+    <implementation class="eu.agno3.runtime.eventlog.elasticsearch.internal.ElasticsearchLoggerBackendImpl"/>
+</scr:component>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.fileshare.service.internal.ShareServiceImpl" activate="configure" modified="configure" configuration-pid="share">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.service.api.internal.ShareServiceInternal"/>
+        <provide interface="eu.agno3.fileshare.service.ShareService"/>
+    </service>
+    <reference name="ServiceContext" interface="eu.agno3.fileshare.service.api.internal.DefaultServiceContext" cardinality="1..1" policy="static" bind="setServiceContext" unbind="unsetServiceContext"/>
+    <reference name="AccessControlService" interface="eu.agno3.fileshare.security.AccessControlService" cardinality="1..1" policy="static" bind="setAccessControlService" unbind="unsetAccessControlService"/>
+    <reference name="UserService" interface="eu.agno3.fileshare.service.api.internal.UserServiceInternal" cardinality="1..1" policy="static" bind="setUserService" unbind="unsetUserService"/>
+    <reference name="TokenGenerator" interface="eu.agno3.runtime.security.web.login.token.TokenGenerator" cardinality="1..1" policy="static" bind="setTokenGenerator" unbind="unsetTokenGenerator"/>
+    <reference name="NotificationService" interface="eu.agno3.fileshare.service.api.internal.NotificationService" cardinality="1..1" policy="static" bind="setNotificationService" unbind="unsetNotificationService"/>
+    <reference name="LinkService" interface="eu.agno3.fileshare.service.LinkService" cardinality="1..1" policy="static" bind="setLinkService" unbind="unsetLinkService"/>
+    <reference name="PasswordPolicyChecker" interface="eu.agno3.runtime.security.password.PasswordPolicyChecker" cardinality="1..1" policy="static" bind="setPasswordPolicyChecker" unbind="unsetPasswordPolicyChecker"/>
+    <reference name="PasswordGenerator" interface="eu.agno3.runtime.security.password.PasswordGenerator" cardinality="1..1" policy="static" bind="setPasswordGenerator" unbind="unsetPasswordGenerator"/>
+    <reference name="MailRateLimiter" interface="eu.agno3.fileshare.service.internal.MailRateLimiter" cardinality="1..1" policy="static" bind="setMailRateLimiter" unbind="unsetMailRateLimiter"/>
+    <reference name="VFSService" interface="eu.agno3.fileshare.service.api.internal.VFSServiceInternal" cardinality="1..1" policy="static" bind="setVFSService" unbind="unsetVFSService"/>
+    <implementation class="eu.agno3.fileshare.service.internal.ShareServiceImpl"/>
+</scr:component>

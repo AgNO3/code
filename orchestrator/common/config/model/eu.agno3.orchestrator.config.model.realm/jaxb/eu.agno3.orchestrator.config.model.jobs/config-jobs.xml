@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.config.model.jobs"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:jobs">
+		<xml-ns prefix="cmj" namespace-uri="urn:agno3:model:1.0:jobs" />
+		<xml-ns prefix="cmv" namespace-uri="urn:agno3:model:1.0:validation" />
+		<xml-ns prefix="j" namespace-uri="urn:agno3:job:1.0:base" />
+		<xml-ns prefix="cmb" namespace-uri="urn:agno3:model:1.0:base" />
+		<xml-ns prefix="cmr" namespace-uri="urn:agno3:model:1.0:realm" />
+		<xml-ns prefix="cmrl" namespace-uri="urn:agno3:model:1.0:realm:resourceLibrary" />
+
+		<xml-ns prefix="compj" namespace-uri="urn:agno3:job:1.0:compound" />
+		<xml-ns prefix="creds" namespace-uri="urn:agno3:security:1.0:credentials" />
+	</xml-schema>
+
+	<xml-java-type-adapters>
+		<xml-java-type-adapter type="org.joda.time.DateTime"
+			value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter"
+			value-type="datetime" />
+	</xml-java-type-adapters>
+
+	<java-types>
+		<java-type name="ConfigurationJob" xml-accessor-type="NONE">
+
+			<xml-root-element name="configurationJob" />
+
+			<java-attributes>
+				
+				<xml-attribute name="noRestart" java-attribute="noRestart"
+					required="false" />
+				<xml-attribute name="instance" java-attribute="instanceId"
+					required="true">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.UUIDAdapter" />
+				</xml-attribute>
+				
+				<xml-element name="applyInfo" java-attribute="applyInfo"
+					required="true" />
+
+				<xml-element name="service" java-attribute="service"
+					type="eu.agno3.orchestrator.config.model.realm.ServiceStructuralObject"
+					required="true" />
+					
+				<xml-element name="anchor" java-attribute="anchor"
+					type="eu.agno3.orchestrator.config.model.realm.StructuralObject"
+					required="true" />
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="ConfigApplyJob" xml-accessor-type="NONE">
+			<xml-root-element name="configApplyJob" />
+			<java-attributes>
+				<xml-element name="service" java-attribute="services"
+					required="true"
+					type="eu.agno3.orchestrator.config.model.realm.ServiceStructuralObject">
+					<xml-element-wrapper name="services" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="ResourceLibrarySynchronizationJob"
+			xml-accessor-type="NONE">
+			<xml-root-element name="resourceLibrarySyncJob" />
+			<java-attributes>
+				<xml-element name="service" java-attribute="service"
+					required="true"
+					type="eu.agno3.orchestrator.config.model.realm.ServiceStructuralObject" />
+				<xml-element name="library" java-attribute="library"
+					required="true" />
+				<xml-element name="hint" java-attribute="hint" required="false" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ResourceLibraryTrackingJob"
+			xml-accessor-type="NONE">
+			<xml-root-element name="resourceLibraryTrackJob" />
+			<java-attributes>
+				<xml-element name="anchor" java-attribute="anchor"
+					required="true"
+					type="eu.agno3.orchestrator.config.model.realm.StructuralObject" />
+				<xml-element name="lastModified" java-attribute="lastModified">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ConfigurationJobGroup" xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.jobs.JobGroup">
+			<xml-type name="configurationGroup" />
+			<xml-root-element name="configurationGroup" />
+		</java-type>
+
+		<java-type name="ConfigurationTestJobGroup"
+			xml-accessor-type="NONE" super-type="eu.agno3.orchestrator.jobs.JobGroup">
+			<xml-type name="configurationTestGroup" />
+			<xml-root-element name="configurationTestGroup" />
+		</java-type>
+
+
+		<java-type name="ConfigurationTestJob" xml-accessor-type="NONE">
+			<xml-root-element name="configurationTestJob" />
+			<java-attributes>
+				<xml-element name="parameters" java-attribute="parameters"
+					required="false" />
+				<xml-element name="effectiveConfig" java-attribute="effectiveConfig"
+					required="true" />
+				<xml-element name="initialResult" java-attribute="initialResult"
+					required="true" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="SystemJob" xml-accessor-type="NONE">
+			<xml-root-element name="systemJob" />
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="SystemJobGroup" xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.jobs.JobGroup">
+			<xml-type name="systemGroup" />
+			<xml-root-element name="systemGroup" />
+		</java-type>
+	</java-types>
+
+
+</xml-bindings> 

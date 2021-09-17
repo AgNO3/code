@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>eu.agno3.fileshare.common</groupId>
+		<artifactId>fileshare-common-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../../common/fileshare-common-parent</relativePath>
+	</parent>
+	<artifactId>fileshare-app-parent</artifactId>
+	<packaging>pom</packaging>
+	<groupId>eu.agno3.fileshare.app</groupId>
+	<name>Fileshare Application Parent POM</name>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<extensions>true</extensions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-source-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<configuration>
+					<bundleStartLevel combine.children="append">
+						<bundle>
+							<id>eu.agno3.runtime.crypto</id>
+							<level>2</level>
+							<autoStart>true</autoStart>
+						</bundle>
+					</bundleStartLevel>
+
+					<dependencies combine.children="append">
+						<dependency>
+							<groupId>org.eclipse.equinox</groupId>
+							<artifactId>org.eclipse.equinox.workaround.nullproperties</artifactId>
+							<version>0.0.0</version>
+							<type>eclipse-plugin</type>
+						</dependency>
+					</dependencies>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-scr-plugin</artifactId>
+			</plugin>
+
+		</plugins>
+	</build>
+</project>

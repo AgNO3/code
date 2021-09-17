@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.runtime.configloader.file.internal.ConfigFileLoaderFactory" activate="activate">
+    <service servicefactory="true">
+        <provide interface="eu.agno3.runtime.configloader.file.ConfigFileLoader"/>
+    </service>
+    <reference name="ConfigFileLoaderBuilder" interface="eu.agno3.runtime.configloader.file.ConfigFileLoaderBuilder" cardinality="1..1" policy="static" bind="setConfigFileLoaderBuilder" unbind="unsetConfigFileLoaderBuilder"/>
+    <implementation class="eu.agno3.runtime.configloader.file.internal.ConfigFileLoaderFactory"/>
+</scr:component>

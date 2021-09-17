@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0"
+	template="/tpl/structure/instance/template.xhtml">
+	<ui:param name="instanceSubtitle"
+		value="#{_gui['structure.service.add.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="instance"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<p:messages />
+
+			<p:fieldset legend="#{_gui['structure.service.add.title']}">
+				<ag:simpleField label="#{_gui['structure.service.add.instance']}"
+					readOnly="true"
+					value="#{structureUtil.getDisplayName(structureViewContext.selectedInstance)}" />
+
+				<ag:simpleField inputId="serviceType"
+					readOnly="#{empty serviceAddController.serviceTypes}"
+					value="#{_gui['structure.service.add.noServiceTypes']}"
+					label="#{_gui['structure.service.add.serviceType']}">
+					<p:selectOneMenu id="serviceType"
+						value="#{serviceAddContext.newService.serviceType}"
+						required="true">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="#{_gui['structure.service.add.selectServiceType']}" />
+						<f:selectItems value="#{serviceAddController.serviceTypes}"
+							var="itm"
+							itemLabel="#{structureUtil.getServiceTypeDisplayName(itm)}" />
+					</p:selectOneMenu>
+				</ag:simpleField>
+			</p:fieldset>
+
+			<div class="buttons">
+				<p:commandButton action="#{serviceAddController.add}"  icon="ui-icon-plus"
+					disabled="#{empty serviceAddController.serviceTypes}"
+					value="#{_gui['structure.service.add.label']}"
+					includeViewParams="true" />
+
+				<p:commandButton icon="ui-icon-cancel" styleClass="close-button"
+					immediate="true" value="#{_gui['structure.service.add.cancel']}"
+					action="#{structureUtil.getOutcomeForObjectOverview(structureViewContext.selectedObject)}" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

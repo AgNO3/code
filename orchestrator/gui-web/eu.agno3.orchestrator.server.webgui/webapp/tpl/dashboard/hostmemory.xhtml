@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<p:panel id="hostmemory"
+		header="#{_gui['structure.instance.sysinfo.platform.physicalMemory']}">
+		<p:outputPanel deferred="true">
+			<p:outputPanel
+				rendered="#{agentSysInfoContext.haveData()}">
+				<div
+					title="#{msgs.formatEL('structure.instance.sysinfo.platform.physicalMemoryFmt',
+						ag:formatByteSize(agentSysInfoContext.platformInformation.memoryInformation.totalPhysicalMemory),
+						ag:formatByteSize(agentSysInfoContext.platformInformation.memoryInformation.currentPhysicalMemoryFree),
+						ag:formatByteSize(agentSysInfoContext.platformInformation.memoryInformation.currentPhysicalMemoryUsedTotal))}">
+					<p:chart type="metergauge" id="physicalMemoryChart"
+						model="#{agentSysInfoMemoryChartModel.physicalModel}"
+						style="width:200px;height:150px" />
+				</div>
+			</p:outputPanel>
+			<p:outputPanel
+				rendered="#{not agentSysInfoContext.haveData()}">
+				<ui:include src="/tpl/dashboard/unavailable.xhtml" />
+			</p:outputPanel>
+		</p:outputPanel>
+	</p:panel>
+
+	<p:panel id="hostswap"
+		header="#{_gui['structure.instance.sysinfo.platform.swap']}">
+		<p:outputPanel deferred="true">
+			<p:outputPanel
+				rendered="#{agentSysInfoContext.haveData()}">
+				<div
+					title="#{msgs.formatEL('structure.instance.sysinfo.platform.swapMemoryFmt',
+							ag:formatByteSize(agentSysInfoContext.platformInformation.memoryInformation.totalSwapMemory),
+							ag:formatByteSize(agentSysInfoContext.platformInformation.memoryInformation.currentSwapMemoryFree),
+							ag:formatByteSize(agentSysInfoContext.platformInformation.memoryInformation.currentSwapMemoryUsed))}">
+					<p:chart type="metergauge" id="swapMemoryChart"
+						model="#{agentSysInfoMemoryChartModel.swapModel}"
+						style="width:200px;height:150px" />
+				</div>
+			</p:outputPanel>
+			<p:outputPanel
+				rendered="#{not agentSysInfoContext.haveData()}">
+				<ui:include src="/tpl/dashboard/unavailable.xhtml" />
+			</p:outputPanel>
+		</p:outputPanel>
+	</p:panel>
+</ui:composition>

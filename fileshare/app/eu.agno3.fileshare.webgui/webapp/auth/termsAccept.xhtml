@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:agsec="http://agno3.eu/ns/jsfsec/taglib/1.0"
+	template="/tpl/common/raw.xhtml">
+
+	<ui:param name="subtitle" value="#{_msgs.loginTitle}" />
+
+	<ui:define name="content">
+		<h:form id="form">
+			<p:fieldset>
+				<agsec:termsAccept />
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

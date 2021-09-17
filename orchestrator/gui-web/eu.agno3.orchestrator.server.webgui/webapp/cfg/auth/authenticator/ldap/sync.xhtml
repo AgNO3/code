@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<orch:objectFieldEditor inputId="synchronizeRemovals" minLevel="2"
+		path="synchronizeRemovals" update="@composite:@parent:removalOptions">
+		<p:selectBooleanCheckbox id="synchronizeRemovals"
+			value="#{current.synchronizeRemovals}">
+			<p:ajax event="change" update="@composite:@parent:removalOptions" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+	<p:outputPanel id="removalOptions">
+		<orch:objectFieldEditor inputId="removeUsingUUID" minLevel="3"
+			onlyIf="#{current.synchronizeRemovals or (current.synchronizeRemovals == null and defaults.synchronizeRemovals)}"
+			path="removeUsingUUID">
+			<p:selectBooleanCheckbox id="removeUsingUUID"
+				value="#{current.removeUsingUUID}" />
+		</orch:objectFieldEditor>
+	</p:outputPanel>
+
+	<orch:objectFieldEditor inputId="syncInterval" path="syncInterval"
+		minLevel="2" readOnlyValueMapper="#{dateFormatter.formatDurationObject}">
+		<ag:inputDuration id="syncInterval" minUnit="minutes" maxUnit="days"
+			value="#{current.syncInterval}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="pageSize" path="pageSize" minLevel="3">
+		<p:spinner id="pageSize" min="0" max="4096"
+			value="#{current.pageSize}">
+		</p:spinner>
+	</orch:objectFieldEditor>
+</ui:composition>

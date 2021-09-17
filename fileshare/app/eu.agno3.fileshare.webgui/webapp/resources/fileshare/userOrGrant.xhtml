@@ -1,0 +1,78 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0">
+
+<composite:interface>
+	<composite:attribute name="grant" required="false"
+		type="eu.agno3.fileshare.model.Grant" />
+	<composite:attribute name="user" required="false"
+		type="eu.agno3.fileshare.model.SubjectInfo" />
+	<composite:attribute name="showTooltip" required="false"
+		default="false" type="java.lang.Boolean" />
+	<composite:attribute name="style" required="false" />
+	<composite:attribute name="styleClass" required="false" />
+
+	<composite:attribute name="noCheckPerm" required="false"
+		default="false" />
+</composite:interface>
+
+<composite:implementation>
+	<p:outputPanel id="grant" style="#{cc.attrs.style}"
+		styleClass="#{cc.attrs.styleClass}">
+		<p:outputPanel id="userName" rendered="#{not empty cc.attrs.user}">
+			<span
+				style="color: #{userTrustBean.getDisplayTrustLevelColor(cc.attrs.user)}">
+				<span
+				class="ui-icon #{userTrustBean.getNameIconClass(cc.attrs.user)} ui-icon-inline" />
+				<h:outputText
+					styleClass="username-display large-only #{userTrustBean.getNameDisplayClass(cc.attrs.user)}"
+					style="display: inline-block;"
+					value="#{subjectDisplayBean.getSubjectDisplayNameOnly(cc.attrs.user)}" />
+			</span>
+
+			<composite:insertFacet name="embedded" />
+			<fs:userDetailTooltip noCheckPerm="#{cc.attrs.noCheckPerm}"
+				rendered="#{cc.attrs.showTooltip and empty cc.attrs.grant}"
+				subject="#{cc.attrs.user}" grant="#{cc.attrs.grant}" for="userName" />
+		</p:outputPanel>
+		<p:outputPanel
+			style="color: #{userTrustBean.getDisplayTrustLevelColor(cc.attrs.grant.target)}"
+			rendered="#{not empty cc.attrs.grant and subjectDisplayBean.isSubjectGrant(cc.attrs.grant)}">
+			<span style="color: inherit"
+				class="ui-icon #{userTrustBean.getNameIconClass(cc.attrs.grant.target)} ui-icon-inline" />
+			<h:outputText id="subjectUserName"
+				styleClass="username-display large-only #{userTrustBean.getNameDisplayClass(cc.attrs.grant.target)}"
+				style="display: inline-block;"
+				value="#{subjectDisplayBean.getSubjectDisplayNameOnly(cc.attrs.grant.target)}" />
+
+			<composite:insertFacet name="embedded" />
+		</p:outputPanel>
+		<p:outputPanel
+			style="color: #{userTrustBean.getDisplayGrantTrustLevelColor(cc.attrs.grant)};"
+			rendered="#{not empty cc.attrs.grant and not subjectDisplayBean.isSubjectGrant(cc.attrs.grant)}">
+			<span style="color: inherit"
+				class="ui-icon #{subjectDisplayBean.getGrantIconClass(cc.attrs.grant)} ui-icon-inline" />
+			<h:outputText styleClass="large-only"
+				value="#{subjectDisplayBean.getGrantDisplayName(cc.attrs.grant)}" />
+
+			<composite:insertFacet name="embedded" />
+		</p:outputPanel>
+		<p:outputPanel style="#{cc.attrs.style}"
+			styleClass="#{cc.attrs.styleClass}"
+			rendered="#{empty cc.attrs.user and empty cc.attrs.grant}">
+		</p:outputPanel>
+	</p:outputPanel>
+
+	<p:tooltip for="grant"
+		rendered="#{cc.attrs.showTooltip and not empty cc.attrs.grant}">
+		<fs:grantDetails grant="#{cc.attrs.grant}" />
+	</p:tooltip>
+
+</composite:implementation>
+</html>
+

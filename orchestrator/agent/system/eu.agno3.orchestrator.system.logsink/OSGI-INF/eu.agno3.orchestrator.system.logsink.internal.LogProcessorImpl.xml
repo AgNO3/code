@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.orchestrator.system.logsink.internal.LogProcessorImpl" activate="activate" deactivate="deactivate" modified="modified">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.system.logsink.LogProcessor"/>
+    </service>
+    <reference name="MessageClient" interface="eu.agno3.runtime.messaging.client.MessagingClient" cardinality="0..1" policy="dynamic" bind="setMessageClient" unbind="unsetMessageClient"/>
+    <reference name="Plugin" interface="eu.agno3.orchestrator.system.logsink.LogProcessorPlugin" cardinality="0..n" policy="dynamic" bind="bindPlugin" unbind="unbindPlugin"/>
+    <reference name="AgentConnector" interface="eu.agno3.orchestrator.agent.connector.AgentServerConnector" cardinality="1..1" policy="static" bind="setAgentConnector" unbind="unsetAgentConnector"/>
+    <implementation class="eu.agno3.orchestrator.system.logsink.internal.LogProcessorImpl"/>
+</scr:component>

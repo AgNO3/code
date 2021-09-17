@@ -1,0 +1,78 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0">
+
+<composite:interface>
+	<composite:attribute name="deferred" required="false" default="true" />
+	<composite:attribute name="grant" required="true"
+		type="eu.agno3.fileshare.model.Grant" />
+</composite:interface>
+
+<composite:implementation>
+	<h:panelGroup
+		rendered="#{shareDisplayBean.isSubjectGrant(cc.attrs.grant)}">
+		<fs:userDetails deferred="false" subject="#{grant.target}" />
+	</h:panelGroup>
+
+	<p:outputPanel
+		rendered="#{not shareDisplayBean.isSubjectGrant(cc.attrs.grant)}"
+		styleClass="user-details"
+		style="padding: 0.5em; width: 15em; color: #{userTrustBean.getDisplayGrantTrustLevelColor(cc.attrs.grant)}">
+		<span style="color: inherit"
+			class="ui-icon #{subjectDisplayBean.getGrantIconClass(cc.attrs.grant)} ui-icon-inline" />
+		<h:outputText style="font-weight: bold; display: inline-block;"
+			value="#{subjectDisplayBean.getGrantDisplayName(cc.attrs.grant)}" />
+
+		<h:outputText style="display: block;"
+			value="#{userTrustBean.getDisplayGrantTrustLevelMessage(cc.attrs.grant)}" />
+	</p:outputPanel>
+
+	<p:fieldset styleClass="grant-info">
+		<ag:simpleField styleClass="small"
+			label="#{_msgs['grantDetails.sharedBy']}"
+			onlyIf="#{not empty cc.attrs.grant.creator and subjectDisplayBean.isGroup(cc.attrs.grant.entity.owner)}">
+			<span
+				class="ui-icon #{subjectDisplayBean.getSubjectIconClass(cc.attrs.grant.creator)} ui-icon-inline" />
+			<h:outputText id="creatorName"
+				value="#{subjectDisplayBean.getSubjectDisplayName(cc.attrs.grant.creator)}" />
+
+			<fs:userDetailTooltip for="creatorName" deferred="false"
+				subject="#{cc.attrs.grant.creator}"
+				userId="#{cc.attrs.grant.creator.id}"
+				userName="#{subjectDisplayBean.getSubjectDisplayName(cc.attrs.grant.creator)}" />
+		</ag:simpleField>
+
+
+		<ag:simpleField styleClass="small" readOnly="true"
+			label="#{_msgs['grantDetails.permissions']}"
+			value="#{sharePermissionsBean.getPermLabel(cc.attrs.grant.effectivePerms)}">
+		</ag:simpleField>
+
+		<p:outputPanel
+			rendered="#{(shareDisplayBean.isTokenGrant(cc.attrs.grant) or 
+				shareDisplayBean.isMailGrant(cc.attrs.grant)) and 
+				cc.attrs.grant.passwordProtected}">
+			<ag:simpleField styleClass="small"
+				label="#{_msgs['grantDetails.protected.label']}" readOnly="true"
+				value="#{_msgs['grantDetails.protected.password']}" />
+		</p:outputPanel>
+
+		<ag:simpleField styleClass="small" readOnly="true"
+			title="#{localeSettingsBean.formatDateTime(cc.attrs.grant.created, 'MM')}"
+			value="#{localeSettingsBean.formatDateTimeRelative(cc.attrs.grant.created)}"
+			label="#{_msgs['grantDetails.shared']}" />
+
+		<ag:simpleField styleClass="small" readOnly="true"
+			rendered="#{not empty cc.attrs.grant.expires}"
+			title="#{localeSettingsBean.formatDateTime(cc.attrs.grant.expires, 'S-')}"
+			value="#{localeSettingsBean.formatDateTimeRelative(cc.attrs.grant.expires)}"
+			label="#{_msgs['grantDetails.expires']}" />
+	</p:fieldset>
+</composite:implementation>
+</html>
+

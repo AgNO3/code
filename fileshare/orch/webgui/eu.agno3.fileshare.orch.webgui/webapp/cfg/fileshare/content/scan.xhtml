@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+
+	<orch:objectFieldEditor inputId="enableICAP" path="enableICAP"
+		update="@composite:@parent:icapSettings">
+		<p:selectBooleanCheckbox id="enableICAP" value="#{current.enableICAP}">
+			<p:ajax event="change" update="@composite:@parent:icapSettings" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+
+	<p:outputPanel id="icapSettings">
+		<p:outputPanel
+			rendered="#{current.enableICAP or (current.enableICAP == null and defaults.enableICAP)}">
+			<orch:objectEditor objectType="urn:agno3:objects:1.0:web:icap"
+				context="#{configContext}" path="icapConfig"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:outputPanel>
+	</p:outputPanel>
+
+</ui:composition>

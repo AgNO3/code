@@ -1,0 +1,34 @@
+Bundle-SymbolicName: eu.agno3.runtime.ldap.client
+Bundle-Version: 0.0.52
+Bundle-Name: LDAP Client
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: com.unboundid.asn1;version="2.3.8",
+ com.unboundid.ldap.sdk;version="2.3.8",
+ com.unboundid.ldap.sdk.extensions;version="2.3.8",
+ com.unboundid.ldap.sdk.schema;version="2.3.8",
+ com.unboundid.ldif;version="2.3.8",
+ com.unboundid.util;version="2.3.8",
+ com.unboundid.util.args;version="2.3.8",
+ com.unboundid.util.ssl;version="2.3.8",
+ eu.agno3.runtime.crypto;version="0.0.56",
+ eu.agno3.runtime.crypto.tls;version="0.0.56",
+ eu.agno3.runtime.ldap.client;version="0.0.14",
+ eu.agno3.runtime.ldap.filter;version="0.0.10",
+ eu.agno3.runtime.net.dns;version="0.0.2",
+ eu.agno3.runtime.net.krb5;version="0.0.26",
+ eu.agno3.runtime.util.config;version="0.0.22",
+ eu.agno3.runtime.util.sid;version="0.0.40",
+ org.apache.commons.lang3;version="3.1.0",
+ org.apache.log4j;version="1.2.15",
+ org.joda.time;version="2.9.4",
+ org.joda.time.base;version="2.9.4",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.cm;version="1.5.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.osgi.util.tracker;version="1.5.1"
+Service-Component: OSGI-INF/*.xml
+Bundle-ActivationPolicy: lazy
+Export-Package: eu.agno3.runtime.ldap.client;version="0.0.52";uses:="com.unboundid.ldap.sdk,eu.agno3.runtime.crypto.tls"

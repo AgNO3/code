@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="server-api-feature"
+      label="Orchestrator Server API Feature"
+      version="0.0.1.qualifier"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <plugin
+         id="eu.agno3.orchestrator.server"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

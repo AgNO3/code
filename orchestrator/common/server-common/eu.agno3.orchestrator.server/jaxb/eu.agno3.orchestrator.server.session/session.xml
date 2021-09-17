@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.server.session"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:session:1.0:info">
+		<xml-ns prefix="session" namespace-uri="urn:agno3:session:1.0:info" />
+		<xml-ns prefix="user" namespace-uri="urn:agno3:security:1.0:principal" />
+	</xml-schema>
+
+	<java-types>
+
+		<java-type name="SessionInfo" xml-accessor-type="NONE">
+
+			<xml-type name="sessionInfoType" />
+
+			<xml-root-element name="sessionInfo" />
+
+			<java-attributes>
+				<xml-element name="sessionId" java-attribute="sessionId" required="true" />
+				<xml-element java-attribute="timeout" required="true" />
+				
+				<xml-element java-attribute="userPrincipal" required="true" />
+				
+				<xml-element name="role" java-attribute="roles">
+					<xml-element-wrapper name="roles" required="true" />
+				</xml-element>
+				
+				<xml-element name="permission" java-attribute="permissions">
+					<xml-element-wrapper name="permissions" required="true" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+	</java-types>
+
+</xml-bindings>

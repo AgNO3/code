@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.runtime.security.internal.SecurityManagerInitializer" activate="activate" deactivate="deactivate">
+    <reference name="AuthRealm" interface="org.apache.shiro.authc.pam.ModularRealmAuthenticator" cardinality="1..1" policy="static" bind="setAuthRealm" unbind="unsetAuthRealm"/>
+    <reference name="AuthzRealm" interface="org.apache.shiro.authz.ModularRealmAuthorizer" cardinality="1..1" policy="static" bind="setAuthzRealm" unbind="unsetAuthzRealm"/>
+    <implementation class="eu.agno3.runtime.security.internal.SecurityManagerInitializer"/>
+</scr:component>

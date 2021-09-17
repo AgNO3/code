@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.agent.update.internal.UpdateRevertRunnableFactoryImpl">
+    <property name="jobType" value="eu.agno3.orchestrator.system.update.jobs.UpdateRevertJob"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.jobs.exec.JobRunnableFactory"/>
+    </service>
+    <reference name="UpdateTracker" interface="eu.agno3.orchestrator.agent.update.UpdateTracker" cardinality="1..1" policy="static" bind="setUpdateTracker" unbind="unsetUpdateTracker"/>
+    <reference name="SystemIntegration" interface="eu.agno3.orchestrator.config.hostconfig.agent.BaseSystemIntegration" cardinality="1..1" policy="static" bind="setSystemIntegration" unbind="unsetSystemIntegration"/>
+    <reference name="ServiceManager" interface="eu.agno3.orchestrator.jobs.agent.service.ServiceManager" cardinality="1..1" policy="static" bind="setServiceManager" unbind="unsetServiceManager"/>
+    <reference name="ExecutionConfig" interface="eu.agno3.orchestrator.system.base.execution.ExecutionConfig" cardinality="1..1" policy="static" bind="setExecutionConfig" unbind="unsetExecutionConfig"/>
+    <reference name="RunnerFactory" interface="eu.agno3.orchestrator.system.base.execution.RunnerFactory" cardinality="1..1" policy="static" bind="setRunnerFactory" unbind="unsetRunnerFactory"/>
+    <implementation class="eu.agno3.orchestrator.agent.update.internal.UpdateRevertRunnableFactoryImpl"/>
+</scr:component>

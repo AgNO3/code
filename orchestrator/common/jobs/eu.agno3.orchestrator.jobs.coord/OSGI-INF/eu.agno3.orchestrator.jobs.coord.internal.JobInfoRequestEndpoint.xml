@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.jobs.coord.internal.JobInfoRequestEndpoint">
+    <property name="msgType" value="eu.agno3.orchestrator.jobs.msg.JobInfoRequestMessage"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.messaging.listener.RequestEndpoint"/>
+    </service>
+    <reference name="Coordinator" interface="eu.agno3.orchestrator.jobs.JobCoordinator" cardinality="1..1" policy="static" bind="setCoordinator" unbind="unsetCoordinator"/>
+    <reference name="MessageSource" interface="eu.agno3.runtime.messaging.addressing.MessageSource" cardinality="1..1" policy="static" bind="setMessageSource" unbind="unsetMessageSource"/>
+    <implementation class="eu.agno3.orchestrator.jobs.coord.internal.JobInfoRequestEndpoint"/>
+</scr:component>

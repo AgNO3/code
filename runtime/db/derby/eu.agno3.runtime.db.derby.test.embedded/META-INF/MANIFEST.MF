@@ -1,0 +1,19 @@
+Bundle-SymbolicName: eu.agno3.runtime.db.derby.test.embedded
+Bundle-Version: 0.0.166
+Bundle-Name: Embedded Derby DB Tests
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Fragment-Host: eu.agno3.runtime.db.derby
+Require-Bundle: org.apache.felix.scr,
+ org.eclipse.equinox.cm,
+ org.eclipse.equinox.event,
+ eu.agno3.runtime.configloader;bundle-version="0.0.2",
+ eu.agno3.runtime.db.transaction;bundle-version="0.0.2",
+ eu.agno3.runtime.transaction;bundle-version="0.0.2",
+ org.junit,
+ org.apache.servicemix.bundles.hamcrest,
+ org.mockito.mockito-core
+WWW-Resource: /bundleTest:/www-static-bundle/
+Import-Package: eu.agno3.runtime.util.test;version="0.0.8",
+ org.apache.commons.io;version="2.4.0"

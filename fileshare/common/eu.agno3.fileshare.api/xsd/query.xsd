@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:fsm="urn:agno3:fileshare:1.0:model" xmlns:user="urn:agno3:security:1.0:principal" xmlns:fsq="urn:agno3:fileshare:1.0:model:query" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:fileshare:1.0:model:query" elementFormDefault="qualified">
+   <xsd:import schemaLocation="urn:agno3:security:1.0:principal" namespace="urn:agno3:security:1.0:principal"/>
+   <xsd:import schemaLocation="urn:agno3:fileshare:1.0:model" namespace="urn:agno3:fileshare:1.0:model"/>
+   <xsd:complexType name="subjectQueryResultType" abstract="true">
+      <xsd:sequence>
+         <xsd:element name="id" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="type" type="fsm:subjectType" minOccurs="0"/>
+         <xsd:element name="trustLevel" type="xsd:string" minOccurs="0"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="userQueryResultType">
+      <xsd:complexContent>
+         <xsd:extension base="fsq:subjectQueryResultType">
+            <xsd:sequence>
+               <xsd:element name="userDisplayName" type="xsd:string" minOccurs="0"/>
+               <xsd:element name="principal" type="user:userPrincType" minOccurs="0"/>
+               <xsd:element name="nameSource" type="fsm:nameSource" minOccurs="0"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="groupQueryResultType">
+      <xsd:complexContent>
+         <xsd:extension base="fsq:subjectQueryResultType">
+            <xsd:sequence>
+               <xsd:element name="name" type="xsd:string" minOccurs="0"/>
+               <xsd:element name="realm" type="xsd:string" minOccurs="0"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:element name="subjectResult" type="fsq:subjectQueryResultType"/>
+   <xsd:element name="userResult" type="fsq:userQueryResultType"/>
+   <xsd:element name="groupResult" type="fsq:groupQueryResultType"/>
+</xsd:schema>

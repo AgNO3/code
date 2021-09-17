@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<p:fieldset
+		legend="#{_gui['hardware.storage.filesystemProperties.title']}">
+		<ag:simpleField
+			label="#{_gui['hardware.storage.filesystemProperties.fsLabel.label']}"
+			description="#{_gui['hardware.storage.filesystemProperties.fsLabel.description']}"
+			inputId="fsLabel">
+			<p:inputText id="fsLabel"
+				value="#{storageCreateFilesystemProperties.label}" />
+		</ag:simpleField>
+	</p:fieldset>
+</ui:composition>

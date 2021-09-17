@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/tpl/structure/instance/template.xhtml">
+	<ui:param name="subtitle"
+		value="#{_gui['structure.instance.shutdown']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="instance"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<p:confirmDialog global="true"
+			visible="#{not empty structureViewContext.selectedInstance}"
+			header="#{_gui['structure.instance.shutdown.confirmTitle']}"
+			widgetVar="confirmShutdown">
+			<f:facet name="message">
+				<h:outputFormat
+					value="#{_gui['structure.instance.shutdown.confirmMessageFmt']}">
+					<f:param
+						value="#{structureUtil.getDisplayName(structureViewContext.selectedInstance)}" />
+				</h:outputFormat>
+				<p:messages id="messages" />
+			</f:facet>
+
+			<div class="buttons">
+				<p:commandButton action="#{instancePowerController.shutdown}"
+					includeViewParams="true"
+					value="#{_gui['structure.instance.shutdown.confirmYes']}" />
+				<p:button
+					outcome="#{structureUtil.getOutcomeForObjectOverview(structureViewContext.selectedInstance)}"
+					value="#{_gui['structure.instance.shutdown.confirmNo']}"
+					onclick="PF('confirmShutdown').hide();" />
+			</div>
+		</p:confirmDialog>
+	</ui:define>
+</ui:composition>

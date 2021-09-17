@@ -1,0 +1,45 @@
+Bundle-SymbolicName: eu.agno3.orchestrator.config.model.test.model
+Bundle-Version: 0.0.1.qualifier
+Bundle-Name: Orchestrator Configuration Management Realm Test Configuration Model
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Require-Bundle: org.apache.felix.scr,
+ org.eclipse.equinox.cm,
+ org.eclipse.equinox.event,
+ eu.agno3.runtime.configloader;bundle-version="0.0.2",
+ org.ops4j.pax.logging.pax-logging-service;bundle-version="1.7.0",
+ eu.agno3.runtime.xml.binding;bundle-version="0.0.2",
+ org.eclipse.jdt.annotation;bundle-version="[2.0.0,3.0.0)";resolution:=optional
+Import-Package: eu.agno3.orchestrator.config.model.base.client.session;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.config.model.base.config;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.config.model.descriptors;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.config.model.jobs;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.config.model.realm;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.config.model.realm.server.util;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.config.model.realm.test.model;version="0.0.1.qualifier",
+ eu.agno3.runtime.util.log;version="0.0.8",
+ eu.agno3.runtime.util.test;version="0.0.8",
+ eu.agno3.runtime.ws.client;version="0.0.2",
+ eu.agno3.runtime.xml;version="0.0.2",
+ eu.agno3.runtime.xml.schema;version="0.0.2",
+ javassist.util.proxy;resolution:=optional,
+ javax.mail;version="1.4.0",
+ javax.mail.internet;version="1.4.0",
+ javax.persistence;version="2.1.0",
+ org.apache.commons.io;version="2.4.0",
+ org.apache.commons.lang3;version="3.1.0",
+ org.apache.cxf.annotations;version="2.6.6",
+ org.apache.log4j;version="1.2.15",
+ org.eclipse.persistence.core.sessions;version="2.5.0",
+ org.eclipse.persistence.oxm;version="2.5.0",
+ org.eclipse.persistence.sessions;version="2.5.0",
+ org.hibernate.envers;version="4.3.6.AG1",
+ org.hibernate.proxy;resolution:=optional,
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0"
+Export-Package: eu.agno3.orchestrator.config.model.realm.test.model;version="0.0.1.qualifier";
+ uses:="eu.agno3.orchestrator.config.model.jobs,eu.agno3.orchestrator.config.model.realm"
+Hibernate-Contribution: auto
+Service-Component: OSGI-INF/*.xml
+

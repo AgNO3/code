@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.config.model.realm.service.impl.ConfigurationContextServiceImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.config.model.realm.service.ConfigurationContextService"/>
+        <provide interface="eu.agno3.orchestrator.config.model.realm.server.service.ConfigurationContextServerService"/>
+        <provide interface="eu.agno3.runtime.ws.common.SOAPWebService"/>
+    </service>
+    <reference name="Context" interface="eu.agno3.orchestrator.config.model.base.server.context.DefaultServerServiceContext" cardinality="1..1" policy="static" bind="setContext" unbind="unsetContext"/>
+    <reference name="ConfigService" interface="eu.agno3.orchestrator.config.model.realm.server.service.ConfigurationServerService" cardinality="1..1" policy="static" bind="setConfigService" unbind="unsetConfigService"/>
+    <reference name="DefaultsService" interface="eu.agno3.orchestrator.config.model.realm.server.service.DefaultsServerService" cardinality="1..1" policy="static" bind="setDefaultsService" unbind="unsetDefaultsService"/>
+    <reference name="InheritanceService" interface="eu.agno3.orchestrator.config.model.realm.server.service.InheritanceServerService" cardinality="1..1" policy="static" bind="setInheritanceService" unbind="unsetInheritanceService"/>
+    <reference name="InheritanceProxyBuilder" interface="eu.agno3.orchestrator.config.model.realm.server.util.InheritanceProxyBuilder" cardinality="1..1" policy="static" bind="setInheritanceProxyBuilder" unbind="unsetInheritanceProxyBuilder"/>
+    <reference name="EnforcementService" interface="eu.agno3.orchestrator.config.model.realm.server.service.EnforcementServerService" cardinality="1..1" policy="static" bind="setEnforcementService" unbind="unsetEnforcementService"/>
+    <reference name="PersistenceUtil" interface="eu.agno3.orchestrator.config.model.realm.server.util.PersistenceUtil" cardinality="1..1" policy="static" bind="setPersistenceUtil" unbind="unsetPersistenceUtil"/>
+    <reference name="ObjectAccessControl" interface="eu.agno3.orchestrator.config.model.realm.server.service.ObjectAccessControl" cardinality="1..1" policy="static" bind="setObjectAccessControl" unbind="unsetObjectAccessControl"/>
+    <implementation class="eu.agno3.orchestrator.config.model.realm.service.impl.ConfigurationContextServiceImpl"/>
+</scr:component>

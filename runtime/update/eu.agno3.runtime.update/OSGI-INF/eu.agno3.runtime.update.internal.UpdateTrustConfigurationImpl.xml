@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.runtime.update.internal.UpdateTrustConfigurationImpl" activate="activate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.update.UpdateTrustConfiguration"/>
+        <provide interface="eu.agno3.runtime.crypto.tls.TrustConfiguration"/>
+    </service>
+    <reference name="Delegate" interface="eu.agno3.runtime.crypto.tls.TrustConfiguration" cardinality="0..1" policy="static" target="(instanceId=update)" bind="setDelegate" unbind="unsetDelegate"/>
+    <reference name="PKIXParameterFactory" interface="eu.agno3.runtime.crypto.tls.PKIXParameterFactory" cardinality="1..1" policy="static" bind="setPKIXParameterFactory" unbind="unsetPKIXParameterFactory"/>
+    <implementation class="eu.agno3.runtime.update.internal.UpdateTrustConfigurationImpl"/>
+</scr:component>

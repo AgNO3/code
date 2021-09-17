@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" immediate="true" name="eu.agno3.runtime.db.derby.server.DerbyNetworkListener" configuration-policy="require" activate="activate" deactivate="deactivate" configuration-pid="db.server.derby.net">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.db.derby.server.DerbyNetworkListener"/>
+    </service>
+    <reference name="AuthConfiguration" interface="eu.agno3.runtime.db.derby.auth.internal.DerbyAuthConfiguration" cardinality="1..1" policy="static" bind="setAuthConfiguration" unbind="unsetAuthConfiguration" updated="updatedAuthConfiguration"/>
+    <reference name="DerbyGlobalConfig" interface="eu.agno3.runtime.db.derby.server.DerbyGlobalConfig" cardinality="1..1" policy="static" bind="setDerbyGlobalConfig" unbind="unsetDerbyGlobalConfig"/>
+    <implementation class="eu.agno3.runtime.db.derby.server.DerbyNetworkListener"/>
+</scr:component>

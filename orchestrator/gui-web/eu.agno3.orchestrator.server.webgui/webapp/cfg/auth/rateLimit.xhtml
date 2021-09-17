@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="disableLaxSourceCheck" minLevel="2"
+		path="disableLaxSourceCheck">
+		<p:selectBooleanCheckbox id="disableLaxSourceCheck"
+			value="#{current.disableLaxSourceCheck}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="disableGlobalDelay" minLevel="3"
+		path="disableGlobalDelay">
+		<p:selectBooleanCheckbox id="disableGlobalDelay"
+			value="#{current.disableGlobalDelay}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="disableUserLockout" minLevel="2"
+		path="disableUserLockout">
+		<p:selectBooleanCheckbox id="disableUserLockout"
+			value="#{current.disableUserLockout}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="cleanInterval" minLevel="3"
+		path="cleanInterval"
+		readOnlyValueMapper="#{dateFormatter.formatDurationObject}">
+		<ag:inputDuration id="cleanInterval" minUnit="minutes" maxUnit="hours"
+			value="#{current.cleanInterval}" />
+	</orch:objectFieldEditor>
+
+</ui:composition>

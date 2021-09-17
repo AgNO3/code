@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.logging.console.internal.LogScopeCompleter">
+    <service servicefactory="false">
+        <provide interface="org.apache.karaf.shell.api.console.Completer"/>
+    </service>
+    <reference name="LogConfig" interface="eu.agno3.runtime.logging.LogConfigurationService" cardinality="1..1" policy="static" bind="setLogConfig" unbind="unsetLogConfig"/>
+    <implementation class="eu.agno3.runtime.logging.console.internal.LogScopeCompleter"/>
+</scr:component>

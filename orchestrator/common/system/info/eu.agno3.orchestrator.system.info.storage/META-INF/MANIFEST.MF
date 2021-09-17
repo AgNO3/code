@@ -1,0 +1,21 @@
+Bundle-SymbolicName: eu.agno3.orchestrator.system.info.storage
+Bundle-Version: 0.0.1.qualifier
+Bundle-Name: Orchestrator System Information Storage
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.orchestrator.system.info;version="0.0.1.qualifier",
+ eu.agno3.runtime.ws.common;version="0.0.56",
+ eu.agno3.runtime.xml.binding;version="0.0.2",
+ org.apache.commons.collections4;version="4.0.0",
+ org.apache.commons.lang3;version="3.1.0",
+ org.apache.log4j;version="1.2.15",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.osgi.util.tracker;version="1.5.1"
+Bundle-ActivationPolicy: lazy
+Export-Package: eu.agno3.orchestrator.system.info.storage;version="0.0.1.qualifier";uses:="eu.agno3.orchestrator.system.info.storage.drive,eu.agno3.orchestrator.system.info",
+ eu.agno3.orchestrator.system.info.storage.drive;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.system.info.storage.fs;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.system.info.storage.volume;version="0.0.1.qualifier";uses:="eu.agno3.orchestrator.system.info.storage.drive,eu.agno3.orchestrator.system.info.storage.fs"

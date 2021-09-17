@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<orch:objectFieldEditor inputId="backupStorage" path="backupStorage"
+		minLevel="2">
+		<p:autoComplete id="backupStorage" dropdown="true"
+			style="width: auto; box-sizing: border-box;"
+			completeMethod="#{storageConfigBean.getHostConfigMountCompleter(outerWrapper).complete}"
+			value="#{current.backupStorage}" />
+	</orch:objectFieldEditor>
+
+	<p:fieldset styleClass="objectEditor"
+		legend="#{configLocalizationProvider.getFieldName('urn:agno3:objects:1.0:hostconfig:storage', 'mountEntries')}">
+		<orch:multiInheritanceObjectEditor
+			objectType="urn:agno3:objects:1.0:hostconfig:storage:mount"
+			context="#{configContext}" path="mountEntries"
+			subTemplate="#{isTemplate}" readOnly="#{isReadOnly}"
+			listLabel="#{mountEntryBean.labelFor}"
+			setComparator="#{mountEntryBean.comparator}" collectionType="set"
+			clone="#{mountEntryBean.cloneObject}" />
+	</p:fieldset>
+</ui:composition>

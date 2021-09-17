@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.system.monitor.jobs.ServiceJobGroup">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.jobs.JobGroup"/>
+    </service>
+    <implementation class="eu.agno3.orchestrator.system.monitor.jobs.ServiceJobGroup"/>
+</scr:component>

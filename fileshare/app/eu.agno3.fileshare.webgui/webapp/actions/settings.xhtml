@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	template="/tpl/common/dialog.xhtml">
+
+	<ui:param name="title" value="#{_msgs['actions.settings.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form" method="POST" enctype="multipart/form-data">
+			<ag:dialogContextHolder />
+
+			<p:hotkey bind="esc" action="#{settingsBean.resetAndClose}"
+				immediate="true" />
+
+			<p:tabView>
+				<p:tab title="#{_msgs['actions.settings.prefs.title']}">
+
+					<p:messages autoUpdate="true" showDetail="true" />
+
+					<p:outputPanel id="preferences">
+						<ui:include src="/tpl/settings/userPreferences.xhtml" />
+					</p:outputPanel>
+
+					<div class="buttons">
+						<p:commandButton process="preferences" update="preferences"
+							icon="ui-icon-check" action="#{preferenceController.save}"
+							value="#{_msgs['actions.settings.prefs.save']}" />
+
+						<p:commandButton process="preferences" update="preferences"
+							icon="ui-icon-trash"
+							action="#{preferenceController.resetToDefaults}"
+							value="#{_msgs['actions.settings.prefs.reset']}">
+							<p:resetInput target="preferences" />
+						</p:commandButton>
+
+						<p:commandButton immediate="true" styleClass="close-button"
+							icon="#{dialog.closeIcon}" title="#{dialog.closeDescription}"
+							action="#{settingsBean.resetAndClose}"
+							value="#{dialog.closeLabel}" />
+					</div>
+				</p:tab>
+
+				<p:tab title="#{_msgs['actions.settings.userdetails.title']}"
+					rendered="#{currentUserBean.hasAnyPermission('manage:users:updateDetails', 'user:updateDetails')}">
+					<p:outputPanel id="userDetails">
+						<p:messages autoUpdate="true" showDetail="true" />
+
+						<ui:include src="/tpl/userDetails/edit.xhtml">
+							<ui:param name="userDetails"
+								value="#{currentUserDetailsBean.currentUserDetails}" />
+							<ui:param name="user" value="#{currentUserBean.currentUser}" />
+							<ui:param name="administrative" value="${false}" />
+							<ui:param name="readOnly"
+								value="#{not app_fs_adm_usersTableBean.isLocalUser(currentUserBean.currentUser)}" />
+						</ui:include>
+
+						<div class="buttons">
+							<p:commandButton process="userDetails" icon="ui-icon-check"
+								rendered="#{app_fs_adm_usersTableBean.isLocalUser(currentUserBean.currentUser)}"
+								action="#{currentUserDetailsBean.updateCurrentUser}"
+								value="#{_msgs['actions.settings.userdetails.save']}"
+								update="userDetails" />
+							<p:commandButton immediate="true" styleClass="close-button"
+								icon="#{dialog.closeIcon}" title="#{dialog.closeDescription}"
+								action="#{settingsBean.resetAndClose}"
+								value="#{dialog.closeLabel}" />
+						</div>
+					</p:outputPanel>
+				</p:tab>
+
+				<p:tab id="changePassword"
+					title="#{_msgs['actions.settings.changepw.title']}"
+					rendered="#{currentUserBean.hasLocalPassword()}">
+					<p:fieldset styleClass="func-unit"
+						legend="#{_msgs['actions.settings.changepw.title']}">
+						<ui:include src="/tpl/settings/changePassword.xhtml">
+							<ui:param name="userPasswordChangeBean"
+								value="#{app_fs_adm_userPasswordChangeBean}" />
+							<ui:param name="userController"
+								value="#{app_fs_adm_userController}" />
+						</ui:include>
+					</p:fieldset>
+
+					<div class="buttons">
+						<p:commandButton immediate="true" styleClass="close-button"
+							icon="#{dialog.closeIcon}" title="#{dialog.closeDescription}"
+							action="#{settingsBean.resetAndClose}"
+							value="#{dialog.closeLabel}" />
+					</div>
+				</p:tab>
+			</p:tabView>
+		</h:form>
+	</ui:define>
+</ui:composition>

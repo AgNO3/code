@@ -1,0 +1,1012 @@
+body {
+	overflow-x: hidden;
+	font-family: Verdana, Tahoma, sans-serif;
+	height: 100%;
+	margin: 0;
+	font-size: 100%;
+}
+
+* {
+	border-width: 1px;
+}
+
+body.dialog {
+	height: auto;
+	padding: 0;
+}
+
+body.dialog>form {
+	padding-left: 0.6em;
+	padding-right: 0.6em;
+}
+
+body.dialog>form .ui-toolbar {
+	background-color: transparent;
+	margin-left: -0.6em;
+	margin-right: -0.6em;
+	border-radius: 0;
+	border-style: none;
+	border-bottom-style: solid;
+}
+
+.header h1 img {
+	float: left;
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+}
+
+div.console {
+	border-style: none;
+}
+
+.ui-tree.menuTree {
+	border-style: none;
+	width: 96%;
+	margin-bottom: 0.7em;
+	margin-top: 0.3em;
+	margin-left: 0.3em;
+}
+
+.ui-tree.menuTree .ui-tree-toggler {
+	width: 1em;
+	vertical-align: baseline;
+}
+
+.loginWidget {
+	min-width: 10em;
+	text-align: left;
+}
+
+.loginWidget .ui-overlaypanel-content {
+	padding: 0;
+}
+
+.loginWidget .ui-panel {
+	padding: 0;
+}
+
+.loginWidget .ui-panel .ui-panel-titlebar {
+	border-radius: 0.3em 0.3em 0 0;
+	border-top: 0;
+	border-left: 0;
+	border-right: 0;
+}
+
+.loginWidget .ui-panel .ui-panel-content {
+	line-height: 1.2;
+	padding: 0;
+}
+
+.loginWidget .ui-menu {
+	background: none;
+	border-style: none;
+}
+
+table.ui-panelgrid {
+	table-layout: fixed;
+}
+
+#mainContent .ui-layout-unit-content .ui-toolbar {
+	padding: 0.1em;
+	border-radius: 0.3em 0.3em 0 0;
+	border-style: none;
+	border-bottom-style: inherit;
+}
+
+#mainContent .ui-layout-unit-content>.ui-toolbar, #mainContent .ui-layout-unit-content>form>.ui-toolbar
+	{
+	margin-bottom: 1em;
+	margin: -0.5em -0.5em 1em -0.5em;
+}
+
+#mainContent .ui-layout-unit-content>.ui-panel {
+	margin: -0.5em -0.5em 1em -0.5em;
+}
+
+table.widgetMenu {
+	margin-left: auto;
+	margin-top: 0;
+	margin-bottom: 0;
+	border-style: none;
+	padding: 0;
+}
+
+table.widgetMenu tr {
+	border-style: none;
+	padding: 0;
+}
+
+table.widgetMenu.ui-panelgrid .ui-panelgrid-cell {
+	border-style: none;
+	padding: 0;
+}
+
+li.cluster>span.ui-treenode-content>span.ui-treenode-label>a {
+	font-weight: bold;
+	text-decoration: none;
+}
+
+form .ui-panelgrid {
+	border-style: none;
+	width: 100%;
+}
+
+form .ui-panelgrid tr.ui-widget-content, form .ui-panelgrid .ui-panelgrid-cell
+	{
+	border-style: none;
+	vertical-align: top;
+}
+
+form table.ui-panelgrid>tbody>tr>td:first-child {
+	width: 20%;
+}
+
+legend.ui-fieldset-legend {
+	padding: 0.2em !important;
+	border-style: none !important;
+	background: transparent !important;
+}
+
+fieldset {
+	margin-top: 1em;
+}
+
+div.ui-tabs, div.ui-panel {
+	border-style: none;
+}
+
+div.noPadPanel>div.ui-panel-content {
+	margin: 0;
+	padding: 0;
+}
+
+div.ui-dialog {
+	min-height: 10em;
+}
+
+.ui-dialog-content {
+	padding: 0 !important;
+}
+
+.dialogButtons .ui-button {
+	background: white !important;
+}
+
+.ui-tree.menuTree .ui-tree-container {
+	overflow: hidden;
+	padding: 0;
+}
+
+#menu {
+	padding: 0;
+}
+
+.menu .ui-toolbar {
+	padding: 0;
+	border-radius: 0.3em 0.3em 0 0;
+	line-height: 1.2;
+	border-style: none;
+}
+
+.menu .ui-panelmenu .ui-menuitem-link {
+	padding: 0.2em;
+	padding-left: 1em;
+	line-height: 1;
+}
+
+.menu .ui-panelmenu .ui-menuitem-text {
+	margin-left: 0.5em;
+}
+
+.menu .ui-toolbar .ui-button {
+	width: 1.5em;
+	height: 1.5em;
+}
+
+.menu .ui-toolbar .menuTitle {
+	margin: 0.3em;
+	font-size: 90%;
+	max-width: 13em;
+	display: inline;
+}
+
+.menu .ui-toolbar .ui-icon.menuTitleIcon {
+	display: inline;
+	margin: 0.3em;
+}
+
+.menu .ui-panelmenu .ui-menuitem-link {
+	width: 100%;
+}
+
+.menu .ui-accordion .ui-accordion-header, .menu .ui-panelmenu .ui-panelmenu-header
+	{
+	padding: 0.3em;
+	padding-left: 2.2em;
+	line-height: 1.0;
+	border-radius: 0;
+	border-style: solid;
+}
+
+.menu .ui-panelmenu .ui-panelmenu-header a {
+	padding: 0;
+}
+
+.menu .ui-accordion .ui-accordion-content, .menu .ui-panelmenu .ui-panelmenu-content
+	{
+	padding: 0;
+	min-height: 2em;
+	overflow: hidden;
+	border-style: none;
+}
+
+.menu .ui-tree .ui-tree-selectable .ui-treenode-icon {
+	vertical-align: middle;
+}
+
+.buttons {
+	float: right;
+}
+
+.inlineEditable {
+	text-decoration: none;
+	border-bottom-style: dotted;
+}
+
+.ui-layout-center .ui-panel .ui-panel-content {
+	padding: 0;
+	border-style: none;
+}
+
+.ui-tabs.ui-tabs-top .ui-tabs-nav li a {
+	padding: 0.1em 0.8em;
+}
+
+.ui-panelgrid.noborder>tbody>tr>.ui-panelgrid-cell {
+	border-style: none;
+	padding: 0.6em 0.1em;
+}
+
+.ui-panelgrid.noborder>tbody>tr>.ui-panelgrid-cell:first-child {
+	padding-left: 2em;
+}
+
+.ui-panelgrid.noborder>tbody>tr>.ui-panelgrid-cell:last-child {
+	padding-right: 2em;
+}
+
+.ui-panelgrid.dashboardSummary {
+	margin: 1em auto 1em auto;
+	box-shadow: 0 0.3em 0.6em rgba(0, 0, 0, 0.6);
+	width: auto;
+}
+
+.ui-datatable {
+	margin-top: 0.4em;
+	margin-bottom: 0.8em;
+}
+
+.ui-datatable .ui-datatable-header, .ui-treetable .ui-treetable-header {
+	text-align: left !important;
+	border-style: none;
+}
+
+.ui-datatable.ui-widget thead th, .ui-treetable.ui-widget thead th {
+	background: none;
+}
+
+.ui-datatable .ui-datatable-footer {
+	background: none;
+	text-align: left !important;
+	border-style: none;
+}
+
+.ui-fieldset+.ui-button, .ui-fieldset+.button {
+	margin-left: 3em;
+	min-width: 8em;
+}
+
+.ui-selectonemenu-panel .ui-selectonemenu-list {
+	padding: 0.2em;
+}
+
+.ui-menu.ui-widget-content .ui-menuitem-link {
+	line-height: normal;
+	padding: 0.2em;
+}
+
+.ui-menu .ui-menuitem-link .ui-menuitem-icon.ui-icon {
+	margin-right: 0.4em;
+}
+
+.ui-accordion .ui-accordion-header {
+	padding: 0.1em 0.1em 0.1em 2em !important;
+}
+
+.ui-accordion.outputGroup .ui-accordion-header {
+	padding: 0.1em 0.1em 0.1em 2em !important;
+	background: none !important;
+	border-style: none !important;
+}
+
+.ui-widget.ui-panel .ui-panel-titlebar-icon, .ui-widget.ui-panel .ui-panel-titlebar-icon:hover,
+	.ui-widget.ui-panel .ui-panel-titlebar-icon:focus {
+	float: left;
+	vertical-align: baseline;
+	margin-left: -0.5em;
+	margin-right: 0.5em;
+	background-color: none;
+}
+
+.multi-editor .multi-editor-icons button {
+	margin-bottom: 0.3em !important;
+}
+
+.objectEditor.ui-fieldset .ui-fieldset-legend {
+	width: 100%;
+	background: transparent !important;
+	border-bottom-style: solid;
+}
+
+.objectEditor.ui-fieldset, .objectEditor.ui-fieldset .ui-fieldset {
+	border-radius: 0;
+	padding-top: 0;
+	margin-bottom: 0.5em;
+	border-style: none;
+	margin-bottom: 0.5em;
+}
+
+.objectEditor.ui-fieldset .objectEditor.ui-fieldset {
+	padding-top: 1em;
+	border-bottom-style: dashed;
+}
+
+.objectEditor .objectEditorTemplateTitle {
+	display: inline-block;
+	vertical-align: baseline;
+	margin-right: 2em;
+	width: 25em;
+}
+
+.objectEditor .objectEditorTemplateCommands {
+	display: inline-block;
+	vertical-align: baseline;
+	width: auto;
+}
+
+.objectEditor .objectEditorTemplateCommands .ui-selectonemenu {
+	display: inline-block;
+	vertical-align: baseline;
+	width: 12em !important;
+}
+
+.objectEditor .objectEditorTemplateCommands .ui-selectonemenu .ui-selectonemenu-label
+	{
+	box-shadow: none;
+	text-shadow: none;
+}
+
+.objectEditor.ui-fieldset .ui-tabs .ui-tabs-panel {
+	padding: 0;
+}
+
+.objectEditor.ui-fieldset .ui-tabs .ui-tabs-nav {
+	background: none !important;
+}
+
+.objectEditor .ui-inplace .ui-inplace-display {
+	padding: 0.3em 0.5em;
+	border-style: solid;
+	border-radius: 0.3em;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	font-weight: normal;
+	margin: -0.2em 0.1em !important;
+	vertical-align: baseline;
+}
+
+.objectEditor .ui-inplace .ui-inplace-display .inherited {
+	display: inline-block;
+	width: 8em;
+}
+
+.objectEditor .collection-inherited-label {
+	display: block;
+	margin-bottom: 0.5em;
+}
+
+.objectEditor .inherited-value, .objectEditor .collection-inherited-label
+	{
+	opacity: 0.9;
+	font-style: italic;
+	cursor: pointer;
+}
+
+.objectEditor .inherited-value {
+	display: inline;
+}
+
+.objectEditor .object-selection-header {
+	font-weight: bold;
+	margin: 0.5em;
+	line-height: 1.2 !important;
+}
+
+.objectEditorMeta .ui-outputlabel {
+	margin-left: 1em;
+	margin-right: 1em;
+}
+
+.objectEditorMeta.ui-fieldset {
+	padding: 0.5em;
+	border-style: solid;
+	margin-top: 1em;
+	margin-left: 2em;
+	margin-right: 45%;
+}
+
+.field.noLabel .ui-outputlabel.fieldLabel:after {
+	content: "";
+}
+
+.objectEditor .multi-editor-icons .ui-panel-content {
+	padding: 0;
+}
+
+.applyChallenge.userpass .field .inputComponents .ui-outputpanel .username>.ui-widget.ui-inputtext,
+	.applyChallenge.userpass .field .inputComponents .ui-outputpanel .password>.ui-widget.ui-password
+	{
+	display: block;
+	margin: 0.1em;
+}
+
+#mainContent {
+	padding: 0;
+}
+
+#mainContent.ui-layout-unit .ui-layout-unit-content {
+	overflow-x: hidden;
+}
+
+.ui-layout-unit .ui-layout-unit-content {
+	padding: 0 !important;
+}
+
+.ui-layout-unit.ui-layout-center .ui-layout-unit-content {
+	padding: 0.5em !important;
+}
+
+.ui-layout-unit .ui-layout-unit-content>.ui-panel {
+	padding: 0;
+}
+
+.ui-layout-unit .ui-layout-unit-content>.ui-panel .ui-panel-titlebar {
+	border-style: none;
+	padding: 0.3em;
+}
+
+.ui-layout-unit .ui-layout-unit-content>.ui-panel .ui-panel-content {
+	padding-left: 0.4em;
+	padding-top: 0.4em;
+}
+
+#header {
+	padding: 0;
+	border-style: none;
+	overflow: hidden;
+}
+
+#header h1 {
+	font-size: 1.5em;
+	margin-top: 0.2em;
+	margin-bottom: 0;
+}
+
+#header .ui-layout-unit-content {
+	overflow: hidden;
+	padding: 0.1em !important;
+}
+
+#header h2 {
+	margin-top: 0.2em;
+	margin-bottom: 0;
+	font-size: 1em;
+}
+
+#header .ui-button-text {
+	padding: 0;
+}
+
+#console {
+	padding: 0;
+}
+
+#console .ui-tabs-left>.ui-tabs-nav {
+	display: inline-block;
+	width: 10%;
+	margin-right: 0.4em;
+	padding: 0;
+	height: auto;
+}
+
+#console .ui-tabs-left>.ui-tabs-nav li {
+	line-height: 0.8;
+}
+
+#console .ui-layout-unit-header {
+	padding: 0;
+	background: none;
+	border-style: none !important;
+	overflow: visible;
+}
+
+#console .ui-layout-unit-header-title {
+	display: none;
+}
+
+#console .ui-layout-unit-header-icon {
+	display: inline-block;
+	position: absolute;
+	right: 1em;
+	float: right;
+	z-index: 99999;
+	font-size: 12pt !important;
+	box-sizing: border-box;
+	margin: 0;
+	height: 1.6em;
+	width: 1.6em;
+	text-align: center;
+}
+
+#console .ui-layout-unit-header-icon .ui-icon, #console-toggler .ui-layout-unit-expand-icon .ui-icon
+	{
+	display: inline;
+	position: static;
+	margin: 0 !important;
+	padding: 0 !important;
+	font-size: inherit;
+	height: 1.6em;
+	width: 1.6em;
+}
+
+#console-toggler {
+	font-size: 12pt !important;
+	height: auto !important;
+	width: auto !important;
+}
+
+#console-toggler .ui-layout-unit-expand-icon, #console-toggler .content
+	{
+	left: 0;
+	top: 0;
+	box-sizing: border-box;
+	position: static;
+	height: 1.6em;
+	width: 1.6em;
+	margin: 0 !important;
+}
+
+#console .ui-layout-unit-content {
+	padding-right: 0.1em;
+	width: 100%;
+	height: 98%;
+	overflow: hidden;
+}
+
+#console .ui-layout-unit-content .ui-tabs-left {
+	padding: 0;
+}
+
+#console .ui-layout-unit-content .ui-tabs-left li {
+	height: 2em;
+	line-height: 2em;
+	vertical-align: middle;
+	overflow: hidden;
+}
+
+#console .ui-layout-unit-content .ui-tabs-left li .tab-title {
+	margin-right: 0.5em;
+}
+
+#console .ui-layout-unit-content .ui-tabs-left li a {
+	padding: 0;
+	display: inline-block;
+	height: 100%;
+	width: 100%;
+	padding: 0.1em 0.5em;
+}
+
+#console .ui-layout-unit-content .ui-tabs-left li .ui-icon {
+	float: none;
+}
+
+#console .ui-layout-unit-content .ui-tabs-left>.ui-tabs-panels {
+	width: 87%;
+	float: none;
+	display: inline-block;
+	padding: 0;
+}
+
+#console .ui-layout-unit-content .ui-tabs-left>.ui-tabs-panels .ui-tabs-panel
+	{
+	padding: 0;
+	overflow: hidden;
+}
+
+#console .ui-layout-unit-content .ui-tabs-left>.ui-tabs-panels .ui-tabs-panel .ui-datatable-header
+	{
+	padding: 0;
+}
+
+#console-toggler {
+	left: auto !important;
+	right: 1em !important;
+}
+
+.ui-datagrid.cpuGrid .ui-datagrid-content {
+	border-style: none;
+}
+
+.ui-datagrid.cpuGrid .ui-datagrid-column {
+	width: 23%;
+}
+
+.ui-datagrid.cpuGrid .ui-datagrid-column .ui-panel {
+	border-style: solid !important;
+	text-align: center;
+	border-radius: 0.6em;
+}
+
+.ui-datagrid.cpuGrid .ui-datagrid-column .ui-panel-titlebar {
+	border-style: none;
+	padding: 0.1em;
+	background: none;
+	text-align: center;
+}
+
+.ui-panel.outputGroup .ui-panel-titlebar {
+	border-style: none;
+	background: none;
+}
+
+.ui-widget.ui-button.ui-button-text-icon-left {
+	font-size: 95%;
+}
+
+.ui-overlaypanel.popup-link-menu {
+	padding: 0;
+}
+
+.ui-overlaypanel.popup-link-menu a {
+	margin-top: 0.2em;
+	padding: 0.1em 1em 0.2em 0.5em;
+	display: block;
+}
+
+p.ui-message {
+	margin: 1em;
+}
+
+p.ui-message.warning {
+	border-radius: 0.6em;
+	padding: 0.4em;
+}
+
+.indicator {
+	display: inline-block;
+	vertical-align: baseline;
+	margin-left: 0.5em;
+	font-weight: normal;
+	padding: 0.1em 0.4em;
+	border-radius: 0.3em;
+	font-size: 95%;
+	height: 1.6em;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	background-color: white;
+	border-style: solid;
+	color: black;
+	text-shadow: none;
+}
+
+.indicator .ui-icon {
+	color: inherit;
+}
+
+.indicator.config-state-display.UNKNOWN, .indicator.config-state-display.FAILED,
+	.indicator.runtime-state-display.UNKNOWN, .indicator.runtime-state-display.ERROR,
+	.indicator.agent-state-display.UNKNOWN, .indicator.agent-state-display.FAILURE,
+	.indicator.agent-state-display.DISCONNECTED, .config-test-results .violation.ERROR,
+	.config-test-results .testentry.ERROR, .indicator.update-state.UNKNOWN,
+	.bg-color-failure, .ui-widget-content .bg-color-failure {
+	background-color: #E55533;
+}
+
+.indicator.config-state-display.APPLYING, .indicator.runtime-state-display.TRANSIENT,
+	.indicator.agent-state-display.CONNECTING, .indicator.agent-state-display.DISCONNECTING,
+	.bg-color-transient, .ui-widget-content .bg-color-transient {
+	background-color: #2C5797;
+}
+
+.indicator.config-state-display.APPLIED, .indicator.runtime-state-display.ACTIVE,
+	.indicator.agent-state-display.CONNECTED, .config-test-results .violation.SUGGESTION,
+	.config-test-results .testentry.INFO, .indicator.update-state.UPTODATE,
+	.bg-color-ok, .ui-widget-content .bg-color-ok {
+	background-color: #19A13D;
+}
+
+.indicator.config-state-display.UNCONFIGURED, .indicator.config-state-display.UPDATE_AVAILABLE,
+	.indicator.config-state-display.DEFAULTS_CHANGED, .indicator.runtime-state-display.WARNING,
+	.config-test-results .violation.WARNING, .config-test-results .testentry.WARNING,
+	.indicator.update-state.NEEDSUPDATE, .bg-color-warning,
+	.ui-widget-content .bg-color-warning {
+	background-color: #E5A333;
+}
+
+ .bg-color-warning-low,
+	.ui-widget-content .bg-color-warning-low, .ui-message.warning {
+	background-color: #ffd801;
+}
+
+.config-toolbar .indicator.dirty-indicator {
+	display: none;
+}
+
+.config-toolbar.dirty .save-button, .config-apply-button.have-changes {
+	background: #ffd801;
+	background: #ffd801 linear-gradient(center top, #FFF, #ffd801);
+	background: #ffd801
+		-webkit-gradient(linear, left top, left bottom, from(#FFF),
+		to(#ffd801));
+	background: #ffd801 -moz-linear-gradient(center top, #FFF, #ffd801);
+	background: -ms-linear-gradient(#FFF, #ffd801);
+}
+
+.config-toolbar.dirty .dirty-indicator {
+	display: inline-block;
+	background-color: #ffce34;
+	-webkit-transition: background 0.1s linear;
+	-moz-transition: background 0.1s linear;
+	-ms-transition: background 0.1s linear;
+	-o-transition: background 0.1s linear;
+	transition: background 0.1s linear;
+}
+
+.config-apply-panel {
+	margin-top: 1em;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 0.3em;
+	width: 90%;
+	padding: 0.5em;
+}
+
+.config-apply-panel.failed {
+	background-color: rgba(231, 101, 75, 0.5);
+}
+
+.config-apply-panel .ui-button {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.config-apply-panel .msg {
+	display: block;
+	margin: 0.2em;
+	text-align: center;
+}
+
+dl.log-properties {
+	font-size: 90%;
+}
+
+dl.log-properties dt {
+	float: left;
+	clear: both;
+	font-weight: bold;
+}
+
+dl.log-properties dd {
+	padding-left: 10em;
+}
+
+.ui-datatable.log-event-table .ui-paginator .ui-paginator-page {
+	width: 1.5em;
+}
+
+.ui-datatable.log-event-table {
+	
+}
+
+.ui-widget.ui-datatable.log-event-table .ui-datatable-scrollable-body {
+	height: 70vh;
+	max-height: 900px;
+	overflow-x: hidden;
+}
+
+.ui-datatable.log-event-table tr, .ui-datatable.log-event-table td {
+	border-style: none;
+}
+
+.ui-datatable.log-event-table tr.ERROR.ui-datatable-even {
+	background-color: rgba(231, 101, 75, 0.7);
+	color: black;
+}
+
+.ui-datatable.log-event-table tr.ERROR.ui-datatable-odd {
+	background-color: rgba(231, 101, 75, 0.5);
+	color: black;
+}
+
+.ui-datatable.log-event-table tr.WARNING.ui-datatable-even {
+	background-color: rgba(214, 192, 0, 0.7);
+}
+
+.ui-datatable.log-event-table tr.WARNING.ui-datatable-odd {
+	background-color: rgba(214, 192, 0, 0.5);
+}
+
+.ui-datatable.log-event-table tr.INFO.ui-datatable-even {
+	background-color: rgba(40, 115, 178, 0.7);
+	color: black;
+}
+
+.ui-datatable.log-event-table tr.INFO.ui-datatable-odd {
+	background-color: rgba(40, 115, 178, 0.5);
+	color: black;
+}
+
+.ui-widget.ui-datatable .ui-datatable-scrollable-body {
+	min-height: 2em;
+}
+
+.ui-widget.ui-datatable .ui-datatable-scrollable-header .ui-buttonset,
+	.ui-widget.ui-datatable .ui-datatable-header .ui-buttonset {
+	margin: 0;
+}
+
+.click-container {
+	display: inline-block;
+}
+
+.click-container .ui-button.ui-state-disabled {
+	pointer-events: none;
+}
+
+.jqplot-table-legend .jqplot-table-legend-label span {
+	display: block;
+}
+
+.jqplot-table-legend .jqplot-table-legend-swatch {
+	vertical-align: top;
+}
+
+.jqplot-table-legend .jqplot-table-legend-label .series-title {
+	font-weight: bold;
+}
+
+.jqplot-table-legend .jqplot-table-legend-label span:before {
+	font-weight: bold;
+	margin-right: 0.2em;
+}
+
+.jqplot-table-legend .jqplot-table-legend-label .series-min:before {
+	content: "Min";
+}
+
+.jqplot-table-legend .jqplot-table-legend-label .series-max:before {
+	content: "Max";
+}
+
+.jqplot-table-legend .jqplot-table-legend-label .series-avg:before {
+	content: "Avg";
+}
+
+.jqplot-table-legend .jqplot-table-legend-label .series-total:before {
+	content: "Tot";
+}
+
+.load-graphs {
+	padding: 0.5em;
+	width: auto;
+	border-radius: 0.6em;
+	display: inline-block;
+}
+
+.load-graph {
+	width: 15em;
+}
+
+.load-graph .load-label {
+	font-size: smaller;
+}
+
+.load-graph .load-bar {
+	width: 100%;
+	border-radius: 0.6em;
+}
+
+.load-graph .load-bar div {
+	height: 0.8em;
+	border-radius: 0.6em 0 0 0.6em;
+	max-width: 100%;
+}
+
+.ui-dashboard .info {
+	margin: 0.8em;
+	text-align: left;
+}
+
+.ui-dashboard .info label {
+	display: block;
+	font-weight: bold;
+	font-size: smaller;
+}
+
+.ui-dashboard .ui-panel {
+	width: 18em;
+	text-align: center;
+	overflow-x: hidden;
+}
+
+.ui-dashboard .ui-panel .ui-panel-content {
+	height: 10em;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.ui-dashboard .ui-panel .jqplot-target {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.ui-dashboard .ui-dashboard-column .ui-panel-titlebar {
+	cursor: inherit;
+}
+
+.inline-online-editor {
+	border-radius: 0.6em;
+	padding: 0.6em;
+}
+
+.inline-online-editor iframe {
+	border: 0;
+    width: 100%;
+}
+
+.files-tree .ui-treenode.ui-treenode-leaf.inherited {
+	opacity: 0.7;
+} 
+
+body.inline {
+	height: auto;
+}
+
+body.inline .buttons {
+	display: none;
+}
+
+.ui-datatable.nested-table,.ui-datatable.nested-table .ui-datatable-data, .ui-datatable.nested-table .ui-datatable-empty-message, .nested-table.ui-datatable .ui-datatable-even, .nested-table.ui-datatable .ui-datatable-odd {
+	background: transparent;
+}
+
+.ui-treetable-selectable-node .selection-indicator {
+	width: 1.5em;	
+}
+
+.ui-treetable-selectable-node .selection-indicator::before {
+	content: "\f10c";
+	font-size: 1.5em;
+}
+
+.ui-treetable-selectable-node.ui-state-highlight .selection-indicator {
+	
+}
+
+.ui-treetable-selectable-node.ui-state-highlight .selection-indicator::before {
+	content: "\f192";
+	font-size: 1.5em;
+}

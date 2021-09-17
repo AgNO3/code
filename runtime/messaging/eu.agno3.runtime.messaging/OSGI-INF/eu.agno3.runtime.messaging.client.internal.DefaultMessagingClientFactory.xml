@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.messaging.client.internal.DefaultMessagingClientFactory">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.messaging.client.MessagingClientFactory"/>
+    </service>
+    <reference name="TransactionManager" interface="javax.transaction.TransactionManager" cardinality="1..1" policy="static" bind="setTransactionManager" unbind="unsetTransactionManager"/>
+    <reference name="EventRouterManager" interface="eu.agno3.runtime.messaging.routing.EventRouterManager" cardinality="1..1" policy="static" bind="setEventRouterManager" unbind="unsetEventRouterManager"/>
+    <reference name="DestinationResolverManager" interface="eu.agno3.runtime.messaging.routing.DestinationResolverManager" cardinality="1..1" policy="static" bind="setDestinationResolverManager" unbind="unsetDestinationResolverManager"/>
+    <reference name="MarshallerManager" interface="eu.agno3.runtime.messaging.marshalling.MarshallerManager" cardinality="1..1" policy="static" bind="setMarshallerManager" unbind="unsetMarshallerManager"/>
+    <reference name="UnmarshallerManager" interface="eu.agno3.runtime.messaging.marshalling.UnmarshallerManager" cardinality="1..1" policy="static" bind="setUnmarshallerManager" unbind="unsetUnmarshallerManager"/>
+    <implementation class="eu.agno3.runtime.messaging.client.internal.DefaultMessagingClientFactory"/>
+</scr:component>

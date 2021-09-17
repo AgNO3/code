@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	template="/tpl/common/template.xhtml">
+	<ui:param name="subtitle" value="#{attachedObjectTableBean.subtitle}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="anchor"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton
+						rendered="#{not structureViewContext.isServiceSelected()}"
+						id="addTemplate" image="ui-icon-plus"
+						alt="#{_gui['structure.objects.addTemplate']}"
+						action="#{templateController.addTemplate(structureViewContext.selectedObject)}" />
+				</f:facet>
+			</p:toolbar>
+
+			<p:messages />
+
+			<p:dataTable value="#{attachedObjectTableBean.model}" var="obj">
+				<p:column width="45%"
+					headerText="#{_gui['structure.objects.objectName']}">
+					<h:panelGroup
+						rendered="#{not structureViewContext.isServiceSelected()}">
+						<p:link
+							outcome="#{templateController.editTemplate(structureViewContext.selectedObject,obj)}"
+							value="#{configUtil.getDisplayNameFor(obj)}" />
+					</h:panelGroup>
+					<h:panelGroup
+						rendered="#{structureViewContext.isServiceSelected()}">
+						<h:outputText value="#{configUtil.getDisplayNameFor(obj)}" />
+					</h:panelGroup>
+				</p:column>
+
+				<p:column width="45%"
+					headerText="#{_gui['structure.objects.objectType']}">
+					<h:outputText value="#{configUtil.getDisplayTypeName(obj)}" />
+				</p:column>
+
+				<p:column width="10%">
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

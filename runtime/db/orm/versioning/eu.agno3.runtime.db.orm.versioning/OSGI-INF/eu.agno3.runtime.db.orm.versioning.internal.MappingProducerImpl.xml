@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.db.orm.versioning.internal.MappingProducerImpl">
+    <service servicefactory="false">
+        <provide interface="org.hibernate.boot.spi.AdditionalJaxbMappingProducer"/>
+        <provide interface="org.hibernate.envers.boot.internal.AdditionalJaxbMappingProducerImpl"/>
+    </service>
+    <reference name="EnversService" interface="org.hibernate.envers.boot.internal.EnversServiceContributor" cardinality="1..1" policy="static" bind="setEnversService" unbind="unsetEnversService"/>
+    <implementation class="eu.agno3.runtime.db.orm.versioning.internal.MappingProducerImpl"/>
+</scr:component>

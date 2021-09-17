@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:v="urn:agno3:model:1.0:system:info:storage:volume" xmlns:d="urn:agno3:model:1.0:system:info:storage:drive" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:model:1.0:system:info:storage:drive" elementFormDefault="qualified">
+   <xsd:import schemaLocation="urn:agno3:model:1.0:system:info:storage:volume" namespace="urn:agno3:model:1.0:system:info:storage:volume"/>
+   <xsd:complexType name="driveInformation" abstract="true">
+      <xsd:sequence>
+         <xsd:element name="size" type="xsd:long" minOccurs="0"/>
+         <xsd:element name="system" type="xsd:boolean"/>
+         <xsd:element name="volumes" minOccurs="0">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="volume" type="v:volumeInformation" minOccurs="0" maxOccurs="unbounded"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+      </xsd:sequence>
+      <xsd:attribute name="alias" type="xsd:string"/>
+      <xsd:attribute name="id" type="xsd:string"/>
+   </xsd:complexType>
+   <xsd:complexType name="physicalDrive">
+      <xsd:complexContent>
+         <xsd:extension base="d:driveInformation">
+            <xsd:sequence>
+               <xsd:element name="blockDeviceName" type="xsd:string" minOccurs="0"/>
+               <xsd:element name="model" type="xsd:string" minOccurs="0"/>
+               <xsd:element name="partitionTableType" type="d:partitionTableType" minOccurs="0"/>
+               <xsd:element name="serial" type="xsd:string" minOccurs="0"/>
+               <xsd:element name="uncapturedSpace" type="xsd:long" minOccurs="0"/>
+               <xsd:element name="vendor" type="xsd:string" minOccurs="0"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="raidDrive">
+      <xsd:complexContent>
+         <xsd:extension base="d:driveInformation">
+            <xsd:sequence>
+               <xsd:element name="numDegraded" type="xsd:int"/>
+               <xsd:element name="devices" type="xsd:int"/>
+               <xsd:element name="numSpare" type="xsd:int"/>
+               <xsd:element name="level" type="d:raidLevel" minOccurs="0"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="volumeGroup">
+      <xsd:complexContent>
+         <xsd:extension base="d:driveInformation">
+            <xsd:sequence>
+               <xsd:element name="name" type="xsd:string" minOccurs="0"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:element name="drive" type="d:driveInformation"/>
+   <xsd:element name="physDrive" type="d:physicalDrive"/>
+   <xsd:element name="raidDrive" type="d:raidDrive"/>
+   <xsd:element name="volumeGroup" type="d:volumeGroup"/>
+   <xsd:simpleType name="partitionTableType">
+      <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="UNKNOWN"/>
+         <xsd:enumeration value="NONE"/>
+         <xsd:enumeration value="DOS"/>
+         <xsd:enumeration value="GPT"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="raidLevel">
+      <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="RAID0"/>
+         <xsd:enumeration value="RAID1"/>
+         <xsd:enumeration value="RAID4"/>
+         <xsd:enumeration value="RAID5"/>
+         <xsd:enumeration value="RAID6"/>
+         <xsd:enumeration value="RAID10"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+</xsd:schema>

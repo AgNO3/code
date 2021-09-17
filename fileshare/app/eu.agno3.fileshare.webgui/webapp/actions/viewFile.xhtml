@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0"
+	style="height: 100%" template="/tpl/common/template.xhtml">
+
+	<ui:param name="subtitle"
+		value="#{fileDisplayBean.getLocalDisplayName(urlFileSelectionBean.selectedEntity)}" />
+
+	<ui:param name="bodyStyle" value="preview-body" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="file"
+				value="#{urlFileSelectionBean.encodedSingleSelection}"
+				required="true" />
+
+			<f:viewParam name="grant"
+				value="#{grantSelectionBean.encodedSingleSelection}"
+				required="false" />
+
+			<f:viewParam name="closable" value="#{fileViewBean.closable}"
+				required="false" />
+
+			<f:viewParam name="showBack" value="#{fileViewBean.showBack}"
+				required="false" />
+
+			<f:viewParam name="preview" value="#{fileViewBean.initialPreview}"
+				required="false" />
+
+			<f:viewParam name="rootType"
+				value="#{fileRootSelectionBean.selectedRootType}" required="false" />
+
+			<f:viewParam name="token" value="#{userTokenBean.token}"
+				required="false" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="menu">
+		<ui:include src="/tpl/filesMenu.xhtml">
+			<ui:param name="at" value="${'files'}" />
+			<ui:param name="rootGrant"
+				value="#{grantSelectionBean.singleSelection}" />
+		</ui:include>
+	</ui:define>
+
+	<ui:define name="content">
+		<p:hotkey rendered="#{fileViewBean.closable}" bind="esc"
+			oncomplete="window.close()" immediate="true" />
+
+		<input type="hidden" name="token" value="#{userTokenBean.token}" />
+
+		<h:outputScript library="fileshare" name="fileshare.js" />
+
+		<div class="file-view">
+			<p:messages autoUpdate="true" />
+
+			<p:outputPanel id="fileInfo" styleClass="ui-widget file-toolbar">
+				<p:toolbar
+					rendered="#{not empty urlFileSelectionBean.singleSelection}"
+					styleClass="container-operations breadcrumbs ui-light-border file-data top func-unit">
+
+					<f:facet name="left">
+						<p:breadCrumb widgetVar="pathBreadcrumbs"
+							styleClass="root-display smaller-if-medium" homeDisplay="text"
+							model="#{filePathBreadcrumbBean.model}" />
+					</f:facet>
+				</p:toolbar>
+
+				<p:toolbar
+					styleClass="container-operations ui-light-border bottom func-unit"
+					rendered="#{not empty urlFileSelectionBean.singleSelection}">
+
+					<f:facet name="left">
+						<p:commandButton rendered="#{fileViewBean.closable}"
+							onclick="window.close()" icon="ui-icon-close"
+							value="#{_msgs['actions.viewFile.close']}" />
+						<p:commandButton rendered="#{fileViewBean.showBack}"
+							action="#{filePathBreadcrumbBean.getParentOutcome()}"
+							icon="ui-icon-back" value="#{_msgs['actions.viewFile.back']}" />
+						<p:commandButton
+							action="#{fileDownloadController.download(urlFileSelectionBean.singleSelection, grantSelectionBean.singleSelection, userTokenBean)}"
+							icon="ui-icon-download"
+							value="#{_msgs['actions.viewFile.download']}" />
+
+						<p:outputPanel id="previewButtons"
+							style="display: inline-block; vertical-align: top; padding: 0"
+							rendered="#{fileViewPolicyBean.canView(urlFileSelectionBean.singleSelection)}">
+							<p:commandButton rendered="#{not fileViewBean.preview}"
+								icon="#{fileDisplayBean.getViewIconClass(urlFileSelectionBean.singleSelection)}"
+								action="#{fileViewBean.showPreview()}"
+								value="#{_msgs['actions.viewFile.showPreview']}"
+								update="previewButtons previewContent" />
+
+							<p:commandButton rendered="#{fileViewBean.preview}"
+								action="#{fileViewBean.hidePreview()}" icon="ui-icon-close"
+								value="#{_msgs['actions.viewFile.hidePreview']}"
+								update="previewButtons previewContent" />
+						</p:outputPanel>
+
+						<ag:dialogOpenButton
+							rendered="#{not empty grantSelectionBean.encodedSingleSelection}"
+							icon="ui-icon-info" value="#{_msgs['actions.viewFile.showInfo']}"
+							dialog="/actions/info.xhtml?entity=#{urlFileSelectionBean.singleSelectionId}&amp;grant=#{grantSelectionBean.encodedSingleSelection}#{userTokenBean.tokenQueryArg}">
+							<p:ajax event="return" />
+						</ag:dialogOpenButton>
+
+						<p:commandButton type="button" icon="ui-icon-upload"
+							onclick="PF('fileUploadDialog').jq.find('input[type=file]').click();"
+							rendered="#{filePermissionBean.canEditOrEditSelfEntity(urlFileSelectionBean.singleSelection, grantSelectionBean.singleSelection)  and fileViewBean.canOverwrite}"
+							value="#{_msgs['actions.viewFile.replaceFile']}"></p:commandButton>
+
+						<p:commandButton rendered="#{not empty userTokenBean.token}"
+							icon="ui-icon-gear"
+							value="#{_msgs['actions.viewFile.expertOptions']}"
+							update="expertContents" action="#{fileViewBean.makeDownloadLink}"
+							oncomplete="PF('expertPanel').show()" />
+
+						<p:overlayPanel widgetVar="expertPanel">
+							<p:outputPanel id="expertContents">
+								<p:outputLabel for="ddlLink"
+									value="#{_msgs['actions.viewFile.expert.ddlLinkLabel']}" />
+								<br />
+								<p:link id="ddlLink" href="#{fileViewBean.downloadLink}"
+									value="#{_msgs['actions.viewFile.expert.ddlLink']}" />
+								<br />
+								<h:outputFormat
+									value="#{_msgs['actions.viewFile.expert.ddlLinkMsgFmt']}">
+									<f:param
+										value="#{localeSettingsBean.formatDateTime(fileViewBean.downloadLinkExpiration, 'LL')}" />
+								</h:outputFormat>
+							</p:outputPanel>
+						</p:overlayPanel>
+
+						<ag:dialogOpenButton
+							rendered="#{empty grantSelectionBean.encodedSingleSelection}"
+							icon="ui-icon-info" value="#{_msgs['actions.viewFile.showInfo']}"
+							dialog="/actions/info.xhtml?entity=#{urlFileSelectionBean.singleSelectionId}">
+							<p:ajax event="return" />
+						</ag:dialogOpenButton>
+
+						<fs:shareButton grant="#{grantSelectionBean.singleSelection}"
+							style="display: inline-block"
+							entityShareInfo="#{urlFileSelectionBean}"
+							update="@composite:@parent:fileInfo" recursive="true"
+							entity="#{urlFileSelectionBean.singleSelection}" />
+					</f:facet>
+
+					<f:facet name="right">
+						<p:outputPanel
+							style="display: inline-block; vertical-align: middle; margin-left: 1em"
+							rendered="#{filePermissionBean.isOwner(urlFileSelectionBean.singleSelection)}">
+							<fs:shareList entityShareInfo="#{urlFileSelectionBean}"
+								listener="#{urlFileSelectionBean.refreshSelection()}"
+								entity="#{urlFileSelectionBean.singleSelection}"
+								update="@parent:@parent:fileInfo" />
+						</p:outputPanel>
+					</f:facet>
+
+				</p:toolbar>
+			</p:outputPanel>
+		</div>
+
+		<div class="preview-container">
+			<h:outputScript
+				rendered="#{filePermissionBean.canEditOrEditSelfEntity(urlFileSelectionBean.singleSelection, grantSelectionBean.singleSelection) and fileViewBean.canOverwrite}"
+				library="fileshare" name="fileshare.js" />
+
+			<p:dialog id="fileUploadDialog" dynamic="false" visible="false"
+				rendered="#{filePermissionBean.canEditOrEditSelfEntity(urlFileSelectionBean.singleSelection, grantSelectionBean.singleSelection) and fileViewBean.canOverwrite}"
+				header="#{_msgs['actions.viewFile.replaceFile']}"
+				style="min-width: 60%; min-height: 50%" modal="true"
+				closable="false" resizable="false" widgetVar="fileUploadDialog"
+				collapsed="true" styleClass="drop-target no-drag upload-dialog"
+				toggleable="true">
+
+				<input type="hidden" name="upload_target_file"
+					value="#{urlFileSelectionBean.singleSelectionId}" />
+				<input type="hidden" name="upload_target_label"
+					value="#{urlFileSelectionBean.singleSelection.securityLabel}" />
+				<input type="hidden" name="upload_target_grant"
+					value="#{grantSelectionBean.encodedSingleSelection}" />
+				<input type="hidden" name="upload_replaceFile" value="${'true'}" />
+
+				<div class="upload-target-file" style="display: none">
+					<span style="display: none" class="upload-target-name"><h:outputText
+							value="#{urlFileSelectionBean.singleSelection.localName}" /></span>
+					<h4>
+						<h:outputFormat
+							value="#{_msgs['actions.viewFileReplaceFileMsgFmt']}">
+							<f:param
+								value="#{urlFileSelectionBean.singleSelection.localName}" />
+						</h:outputFormat>
+					</h4>
+				</div>
+
+				<div class="upload-target-replace" style="display: none">
+					<input type="checkbox" value="${'true'}"
+						style="margin-left: 1em; vertical-align: top"
+						class="replace-files" />
+				</div>
+
+				<p:fileUpload id="fileUpload" styleClass="file-upload"
+					dragDropSupport="true" mode="advanced" auto="true"
+					update="fileInfo previewContent"
+					oncomplete="AgNO3FileUpload.onUploadComplete(this);"
+					fileUploadListener="#{fileUploadBean.handleReplaceFileUpload}" />
+
+				<p:button styleClass="close-upload" href="#"
+					value="#{_msgs['upload.close']}"
+					onclick="AgNO3FileUpload.closeUploadDialog(this); return false;" />
+
+				<h:outputLink styleClass="new-window" style="display:none"
+					target="_blank"
+					value="#{uriUtil.getFullRequestUriWithoutConversation()}">
+					<h:outputText value="#{_msgs['upload.newWindow']}" />
+				</h:outputLink>
+			</p:dialog>
+
+
+			<h:outputText style="display: none" styleClass="message-upload-fail"
+				value="#{_msgs['errors.uploadFail']}" />
+			<h:outputText style="display: none"
+				styleClass="message-upload-fail-start"
+				value="#{_msgs['errors.uploadFailStart']}" />
+			<h:outputText style="display: none"
+				styleClass="message-no-folder-support"
+				value="#{_msgs['errors.noFolderUpload']}" />
+			<h:outputText style="display: none"
+				styleClass="message-upload-navigation"
+				value="#{_msgs['errors.uploadNavigation']}" />
+
+			<p:remoteCommand id="checkUpload" name="checkUpload"
+				actionListener="#{fileUploadBean.checkUploadCommand}" />
+
+
+			<p:remoteCommand id="refreshFileView" name="refreshFileView"
+				actionListener="#{urlFileSelectionBean.refreshSelection()}"
+				update="fileInfo previewContent" />
+
+			<h:outputScript type="text/javascript">
+						// <![CDATA[
+						$(window).on('load',
+						function() {
+							AgNO3FileUpload.initFileReplaceUpload($(document).find('.file-upload'));
+						});
+						// ]]>
+			</h:outputScript>
+
+
+			<p:outputPanel id="previewContent"
+				class="file-preview-content ui-light-border">
+				<ui:fragment rendered="#{fileViewBean.preview}">
+					<f:subview id="preview">
+						<ui:include
+							src="#{fileViewPolicyBean.getViewFor(urlFileSelectionBean.singleSelection)}">
+							<ui:param name="entity"
+								value="#{urlFileSelectionBean.singleSelection}" />
+						</ui:include>
+					</f:subview>
+				</ui:fragment>
+				<ui:fragment rendered="#{not fileViewBean.preview}">
+					<f:subview id="noPreview">
+						<ui:include src="/view/noneView.xhtml">
+							<ui:param name="entity"
+								value="#{urlFileSelectionBean.singleSelection}" />
+						</ui:include>
+					</f:subview>
+				</ui:fragment>
+
+			</p:outputPanel>
+		</div>
+	</ui:define>
+</ui:composition>

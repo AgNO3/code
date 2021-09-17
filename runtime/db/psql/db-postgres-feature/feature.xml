@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="db-postgres-feature"
+      label="PostgreSQL Database Feature"
+      version="0.0.166"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <requires>
+      <import feature="deps-javax-feature" version="0.0.1.qualifier"/>
+      <import feature="db-feature" version="0.0.1.qualifier"/>
+      <import feature="deps-postgres-feature" version="42.1.4.AG1"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.runtime.db.postgres"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="themeLibrary" path="themeLibrary"
+		update="@composite:parent:manageThemeField:manageThemeButton">
+		<p:autoComplete id="themeLibrary" dropdown="true"
+			completeMethod="#{resourceLibraryCompleterFactory.getNameCompleterForType('orch_web').complete}"
+			value="#{current.themeLibrary}">
+			<p:ajax event="change" process="@this"
+				update="@composite:@parent:manageThemeField:manageThemeButton" />
+		</p:autoComplete>
+	</orch:objectFieldEditor>
+
+	<ag:simpleField styleClass="noLabel" id="manageThemeField"
+		onlyIf="#{configContextUtil.isInstance(configContext)}">
+		<ag:dialogOpenButton id="manageThemeButton" icon="ui-icon-pencil"
+			disabled="#{empty orch_webConfigBean.getSelectedThemeLibrary(outerWrapper)}"
+			dialog="/resourceLibrary/edit/webTheme.dialog.xhtml?#{resourceLibraryController.makeCreateOrEditArguments('orch_web', orch_webConfigBean.getSelectedThemeLibrary(outerWrapper))}"
+			closable="true" value="#{_gui['web.endpoint.manageThemeLibrary']}">
+			<p:ajax event="return"
+				listener="#{resourceLibraryController.finishedReturnDialog}" />
+		</ag:dialogOpenButton>
+	</ag:simpleField>
+
+	<orch:objectEditor objectType="urn:agno3:objects:1.0:web:endpoint"
+		context="#{configContext}" path="webEndpointConfig"
+		subTemplate="#{isTemplate}" readOnly="#{isReadOnly}">
+		<f:param name="hideReverseProxy" value="#{true}" />
+		<f:param name="hideContext" value="#{true}" />
+		<f:param name="hideDisableSSL" value="#{true}" />
+		<f:param name="sslConfigContext" value="#{baseWebSSLConfigContext}" />
+	</orch:objectEditor>
+
+</ui:composition>

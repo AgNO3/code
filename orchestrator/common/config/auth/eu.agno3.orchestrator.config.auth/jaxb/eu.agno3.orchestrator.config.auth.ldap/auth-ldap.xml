@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.config.auth.ldap"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:auth:ldap">
+		<xml-ns prefix="ldapauthc" namespace-uri="urn:agno3:model:1.0:auth:ldap" />
+		<xml-ns prefix="authc" namespace-uri="urn:agno3:model:1.0:auth" />
+		<xml-ns prefix="webc" namespace-uri="urn:agno3:model:1.0:web" />
+	</xml-schema>
+
+	<java-types>
+		<java-type name="LDAPAuthenticatorConfig" xml-accessor-type="NONE">
+			<xml-type name="ldapAuthConfigType"
+				factory-class="eu.agno3.orchestrator.config.auth.ldap.ObjectFactory"
+				factory-method="makeLDAPAuthenticatorConfig" />
+			<xml-root-element name="ldapAuthConfig" />
+			<java-attributes>
+				<xml-element name="connectionConfig" java-attribute="connectionConfig" />
+				<xml-element name="schemaConfig" java-attribute="schemaConfig" />
+
+
+				<xml-element name="disableAuthentication"
+					java-attribute="disableAuthentication" />
+
+				<xml-element name="enforcePasswordPolicy"
+					java-attribute="enforcePasswordPolicy" />
+				<xml-element name="enforcePasswordPolicyOnChange"
+					java-attribute="enforcePasswordPolicyOnChange" />
+
+				<xml-element name="addGroupNameAsRole" java-attribute="addGroupNameAsRole" />
+
+				<xml-element name="role" java-attribute="alwaysAddRoles">
+					<xml-element-wrapper name="alwaysAddRoles" />
+				</xml-element>
+
+				<xml-element name="match" java-attribute="staticRoleMappings">
+					<xml-element-wrapper name="staticRoleMappings" />
+				</xml-element>
+
+				<xml-element name="match" java-attribute="patternRoleMappings">
+					<xml-element-wrapper name="patternRoleMappings" />
+				</xml-element>
+
+				<xml-element name="enableSynchronization"
+					java-attribute="enableSynchronization" />
+
+				<xml-element name="syncOptions"
+					java-attribute="syncOptions" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="LDAPAuthSchemaConfig" xml-accessor-type="NONE">
+			<xml-type name="ldapAuthSchemaConfigType"
+				factory-class="eu.agno3.orchestrator.config.auth.ldap.ObjectFactory"
+				factory-method="makeLDAPAuthSchemaConfig" />
+			<xml-root-element name="ldapAuthSchemaConfig" />
+			<java-attributes>
+				<xml-element name="userSchema" java-attribute="userSchema" />
+				<xml-element name="groupSchema" java-attribute="groupSchema" />
+
+				<xml-element name="recursiveResolveGroups"
+					java-attribute="recursiveResolveGroups" />
+				<xml-element name="referencesAreDNs" java-attribute="referencesAreDNs" />
+				<xml-element name="useForwardGroups" java-attribute="useForwardGroups" />
+
+				<xml-element name="mapping" java-attribute="operationalAttributeMappings">
+					<xml-element-wrapper name="operationalAttributeMappings" />
+				</xml-element>
+
+
+			</java-attributes>
+		</java-type>
+
+		<java-type name="LDAPSyncOptions" xml-accessor-type="NONE">
+			<xml-type name="ldapSyncOptionsType"
+				factory-class="eu.agno3.orchestrator.config.auth.ldap.ObjectFactory"
+				factory-method="makeLDAPSyncOptions" />
+			<xml-root-element name="ldapSyncOptions" />
+			<java-attributes>
+				<xml-element name="synchronizeRemovals" java-attribute="synchronizeRemovals" />
+				<xml-element name="removeUsingUUID" java-attribute="removeUsingUUID" />
+				<xml-element name="pageSize" java-attribute="pageSize" />
+				<xml-element name="syncInterval" java-attribute="syncInterval">
+					<xml-java-type-adapter value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+	</java-types>
+</xml-bindings>

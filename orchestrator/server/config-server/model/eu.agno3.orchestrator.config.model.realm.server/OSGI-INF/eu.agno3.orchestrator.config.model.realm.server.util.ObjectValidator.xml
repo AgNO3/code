@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><components xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0">
+    <scr:component name="eu.agno3.orchestrator.config.model.realm.server.util.ObjectValidator">
+        <implementation class="eu.agno3.orchestrator.config.model.realm.server.util.ObjectValidator"/>
+        <service servicefactory="false">
+            <provide interface="eu.agno3.orchestrator.config.model.realm.server.util.ObjectValidator"/>
+        </service>
+        <reference name="Context" interface="eu.agno3.orchestrator.config.model.base.server.context.DefaultServerServiceContext" cardinality="1..1" policy="static" bind="setContext" unbind="unsetContext"/>
+        <reference name="ObjectPoolProvider" interface="eu.agno3.orchestrator.config.model.realm.server.util.ObjectPoolProvider" cardinality="1..1" policy="static" bind="setObjectPoolProvider" unbind="unsetObjectPoolProvider"/>
+        <reference name="InheritanceProxyBuilder" interface="eu.agno3.orchestrator.config.model.realm.server.util.InheritanceProxyBuilder" cardinality="1..1" policy="static" bind="setInheritanceProxyBuilder" unbind="unsetInheritanceProxyBuilder"/>
+    </scr:component>
+</components>

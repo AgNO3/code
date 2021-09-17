@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.config.hostconfig.agent.SMTPConfiguratorImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.config.hostconfig.agent.api.SMTPConfigurator"/>
+    </service>
+    <reference name="ExecutionConfig" interface="eu.agno3.orchestrator.system.base.execution.ExecutionConfigProperties" cardinality="1..1" policy="static" bind="setExecutionConfig" unbind="unsetExecutionConfig"/>
+    <reference name="PasswordGenerator" interface="eu.agno3.runtime.security.password.PasswordGenerator" cardinality="1..1" policy="static" bind="setPasswordGenerator" unbind="unsetPasswordGenerator"/>
+    <implementation class="eu.agno3.orchestrator.config.hostconfig.agent.SMTPConfiguratorImpl"/>
+</scr:component>

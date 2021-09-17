@@ -1,0 +1,25 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.runtime</groupId>
+    <artifactId>net</artifactId>
+    <version>0.0.80</version>
+  </parent>
+  <groupId>eu.agno3.runtime.net.krb5</groupId>
+  <artifactId>eu.agno3.runtime.net.krb5</artifactId>
+  <packaging>eclipse-plugin</packaging>
+  <name>Kerberos Utilities</name>
+
+  <build>
+  <plugins>
+  <plugin>
+  <groupId>org.eclipse.tycho</groupId>
+  <artifactId>tycho-compiler-plugin</artifactId>
+  <configuration>
+  <!-- not really sure why this is needed ... system bundle exports .. imports are there -->
+  <compilerArgument>-err:-forbidden</compilerArgument>
+  </configuration>
+  </plugin>
+  </plugins>
+  </build>
+</project>

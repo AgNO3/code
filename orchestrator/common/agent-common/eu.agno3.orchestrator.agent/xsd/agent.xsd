@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:sc="urn:agno3:component:1.0:config" xmlns:am="urn:agno3:agent:1.0:msg" xmlns:m="urn:agno3:message:1.0:base" xmlns:ac="urn:agno3:agent:1.0:config" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:agent:1.0:config" elementFormDefault="qualified">
+   <xsd:import schemaLocation="urn:agno3:message:1.0:base" namespace="urn:agno3:message:1.0:base"/>
+   <xsd:import schemaLocation="urn:agno3:component:1.0:config" namespace="urn:agno3:component:1.0:config"/>
+   <xsd:complexType name="agentConfigRequest">
+      <xsd:complexContent>
+         <xsd:extension base="m:xmlMarshallableMessage">
+            <xsd:sequence>
+               <xsd:element name="imageType" type="xsd:string" minOccurs="0"/>
+               <xsd:element name="address" type="xsd:string" minOccurs="0"/>
+               <xsd:element name="hostName" type="xsd:string" minOccurs="0"/>
+               <xsd:element name="buildVersion" type="xsd:long" minOccurs="0"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="agentConfigResponse">
+      <xsd:complexContent>
+         <xsd:extension base="m:xmlMarshallableMessage">
+            <xsd:sequence>
+               <xsd:element name="config" type="ac:agentConfig" minOccurs="0"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="agentConfig">
+      <xsd:complexContent>
+         <xsd:extension base="sc:componentConfig">
+            <xsd:sequence>
+               <xsd:element name="requestQueuePrefix" type="xsd:string"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:element name="agentConfigRequest" type="ac:agentConfigRequest"/>
+   <xsd:element name="agentConfigResponse" type="ac:agentConfigResponse"/>
+   <xsd:element name="agentConfig" type="ac:agentConfig"/>
+</xsd:schema>

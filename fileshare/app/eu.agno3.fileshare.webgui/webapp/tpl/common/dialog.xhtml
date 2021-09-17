@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0" class="dialog">
+
+<f:view locale="#{localeSettingsBean.userLocale}">
+
+	<ui:insert name="metadata" />
+
+	<h:head>
+		<f:facet name="first">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+			<meta name="robots" content="noindex" />
+		</f:facet>
+
+		<title>${title}</title>
+		<h:outputStylesheet name="library.static.css" library="agno3" />
+		<h:outputStylesheet name="main.static.css" library="css" />
+		<h:outputScript name="iframeResizer.contentWindow.js" library="agno3" />
+
+		<f:facet name="last">
+			<link rel="stylesheet" type="text/css"
+				href="#{resource['cfgfiles:theme.css']}" />
+		</f:facet>
+	</h:head>
+
+	<h:body styleClass="dialog">
+
+
+		<ui:include src="/tpl/common/commonbody.xhtml" />
+
+		<ui:include src="/cfgfiles/dialogHeader.xhtml" />
+
+		<ui:insert name="content">
+			<ui:include src="/tpl/common/nocontent.xhtml" />
+		</ui:insert>
+
+		<ui:include src="/cfgfiles/dialogFooter.xhtml" />
+	</h:body>
+</f:view>
+</html>

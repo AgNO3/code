@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	<display-name>Orchestrator WebGUI</display-name>
+
+	<welcome-file-list>
+		<welcome-file>index.xhtml</welcome-file>
+	</welcome-file-list>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error/notfound.xhtml</location>
+	</error-page>
+
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/error/error.xhtml</location>
+	</error-page>
+
+
+	<listener>
+		<listener-class>org.apache.webbeans.servlet.WebBeansConfigurationListener</listener-class>
+	</listener>
+
+
+	<listener>
+		<listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
+		<multipart-config>
+		</multipart-config>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>Push Servlet</servlet-name>
+		<servlet-class>eu.agno3.runtime.cdi.comet.CDIPushServlet</servlet-class>
+		<!-- <init-param>
+			<param-name>org.atmosphere.cpr.broadcasterCacheClass</param-name>
+			<param-value>org.atmosphere.cache.UUIDBroadcasterCache</param-value>
+		</init-param>
+		<init-param>
+			<param-name>org.atmosphere.cpr.AnnotationProcessor</param-name>
+			<param-value>eu.agno3.runtime.cdi.comet.CDIAnnotationProcessor</param-value>
+		</init-param>
+		<init-param>
+			<param-name>org.atmosphere.cpr.asyncSupport</param-name>
+			<param-value>org.atmosphere.container.JSR356AsyncSupport</param-value>
+		</init-param>-->
+		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Push Servlet</servlet-name>
+		<url-pattern>/primepush/*</url-pattern>
+	</servlet-mapping>
+
+	<listener>
+		<listener-class>eu.agno3.orchestrator.server.webgui.auth.SecurityEnvironmentLoaderListener</listener-class>
+	</listener>
+
+	<filter>
+		<filter-name>ShiroFilter</filter-name>
+		<filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
+		<async-supported>true</async-supported>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>ShiroFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+
+	<filter>
+		<filter-name>WS Profiling Filter</filter-name>
+		<filter-class>eu.agno3.runtime.ws.client.profiler.WebServiceClientProfilerFilter</filter-class>
+		<async-supported>true</async-supported>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>WS Profiling Filter</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+	</filter-mapping>
+
+
+	<filter>
+		<filter-name>ConversationLockFilter</filter-name>
+		<filter-class>eu.agno3.runtime.jsf.config.cdi.ConversationLockFilter</filter-class>
+		<async-supported>true</async-supported>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>ConversationLockFilter</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+	</filter-mapping>
+
+	<context-param>
+		<param-name>facelets.LIBRARIES</param-name>
+		<param-value>/WEB-INF/orch.taglib.xml</param-value>
+	</context-param>
+
+</web-app>

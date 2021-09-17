@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.fileshare.service.audit.internal.DatabaseAuditLogReaderImpl" activate="activate" modified="modified" configuration-pid="audit.reader.db">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.service.AuditReaderService"/>
+    </service>
+    <reference name="DataSource" interface="eu.agno3.runtime.db.schema.SchemaManagedDataSource" cardinality="1..1" policy="static" target="(dataSourceName=fileshare)" bind="setDataSource" unbind="unsetDataSource"/>
+    <reference name="DataSourceUtil" interface="eu.agno3.runtime.db.DataSourceUtil" cardinality="1..1" policy="static" target="(dataSourceName=fileshare)" bind="setDataSourceUtil" unbind="unsetDataSourceUtil"/>
+    <reference name="AccessControlService" interface="eu.agno3.fileshare.security.AccessControlService" cardinality="1..1" policy="static" bind="setAccessControlService" unbind="unsetAccessControlService"/>
+    <reference name="PolicyEvaluator" interface="eu.agno3.fileshare.service.api.internal.PolicyEvaluator" cardinality="1..1" policy="static" bind="setPolicyEvaluator" unbind="unsetPolicyEvaluator"/>
+    <reference name="ServiceContext" interface="eu.agno3.fileshare.service.api.internal.DefaultServiceContext" cardinality="1..1" policy="static" bind="setServiceContext" unbind="unsetServiceContext"/>
+    <reference name="VFSService" interface="eu.agno3.fileshare.service.api.internal.VFSServiceInternal" cardinality="1..1" policy="static" bind="setVFSService" unbind="unsetVFSService"/>
+    <reference name="DatabaseEventLogConfig" interface="eu.agno3.fileshare.service.audit.internal.DatabaseEventLogConfig" cardinality="1..1" policy="static" bind="setDatabaseEventLogConfig" unbind="unsetDatabaseEventLogConfig"/>
+    <implementation class="eu.agno3.fileshare.service.audit.internal.DatabaseAuditLogReaderImpl"/>
+</scr:component>

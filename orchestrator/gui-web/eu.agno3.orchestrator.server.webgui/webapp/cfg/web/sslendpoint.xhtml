@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<p:outputPanel
+		rendered="#{not empty outerWrapper.getParameter('noRevocationSupport')}">
+		<p>
+			<h:outputText value="#{_config_web['ssl.endpoint.noRevocation']}" />
+		</p>
+	</p:outputPanel>
+
+
+	<p:outputPanel id="keySelection">
+		<orch:objectFieldEditor id="keystoreAliasField"
+			inputId="keystoreAlias" path="keystoreAlias" minLevel="3"
+			update="keystoreAlias @composite:@parent:manageButtonField:manageButton @composite:@parent:keyDisplay:keyDisplayPanel">
+			<p:autoComplete id="keystoreAlias" dropdown="true"
+				completeMethod="#{sslEndpointConfigBean.getKeystoreCompleter(outerWrapper).complete}"
+				value="#{current.keystoreAlias}">
+				<p:ajax event="itemSelect" process="@this" update="@this" />
+				<p:ajax event="change" process="@this"
+					update="@this @composite:@parent:manageButtonField:manageButton @composite:@parent:keyDisplay:keyDisplayPanel" />
+			</p:autoComplete>
+		</orch:objectFieldEditor>
+
+		<orch:objectFieldEditor id="keyAliasField" inputId="keyAlias"
+			path="keyAlias" minLevel="2"
+			onlyIf="#{(not configContextUtil.isInstance(configContext)) or (not sslEndpointConfigBean.isGeneratedAlias(current.keyAlias)) or (configContext.detailLevel ge 3)}"
+			update="@composite:@parent:manageButtonField:manageButton @composite:@parent:keyDisplay:keyDisplayPanel">
+			<p:autoComplete id="keyAlias" dropdown="true"
+				completeMethod="#{sslEndpointConfigBean.getKeyAliasCompleter(outerWrapper).complete}"
+				value="#{current.keyAlias}">
+				<p:ajax event="change" process="@this"
+					update="@this @composite:@parent:manageButtonField:manageButton @composite:@parent:keyDisplay:keyDisplayPanel" />
+			</p:autoComplete>
+		</orch:objectFieldEditor>
+
+		<ag:simpleField id="keyDisplay" styleClass="noLabel"
+			onlyIf="#{configContextUtil.isInstance(configContext)}">
+			<p:panel id="keyDisplayPanel" styleClass="inline-online-editor optional-panel"
+				collapsed="true" toggleable="true" header="Certificate">
+				<iframe seamless="seamless"
+					src="#{sslEndpointConfigBean.getKeyViewUrl(outerWrapper)}" />
+
+				<h:outputScript type="text/javascript">
+			// <!-- 
+				$(document).ready(function() {
+					if (typeof (iFrameResize) == "function") {
+						iFrameResize(
+						{
+							heightCalculationMethod : (navigator.userAgent.indexOf("MSIE") !== -1) ? 'max' : 'lowestElement',
+							scrolling : true,
+							bodyMargin : "0 0 0 0"
+						}, $('.inline-online-editor iframe')[0]);
+					}
+				});
+			//  -->
+				</h:outputScript>
+			</p:panel>
+		</ag:simpleField>
+	</p:outputPanel>
+
+
+	<ag:simpleField styleClass="noLabel" id="manageButtonField"
+		onlyIf="#{configContextUtil.isInstance(configContext)}">
+		<ag:dialogOpenButton id="manageButton" icon="ui-icon-key"
+			dialog="/crypto/keystores/manageDialog.xhtml?instance=#{configContextUtil.getInstance(configContext).id}&amp;allowAnonymous=true&amp;selectionMode=single&amp;#{sslEndpointConfigBean.makeManageParams(outerWrapper)}"
+			disabled="#{not configContextUtil.isInstanceOnline(configContext)}"
+			closable="true"
+			title="#{configContextUtil.getInstanceDisabledMessage(configContext)}"
+			value="#{_gui['web.sslendpoint.manageKey']}">
+			<p:ajax event="return"
+				listener="#{sslEndpointConfigBean.getManageReturnListener(outerWrapper).returnListener}"
+				update="@composite:@parent:keySelection"
+				oncomplete="dirtyReturn(this,args)" />
+		</ag:dialogOpenButton>
+	</ag:simpleField>
+
+	<orch:objectFieldEditor inputId="securityMode" path="securityMode"
+		readOnlyValueMapper="#{sslEndpointConfigBean.translateSecurityMode}">
+		<p:selectOneMenu id="securityMode" value="#{current.securityMode}">
+			<f:selectItems value="#{sslEndpointConfigBean.securityModes}"
+				var="mode"
+				itemLabel="#{sslEndpointConfigBean.translateSecurityMode(mode)}" />
+		</p:selectOneMenu>
+	</orch:objectFieldEditor>
+
+
+	<orch:objectFieldEditor inputId="customProtocols" minLevel="3"
+		path="customProtocols" collection="true">
+		<ag:setEditor id="customProtocols"
+			comparator="#{sslEndpointConfigBean.protocolComparator}"
+			factoryMethod="#{sslEndpointConfigBean.createProtocol}"
+			value="#{current.customProtocols}">
+			<p:column>
+				<p:selectOneMenu value="#{item.value}">
+					<f:selectItems value="#{sslEndpointConfigBean.supportedProtocols}" />
+				</p:selectOneMenu>
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="customCiphers" path="customCiphers"
+		minLevel="3" collection="true">
+		<ag:listEditor id="customCiphers" value="#{current.customCiphers}">
+			<p:column>
+				<p:selectOneMenu value="#{item.value}">
+					<f:selectItems style="width: 100%"
+						value="#{sslEndpointConfigBean.supportedCiphers}" var="cipher"
+						itemLabel="#{sslEndpointConfigBean.translateCipher(cipher)}" />
+				</p:selectOneMenu>
+			</p:column>
+		</ag:listEditor>
+	</orch:objectFieldEditor>
+
+</ui:composition>

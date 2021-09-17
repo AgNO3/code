@@ -1,0 +1,819 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:shiro="http://shiro.ops4j.org/tags"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0">
+
+	<p:growl autoUpdate="true" id="msgs" life="10000" />
+
+	<p:poll interval="120" listener="#{pingBean.ping}" widgetVar="pinger"
+		update="resumeUploadPanel" />
+	<p:blockUI widgetVar="uiBlocker" blocked="true" block="form">
+		<h:outputText value="#{_msgs['files.loading']}" />
+		<p:graphicImage library="images" name="loading.gif" />
+	</p:blockUI>
+
+	<input type="hidden" name="token" value="#{userTokenBean.token}" />
+
+	<p:outputPanel id="fileBrowser"
+		styleClass="file-browser #{fileTreeBean.extraStyleClass}  #{fileRootSelectionBean.selectedRootType}"
+		pass:data-root-id="#{fileRootSelectionBean.rootContainer.entityKey}"
+		pass:data-root-type="#{fileRootSelectionBean.rootType}"
+		pass:data-root-path="#{fileDisplayBean.getFullPath(fileRootSelectionBean.rootContainer)}"
+		pass:data-root-perms="#{fileRootSelectionBean.rootPermissionsString}"
+		pass:data-root-label="#{fileRootSelectionBean.rootContainer.securityLabel.label}"
+		pass:data-label="#{fileRootSelectionBean.rootContainer.securityLabel.label}"
+		pass:data-can-replace="#{fileRootSelectionBean.rootContainer.allowFileOverwrite}"
+		pass:data-grant-id="#{fileRootSelectionBean.selectedRootGrantId}"
+		pass:data-single-level="#{fileTreeBean.singleLevel}">
+
+
+		<ui:include src="/tpl/fileToolbar.xhtml" />
+
+		<div class="file-table-container">
+			<p:treeTable binding="#{fileTreeComponentBinding.component}"
+				scrollable="false"
+				style="margin: 0; width: #{fileTableLayoutBean.totalWidth}px; overflow-x: visible; min-width: 100%"
+				styleClass="file-table drop-target no-drag" id="fileTable"
+				value="#{fileTreeBean.model}" var="entity" selectionMode="multiple"
+				selection="#{fileSelectionBean.selection}" resizableColumns="true"
+				sortBy="#{entity}"
+				sortFunction="#{fileTableSortingHelper.sortByFileName}"
+				sortOrder="ascending" liveResize="true"
+				columnOrder="#{fileTableLayoutBean.columnOrder}"
+				prefixColumns="selection actions hidden file"
+				suffixColumns="share resizeHelper" resizeMode="expand">
+
+				<f:facet name="emptyMessage">
+					<div class="drop-target" pass:data-type="dir"
+						pass:data-id="#{fileRootSelectionBean.rootContainer.entityKey}"
+						pass:data-grant-id="#{fileRootSelectionBean.rootGrant.id}"
+						style="display: inline-block; width: 100%">
+						<h:outputText styleClass="file-name-display"
+							value="#{_msgs['files.emptyDirectory']}" />
+					</div>
+				</f:facet>
+
+				<f:facet name="footer">
+					<p:overlayPanel for="tablePrefButton" widgetVar="tablePrefOverlay"
+						styleClass="table-pref-overlay" dynamic="false"
+						appendToBody="false" dismissable="true" showCloseIcon="true">
+						<p:dataTable styleClass="list-table" id="columnsTable"
+							value="#{fileTableLayoutBean.columnOrder}" draggableRows="true"
+							rowKey="#{column}" paginator="false" var="column"
+							rowSelectMode="none" dblClickSelection="true"
+							selection="#{fileTableLayoutBean.enabledColumns}">
+
+							<p:ajax event="rowSelect"
+								listener="#{fileTableLayoutBean.columnSelect}"
+								update=":form:fileTable @this" />
+							<p:ajax event="rowSelectCheckbox"
+								listener="#{fileTableLayoutBean.columnSelect}"
+								update=":form:fileTable @this" />
+							<p:ajax event="rowUnselect"
+								listener="#{fileTableLayoutBean.columnUnselect}"
+								update=":form:fileTable @this" />
+							<p:ajax event="rowUnselectCheckbox"
+								listener="#{fileTableLayoutBean.columnUnselect}"
+								update=":form:fileTable @this" />
+
+							<p:ajax event="rowReorder"
+								listener="#{fileTableLayoutBean.reorderColumns}"
+								update=":form:fileTable @this" />
+
+							<p:column selectionMode="multiple" style="width: 30px" />
+							<p:column>
+								<h:outputText
+									value="#{_msgs[fileTableLayoutBean.getColumnKey(column)]}" />
+							</p:column>
+						</p:dataTable>
+					</p:overlayPanel>
+				</f:facet>
+
+				<p:ajax event="select" listener="#{fileTreeBean.onNodeSelect}"
+					update="@parent:fileToolbar" />
+
+				<p:ajax event="unselect" listener="#{fileTreeBean.onNodeUnselect}"
+					update="@parent:fileToolbar" />
+
+				<p:ajax event="expand" process="@this"
+					listener="#{fileTreeBean.onNodeExpand}"
+					oncomplete="AgNO3FileUpload.onNodeExpanded" />
+
+				<p:ajax event="collapse" process="@this"
+					listener="#{fileTreeBean.onNodeCollapse}"
+					oncomplete="AgNO3FileUpload.onNodeCollapsed" />
+
+
+				<p:ajax event="colResize" process="@this" update="fileTable"
+					listener="#{fileTableLayoutBean.onColumnResize}" />
+
+				<p:column id="selection" styleClass="ui-static-column"
+					toggleable="false" selectionMode="multiple" style="display: none" />
+
+
+				<p:column id="actions"
+					styleClass="ui-static-column action-column first favorite soft-ajax">
+					<f:facet name="header">
+						<p:commandLink id="tablePrefButton"
+							title="#{_msgs['files.columnPreferences']}"
+							styleClass="action-link ui-icon ui-icon-gear column-preferences" />
+					</f:facet>
+
+					<ui:fragment rendered="#{currentUserBean.isAuthenticated()}">
+						<p:outputPanel style="text-align: center"
+							rendered="#{(fileDisplayBean.isFileNode(entity) or fileDisplayBean.isDirectoryNode(entity)) and (entity.type != 'group-root' and entity.type != 'user-root')}">
+							<p:commandLink
+								styleClass="action-link favorite-action ui-state-active"
+								rendered="#{userFavoritesBean.isEntityFavorite(entity.attachedObject)}"
+								action="#{userFavoritesBean.removeEntityFavorite(entity.attachedObject)}"
+								update="@parent" title="#{_msgs['files.unfavorite.title']}">
+								<span class="ui-icon ui-icon-star favorite" />
+							</p:commandLink>
+							<p:commandLink styleClass="action-link favorite-action"
+								rendered="#{not userFavoritesBean.isEntityFavorite(entity.attachedObject)}"
+								action="#{userFavoritesBean.makeEntityFavorite(entity.attachedObject)}"
+								update="@parent" title="#{_msgs['files.favorite.title']}">
+								<span class="ui-icon ui-icon-star no-favorite ui-state-inactive" />
+							</p:commandLink>
+						</p:outputPanel>
+
+						<p:outputPanel rendered="#{fileDisplayBean.isSubjectNode(entity)}">
+							<p:commandLink
+								styleClass="action-link favorite-action ui-state-active"
+								rendered="#{userFavoritesBean.isSubjectFavorite(fileDisplayBean.getSubject(entity))}"
+								action="#{userFavoritesBean.removeSubjectFavorite(fileDisplayBean.getSubject(entity))}"
+								update="@parent" title="#{_msgs['files.unshortcut.title']}">
+								<span class="ui-icon ui-icon-star favorite" />
+							</p:commandLink>
+							<p:commandLink styleClass="action-link favorite-action"
+								rendered="#{not userFavoritesBean.isSubjectFavorite(fileDisplayBean.getSubject(entity))}"
+								action="#{userFavoritesBean.makeSubjectFavorite(fileDisplayBean.getSubject(entity))}"
+								update="@parent" title="#{_msgs['files.shortcut.title']}">
+								<span class="ui-icon ui-icon-star no-favorite ui-state-inactive" />
+							</p:commandLink>
+						</p:outputPanel>
+
+						<p:outputPanel rendered="#{fileDisplayBean.isPeerNode(entity)}">
+							<p:commandLink
+								styleClass="action-link favorite-action ui-state-active"
+								rendered="#{userFavoritesBean.isPeerFavorite(fileDisplayBean.getPeer(entity))}"
+								action="#{userFavoritesBean.removePeerFavorite(fileDisplayBean.getPeer(entity))}"
+								update="@parent" title="#{_msgs['files.unshortcut.title']}">
+								<span class="ui-icon ui-icon-star favorite" />
+							</p:commandLink>
+							<p:commandLink styleClass="action-link favorite-action"
+								rendered="#{not userFavoritesBean.isPeerFavorite(fileDisplayBean.getPeer(entity))}"
+								action="#{userFavoritesBean.makePeerFavorite(fileDisplayBean.getPeer(entity))}"
+								update="@parent" title="#{_msgs['files.shortcut.title']}">
+								<span class="ui-icon ui-icon-star no-favorite ui-state-inactive" />
+							</p:commandLink>
+						</p:outputPanel>
+					</ui:fragment>
+				</p:column>
+
+				<p:column id="hidden" rendered="#{treeFilterBean.includesHidden()}"
+					styleClass="ui-static-column action-column hidden soft-ajax">
+					<p:outputPanel rendered="#{userHidingBean.isHideable(entity)}">
+						<p:commandLink rendered="#{userHidingBean.isHidden(entity)}"
+							action="#{userHidingBean.makeSingleVisible(entity)}"
+							update="@parent" title="#{_msgs['files.unhide.title']}"
+							styleClass="ui-state-active">
+							<span class="ui-icon ui-icon-hidden hidden flag-active" />
+						</p:commandLink>
+						<p:commandLink rendered="#{not userHidingBean.isHidden(entity)}"
+							action="#{userHidingBean.makeSingleHidden(entity)}"
+							update="@parent" title="#{_msgs['files.hide.title']}">
+							<span class="ui-icon ui-icon-visible visible ui-state-inactive" />
+						</p:commandLink>
+					</p:outputPanel>
+				</p:column>
+
+				<p:column
+					style="width: #{fileTableLayoutBean.getColumnWidth('file')}"
+					styleClass="file-column" id="file" sortBy="#{entity}"
+					sortFunction="#{fileTableSortingHelper.sortByFileName}">
+					<f:facet name="header">
+						<h:outputText styleClass="ui-column-title column-title"
+							value="#{_msgs['filetable.column.file']}" />
+					</f:facet>
+					<p:outputPanel
+						rendered="#{fileTreeBean.singleLevel and (not entity.isVirtualEmpty()) and (not entity.isLabelNode())}"
+						styleClass="#{fileDisplayBean.getEntityDropClass(entity)}"
+						pass:data-type="#{entity.type}"
+						pass:data-collabsible="#{fileDisplayBean.isCollabsible(entity)}"
+						pass:data-collapsed-icon="#{fileDisplayBean.getCollapsedEntityIconClass(entity)}"
+						pass:data-expanded-icon="#{fileDisplayBean.getExpandedEntityIconClass(entity)}"
+						pass:data-can-replace="#{filePermissionBean.canOverwrite(entity)}"
+						pass:data-id="#{fileDisplayBean.getEntityId(entity.attachedObject)}"
+						pass:data-grant-id="#{fileDisplayBean.getGrantId(entity)}"
+						pass:data-label="#{fileDisplayBean.getLabelString(entity)}"
+						pass:data-preview="#{fileDownloadController.makePreviewURL(entity, fileRootSelectionBean.selectedRootType)}"
+						style="display: inline-block; width:100%">
+
+						<h:outputText value=""
+							style="width: ${entity.depth-1}em; display: inline-block" />
+						<h:outputText
+							styleClass="ui-icon file-icon ui-icon-inline ${fileDisplayBean.getEntityIconClass(entity)}" />
+
+						<p:commandLink styleClass="single-level-file-name"
+							rendered="#{not fileDisplayBean.isFileNode(entity)}"
+							title="#{fileDisplayBean.getEntityLocalDisplayName(entity)}"
+							target="#{fileNavigationBean.getSingleLevelFrameTarget(entity)}"
+							action="#{fileNavigationBean.getSingleLevelTarget(entity)}">
+							<h:outputText styleClass="file-name-display ui-corner-all"
+								value="#{fileDisplayBean.getTruncatedEntityLocalDisplayName(entity)}" />
+						</p:commandLink>
+						<ui:fragment
+							rendered="#{fileDisplayBean.isFileNode(entity) and filePermissionBean.canRead(entity)}">
+							<a class="single-level-file-name view-action" href="#"
+								onclick="AgNO3FileUpload.openPreview(this); return false;"
+								title="#{fileDisplayBean.getEntityLocalDisplayName(entity)}"><h:outputText
+									styleClass="file-name-display ui-corner-all #{fileDisplayBean.getFileNameStyleClass(entity)}"
+									value="#{fileDisplayBean.getTruncatedEntityLocalDisplayName(entity)}" />
+							</a>
+						</ui:fragment>
+						<p:outputPanel style="display: inline"
+							rendered="#{fileDisplayBean.isFileNode(entity) and not filePermissionBean.canRead(entity)}"
+							styleClass="single-level-file-name">
+							<h:outputText
+								styleClass="file-name-display ui-corner-all  #{fileDisplayBean.getFileNameStyleClass(entity)}"
+								title="#{fileDisplayBean.getEntityLocalDisplayName(entity)}"
+								value="#{fileDisplayBean.getTruncatedEntityLocalDisplayName(entity)}" />
+						</p:outputPanel>
+						<h:outputFormat rendered="#{fileDisplayBean.expiresSoon(entity)}"
+							styleClass="expires-soon ui-state-error small"
+							value="#{_msgs['files.expiresSoonFmt']}">
+							<f:param
+								value="#{fileDisplayBean.getRemainingExpiryTime(entity)}" />
+						</h:outputFormat>
+					</p:outputPanel>
+
+					<p:outputPanel
+						rendered="#{(not fileTreeBean.singleLevel) and (not entity.isVirtualEmpty()) and (not entity.isLabelNode())}"
+						styleClass="#{fileDisplayBean.getEntityDropClass(entity)}"
+						pass:data-type="#{entity.type}"
+						pass:data-collabsible="#{fileDisplayBean.isCollabsible(entity)}"
+						pass:data-collapsed-icon="#{fileDisplayBean.getCollapsedEntityIconClass(entity)}"
+						pass:data-expanded-icon="#{fileDisplayBean.getExpandedEntityIconClass(entity)}"
+						pass:data-grant-id="#{fileDisplayBean.getGrantId(entity)}"
+						pass:data-can-replace="#{filePermissionBean.canOverwrite(entity)}"
+						pass:data-id="#{fileDisplayBean.getEntityId(entity.attachedObject)}"
+						pass:data-label="#{fileDisplayBean.getLabelString(entity)}"
+						pass:data-preview="#{fileDownloadController.makePreviewURL(entity, fileRootSelectionBean.selectedRootType)}"
+						style="display: inline-block; width:100%">
+						<h:outputText value=""
+							style="width: ${entity.depth-1}em; display: inline-block" />
+
+
+						<ui:fragment rendered="#{not fileDisplayBean.isFileNode(entity)}">
+							<a class="file-name"
+								title="#{fileDisplayBean.getEntityLocalDisplayName(entity)}">
+								<h:outputText
+									styleClass="ui-icon file-icon ui-icon-inline ${fileDisplayBean.getEntityIconClass(entity)}"
+									style="display: inline-block;" /> <h:outputText
+									styleClass="file-name-display ui-corner-all #{fileDisplayBean.getFileNameStyleClass(entity)}"
+									value="#{fileDisplayBean.getTruncatedEntityLocalDisplayName(entity)}" />
+							</a>
+						</ui:fragment>
+
+						<ui:fragment rendered="#{fileDisplayBean.isFileNode(entity)}">
+							<a class="file-name view-action" href="#"
+								onclick="AgNO3FileUpload.openPreview(this); return false;"
+								title="#{fileDisplayBean.getEntityLocalDisplayName(entity)}">
+								<h:outputText
+									styleClass="ui-icon file-icon ui-icon-inline ${fileDisplayBean.getEntityIconClass(entity)}"
+									style="display: inline-block;" /> <h:outputText
+									styleClass="file-name-display ui-corner-all #{fileDisplayBean.getFileNameStyleClass(entity)}"
+									value="#{fileDisplayBean.getTruncatedEntityLocalDisplayName(entity)}" />
+							</a>
+						</ui:fragment>
+
+						<h:outputFormat rendered="#{fileDisplayBean.expiresSoon(entity)}"
+							styleClass="expires-soon ui-state-error small"
+							value="#{_msgs['files.expiresSoonFmt']}">
+							<f:param
+								value="#{fileDisplayBean.getRemainingExpiryTime(entity)}" />
+						</h:outputFormat>
+					</p:outputPanel>
+
+					<p:outputPanel
+						rendered="#{entity.isVirtualEmpty() and not entity.isLabelNode()}"
+						styleClass="no-drag #{fileDisplayBean.getEntityDropClass(entity)}"
+						pass:data-type="#{entity.type}" pass:data-collabsible="false"
+						pass:data-grant-id="#{fileDisplayBean.getGrantId(entity)}"
+						pass:data-can-replace="#{filePermissionBean.canOverwrite(entity)}"
+						pass:data-label="#{fileDisplayBean.getLabelString(entity)}"
+						pass:data-id="#{fileDisplayBean.getEntityId(entity.attachedObject)}"
+						style="display: inline-block; width:100%">
+						<h:outputText rendered="#{not fileTreeBean.singleLevel}" value=""
+							style="width: ${entity.depth-1}em; display: inline-block" />
+
+
+						<h:outputText
+							styleClass="ui-icon file-icon empty ui-icon-inline #{fileDisplayBean.getEntityIconClass(entity)}" />
+
+						<p
+							style="display: inline-block; width: 90%; margin: 0; padding: 0; white-space: normal">
+							<h:outputText styleClass="file-name"
+								title="#{fileDisplayBean.getEntityLocalDisplayName(entity)}"
+								value="#{fileDisplayBean.getEmptyNodeDisplayName(entity)}" />
+						</p>
+					</p:outputPanel>
+
+					<p:outputPanel rendered="#{entity.isLabelNode()}">
+						<h:outputText rendered="#{not fileTreeBean.singleLevel}" value=""
+							style="width: ${entity.depth-1}em; display: inline-block" />
+
+						<p class="label-node">
+							<span
+								class="ui-icon file-icon ui-icon-inline #{fileDisplayBean.getEntityIconClass(entity)}" />
+							<h:outputText styleClass="file-name"
+								value="#{fileDisplayBean.getLabelNodeDisplayName(entity)}" />
+						</p>
+					</p:outputPanel>
+
+					<fs:quotaDisplay
+						rendered="#{entity.type == 'group-root' and groupQuotaBean.haveGroupQuota(entity.attachedObject)}"
+						style="margin-left: -8em; width: 8em; font-size: 7pt; line-height: 7pt"
+						usedPercent="#{groupQuotaBean.getGroupQuotaUsagePercent(entity.attachedObject)}"
+						shortInfo="#{groupQuotaBean.getFormattedQuotaUsagePercent(entity.attachedObject)}"
+						longInfo="#{groupQuotaBean.getFormattedQuotaDetail(entity.attachedObject)}" />
+
+					<p:commandLink
+						rendered="#{fileDisplayBean.isFileNode(entity) and filePermissionBean.canRead(entity)}"
+						disabled="#{not policyBean.isPolicyFulfilled(entity.attachedObject.securityLabel)}"
+						styleClass="download-link action-link download-action"
+						action="#{fileDownloadController.download(entity.attachedObject, entity.grant, userTokenBean)}">
+						<h:outputText styleClass="ui-icon ui-icon-inline ui-icon-download" />
+					</p:commandLink>
+				</p:column>
+
+				<p:column id="size"
+					rendered="${fileRootSelectionBean.selectedType != 'peers-root' and fileTableLayoutBean.showColumn('size')}"
+					style="width: #{fileTableLayoutBean.getColumnWidth('size')}; text-align: right;"
+					styleClass="#{fileTableLayoutBean.getClassIfDefaultEnabled('size')}"
+					sortBy="#{entity}"
+					sortFunction="#{fileTableSortingHelper.sortByFileSize}">
+					<f:facet name="header">
+						<h:outputText styleClass="ui-column-title column-title"
+							value="#{_msgs['filetable.column.size']}" />
+						<h:commandLink styleClass="hide-column"
+							actionListener="#{fileTableLayoutBean.hideColumn('size')}">
+							<span class="ui-icon ui-icon-close" />
+						</h:commandLink>
+					</f:facet>
+					<h:outputText
+						rendered="#{filePermissionBean.canReadOrIsCreator(entity) and fileDisplayBean.isFileNode(entity)}"
+						value="#{ag:formatByteSizeSI(entity.attachedObject.fileSize)}" />
+					<h:outputText
+						rendered="#{filePermissionBean.canRead(entity) and fileDisplayBean.isDirectoryNode(entity)}"
+						value="#{ag:formatByteSizeSI(entity.attachedObject.childrenSize)}" />
+				</p:column>
+
+
+				<p:column id="type"
+					rendered="${fileTableLayoutBean.showColumn('type')}"
+					style="width: #{fileTableLayoutBean.getColumnWidth('type')}"
+					styleClass="#{fileTableLayoutBean.getClassIfDefaultEnabled('type')}"
+					sortBy="#{entity}"
+					sortFunction="#{fileTableSortingHelper.sortByFileType}">
+					<f:facet name="header">
+						<h:outputText styleClass="ui-column-title column-title"
+							value="#{_msgs['filetable.column.type']}" />
+						<h:commandLink styleClass="hide-column"
+							actionListener="#{fileTableLayoutBean.hideColumn('type')}">
+							<span class="ui-icon ui-icon-close" />
+						</h:commandLink>
+					</f:facet>
+					<h:outputText
+						value="#{fileDisplayBean.getDisplayEntityType(entity)}" />
+				</p:column>
+
+				<p:column id="peer"
+					rendered="${fileRootSelectionBean.selectedType == 'peers-root' and fileTableLayoutBean.showColumn('peer')}"
+					style="width: #{fileTableLayoutBean.getColumnWidth('peer')}">
+					<f:facet name="header">
+						<h:outputText styleClass="ui-column-title column-title"
+							value="#{_msgs['filetable.column.peer']}" />
+						<h:commandLink styleClass="hide-column"
+							actionListener="#{fileTableLayoutBean.hideColumn('peer')}">
+							<span class="ui-icon ui-icon-close" />
+						</h:commandLink>
+					</f:facet>
+
+					<h:outputText rendered="#{fileDisplayBean.isPeerNode(entity)}"
+						style="display: block; color: #{userTrustBean.getPeerDisplayTrustLevelColor(entity.attachedObject)}"
+						value="#{userTrustBean.getPeerDisplayTrustLevelTitle(entity.attachedObject)}" />
+				</p:column>
+
+
+				<p:column id="creator" toggleable="true"
+					rendered="${fileRootSelectionBean.selectedType != 'peers-root' and fileTableLayoutBean.showColumn('creator')}"
+					style="width: #{fileTableLayoutBean.getColumnWidth('creator')}"
+					sortBy="#{entity}"
+					sortFunction="#{fileTableSortingHelper.sortByCreator}">
+					<f:facet name="header">
+						<h:outputText styleClass="ui-column-title column-title"
+							value="#{_msgs['filetable.column.creator']}" />
+						<h:commandLink styleClass="hide-column"
+							actionListener="#{fileTableLayoutBean.hideColumn('creator')}">
+							<span class="ui-icon ui-icon-close" />
+						</h:commandLink>
+					</f:facet>
+					<fs:userOrGrant
+						rendered="#{filePermissionBean.canReadOrIsCreator(entity) and (fileDisplayBean.isFileNode(entity) or fileDisplayBean.isDirectoryNode(entity))}"
+						user="#{entity.attachedObject.creator}"
+						grant="#{entity.attachedObject.creatorGrant}" />
+				</p:column>
+
+
+				<p:column id="created" toggleable="true"
+					rendered="${fileRootSelectionBean.selectedType != 'peers-root' and fileTableLayoutBean.showColumn('created')}"
+					style="width: #{fileTableLayoutBean.getColumnWidth('created')};"
+					sortBy="#{entity}"
+					sortFunction="#{fileTableSortingHelper.sortByCreated}">
+					<f:facet name="header">
+						<h:outputText styleClass="ui-column-title column-title"
+							value="#{_msgs['filetable.column.created']}" />
+						<h:commandLink styleClass="hide-column"
+							actionListener="#{fileTableLayoutBean.hideColumn('created')}">
+							<span class="ui-icon ui-icon-close" />
+						</h:commandLink>
+					</f:facet>
+					<h:outputText
+						rendered="#{filePermissionBean.canReadOrIsCreator(entity) and (fileDisplayBean.isFileNode(entity) or fileDisplayBean.isDirectoryNode(entity))}"
+						title="#{localeSettingsBean.formatDateTime(entity.attachedObject.created, 'SM')}"
+						value="#{localeSettingsBean.formatDateTimeRelative(entity.attachedObject.created)}" />
+				</p:column>
+
+				<p:column id="lastModifier" toggleable="true"
+					rendered="${fileRootSelectionBean.selectedType != 'peers-root' and fileTableLayoutBean.showColumn('lastModifier')}"
+					style="width: #{fileTableLayoutBean.getColumnWidth('lastModifier')}"
+					sortBy="#{entity}"
+					sortFunction="#{fileTableSortingHelper.sortByLastModifier}">
+					<f:facet name="header">
+						<h:outputText styleClass="ui-column-title column-title"
+							value="#{_msgs['filetable.column.lastModifier']}" />
+						<h:commandLink styleClass="hide-column"
+							actionListener="#{fileTableLayoutBean.hideColumn('lastModifier')}">
+							<span class="ui-icon ui-icon-close" />
+						</h:commandLink>
+					</f:facet>
+					<fs:userOrGrant
+						rendered="#{filePermissionBean.canReadOrIsCreator(entity) and (fileDisplayBean.isFileNode(entity) or fileDisplayBean.isDirectoryNode(entity))}"
+						user="#{entity.attachedObject.lastModifier}"
+						grant="#{entity.attachedObject.lastModifiedGrant}" />
+				</p:column>
+
+				<p:column id="lastModified" toggleable="true"
+					rendered="${fileRootSelectionBean.selectedType != 'peers-root' and fileTableLayoutBean.showColumn('lastModified')}"
+					styleClass="#{fileTableLayoutBean.getClassIfDefaultEnabled('lastModified')}"
+					style="width: #{fileTableLayoutBean.getColumnWidth('lastModified')};"
+					sortBy="#{entity}"
+					sortFunction="#{fileTableSortingHelper.sortByLastModified}">
+					<f:facet name="header">
+						<h:outputText styleClass="ui-column-title column-title"
+							value="#{_msgs['filetable.column.lastModified']}" />
+						<h:commandLink styleClass="hide-column"
+							actionListener="#{fileTableLayoutBean.hideColumn('lastModified')}">
+							<span class="ui-icon ui-icon-close" />
+						</h:commandLink>
+					</f:facet>
+					<h:outputText
+						rendered="#{filePermissionBean.canReadOrIsCreator(entity) and (fileDisplayBean.isFileNode(entity) or fileDisplayBean.isDirectoryNode(entity))}"
+						title="#{localeSettingsBean.formatDateTime(entity.attachedObject.lastModified, 'SM')}"
+						value="#{localeSettingsBean.formatDateTimeRelative(entity.attachedObject.lastModified)}" />
+				</p:column>
+
+				<p:column id="expires" toggleable="true"
+					rendered="${fileRootSelectionBean.selectedType != 'peers-root' and fileTableLayoutBean.showColumn('expires')}"
+					style="width: #{fileTableLayoutBean.getColumnWidth('expires')};"
+					sortBy="#{entity.attachedObject.expires}">
+					<f:facet name="header">
+						<h:outputText styleClass="ui-column-title column-title"
+							value="#{_msgs['filetable.column.expires']}" />
+						<h:commandLink styleClass="hide-column"
+							actionListener="#{fileTableLayoutBean.hideColumn('expires')}">
+							<span class="ui-icon ui-icon-close" />
+						</h:commandLink>
+					</f:facet>
+					<h:outputText
+						title="#{msgs.formatEL('files.expiresRemainFmt', 
+							fileDisplayBean.getRemainingExpiryTime(entity), localeSettingsBean.formatDateTime(entity.attachedObject.expires, 'S-'))}"
+						styleClass="#{fileDisplayBean.getExpirationStyleClass(entity)}"
+						rendered="#{filePermissionBean.canReadOrIsCreator(entity) and (fileDisplayBean.isFileNode(entity) or fileDisplayBean.isDirectoryNode(entity))}"
+						value="#{localeSettingsBean.formatDateTimeRelative(entity.attachedObject.expires)}" />
+				</p:column>
+
+				<p:column id="label" toggleable="true"
+					rendered="${fileRootSelectionBean.selectedType != 'peers-root' and fileTableLayoutBean.showColumn('label')}"
+					style="width: #{fileTableLayoutBean.getColumnWidth('label')}"
+					sortBy="#{entity.attachedObject.securityLabel.label}">
+					<f:facet name="header">
+						<h:outputText styleClass="ui-column-title column-title"
+							value="#{_msgs['filetable.column.label']}" />
+						<h:commandLink styleClass="hide-column"
+							actionListener="#{fileTableLayoutBean.hideColumn('label')}">
+							<span class="ui-icon ui-icon-close" />
+						</h:commandLink>
+					</f:facet>
+					<h:outputText
+						rendered="#{filePermissionBean.canReadOrIsCreator(entity) and (fileDisplayBean.isFileNode(entity) or fileDisplayBean.isDirectoryNode(entity))}"
+						value="#{securityLabelBean.translateSecurityLabel(entity.attachedObject.securityLabel)}" />
+				</p:column>
+
+				<p:column id="owner" toggleable="true"
+					rendered="${fileRootSelectionBean.selectedType != 'peers-root' and fileTableLayoutBean.showColumn('owner')}"
+					sortBy="#{entity}"
+					style="width: #{fileTableLayoutBean.getColumnWidth('owner')}"
+					sortFunction="#{fileTableSortingHelper.sortByOwner}">
+					<f:facet name="header">
+						<h:outputText styleClass="ui-column-title column-title"
+							value="#{_msgs['filetable.column.owner']}" />
+						<h:commandLink styleClass="hide-column"
+							actionListener="#{fileTableLayoutBean.hideColumn('owner')}">
+							<span class="ui-icon ui-icon-close" />
+						</h:commandLink>
+					</f:facet>
+
+					<fs:userOrGrant
+						rendered="#{fileDisplayBean.isEntityNode(entity) and subjectDisplayBean.isUser(entity.attachedObject.owner)}"
+						user="#{entity.attachedObject.owner}" />
+
+					<p:outputPanel
+						rendered="#{fileDisplayBean.isEntityNode(entity) and subjectDisplayBean.isGroup(entity.attachedObject.owner)}">
+						<span class="ui-icon ui-icon-inline ui-icon-star" />
+						<h:outputText value="#{entity.attachedObject.owner.name}" />
+					</p:outputPanel>
+				</p:column>
+
+				<p:column id="share" styleClass="share-action"
+					rendered="${fileRootSelectionBean.selectedType != 'peers-root'  and fileTableLayoutBean.showColumn('share')}"
+					style="width: #{fileTableLayoutBean.getColumnWidth('share')};"
+					resizable="true">
+					<f:facet name="header">
+						<h:outputText styleClass="ui-column-title column-title"
+							value="#{_msgs['filetable.column.share']}" />
+						<h:commandLink styleClass="hide-column"
+							actionListener="#{fileTableLayoutBean.hideColumn('share')}">
+							<span class="ui-icon ui-icon-close" />
+						</h:commandLink>
+					</f:facet>
+
+					<ui:fragment
+						rendered="#{(fileDisplayBean.isFileNode(entity) or fileDisplayBean.isDirectoryNode(entity)) and not fileDisplayBean.isRootNode(entity)}">
+						<ui:fragment
+							rendered="#{not filePermissionBean.isOwner(entity.attachedObject)}">
+							<p:outputPanel id="sharedDisplay" styleClass="shrbutton notowner">
+								<fs:userOrGrant style="display:inline-block"
+									user="#{entity.attachedObject.owner}" />
+							</p:outputPanel>
+
+							<p:tooltip for="sharedDisplay"
+								rendered="#{not empty entity.grant}">
+								<fs:userDetails deferred="false"
+									subject="#{entity.attachedObject.owner}" />
+								<h:outputFormat value="#{_msgs['share.display.expiresFmt']}">
+									<f:param
+										value="#{localeSettingsBean.formatDateTime(entity.grant.expires, 'LL')}" />
+								</h:outputFormat>
+							</p:tooltip>
+						</ui:fragment>
+						<ui:fragment
+							rendered="#{filePermissionBean.isOwner(entity.attachedObject) and fileDisplayBean.isShared(entity.attachedObject, false)}">
+							<ui:repeat var="g"
+								value="#{subjectDisplayBean.getOrderedFirstEntityGrants(entity.attachedObject, 4)}">
+
+								<h:outputText rendered="#{shareDisplayBean.isSubjectGrant(g)}"
+									styleClass="grant-list #{subjectDisplayBean.getGrantClass(g)}"
+									style="#{userTrustBean.getDisplayGrantTrustLevelStyle(g)}"
+									value="#{subjectDisplayBean.getAbbreviatedGrantName(g)}"
+									title="#{msgs.formatEL('share.display.grantTitleFmt', 
+								subjectDisplayBean.getGrantType(g), subjectDisplayBean.getGrantDisplayName(g), sharePermissionsBean.getPermLabel(g.perms))}" />
+
+								<h:outputText rendered="#{shareDisplayBean.isTokenGrant(g)}"
+									styleClass="grant-list #{subjectDisplayBean.getGrantClass(g)} ui-icon ui-icon-inline ui-icon-link"
+									style="#{userTrustBean.getDisplayGrantTrustLevelStyle(g)}"
+									title="#{msgs.formatEL('share.display.grantTitleFmt', 
+								subjectDisplayBean.getGrantType(g), subjectDisplayBean.getGrantDisplayName(g), sharePermissionsBean.getPermLabel(g.perms))}" />
+
+								<h:outputText rendered="#{shareDisplayBean.isMailGrant(g)}"
+									styleClass="grant-list #{subjectDisplayBean.getGrantClass(g)} ui-icon ui-icon-inline ui-icon-mail-closed"
+									style="#{userTrustBean.getDisplayGrantTrustLevelStyle(g)}"
+									title="#{msgs.formatEL('share.display.grantTitleFmt', 
+								subjectDisplayBean.getGrantType(g), subjectDisplayBean.getGrantDisplayName(g), sharePermissionsBean.getPermLabel(g.perms))}" />
+							</ui:repeat>
+
+							<h:outputText style="font-weight: bold" styleClass="min-medium"
+								rendered="#{cc.attrs.entity.localValidGrants.size() gt 4}"
+								value="#{_msgs['share.display.hasMore']}" />
+						</ui:fragment>
+					</ui:fragment>
+				</p:column>
+
+				<p:column id="resizeHelper" resizable="true"
+					styleClass="resizeHelper"
+					style="min-width: 15px; width: auto; padding: 0">
+					<span />
+				</p:column>
+			</p:treeTable>
+		</div>
+
+		<p:outputPanel
+			rendered="#{fileTreeBean.singleLevel and (not empty fileRootSelectionBean.rootContainer) and (fileRootSelectionBean.haveRootPermission('UPLOAD') or fileRootSelectionBean.haveRootPermission('EDIT'))}"
+			pass:data-id="#{fileRootSelectionBean.rootContainer.entityKey}"
+			pass:data-grant-id="#{fileRootSelectionBean.selectedRootGrantId}"
+			pass:data-label="#{fileRootSelectionBean.rootContainer.securityLabel.label}"
+			pass:data-type="#{fileRootSelectionBean.rootType}"
+			pass:data-can-replace="#{fileRootSelectionBean.rootContainer.allowFileOverwrite}"
+			styleClass="root-drop-zone drop-target no-drag" style="height: 100%">
+
+			<div class="drop-info no-drag">
+				<h:graphicImage styleClass="no-drag" library="type-icons"
+					name="_blank.png" />
+				<span><span><h:outputText
+							value="#{_msgs['files.dropZoneBegin']}" /></span> <a href="#"
+					style="display: inline"
+					onclick="$('.top-container-menu button.upload-action').click(); return false;"><h:outputText
+							value="#{_msgs['files.dropZoneUploadLink']}" /></a> <span><h:outputText
+							value="#{_msgs['files.dropZoneEnd']}" /></span></span>
+			</div>
+		</p:outputPanel>
+
+
+		<p:dialog id="fileUploadDialog" dynamic="false" visible="false"
+			header="#{_msgs['files.uploadHeader']}" pass:data-upload-target=""
+			style="min-width: 60%; min-height: 50%" modal="true" closable="false"
+			resizable="false" widgetVar="fileUploadDialog" collapsed="true"
+			styleClass="drop-target no-drag upload-dialog" toggleable="true">
+
+			<div class="upload-target-file" style="display: none">
+				<h4>
+					<h:outputText value="#{_msgs['files.replaceFileTitleBegin']}" />
+					<q class="upload-target-name" />
+				</h4>
+			</div>
+
+			<div class="upload-target-dir" style="display: none">
+				<h4>
+					<h:outputText value="#{_msgs['files.uploadFileTitleBegin']}" />
+					<q class="upload-target-name" />
+				</h4>
+			</div>
+
+			<div class="upload-target-replace" style="display: none">
+				<label for="replaceFiles"><h:outputText
+						value="#{_msgs['files.replaceFiles.label']}" /></label> <input
+					type="checkbox" style="margin-left: 1em; vertical-align: top"
+					class="replace-files" />
+			</div>
+
+			<div style="max-height: 30em; overflow-y: auto">
+				<p:fileUpload id="fileUpload" styleClass="file-upload"
+					dragDropSupport="true" mode="advanced" multiple="true" auto="true"
+					oncomplete="AgNO3FileUpload.onUploadComplete(this);"
+					fileUploadListener="#{fileUploadBean.handleFileUpload}" />
+			</div>
+
+
+			<div class="buttons">
+				<h:outputLink styleClass="new-window button ui-widget ui-button"
+					style="display:none" target="_blank"
+					value="#{navigationController.currentUri}">
+					<span class="ui-icon ui-icon-inline ui-icon-extlink" />
+					<h:outputText value="#{_msgs['upload.newWindow']}" />
+				</h:outputLink>
+
+				<p:button styleClass="close-upload" href="#" icon="ui-icon-close"
+					value="#{_msgs['upload.close']}"
+					onclick="AgNO3FileUpload.closeUploadDialog(this); return false;" />
+			</div>
+		</p:dialog>
+
+		<p:remoteCommand id="checkNamingConflict" name="checkNamingConflict"
+			actionListener="#{fileUploadBean.checkNameConflict}" />
+
+		<p:remoteCommand id="checkUpload" name="checkUpload"
+			actionListener="#{fileUploadBean.checkUploadCommand}" />
+
+		<p:remoteCommand id="refreshFileView" name="refreshFileView"
+			actionListener="#{fileTreeBean.refresh}" update="fileTable" />
+
+		<p:dialog dynamic="false" visible="false" modal="true"
+			resizable="false" closable="false" widgetVar="confirmReplaceDialog"
+			header="#{_msgs['files.replaceConfirm.title']}">
+			<p>
+				<h:outputText value="#{_msgs['files.replaceConfirm.existsBegin']}" />
+				<q class="replace-file-name" />
+				<h:outputText value="#{_msgs['files.replaceConfirm.existsEnd']}" />
+				<br />
+				<h:outputText value="#{_msgs['files.replaceConfirm.extraMessage']}" />
+			</p>
+
+
+			<div class="buttons">
+				<p:button styleClass="replace" href="#" onclick="return false;"
+					value="#{_msgs['files.replaceConfirm.replace']}" />
+				<p:button styleClass="replaceAll" href="#" onclick="return false;"
+					value="#{_msgs['files.replaceConfirm.replaceAll']}" />
+				<p:button styleClass="rename" href="#" onclick="return false;"
+					value="#{_msgs['files.replaceConfirm.rename']}" />
+				<p:button styleClass="renameAll" href="#" onclick="return false;"
+					value="#{_msgs['files.replaceConfirm.renameAll']}" />
+				<p:button styleClass="skip" href="#" onclick="return false;"
+					value="#{_msgs['files.replaceConfirm.skip']}" />
+			</div>
+		</p:dialog>
+
+		<ag:dialogOpenHotkey bind="del" delay="1000"
+			dialog="/actions/delete.xhtml?files=#{urlFileSelectionUtil.encodedMultiSelectionFromSelection}#{userTokenBean.tokenQueryArg}">
+			<p:ajax event="return"
+				listener="#{fileTreeBean.refreshAndClearSelectionIfTrue}"
+				update="fileTable fileToolbar @form:msgs"
+				oncomplete="window.focus();" />
+		</ag:dialogOpenHotkey>
+
+		<p:hotkey bind="r" update="fileTable"
+			actionListener="#{fileTreeBean.refresh}" />
+
+		<p:outputPanel id="none" style="display: none" />
+
+		<p:remoteCommand name="handleFileMove"
+			actionListener="#{dragDropController.onDrop}" process="fileTable"
+			update="fileTable" />
+
+		<p:remoteCommand name="handleUploadError" delay="1000"
+			actionListener="#{chunkUploadBean.refreshNow()}"
+			update="resumeUploadPanel" />
+
+		<p:dialog widgetVar="previewDialog" modal="true" resizable="false"
+			styleClass="preview-dialog" closable="true" closeOnEscape="true"
+			onHide="AgNO3FileUpload.closePreview">
+			<f:facet name="header">
+				<a href="#" class="action-link prev-action"> <span
+					class="ui-icon ui-icon-inline ui-icon-seek-prev" />
+				</a>
+				<a href="#" class="action-link next-action"> <span
+					class="ui-icon ui-icon-inline ui-icon-seek-next" />
+				</a>
+
+				<span class="preview-file-name" />
+			</f:facet>
+			<div class="loading" style="display: none">
+				<p:graphicImage library="images" name="loading.gif" />
+				<h:outputText value="#{_msgs['files.loading']}" />
+			</div>
+			<iframe src="about:blank"> </iframe>
+		</p:dialog>
+
+
+		<h:outputText style="display: none" styleClass="message-upload-fail"
+			value="#{_msgs['errors.uploadFail']}" />
+		<h:outputText style="display: none"
+			styleClass="message-upload-fail-start"
+			value="#{_msgs['errors.uploadFailStart']}" />
+		<h:outputText style="display: none"
+			styleClass="message-no-folder-support"
+			value="#{_msgs['errors.noFolderUpload']}" />
+		<h:outputText style="display: none"
+			styleClass="message-upload-navigation"
+			value="#{_msgs['errors.uploadNavigation']}" />
+
+		<h:outputScript library="fileshare" name="fileshare.js" />
+		<h:outputScript type="text/javascript">
+		// <![CDATA[
+			
+		function onUploadFailure (i) {
+			if ( i <= 0 ) {
+				console.log("Giving up waiting for upload");
+				return;
+			}
+			else if ( $('.resume-uploads-button').is(':visible') ) {
+				console.log("Have upload");
+			} else {
+				handleUploadError();
+				console.log("Scheduling check");
+				setTimeout( function() {
+					onUploadFailure(i - 1);
+				}, 2000);
+			}
+		}		
+		$(window).on('load',
+				function() {
+					AgNO3FileUpload.init($(document).find(
+							'.file-browser'), function() {
+						 onUploadFailure(30);
+					});
+				});
+		// ]]>
+		</h:outputScript>
+
+
+	</p:outputPanel>
+</ui:composition>

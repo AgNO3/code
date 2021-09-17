@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	template="/tpl/common/raw.xhtml">
+	<ui:param name="title" value="#{_gui['resourceLibrary.remove.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="anchor"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+
+			<f:viewParam name="library"
+				value="#{resourceLibraryBean.encodedSingleSelection}"
+				required="true" requiredMessage="#{_gui['require.param.libraryId']}" />
+		</f:metadata>
+	</ui:define>
+
+
+	<ui:define name="content">
+		<h:form>
+			<ag:dialogContextHolder />
+
+			<p:messages autoUpdate="true" />
+
+			<p:fieldset legend="#{_gui['resourceLibrary.remove.title']}">
+
+				<p>
+					<h:outputFormat value="#{_gui['resourceLibrary.remove.msgFmt']}">
+						<f:param value="#{resourceLibraryBean.singleSelection.name}" />
+					</h:outputFormat>
+				</p>
+
+				<div class="buttons">
+					<p:commandButton value="#{_gui['resourceLibrary.remove.confirm']}"
+						icon="ui-icon-trash" action="#{resourceLibraryBean.delete()}" />
+					<p:commandButton immediate="true" action="#{dialog.close}"
+						icon="ui-icon-cancel" styleClass="close-button"
+						value="#{_gui['resourceLibrary.remove.cancel']}" />
+				</div>
+			</p:fieldset>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

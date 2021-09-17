@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:si="urn:agno3:model:1.0:system:info" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:model:1.0:system:info" elementFormDefault="qualified">
+   <xsd:complexType name="systemInformation" abstract="true"/>
+   <xsd:complexType name="systemInformationException"/>
+</xsd:schema>

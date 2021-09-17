@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+	<h:outputScript library="agno3" name="library.js" />
+
+	<p:toolbar id="realmToolbar">
+		<f:facet name="right">
+			<p:commandButton id="deleteButton" icon="ui-icon-trash"
+				disabled="#{empty realmManageContext.selection}" type="button"
+				title="#{_gui['realms.manage.delete']}">
+			</p:commandButton>
+
+			<p:overlayPanel style="width: 20em" widgetVar="deleteConfirm"
+				id="deleteConfirm" for="deleteButton">
+				<p>
+					<h:outputText value="#{_gui['realms.manage.delete.prompt']}" />
+				</p>
+
+				<p:commandButton value="#{_gui['realms.manage.delete.confirm']}"
+					process="realmsTable" update="realmsTable"
+					oncomplete="PF('deleteConfirm').hide()"
+					actionListener="#{realmManageContext.deleteSelection()}"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{_gui['realms.manage.delete.cancel']}"
+					type="button" onclick="PF('deleteConfirm').hide()"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:overlayPanel>
+
+			<p:commandButton icon="ui-icon-arrowrefresh-1-e"
+				actionListener="#{realmManageContext.refresh()}"
+				update="realmsTable" title="#{_gui['realms.manage.refresh']}" />
+		</f:facet>
+	</p:toolbar>
+
+	<ui:insert name="header" />
+
+	<p:messages autoUpdate="true" />
+
+	<p:treeTable styleClass="no-header"
+		selection="#{realmManageContext.selection}" selectionMode="multiple"
+		style="width: 90%; border: 0; margin-left: auto; margin-right: auto"
+		id="realmsTable" value="#{realmManageContext.root}" var="item">
+
+		<p:ajax event="select" update="@parent:realmToolbar" />
+		<p:ajax event="unselect" update="@parent:realmToolbar" />
+
+		<f:facet name="emptyMessage">
+			<h:outputText rendered="#{empty realmManageContext.selectRealm}"
+				value="#{_gui['realms.manage.empty']}" />
+			<h:outputText rendered="#{not empty realmManageContext.selectRealm}"
+				value="#{_gui['realms.manage.emptySelected']}" />
+		</f:facet>
+
+		<p:column style="width: 50%">
+			<p:outputPanel style="display: inline-block;" rendered="#{realmManageContext.isRealm(item)}">
+				<h:outputText value="#{item.realmName}" />
+			</p:outputPanel>
+
+			<p:outputPanel style="display: inline-block;" rendered="#{realmManageContext.isKeytab(item)}">
+				<h:outputText style="font-weight: bold" value="#{item.keytab.id}" />
+			</p:outputPanel>
+
+			<p:outputPanel  style="display: inline-block;" rendered="#{realmManageContext.isKey(item)}">
+				<span class="ui-icon ui-icon-inline ui-icon-key" />
+				<h:outputText style="font-style: italic"
+					value="#{item.key.principal}" />
+			</p:outputPanel>
+		</p:column>
+
+		<p:column style="width: auto; text-align: right">
+			<p:outputPanel rendered="#{realmManageContext.isRealm(item)}">
+				<p:outputPanel
+					rendered="#{realmManageContext.isADRealm(item) and not item.joined}">
+					<ag:dialogOpenButton closable="true" icon="ui-icon-link"
+						value="#{_gui['realms.manage.joinNew']}"
+						dialog="/realms/adJoinDomain.xhtml?instance=#{structureViewContext.selectedObjectId}&amp;domain=#{item.realmName}">
+						<p:ajax event="return" listener="#{realmManageContext.refresh()}"
+							update="realmsTable" />
+					</ag:dialogOpenButton>
+				</p:outputPanel>
+			</p:outputPanel>
+			<p:outputPanel rendered="#{realmManageContext.isKey(item)}">
+				<h:outputText value="#{item.key.kvno}" />
+			</p:outputPanel>
+		</p:column>
+
+		<p:column style="width: 15%">
+			<p:outputPanel rendered="#{realmManageContext.isKey(item)}">
+				<h:outputText
+					value="#{realmManageContext.translateAlgorithm(item.key.algorithm)}" />
+			</p:outputPanel>
+			<p:outputPanel rendered="#{realmManageContext.isRealm(item)}">
+				<h:outputText
+					value="#{realmManageContext.translateRealmType(item.type)}" />
+			</p:outputPanel>
+		</p:column>
+
+		<p:column styleClass="action-column">
+			<p:outputPanel rendered="#{realmManageContext.isRealm(item)}">
+				<ag:dialogOpenCommandLink
+					title="#{_gui['realms.manage.createKeytab']}" closable="true"
+					styleClass="ui-icon ui-icon-plusthick ui-icon-inline"
+					dialog="/realms/createKeytab.xhtml?instance=#{structureViewContext.selectedObjectId}&amp;realm=#{item.realmName}&amp;realmType=#{item.type}">
+					<p:ajax event="return" listener="#{realmManageContext.refresh()}"
+						update="realmsTable" />
+				</ag:dialogOpenCommandLink>
+			</p:outputPanel>
+			<p:outputPanel rendered="#{realmManageContext.isKeytab(item)}">
+				<ag:dialogOpenCommandLink title="#{_gui['realms.manage.addKeys']}"
+					closable="true"
+					styleClass="ui-icon ui-icon-plusthick ui-icon-inline"
+					dialog="/realms/addKeys.xhtml?instance=#{structureViewContext.selectedObjectId}&amp;keytab=#{item.keytab.id}&amp;realm=#{item.realm.realmName}&amp;realmType=#{item.realm.type}">
+					<p:ajax event="return" listener="#{realmManageContext.refresh()}"
+						update="realmsTable" />
+				</ag:dialogOpenCommandLink>
+			</p:outputPanel>
+		</p:column>
+
+		<p:column styleClass="action-column">
+			<p:outputPanel rendered="#{realmManageContext.isKeytab(item)}">
+				<ag:dialogOpenCommandLink closable="true"
+					styleClass="ui-icon ui-icon-trash ui-icon-inline"
+					title="#{_gui['realms.manage.deleteKeytab']}"
+					dialog="/realms/deleteKeytab.xhtml?instance=#{structureViewContext.selectedObjectId}&amp;keytab=#{item.keytab.id}&amp;realm=#{item.realm.realmName}&amp;realmType=#{item.realm.type}">
+					<p:ajax event="return" listener="#{realmManageContext.refresh()}"
+						update="realmsTable" />
+				</ag:dialogOpenCommandLink>
+			</p:outputPanel>
+		</p:column>
+
+		<p:column styleClass="action-column">
+			<p:outputPanel
+				rendered="#{realmManageContext.isADRealm(item) and item.joined}">
+				<ag:dialogOpenCommandLink closable="true"
+					styleClass="ui-icon  ui-icon-cancel ui-icon-inline"
+					title="#{_gui['realms.manage.leaveDomain']}"
+					dialog="/realms/adLeaveDomain.xhtml?instance=#{structureViewContext.selectedObjectId}&amp;domain=#{item.realmName}">
+					<p:ajax event="return" listener="#{realmManageContext.refresh()}"
+						update="realmsTable" />
+				</ag:dialogOpenCommandLink>
+			</p:outputPanel>
+		</p:column>
+
+		<p:column styleClass="action-column">
+			<p:outputPanel
+				rendered="#{realmManageContext.isADRealm(item) and item.joined}">
+				<ag:dialogOpenCommandLink closable="true"
+					styleClass="ui-icon  ui-icon-key ui-icon-inline"
+					title="#{_gui['realms.manage.rekeyDomain']}"
+					dialog="/realms/adRekeyDomain.xhtml?instance=#{structureViewContext.selectedObjectId}&amp;domain=#{item.realmName}">
+					<p:ajax event="return" listener="#{realmManageContext.refresh()}"
+						update="realmsTable" />
+				</ag:dialogOpenCommandLink>
+			</p:outputPanel>
+		</p:column>
+		<p:column styleClass="action-column last">
+			<p:outputPanel
+				rendered="#{realmManageContext.isADRealm(item) and item.joined}">
+				<ag:dialogOpenCommandLink closable="true"
+					styleClass="ui-icon ui-icon-link ui-icon-inline"
+					title="#{_gui['realms.manage.rejoinDomain']}"
+					dialog="/realms/adJoinDomain.xhtml?instance=#{structureViewContext.selectedObjectId}&amp;domain=#{item.realmName}">
+					<p:ajax event="return" listener="#{realmManageContext.refresh()}"
+						update="realmsTable" />
+				</ag:dialogOpenCommandLink>
+			</p:outputPanel>
+			<p:outputPanel
+				rendered="#{realmManageContext.isADRealm(item) and not item.joined}">
+				<ag:dialogOpenCommandLink closable="true"
+					styleClass="ui-icon ui-icon-link ui-icon-inline"
+					title="#{_gui['realms.manage.joinDomain']}"
+					dialog="/realms/adJoinDomain.xhtml?instance=#{structureViewContext.selectedObjectId}&amp;domain=#{item.realmName}">
+					<p:ajax event="return" listener="#{realmManageContext.refresh()}"
+						update="realmsTable" />
+				</ag:dialogOpenCommandLink>
+			</p:outputPanel>
+		</p:column>
+	</p:treeTable>
+</ui:composition>

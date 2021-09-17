@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.db.internal.DataSourceUtilProxy" configuration-policy="require" configuration-pid="eu.agno3.runtime.db.DataSourceUtilFactory">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.db.DataSourceUtil"/>
+    </service>
+    <reference name="DatabaseDriverUtil" interface="eu.agno3.runtime.db.DatabaseDriverUtil" cardinality="1..1" policy="static" bind="setDatabaseDriverUtil" unbind="unsetDatabaseDriverUtil"/>
+    <reference name="DataSource" interface="javax.sql.DataSource" cardinality="1..1" policy="static" bind="setDataSource" unbind="unsetDataSource"/>
+    <implementation class="eu.agno3.runtime.db.internal.DataSourceUtilProxy"/>
+</scr:component>

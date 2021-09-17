@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	template="/tpl/common/template.xhtml">
+	<ui:param name="subtitle" value="#{resourceLibraryTableBean.subtitle}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="at"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+			<f:viewParam name="anchor"
+				value="#{structureViewContext.selectedAnchorId}" />
+			<f:viewParam name="library"
+				value="#{resourceLibraryEditorBean.selectedLibraryId}"
+				required="true" requiredMessage="#{_gui['require.param.libraryId']}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form enctype="multipart/form-data">
+			<p:toolbar id="fileToolbar">
+				<f:facet name="left">
+					<ui:include src="/tpl/resourceLibrary/fileMenu.xhtml">
+						<ui:param name="update"
+							value="${'@form:editor:fileEditor @form:editor'}" />
+					</ui:include>
+				</f:facet>
+			</p:toolbar>
+
+			<p:messages autoUpdate="true" />
+
+			<p:panelGrid id="editor">
+				<p:row>
+					<p:column>
+						<ui:include src="/tpl/resourceLibrary/defaultFileTree.xhtml">
+							<ui:param name="update"
+								value="${'@form:editor:fileEditor @form:editor:fileToolbar'}" />
+						</ui:include>
+					</p:column>
+
+					<p:column>
+						<ui:include src="/tpl/resourceLibrary/defaultAddFile.xhtml" />
+						<ui:include src="/tpl/resourceLibrary/defaultFileEditor.xhtml" />
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

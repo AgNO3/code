@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.logging.syslog.internal.SyslogAppender" configuration-policy="require" activate="activate" deactivate="deactivate" configuration-pid="log.syslog">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.logging.Appender"/>
+    </service>
+    <reference name="Layout" interface="org.ops4j.pax.logging.spi.PaxLayout" cardinality="0..1" policy="static" target="(appender=syslog)" bind="setLayout" unbind="unsetLayout"/>
+    <implementation class="eu.agno3.runtime.logging.syslog.internal.SyslogAppender"/>
+</scr:component>

@@ -1,0 +1,21 @@
+Bundle-SymbolicName: eu.agno3.runtime.net.dns
+Bundle-Version: 0.0.80
+Bundle-Name: DNS Utility Module
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: org.apache.commons.collections4;version="4.1.0",
+ org.apache.commons.collections4.map;version="4.0.0",
+ org.apache.commons.collections4.multimap;version="4.1.0",
+ org.apache.commons.lang3;version="3.3.2",
+ org.apache.log4j;version="1.2.15",
+ org.joda.time;version="2.3.0",
+ org.joda.time.base;version="2.3.0",
+ org.joda.time.format;version="2.7.0",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.osgi.util.tracker;version="1.5.1"
+Hibernate-Contribution: auto
+Bundle-ActivationPolicy: lazy
+Export-Package: eu.agno3.runtime.net.dns;version="0.0.80"

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:map="urn:agno3:xml:1.0:map" xmlns:l="urn:agno3:xml:1.0:eventlog" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:xml:1.0:eventlog" elementFormDefault="qualified">
+   <xsd:import schemaLocation="urn:agno3:xml:1.0:map" namespace="urn:agno3:xml:1.0:map"/>
+   <xsd:complexType name="eventFilterType">
+      <xsd:sequence>
+         <xsd:element name="startTime" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="endTime" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="severity" type="l:eventSeverity" minOccurs="0"/>
+         <xsd:element name="message" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="property" type="map:stringMapType" minOccurs="0"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:element name="eventFilter" type="l:eventFilterType"/>
+   <xsd:simpleType name="eventSeverity">
+      <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="UNKNOWN"/>
+         <xsd:enumeration value="TRACE"/>
+         <xsd:enumeration value="AUDIT"/>
+         <xsd:enumeration value="INFO"/>
+         <xsd:enumeration value="WARNING"/>
+         <xsd:enumeration value="ERROR"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+</xsd:schema>

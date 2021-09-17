@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="fileshare-orch-server-feature"
+      label="Fileshare Orchestrator Server Feature"
+      version="0.0.1.qualifier"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <includes
+         id="fileshare-orch-common-feature"
+         version="0.0.0"/>
+
+   <requires>
+      <import feature="realm-model-server-feature" version="0.0.1.qualifier"/>
+      <import feature="model-base-server-feature" version="0.0.1.qualifier"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.fileshare.orch.server"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

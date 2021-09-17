@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="ldap-client-feature"
+      label="LDAP Client Feature"
+      version="0.0.52"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <requires>
+      <import feature="deps-unboundid-ldap-feature" version="2.3.8.AG1"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.runtime.ldap.client"
+         download-size="0"
+         install-size="0"
+         version="0.0.52"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.runtime.net.dns"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

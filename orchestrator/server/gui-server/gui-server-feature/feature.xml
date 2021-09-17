@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="gui-server-feature"
+      label="Orchestrator GUI Server Feature"
+      version="0.0.1.qualifier"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <includes
+         id="server-api-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-shiro-cas-feature"
+         version="0.0.0"/>
+
+   <requires>
+      <import feature="hostconfig-feature" version="0.0.1.qualifier"/>
+      <import feature="ws-server-feature" version="0.0.1.qualifier"/>
+      <import feature="orm-feature" version="0.0.1.qualifier"/>
+      <import feature="versioning-feature" version="0.0.1.qualifier"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.orchestrator.gui.connector"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.gui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.gui.server"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.server.connector"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

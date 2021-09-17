@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+	<p:commandButton
+		rendered="#{empty resourceLibraryEditorBean.createType}"
+		title="#{_gui['resourceLibrary.fileMenu.back']}"
+		icon="ui-icon-arrowthick-1-w"
+		action="#{resourceLibraryController.overview()}" />
+
+	<p:commandButton title="#{_gui['resourceLibrary.fileMenu.createFile']}"
+		icon="ui-icon-plusthick" update="editor"
+		action="#{resourceLibraryFileEditorBean.createFile()}" />
+
+	<ag:dialogOpenButton
+		title="#{_gui['resourceLibrary.fileMenu.synchronize']}"
+		rendered="#{structureViewContext.isServiceSelected()}"
+		icon="ui-icon-transferthick-e-w"
+		dialog="/resourceLibrary/synchronize.xhtml?library=#{resourceLibraryEditorBean.selectedLibraryId}&amp;anchor=#{structureViewContext.selectedService.id}" />
+
+
+	<ag:dialogOpenButton
+		disabled="#{empty resourceLibraryFileEditorBean.selectedFile}"
+		title="#{_gui['resourceLibrary.fileMenu.delete']}"
+		icon="ui-icon-trash"
+		dialog="/resourceLibrary/deleteFile.xhtml?library=#{resourceLibraryEditorBean.selectedLibraryId}&amp;path=#{uriUtil.encodeParam(resourceLibraryFileEditorBean.selectedFile.data.path)}">
+		<p:ajax event="return"
+			listener="#{resourceLibraryFileEditorBean.returnFromDelete}"
+			update="${update}" />
+	</ag:dialogOpenButton>
+
+</ui:composition>

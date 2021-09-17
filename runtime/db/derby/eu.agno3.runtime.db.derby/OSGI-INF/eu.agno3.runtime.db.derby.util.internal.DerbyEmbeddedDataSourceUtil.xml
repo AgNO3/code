@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.db.derby.util.internal.DerbyEmbeddedDataSourceUtil">
+    <property name="osgi.jdbc.driver.class" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.db.DatabaseDriverUtil"/>
+    </service>
+    <implementation class="eu.agno3.runtime.db.derby.util.internal.DerbyEmbeddedDataSourceUtil"/>
+</scr:component>

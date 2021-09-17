@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="sysinfo-base-feature"
+      label="Orchestrator System Information Base Feature"
+      version="0.0.1.qualifier"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <requires>
+      <import feature="types-feature" version="0.0.1.qualifier"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.orchestrator.system.info"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.system.info.network"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.system.info.platform"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.system.info.storage"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.system.info.api"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

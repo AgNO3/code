@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.security.db.internal.DatabaseRealm" configuration-policy="require" activate="activate" modified="modified" configuration-pid="auth.db">
+    <service servicefactory="false">
+        <provide interface="org.apache.shiro.realm.Realm"/>
+        <provide interface="eu.agno3.runtime.security.login.LoginRealm"/>
+        <provide interface="eu.agno3.runtime.security.PermissionMapper"/>
+        <provide interface="org.apache.shiro.realm.AuthorizingRealm"/>
+    </service>
+    <reference name="DataSource" interface="eu.agno3.runtime.db.schema.SchemaManagedDataSource" cardinality="1..1" policy="static" target="(dataSourceName=auth)" bind="setDataSource" unbind="unsetDataSource"/>
+    <reference name="DataSourceUtil" interface="eu.agno3.runtime.db.DataSourceUtil" cardinality="1..1" policy="static" target="(dataSourceName=auth)" bind="setDataSourceUtil" unbind="unsetDataSourceUtil"/>
+    <reference name="UserMapper" interface="eu.agno3.runtime.security.UserMapper" cardinality="1..1" policy="static" bind="setUserMapper" unbind="unsetUserMapper"/>
+    <reference name="PasswordPolicyChecker" interface="eu.agno3.runtime.security.password.PasswordPolicyChecker" cardinality="1..1" policy="static" bind="setPasswordPolicyChecker" unbind="unsetPasswordPolicyChecker"/>
+    <reference name="CredentialsMatcher" interface="eu.agno3.runtime.security.DefaultCredentialsMatcher" cardinality="1..1" policy="static" bind="setCredentialsMatcher" unbind="unsetCredentialsMatcher"/>
+    <implementation class="eu.agno3.runtime.security.db.internal.DatabaseRealm"/>
+</scr:component>

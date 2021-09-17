@@ -1,0 +1,26 @@
+Bundle-SymbolicName: eu.agno3.fileshare.mail.tpl
+Bundle-Version: 0.0.1.qualifier
+Bundle-Name: Fileshare Mail Templates
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.runtime.i18n;version="0.0.8",
+ eu.agno3.runtime.mail;version="0.0.4",
+ eu.agno3.runtime.mail.tpl;version="0.0.4",
+ eu.agno3.runtime.tpl;version="0.0.10",
+ eu.agno3.runtime.util.config;version="0.0.18",
+ eu.agno3.runtime.util.matching;version="0.0.18",
+ eu.agno3.runtime.util.net;version="0.0.18",
+ freemarker.template;version="2.3.21.AG2",
+ javassist.util.proxy;resolution:=optional,
+ javax.mail;version="1.5.0",
+ javax.mail.internet;version="1.5.0",
+ org.joda.time;version="2.3.0",
+ org.joda.time.base;version="2.3.0",
+ org.joda.time.format;version="2.3.0",
+ org.osgi.service.component;version="1.2.2",
+ org.osgi.service.component.annotations;version="1.2.0"
+Service-Component: OSGI-INF/*.xml
+Require-Bundle: org.eclipse.jdt.annotation;bundle-version="[2.0.0,3.0.0)";resolution:=optional
+Export-Package: eu.agno3.fileshare.mail.tpl;version="0.0.1.qualifier"
+Bundle-ActivationPolicy: lazy

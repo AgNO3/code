@@ -1,0 +1,30 @@
+Bundle-SymbolicName: eu.agno3.runtime.http.ua
+Bundle-Version: 0.0.154
+Bundle-Name: User Agent Detection
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.runtime.http.ua;version="0.0.32",
+ eu.agno3.runtime.http.ua.caps;version="0.0.32",
+ eu.agno3.runtime.http.ua.detector;version="0.0.32",
+ eu.agno3.runtime.util.osgi;version="0.0.8",
+ javax.servlet.http;version="3.1.0",
+ net.sf.uadetector;version="0.9.22",
+ net.sf.uadetector.datareader;version="0.9.22",
+ net.sf.uadetector.datastore;version="0.9.22",
+ net.sf.uadetector.exception;version="0.9.22",
+ net.sf.uadetector.parser;version="0.9.22",
+ net.sf.uadetector.writer;version="0.9.22",
+ org.apache.commons.collections4.map;version="4.0.0",
+ org.apache.commons.lang3;version="3.3.2",
+ org.apache.log4j;version="1.2.15",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.osgi.service.http;version="1.2.1",
+ org.osgi.util.tracker;version="1.5.1"
+Service-Component: OSGI-INF/*.xml
+Bundle-ActivationPolicy: lazy
+Export-Package: eu.agno3.runtime.http.ua;version="0.0.154";uses:="net.sf.uadetector,javax.servlet.http",
+ eu.agno3.runtime.http.ua.caps;version="0.0.154";uses:="eu.agno3.runtime.http.service.ua,net.sf.uadetector",
+ eu.agno3.runtime.http.ua.detector;version="0.0.154";uses:="net.sf.uadetector"

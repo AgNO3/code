@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="security-cas-feature"
+      label="Security CAS Feature"
+      version="0.0.214"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <requires>
+      <import feature="security-web-feature" version="0.0.1.qualifier"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.runtime.security.cas.client"
+         download-size="0"
+         install-size="0"
+         version="0.0.214"
+         unpack="false"/>
+
+</feature>

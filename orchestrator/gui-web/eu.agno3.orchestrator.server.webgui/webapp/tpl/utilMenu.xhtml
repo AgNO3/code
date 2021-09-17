@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:shiro="http://shiro.ops4j.org/tags"
+	xmlns:pass="http://java.sun.com/jsf/passthrough"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<div>
+		<p:panelGrid styleClass="widgetMenu">
+			<p:row>
+				<p:column>
+					<p:ajaxStatus style="display: inline">
+						<f:facet name="start">
+							<p:graphicImage style="margin-right: 1em;" name="loading.gif"
+								library="images" />
+						</f:facet>
+						<f:facet name="complete"></f:facet>
+					</p:ajaxStatus>
+				</p:column>
+
+				<p:column>
+					<shiro:user>
+						<p:commandButton id="loginWidgetButton"
+							title="#{_gui['login.login']}" image="ui-icon-key" type="button" />
+
+						<p:overlayPanel id="loginWidget" widgetVar="utilMenuWidget"
+							for="loginWidgetButton" hideEffect="fade" appendToBody="true"
+							styleClass="loginWidget overlay-menu">
+
+							<h:form id="utilMenuForm">
+								<p:panel>
+									<f:facet name="header">
+										<h:outputText value="#{sessionInfoBean.username}" />
+									</f:facet>
+
+									<div class="ui-helper-hidden-accessible" />
+									<div
+										class="ui-widget ui-widget-content ui-menu ui-corner-all ui-helper-clearfix"
+										pass:role="menu">
+										<ul class="ui-menu-list ui-helper-reset">
+											<li
+												class="ui-menuitem ui-widget ui-corner-all hover-shade-background"
+												pass:role="menuitem"><ag:dialogOpenCommandLink
+													styleClass="ui-menuitem-link ui-corner-all"
+													onstart="PF('utilMenuWidget').hide()"
+													dialog="/user/preferences.xhtml" closable="true">
+													<span class="ui-menuitem-icon ui-icon ui-icon-gear" />
+													<h:outputText value="#{_gui['login.preferences']}" />
+													<p:ajax event="return" action="#{menuState.reload}"
+														update="@all" />
+												</ag:dialogOpenCommandLink></li>
+											<li
+												class="ui-menuitem ui-widget ui-corner-all hover-shade-background"
+												pass:role="menuitem"><p:link
+													styleClass="ui-menuitem-link ui-corner-all"
+													onstart="PF('utilMenuWidget').hide()"
+													href="#{loginController.changePasswordLink}">
+													<span class="ui-menuitem-icon ui-icon ui-icon-key" />
+													<h:outputText value="#{_gui['login.changePassword']}" />
+												</p:link></li>
+											<li
+												class="ui-menuitem ui-widget ui-corner-all hover-shade-background"
+												pass:role="menuitem"><p:commandLink
+													styleClass="ui-menuitem-link ui-corner-all"
+													onstart="PF('utilMenuWidget').hide()"
+													action="#{loginController.logout}">
+													<span class="ui-menuitem-icon ui-icon ui-icon-cancel" />
+													<h:outputText value="#{_gui['login.logout']}" />
+												</p:commandLink></li>
+										</ul>
+									</div>
+								</p:panel>
+							</h:form>
+						</p:overlayPanel>
+					</shiro:user>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+	</div>
+</ui:composition>

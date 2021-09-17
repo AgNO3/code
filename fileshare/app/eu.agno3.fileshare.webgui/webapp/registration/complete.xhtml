@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	template="/tpl/common/raw.xhtml">
+
+	<ui:param name="subtitle"
+		value="#{_msgs['registration.complete.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{registrationCompleteCheck.checkRegistration}" />
+			<f:viewParam name="token" value="#{userTokenBean.token}"
+				required="false" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form" method="POST" enctype="multipart/form-data">
+
+			<p:messages autoUpdate="true" showDetail="true" />
+
+			<input type="hidden" name="token" value="#{userTokenBean.token}" />
+
+			<p:outputPanel rendered="#{empty registrationCompletionBean.token}">
+				<h:outputText value="#{_msgs['registration.complete.failMessage']}" />
+			</p:outputPanel>
+
+			<p:fieldset legend="#{_msgs['registration.complete.title']}"
+				rendered="#{not empty registrationCompletionBean.token}">
+
+				<p:outputPanel style="display: inline">
+					<h:outputFormat
+						rendered="#{not empty registrationCompletionBean.userDetails.salutationName}"
+						value="#{_msgs['registration.complete.salutationNamedFmt']}">
+						<f:param
+							value="#{registrationCompletionBean.userDetails.salutationName}" />
+					</h:outputFormat>
+					<h:outputText
+						rendered="#{empty registrationCompletionBean.userDetails.salutationName}"
+						value="#{_msgs['registration.complete.salutationUnnamed']}" />
+
+					<br />
+					<br />
+
+					<h:outputFormat
+						rendered="#{registrationCompletionBean.isInvitation()}"
+						value="#{_msgs['registration.complete.invitationMessageFmt']}">
+						<f:param value="#{registrationCompletionBean.invitingUserName}" />
+					</h:outputFormat>
+					<h:outputText
+						rendered="#{not registrationCompletionBean.isInvitation()}"
+						value="#{_msgs['registration.complete.registrationMessage']}" />
+
+					<p:outputPanel style="display: inline">
+						<h:outputText
+							value="#{_msgs['registration.complete.getStartedMessage.begin']}" />
+						<ul>
+							<li><h:outputText
+									value="#{_msgs['registration.complete.getStartedMessage.download']}" /></li>
+							<ui:fragment
+								rendered="#{registrationCompletionBean.haveUserRoot()}">
+								<li><h:outputText
+										value="#{_msgs['registration.complete.getStartedMessage.upload']}" /></li>
+								<li><h:outputText
+										value="#{_msgs['registration.complete.getStartedMessage.share']}" /></li>
+							</ui:fragment>
+						</ul>
+					</p:outputPanel>
+				</p:outputPanel>
+
+				<ui:include src="/tpl/userDetails/edit.xhtml">
+					<ui:param name="userDetails"
+						value="#{registrationCompletionBean.userDetails}" />
+					<ui:param name="readOnlyMail" value="${true}" />
+					<ui:param name="readOnlyName" value="${true}" />
+				</ui:include>
+
+				<p:fieldset styleClass="func-unit"
+					legend="#{_msgs['registration.complete.choosePassword']}">
+					<ag:simpleField
+						label="#{_msgs['registration.complete.username.label']}"
+						description="#{_msgs['registration.complete.username.description']}">
+						<h:outputText style="font-weight: bold"
+							value="#{registrationCompletionBean.userName}" />
+					</ag:simpleField>
+
+					<ag:passwordInput
+						checker="#{app_fs_adm_userController.passwordPolicy}"
+						value="#{registrationCompletionBean.newPassword}" />
+				</p:fieldset>
+
+				<div class="buttons">
+					<p:commandButton id="confirm" icon="ui-icon-check"
+						rendered="#{not empty registrationCompletionBean.token}"
+						action="#{registrationController.complete(registrationCompletionBean)}"
+						value="#{_msgs['registration.complete.confirm']}" />
+				</div>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

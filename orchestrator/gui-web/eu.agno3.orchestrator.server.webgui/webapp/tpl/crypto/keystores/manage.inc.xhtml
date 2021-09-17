@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+	<h:outputScript library="agno3" name="library.js" />
+	<p:messages autoUpdate="true" />
+
+	<p:toolbar id="keystoresToolbar">
+		<f:facet name="left">
+			<p:outputPanel rendered="#{empty kmc.selectKeystore}"
+				style="font-size: 10pt; margin-top: 0.3em; margin-left: 1em">
+				<p:selectBooleanCheckbox id="includeInternal"
+					value="#{kmc.includeInternal}">
+					<p:ajax event="change" update="keystoresTable" />
+				</p:selectBooleanCheckbox>
+				<p:outputLabel for="includeInternal"
+					value="#{_gui['crypto.keystore.manage.showInternal']}" />
+			</p:outputPanel>
+			<ag:dialogOpenButton rendered="#{not empty kmc.selectKey}" closable="true"
+				dialog="/crypto/keystores/generateKey.xhtml?instance=#{structureViewContext.selectedObjectId}&amp;templateKey=#{kmc.singleSelection.data.key.keyAlias}&amp;allowAnonymous=#{kmc.allowAnonymous}&amp;#{kmc.makeURLParams(null,null)}"
+				disabled="#{empty kmc.singleSelection}" icon="ui-icon-plusthick"
+				value="#{_gui['crypto.keystore.manage.newKey']}">
+				<p:ajax event="return" listener="#{kmc.newKeyReturn}" update="keystoresTable" />
+			</ag:dialogOpenButton>
+			<ag:dialogOpenButton rendered="#{not empty kmc.selectKey}" closable="true"
+				dialog="/crypto/keystores/importKey.xhtml?instance=#{structureViewContext.selectedObjectId}&amp;allowAnonymous=#{kmc.allowAnonymous}&amp;#{kmc.makeURLParams(null,null)}"
+				disabled="#{empty kmc.singleSelection}" icon="ui-icon-plusthick"
+				value="#{_gui['crypto.keystore.manage.importKey']}">
+				<p:ajax event="return" listener="#{kmc.newKeyReturn}" update="keystoresTable" />
+			</ag:dialogOpenButton>
+		</f:facet>
+		<f:facet name="right">
+			<p:commandButton icon="ui-icon-arrowrefresh-1-e"
+				actionListener="#{kmc.refresh()}" update="keystoresTable"
+				title="#{_gui['crypto.keystore.manage.refresh']}" />
+		</f:facet>
+	</p:toolbar>
+	<ui:insert name="header" />
+
+	<p:treeTable styleClass="no-header" selection="#{kmc.singleSelection}"
+		selectionMode="${selectionMode}" id="keystoresTable"
+		value="#{kmc.root}" var="item" nodeVar="node">
+
+		<p:ajax event="select" update="@parent:keystoresToolbar" />
+		<p:ajax event="unselect" update="@parent:keystoresToolbar" />
+
+		<f:facet name="emptyMessage">
+			<p class="ui-message error">
+				<h:outputText value="#{_gui['crypto.keystore.manage.notFoundMsg']}" />
+			</p>
+		</f:facet>
+
+
+		<p:column>
+			<h:outputText
+				class="ui-icon ui-icon-inline ui-icon-blank selection-indicator"
+				rendered="#{not empty selectionMode and node.selectable}" />
+
+			<p:outputPanel style="display: inline"
+				rendered="#{kmc.isKeystore(item)}">
+				<h:outputText style="font-weight: bold;" value="#{item.alias}" />
+				<h:outputFormat style="margin-left: 1em; font-size: 9pt"
+					rendered="#{not empty item.validationTrustStore}"
+					value="#{_gui['crypto.keystore.manage.validatedMsgFmt']}">
+					<f:param value="#{item.validationTrustStore}" />
+				</h:outputFormat>
+			</p:outputPanel>
+
+			<p:outputPanel style="display: inline"
+				rendered="#{kmc.isEmptyKeystore(item)}">
+				<h:outputText
+					rendered="#{empty kmc.selectKey or empty kmc.selectKeystore}"
+					value="#{_gui['crypto.keystore.manage.empty']}" />
+				<p:outputPanel
+					rendered="#{not empty kmc.selectKeystore and not empty kmc.selectKey}">
+					<h:outputFormat
+						value="#{_gui['crypto.keystore.manage.keyNotFoundMsgFmt']}">
+						<f:param value="#{kmc.selectKey}" />
+					</h:outputFormat>
+					<ag:dialogOpenButton
+						value="#{_gui['crypto.keystore.manage.generateKey']}"
+						closable="true" style="margin-left: 1em"
+						dialog="/crypto/keystores/generateKey.xhtml?instance=#{structureViewContext.selectedObjectId}&amp;allowAnonymous=#{kmc.allowAnonymous}&amp;#{kmc.makeURLParams(null,null)}"
+						icon="ui-icon-plusthick">
+						<p:ajax event="return" listener="#{kmc.refresh()}"
+							update="keystoresTable" />
+					</ag:dialogOpenButton>
+					<ag:dialogOpenButton
+						value="#{_gui['crypto.keystore.manage.importKey']}"
+						dialog="/crypto/keystores/importKey.xhtml?instance=#{structureViewContext.selectedObjectId}&amp;allowAnonymous=#{kmc.allowAnonymous}&amp;#{kmc.makeURLParams(null,null)}"
+						icon="ui-icon-upload" closable="true">
+						<p:ajax event="return" listener="#{kmc.refresh()}"
+							update="keystoresTable" />
+					</ag:dialogOpenButton>
+				</p:outputPanel>
+			</p:outputPanel>
+
+			<p:outputPanel style="display: inline" rendered="#{kmc.isKey(item)}">
+				<span class="ui-icon ui-icon-key ui-icon-inline" />
+
+				<h:outputText style="font-style: italic"
+					value="#{item.displayKeyAlias}" />
+
+				<p:commandLink id="fingerPrint" style="margin-left: 0.4em"
+					styleClass="ui-icon ui-icon-inline ui-icon-info"
+					title="#{_gui['crypto.keystore.manage.fingerprint']}" />
+
+				<p:overlayPanel for="fingerPrint">
+					<p:outputPanel style="width: 40em">
+						<ag:simpleField
+							outputStyle="font-family: monospace !important; font-size: 10pt; white-space: pre-wrap;"
+							label="#{_gui['crypto.keystore.manage.fingerprint.label']}"
+							description="#{_gui['crypto.keystore.manage.fingerprint.description']}"
+							value="#{item.publicKeyFingerprint}" readOnly="true" />
+					</p:outputPanel>
+				</p:overlayPanel>
+
+
+
+				<h:outputText style="margin-left: 1em" value="#{item.key.keyType}" />
+
+				<p:dataTable styleClass="list-table nested-table"
+					style="margin-left: 4em; width: 80%; text-shadow: none"
+					value="#{kmc.getDecodedCertChain(item)}" var="cert">
+
+					<f:facet name="emptyMessage">
+						<h:outputText
+							value="#{_gui['crypto.keystore.manage.noCertificateMsg']}" />
+						<ag:dialogOpenButton
+							value="#{_gui['crypto.keystore.manage.createCertificate']}"
+							closable="true" style="margin-left: 1em"
+							dialog="/crypto/keystores/newCert.xhtml?instance=#{structureViewContext.selectedObjectId}&amp;#{kmc.makeURLParams(item.keystore.alias,item.key.keyAlias)}"
+							icon="ui-icon-plusthick">
+							<p:ajax event="return" listener="#{kmc.refresh()}"
+								update="@form:keystoresTable" />
+						</ag:dialogOpenButton>
+					</f:facet>
+
+					<p:column>
+						<h:outputText style="#{certificateUtil.getValidityStyle(cert)}"
+							value="#{certificateUtil.formatPrincipalName(cert.subjectX500Principal)}" />
+					</p:column>
+					<p:column styleClass="action-column">
+						<p:commandLink id="certificateInfo"
+							styleClass="ui-icon ui-icon-inline ui-icon-info" />
+						<p:overlayPanel for="certificateInfo">
+							<p:outputPanel style="width: 40em">
+								<ag:certificateDisplay value="#{cert}" />
+							</p:outputPanel>
+						</p:overlayPanel>
+					</p:column>
+				</p:dataTable>
+			</p:outputPanel>
+		</p:column>
+
+		<p:column styleClass="action-column">
+			<p:outputPanel
+				rendered="#{kmc.isKeystore(item) and empty kmc.selectKey}">
+				<ag:dialogOpenCommandLink
+					title="#{_gui['crypto.keystore.manage.generateKey.title']}"
+					closable="true"
+					dialog="/crypto/keystores/generateKey.xhtml?instance=#{structureViewContext.selectedObjectId}&amp;#{kmc.makeURLParams(item.alias,null)}"
+					styleClass="ui-icon ui-icon-trash ui-icon-plusthick">
+					<p:ajax event="return" listener="#{kmc.refresh()}"
+						update="keystoresTable" />
+				</ag:dialogOpenCommandLink>
+			</p:outputPanel>
+
+			<p:outputPanel rendered="#{kmc.isKey(item)}">
+				<ag:dialogOpenCommandLink
+					dialog="/crypto/keystores/newCert.xhtml?instance=#{structureViewContext.selectedObjectId}&amp;#{kmc.makeURLParams(item.keystore.alias,item.key.keyAlias)}"
+					styleClass="ui-icon ui-icon-arrowrefresh-1-e ui-icon-inline"
+					tilte="#{_gui['crypto.keystore.manage.createCertificate.title']}"
+					closable="true">
+					<p:ajax event="return" listener="#{kmc.refresh()}"
+						update="keystoresTable" />
+				</ag:dialogOpenCommandLink>
+			</p:outputPanel>
+		</p:column>
+
+		<p:column styleClass="action-column">
+			<p:outputPanel
+				rendered="#{kmc.isKeystore(item) and empty kmc.selectKey}">
+				<ag:dialogOpenCommandLink
+					title="#{_gui['crypto.keystore.manage.importKey.title']}"
+					dialog="/crypto/keystores/importKey.xhtml?instance=#{structureViewContext.selectedObjectId}&amp;#{kmc.makeURLParams(item.alias,null)}"
+					styleClass="ui-icon ui-icon-inline ui-icon-arrowreturnthick-1-n"
+					closable="true">
+					<p:ajax event="return" listener="#{kmc.refresh()}"
+						update="keystoresTable" />
+				</ag:dialogOpenCommandLink>
+			</p:outputPanel>
+
+			<p:outputPanel rendered="#{kmc.isKey(item)}">
+				<ag:dialogOpenCommandLink
+					title="#{_gui['crypto.keystore.manage.deleteKey.title']}"
+					dialog="/crypto/keystores/deleteKey.xhtml?instance=#{structureViewContext.selectedObjectId}&amp;#{kmc.makeURLParams(item.keystore.alias,item.key.keyAlias)}"
+					styleClass="ui-icon ui-icon-trash  ui-icon-inline" closable="true">
+					<p:ajax event="return" listener="#{kmc.deleteKeyReturn}"
+						update="keystoresTable @parent:@parent:@parent:@parent:keystoresToolbar" />
+				</ag:dialogOpenCommandLink>
+			</p:outputPanel>
+		</p:column>
+	</p:treeTable>
+</ui:composition>

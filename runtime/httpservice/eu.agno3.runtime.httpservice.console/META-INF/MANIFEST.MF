@@ -1,0 +1,28 @@
+Bundle-SymbolicName: eu.agno3.runtime.http.service.console
+Bundle-Version: 0.0.154
+Bundle-Name: Console HTTP Service Commands
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Require-Bundle: eu.agno3.dependencies.karaf-console;bundle-version="3.0.0"
+Import-Package: eu.agno3.runtime.ldap.filter;version="0.0.6",
+ eu.agno3.runtime.console;version="0.0.2",
+ eu.agno3.runtime.http.service;version="0.0.4",
+ eu.agno3.runtime.http.service.connector;version="0.0.4",
+ eu.agno3.runtime.http.service.filter;version="0.0.4",
+ eu.agno3.runtime.http.service.handler;version="0.0.4",
+ eu.agno3.runtime.http.service.resource;version="0.0.4",
+ eu.agno3.runtime.http.service.servlet;version="0.0.4",
+ javax.servlet;version="3.0.0",
+ org.apache.log4j;version="1.2.15",
+ org.eclipse.jetty.server;version="9.0.3",
+ org.eclipse.jetty.server.handler;version="9.0.3",
+ org.eclipse.jetty.servlet;version="9.0.4",
+ org.eclipse.jetty.util.component;version="9.0.4",
+ org.fusesource.jansi;version="1.9.0",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.cm;version="1.4.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0"
+Service-Component: OSGI-INF/*.xml
+Bundle-ActivationPolicy: lazy

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.system.info.storage.drive"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:system:info:storage:drive">
+		<xml-ns prefix="v" namespace-uri="urn:agno3:model:1.0:system:info:storage:volume" />
+		<xml-ns prefix="d" namespace-uri="urn:agno3:model:1.0:system:info:storage:drive" />
+	</xml-schema>
+
+	<java-types>
+		<java-type name="Drive" xml-accessor-type="NONE">
+			<xml-type name="driveInformation" />
+			<xml-root-element name="drive" />
+
+			<java-attributes>
+				<xml-attribute name="id" java-attribute="id" />
+				<xml-attribute name="alias" java-attribute="assignedAlias"
+					required="false" />
+				<xml-element name="size" java-attribute="size" required="false" />
+				<xml-element name="system" java-attribute="system"
+					required="false" />
+
+				<xml-element name="volume" java-attribute="volumes">
+					<xml-element-wrapper name="volumes" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="PhysicalDrive"
+			super-type="eu.agno3.orchestrator.system.info.storage.drive.Drive"
+			xml-accessor-type="NONE">
+			<xml-type name="physicalDrive"
+				factory-class="eu.agno3.orchestrator.system.info.storage.drive.ObjectFactory"
+				factory-method="createPhysicalDrive" />
+			<xml-root-element name="physDrive" />
+
+			<java-attributes>
+				<xml-element name="vendor" java-attribute="vendor" />
+				<xml-element name="model" java-attribute="model" />
+				<xml-element name="serial" java-attribute="serial" />
+
+				<xml-element name="partitionTableType" java-attribute="partitionTableType" />
+				<xml-element name="blockDeviceName" java-attribute="blockDeviceName" />
+				<xml-element name="uncapturedSpace" java-attribute="uncapturedSpace" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="RAIDDrive"
+			super-type="eu.agno3.orchestrator.system.info.storage.drive.Drive"
+			xml-accessor-type="NONE">
+			<xml-type name="raidDrive"
+				factory-class="eu.agno3.orchestrator.system.info.storage.drive.ObjectFactory"
+				factory-method="createRAIDDrive" />
+			<xml-root-element name="raidDrive" />
+
+			<java-attributes>
+				<xml-element name="devices" java-attribute="numDevices"
+					required="false" />
+				<xml-element name="numDegraded" java-attribute="numDegraded"
+					required="false" />
+				<xml-element name="numSpare" java-attribute="numSpares"
+					required="false" />
+
+				<xml-element name="level" java-attribute="raidLevel" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="VolumeGroup"
+			super-type="eu.agno3.orchestrator.system.info.storage.drive.Drive"
+			xml-accessor-type="NONE">
+			<xml-type name="volumeGroup"
+				factory-class="eu.agno3.orchestrator.system.info.storage.drive.ObjectFactory"
+				factory-method="createVolumeGroup" />
+			<xml-root-element name="volumeGroup" />
+
+			<java-attributes>
+				<xml-element name="name" java-attribute="volumeGroupName" />
+			</java-attributes>
+		</java-type>
+	</java-types>
+
+</xml-bindings>

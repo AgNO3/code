@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.http.service.internal.DefaultServletContextHandler" configuration-policy="require" activate="activate" deactivate="deactivate" modified="activate" configuration-pid="httpservice.handler.servlet">
+    <property name="displayName" value="Default Servlet Handler"/>
+    <service servicefactory="false">
+        <provide interface="org.eclipse.jetty.server.Handler"/>
+        <provide interface="eu.agno3.runtime.update.PlatformStateListener"/>
+    </service>
+    <reference name="ErrorHandler" interface="org.eclipse.jetty.server.handler.ErrorHandler" cardinality="1..1" policy="static" bind="bindErrorHandler" unbind="unbindErrorHandler"/>
+    <reference name="SessionManagerFactory" interface="eu.agno3.runtime.http.service.session.SessionManagerFactory" cardinality="1..1" policy="static" bind="setSessionManagerFactory" unbind="unsetSessionManagerFactory"/>
+    <reference name="Servlet" interface="javax.servlet.Servlet" cardinality="0..n" policy="dynamic" bind="bindServlet" unbind="unbindServlet" updated="updatedServlet"/>
+    <reference name="Listener" interface="javax.servlet.ServletContextListener" cardinality="0..n" policy="dynamic" bind="bindListener" unbind="unbindListener"/>
+    <reference name="Filter" interface="javax.servlet.Filter" cardinality="0..n" policy="dynamic" bind="bindFilter" unbind="unbindFilter" updated="updatedFilter"/>
+    <implementation class="eu.agno3.runtime.http.service.internal.DefaultServletContextHandler"/>
+</scr:component>

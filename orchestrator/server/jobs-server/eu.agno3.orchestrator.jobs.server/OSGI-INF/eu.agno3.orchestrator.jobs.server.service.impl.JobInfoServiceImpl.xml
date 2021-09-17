@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.jobs.server.service.impl.JobInfoServiceImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.jobs.service.JobInfoService"/>
+        <provide interface="eu.agno3.runtime.ws.common.SOAPWebService"/>
+    </service>
+    <reference name="JobCoordinator" interface="eu.agno3.orchestrator.jobs.JobCoordinator" cardinality="1..1" policy="static" bind="setJobCoordinator" unbind="unsetJobCoordinator"/>
+    <reference name="JobProgressTracker" interface="eu.agno3.orchestrator.jobs.server.JobProgressTracker" cardinality="1..1" policy="static" bind="setJobProgressTracker" unbind="unsetJobProgressTracker"/>
+    <reference name="JobOutputTracker" interface="eu.agno3.orchestrator.jobs.server.JobOutputTracker" cardinality="1..1" policy="static" bind="setJobOutputTracker" unbind="unsetJobOutputTracker"/>
+    <reference name="InstanceService" interface="eu.agno3.orchestrator.config.model.realm.server.service.InstanceServerService" cardinality="1..1" policy="static" bind="setInstanceService" unbind="unsetInstanceService"/>
+    <reference name="ObjectAccessControl" interface="eu.agno3.orchestrator.config.model.realm.server.service.ObjectAccessControl" cardinality="1..1" policy="static" bind="setObjectAccessControl" unbind="unsetObjectAccessControl"/>
+    <implementation class="eu.agno3.orchestrator.jobs.server.service.impl.JobInfoServiceImpl"/>
+</scr:component>

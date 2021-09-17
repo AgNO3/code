@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="orchconfig-server-feature"
+      label="Orchestrator Orchestrator Configuration Server Feature"
+      version="0.0.1.qualifier"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <includes
+         id="orchconfig-feature"
+         version="0.0.0"/>
+
+   <requires>
+      <import feature="hostconfig-feature" version="0.0.1.qualifier"/>
+      <import feature="ws-server-feature" version="0.0.1.qualifier"/>
+      <import feature="orm-feature" version="0.0.1.qualifier"/>
+      <import feature="versioning-feature" version="0.0.1.qualifier"/>
+      <import feature="hostconfig-server-feature" version="0.0.1.qualifier"/>
+   </requires>
+
+</feature>

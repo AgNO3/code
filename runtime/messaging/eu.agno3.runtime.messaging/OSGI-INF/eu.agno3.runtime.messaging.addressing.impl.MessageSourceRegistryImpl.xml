@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.runtime.messaging.addressing.impl.MessageSourceRegistryImpl" activate="activate" deactivate="decativate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.messaging.addressing.MessageSourceRegistry"/>
+    </service>
+    <reference name="MessageSource" interface="eu.agno3.runtime.messaging.addressing.MessageSourceRegistration" cardinality="1..n" policy="dynamic" bind="bindMessageSource" unbind="unbindMessageSource"/>
+    <implementation class="eu.agno3.runtime.messaging.addressing.impl.MessageSourceRegistryImpl"/>
+</scr:component>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.fileshare.security.internal.FileshareAuthorizer">
+    <service servicefactory="false">
+        <provide interface="org.apache.shiro.realm.Realm"/>
+        <provide interface="eu.agno3.fileshare.security.internal.FileshareAuthorizer"/>
+        <provide interface="org.apache.shiro.realm.AuthorizingRealm"/>
+    </service>
+    <reference name="EntityTransactionService" interface="eu.agno3.runtime.db.orm.EntityTransactionService" cardinality="1..1" policy="static" target="(persistenceUnit=fileshare)" bind="bindEntityTransactionService" unbind="unbindEntityTransactionService"/>
+    <reference name="PermissionMapper" interface="eu.agno3.runtime.security.PermissionMapper" cardinality="1..1" policy="static" bind="setPermissionMapper" unbind="unsetPermissionMapper"/>
+    <implementation class="eu.agno3.fileshare.security.internal.FileshareAuthorizer"/>
+</scr:component>

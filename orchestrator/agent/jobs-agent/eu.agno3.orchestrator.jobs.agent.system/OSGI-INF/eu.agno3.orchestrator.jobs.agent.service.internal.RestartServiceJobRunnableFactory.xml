@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.jobs.agent.service.internal.RestartServiceJobRunnableFactory">
+    <property name="jobType" value="eu.agno3.orchestrator.system.monitor.jobs.RestartServiceJob"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.jobs.exec.JobRunnableFactory"/>
+    </service>
+    <reference name="ServiceManager" interface="eu.agno3.orchestrator.jobs.agent.service.ServiceManager" cardinality="1..1" policy="dynamic" bind="setServiceManager" unbind="unsetServiceManager"/>
+    <implementation class="eu.agno3.orchestrator.jobs.agent.service.internal.RestartServiceJobRunnableFactory"/>
+</scr:component>

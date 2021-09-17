@@ -1,0 +1,245 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>eu.agno3.orchestrator.common</groupId>
+		<artifactId>common-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../common-parent/</relativePath>
+	</parent>
+	<artifactId>config</artifactId>
+	<packaging>pom</packaging>
+	<modules>
+		<module>base</module>
+		<module>model</module>
+		<module>hostconfig</module>
+		<module>orchestrator</module>
+		<module>web</module>
+		<module>auth</module>
+	</modules>
+	<name>Orchestrator Configuration Management Module</name>
+	<groupId>eu.agno3.orchestrator.config</groupId>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<configuration>
+					<bundleStartLevel combine.children="append">
+
+
+
+						<bundle>
+							<id>eu.agno3.runtime.xml</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.xml.schema</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.xml.binding</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.http.service</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.ws.common</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.ws.client</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.ws.server</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.orchestrator.config.model.base</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.orchestrator.config.model.base.client</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.db</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.db.derby</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.transaction</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.db.transaction</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.db.orm</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.db.orm.versioning</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.db.schema</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.db.schema.orm</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.db.schema.diff</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.db.schema.orm.autoapply</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+						
+						<bundle>
+							<id>eu.agno3.runtime.validation</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.orchestrator.types</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.orchestrator.types.net</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.messaging</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+						
+						<bundle>
+							<id>eu.agno3.runtime.messaging.transaction</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+						
+						<bundle>
+							<id>eu.agno3.runtime.messaging.xml</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+
+						<bundle>
+							<id>eu.agno3.orchestrator.jobs</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.orchestrator.agent</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+						
+						<bundle>
+							<id>eu.agno3.runtime.messaging.broker</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+					</bundleStartLevel>
+
+
+					<dependencies combine.children="append">
+						<dependency>
+							<groupId>eu.agno3.runtime</groupId>
+							<artifactId>eu.agno3.runtime.db.derby</artifactId>
+							<version>0.0.0</version>
+							<type>eclipse-plugin</type>
+						</dependency>
+						
+						<dependency>
+							<groupId>eu.agno3.runtime</groupId>
+							<artifactId>eu.agno3.runtime.db.schema.orm.autoapply</artifactId>
+							<version>0.0.0</version>
+							<type>eclipse-plugin</type>
+						</dependency>
+						
+						<dependency>
+							<groupId>eu.agno3.runtime</groupId>
+							<artifactId>eu.agno3.runtime.db.transaction</artifactId>
+							<version>0.0.0</version>
+							<type>eclipse-plugin</type>
+						</dependency>
+						
+						
+						<dependency>
+							<groupId>eu.agno3.runtime</groupId>
+							<artifactId>eu.agno3.runtime.validation</artifactId>
+							<version>0.0.0</version>
+							<type>eclipse-plugin</type>
+						</dependency>
+
+						<dependency>
+							<groupId>eu.agno3.runtime</groupId>
+							<artifactId>eu.agno3.runtime.messaging.transaction</artifactId>
+							<version>0.0.0</version>
+							<type>eclipse-plugin</type>
+						</dependency>
+					</dependencies>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

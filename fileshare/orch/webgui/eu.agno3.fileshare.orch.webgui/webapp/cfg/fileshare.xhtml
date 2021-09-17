@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<p:tabView id="aspects" rendered="#{not empty configContext.current}"
+		dynamic="true" cache="false" processOnChange="true">
+		<p:tab title="#{fs_cfgmsgs.bundle['fileshare.web']}" id="web">
+			<orch:objectEditor objectType="urn:agno3:objects:1.0:fileshare:web"
+				context="#{configContext}" path="webConfiguration"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+
+		<p:tab title="#{fs_cfgmsgs.bundle['fileshare.content']}" id="content">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:fileshare:content"
+				context="#{configContext}" path="contentConfiguration"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+
+		<p:tab title="#{fs_cfgmsgs.bundle['fileshare.storage']}" id="storage">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:fileshare:storage"
+				context="#{configContext}" path="storageConfiguration"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+
+		<p:tab title="#{fs_cfgmsgs.bundle['fileshare.user']}" id="user">
+			<orch:objectEditor objectType="urn:agno3:objects:1.0:fileshare:user"
+				context="#{configContext}" path="userConfiguration"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+
+		<p:tab title="#{fs_cfgmsgs.bundle['fileshare.auth']}" id="auth">
+			<orch:objectEditor objectType="urn:agno3:objects:1.0:fileshare:auth"
+				context="#{configContext}" path="authConfiguration"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+
+		<p:tab title="#{fs_cfgmsgs.bundle['fileshare.notification']}"
+			id="notification">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:fileshare:notification"
+				context="#{configContext}" path="notificationConfiguration"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+
+		<p:tab title="#{fs_cfgmsgs.bundle['fileshare.securityPolicies']}"
+			id="securityPolicy">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:fileshare:securityPolicies"
+				context="#{configContext}" path="securityPolicyConfiguration"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+
+		<p:tab title="#{fs_cfgmsgs.bundle['fileshare.logger']}" id="logging">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:fileshare:logger"
+				context="#{configContext}" path="loggerConfiguration"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+
+		<p:tab title="#{fs_cfgmsgs.bundle['fileshare.advanced']}"
+			id="advanced">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:fileshare:advanced"
+				context="#{configContext}" path="advancedConfiguration"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+	</p:tabView>
+</ui:composition>

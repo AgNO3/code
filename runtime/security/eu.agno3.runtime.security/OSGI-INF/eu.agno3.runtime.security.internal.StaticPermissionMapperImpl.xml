@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.security.internal.StaticPermissionMapperImpl" configuration-policy="require" activate="activate" modified="activate" configuration-pid="roles">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.security.RolePermissionContributor"/>
+        <provide interface="eu.agno3.runtime.security.PermissionMapper"/>
+        <provide interface="eu.agno3.runtime.security.RoleTranslator"/>
+    </service>
+    <implementation class="eu.agno3.runtime.security.internal.StaticPermissionMapperImpl"/>
+</scr:component>

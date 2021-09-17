@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.bootstrap.server.service.impl.BootstrapCompleteRunnableFactory">
+    <property name="jobType" value="eu.agno3.orchestrator.bootstrap.jobs.BootstrapCompleteJob"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.jobs.exec.JobRunnableFactory"/>
+    </service>
+    <reference name="BootstrapService" interface="eu.agno3.orchestrator.bootstrap.server.service.BootstrapServerService" cardinality="1..1" policy="static" bind="setBootstrapService" unbind="unsetBootstrapService"/>
+    <implementation class="eu.agno3.orchestrator.bootstrap.server.service.impl.BootstrapCompleteRunnableFactory"/>
+</scr:component>

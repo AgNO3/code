@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.config.hostconfig.agent.RealmConfigJobBuilder">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.config.hostconfig.agent.api.RealmConfigUtil"/>
+        <provide interface="eu.agno3.orchestrator.config.hostconfig.agent.RealmConfigJobBuilder"/>
+    </service>
+    <reference name="KerberosConfigUtil" interface="eu.agno3.orchestrator.agent.realms.config.KerberosConfigUtil" cardinality="1..1" policy="static" bind="setKerberosConfigUtil" unbind="unsetKerberosConfigUtil"/>
+    <implementation class="eu.agno3.orchestrator.config.hostconfig.agent.RealmConfigJobBuilder"/>
+</scr:component>

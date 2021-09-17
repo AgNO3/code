@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" immediate="true" name="eu.agno3.runtime.http.service.console.internal.HttpServiceCommandProvider">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.console.CommandProvider"/>
+    </service>
+    <reference name="HttpServiceInfo" interface="eu.agno3.runtime.http.service.HttpServiceInfo" cardinality="1..1" policy="static" bind="setHttpServiceInfo" unbind="unsetHttpServiceInfo"/>
+    <reference name="ServletInfo" interface="eu.agno3.runtime.http.service.servlet.ServletInfo" cardinality="0..n" policy="dynamic" bind="setServletInfo" unbind="unsetServletInfo"/>
+    <reference name="FilterInfo" interface="eu.agno3.runtime.http.service.filter.FilterInfo" cardinality="0..n" policy="dynamic" bind="setFilterInfo" unbind="unsetFilterInfo"/>
+    <reference name="ResourceInfo" interface="eu.agno3.runtime.http.service.resource.ResourceInfo" cardinality="0..n" policy="dynamic" bind="setResourceInfo" unbind="unsetResourceInfo"/>
+    <reference name="ConfigurationAdmin" interface="org.osgi.service.cm.ConfigurationAdmin" cardinality="1..1" policy="static" bind="setConfigurationAdmin" unbind="unsetConfigurationAdmin"/>
+    <implementation class="eu.agno3.runtime.http.service.console.internal.HttpServiceCommandProvider"/>
+</scr:component>

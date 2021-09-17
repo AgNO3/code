@@ -1,0 +1,6 @@
+[#include "/generatedConfig.ftl"] 
+domain ${cfg.hostIdentification.domainName}
+[#list cfg.resolverConfiguration.nameservers as nameserver]
+nameserver ${nameserver}
+[/#list]
+options timeout:2 attempts:2

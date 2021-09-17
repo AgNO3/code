@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:ac="urn:agno3:gui:1.0:config" xmlns:m="urn:agno3:message:1.0:base" xmlns:ae="urn:agno3:gui:1.0:events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:gui:1.0:events" elementFormDefault="qualified">
+   <xsd:import schemaLocation="urn:agno3:message:1.0:base" namespace="urn:agno3:message:1.0:base"/>
+   <xsd:import schemaLocation="urn:agno3:gui:1.0:config" namespace="urn:agno3:gui:1.0:config"/>
+   <xsd:complexType name="guiUpEvent">
+      <xsd:complexContent>
+         <xsd:extension base="m:xmlMarshallableMessage">
+            <xsd:sequence>
+               <xsd:element name="id" type="xsd:string" minOccurs="0"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="guiDownEvent">
+      <xsd:complexContent>
+         <xsd:extension base="m:xmlMarshallableMessage">
+            <xsd:sequence>
+               <xsd:element name="id" type="xsd:string" minOccurs="0"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="guiConfigUpdatedEvent">
+      <xsd:complexContent>
+         <xsd:extension base="m:xmlMarshallableMessage">
+            <xsd:sequence>
+               <xsd:element name="newConfig" type="ac:guiConfig" minOccurs="0"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:element name="guiUpEvent" type="ae:guiUpEvent"/>
+   <xsd:element name="guiDownEvent" type="ae:guiDownEvent"/>
+   <xsd:element name="guiConfigUpdated" type="ae:guiConfigUpdatedEvent"/>
+</xsd:schema>

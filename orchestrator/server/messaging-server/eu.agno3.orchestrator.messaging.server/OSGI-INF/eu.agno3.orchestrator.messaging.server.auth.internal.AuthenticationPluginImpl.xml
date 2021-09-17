@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.messaging.server.auth.internal.AuthenticationPluginImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.messaging.broker.PrioritizedBrokerPlugin"/>
+        <provide interface="eu.agno3.runtime.messaging.broker.auth.BrokerAuthenticationPlugin"/>
+    </service>
+    <reference name="MsgSourceRegistry" interface="eu.agno3.runtime.messaging.addressing.MessageSourceRegistry" cardinality="1..1" policy="static" bind="setMsgSourceRegistry" unbind="unsetMsgSourceRegistry"/>
+    <reference name="CertificateHandler" interface="eu.agno3.orchestrator.messaging.server.auth.internal.ClientCertificateHandlerImpl" cardinality="1..1" policy="static" bind="setCertificateHandler" unbind="unsetCertificateHandler"/>
+    <implementation class="eu.agno3.orchestrator.messaging.server.auth.internal.AuthenticationPluginImpl"/>
+</scr:component>

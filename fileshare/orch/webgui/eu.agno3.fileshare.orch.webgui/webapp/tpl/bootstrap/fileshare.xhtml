@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<p:tab id="fileshare"
+		titletip="#{_fs_orch_msg['installer.fileshare.title']}">
+		<p:messages showDetail="true" autoUpdate="true" />
+
+		<p:fieldset
+			legend="#{_fs_orch_msg['installer.fileshare.createUser.title']}">
+			<ag:simpleField
+				label="#{_fs_orch_msg['installer.fileshare.createUser.createUser.label']}"
+				description="#{_fs_orch_msg['installer.fileshare.createUser.createUser.description']}"
+				inputId="createUser">
+				<p:selectBooleanCheckbox id="createUser"
+					value="#{fs_bootstrapExtraContext.createUser}">
+					<p:ajax event="change"
+						update="@composite:@parent:createUserSettings" />
+				</p:selectBooleanCheckbox>
+			</ag:simpleField>
+
+			<p:outputPanel id="createUserSettings">
+				<p:outputPanel rendered="#{fs_bootstrapExtraContext.createUser}">
+					<ag:simpleField inputId="createUserAdmin"
+						label="#{_fs_orch_msg['installer.fileshare.createUser.createAdminUser.label']}"
+						description="#{_fs_orch_msg['installer.fileshare.createUser.createAdminUser.description']}">
+						<p:selectBooleanCheckbox id="createUserAdmin"
+							value="#{fs_bootstrapExtraContext.createUserAdmin}" />
+					</ag:simpleField>
+					<ag:simpleField inputId="createUserName"
+						label="#{_fs_orch_msg['installer.fileshare.createUser.createUserName.label']}"
+						description="#{_fs_orch_msg['installer.fileshare.createUser.createUserName.description']}">
+						<p:inputText id="createUserName"
+							value="#{fs_bootstrapExtraContext.createUserName}" />
+					</ag:simpleField>
+
+					<ag:passwordInput checker="#{bootstrapExtraContext.passwordPolicy}"
+						minimumEntropy="#{bootstrapExtraContext.passwordMinimumEntropy}"
+						optional="#{not fs_bootstrapExtraContext.createUser}"
+						redisplay="true"
+						value="#{fs_bootstrapExtraContext.createUserPassword}" />
+				</p:outputPanel>
+			</p:outputPanel>
+		</p:fieldset>
+
+		<p:fieldset
+			legend="#{_fs_orch_msg['installer.fileshare.storage.title']}">
+			<orch:objectEditor template="false"
+				context="#{fs_bootstrapConfigContext}" path="storageConfiguration"
+				hideHeader="true"
+				objectType="urn:agno3:objects:1.0:fileshare:storage">
+				<f:param name="hideVFSGroups" value="${true}" />
+			</orch:objectEditor>
+		</p:fieldset>
+	</p:tab>
+
+</ui:composition>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<p:fieldset styleClass="func-unit">
+		<ag:simpleField inputId="target"
+			label="#{_config_hostconfig['test.network.target.label']}"
+			description="#{_config_hostconfig['test.network.target.description']}">
+			<p:inputText id="target" required="true"
+				value="#{hc_network_testBean.target}" />
+		</ag:simpleField>
+
+		<ag:simpleField inputId="port"
+			label="#{_config_hostconfig['test.network.port.label']}"
+			description="#{_config_hostconfig['test.network.port.description']}">
+			<p:inputText id="port" 
+				value="#{hc_network_testBean.port}" />
+		</ag:simpleField>
+
+		<ag:simpleField inputId="runPing"
+			label="#{_config_hostconfig['test.network.runPing.label']}"
+			description="#{_config_hostconfig['test.network.runPing.description']}">
+			<p:selectBooleanCheckbox id="runPing" 
+				value="#{hc_network_testBean.runPing}" />
+		</ag:simpleField>
+		
+		<ag:simpleField inputId="runTraceroute"
+			label="#{_config_hostconfig['test.network.runTraceroute.label']}"
+			description="#{_config_hostconfig['test.network.runTraceroute.description']}">
+			<p:selectBooleanCheckbox id="runTraceroute" 
+				value="#{hc_network_testBean.runTraceroute}" />
+		</ag:simpleField>
+	</p:fieldset>
+
+	<ui:include src="/tpl/test/results.xhtml">
+		<ui:param name="serviceTestBean" value="#{hc_network_testBean}" />
+		<ui:param name="configContext" value="#{configContext}" />
+	</ui:include>
+</ui:composition>

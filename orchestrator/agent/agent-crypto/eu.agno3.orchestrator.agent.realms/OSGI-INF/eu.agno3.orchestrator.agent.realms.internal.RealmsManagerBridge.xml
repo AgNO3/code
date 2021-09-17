@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.agent.realms.internal.RealmsManagerBridge">
+    <property name="msgType" value="eu.agno3.orchestrator.realms.RealmManagerJMXRequest"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.messaging.listener.RequestEndpoint"/>
+    </service>
+    <reference name="RealmManagementBean" interface="eu.agno3.orchestrator.agent.realms.internal.RealmManagementBean" cardinality="1..1" policy="static" bind="setRealmManagementBean" unbind="unsetRealmManagementBean"/>
+    <reference name="MbeanServer" interface="javax.management.MBeanServer" cardinality="1..1" policy="static" bind="setMbeanServer" unbind="unsetMbeanServer"/>
+    <reference name="MessageSource" interface="eu.agno3.runtime.messaging.addressing.MessageSource" cardinality="1..1" policy="static" bind="setMessageSource" unbind="unsetMessageSource"/>
+    <implementation class="eu.agno3.orchestrator.agent.realms.internal.RealmsManagerBridge"/>
+</scr:component>

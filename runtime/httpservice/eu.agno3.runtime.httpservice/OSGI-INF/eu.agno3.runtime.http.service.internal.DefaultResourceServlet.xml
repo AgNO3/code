@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.http.service.internal.DefaultResourceServlet" configuration-policy="require" activate="activate" deactivate="deactivate" modified="activate" configuration-pid="httpservice.resources">
+    <service servicefactory="false">
+        <provide interface="javax.servlet.Servlet"/>
+        <provide interface="eu.agno3.runtime.http.service.resource.ResourceInfo"/>
+    </service>
+    <reference name="Resource" interface="eu.agno3.runtime.http.service.resource.ResourceDescriptor" cardinality="0..n" policy="dynamic" bind="bindResource" unbind="unbindResource"/>
+    <implementation class="eu.agno3.runtime.http.service.internal.DefaultResourceServlet"/>
+</scr:component>

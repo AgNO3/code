@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.db.schema.diff.internal.SchemaDiffServiceImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.db.schema.diff.SchemaDiffService"/>
+    </service>
+    <reference name="DatabaseFactory" interface="eu.agno3.runtime.db.schema.liquibase.LiquibaseDatabaseFactory" cardinality="1..1" policy="static" bind="setDatabaseFactory" unbind="unsetDatabaseFactory"/>
+    <reference name="ChangeFileProvider" interface="eu.agno3.runtime.db.schema.ChangeFileProvider" cardinality="1..1" policy="static" bind="setChangeFileProvider" unbind="unsetChangeFileProvider"/>
+    <reference name="ChangeLogFactory" interface="eu.agno3.runtime.db.schema.liquibase.LiquibaseChangeLogFactory" cardinality="1..1" policy="static" bind="setChangeLogFactory" unbind="unsetChangeLogFactory"/>
+    <reference name="PostProcessor" interface="eu.agno3.runtime.db.schema.diff.DiffPostProcessor" cardinality="0..n" policy="static" bind="bindPostProcessor" unbind="unbindPostProcessor"/>
+    <reference name="DerbyEmbeddedDataSourceFactory" interface="org.osgi.service.jdbc.DataSourceFactory" cardinality="1..1" policy="static" target="(osgi.jdbc.driver.class=org.apache.derby.jdbc.EmbeddedDriver)" bind="setDerbyEmbeddedDataSourceFactory" unbind="unsetDerbyEmbeddedDataSourceFactory"/>
+    <implementation class="eu.agno3.runtime.db.schema.diff.internal.SchemaDiffServiceImpl"/>
+</scr:component>

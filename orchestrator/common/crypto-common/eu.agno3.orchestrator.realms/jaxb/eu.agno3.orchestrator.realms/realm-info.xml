@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.realms"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		namespace="urn:agno3:model:1.0:realms:info">
+		<xml-ns prefix="realmsi" namespace-uri="urn:agno3:model:1.0:realms:info" />
+	</xml-schema>
+
+	<xml-enums>
+		<xml-enum java-enum="RealmType" value="java.lang.String" />
+	</xml-enums>
+
+	<java-types>
+		<java-type name="RealmInfo" xml-accessor-type="NONE">
+			<xml-type name="realmInfoType" />
+			<xml-root-element name="realms" />
+			<java-attributes>
+				<xml-element name="realmName" java-attribute="realmName" />
+				<xml-element name="type" java-attribute="type" />
+				<xml-element name="joined" java-attribute="joined" />
+
+				<xml-element name="keytab" java-attribute="keytabs">
+					<xml-element-wrapper name="keytabs" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="KeytabInfo" xml-accessor-type="NONE">
+			<xml-type name="keytabInfoType" />
+			<xml-root-element name="keytab" />
+			<java-attributes>
+				<xml-element name="id" java-attribute="id" />
+
+				<xml-element name="key" java-attribute="keys">
+					<xml-element-wrapper name="keys" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="KeyInfo" xml-accessor-type="NONE">
+			<xml-type name="keyInfoType" />
+			<xml-root-element name="key" />
+			<java-attributes>
+				<xml-element name="kvno" java-attribute="kvno" />
+				<xml-element name="algorithm" java-attribute="algorithm" />
+				<xml-element name="principal" java-attribute="principal" />
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="KeyData" xml-accessor-type="NONE">
+			<xml-type name="keyDataType" />
+			<xml-root-element name="keyData" />
+			<java-attributes>
+				<xml-element name="kvno" java-attribute="kvno" />
+				<xml-element name="algorithm" java-attribute="algorithm" />
+				<xml-element name="principal" java-attribute="principal" />
+				<xml-element name="data" java-attribute="data" />
+			</java-attributes>
+		</java-type>
+		
+		<java-type name="RealmLookupResult" xml-accessor-type="NONE">
+			<xml-type name="realmLookupResultType" />
+			<xml-root-element name="lookupResult" />
+			
+			
+			<java-attributes>
+				<xml-attribute name="id" java-attribute="id" />
+				<xml-attribute name="name" java-attribute="idName" />
+				<xml-attribute name="displayName" java-attribute="displayName" />
+				<xml-attribute name="type" java-attribute="type" />
+			</java-attributes>
+		</java-type>
+		
+	</java-types>
+
+</xml-bindings>

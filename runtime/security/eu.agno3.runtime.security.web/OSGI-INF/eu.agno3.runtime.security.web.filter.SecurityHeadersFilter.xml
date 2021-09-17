@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.security.web.filter.SecurityHeadersFilter">
+    <service servicefactory="false">
+        <provide interface="javax.servlet.Filter"/>
+    </service>
+    <reference name="UADetector" interface="eu.agno3.runtime.http.ua.UADetector" cardinality="1..1" policy="static" bind="setUADetector" unbind="unsetUADetector"/>
+    <reference name="Configuration" interface="eu.agno3.runtime.security.web.SecurityHeadersFilterConfig" cardinality="1..1" policy="static" bind="setConfiguration" unbind="unsetConfiguration"/>
+    <implementation class="eu.agno3.runtime.security.web.filter.SecurityHeadersFilter"/>
+</scr:component>

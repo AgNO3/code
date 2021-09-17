@@ -1,0 +1,128 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+<composite:interface
+	componentType="eu.agno3.orchestrator.server.webgui.components.ObjectFieldEditor">
+
+	<composite:attribute name="path" required="true" />
+
+	<composite:attribute name="inputId" required="true"
+		type="java.lang.String" />
+
+	<composite:attribute name="label" required="false"
+		type="java.lang.String" />
+
+	<composite:attribute name="readOnlyIfPersistent" required="false"
+		type="java.lang.Boolean" default="false" />
+		
+	<composite:attribute name="hideIfSimplified" required="false"
+		type="java.lang.Boolean" default="false" />
+
+	<composite:attribute name="onlyIf" required="false" default="true"
+		type="java.lang.Boolean" />
+
+	<composite:attribute name="alwaysEdit" required="false"
+		type="java.lang.Boolean" default="false" />
+
+	<composite:attribute name="collection" required="false"
+		type="java.lang.Boolean" default="false" />
+
+	<composite:attribute name="map" required="false"
+		type="java.lang.Boolean" default="false" />
+
+	<composite:attribute name="converter" required="false"
+		type="java.lang.Object" />
+
+	<composite:attribute name="minLevel" type="java.lang.Integer"
+		default="1" />
+
+
+	<composite:attribute name="keyConverter" required="false"
+		type="java.lang.Object" />
+
+	<composite:attribute name="update" required="false"
+		type="java.lang.String" />
+
+	<composite:attribute name="process" required="false"
+		type="java.lang.String" />
+
+	<composite:attribute name="readOnlyValueMapper" required="false"
+		method-signature="java.lang.Object (java.lang.Object)" />
+
+	<composite:attribute name="clone" required="false"
+		method-signature="java.lang.Object (java.lang.Object)" />
+
+	<composite:attribute name="styleClass" required="false" />
+
+	<composite:facet name="description" />
+</composite:interface>
+
+<composite:implementation>
+	<h:outputStylesheet library="agno3" name="library.static.css" />
+
+	<p:outputPanel id="inputComponents" styleClass="inputComponents">
+		<p:outputPanel id="edit" rendered="#{cc.showEditField()}">
+			<composite:insertChildren />
+
+			<p:commandButton
+				rendered="#{cc.hasInheritedDefaultValue() and cc.shouldShowResetToDefaults()}"
+				styleClass="revert-defaults" actionListener="#{cc.resetToDefault}"
+				icon="ui-icon-cancel" title="#{_gui['config.field.resetToDefault']}"
+				immediate="true" update="inputComponents ${cc.attrs.update}"
+				process="@this ${cc.attrs.process}" style="float:right">
+				<p:resetInput target="inputComponents" />
+			</p:commandButton>
+		</p:outputPanel>
+
+		<p:outputPanel
+			rendered="#{not cc.isCollectionValued() and cc.showDefaultField()}">
+			<div class="inherited-value readOnly">
+				<h:outputText value="#{cc.mapReadOnlyValue(cc.inheritedValue)}"
+					converter="#{converter}" />
+				<span class="ui-icon-inline ui-icon ui-icon-extlink"
+					title="#{cc.valueSourceMessage}" />
+			</div>
+			<p:commandButton actionListener="#{cc.doEdit}"
+				styleClass="edit-inherited" icon="ui-icon-wrench"
+				title="#{_gui['config.field.edit']}" immediate="true"
+				update="inputComponents ${cc.attrs.update}"
+				process="@this ${cc.attrs.process}" style="float:right">
+				<p:resetInput target="inputComponents" />
+			</p:commandButton>
+		</p:outputPanel>
+
+		<p:outputPanel
+			rendered="#{cc.isCollectionValued() and cc.showDefaultField()}">
+			<div class="collection-inherited-label">
+				<h:outputText value="#{_gui['config.object.defaultCollection']}" />
+				<span class="ui-icon-inline ui-icon ui-icon-extlink"
+					title="#{cc.valueSourceMessage}" />
+			</div>
+			<ul class="inherited-value readOnly">
+				<ui:repeat var="itm"
+					value="#{cc.mapReadOnlyCollection(cc.toCollection(cc.inheritedValue))}">
+					<li><i><h:outputText value="#{itm}"
+								converter="#{converter}" /></i></li>
+				</ui:repeat>
+			</ul>
+
+			<p:commandButton actionListener="#{cc.doEdit}"
+				styleClass="edit-inherited" icon="ui-icon-wrench"
+				title="#{_gui['config.field.edit']}" immediate="true"
+				update="inputComponents ${cc.attrs.update}"
+				process="@this ${cc.attrs.process}" style="float:right">
+				<p:resetInput target="inputComponents" />
+			</p:commandButton>
+		</p:outputPanel>
+
+		<composite:insertFacet name="description" />
+	</p:outputPanel>
+
+	<p:messages id="msgs" for="#{cc.clientId}" showDetail="true" />
+</composite:implementation>
+</html>

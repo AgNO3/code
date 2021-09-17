@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.system.info.storage"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:system:info:storage">
+		<xml-ns prefix="s" namespace-uri="urn:agno3:model:1.0:system:info:storage" />
+		<xml-ns prefix="si" namespace-uri="urn:agno3:model:1.0:system:info" />
+		<xml-ns prefix="d" namespace-uri="urn:agno3:model:1.0:system:info:storage:drive" />
+		<xml-ns prefix="v" namespace-uri="urn:agno3:model:1.0:system:info:storage:volume" />
+		<xml-ns prefix="fs" namespace-uri="urn:agno3:model:1.0:system:info:storage:fs" />
+		<xml-ns prefix="xsi" namespace-uri="http://www.w3.org/2001/XMLSchema-instance" />
+	</xml-schema>
+
+	<java-types>
+		<java-type name="StorageInformation" xml-accessor-type="NONE">
+
+
+			<xml-type name="storageInformation"
+				factory-class="eu.agno3.orchestrator.system.info.storage.ObjectFactory"
+				factory-method="createStorageInformation" />
+
+			<xml-root-element name="storageInformation" />
+
+			<java-attributes>
+				<xml-element name="drive" java-attribute="drives">
+					<xml-element-wrapper name="drives" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="VolumeCreationInformation"
+			xml-accessor-type="NONE">
+			<xml-type name="volumeCreationInformation" />
+			<xml-root-element name="volumeCreationInformation" />
+			<java-attributes>
+				<xml-element name="drive" java-attribute="driveId" />
+				<xml-element name="force" java-attribute="force" />
+				<xml-element name="volume" java-attribute="volume"
+					required="false" />
+				<xml-element name="label" java-attribute="label"
+					required="false" />
+			</java-attributes>
+		</java-type>
+
+	</java-types>
+
+</xml-bindings>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough">
+	<p:messages autoUpdate="true" />
+	<p:dataTable id="groupsTable"
+		value="#{app_fs_adm_groupsTableBean.model}" widgetVar="groupsTable"
+		binding="#{app_fs_adm_groupTableBinding.component}" var="group"
+		selection="#{app_fs_adm_groupSelectionBean.multiSelection}"
+		emptyMessage="#{_fs_adm_msg['groups.empty']}" lazy="true"
+		selectionMode="multiple" paginator="true" rows="20"
+		paginatorAlwaysVisible="false" paginatorPosition="bottom">
+
+		<f:facet name="header">
+			<p:toolbar id="toolbar">
+				<f:facet name="left">
+					<ag:dialogOpenButton
+						dialog="#{app_fs_adm_integration.wrapDialog('/app/fs/admin/addGroupDialog.xhtml')}"
+						closable="true"
+						rendered="#{app_fs_adm_permission.hasPermission('manage:groups:create')}"
+						returnLabel="#{_fs_adm_msg['groups.returnTitle']}"
+						icon="ui-icon-plusthick" title="#{_fs_adm_msg['groups.addGroup']}">
+						<p:ajax event="return" update="groupsTable" />
+					</ag:dialogOpenButton>
+				</f:facet>
+
+				<f:facet name="right">
+					<p:commandButton id="refreshButton" icon="ui-icon-arrowrefresh-1-e"
+						title="#{_fs_adm_msg['refreshTable']}" update="groupsTable"
+						actionListener="#{app_fs_adm_groupsTableBean.refresh()}" />
+
+					<ag:dialogOpenButton title="#{_fs_adm_msg['groups.deleteGroups']}"
+						disabled="#{empty app_fs_adm_groupSelectionBean.multiSelectionIds}"
+						closable="true"
+						rendered="#{app_fs_adm_permission.hasPermission('manage:groups:delete')}"
+						returnLabel="#{_fs_adm_msg['groups.returnTitle']}"
+						dialog="#{app_fs_adm_integration.wrapDialog('/app/fs/admin/deleteGroupsDialog.xhtml?groups='.concat(app_fs_adm_groupSelectionBean.encodedMultiSelection))}"
+						icon="ui-icon-trash">
+						<p:ajax event="return"
+							listener="#{app_fs_adm_groupsTableBean.refreshAndClearSelection()}"
+							update="groupsTable" />
+					</ag:dialogOpenButton>
+				</f:facet>
+			</p:toolbar>
+			<ui:insert name="header" />
+		</f:facet>
+
+		<p:ajax event="rowSelect"
+			listener="#{app_fs_adm_groupsTableBean.onSelect}" update="toolbar" />
+
+		<p:ajax event="rowUnselect"
+			listener="#{app_fs_adm_groupsTableBean.onUnselect}" update="toolbar" />
+
+
+
+		<p:column headerText="#{_fs_adm_msg['groups.nameHeader']}">
+			<ag:dialogOpenCommandLink value="#{group.name}" closable="true"
+				title="#{_fs_adm_msg['groups.showDetail']}"
+				returnLabel="#{_fs_adm_msg['groups.returnTitle']}"
+				dialog="#{app_fs_adm_integration.wrapDialog('/app/fs/admin/groupInfoDialog.xhtml?group='.concat(group.id))}">
+				<p:ajax event="return" update="groupsTable" />
+			</ag:dialogOpenCommandLink>
+		</p:column>
+
+		<p:column headerText="#{_fs_adm_msg['groups.realmHeader']}">
+			<h:outputText value="#{group.realm}" />
+		</p:column>
+
+
+		<p:column headerText="#{_fs_adm_msg['groups.quotaHeader']}"
+			width="20%" style="text-align: right">
+			<h:outputText rendered="#{not empty group.quota}"
+				value="#{app_fs_adm_quotaFormatter.format(group.quota)}" />
+			<h:outputText rendered="#{empty group.quota}"
+				value="#{_fs_adm_msg['groups.quota.empty']}" />
+		</p:column>
+
+		<p:column styleClass="action-column">
+			<ag:dialogOpenCommandLink
+				styleClass="ui-icon ui-icon-info ui-icon-inline" closable="true"
+				title="#{_fs_adm_msg['groups.showDetail']}"
+				dialog="#{app_fs_adm_integration.wrapDialog('/app/fs/admin/groupInfoDialog.xhtml?group='.concat(group.id))}">
+				<p:ajax event="return" update="groupsTable" />
+			</ag:dialogOpenCommandLink>
+		</p:column>
+		<p:column styleClass="action-column last">
+			<ag:dialogOpenCommandLink
+				styleClass="ui-icon ui-icon-trash ui-icon-inline" closable="true"
+				rendered="#{app_fs_adm_permission.hasPermission('manage:groups:delete')}"
+				returnLabel="#{_fs_adm_msg['groups.returnTitle']}"
+				title="#{_fs_adm_msg['groups.deleteGroup']}"
+				dialog="#{app_fs_adm_integration.wrapDialog('/app/fs/admin/deleteGroupsDialog.xhtml?groups='.concat(group.id))}">
+				<p:ajax event="return"
+					listener="#{app_fs_adm_groupsTableBean.refreshAndClearSelection()}"
+					update="groupsTable" />
+			</ag:dialogOpenCommandLink>
+		</p:column>
+
+	</p:dataTable>
+</ui:composition>

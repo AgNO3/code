@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<h:outputScript library="agno3" name="library.js" />
+
+	<p:panel styleClass="outputGroup"
+		header="#{_gui['structure.instance.sysinfo.network.resolver']}">
+		<ag:simpleField readOnly="true"
+			label="#{_gui['structure.instance.sysinfo.network.resolver.servers']}"
+			collection="true"
+			value="#{agentSysInfoContext.networkInformation.dnsServers}" />
+	</p:panel>
+
+	<p:panel styleClass="outputGroup"
+		header="#{_gui['structure.instance.sysinfo.network.interfaces']}">
+		<p:treeTable widgetVar="interfaceTable" id="interfaceTable"
+			value="#{agentSysInfoInterfacesTree.root}"
+			selection="#{agentSysInfoInterfacesTree.selectedInterface}"
+			selectionMode="single" var="if"
+			emptyMessage="#{_gui['structure.instance.sysinfo.network.interfaces.empty']}">
+
+			<p:column style="width: 5%;"
+				headerText="#{_gui['structure.instance.sysinfo.network.interfaces.ifIndex']}">
+				<h:outputText value="#{if.interfaceIndex}" />
+			</p:column>
+
+			<p:column style="width: 20%"
+				headerText="#{_gui['structure.instance.sysinfo.network.interfaces.ifName']}">
+				<h:outputText
+					value="#{agentSysInfoInterfacesTree.getInterfaceDisplayName(if.name, if.displayName)}" />
+			</p:column>
+
+			<p:column
+				headerText="#{_gui['structure.instance.sysinfo.network.interfaces.ifType']}">
+				<h:outputText
+					value="#{sysInfoUtil.translateInterfaceType(if.interfaceType)}" />
+			</p:column>
+
+			<p:column
+				headerText="#{_gui['structure.instance.sysinfo.network.interfaces.ifStatus']}">
+				<h:outputText
+					value="#{sysInfoUtil.translateInterfaceStatus(if.interfaceStatus)}" />
+			</p:column>
+
+			<p:column
+				headerText="#{_gui['structure.instance.sysinfo.network.interfaces.v4ConfigurationType']}">
+				<h:outputText value="#{if.v4ConfigurationType}" />
+			</p:column>
+
+			<p:column
+				headerText="#{_gui['structure.instance.sysinfo.network.interfaces.v6ConfigurationType']}">
+				<h:outputText value="#{if.v6ConfigurationType}" />
+			</p:column>
+
+			<p:column style="width: 3em;">
+				<p:commandButton type="button" icon="ui-icon-search"
+					onclick="$(this).closest('td').click()"
+					title="#{_gui['structure.instance.sysinfo.storage.inspect']}" />
+			</p:column>
+
+			<p:ajax event="select" process="@this"
+				update="@parent:@parent:interfaces" />
+		</p:treeTable>
+	</p:panel>
+
+	<p:accordionPanel styleClass="outputGroup" id="interfaces"
+		multiple="true" dynamic="true" cache="false"
+		activeIndex="#{agentSysInfoInterfacesTree.panelActive}">
+
+		<p:tab id="interfaceDetails"
+			disabled="#{not agentSysInfoInterfacesTree.interfaceSelected}">
+			<f:facet name="title">
+				<h:outputFormat
+					rendered="#{agentSysInfoInterfacesTree.interfaceSelected}"
+					value="#{_gui['structure.instance.sysinfo.network.interfaceDetailsFmt']}">
+					<f:param
+						value="#{agentSysInfoInterfacesTree.getInterfaceDisplayName(agentSysInfoInterfacesTree.selectedInterface.data.name, agentSysInfoInterfacesTree.selectedInterface.data.displayName)}" />
+				</h:outputFormat>
+				<h:outputText
+					rendered="#{not agentSysInfoInterfacesTree.interfaceSelected}"
+					value="#{_gui['structure.instance.sysinfo.network.interfaceDetailsNoSelection']}" />
+			</f:facet>
+
+
+			<ag:simpleField readOnly="true"
+				label="#{_gui['structure.instance.sysinfo.network.interface.v4ConfigurationType']}"
+				value="#{agentSysInfoInterfacesTree.selectedInterface.data.v4ConfigurationType}" />
+
+			<ag:simpleField readOnly="true"
+				label="#{_gui['structure.instance.sysinfo.network.interface.v6ConfigurationType']}"
+				value="#{agentSysInfoInterfacesTree.selectedInterface.data.v6ConfigurationType}" />
+
+			<ag:simpleField readOnly="true" collection="true"
+				label="#{_gui['structure.instance.sysinfo.network.interface.interfaceAddresses']}"
+				value="#{agentSysInfoInterfacesTree.selectedInterface.data.interfaceAddresses}" />
+
+			<ag:simpleField readOnly="true"
+				rendered="#{not empty agentSysInfoInterfacesTree.selectedInterface.data.hardwareAddress}"
+				label="#{_gui['structure.instance.sysinfo.network.interface.hardwareAddress']}"
+				value="#{agentSysInfoInterfacesTree.selectedInterface.data.hardwareAddress}" />
+
+			<ag:simpleField readOnly="true"
+				label="#{_gui['structure.instance.sysinfo.network.interface.mtu']}"
+				value="#{agentSysInfoInterfacesTree.selectedInterface.data.mtu}" />
+
+			<p:fieldset
+				legend="#{_gui['structure.instance.sysinfo.network.interface.dhcpLeases']}"
+				rendered="#{agentSysInfoInterfacesTree.selectedInterface.data.v4ConfigurationType == 'DHCP' 
+				or agentSysInfoInterfacesTree.selectedInterface.data.v6ConfigurationType == 'DHCP'}">
+
+				<p:dataTable var="lease"
+					value="#{agentSysInfoInterfacesTree.selectedInterface.data.dhcpLeases}"
+					emptyMessage="#{_gui['structure.instance.sysinfo.network.interface.dhcpLeases.empty']}">
+
+					<p:column style="width: 2em;">
+						<p:rowToggler />
+					</p:column>
+
+					<p:column
+						headerText="#{_gui['structure.instance.sysinfo.network.interface.dhcpLeases.networkSpecification']}">
+						<h:outputText value="#{lease.networkSpecification}" />
+					</p:column>
+
+					<p:column
+						headerText="#{_gui['structure.instance.sysinfo.network.interface.dhcpLeases.status']}">
+						<h:outputText value="#{lease.status}" />
+					</p:column>
+
+					<p:column
+						headerText="#{_gui['structure.instance.sysinfo.network.interface.dhcpLeases.associationType']}">
+						<h:outputText value="#{lease.associationType}" />
+					</p:column>
+
+					<p:column
+						headerText="#{_gui['structure.instance.sysinfo.network.interface.dhcpLeases.expiresTime']}">
+						<h:outputText
+							value="#{localeSettingsBean.formatDateTimeRelative(lease.expiresTime)}"
+							title="#{localeSettingsBean.formatDateTime(lease.expiresTime, 'MS')}" />
+					</p:column>
+
+					<p:rowExpansion>
+						<dl>
+							<dt>
+								<h:outputText
+									value="#{_gui['structure.instance.sysinfo.network.interface.dhcpLeases.renewTime']}" />
+							</dt>
+							<dd>
+								<h:outputText
+									value="#{localeSettingsBean.formatDateTimeRelative(lease.renewTime)}"
+									title="#{localeSettingsBean.formatDateTime(lease.renewTime, 'MS')}" />
+							</dd>
+
+							<dt>
+								<h:outputText
+									value="#{_gui['structure.instance.sysinfo.network.interface.dhcpLeases.rebindTime']}" />
+							</dt>
+							<dd>
+								<h:outputText
+									value="#{localeSettingsBean.formatDateTimeRelative(lease.rebindTime)}"
+									title="#{localeSettingsBean.formatDateTime(lease.rebindTime, 'MS')}" />
+							</dd>
+							<ui:repeat var="opt" value="#{lease.options.options}">
+								<dt>
+									<h:outputText value="#{opt.key}" />
+								</dt>
+								<dd>
+									<h:outputText value="#{opt.values}" />
+								</dd>
+							</ui:repeat>
+						</dl>
+					</p:rowExpansion>
+				</p:dataTable>
+			</p:fieldset>
+		</p:tab>
+	</p:accordionPanel>
+	<p:panel styleClass="outputGroup"
+		header="#{_gui['structure.instance.sysinfo.network.routes']}">
+		<p:dataTable var="rt"
+			value="#{agentSysInfoContext.networkInformation.routes}"
+			emptyMessage="#{_gui['structure.instance.sysinfo.network.routes.empty']}">
+
+			<p:column style="width: 25%"
+				headerText="#{_gui['structure.instance.sysinfo.network.routes.network']}">
+				<h:outputText value="#{rt.network}" />
+			</p:column>
+
+			<p:column style="width: 25%"
+				headerText="#{_gui['structure.instance.sysinfo.network.routes.gateway']}">
+				<h:outputText value="#{rt.gateway}" />
+			</p:column>
+
+			<p:column
+				headerText="#{_gui['structure.instance.sysinfo.network.routes.interfaceName']}">
+				<h:outputText
+					value="#{agentSysInfoInterfacesTree.getInterfaceDisplayName(rt.interfaceName, rt.interfaceName)}" />
+			</p:column>
+
+			<p:column
+				headerText="#{_gui['structure.instance.sysinfo.network.routes.flags']}">
+				<h:outputText value="#{rt.flags}" />
+			</p:column>
+
+			<p:column
+				headerText="#{_gui['structure.instance.sysinfo.network.routes.metric']}">
+				<h:outputText value="#{rt.metric}" />
+			</p:column>
+
+
+		</p:dataTable>
+	</p:panel>
+</ui:composition>

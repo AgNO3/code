@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name="eu.agno3.runtime.db.orm.test.model1.Entity3" table="entity3">
+      <id name="eid" type="int" column="eid">
+         <generator class="native"/>
+      </id>
+      <property name="test" column="test" type="string"/>
+   </class>
+</hibernate-mapping>

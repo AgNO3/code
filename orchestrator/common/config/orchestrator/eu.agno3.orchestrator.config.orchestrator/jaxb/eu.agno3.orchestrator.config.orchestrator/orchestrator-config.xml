@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.config.orchestrator"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:orchestrator">
+		<xml-ns prefix="oc" namespace-uri="urn:agno3:model:1.0:orchestrator" />
+		<xml-ns prefix="cmr" namespace-uri="urn:agno3:model:1.0:realm" />
+		<xml-ns prefix="webc" namespace-uri="urn:agno3:model:1.0:web" />
+		<xml-ns prefix="authc" namespace-uri="urn:agno3:model:1.0:auth" />
+	</xml-schema>
+
+	<java-types>
+		<java-type name="OrchestratorConfiguration"
+			xml-accessor-type="NONE">
+
+			<xml-type name="orchestratorConfigType"
+				factory-class="eu.agno3.orchestrator.config.orchestrator.ObjectFactory"
+				factory-method="createOrchestratorConfiguration" />
+
+			<xml-root-element name="orchestratorConfig" />
+
+			<java-attributes>
+				<xml-element name="webConfig" java-attribute="webConfig" />
+				<xml-element name="authenticationConfig" java-attribute="authenticationConfig" />
+				<xml-element name="eventLogConfig" java-attribute="eventLogConfig" />
+				<xml-element name="advancedConfig" java-attribute="advancedConfig" />
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="OrchestratorConfigurationMutable"
+			xml-accessor-type="NONE">
+			<xml-type name="orchestratorConfigMutable"
+				factory-class="eu.agno3.orchestrator.config.orchestrator.ObjectFactory"
+				factory-method="createOrchestratorConfiguration" />
+		</java-type>
+
+
+		<java-type name="OrchestratorEventLogConfiguration"
+			xml-accessor-type="NONE">
+
+			<xml-type name="orchestratorEventLogConfigType"
+				factory-class="eu.agno3.orchestrator.config.orchestrator.ObjectFactory"
+				factory-method="createOrchestratorEventLogConfiguration" />
+
+			<xml-root-element name="orchestratorEventLogConfig" />
+
+			<java-attributes>
+				<xml-element name="eventStorage" java-attribute="eventStorage" />
+				<xml-element name="writeLogFiles" java-attribute="writeLogFiles" />
+				<xml-element name="disableLogExpiration" java-attribute="disableLogExpiration" />
+				<xml-element name="retainDays" java-attribute="retainDays" />
+				<xml-element name="retainIndexedDays" java-attribute="retainIndexedDays" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="OrchestratorEventLogConfigurationMutable"
+			xml-accessor-type="NONE">
+			<xml-type name="orchestratorEventLogConfigMutable"
+				factory-class="eu.agno3.orchestrator.config.orchestrator.ObjectFactory"
+				factory-method="createOrchestratorEventLogConfiguration" />
+		</java-type>
+
+		<java-type name="OrchestratorWebConfiguration"
+			xml-accessor-type="NONE">
+
+			<xml-type name="orchestratorWebConfigType"
+				factory-class="eu.agno3.orchestrator.config.orchestrator.ObjectFactory"
+				factory-method="createOrchestratorWebConfiguration" />
+
+			<xml-root-element name="orchestratorWebConfig" />
+
+			<java-attributes>
+				<xml-element name="themeLibrary" java-attribute="themeLibrary" />
+				<xml-element name="webEndpointConfig" java-attribute="webEndpointConfig" />
+				<xml-element name="apiEndpointConfig" java-attribute="apiEndpointConfig" />
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="OrchestratorWebConfigurationMutable"
+			xml-accessor-type="NONE">
+
+			<xml-type name="orchestratorWebConfigMutableType"
+				factory-class="eu.agno3.orchestrator.config.orchestrator.ObjectFactory"
+				factory-method="createOrchestratorWebConfiguration" />
+		</java-type>
+
+		<java-type name="OrchestratorAdvancedConfiguration"
+			xml-accessor-type="NONE">
+
+			<xml-type name="orchestratorAdvancedConfigType"
+				factory-class="eu.agno3.orchestrator.config.orchestrator.ObjectFactory"
+				factory-method="createOrchestratorAdvancedConfiguration" />
+
+			<xml-root-element name="orchestratorAdvancedConfig" />
+
+			<java-attributes>
+				<xml-element name="runtimeConfig" java-attribute="runtimeConfig" />
+
+				<xml-element name="tempStorage" java-attribute="tempStorage" />
+				<xml-element name="dataStorage" java-attribute="dataStorage" />
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="OrchestratorAdvancedConfigurationMutable"
+			xml-accessor-type="NONE">
+
+			<xml-type name="orchestratorAdvancedConfigMutableType"
+				factory-class="eu.agno3.orchestrator.config.orchestrator.ObjectFactory"
+				factory-method="createOrchestratorAdvancedConfiguration" />
+		</java-type>
+
+		<java-type name="OrchestratorAuthenticationConfiguration"
+			xml-accessor-type="NONE">
+
+			<xml-type name="orchestratorAuthConfigType"
+				factory-class="eu.agno3.orchestrator.config.orchestrator.ObjectFactory"
+				factory-method="createOrchestratorAuthenticationConfiguration" />
+
+			<xml-root-element name="orchestratorAuthConfig" />
+
+			<java-attributes>
+				<xml-element name="authenticatorsConfig" java-attribute="authenticatorsConfig" />
+				<xml-element name="roleConfig" java-attribute="roleConfig" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="OrchestratorAuthenticationConfigurationMutable"
+			xml-accessor-type="NONE">
+
+			<xml-type name="orchestratorAuthConfigMutableType"
+				factory-class="eu.agno3.orchestrator.config.orchestrator.ObjectFactory"
+				factory-method="createOrchestratorAuthenticationConfiguration" />
+		</java-type>
+	</java-types>
+
+</xml-bindings>

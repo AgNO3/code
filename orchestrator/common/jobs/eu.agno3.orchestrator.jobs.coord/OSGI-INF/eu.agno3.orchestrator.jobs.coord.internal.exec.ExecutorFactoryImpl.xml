@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.jobs.coord.internal.exec.ExecutorFactoryImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.jobs.coord.ExecutorFactory"/>
+    </service>
+    <reference name="JobRunnableFactory" interface="eu.agno3.orchestrator.jobs.coord.JobRunnableFactoryInternal" cardinality="1..1" policy="static" bind="setJobRunnableFactory" unbind="unsetJobRunnableFactory"/>
+    <reference name="OutputHandlerFactory" interface="eu.agno3.orchestrator.jobs.coord.OutputHandlerFactory" cardinality="1..1" policy="static" bind="setOutputHandlerFactory" unbind="unsetOutputHandlerFactory"/>
+    <implementation class="eu.agno3.orchestrator.jobs.coord.internal.exec.ExecutorFactoryImpl"/>
+</scr:component>

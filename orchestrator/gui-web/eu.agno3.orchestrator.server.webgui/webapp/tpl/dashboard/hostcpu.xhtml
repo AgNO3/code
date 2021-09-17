@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<p:panel id="hostload"
+		header="#{_gui['structure.instance.sysinfo.platform.load']}">
+		<p:outputPanel
+				rendered="#{agentSysInfoContext.haveData()}">
+			<p:outputPanel deferred="true" styleClass="load-graphs">
+				<div class="load-graph">
+					<h:outputFormat styleClass="load-label"
+						value="#{_gui['structure.instance.sysinfo.platform.load1']}">
+						<f:param
+							value="#{100 * agentSysInfoContext.platformInformation.cpuInformation.load1}" />
+					</h:outputFormat>
+					<div class="load-bar ui-widget-content">
+						<div class="#{agentSysInfoLoadChartModel.load1BarStyleClass}"
+							style="#{agentSysInfoLoadChartModel.load1BarStyle}"></div>
+					</div>
+				</div>
+				<div class="load-graph">
+					<h:outputFormat styleClass="load-label"
+						value="#{_gui['structure.instance.sysinfo.platform.load5']}">
+						<f:param
+							value="#{100 * agentSysInfoContext.platformInformation.cpuInformation.load5}" />
+					</h:outputFormat>
+					<div class="load-bar ui-widget-content">
+						<div class="#{agentSysInfoLoadChartModel.load5BarStyleClass}"
+							style="#{agentSysInfoLoadChartModel.load5BarStyle}"></div>
+					</div>
+				</div>
+				<div class="load-graph">
+					<h:outputFormat styleClass="load-label"
+						value="#{_gui['structure.instance.sysinfo.platform.load15']}">
+						<f:param
+							value="#{100 * agentSysInfoContext.platformInformation.cpuInformation.load15}" />
+					</h:outputFormat>
+					<div class="load-bar ui-widget-content">
+						<div class="#{agentSysInfoLoadChartModel.load15BarStyleClass}"
+							style="#{agentSysInfoLoadChartModel.load15BarStyle}"></div>
+					</div>
+				</div>
+			</p:outputPanel>
+		</p:outputPanel>
+		<p:outputPanel
+			rendered="#{not agentSysInfoContext.haveData()}">
+			<ui:include src="/tpl/dashboard/unavailable.xhtml" />
+		</p:outputPanel>
+	</p:panel>
+</ui:composition>

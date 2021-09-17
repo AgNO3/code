@@ -1,0 +1,24 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.runtime</groupId>
+    <artifactId>runtime-parent</artifactId>
+    <version>0.1.254</version>
+    <relativePath></relativePath>
+  </parent>
+  <artifactId>net</artifactId>
+  <packaging>pom</packaging>
+  <name>Network Utility Module</name>
+  <modules>
+  	<module>eu.agno3.runtime.net.dns</module>
+  	<module>eu.agno3.runtime.net.krb5</module>
+  	<module>eu.agno3.runtime.net.ad</module>
+  	<module>eu.agno3.runtime.net.icap</module>
+  	<module>eu.agno3.runtime.net.icap.test</module>
+	<module>icap-feature</module>
+	<module>net-dns-feature</module>
+	<module>net-ad-feature</module>
+	<module>net-krb-feature</module>
+  </modules>
+  <version>0.0.80</version>
+</project>

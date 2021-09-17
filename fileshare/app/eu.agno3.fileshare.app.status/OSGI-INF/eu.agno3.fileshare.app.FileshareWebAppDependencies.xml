@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.fileshare.app.FileshareWebAppDependencies">
+    <property name="instanceId" value="fileshare"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.http.service.webapp.WebAppDependencies"/>
+    </service>
+    <reference name="ServiceContext" interface="eu.agno3.fileshare.service.api.internal.DefaultServiceContext" cardinality="1..1" policy="static" bind="bindServiceContext" unbind="unbindServiceContext"/>
+    <reference name="WebDAVServlet" interface="eu.agno3.fileshare.webdav.FileshareWebDAVServlet" cardinality="1..1" policy="static" bind="bindWebDAVServlet" unbind="unbindWebDAVServlet"/>
+    <implementation class="eu.agno3.fileshare.app.FileshareWebAppDependencies"/>
+</scr:component>

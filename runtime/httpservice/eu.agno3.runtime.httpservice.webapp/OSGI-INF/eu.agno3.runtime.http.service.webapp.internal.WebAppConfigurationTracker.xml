@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><components xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0">
+    <scr:component name="eu.agno3.runtime.http.service.webapp.internal.WebAppConfigurationTracker">
+        <implementation class="eu.agno3.runtime.http.service.webapp.internal.WebAppConfigurationTracker"/>
+        <service servicefactory="false">
+            <provide interface="eu.agno3.runtime.http.service.webapp.internal.WebAppConfigurationTracker"/>
+        </service>
+        <reference name="Configuration" interface="eu.agno3.runtime.http.service.webapp.internal.WebAppConfiguration" cardinality="0..n" policy="dynamic" bind="bindConfiguration" unbind="unbindConfiguration"/>
+    </scr:component>
+</components>

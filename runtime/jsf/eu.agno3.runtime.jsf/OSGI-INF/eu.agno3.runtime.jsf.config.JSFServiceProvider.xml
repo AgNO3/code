@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.runtime.jsf.config.JSFServiceProvider" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.jsf.config.JSFServiceProvider"/>
+    </service>
+    <reference name="SerialFactory" interface="org.apache.myfaces.shared.util.serial.SerialFactory" cardinality="1..1" policy="static" bind="setSerialFactory" unbind="unsetSerialFactory"/>
+    <reference name="ValidatorFactory" interface="javax.validation.ValidatorFactory" cardinality="1..1" policy="static" bind="setValidatorFactory" unbind="unsetValidatorFactory"/>
+    <reference name="ResourceBundleService" interface="eu.agno3.runtime.i18n.ResourceBundleService" cardinality="1..1" policy="static" bind="setResourceBundleService" unbind="unsetResourceBundleService"/>
+    <implementation class="eu.agno3.runtime.jsf.config.JSFServiceProvider"/>
+</scr:component>

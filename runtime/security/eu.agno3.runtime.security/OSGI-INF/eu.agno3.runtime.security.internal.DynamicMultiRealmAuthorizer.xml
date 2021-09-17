@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.security.internal.DynamicMultiRealmAuthorizer">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.security.DynamicModularRealmAuthorizer"/>
+        <provide interface="org.apache.shiro.authz.ModularRealmAuthorizer"/>
+    </service>
+    <reference name="PermissionResolver" interface="org.apache.shiro.authz.permission.PermissionResolver" cardinality="1..1" policy="static" bind="bindPermissionResolver" unbind="unbindPermissionResolver"/>
+    <reference name="RolePermissionsResolver" interface="org.apache.shiro.authz.permission.RolePermissionResolver" cardinality="1..1" policy="static" bind="bindRolePermissionsResolver" unbind="unbindRolePermissionsResolver"/>
+    <reference name="Realm" interface="org.apache.shiro.realm.AuthorizingRealm" cardinality="0..n" policy="dynamic" bind="bindRealm" unbind="unbindRealm"/>
+    <implementation class="eu.agno3.runtime.security.internal.DynamicMultiRealmAuthorizer"/>
+</scr:component>

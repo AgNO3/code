@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.config.model.realm.resourcelibrary"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:realm:resourceLibrary">
+		<xml-ns prefix="cmrl" namespace-uri="urn:agno3:model:1.0:realm:resourceLibrary" />
+		<xml-ns prefix="cmb" namespace-uri="urn:agno3:model:1.0:base" />
+		<xml-ns prefix="m" namespace-uri="urn:agno3:message:1.0:base" />
+		<xml-ns prefix="cmr" namespace-uri="urn:agno3:model:1.0:realm" />
+	</xml-schema>
+
+	<java-types>
+
+		<java-type name="ResourceLibrary" xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.config.model.base.BaseObject">
+
+			<xml-type name="resourceLibraryType" />
+			<xml-root-element name="resourceLibrary" />
+			<java-attributes>
+				<xml-element name="name" java-attribute="name" />
+				<xml-element name="builtin" java-attribute="builtin" />
+				<xml-element name="type" java-attribute="type" />
+				<xml-element name="parent" java-attribute="parent" />
+			</java-attributes>
+		</java-type>
+		
+		<java-type name="ResourceLibraryFileInfo" xml-accessor-type="NONE">
+			<xml-type name="resourceLibraryFileType" />
+			<xml-root-element name="file" />
+			<java-attributes>
+				<xml-attribute name="path" java-attribute="path" required="true" />
+				<xml-attribute name="libraryName" java-attribute="libraryName" required="false" />
+				<xml-attribute name="inherited" java-attribute="inherited" required="false" />
+				<xml-attribute name="globalDefault" java-attribute="globalDefault" required="false" />
+				<xml-attribute name="anchor" java-attribute="anchorId" required="false">
+					<xml-java-type-adapter value="eu.agno3.runtime.xml.binding.adapter.UUIDAdapter" />
+				</xml-attribute>
+				<xml-attribute name="libraryId" java-attribute="libraryId" required="false">
+					<xml-java-type-adapter value="eu.agno3.runtime.xml.binding.adapter.UUIDAdapter" />
+				</xml-attribute>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ResourceLibraryEntry" xml-accessor-type="NONE">
+			<xml-type name="resourceLibraryEntryType" />
+			<xml-root-element name="resourceLibraryEntry" />
+			<java-attributes>
+				<xml-element name="path" java-attribute="path" />
+				<xml-element name="hash" java-attribute="hash" />
+				<xml-element name="oldHash" java-attribute="oldHash"
+					required="false" />
+				<xml-element name="content" java-attribute="content"
+					required="false" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ResourceLibraryListRequest"
+			xml-accessor-type="NONE">
+			<xml-type name="resourceLibraryListRequestType" />
+
+			<xml-root-element name="resourceLibraryListRequest" />
+
+			<java-attributes>
+				<xml-element name="target" java-attribute="serviceTarget" />
+				<xml-element name="libraryType" java-attribute="libraryType" />
+				<xml-element name="hint" java-attribute="hint" required="false" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ResourceLibraryListResponse"
+			xml-accessor-type="NONE">
+			<xml-type name="resourceLibraryListResponseType" />
+
+			<xml-root-element name="resourceLibraryListResponse" />
+
+			<java-attributes>
+				<xml-element name="entry" java-attribute="entries">
+					<xml-element-wrapper name="entries" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ResourceLibrarySynchronizeRequest"
+			xml-accessor-type="NONE">
+			<xml-type name="resourceLibrarySynchronizeRequestType" />
+
+			<xml-root-element name="resourceLibrarySynchronizeRequest" />
+			<java-attributes>
+				<xml-element name="target" java-attribute="serviceTarget" />
+				<xml-element name="libraryType" java-attribute="libraryType" />
+				<xml-element name="hint" java-attribute="hint" required="false" />
+
+				<xml-element name="add" java-attribute="add">
+					<xml-element-wrapper name="additions" />
+				</xml-element>
+
+				<xml-element name="update" java-attribute="update">
+					<xml-element-wrapper name="updates" />
+				</xml-element>
+
+				<xml-element name="delete" java-attribute="delete">
+					<xml-element-wrapper name="deletions" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+
+	</java-types>
+
+</xml-bindings>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.orchestrator.jobs.agent.coord.impl.AgentJobCoordinatorImpl" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.jobs.JobCoordinator"/>
+    </service>
+    <reference name="MessageClient" interface="eu.agno3.runtime.messaging.client.MessagingClient" cardinality="0..1" policy="dynamic" bind="setMessageClient" unbind="unsetMessageClient"/>
+    <reference name="ExecutorFactory" interface="eu.agno3.orchestrator.jobs.coord.ExecutorFactory" cardinality="1..1" policy="static" bind="setExecutorFactory" unbind="unsetExecutorFactory"/>
+    <reference name="QueueFactory" interface="eu.agno3.orchestrator.jobs.coord.QueueFactory" cardinality="1..1" policy="static" bind="setQueueFactory" unbind="unsetQueueFactory"/>
+    <reference name="JobStateTracker" interface="eu.agno3.orchestrator.jobs.coord.PersistentJobStateTracker" cardinality="1..1" policy="static" bind="setJobStateTracker" unbind="unsetJobStateTracker"/>
+    <implementation class="eu.agno3.orchestrator.jobs.agent.coord.impl.AgentJobCoordinatorImpl"/>
+</scr:component>

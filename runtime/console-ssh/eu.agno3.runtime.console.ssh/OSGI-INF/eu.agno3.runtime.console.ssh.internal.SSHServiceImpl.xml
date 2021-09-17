@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" immediate="true" name="eu.agno3.runtime.console.ssh.internal.SSHServiceImpl" activate="activate" deactivate="deactivate" modified="activate" configuration-pid="console.ssh">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.console.ssh.SSHService"/>
+    </service>
+    <reference name="PasswordAuthenticator" interface="org.apache.sshd.server.auth.password.PasswordAuthenticator" cardinality="0..1" policy="static" bind="setPasswordAuthenticator" unbind="unsetPasswordAuthenticator"/>
+    <reference name="PubkeyAuthenticator" interface="org.apache.sshd.server.auth.pubkey.PublickeyAuthenticator" cardinality="0..1" policy="static" bind="setPubkeyAuthenticator" unbind="unsetPubkeyAuthenticator"/>
+    <reference name="ShellFactory" interface="eu.agno3.runtime.console.ssh.internal.ShellFactory" cardinality="1..1" policy="static" bind="setShellFactory" unbind="unsetShellFactory"/>
+    <reference name="CommandFactory" interface="org.apache.sshd.server.command.CommandFactory" cardinality="1..1" policy="static" bind="setCommandFactory" unbind="unsetCommandFactory"/>
+    <reference name="HostkeyProvider" interface="org.apache.sshd.common.keyprovider.KeyPairProvider" cardinality="1..1" policy="static" bind="setHostkeyProvider" unbind="unsetHostkeyProvider"/>
+    <implementation class="eu.agno3.runtime.console.ssh.internal.SSHServiceImpl"/>
+</scr:component>

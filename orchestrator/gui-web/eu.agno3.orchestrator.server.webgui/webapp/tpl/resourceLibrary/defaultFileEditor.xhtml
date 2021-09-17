@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+	<p:outputPanel id="fileEditor">
+		<p:fieldset
+			rendered="#{not empty resourceLibraryFileEditorBean.selectedFile and not resourceLibraryFileEditorBean.inCreateMode}">
+
+			<ui:include src="/tpl/resourceLibrary/binaryFileEditor.xhtml">
+				<ui:param name="readonly"
+					value="#{resourceLibraryFileEditorBean.selectedFile.inherited}" />
+			</ui:include>
+		</p:fieldset>
+	</p:outputPanel>
+</ui:composition>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<ui:include src="/cfgfiles/header.xhtml">
+		<ui:param name="subtitle" value="#{subtitle}" />
+	</ui:include>
+
+	<div style="float: right; text-align: right; width: 10em">
+		<ui:insert name="utilMenu">
+			<ui:include src="/tpl/utilMenu.xhtml" />
+		</ui:insert>
+	</div>
+</ui:composition>

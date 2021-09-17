@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.system.info.network"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:system:info:network">
+		<xml-ns prefix="ni" namespace-uri="urn:agno3:model:1.0:system:info:network" />
+		<xml-ns prefix="si" namespace-uri="urn:agno3:model:1.0:system:info" />
+		<xml-ns prefix="tnet" namespace-uri="urn:agno3:model:1.0:types:net" />
+	</xml-schema>
+
+	<java-types>
+		<java-type name="NetworkInformation" xml-accessor-type="NONE">
+
+
+			<xml-type name="networkInformation"
+				factory-class="eu.agno3.orchestrator.system.info.network.ObjectFactory"
+				factory-method="createNetworkInformation" />
+
+			<xml-root-element name="networkInformation" />
+
+			<java-attributes>
+				<xml-element name="interface" java-attribute="networkInterfaces"
+					container-type="java.util.ArrayList">
+					<xml-element-wrapper name="interfaces" />
+				</xml-element>
+
+
+				<xml-element name="route" java-attribute="routes"
+					container-type="java.util.ArrayList">
+					<xml-element-wrapper name="routes" />
+				</xml-element>
+
+				<xml-element name="server" java-attribute="dnsServers">
+					<xml-element-wrapper name="dnsServers" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="NetworkInterface" xml-accessor-type="NONE">
+			<xml-root-element name="networkInterface" />
+			<xml-type name="interface"
+				factory-class="eu.agno3.orchestrator.system.info.network.ObjectFactory"
+				factory-method="createNetworkInterface" />
+
+			<java-attributes>
+				<xml-attribute name="index" java-attribute="interfaceIndex"
+					required="true" />
+				<xml-attribute name="name" java-attribute="name"
+					required="true" />
+
+
+
+				<xml-attribute name="mtu" java-attribute="mtu" />
+				<xml-attribute name="status" java-attribute="interfaceStatus" />
+				<xml-attribute name="type" java-attribute="interfaceType" />
+
+
+				<xml-attribute name="v4configType" java-attribute="v4ConfigurationType" />
+				<xml-attribute name="v6configType" java-attribute="v6ConfigurationType" />
+
+				<xml-element name="displayName" java-attribute="displayName" />
+				<xml-element name="ifAlias" java-attribute="alias"
+					required="false" />
+
+				<xml-element-ref name="hardwareAddress"
+					java-attribute="hardwareAddress" required="false" />
+
+				<xml-element name="address" java-attribute="interfaceAddresses"
+					container-type="java.util.HashSet">
+					<xml-element-wrapper name="addresses" />
+				</xml-element>
+
+				<xml-element name="subInterface" java-attribute="subInterfaces"
+					container-type="java.util.ArrayList">
+					<xml-element-wrapper name="subInterfaces" />
+				</xml-element>
+
+				<xml-inverse-reference java-attribute="parent"
+					mapped-by="subInterfaces">
+					<xml-access-methods get-method="getParent"
+						set-method="setParent" />
+				</xml-inverse-reference>
+
+				<xml-element name="lease" java-attribute="dhcpLeases">
+					<xml-element-wrapper name="dhcpLeases" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="RouteEntry" xml-accessor-type="NONE">
+			<xml-root-element name="route" />
+			<xml-type name="routeType" />
+
+			<java-attributes>
+				<xml-element name="ifname" java-attribute="interfaceName" />
+				<xml-element name="network" java-attribute="network" />
+				<xml-element name="source" java-attribute="source"
+					required="false" />
+
+				<xml-element name="gateway" java-attribute="gateway"
+					required="false" />
+
+				<xml-element name="metric" java-attribute="metric" />
+				<xml-element name="ref" java-attribute="ref" />
+				<xml-element name="use" java-attribute="use" />
+
+				<xml-element name="flag" java-attribute="flags">
+					<xml-element-wrapper name="flags" />
+				</xml-element>
+
+				<xml-element name="mtu" java-attribute="mtu" required="false" />
+				<xml-element name="window" java-attribute="window"
+					required="false" />
+				<xml-element name="irtt" java-attribute="irtt" required="false" />
+
+			</java-attributes>
+		</java-type>
+
+		<java-type name="LeaseEntry" xml-accessor-type="NONE">
+			<xml-root-element name="dhcpLease" />
+			<xml-type name="dhcpLeaseType" />
+
+			<java-attributes>
+				<xml-element name="network" java-attribute="networkSpecification" />
+
+				<xml-element name="expires" java-attribute="expiresTime">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter" />
+				</xml-element>
+				<xml-element name="rebind" java-attribute="rebindTime">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter" />
+				</xml-element>
+				<xml-element name="renew" java-attribute="renewTime">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter" />
+				</xml-element>
+
+				<xml-element name="type" java-attribute="associationType" />
+				<xml-element name="status" java-attribute="status" />
+				<xml-element name="options" java-attribute="options" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="DHCPOptions" xml-accessor-type="NONE">
+			<xml-root-element name="dhcpOptions" />
+			<xml-type name="dhcpOptionsType" />
+
+			<java-attributes>
+				<xml-element name="option" java-attribute="options" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="DHCPOption" xml-accessor-type="NONE">
+			<xml-root-element name="dhcpOption" />
+			<xml-type name="dhcpOptionType" />
+
+			<java-attributes>
+				<xml-element name="key" java-attribute="key" />
+				<xml-element name="value" java-attribute="values">
+					<xml-element-wrapper name="values" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+	</java-types>
+
+</xml-bindings>

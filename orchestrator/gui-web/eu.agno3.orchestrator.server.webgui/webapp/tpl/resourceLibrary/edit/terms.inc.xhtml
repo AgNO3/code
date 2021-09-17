@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+	<p:toolbar id="fileToolbar" styleClass="file-toolbar">
+		<f:facet name="left">
+			<ui:include src="/tpl/resourceLibrary/fileMenu.xhtml">
+				<ui:param name="update"
+					value="${'@form:editor:fileEditor @form:editor'}" />
+			</ui:include>
+		</f:facet>
+	</p:toolbar>
+
+
+	<p:messages autoUpdate="true" showDetail="true" />
+
+	<p:panelGrid id="editor">
+		<p:row>
+			<p:column>
+				<ui:include src="/tpl/resourceLibrary/defaultFileTree.xhtml">
+					<ui:param name="update"
+						value="${'@form:editor:fileEditor @form:editor @form:fileToolbar'}" />
+				</ui:include>
+			</p:column>
+
+			<p:column>
+				<p:fieldset legend="#{_gui['resourceLibrary.createFile.title']}"
+					rendered="#{resourceLibraryFileEditorBean.inCreateMode}">
+
+					<ag:simpleField id="termsIdField"
+						label="#{_gui['resourceLibrary.terms.termsId.label']}"
+						description="#{_gui['resourceLibrary.terms.termsId.description']}"
+						inputId="termsId">
+						<p:inputText id="termsId" required="true"
+							value="#{termsLibraryFileEditorBean.termsId}" />
+					</ag:simpleField>
+
+					<ag:simpleField id="termsLocaleField"
+						label="#{_gui['resourceLibrary.terms.locale.label']}"
+						description="#{_gui['resourceLibrary.terms.locale.description']}"
+						inputId="termsLocale">
+						<p:selectOneMenu id="termsLocale" filter="true"
+							value="#{termsLibraryFileEditorBean.locale}"
+							converter="#{localeConverter}">
+							<f:selectItem
+								itemLabel="#{_gui['resourceLibrary.terms.locale.default']}"
+								noSelectionOption="true" />
+							<f:selectItems value="#{localeModelBean.model}" var="locale"
+								itemValue="#{locale}"
+								itemLabel="#{localeModelBean.getLocaleLabel(locale)}" />
+						</p:selectOneMenu>
+					</ag:simpleField>
+
+
+					<ui:include src="/tpl/resourceLibrary/createFileCommon.xhtml">
+						<ui:param name="fileEditorBean"
+							value="#{termsLibraryFileEditorBean}" />
+					</ui:include>
+				</p:fieldset>
+
+				<p:outputPanel id="fileEditor">
+					<p:outputPanel
+						rendered="#{not empty resourceLibraryFileEditorBean.selectedFile and not resourceLibraryFileEditorBean.inCreateMode}">
+						<ui:include src="/tpl/resourceLibrary/rawTextFileEditor.xhtml">
+							<ui:param name="textEditorBean"
+								value="#{termsLibraryFileEditorBean}" />
+							<ui:param name="mode" value="text/html" />
+							<ui:param name="readonly"
+								value="#{resourceLibraryFileEditorBean.selectedFile.inherited}" />
+						</ui:include>
+					</p:outputPanel>
+				</p:outputPanel>
+			</p:column>
+		</p:row>
+	</p:panelGrid>
+</ui:composition>

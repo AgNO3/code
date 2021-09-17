@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.orchestrator.jobs.agent.backup.internal.BackupGeneratorImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.jobs.agent.backup.BackupGenerator"/>
+        <provide interface="eu.agno3.orchestrator.system.base.SystemService"/>
+    </service>
+    <reference name="BackupGenerator" interface="eu.agno3.orchestrator.jobs.agent.backup.BackupUnitGenerator" cardinality="0..n" policy="dynamic" bind="bindBackupGenerator" unbind="unbindBackupGenerator"/>
+    <reference name="ServiceManager" interface="eu.agno3.orchestrator.jobs.agent.service.ServiceManager" cardinality="0..1" policy="static" bind="setServiceManager" unbind="unsetServiceManager" policy-option="greedy"/>
+    <reference name="ServiceTypeRegistry" interface="eu.agno3.orchestrator.config.model.descriptors.ServiceTypeRegistry" cardinality="1..1" policy="static" bind="setServiceTypeRegistry" unbind="unsetServiceTypeRegistry"/>
+    <reference name="ConfigRepository" interface="eu.agno3.orchestrator.jobs.agent.system.ConfigRepository" cardinality="1..1" policy="static" bind="setConfigRepository" unbind="unsetConfigRepository"/>
+    <implementation class="eu.agno3.orchestrator.jobs.agent.backup.internal.BackupGeneratorImpl"/>
+</scr:component>

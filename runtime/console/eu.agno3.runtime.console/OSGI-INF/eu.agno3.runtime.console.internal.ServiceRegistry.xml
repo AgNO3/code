@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.console.internal.ServiceRegistry">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.console.internal.ServiceRegistry"/>
+    </service>
+    <reference name="Completer" interface="org.apache.karaf.shell.api.console.Completer" cardinality="0..n" policy="dynamic" bind="bindCompleter" unbind="unbindCompleter"/>
+    <implementation class="eu.agno3.runtime.console.internal.ServiceRegistry"/>
+</scr:component>

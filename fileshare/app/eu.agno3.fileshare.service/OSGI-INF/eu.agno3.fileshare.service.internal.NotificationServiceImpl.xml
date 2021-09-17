@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.fileshare.service.internal.NotificationServiceImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.service.api.internal.NotificationService"/>
+    </service>
+    <reference name="ServiceContext" interface="eu.agno3.fileshare.service.api.internal.DefaultServiceContext" cardinality="1..1" policy="static" bind="setServiceContext" unbind="unsetServiceContext"/>
+    <reference name="MailTemplateBuilder" interface="eu.agno3.fileshare.mail.tpl.FileshareMailTemplateBuilder" cardinality="1..1" policy="static" bind="setMailTemplateBuilder" unbind="unsetMailTemplateBuilder"/>
+    <reference name="SMTPTransportProvider" interface="eu.agno3.runtime.mail.SMTPTransportProvider" cardinality="0..1" policy="dynamic" bind="setSMTPTransportProvider" unbind="unsetSMTPTransportProvider"/>
+    <implementation class="eu.agno3.fileshare.service.internal.NotificationServiceImpl"/>
+</scr:component>

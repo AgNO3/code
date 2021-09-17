@@ -1,0 +1,20 @@
+Bundle-SymbolicName: eu.agno3.runtime.db.jmx
+Bundle-Version: 0.0.166
+Bundle-Name: Database Service JMX
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.runtime.crypto;version="0.0.72",
+ eu.agno3.runtime.db;version="0.0.10",
+ eu.agno3.runtime.jmx;version="0.0.14",
+ eu.agno3.runtime.ldap.filter;version="0.0.6",
+ eu.agno3.runtime.util.threads;version="0.0.66",
+ org.apache.log4j;version="1.2.15",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.cm;version="1.4.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.osgi.service.jdbc;version="1.0.0",
+ org.osgi.util.tracker;version="1.5.1"
+Service-Component: OSGI-INF/*.xml
+Export-Package: eu.agno3.runtime.db.jmx

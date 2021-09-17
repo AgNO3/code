@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:j="urn:agno3:job:1.0:base" xmlns:user="urn:agno3:security:1.0:principal" xmlns:compj="urn:agno3:job:1.0:compound" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:job:1.0:compound" elementFormDefault="qualified">
+   <xsd:import schemaLocation="urn:agno3:job:1.0:base" namespace="urn:agno3:job:1.0:base"/>
+   <xsd:complexType name="compoundJob">
+      <xsd:complexContent>
+         <xsd:extension base="j:jobImpl">
+            <xsd:sequence>
+               <xsd:element name="jobs" minOccurs="0">
+                  <xsd:complexType>
+                     <xsd:sequence>
+                        <xsd:element name="job" type="j:job" minOccurs="0" maxOccurs="unbounded"/>
+                     </xsd:sequence>
+                  </xsd:complexType>
+               </xsd:element>
+               <xsd:element name="name" type="xsd:string" minOccurs="0"/>
+               <xsd:element name="weights" minOccurs="0">
+                  <xsd:complexType>
+                     <xsd:sequence>
+                        <xsd:element name="weight" type="xsd:float" minOccurs="0" maxOccurs="unbounded"/>
+                     </xsd:sequence>
+                  </xsd:complexType>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:element name="compoundJob" type="compj:compoundJob"/>
+</xsd:schema>

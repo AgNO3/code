@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/tpl/structure/group/template.xhtml">
+	<ui:param name="groupSubtitle"
+		value="#{_gui['structure.group.delete.subtitle']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="group"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<p:confirmDialog global="true"
+			visible="#{structureViewContext.selectedGroup != null}"
+			header="Confirmation required" widgetVar="confirmDelete">
+
+
+
+			<f:facet name="message">
+				<h:outputFormat
+					value="#{_gui['structure.group.delete.confirmMsgFmt']}">
+					<f:param value="#{structureViewContext.selectedGroup.displayName}" />
+				</h:outputFormat>
+				<p:messages id="messages" />
+			</f:facet>
+
+			<div class="buttons">
+				<p:button outcome="/structure/group/index.xhtml;faces-redirect=true"
+					icon="ui-icon-cancel"
+					value="#{_gui['structure.group.delete.cancel']}"
+					onclick="PF('confirmDelete').hide();">
+					<f:param name="group"
+						value="#{structureViewContext.selectedGroup.id}" />
+				</p:button>
+				<p:commandButton icon="ui-icon-trash"
+					action="#{structuralGroupDeleteController.delete}"
+					styleClass="close-button" includeViewParams="true"
+					value="#{_gui['structure.group.delete.confirm']}" update="messages" />
+			</div>
+		</p:confirmDialog>
+	</ui:define>
+</ui:composition>

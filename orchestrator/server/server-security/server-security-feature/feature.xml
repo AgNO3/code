@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="server-security-feature"
+      label="Orchestrator Server Security"
+      version="0.0.1.qualifier"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <includes
+         id="security-db-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="security-ldap-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="security-krb-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="security-cas-feature"
+         version="0.0.0"/>
+
+   <requires>
+      <import feature="orm-feature" version="0.0.10"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.orchestrator.server.security"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.server.security.api"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.server.auth.webapp"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.dependencies.cas-server"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.server.auth.cas"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

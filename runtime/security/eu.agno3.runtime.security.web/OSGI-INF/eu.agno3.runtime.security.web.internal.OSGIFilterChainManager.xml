@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.security.web.internal.OSGIFilterChainManager" factory="eu.agno3.runtime.security.web.internal.OSGIFilterChainManager">
+    <service servicefactory="false">
+        <provide interface="org.apache.shiro.web.filter.mgt.FilterChainManager"/>
+    </service>
+    <reference name="Filter" interface="eu.agno3.runtime.security.web.SecurityFilter" cardinality="0..n" policy="dynamic" bind="bindFilter" unbind="unbindFilter"/>
+    <reference name="FilterChainContributor" interface="eu.agno3.runtime.security.web.config.FilterChainContributor" cardinality="0..n" policy="dynamic" bind="bindFilterChainContributor" unbind="unbindFilterChainContributor"/>
+    <implementation class="eu.agno3.runtime.security.web.internal.OSGIFilterChainManager"/>
+</scr:component>

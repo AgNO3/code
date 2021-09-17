@@ -1,0 +1,18 @@
+Bundle-SymbolicName: eu.agno3.runtime.ldap.filter
+Bundle-Version: 0.0.52
+Bundle-Name: LDAP Filter Parser
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.runtime.ldap.filter;version="0.0.4",
+ eu.agno3.runtime.ldap.filter.parser;version="0.0.4",
+ org.apache.commons.lang3;version="3.1.0",
+ org.apache.log4j;version="1.2.15",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0"
+Export-Package: eu.agno3.runtime.ldap.filter;version="0.0.52",
+ eu.agno3.runtime.ldap.filter.parser;version="0.0.52";uses:="eu.agno3.runtime.ldap.filter",
+ eu.agno3.runtime.ldap.filter.parser.impl;version="0.0.52"
+Service-Component: OSGI-INF/*.xml
+Bundle-ActivationPolicy: lazy

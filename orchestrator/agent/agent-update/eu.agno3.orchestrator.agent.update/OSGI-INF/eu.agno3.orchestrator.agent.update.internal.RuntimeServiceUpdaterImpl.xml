@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.orchestrator.agent.update.internal.RuntimeServiceUpdaterImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.agent.update.RuntimeServiceUpdater"/>
+        <provide interface="eu.agno3.orchestrator.system.base.SystemService"/>
+    </service>
+    <reference name="ServiceManager" interface="eu.agno3.orchestrator.jobs.agent.service.ServiceManager" cardinality="0..1" policy="static" bind="setServiceManager" unbind="unsetServiceManager" policy-option="greedy"/>
+    <reference name="UpdateManagerProvider" interface="eu.agno3.runtime.update.UpdateManagerProvider" cardinality="1..1" policy="static" bind="setUpdateManagerProvider" unbind="unsetUpdateManagerProvider"/>
+    <reference name="ExecutionConfig" interface="eu.agno3.orchestrator.system.base.execution.ExecutionConfigProperties" cardinality="1..1" policy="static" bind="setExecutionConfig" unbind="unsetExecutionConfig"/>
+    <implementation class="eu.agno3.orchestrator.agent.update.internal.RuntimeServiceUpdaterImpl"/>
+</scr:component>

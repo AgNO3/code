@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:m="urn:agno3:message:1.0:base" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:message:1.0:base" elementFormDefault="qualified">
+   <xsd:complexType name="xmlMarshallableMessage"/>
+   <xsd:complexType name="defaultXmlErrorResponseMessage">
+      <xsd:complexContent>
+         <xsd:extension base="m:xmlMarshallableMessage">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:element name="message" type="m:xmlMarshallableMessage"/>
+   <xsd:element name="error" type="m:defaultXmlErrorResponseMessage"/>
+</xsd:schema>

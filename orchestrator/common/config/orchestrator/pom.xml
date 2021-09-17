@@ -1,0 +1,16 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.orchestrator.config</groupId>
+    <artifactId>config</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>orchestrator</artifactId>
+  <name>Orchestrator Orchestrator Configuration Module</name>
+  <packaging>pom</packaging>
+  <modules>
+  	<module>eu.agno3.orchestrator.config.orchestrator</module>
+  	<module>eu.agno3.orchestrator.config.orchestrator.i18n</module>
+  	<module>orchconfig-feature</module>
+  </modules>
+</project>

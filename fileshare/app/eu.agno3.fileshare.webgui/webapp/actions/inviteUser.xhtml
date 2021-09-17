@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="/tpl/common/dialog.xhtml">
+	<ui:param name="title" value="#{_msgs['actions.inviteUser.title']}" />
+
+	<ui:define name="content">
+		<h:form>
+			<ag:dialogContextHolder />
+
+			<ag:dialogCrumps />
+
+			<p:hotkey bind="esc" action="#{dialog.close}" immediate="true" />
+
+			<p:messages autoUpdate="true" showDetail="true" />
+
+			<p:outputPanel id="throttleDelay"
+				styleClass="throttle-display ui-messages ui-widget">
+				<p:outputPanel styleClass="ui-messages-fatal"
+					rendered="#{not empty userRegistrationBean.throttleDelay}">
+
+					<span class="ui-messages-fatal-icon" />
+					<span class="ui-messages-fatal-summary"> <h:outputText
+							value="#{_msgs['actions.inviteUser.throttleMessageBegin']}" /> <h:outputText
+							styleClass="remain-throttle"
+							value="#{userRegistrationBean.throttleDelay}" /> <h:outputText
+							value="#{_msgs['actions.inviteUser.throttleMessageEnd']}" />
+					</span>
+
+					<pe:timer visible="false" immediate="true"
+						timeout="#{userRegistrationBean.throttleDelay}"
+						ontimerstep="$('.throttle-display').find('.remain-throttle').text(intervalData.current + ' '); "
+						ontimercomplete="$('.throttle-display').hide()"
+						listener="#{userRegistrationBean.throttleComplete()}"
+						process="@this" update="throttleDelay" />
+				</p:outputPanel>
+			</p:outputPanel>
+
+			<p:fieldset styleClass="func-unit"
+				rendered="#{registrationBean.isInvitationEnabled()}"
+				legend="#{_msgs['actions.inviteUser.title']}">
+
+				<ag:simpleField
+					label="#{_msgs['actions.inviteUser.mailAddress.label']}"
+					description="#{_msgs['actions.inviteUser.mailAddress.description']}"
+					inputId="mailAddress">
+					<p:inputText id="mailAddress" required="true"
+						value="#{userRegistrationBean.mailAddress}" />
+				</ag:simpleField>
+
+				<p:outputPanel id="resendPanel">
+					<ag:simpleField label="#{_msgs['actions.inviteUser.resend.label']}"
+						description="#{_msgs['actions.inviteUser.resend.description']}"
+						inputId="resend" onlyIf="#{userRegistrationBean.alreadySent}">
+						<p:selectBooleanCheckbox id="resend"
+							value="#{userRegistrationBean.resend}" />
+					</ag:simpleField>
+				</p:outputPanel>
+
+				<ag:simpleField
+					label="#{_msgs['actions.inviteUser.fullName.label']}"
+					description="#{_msgs['actions.inviteUser.fullName.description']}"
+					inputId="fullName">
+					<p:inputText id="fullName" value="#{userRegistrationBean.fullName}" />
+				</ag:simpleField>
+
+				<ag:simpleField
+					label="#{_msgs['actions.inviteUser.callingName.label']}"
+					description="#{_msgs['actions.inviteUser.callingName.description']}"
+					input="callingName">
+					<p:inputText id="callingName"
+						value="#{userRegistrationBean.callingName}" />
+
+					<p:watermark
+						value="#{_msgs['actions.inviteUser.callingName.watermark']}"
+						for="callingName" />
+				</ag:simpleField>
+
+
+				<ag:simpleField
+					label="#{_msgs['actions.inviteUser.expiration.label']}"
+					description="#{_msgs['actions.inviteUser.expiration.description']}">
+					<p:outputPanel
+						rendered="#{not currentUserBean.hasPermission('manage:subjects:expiry')}">
+						<h:outputText rendered="#{not empty userRegistrationBean.expires}"
+							value="#{localeSettingsBean.formatDateTime(userRegistrationBean.expires, 'M-')}" />
+						<h:outputText rendered="#{empty userRegistrationBean.expires}"
+							value="#{_msgs['actions.inviteUser.expiration.never']}" />
+					</p:outputPanel>
+
+					<p:outputPanel id="expiration"
+						styleClass="date-editor hover-shade-background"
+						rendered="#{currentUserBean.hasPermission('manage:subjects:expiry')}"
+						style="display: inline-block">
+						<p:outputPanel id="expiresOutput" style="display: inline-block">
+							<h:outputText
+								rendered="#{not empty userRegistrationBean.expires}"
+								value="#{localeSettingsBean.formatDateTime(userRegistrationBean.expires, 'M-')}" />
+							<h:outputText rendered="#{empty userRegistrationBean.expires}"
+								value="#{_msgs['actions.inviteUser.expiration.never']}" />
+						</p:outputPanel>
+
+						<h:outputText class="ui-icon ui-icon-calendar ui-icon-inline"
+							title="#{_msgs['actions.inviteUser.expiration.set']}" />
+					</p:outputPanel>
+
+					<p:overlayPanel
+						rendered="#{currentUserBean.hasPermission('manage:subjects:expiry')}"
+						widgetVar="expirePanel" appendToBody="false" dynamic="false"
+						for="expiration" showCloseIcon="true">
+						<p:calendar id="expiresCal" mode="inline"
+							value="#{userRegistrationBean.expires}"
+							locale="#{localeSettingsBean.dateLocale}"
+							timeZone="#{localeSettingsBean.timeZone}"
+							converter="#{dateTimeConverter}"
+							mindate="#{userRegistrationBean.minExpires}">
+							<p:ajax event="dateSelect" update="expiresOutput"
+								oncomplete="PF('expirePanel').hide();" />
+						</p:calendar>
+						<p:commandButton
+							actionListener="#{userRegistrationBean.unsetExpiration}"
+							update="expiresOutput expiresCal" icon="ui-icon-closethick"
+							value="#{_msgs['actions.inviteUser.expiration.unset']}"
+							oncomplete="PF('expirePanel').hide();" />
+					</p:overlayPanel>
+				</ag:simpleField>
+
+
+				<ag:simpleField
+					label="#{_msgs['actions.inviteUser.userLocale.label']}"
+					description="#{_msgs['actions.inviteUser.userLocale.description']}"
+					input="userLocale">
+					<p:selectOneMenu id="userLocale" filter="true"
+						value="#{userRegistrationBean.locale}"
+						converter="#{localeConverter}">
+						<f:selectItem
+							itemLabel="#{_msgs['actions.inviteUser.userLocale.default']}"
+							noSelectionOption="true" />
+						<f:selectItems value="#{localeModelBean.model}" var="locale"
+							itemValue="#{locale}"
+							itemLabel="#{localeModelBean.getLocaleLabel(locale)}" />
+					</p:selectOneMenu>
+				</ag:simpleField>
+
+				<ag:simpleField label="#{_msgs['actions.inviteUser.subject.label']}"
+					description="#{_msgs['actions.inviteUser.subject.description']}"
+					inputId="subject">
+					<p:inputText id="subject" style="width: 80%"
+						value="#{userRegistrationBean.subject}" />
+				</ag:simpleField>
+
+				<ag:simpleField label="#{_msgs['actions.inviteUser.message.label']}"
+					description="#{_msgs['actions.inviteUser.message.description']}"
+					input="message">
+					<p:outputPanel style="width :100%">
+
+						<p:inputTextarea id="message" cols="60" rows="5"
+							style="width: 100%; margin-bottom: 0.2em;"
+							rendered="#{not userRegistrationBean.inPreview or empty userRegistrationBean.messagePreview}"
+							value="#{userRegistrationBean.message}" />
+
+
+						<p:outputPanel id="previewPanel" style="width: 100%"
+							rendered="#{userRegistrationBean.inPreview and not empty userRegistrationBean.messagePreview}">
+							<p:outputPanel id="mailPreview" style="width: 100%">
+								<iframe
+									style="border: 1px solid rgb(200, 200, 200); width: 100%; height: 14em; margin: -4px; margin-bottom: 0.2em;"
+									jsf:id="subjectPreviewFrame" pass:sandbox=""
+									pass:srcdoc="#{mailPreviewBean.getBody(userRegistrationBean.messagePreview)}" />
+							</p:outputPanel>
+						</p:outputPanel>
+
+						<p:commandButton update="@parent" id="previewLink"
+							rendered="#{not userRegistrationBean.inPreview or empty userRegistrationBean.messagePreview}"
+							action="#{registrationController.generateInvitationPreview(userRegistrationBean)}"
+							icon="ui-icon-search"
+							value="#{_msgs['actions.inviteUser.message.preview']}" />
+
+						<p:outputPanel style="display: block"
+							rendered="#{userRegistrationBean.inPreview and not empty userRegistrationBean.messagePreview}">
+							<p:commandButton update="@parent:@parent" id="editLink"
+								icon="ui-icon-pencil"
+								action="#{registrationController.closeInvitationPreview(userRegistrationBean)}"
+								value="#{_msgs['actions.inviteUser.message.closePreview']}" />
+
+							<h:outputText
+								value="#{_msgs['actions.inviteUser.message.previewLinkMsg']}" />
+						</p:outputPanel>
+					</p:outputPanel>
+				</ag:simpleField>
+			</p:fieldset>
+
+			<div class="buttons">
+				<p:commandButton icon="ui-icon-mail-open"
+					action="#{registrationController.invite(userRegistrationBean)}"
+					value="#{_msgs['actions.inviteUser.confirm']}"
+					update="@this resendPanel throttleDelay" />
+
+				<p:commandButton immediate="true" action="#{dialog.close}"
+					styleClass="close-button inline" icon="#{dialog.closeIcon}"
+					title="#{dialog.closeDescription}"
+					value="#{_msgs['actions.inviteUser.cancel']}" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

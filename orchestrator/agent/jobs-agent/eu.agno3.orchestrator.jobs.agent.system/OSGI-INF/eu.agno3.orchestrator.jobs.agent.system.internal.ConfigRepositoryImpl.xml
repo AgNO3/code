@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.orchestrator.jobs.agent.system.internal.ConfigRepositoryImpl" configuration-policy="require" activate="activate" deactivate="deactivate" configuration-pid="config.repository">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.jobs.agent.system.ConfigRepository"/>
+        <provide interface="eu.agno3.orchestrator.system.base.SystemService"/>
+    </service>
+    <reference name="XmlMarshaller" interface="eu.agno3.runtime.xml.binding.XmlMarshallingService" cardinality="1..1" policy="static" bind="setXmlMarshaller" unbind="unsetXmlMarshaller"/>
+    <reference name="ServiceTypeRegistry" interface="eu.agno3.orchestrator.config.model.descriptors.ServiceTypeRegistry" cardinality="1..1" policy="static" bind="setServiceTypeRegistry" unbind="unsetServiceTypeRegistry"/>
+    <implementation class="eu.agno3.orchestrator.jobs.agent.system.internal.ConfigRepositoryImpl"/>
+</scr:component>

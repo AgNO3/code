@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.config.model.realm.test.model"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:test:config:model">
+		<xml-ns prefix="rt" namespace-uri="urn:test:config:model" />
+		<xml-ns prefix="r" namespace-uri="urn:agno3:model:1.0:realm" />
+	</xml-schema>
+
+	<java-types>
+
+
+		<java-type name="Authenticator" xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.config.model.realm.ConfigurationObject">
+			<xml-type name="authenticatorType" />
+			<xml-root-element name="authenticator" />
+		</java-type>
+
+		<java-type name="ADAuthenticator" xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.config.model.realm.test.model.Authenticator">
+
+			<xml-type name="adAuthenticatorType"
+				factory-class="eu.agno3.orchestrator.config.model.realm.test.model.ObjectFactory"
+				factory-method="createADAuthenticator" />
+			<xml-root-element name="adAuthentictator" />
+
+			<java-attributes>
+				<xml-element java-attribute="dc1" />
+				<xml-element java-attribute="dc2" />
+				<xml-element java-attribute="domain" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ADAuthenticatorMutable" xml-accessor-type="NONE">
+			<xml-type name="adAuthenticatorMutable"
+				factory-class="eu.agno3.orchestrator.config.model.realm.test.model.ObjectFactory"
+				factory-method="createADAuthenticator" />
+		</java-type>
+
+		<java-type name="RADIUSAuthenticator" xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.config.model.realm.test.model.Authenticator">
+
+			<xml-type name="radiusAuthenticatorType"
+				factory-class="eu.agno3.orchestrator.config.model.realm.test.model.ObjectFactory"
+				factory-method="createRADIUSAuthenticator" />
+			<xml-root-element name="radiusAuthentictator" />
+
+			<java-attributes>
+				<xml-element java-attribute="radius1" />
+				<xml-element java-attribute="radius2" />
+				<xml-element java-attribute="nasIp" />
+				<xml-element java-attribute="nasSecret" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="RADIUSAuthenticatorMutable"
+			xml-accessor-type="NONE">
+			<xml-type name="radiusAuthenticatorMutable"
+				factory-class="eu.agno3.orchestrator.config.model.realm.test.model.ObjectFactory"
+				factory-method="createRADIUSAuthenticator" />
+		</java-type>
+
+		<java-type name="AuthenticatorCollection" xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.config.model.realm.ConfigurationObject">
+
+			<xml-type name="authenticatorCollectionType"
+				factory-class="eu.agno3.orchestrator.config.model.realm.test.model.ObjectFactory"
+				factory-method="createAuthenticatorCollection" />
+			<xml-root-element name="authenticatorCollection" />
+
+			<java-attributes>
+				<xml-element name="authenticator" java-attribute="authenticators"
+					container-type="java.util.ArrayList"
+					type="eu.agno3.orchestrator.config.model.realm.test.model.Authenticator">
+					<xml-element-wrapper name="authenticators"
+						required="true" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="AuthenticatorCollectionMutable"
+			xml-accessor-type="NONE">
+			<xml-type name="authenticatorCollectionMutable"
+				factory-class="eu.agno3.orchestrator.config.model.realm.test.model.ObjectFactory"
+				factory-method="createAuthenticatorCollection" />
+		</java-type>
+
+		<java-type name="FileShareConfiguration" xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.config.model.realm.ConfigurationInstance">
+
+			<xml-type name="fileShareConfigurationType"
+				factory-class="eu.agno3.orchestrator.config.model.realm.test.model.ObjectFactory"
+				factory-method="createFileShareConfiguration" />
+			<xml-root-element name="fileShareConfiguration" />
+
+			<java-attributes>
+				<xml-element java-attribute="authenticators" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="FileShareConfigurationMutable"
+			xml-accessor-type="NONE">
+			<xml-type name="fileShareConfigurationMutable"
+				factory-class="eu.agno3.orchestrator.config.model.realm.test.model.ObjectFactory"
+				factory-method="createFileShareConfiguration" />
+		</java-type>
+
+	</java-types>
+
+</xml-bindings>

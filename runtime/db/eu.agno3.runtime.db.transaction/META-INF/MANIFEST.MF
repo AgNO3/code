@@ -1,0 +1,35 @@
+Bundle-SymbolicName: eu.agno3.runtime.db.transaction
+Bundle-Version: 0.0.166
+Bundle-Name: Database Transaction Support
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: com.atomikos.datasource;version="4.0.0.AG10",
+ com.atomikos.datasource.xa;version="4.0.0.AG10",
+ com.atomikos.datasource.xa.jdbc;version="4.0.0.AG10",
+ com.atomikos.datasource.xa.session;version="4.0.0.AG10",
+ com.atomikos.icatch;version="4.0.0.AG10",
+ com.atomikos.icatch.config;version="4.0.0.AG10",
+ com.atomikos.icatch.jta;version="4.0.0.AG10",
+ com.atomikos.jdbc;version="[3.9,4.9)",
+ com.atomikos.recovery;version="4.0.1.AG1",
+ eu.agno3.runtime.db;version="0.0.10",
+ eu.agno3.runtime.ldap.filter;version="0.0.34",
+ eu.agno3.runtime.transaction;version="0.0.8",
+ eu.agno3.runtime.util.log;version="0.0.8",
+ eu.agno3.runtime.util.osgi;version="0.0.92",
+ javax.transaction;version="1.1.0",
+ javax.transaction.xa;version="1.1.0",
+ org.apache.commons.dbcp2;version="1.4.0",
+ org.apache.commons.dbcp2.managed;version="1.4.0",
+ org.apache.commons.lang3;version="3.3.2",
+ org.apache.commons.pool2;version="2.3.0",
+ org.apache.commons.pool2.impl;version="2.3.0",
+ org.apache.derby.iapi.jdbc;version="10.12.1.1",
+ org.apache.log4j;version="[1.2,2.0)",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.osgi.service.jdbc;version="1.0.0",
+ org.osgi.util.tracker;version="1.5.1"
+Service-Component: OSGI-INF/*.xml

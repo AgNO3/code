@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0"
+	template="/tpl/common/raw.xhtml">
+	<ui:param name="title" value="#{_gui['installer.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{bootstrapController.checkContext}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+
+	<ui:define name="pageBlockMessage">
+		<h:outputText value="#{_gui['installer.connectionLossMsg']}" />
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="installWizardForm">
+			<p:panel rendered="#{not bootstrapController.hasContext()}">
+				<p:messages detail="true" />
+			</p:panel>
+
+			<input type="hidden" name="cid"
+				value="#{bootstrapHostConfigContext.conversation.id}" />
+
+			<p:blockUI id="block" widgetVar="block" block="blockPanel">
+				<p:graphicImage style="margin-right: 1em;" name="loading.gif"
+					library="images" />
+				<h:outputText value="#{_gui['loading']}" />
+				<br />
+			</p:blockUI>
+
+			<p:outputPanel id="customPageBlockMessage"
+				styleClass="connection-lost-message" style="display: none;">
+				<h:outputText value="#{_gui['installer.connectionLossDetailMsg']}" />
+				<p:outputPanel rendered="#{not empty bootstrapExtraContext.guiUri}">
+					<h:outputLink value="#{bootstrapExtraContext.guiUri}">
+						<h:outputText value="#{bootstrapExtraContext.guiUri}" />
+					</h:outputLink>
+				</p:outputPanel>
+			</p:outputPanel>
+
+			<p:toolbar>
+				<f:facet name="right">
+					<p:selectOneMenu id="detailLevelPicker" styleClass="ays-ignore"
+						style="display: inline-block; vertical-align: baseline; margin-top: 2px; width: 8em"
+						value="#{bootstrapHostConfigContext.detailLevel}">
+						<p:ajax event="change" process="@form" update="@form" />
+						<f:selectItems value="#{configContextUtil.detailLevels}" />
+					</p:selectOneMenu>
+				</f:facet>
+			</p:toolbar>
+
+			<p:panel id="blockPanel" style="min-height: 70vh">
+				<p:wizard id="installWizard" widgetVar="installWizard"
+					showNavBar="false" rendered="#{bootstrapController.hasContext()}"
+					step="#{bootstrapExtraContext.step}" 
+					oncomplete="stopBlock();"
+					onstart="startBlock();"
+					style="width: 80%; margin-left: auto; margin-right: auto; margin-top: 3em"
+					flowListener="#{bootstrapController.flowListener}">
+
+					<p:tab id="changeAdminPassword"
+						titletip="#{_gui['installer.changeAdminPassword.title']}">
+						<p:messages showDetail="true" autoUpdate="true" />
+						<p:fieldset
+							legend="#{_gui['installer.changeAdminPassword.title']}">
+							<p>
+								<h:outputText
+									rendered="#{not bootstrapExtraContext.forcePasswordChange}"
+									value="#{_gui['installer.changeAdminPassword.msgOptional']}" />
+								<h:outputText
+									rendered="#{bootstrapExtraContext.forcePasswordChange}"
+									value="#{_gui['installer.changeAdminPassword.msgRequired']}" />
+							</p>
+
+							<ag:passwordInput redisplay="true"
+								checker="#{bootstrapExtraContext.passwordPolicy}"
+								minimumEntropy="#{bootstrapExtraContext.passwordMinimumEntropy}"
+								optional="#{not bootstrapExtraContext.forcePasswordChange}"
+								value="#{bootstrapExtraContext.adminPassword}" />
+						</p:fieldset>
+					</p:tab>
+
+					<p:tab id="hc_configureNetwork"
+						titletip="#{_gui['installer.hc_configureNetwork.title']}">
+						<p:messages showDetail="true" />
+						<f:validateBean
+							validationGroups="javax.validation.groups.Default,eu.agno3.orchestrator.config.model.validation.Instance">
+							<p:fieldset
+								legend="#{_gui['installer.hc_configureNetwork.hostname']}">
+								<orch:objectEditor template="false"
+									context="#{bootstrapHostConfigContext}"
+									path="hostIdentification" hideHeader="true"
+									objectType="urn:agno3:objects:1.0:hostconfig:identification" />
+							</p:fieldset>
+
+							<p:fieldset
+								legend="#{_gui['installer.hc_configureNetwork.settings']}">
+								<orch:objectEditor template="false"
+									context="#{bootstrapHostConfigContext}"
+									path="networkConfiguration" hideHeader="true"
+									objectType="urn:agno3:objects:1.0:hostconfig:network">
+									<f:param name="hideChildren" value="true" />
+								</orch:objectEditor>
+							</p:fieldset>
+						</f:validateBean>
+					</p:tab>
+
+					<p:tab id="hc_configureInterfaces"
+						titletip="#{_gui['installer.hc_configureInterfaces.title']}">
+						<p:messages showDetail="true" />
+						<f:validateBean
+							validationGroups="javax.validation.groups.Default,eu.agno3.orchestrator.config.model.validation.Instance">
+							<p:fieldset
+								legend="#{_gui['installer.hc_configureInterfaces.title']}">
+								<orch:objectEditor template="false"
+									context="#{bootstrapHostConfigContext}"
+									path="networkConfiguration/interfaceConfiguration"
+									hideHeader="true"
+									objectType="urn:agno3:objects:1.0:hostconfig:network:interfaces">
+									<f:param name="ipv6Enabled"
+										value="#{bootstrapHostConfigContext.current.networkConfiguration.ipv6Enabled}" />
+								</orch:objectEditor>
+							</p:fieldset>
+						</f:validateBean>
+					</p:tab>
+
+					<p:tab id="hc_configureRouting"
+						titletip="#{_gui['installer.hc_configureRouting.title']}">
+						<p:messages showDetail="true" />
+						<f:validateBean
+							validationGroups="javax.validation.groups.Default,eu.agno3.orchestrator.config.model.validation.Instance">
+							<p:fieldset
+								legend="#{_gui['installer.hc_configureRouting.title']}">
+								<orch:objectEditor template="false"
+									context="#{bootstrapHostConfigContext}"
+									path="networkConfiguration/routingConfiguration"
+									hideHeader="true"
+									objectType="urn:agno3:objects:1.0:hostconfig:network:routing">
+									<f:param name="ipv6Enabled"
+										value="#{bootstrapHostConfigContext.current.networkConfiguration.ipv6Enabled}" />
+									<f:param name="interfaceConfig"
+										value="#{bootstrapHostConfigContext.current.networkConfiguration.interfaceConfiguration}" />
+								</orch:objectEditor>
+							</p:fieldset>
+						</f:validateBean>
+					</p:tab>
+
+					<p:tab id="hc_configureSystem"
+						titletip="#{_gui['installer.hc_configureSystem.title']}">
+						<p:messages showDetail="true" autoUpdate="true" />
+						<f:validateBean
+							validationGroups="javax.validation.groups.Default,eu.agno3.orchestrator.config.model.validation.Instance">
+							<p:fieldset
+								legend="#{_gui['installer.hc_configureSystem.resolver']}">
+								<orch:objectEditor template="false"
+									context="#{bootstrapHostConfigContext}"
+									path="resolverConfiguration" hideHeader="true"
+									objectType="urn:agno3:objects:1.0:hostconfig:resolver" />
+							</p:fieldset>
+
+							<p:fieldset
+								legend="#{_gui['installer.hc_configureSystem.datetime']}">
+								<orch:objectEditor template="false"
+									context="#{bootstrapHostConfigContext}"
+									path="dateTimeConfiguration" hideHeader="true"
+									objectType="urn:agno3:objects:1.0:hostconfig:datetime" />
+							</p:fieldset>
+						</f:validateBean>
+					</p:tab>
+
+					<p:tab id="hc_configureStorage"
+						titletip="#{_gui['installer.hc_configureStorage.title']}">
+						<p:messages showDetail="true" autoUpdate="true" />
+						<f:validateBean
+							validationGroups="javax.validation.groups.Default,eu.agno3.orchestrator.config.model.validation.Instance">
+							<p:fieldset
+								legend="#{_gui['installer.hc_configureStorage.title']}">
+								<orch:objectEditor template="false"
+									context="#{bootstrapHostConfigContext}"
+									path="storageConfiguration" hideHeader="true"
+									objectType="urn:agno3:objects:1.0:hostconfig:storage" />
+							</p:fieldset>
+						</f:validateBean>
+					</p:tab>
+
+					<ui:include src="#{bootstrapController.pluginSource}" />
+
+					<p:tab id="complete" titletip="#{_gui['installer.complete.title']}">
+						<p:messages showDetail="true" autoUpdate="true" />
+						<p:remoteCommand name="resetBootstrapContext" immediate="true"
+							actionListener="#{bootstrapController.resetContext}" />
+						<p:remoteCommand name="failedBootstrap" immediate="true"
+							actionListener="#{bootstrapController.bootstrapFailed}"
+							update="@form:wizardButtons" />
+
+
+						<orch:event pattern="/jobs/state/#{jobDetailContextBean.jobId}">
+							//<![CDATA[
+							if ( payload == "FINISHED" ) {
+								console.log("Bootstrap job completed");
+								resetBootstrapContext();
+							} else if ( payload == "FAILED" ) {
+								console.log("Bootstrap job failed");
+								failedBootstrap();
+							} else if ( payload == "CANCELLED" || payload == "STALLED" || payload == "TIMEOUT" || payload == "UNKNOWN" ) {
+								console.log(payload);
+							}  
+							//]]>
+						</orch:event>
+
+						<orch:jobDetail jobCtx="#{jobDetailContextBean}" showOutput="true"
+							outputCols="80" outputRows="30" />
+
+						<h:outputScript type="text/javascript">
+							//<![CDATA[
+								$(window).load(function() {
+								OrchEventListener
+										.registerErrorListener(function(msg) {
+											var updateProgress = function(
+													progress) {
+												var progressWidget = OrchUtils
+														.getWidget($(
+																".jobDetailProgressBar.ui-progressbar")
+																.first());
+												progressWidget
+														.setValue(progress);
+											};
+
+											console
+													.log("Async connection error, assuming that network is unavailable and/or server is rebooting");
+											$(".jobDetailProgressState")
+													.first().text("FINISHED");
+											updateProgress(100);
+										});
+								});
+							//]]>
+						</h:outputScript>
+					</p:tab>
+				</p:wizard>
+
+
+				<p:panel id="wizardButtons"
+					styleClass="ui-wizard-navbar ui-helper-clearfix buttons"
+					style="position: absolute; right:0; bottom: 0"
+					rendered="#{bootstrapController.hasContext()}">
+					<p:commandButton rendered="#{bootstrapController.shouldShowBack()}"
+						id="backButton" type="button" styleClass="ui-wizard-nav-back"
+						onclick="PF('installWizard').back();"
+						icon="ui-icon-arrowthick-1-w" value="#{_gui['installer.prev']}" />
+					<p:commandButton id="nextButton"
+						rendered="#{bootstrapController.shouldShowNext()}" type="button"
+						styleClass="ui-wizard-nav-next"
+						onclick="PF('installWizard').next();"
+						icon="ui-icon-arrowthick-1-e"
+						value="#{bootstrapController.nextTitle}" />
+				</p:panel>
+			</p:panel>
+
+			<h:outputScript>
+			//<!--
+			function dirtyReturn() {}
+			function startBlock() {
+				console.log("block");
+				PF('block').show();
+				$('.ui-wizard-navbar .ui-button').prop('disabled', true).addClass('ui-state-disabled');
+			}
+			function stopBlock() {
+				console.log("unblock");
+				PF('block').hide();
+				$('.ui-wizard-navbar .ui-button').prop('disabled', false).removeClass('ui-state-disabled');
+			}
+			function customConnectionLost() {
+				console.log("connection lost");
+				var blocker = $('[id=pageBlock]');
+				var mesg = $('.connection-lost-message').html();
+				console.log(mesg);
+				console.log(blocker);
+				blocker.html(mesg);
+				PF('pageBlock').show();
+			}
+			//-->
+			</h:outputScript>
+		</h:form>
+	</ui:define>
+</ui:composition>

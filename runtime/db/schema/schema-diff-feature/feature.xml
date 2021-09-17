@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="schema-diff-feature"
+      label="Database Schema Diffing Feature"
+      version="0.0.166"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <requires>
+      <import feature="db-feature" version="0.0.1.qualifier"/>
+      <import feature="schema-feature" version="0.0.1.qualifier"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.runtime.db.schema.diff"
+         download-size="0"
+         install-size="0"
+         version="0.0.166"
+         unpack="false"/>
+
+</feature>

@@ -1,0 +1,185 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough">
+
+<composite:interface>
+	<composite:attribute name="entity" required="true" />
+	<composite:attribute name="grant" required="false" />
+	<composite:attribute name="disabled" required="false"
+		type="java.lang.Boolean" default="${false}" />
+	<composite:attribute name="buttonOnly" required="false"
+		type="java.lang.Boolean" default="${false}" />
+		
+	<composite:attribute name="title" required="false" />
+	<composite:attribute name="update" required="false" />
+	<composite:attribute name="style" required="false" />
+	<composite:attribute name="styleClass" required="false" />
+	<composite:attribute name="entityShareInfo" required="true" />
+	<composite:attribute name="recursive" required="false"
+		type="java.lang.Boolean" default="#{false}" />
+</composite:interface>
+
+<composite:implementation>
+	<p:outputPanel style="#{cc.attrs.style}"
+		styleClass="#{cc.attrs.styleClass}">
+
+		<p:outputPanel id="sharedDisplay" styleClass="shrbutton notowner"
+			rendered="#{not cc.attrs.buttonOnly and not filePermissionBean.isOwner(cc.attrs.entity)}">
+			<fs:userOrGrant style="display:inline-block"
+				user="#{cc.attrs.entity.owner}" />
+		</p:outputPanel>
+
+		<p:tooltip for="sharedDisplay"
+			rendered="#{not cc.attrs.buttonOnly and not filePermissionBean.isOwner(cc.attrs.entity) and not empty cc.attrs.grant}">
+			<fs:userDetails deferred="false" subject="#{cc.attrs.entity.owner}" />
+			<h:outputFormat value="#{_msgs['share.display.expiresFmt']}">
+				<f:param
+					value="#{localeSettingsBean.formatDateTime(cc.attrs.grant.expires, 'LL')}" />
+			</h:outputFormat>
+		</p:tooltip>
+
+		<ui:fragment
+			rendered="#{fileDisplayBean.isEntity(cc.attrs.entity) and filePermissionBean.isOwner(cc.attrs.entity)}">
+
+			<ui:fragment
+				rendered="#{not cc.attrs.buttonOnly and not cc.attrs.recursive and fileDisplayBean.isShared(cc.attrs.entity, cc.attrs.recursive)}">
+				<ui:repeat var="g"
+					value="#{subjectDisplayBean.getOrderedFirstEntityGrants(cc.attrs.entity, 4)}">
+
+					<h:outputText rendered="#{shareDisplayBean.isSubjectGrant(g)}"
+						styleClass="grant-list #{subjectDisplayBean.getGrantClass(g)}"
+						style="#{userTrustBean.getDisplayGrantTrustLevelStyle(g)}"
+						value="#{subjectDisplayBean.getAbbreviatedGrantName(g)}"
+						title="#{msgs.formatEL('share.display.grantTitleFmt', 
+								subjectDisplayBean.getGrantType(g), subjectDisplayBean.getGrantDisplayName(g), sharePermissionsBean.getPermLabel(g.perms))}" />
+
+					<h:outputText rendered="#{shareDisplayBean.isTokenGrant(g)}"
+						styleClass="grant-list #{subjectDisplayBean.getGrantClass(g)} ui-icon ui-icon-inline ui-icon-link"
+						style="#{userTrustBean.getDisplayGrantTrustLevelStyle(g)}"
+						title="#{msgs.formatEL('share.display.grantTitleFmt', 
+								subjectDisplayBean.getGrantType(g), subjectDisplayBean.getGrantDisplayName(g), sharePermissionsBean.getPermLabel(g.perms))}" />
+
+					<h:outputText rendered="#{shareDisplayBean.isMailGrant(g)}"
+						styleClass="grant-list #{subjectDisplayBean.getGrantClass(g)} ui-icon ui-icon-inline ui-icon-mail-closed"
+						style="#{userTrustBean.getDisplayGrantTrustLevelStyle(g)}"
+						title="#{msgs.formatEL('share.display.grantTitleFmt', 
+								subjectDisplayBean.getGrantType(g), subjectDisplayBean.getGrantDisplayName(g), sharePermissionsBean.getPermLabel(g.perms))}" />
+				</ui:repeat>
+
+				<h:outputText style="font-weight: bold" styleClass="min-medium"
+					rendered="#{cc.attrs.entity.localValidGrants.size() gt 4}"
+					value="#{_msgs['share.display.hasMore']}" />
+			</ui:fragment>
+
+			<div title="#{cc.attrs.title}"
+				class="ui-widget button ui-widget ui-widget-content ui-state-default #{componentUtils.disabledIf(cc.attrs.disabled)} #{filePermissionBean.getShareStyleClass(cc.attrs.entity)}">
+				<ag:dialogOpenCommandLink
+					dialog="/actions/share.xhtml?entity=#{cc.attrs.entity.entityKey}"
+					closable="true" disabled="#{cc.attrs.disabled}"
+					styleClass="action-link share-action shrbutton left #{filePermissionBean.getShareStyleClass(cc.attrs.entity)}"
+					style="display: inline-block">
+					<p:ajax event="return"
+						listener="#{cc.attrs.entityShareInfo.refresh()}"
+						update="${cc.attrs.update}" oncomplete="window.focus()" />
+
+					<span class="ui-icon ui-icon-inline ui-icon-share"
+						style="margin-left: 0.5em;" />
+
+					<h:outputText styleClass="ui-button-text"
+						rendered="#{fileDisplayBean.isShared(cc.attrs.entity, cc.attrs.recursive)}"
+						value="#{_msgs['share.button.label.shared']}" />
+
+					<h:outputText styleClass="ui-button-text"
+						rendered="#{not fileDisplayBean.isShared(cc.attrs.entity, cc.attrs.recursive)}"
+						value="#{_msgs['share.button.label']}" />
+				</ag:dialogOpenCommandLink>
+
+				<p:link id="share-menu"
+					styleClass="shrbutton right #{filePermissionBean.getShareStyleClass(cc.attrs.entity)}"
+					href="#" onclick="return false;"
+					rendered="#{not cc.attrs.disabled}"
+					disabled="#{not (currentUserBean.hasAnyPermission('share:subjects','share:url','share:mail') and sharePolicyBean.mayShareAny(cc.attrs.entity))}">
+					<span class="ui-icon ui-icon-triangle-1-s ui-icon-inline" />
+				</p:link>
+
+				<p:outputPanel
+					styleClass="shrbutton right #{filePermissionBean.getShareStyleClass(cc.attrs.entity)}"
+					style="display: inline"
+					rendered="#{cc.attrs.disabled}">
+					<h:outputText
+						styleClass="ui-icon ui-icon-triangle-1-s ui-icon-inline"></h:outputText>
+				</p:outputPanel>
+
+			</div>
+
+			<p:overlayPanel
+				rendered="#{not cc.attrs.disabled and (currentUserBean.hasAnyPermission('share:subjects','share:url','share:mail') or sharePolicyBean.mayShareAny(cc.attrs.entity))}"
+				widgetVar="shareMenu_#{cc.attrs.entity.entityKey}" for="share-menu"
+				styleClass="overlay-menu">
+				<p:panel style="width: 24em">
+					<div
+						class="ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix"
+						pass:role="menu">
+						<div class="ui-helper-hidden-accessible" pass:tabindex="0"></div>
+						<ul class="ui-menu-list ui-helper-reset">
+							<li class="ui-menuitem ui-widget" pass:role="menuitem"><ag:dialogOpenCommandLink
+									rendered="#{currentUserBean.hasPermission('share:subjects') and sharePolicyBean.mayShareToSubjects(cc.attrs.entity)}"
+									closable="true"
+									styleClass="ui-menuitem-link ui-corner-all hover-shade-background"
+									onstart="PF('shareMenu_#{cc.attrs.entity.entityKey}').hide()"
+									dialog="/actions/share.xhtml?entity=#{cc.attrs.entity.entityKey}&amp;tab=subject">
+									<p:ajax event="return"
+										listener="#{cc.attrs.entityShareInfo.refresh()}"
+										process="@this" update="@this ${cc.attrs.update}"
+										oncomplete="window.focus()" />
+									<span
+										class="ui-menuitem-icon ui-icon ui-icon-inline ui-icon-person" />
+									<span class="ui-menuitem-text"><h:outputText
+											value="#{_msgs['share.subjectShare.menuLabel']}" /></span>
+								</ag:dialogOpenCommandLink></li>
+							<li class="ui-menuitem ui-widget" pass:role="menuitem"><ag:dialogOpenCommandLink
+									rendered="#{currentUserBean.hasPermission('share:mail') and sharePolicyBean.mayShareByMail(cc.attrs.entity)}"
+									closable="true"
+									styleClass="ui-menuitem-link ui-corner-all hover-shade-background"
+									onstart="PF('shareMenu_#{cc.attrs.entity.entityKey}').hide()"
+									dialog="/actions/share.xhtml?entity=#{cc.attrs.entity.entityKey}&amp;tab=mail">
+									<p:ajax event="return"
+										listener="#{cc.attrs.entityShareInfo.refresh()}"
+										process="@this" update="@this  ${cc.attrs.update}"
+										oncomplete="window.focus()" />
+									<span
+										class="ui-menuitem-icon ui-icon ui-icon-inline ui-icon-mail-closed" />
+									<span class="ui-menuitem-text"><h:outputText
+											value="#{_msgs['share.mailShare.menuLabel']}" /></span>
+								</ag:dialogOpenCommandLink></li>
+
+							<li class="ui-menuitem ui-widget" pass:role="menuitem"><ag:dialogOpenCommandLink
+									rendered="#{currentUserBean.hasPermission('share:url') and sharePolicyBean.mayShareByLink(cc.attrs.entity)}"
+									closable="true"
+									styleClass="ui-menuitem-link ui-corner-all hover-shade-background"
+									onstart="PF('shareMenu_#{cc.attrs.entity.entityKey}').hide()"
+									dialog="/actions/share.xhtml?entity=#{cc.attrs.entity.entityKey}&amp;tab=link">
+									<p:ajax event="return"
+										listener="#{cc.attrs.entityShareInfo.refresh()}"
+										process="@this" update="@this ${cc.attrs.update}"
+										oncomplete="window.focus()" />
+									<span
+										class="ui-menuitem-icon ui-icon ui-icon-inline ui-icon-link" />
+									<span class="ui-menuitem-text"> <h:outputText
+											value="#{_msgs['share.linkShare.menuLabel']}" />
+									</span>
+								</ag:dialogOpenCommandLink></li>
+						</ul>
+					</div>
+				</p:panel>
+			</p:overlayPanel>
+		</ui:fragment>
+	</p:outputPanel>
+</composite:implementation>
+</html>

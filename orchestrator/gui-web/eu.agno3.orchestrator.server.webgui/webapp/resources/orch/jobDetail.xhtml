@@ -1,0 +1,186 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<composite:interface>
+		<composite:attribute name="jobCtx" required="true"
+			type="eu.agno3.orchestrator.server.webgui.jobs.JobDetailContextBean" />
+
+		<composite:attribute name="style" />
+		<composite:attribute name="styleClass" />
+
+		<composite:attribute name="showOutput" type="java.lang.Boolean"
+			required="false" default="true" />
+			
+		<composite:attribute name="outputCols" type="java.lang.Integer"
+			required="false" default="80" />
+			
+		<composite:attribute name="outputRows" type="java.lang.Integer"
+			required="false" default="30" />
+			
+		<composite:attribute name="onFinish" type="java.lang.String"
+			required="false" />
+	</composite:interface>
+
+	<composite:implementation>
+		<p:outputPanel id="progressInfo">
+			<table>
+				<tr>
+					<td style="width: 15%"><h:outputText
+							styleClass="jobDetailProgressState"
+							value="#{cc.attrs.jobCtx.initialJobInfo.state}" /></td>
+					<td style="width: 85%"><p:progressBar
+							value="#{cc.attrs.jobCtx.initialJobInfo.progress.progress}"
+							styleClass="jobDetailProgressBar" labelTemplate="{value}%" /></td>
+				</tr>
+			</table>
+		</p:outputPanel>
+
+		<p:remoteCommand name="updateLog" update="jobOutput"
+			process="@this"
+			actionListener="#{cc.attrs.jobCtx.update}" delay="500"
+			autoRun="false" oncomplete="afterUpdate()" />
+
+		<p:remoteCommand name="forceUpdateRemote"
+			process="@this"
+			update="jobOutput progressInfo" autoRun="false"
+			actionListener="#{cc.attrs.jobCtx.forceUpdate}"
+			oncomplete="afterUpdate()" />
+
+		<h:outputScript>
+			//<![CDATA[
+			function afterUpdate() {
+				var textArea = $('textarea.job-output');
+				if ( textArea[0] ) {
+					textArea.scrollTop(textArea[0].scrollHeight);
+				}
+				
+				var status = $(".jobDetailProgressState").first().text();
+				if ( status === "FINISHED" ) {
+					console.log("finished");
+					if ( "${cc.attrs.onFinish}" ) {
+						${cc.attrs.onFinish};
+					}
+				} else if ( status === "FAILED" ) {
+					console.log("failed");
+					if ( "${cc.attrs.onFail}" ) {
+						${cc.attrs.onFail};
+					}
+				}
+			}
+			
+			function forceUpdate() {
+				console.log("Full update");
+				forceUpdateRemote();
+			}
+			
+			function cancelPoller() {
+				var poller = $(".progessInfo").closest('div').data('poller');
+				console.log("Cancel poller");
+				if ( poller ) {
+					console.log("Stopping poller");
+					clearTimeout(poller);
+					window.setTimeout(function() {
+						forceUpdate();
+					}, 3000);
+				}
+			}
+			
+			function replacePoller() {
+				var poller = $(".progessInfo").closest('div').data('poller');
+				if ( poller ) {
+					console.log("Replacing poller");
+					clearTimeout(poller);
+					setupNext();
+				} 
+			}
+			
+			function setupNext() {
+				$(".progessInfo").closest('div').data('poller',window.setTimeout(function() {
+					forceUpdate();
+					var state = $(".jobDetailProgressState").first().text();
+					if ( state != "FINISHED" && state != "FAILED" && state != "CANCELED" ) {
+						setupNext();
+					} else {
+						console.log("Final poller");
+						window.setTimeout(function() {
+							forceUpdate();
+						}, 3000);
+					}
+				}, 10000));	
+			}
+			
+			function onError() {
+				console.log("Connection lost");
+				OrchUtils.showConnectionLost();
+				cancelPoller();
+			}
+			
+			$(document).ready(function() {
+				console.log("Initialize job output");
+				setupNext();
+				forceUpdate();
+				
+				OrchEventListener.registerErrorListener(onError);
+			});
+			//]]>
+		</h:outputScript>
+
+
+
+		<orch:event
+			pattern="/jobs/(output|progress|state)/#{cc.attrs.jobCtx.jobId}">
+					//<![CDATA[
+						var type = match[1];
+						var cur = $(".jobDetailProgressState").first().text();
+						
+						var updateProgress = function(progress) {
+							var progressWidget = OrchUtils
+								.getWidget($(".jobDetailProgressBar.ui-progressbar").first());
+							if ( progress > progressWidget.getValue()) {
+								progressWidget.setValue(progress);
+							}
+						};
+						
+						replacePoller();
+						
+						if ( type == "output" ) {
+							if ( payload == "" ) {
+								cancelPoller();
+							}
+							updateLog();
+						} else if ( type == "state" ) {
+							console.log(cur + " -> " + payload)
+							$(".jobDetailProgressState").first().text(payload);
+							if ( payload == "FINISHED" ) {
+								updateProgress(100);
+								forceUpdate();
+								cancelPoller();
+							} else if ( payload == "FAILED" ) {
+								updateProgress(100);
+								forceUpdate();
+								cancelPoller();
+							} else if ( payload == "CANCELED" ) {
+								forceUpdate();
+								cancelPoller();
+							}
+							afterUpdate();
+						} else if ( type == "progress" && cur != "FAILED" && cur != "FINISHED" ) {
+							$(".jobDetailProgressState").first().text("RUNNING");
+							var progressVal = payload.match(/^([\d\.]+)\//);
+							updateProgress(Math	.round(progressVal[1] * 1));
+						}
+					//]]>
+		</orch:event>
+
+		<p:inputTextarea id="jobOutput" rendered="#{cc.attrs.showOutput}"
+			style="width: 100%; font-family: monospace" autoResize="false"
+			styleClass="job-output" readonly="true" cols="#{cc.attrs.outputCols}"
+			rows="#{cc.attrs.outputRows}" value="#{cc.attrs.jobCtx.buffer}" />
+	</composite:implementation>
+</html>

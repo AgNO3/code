@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.orchestrator.config.model.realm.service.impl.ConfigApplyServiceImpl" activate="configure" modified="configure" configuration-pid="config.apply">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.config.model.realm.service.ConfigApplyService"/>
+        <provide interface="eu.agno3.orchestrator.config.model.realm.server.service.ConfigApplyServerService"/>
+        <provide interface="eu.agno3.runtime.ws.common.SOAPWebService"/>
+    </service>
+    <reference name="Context" interface="eu.agno3.orchestrator.config.model.base.server.context.DefaultServerServiceContext" cardinality="1..1" policy="static" bind="setContext" unbind="unsetContext"/>
+    <reference name="PersistenceUtil" interface="eu.agno3.orchestrator.config.model.realm.server.util.PersistenceUtil" cardinality="1..1" policy="static" bind="setPersistenceUtil" unbind="unsetPersistenceUtil"/>
+    <reference name="InheritanceService" interface="eu.agno3.orchestrator.config.model.realm.server.service.InheritanceServerService" cardinality="1..1" policy="static" bind="setInheritanceService" unbind="unsetInheritanceService"/>
+    <reference name="ObjectAccessControl" interface="eu.agno3.orchestrator.config.model.realm.server.service.ObjectAccessControl" cardinality="1..1" policy="static" bind="setObjectAccessControl" unbind="unsetObjectAccessControl"/>
+    <reference name="ResourceLibraryService" interface="eu.agno3.orchestrator.config.model.realm.server.service.ResourceLibraryServerService" cardinality="1..1" policy="static" bind="setResourceLibraryService" unbind="unsetResourceLibraryService"/>
+    <reference name="ServiceService" interface="eu.agno3.orchestrator.config.model.realm.server.service.ServiceServerService" cardinality="1..1" policy="static" bind="setServiceService" unbind="unsetServiceService"/>
+    <reference name="JobCoordinator" interface="eu.agno3.orchestrator.jobs.JobCoordinator" cardinality="1..1" policy="static" bind="setJobCoordinator" unbind="unsetJobCoordinator"/>
+    <reference name="ChallengeUtil" interface="eu.agno3.orchestrator.config.model.realm.server.util.ModelObjectChallengeUtil" cardinality="1..1" policy="static" bind="setChallengeUtil" unbind="unsetChallengeUtil"/>
+    <implementation class="eu.agno3.orchestrator.config.model.realm.service.impl.ConfigApplyServiceImpl"/>
+</scr:component>

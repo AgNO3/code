@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.jobs.coord.internal.JobKeepAliveEventListener">
+    <property name="eventType" value="eu.agno3.orchestrator.jobs.msg.JobKeepAliveEvent"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.messaging.listener.EventListener"/>
+    </service>
+    <reference name="Coordinator" interface="eu.agno3.orchestrator.jobs.JobCoordinator" cardinality="1..1" policy="static" bind="setCoordinator" unbind="unsetCoordinator"/>
+    <reference name="Listener" interface="eu.agno3.orchestrator.jobs.state.JobStateListener" cardinality="1..n" policy="dynamic" bind="bindListener" unbind="unbindListener"/>
+    <implementation class="eu.agno3.orchestrator.jobs.coord.internal.JobKeepAliveEventListener"/>
+</scr:component>

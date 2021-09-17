@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="net-ad-feature"
+      label="Active Directory Feature"
+      version="0.0.80"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <plugin
+         id="eu.agno3.runtime.net.ad"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

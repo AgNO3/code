@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.orchestrator.agent.server.sysinfo.internal.AgentSystemInformationTracker" activate="activate" deactivate="deactivate">
+    <property name="eventType" value="eu.agno3.orchestrator.system.info.msg.SystemInformationUpdatedEvent"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.agent.server.AgentLifecycleListener"/>
+        <provide interface="eu.agno3.orchestrator.agent.server.sysinfo.internal.AgentSystemInformationTracker"/>
+        <provide interface="eu.agno3.runtime.messaging.listener.EventListener"/>
+    </service>
+    <reference name="MessagingClient" interface="eu.agno3.runtime.messaging.client.MessagingClient" cardinality="1..1" policy="static" bind="setMessagingClient" unbind="unsetMessagingClient"/>
+    <reference name="AgentConnectorWatcher" interface="eu.agno3.orchestrator.agent.server.AgentConnectorWatcher" cardinality="1..1" policy="static" bind="setAgentConnectorWatcher" unbind="unsetAgentConnectorWatcher"/>
+    <reference name="InstanceService" interface="eu.agno3.orchestrator.config.model.realm.server.service.InstanceServerService" cardinality="1..1" policy="static" bind="setInstanceService" unbind="unsetInstanceService"/>
+    <reference name="TransactionManager" interface="eu.agno3.runtime.transaction.TransactionService" cardinality="1..1" policy="static" bind="setTransactionManager" unbind="unsetTransactionManager"/>
+    <implementation class="eu.agno3.orchestrator.agent.server.sysinfo.internal.AgentSystemInformationTracker"/>
+</scr:component>

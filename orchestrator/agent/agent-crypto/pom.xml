@@ -1,0 +1,32 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.orchestrator.agent</groupId>
+    <artifactId>agent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>agent-crypto</artifactId>
+  <packaging>pom</packaging>
+  <name>Agent Crypto Management</name>
+  <modules>
+  	<module>eu.agno3.orchestrator.agent.crypto</module>
+  	<module>eu.agno3.orchestrator.agent.crypto.test</module>
+  	<module>agent-crypto-feature</module>
+  	<module>eu.agno3.orchestrator.agent.realms</module>
+  </modules>
+
+  <build>
+	<plugins>
+		<plugin>
+		<groupId>org.eclipse.tycho</groupId>
+		<artifactId>tycho-surefire-plugin</artifactId>
+		<configuration>
+			 <systemProperties combine.children="append">
+				<test.pkcs11.lib>${test.pkcs11.lib}</test.pkcs11.lib>
+				<test.pkcs11.pin>${test.pkcs11.pin}</test.pkcs11.pin> 
+			 </systemProperties>
+		</configuration>
+		</plugin>
+	</plugins>
+  </build>
+</project>

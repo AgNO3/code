@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:sc="urn:agno3:component:1.0:config" xmlns:agnt="urn:agno3:agent:1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:agent:1.0" elementFormDefault="qualified">
+   <xsd:import schemaLocation="urn:agno3:component:1.0:config" namespace="urn:agno3:component:1.0:config"/>
+   <xsd:complexType name="agentInfoType">
+      <xsd:complexContent>
+         <xsd:extension base="sc:componentInfoType">
+            <xsd:sequence>
+               <xsd:element name="imageType" type="xsd:string" minOccurs="0"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:element name="agentInfo" type="agnt:agentInfoType"/>
+</xsd:schema>

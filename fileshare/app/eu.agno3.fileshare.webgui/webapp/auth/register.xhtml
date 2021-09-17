@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:agsec="http://agno3.eu/ns/jsfsec/taglib/1.0"
+	template="/tpl/common/raw.xhtml">
+	
+	<ui:param name="subtitle"
+		value="#{_msgs['registration.register.title']}" />
+
+	<ui:define name="content">
+		<h:form>
+
+			<p:messages autoUpdate="true" showDetail="true" />
+
+			<p:outputPanel id="throttleDelay"
+				styleClass="throttle-display ui-messages ui-widget">
+				<p:outputPanel styleClass="ui-messages-fatal"
+					rendered="#{not empty userRegistrationBean.throttleDelay}">
+
+					<span class="ui-messages-fatal-icon" />
+					<span class="ui-messages-fatal-summary"> <h:outputText
+							value="#{_msgs['registration.register.throttleBegin']}" /> <h:outputText
+							styleClass="remain-throttle"
+							value="#{userRegistrationBean.throttleDelay}" /> <h:outputText
+							value="#{_msgs['registration.register.throttleEnd']}" />
+					</span>
+
+					<pe:timer visible="false" immediate="true"
+						timeout="#{userRegistrationBean.throttleDelay}"
+						ontimerstep="$('.throttle-display').find('.remain-throttle').text(intervalData.current + ' '); "
+						ontimercomplete="$('.throttle-display').hide()"
+						listener="#{userRegistrationBean.throttleComplete()}"
+						process="@this" update="throttleDelay" />
+				</p:outputPanel>
+			</p:outputPanel>
+
+			<p:fieldset styleClass="func-unit"
+				rendered="#{registrationBean.isRegistrationEnabled('LOCAL')}"
+				legend="#{_msgs['registration.register.title']}">
+				<ag:simpleField
+					label="#{_msgs['actions.inviteUser.mailAddress.label']}"
+					description="#{_msgs['actions.inviteUser.mailAddress.description']}"
+					inputId="mailAddress">
+					<p:inputText id="mailAddress" required="true"
+						value="#{userRegistrationBean.mailAddress}" />
+				</ag:simpleField>
+
+				<p:outputPanel id="resendPanel">
+					<ag:simpleField inputId="resend"
+						label="#{_msgs['actions.inviteUser.resend.label']}"
+						description="#{_msgs['actions.inviteUser.reset.description']}"
+						onlyIf="#{userRegistrationBean.alreadySent}">
+						<p:selectBooleanCheckbox id="resend"
+							value="#{userRegistrationBean.resend}" />
+					</ag:simpleField>
+				</p:outputPanel>
+
+				<ag:simpleField
+					label="#{_msgs['actions.inviteUser.fullName.label']}"
+					description="#{_msgs['actions.inviteUser.fullName.description']}"
+					inputId="fullName">
+					<p:inputText id="fullName" value="#{userRegistrationBean.fullName}" />
+				</ag:simpleField>
+
+				<ag:simpleField
+					label="#{_msgs['actions.inviteUser.callingName.label']}"
+					description="#{_msgs['actions.inviteUser.callingName.description']}"
+					input="callingName">
+					<p:inputText id="callingName"
+						value="#{userRegistrationBean.callingName}" />
+
+					<p:watermark
+						value="#{_msgs['actions.inviteUser.callingName.watermark']}"
+						for="callingName" />
+				</ag:simpleField>
+
+				<agsec:termsAcceptance terms="#{termsBean}"
+					value="#{userRegistrationBean.acceptedTerms}"
+					toAccept="#{userRegistrationBean.termsToAccept}" />
+			</p:fieldset>
+
+			<div class="buttons">
+				<p:commandButton
+					action="#{registrationController.register(userRegistrationBean)}"
+					icon="ui-icon-mail-open"
+					value="#{_msgs['registration.register.confirm']}"
+					update="throttleDelay resendPanel" />
+				<p:commandButton immediate="true" icon="ui-icon-cancel"
+					action="#{registrationController.backToLogin()}"
+					value="#{_msgs['registration.register.cancel']}" />
+			</div>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
+
+	<application>
+		<locale-config>
+			<default-locale>en</default-locale>
+			<supported-locale>en</supported-locale>
+			<!-- <supported-locale>de</supported-locale>  -->
+		</locale-config>
+		<el-resolver>org.primefaces.fixed.exceptionhandler.PrimeExceptionHandlerELResolver</el-resolver>
+		
+		<resource-bundle>
+			<base-name>eu.agno3.fileshare.webgui.i18n.messages</base-name>
+			<var>_msgs</var>
+		</resource-bundle>
+		
+	</application>
+
+	<protected-views>
+		<!-- This is suboptimal, default protected and exclusions would be much 
+			saner -->
+		<!-- Every view that has a view action or preRenderView that does something 
+			dangerous has to be added here -->
+		<url-pattern>/admin/*</url-pattern>
+		<url-pattern>/view/*</url-pattern>
+	</protected-views>
+
+	<factory>
+		<exception-handler-factory>org.primefaces.fixed.exceptionhandler.PrimeExceptionHandlerFactory</exception-handler-factory>
+	</factory>
+	
+	
+	<component>
+		<component-type>eu.agno3.fileshare.webgui.components.GrantPermissionEditor</component-type>
+		<component-class>eu.agno3.fileshare.webgui.components.GrantPermissionEditor</component-class>
+	</component>
+	
+</faces-config>

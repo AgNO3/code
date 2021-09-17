@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="notificationDisabled"
+		path="notificationDisabled"
+		update="@composite:@parent:notificationSettings">
+		<p:selectBooleanCheckbox id="notificationDisabled"
+			value="#{current.notificationDisabled}">
+			<p:ajax event="change"
+				update="@composite:@parent:notificationSettings" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+
+	<p:outputPanel id="notificationSettings">
+		<p:outputPanel
+			rendered="#{(current.notificationDisabled != null and not current.notificationDisabled) or (current.notificationDisabled == null and not defaults.notificationDisabled)}">
+
+			<orch:objectFieldEditor inputId="templateLibrary"
+				path="templateLibrary"
+				update="@composite:@parent:manageTemplateField:manageTemplateButton">
+				<p:autoComplete id="templateLibrary" dropdown="true"
+					completeMethod="#{resourceLibraryCompleterFactory.getNameCompleterForType('fs_mail').complete}"
+					value="#{current.templateLibrary}">
+					<p:ajax event="change"
+						update="@composite:@parent:manageTemplateField:manageTemplateButton" />
+				</p:autoComplete>
+			</orch:objectFieldEditor>
+
+			<ag:simpleField styleClass="noLabel" id="manageTemplateField"
+				onlyIf="#{configContextUtil.isInstance(configContext)}">
+				<ag:dialogOpenButton id="manageTemplateButton" icon="ui-icon-pencil"
+					disabled="#{empty fs_notificationConfigBean.getSelectedTemplateLibrary(outerWrapper)}"
+					dialog="/resourceLibrary/edit/fs_mail.dialog.xhtml?#{resourceLibraryController.makeCreateOrEditArguments('fs_mail', fs_notificationConfigBean.getSelectedTemplateLibrary(outerWrapper))}"
+					closable="true" value="#{_fs_orch_msg['library.mail.manage']}">
+					<p:ajax event="return"
+						listener="#{resourceLibraryController.finishedReturnDialog}" />
+				</ag:dialogOpenButton>
+			</ag:simpleField>
+
+			<orch:objectFieldEditor inputId="defaultSenderAddress"
+				path="defaultSenderAddress">
+				<p:inputText id="defaultSenderAddress"
+					value="#{current.defaultSenderAddress}" />
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="defaultSenderName"
+				path="defaultSenderName">
+				<p:inputText id="defaultSenderName"
+					value="#{current.defaultSenderName}" />
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="adminContactAddress" minLevel="2"
+				path="adminContactAddress">
+				<p:inputText id="adminContactAddress"
+					value="#{current.adminContactAddress}" />
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor path="sendAsUserNotificationDomains"
+				minLevel="2" inputId="sendAsUserNotificationDomains"
+				collection="true">
+				<ag:setEditor id="sendAsUserNotificationDomains"
+					comparator="#{setEditorUtilBean.stringComparator}"
+					factoryMethod="#{setEditorUtilBean.makeEmptyString}"
+					value="#{current.sendAsUserNotificationDomains}">
+					<p:column>
+						<p:inputText value="#{item.value}" />
+					</p:column>
+				</ag:setEditor>
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="expirationNotificationPeriod"
+				minLevel="2" path="expirationNotificationPeriod"
+				readOnlyValueMapper="#{dateFormatter.formatDurationObject}">
+				<ag:inputDuration minUnit="days" maxUnit="days"
+					id="expirationNotificationPeriod"
+					value="#{current.expirationNotificationPeriod}" />
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="defaultNotificationLocale"
+				minLevel="2" path="defaultNotificationLocale">
+				<p:selectOneMenu id="defaultNotificationLocale" filter="true"
+					value="#{current.defaultNotificationLocale}"
+					converter="#{localeConverter}">
+					<f:selectItem
+						itemLabel="#{fs_cfgmsgs.bundle['fileshare.notification.defaultNotificationLocale.default']}"
+						noSelectionOption="true" />
+					<f:selectItems value="#{localeModelBean.model}" var="locale"
+						itemValue="#{locale}"
+						itemLabel="#{localeModelBean.getLocaleLabel(locale)}" />
+				</p:selectOneMenu>
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="footer" path="footer">
+				<p:inputTextarea id="footer" value="#{current.footer}" cols="60"
+					rows="5" />
+			</orch:objectFieldEditor>
+
+		</p:outputPanel>
+	</p:outputPanel>
+</ui:composition>

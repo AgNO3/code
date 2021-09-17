@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0"
+	template="/tpl/common/raw.xhtml">
+	<ui:param name="subtitle"
+		value="#{msgs.formatEL('config.template.saveNew.titleFmt', 
+			configUtil.getDisplayNameFor(templateConfigContext.current), configUtil.getDisplayTypeName(templateConfigContext.current), structureViewContext.selectedDisplayName)}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="anchor"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+			<f:event listener="#{instanceConfigContext.addSavedViolations}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="templateSaveForm" enctype="multipart/form-data">
+			<input type="hidden" name="cid"
+				value="#{templateConfigContext.conversation.id}" />
+			<ag:dialogContextHolder />
+
+			<p:messages autoUpdate="true" showDetail="true" />
+			<p:blockUI widgetVar="block" block="templateSaveForm" />
+
+			<p:fieldset id="saveButtons">
+
+				<div class="buttons">
+					<p:commandButton id="createTemplate" icon="ui-icon-disk"
+						value="#{_gui['config.template.saveNew']}"
+						onclick="PF('block').show()" oncomplete="PF('block').hide();"
+						action="#{templateConfigSaveController.saveNew}">
+					</p:commandButton>
+
+					<p:commandButton id="cancel" icon="ui-icon-close"
+						styleClass="close-button"
+						value="#{_gui['config.saveDialog.cancel']}"
+						onclick="PF('block').show()" oncomplete="PF('block').hide();"
+						action="#{dialog.close}" />
+				</div>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

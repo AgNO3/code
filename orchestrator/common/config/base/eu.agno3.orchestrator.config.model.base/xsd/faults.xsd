@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:cmv="urn:agno3:model:1.0:validation" xmlns:ex="urn:agno3:model:1.0:base:exceptions:faults" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:model:1.0:base:exceptions:faults" elementFormDefault="qualified">
+   <xsd:import schemaLocation="urn:agno3:model:1.0:validation" namespace="urn:agno3:model:1.0:validation"/>
+   <xsd:complexType name="ModelObjectFault">
+      <xsd:sequence>
+         <xsd:element name="objectType" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="id" type="xsd:string" minOccurs="0"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="modelObjectConflictFault">
+      <xsd:complexContent>
+         <xsd:extension base="ex:ModelObjectFault">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="ModelObjectNotFoundFault">
+      <xsd:complexContent>
+         <xsd:extension base="ex:ModelObjectFault">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="modelObjectModifiedFault">
+      <xsd:complexContent>
+         <xsd:extension base="ex:modelObjectConflictFault">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="modelObjectIdentifierConflictFault">
+      <xsd:complexContent>
+         <xsd:extension base="ex:modelObjectConflictFault">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="modelObjectReferentialIntegrityFault">
+      <xsd:complexContent>
+         <xsd:extension base="ex:ModelObjectFault">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="violationFault">
+      <xsd:complexContent>
+         <xsd:extension base="ex:ModelObjectFault">
+            <xsd:sequence>
+               <xsd:element name="violations">
+                  <xsd:complexType>
+                     <xsd:sequence>
+                        <xsd:element name="violation" type="cmv:violationEntryType" minOccurs="0" maxOccurs="unbounded"/>
+                     </xsd:sequence>
+                  </xsd:complexType>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="ModelServiceFault"/>
+   <xsd:complexType name="modelServiceInternalFault">
+      <xsd:complexContent>
+         <xsd:extension base="ex:ModelServiceFault">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="modelServiceRollbackFault">
+      <xsd:complexContent>
+         <xsd:extension base="ex:ModelServiceFault">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="agentFault">
+      <xsd:sequence>
+         <xsd:element name="agentId" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="instanceName" type="xsd:string" minOccurs="0"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="agentDetachedFault">
+      <xsd:complexContent>
+         <xsd:extension base="ex:agentFault">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="agentOfflineFault">
+      <xsd:complexContent>
+         <xsd:extension base="ex:agentFault">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="agentCommFault">
+      <xsd:complexContent>
+         <xsd:extension base="ex:agentFault">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="remoteCallErrorFault">
+      <xsd:complexContent>
+         <xsd:extension base="ex:agentCommFault">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:element name="ModelObjectNotFoundFault" type="ex:ModelObjectNotFoundFault"/>
+   <xsd:element name="validationFault" type="ex:violationFault"/>
+   <xsd:element name="agentFault" type="ex:agentFault"/>
+   <xsd:element name="agentDetachedFault" type="ex:agentDetachedFault"/>
+   <xsd:element name="agentOfflineFault" type="ex:agentOfflineFault"/>
+   <xsd:element name="agentCommFault" type="ex:agentCommFault"/>
+   <xsd:element name="remoteCallErrorFault" type="ex:remoteCallErrorFault"/>
+</xsd:schema>

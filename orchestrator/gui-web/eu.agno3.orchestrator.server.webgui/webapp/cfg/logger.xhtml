@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="ipAnonymizationType"
+		path="ipAnonymizationType"
+		readOnlyValueMapper="#{loggerConfigBean.translateIpAnonymizationType}">
+		<p:selectOneMenu id="ipAnonymizationType"
+			value="#{current.ipAnonymizationType}">
+			<f:selectItems value="#{loggerConfigBean.ipAnonymizationTypes}"
+				var="at" itemValue="#{at}"
+				itemLabel="#{loggerConfigBean.translateIpAnonymizationType(at)}"
+				itemDescription="#{loggerConfigBean.translateIpAnonymizationDescription(at)}" />
+		</p:selectOneMenu>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="retentionDays" path="retentionDays">
+		<p:spinner min="0" id="retentionDays" value="#{current.retentionDays}" />
+	</orch:objectFieldEditor>
+</ui:composition>

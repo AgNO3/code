@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="crypto-feature"
+      label="Crypto Components"
+      version="0.0.166"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <requires>
+      <import feature="deps-bouncycastle-feature" version="1.51"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.runtime.crypto"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

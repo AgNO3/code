@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:j="urn:agno3:job:1.0:base" xmlns:user="urn:agno3:security:1.0:principal" xmlns:bc="urn:agno3:bootstrap:1.0" xmlns:hc="urn:agno3:model:1.0:hostconfig" xmlns:orchc="urn:agno3:model:1.0:orchconfig" xmlns:cmb="urn:agno3:model:1.0:base" xmlns:cmr="urn:agno3:model:1.0:realm" xmlns:cmj="urn:agno3:model:1.0:jobs" xmlns:bcj="urn:agno3:bootstrap:1.0:jobs" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:bootstrap:1.0:jobs" elementFormDefault="qualified">
+   <xsd:import schemaLocation="urn:agno3:job:1.0:base" namespace="urn:agno3:job:1.0:base"/>
+   <xsd:import schemaLocation="urn:agno3:bootstrap:1.0" namespace="urn:agno3:bootstrap:1.0"/>
+   <xsd:complexType name="bootstrapCompleteJob">
+      <xsd:complexContent>
+         <xsd:extension base="j:jobImpl">
+            <xsd:sequence>
+               <xsd:element name="context" type="bc:bootstrapContext"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:element name="bootstrapCompleteJob" type="bcj:bootstrapCompleteJob"/>
+</xsd:schema>

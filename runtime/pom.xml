@@ -1,0 +1,64 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <packaging>pom</packaging>
+  <name>Runtime Maven Module</name>
+
+  <groupId>eu.agno3.runtime</groupId>
+  <artifactId>runtime</artifactId>
+  <version>0.0.24</version>
+
+  <parent>
+	<groupId>eu.agno3.maven</groupId>
+	<artifactId>agno3-global-parent</artifactId>
+	<version>0.0.26</version>
+	<relativePath />
+  </parent>
+
+  <modules>
+  	<module>equinox-runtime</module>
+  	<module>ldap</module>
+  	<module>util</module>
+  	
+  	<module>console</module>
+  	<module>logging</module>
+  	
+  	<module>console-ssh</module>
+  	<module>crypto</module>
+
+  	<module>configloader</module>
+  	
+  	<module>transaction</module>
+  	<module>db</module>
+
+  	<module>httpservice</module>
+  	<module>messaging</module>
+  	<module>xml</module>
+
+  	<module>scheduler</module>
+
+  	<module>validation</module>
+  	<module>i18n</module>
+  	<module>security</module>
+
+  	<module>jsf</module>
+	<module>cdi</module>
+  	
+	<module>cache</module>
+	<module>update</module>
+	
+	<module>tpl</module>
+	<module>mail</module>
+
+	<module>runtime-repo</module>
+	<module>jmx</module>
+	<module>net</module>
+	<module>jmsjmx</module>
+	<module>elasticsearch</module>
+	<module>eventlog</module>
+	<module>webdav</module>
+	<module>licensing</module>
+  </modules>
+  
+
+
+</project>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" template="/tpl/common/raw.xhtml">
+	<ui:param name="title" value="#{_gui['error.notfound.title']}" />
+	<ui:define name="content">
+		<h1>
+			<h:outputText value="#{_gui['error.notfound.heading']}" />
+		</h1>
+
+		<p>
+			<h:outputText value="#{_gui['error.notfound.message']}" />
+		</p>
+
+		<script>
+			(function(window) {
+				if (window.location !== window.top.location) {
+					window.top.location = window.location;
+				}
+			})(this);
+		</script>
+
+		<input type="hidden" name="closable" value="${'true'}" />
+	</ui:define>
+</ui:composition>

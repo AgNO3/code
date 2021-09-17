@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.update.internal.LocalUpdateManagerImpl">
+    <property name="objectName" value="eu.agno3.runtime.update:type=UpdateManager"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.jmx.MBean"/>
+    </service>
+    <reference name="UpdateManagerProvider" interface="eu.agno3.runtime.update.UpdateManagerProvider" cardinality="1..1" policy="static" bind="setUpdateManagerProvider" unbind="unsetUpdateManagerProvider"/>
+    <implementation class="eu.agno3.runtime.update.internal.LocalUpdateManagerImpl"/>
+</scr:component>

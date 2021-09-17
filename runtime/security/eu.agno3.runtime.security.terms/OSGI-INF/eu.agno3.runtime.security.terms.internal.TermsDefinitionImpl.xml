@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.security.terms.internal.TermsDefinitionImpl" configuration-policy="require" activate="activate" modified="modified" configuration-pid="terms">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.security.terms.TermsDefinition"/>
+    </service>
+    <implementation class="eu.agno3.runtime.security.terms.internal.TermsDefinitionImpl"/>
+</scr:component>

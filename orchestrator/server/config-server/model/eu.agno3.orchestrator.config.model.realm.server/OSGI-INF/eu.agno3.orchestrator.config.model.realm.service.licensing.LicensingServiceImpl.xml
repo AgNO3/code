@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.config.model.realm.service.licensing.LicensingServiceImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.config.model.realm.service.LicensingService"/>
+        <provide interface="eu.agno3.runtime.ws.common.SOAPWebService"/>
+        <provide interface="eu.agno3.orchestrator.agent.server.AgentLifecycleListener"/>
+    </service>
+    <reference name="Context" interface="eu.agno3.orchestrator.config.model.base.server.context.DefaultServerServiceContext" cardinality="1..1" policy="static" bind="setContext" unbind="unsetContext"/>
+    <reference name="PersistenceUtil" interface="eu.agno3.orchestrator.config.model.realm.server.util.PersistenceUtil" cardinality="1..1" policy="static" bind="setPersistenceUtil" unbind="unsetPersistenceUtil"/>
+    <reference name="ObjectAccessControl" interface="eu.agno3.orchestrator.config.model.realm.server.service.ObjectAccessControl" cardinality="1..1" policy="static" bind="setObjectAccessControl" unbind="unsetObjectAccessControl"/>
+    <reference name="ObjectPoolProvider" interface="eu.agno3.orchestrator.config.model.realm.server.util.ObjectPoolProvider" cardinality="1..1" policy="static" bind="setObjectPoolProvider" unbind="unsetObjectPoolProvider"/>
+    <reference name="AgentService" interface="eu.agno3.orchestrator.config.model.realm.server.service.AgentServerService" cardinality="1..1" policy="static" bind="setAgentService" unbind="unsetAgentService"/>
+    <reference name="MessagingClient" interface="eu.agno3.runtime.messaging.client.MessagingClient" cardinality="1..1" policy="static" bind="setMessagingClient" unbind="unsetMessagingClient"/>
+    <reference name="LicenseParser" interface="eu.agno3.runtime.update.LicenseParser" cardinality="1..1" policy="static" bind="setLicenseParser" unbind="unsetLicenseParser"/>
+    <reference name="ImageTypeRegistry" interface="eu.agno3.orchestrator.config.model.descriptors.ImageTypeRegistry" cardinality="1..1" policy="static" bind="setImageTypeRegistry" unbind="unsetImageTypeRegistry"/>
+    <reference name="InstanceService" interface="eu.agno3.orchestrator.config.model.realm.server.service.InstanceServerService" cardinality="1..1" policy="static" bind="setInstanceService" unbind="unsetInstanceService"/>
+    <implementation class="eu.agno3.orchestrator.config.model.realm.service.licensing.LicensingServiceImpl"/>
+</scr:component>

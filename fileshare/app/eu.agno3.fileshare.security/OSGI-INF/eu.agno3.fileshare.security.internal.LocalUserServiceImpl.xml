@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.fileshare.security.internal.LocalUserServiceImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.security.LocalUserService"/>
+    </service>
+    <reference name="PasswordPolicyChecker" interface="eu.agno3.runtime.security.password.PasswordPolicyChecker" cardinality="1..1" policy="static" bind="setPasswordPolicyChecker" unbind="unsetPasswordPolicyChecker"/>
+    <reference name="EntityTransactionService" interface="eu.agno3.runtime.db.orm.EntityTransactionService" cardinality="1..1" policy="static" target="(persistenceUnit=auth)" bind="bindEntityTransactionService" unbind="unbindEntityTransactionService"/>
+    <reference name="UserMapper" interface="eu.agno3.runtime.security.UserMapper" cardinality="1..1" policy="static" bind="setUserMapper" unbind="unsetUserMapper"/>
+    <implementation class="eu.agno3.fileshare.security.internal.LocalUserServiceImpl"/>
+</scr:component>

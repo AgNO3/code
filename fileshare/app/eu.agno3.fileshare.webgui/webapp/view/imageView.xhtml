@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+	<iframe jsf:id="sandbox" pass:sandbox="allow-same-origin"
+		pass:seamless="" pass:referrerpolicy="origin-when-cross-origin"
+		pass:marginwidth="0" pass:marginheight="0" pass:hspace="0"
+		pass:vspace="0" pass:frameborder="0"
+		style="width: 100%; margin: 0; height: 100%; border: 0; box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box;"
+		pass:src="../viewExtra/imageViewFallback.xhtml#{fileDownloadController.makeTokenWithIntent(userTokenBean, grantSelectionBean.singleSelection)}&amp;file=#{urlFileSelectionBean.singleSelectionId}"
+		pass:srcdoc="&lt;img
+			style=&quot;display: block; margin: 0; margin-left: auto; margin-right: auto; max-width: 100%; max-height: 100%&quot;
+			referrerpolicy=&quot;origin-when-cross-origin&quot;
+			src=&quot;#{fileDownloadController.getViewLink(urlFileSelectionBean.selectedEntity, grantSelectionBean.singleSelection, userTokenBean)}&quot; /&gt;" />
+</ui:composition>

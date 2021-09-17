@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:m="urn:agno3:message:1.0:base" xmlns:j="urn:agno3:job:1.0:base" xmlns:user="urn:agno3:security:1.0:principal" xmlns:jm="urn:agno3:job:1.0:msg" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:job:1.0:msg" elementFormDefault="qualified">
+   <xsd:import schemaLocation="urn:agno3:message:1.0:base" namespace="urn:agno3:message:1.0:base"/>
+   <xsd:import schemaLocation="urn:agno3:job:1.0:base" namespace="urn:agno3:job:1.0:base"/>
+   <xsd:complexType name="jobEvent">
+      <xsd:complexContent>
+         <xsd:extension base="m:xmlMarshallableMessage">
+            <xsd:sequence/>
+            <xsd:attribute name="jobId" type="xsd:string" use="required"/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="jobKeepAliveEvent">
+      <xsd:complexContent>
+         <xsd:extension base="jm:jobEvent">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="jobProgressEvent">
+      <xsd:complexContent>
+         <xsd:extension base="jm:jobEvent">
+            <xsd:sequence>
+               <xsd:element name="progressInfo" type="j:jobProgressInfo"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="jobStateEvent">
+      <xsd:complexContent>
+         <xsd:extension base="jm:jobEvent">
+            <xsd:sequence>
+               <xsd:element name="info" type="j:jobInfo"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="jobRequest">
+      <xsd:complexContent>
+         <xsd:extension base="m:xmlMarshallableMessage">
+            <xsd:sequence/>
+            <xsd:attribute name="jobId" type="xsd:string" use="required"/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="jobQueueRequest">
+      <xsd:complexContent>
+         <xsd:extension base="jm:jobRequest">
+            <xsd:sequence>
+               <xsd:element name="job" type="j:job"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="jobCancelRequest">
+      <xsd:complexContent>
+         <xsd:extension base="jm:jobRequest">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="jobInfoRequest">
+      <xsd:complexContent>
+         <xsd:extension base="jm:jobRequest">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="jobInfoReply">
+      <xsd:complexContent>
+         <xsd:extension base="m:xmlMarshallableMessage">
+            <xsd:sequence>
+               <xsd:element name="info" type="j:jobInfo"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:element name="jobEvent" type="jm:jobEvent"/>
+   <xsd:element name="jobKeepAliveEvent" type="jm:jobKeepAliveEvent"/>
+   <xsd:element name="jobProgressEvent" type="jm:jobProgressEvent"/>
+   <xsd:element name="jobStateEvent" type="jm:jobStateEvent"/>
+   <xsd:element name="jobRequest" type="jm:jobRequest"/>
+   <xsd:element name="jobQueueRequest" type="jm:jobQueueRequest"/>
+   <xsd:element name="jobCancelRequest" type="jm:jobCancelRequest"/>
+   <xsd:element name="jobInfoRequest" type="jm:jobInfoRequest"/>
+   <xsd:element name="jobInfoReply" type="jm:jobInfoReply"/>
+</xsd:schema>

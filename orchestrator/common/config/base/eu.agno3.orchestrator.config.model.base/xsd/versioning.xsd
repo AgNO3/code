@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:mb="urn:agno3:model:1.0:base" xmlns:mbv="urn:agno3:model:1.0:base:versioning" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:model:1.0:base:versioning" elementFormDefault="qualified">
+   <xsd:complexType name="versionInfoType">
+      <xsd:sequence/>
+      <xsd:attribute name="revNumber" type="xsd:long" use="required"/>
+      <xsd:attribute name="revDate" type="xsd:dateTime" use="required"/>
+      <xsd:attribute name="revType" type="mbv:revisionType"/>
+   </xsd:complexType>
+   <xsd:element name="versionInfo" type="mbv:versionInfoType"/>
+   <xsd:simpleType name="revisionType">
+      <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="UNKNOWN"/>
+         <xsd:enumeration value="ADD"/>
+         <xsd:enumeration value="MODIFY"/>
+         <xsd:enumeration value="MODIFY_DEFAULTS"/>
+         <xsd:enumeration value="DELETE"/>
+         <xsd:enumeration value="APPLY"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+</xsd:schema>

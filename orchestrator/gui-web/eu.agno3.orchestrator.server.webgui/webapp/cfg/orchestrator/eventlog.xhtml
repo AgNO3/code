@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="eventStorage" path="eventStorage">
+		<p:autoComplete id="eventStorage" dropdown="true"
+			style="width: auto; box-sizing: border-box;"
+			completeMethod="#{storageConfigBean.getMountCompleter(configContext).complete}"
+			value="#{current.eventStorage}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor input="retainIndexedDays"
+		path="retainIndexedDays">
+		<p:spinner min="1" id="retainIndexedDays"
+			value="#{current.retainIndexedDays}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="writeLogFiles" path="writeLogFiles"
+		minLevel="2" update="@composite:@parent:logFileSettings">
+		<p:selectBooleanCheckbox id="writeLogFiles"
+			value="#{current.writeLogFiles}">
+			<p:ajax event="change" update="@composite:@parent:logFileSettings" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+	<p:outputPanel id="logFileSettings">
+		<p:outputPanel
+			rendered="#{current.writeLogFiles or (current.writeLogFiles == null and not defaults.writeLogFiles)}">
+			<orch:objectFieldEditor inputId="disableLogExpiration" minLevel="2"
+				path="disableLogExpiration"
+				update="@composite:@parent:retainDaysField">
+				<p:selectBooleanCheckbox id="disableLogExpiration"
+					value="#{current.disableLogExpiration}">
+					<p:ajax event="change" update="@composite:@parent:retainDaysField" />
+				</p:selectBooleanCheckbox>
+			</orch:objectFieldEditor>
+
+			<p:outputPanel id="retainDaysField">
+				<orch:objectFieldEditor input="retainDays" path="retainDays"
+					minLevel="2"
+					onlyIf="#{(current.disableLogExpiration != null and not current.disableLogExpiration) or (current.disableLogExpiration == null and not defaults.disableLogExpiration)}">
+					<p:spinner min="1" id="retainDays" value="#{current.retainDays}" />
+				</orch:objectFieldEditor>
+			</p:outputPanel>
+		</p:outputPanel>
+	</p:outputPanel>
+
+</ui:composition>

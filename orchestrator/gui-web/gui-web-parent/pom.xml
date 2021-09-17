@@ -1,0 +1,25 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.orchestrator.common</groupId>
+    <artifactId>common-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../../common/common-parent/</relativePath>
+  </parent>
+  <artifactId>gui-web-parent</artifactId>
+  <packaging>pom</packaging>
+  <groupId>eu.agno3.orchestrator.server.webgui</groupId>
+  <name>Orchestrator/GUI/Web Parent POM</name>
+
+	<build>
+		<plugins>
+			<plugin>
+
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-p2-plugin</artifactId>
+				<configuration>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

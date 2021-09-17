@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.config.auth.ad"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:auth:ad">
+		<xml-ns prefix="adauthc" namespace-uri="urn:agno3:model:1.0:auth:ad" />
+		<xml-ns prefix="authc" namespace-uri="urn:agno3:model:1.0:auth" />
+		<xml-ns prefix="ldapauthc" namespace-uri="urn:agno3:model:1.0:auth:ldap" />
+	</xml-schema>
+
+	<java-types>
+		<java-type name="ADAuthenticatorConfig" xml-accessor-type="NONE">
+			<xml-type name="adAuthConfig"
+				factory-class="eu.agno3.orchestrator.config.auth.ad.ObjectFactory"
+				factory-method="makeADAuthenticatorConfig" />
+
+			<xml-root-element name="adAuthConfigType" />
+			<java-attributes>
+				<xml-element name="domain" java-attribute="domain" />
+				<xml-element name="keytab" java-attribute="keytab" />
+
+				<xml-element name="sendNTLMChallenge" java-attribute="sendNTLMChallenge" />
+				<xml-element name="acceptNTLMFallback" java-attribute="acceptNTLMFallback" />
+
+				<xml-element name="disablePACValidation" java-attribute="disablePACValidation" />
+				<xml-element name="disablePACs" java-attribute="disablePACs" />
+
+				<xml-element name="rejectNonADPrincipals"
+					java-attribute="rejectNonADPrincipals" />
+				<xml-element name="acceptOnlyLocal" java-attribute="acceptOnlyLocal" />
+				<xml-element name="requireDomainUserGroup"
+					java-attribute="requireDomainUserGroup" />
+
+
+				<xml-element name="enableSynchronization"
+					java-attribute="enableSynchronization" />
+
+				<xml-element name="syncOptions" java-attribute="syncOptions" />
+
+				<xml-element name="serviceName" java-attribute="serviceName" />
+				<xml-element name="allowPasswordFallback"
+					java-attribute="allowPasswordFallback" />
+
+				<xml-element name="match" java-attribute="acceptPrincipalPatterns">
+					<xml-element-wrapper name="acceptPrincipalPatterns" />
+				</xml-element>
+
+				<xml-element name="match" java-attribute="rejectPrincipalPatterns">
+					<xml-element-wrapper name="rejectPrincipalPatterns" />
+				</xml-element>
+
+				<xml-element name="role" java-attribute="alwaysAddRoles">
+					<xml-element-wrapper name="alwaysAddRoles" />
+				</xml-element>
+
+				<xml-element name="match" java-attribute="principalAddRoles">
+					<xml-element-wrapper name="principalAddRoles" />
+				</xml-element>
+
+
+				<xml-element name="sid" java-attribute="acceptDomainSids">
+					<xml-element-wrapper name="acceptDomainSids" />
+				</xml-element>
+
+				<xml-element name="sid" java-attribute="rejectDomainSids">
+					<xml-element-wrapper name="rejectDomainSids" />
+				</xml-element>
+
+				<xml-element name="sid" java-attribute="requiredSids">
+					<xml-element-wrapper name="requiredSids" />
+				</xml-element>
+
+				<xml-element name="sid" java-attribute="rejectSids">
+					<xml-element-wrapper name="rejectSids" />
+				</xml-element>
+
+
+				<xml-element name="match" java-attribute="sidRoles">
+					<xml-element-wrapper name="sidRoles" />
+				</xml-element>
+
+				<xml-element name="userSyncBase" java-attribute="userSyncBase" />
+				<xml-element name="userSyncFilter" java-attribute="userSyncFilter" />
+
+				<xml-element name="groupSyncBase" java-attribute="groupSyncBase" />
+				<xml-element name="groupSyncFilter" java-attribute="groupSyncFilter" />
+
+			</java-attributes>
+		</java-type>
+	</java-types>
+</xml-bindings>

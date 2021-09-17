@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.types.crypto.X509CertificateJPAConverter">
+    <property name="converts" value="java.security.cert.X509Certificate"/>
+    <service servicefactory="false">
+        <provide interface="javax.persistence.AttributeConverter"/>
+    </service>
+    <implementation class="eu.agno3.orchestrator.types.crypto.X509CertificateJPAConverter"/>
+</scr:component>

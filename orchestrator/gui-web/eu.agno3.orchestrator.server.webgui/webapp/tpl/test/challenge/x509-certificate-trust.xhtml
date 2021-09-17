@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<p:fieldset>
+		<ol style="list-style-position: inside;">
+			<li><p:outputPanel style="vertical-align: top;">
+					<ag:certificateDisplay value="#{challenge.endEntityCertificate}"
+						concise="true" />
+
+					<ag:simpleField styleClass="noLabel">
+						<p:commandButton icon="ui-icon-check"
+							action="#{configTestInteractionUtil.trustCertificate(challenge.endEntityCertificate)}"
+							value="#{_gui['config.test.challenge.x509trust.pin.label']}"
+							title="#{_gui['config.test.challenge.x509trust.pin.description']}" />
+					</ag:simpleField>
+				</p:outputPanel></li>
+		</ol>
+	</p:fieldset>
+</ui:composition>

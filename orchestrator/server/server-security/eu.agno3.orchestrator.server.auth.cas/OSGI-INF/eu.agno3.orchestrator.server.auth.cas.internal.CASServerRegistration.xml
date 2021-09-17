@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" immediate="true" name="eu.agno3.orchestrator.server.auth.cas.internal.CASServerRegistration" activate="activate" deactivate="deactivate" configuration-pid="cas.server">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.server.auth.cas.internal.CASServerRegistration"/>
+    </service>
+    <reference name="TlsContext" interface="eu.agno3.runtime.crypto.tls.TLSContext" cardinality="1..1" policy="static" target="(subsystem=auth/casServer)" bind="setTlsContext" unbind="unsetTlsContext"/>
+    <reference name="WebServerContext" interface="eu.agno3.runtime.crypto.tls.TLSContext" cardinality="1..1" policy="static" target="(subsystem=https)" bind="setWebServerContext" unbind="unsetWebServerContext"/>
+    <reference name="TicketRegistry" interface="org.jasig.cas.ticket.registry.TicketRegistry" cardinality="1..1" policy="static" bind="setTicketRegistry" unbind="unsetTicketRegistry"/>
+    <reference name="Authorizer" interface="eu.agno3.runtime.security.DynamicModularRealmAuthorizer" cardinality="1..1" policy="static" bind="setAuthorizer" unbind="unsetAuthorizer"/>
+    <implementation class="eu.agno3.orchestrator.server.auth.cas.internal.CASServerRegistration"/>
+</scr:component>

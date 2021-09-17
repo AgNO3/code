@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<p:tabView id="aspects" rendered="#{not empty configContext.current}"
+		dynamic="true" cache="false" processOnChange="true">
+
+		<p:tab id="web" title="#{_config_orch['type.orchestrator.web']}">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:orchestrator:web"
+				context="#{configContext}" path="webConfig"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}">
+			</orch:objectEditor>
+		</p:tab>
+
+		<p:tab id="auth" title="#{_config_orch['type.orchestrator.auth']}">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:orchestrator:auth"
+				context="#{configContext}" path="authenticationConfig"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}">
+			</orch:objectEditor>
+		</p:tab>
+
+		<p:tab id="logging"
+			title="#{_config_orch['type.orchestrator.eventlog']}">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:orchestrator:eventlog"
+				context="#{configContext}" path="eventLogConfig"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}">
+			</orch:objectEditor>
+		</p:tab>
+
+		<p:tab id="advanced"
+			title="#{_config_orch['type.orchestrator.advanced']}">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:orchestrator:advanced"
+				context="#{configContext}" path="advancedConfig"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}">
+			</orch:objectEditor>
+		</p:tab>
+	</p:tabView>
+</ui:composition>

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0"
+	template="/tpl/structure/instance/template.xhtml">
+	<ui:param name="instanceSubtitle"
+		value="#{_gui['structure.instance.update.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="instance"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<p:messages autoUpdate="true" />
+
+			<orch:event
+				pattern="/instance/#{structureViewContext.selectedObjectId}/update_status">
+				console.log('Matched an event, refresh');
+				refresh();
+				</orch:event>
+
+			<p:remoteCommand name="refresh" delay="2000" ignoreAutoUpdate="true"
+				update="updateStatus"
+				actionListener="#{updateContextBean.refresh()}" />
+
+			<p:toolbar>
+				<f:facet name="left">
+					<p:commandButton
+						action="#{updateController.checkForUpdates(updateContextBean.overrideStream)}"
+						icon="ui-icon-search"
+						value="#{_gui['structure.instance.update.check']}" />
+				</f:facet>
+				<f:facet name="right">
+					<p:selectOneMenu value="#{updateContextBean.overrideStream}">
+						<p:ajax event="change" update="updateStatus" />
+						<f:selectItems value="#{updateContextBean.availableStreams}" />
+					</p:selectOneMenu>
+				</f:facet>
+			</p:toolbar>
+
+			<p:outputPanel id="updateStatus">
+				<p:fieldset legend="#{_gui['structure.instance.update.title']}"
+					styleClass="#{updateContextBean.updateStateStyle}">
+					<p:outputPanel
+						rendered="#{not empty updateContextBean.latestDescriptor}">
+						<ag:simpleField readOnly="true"
+							label="#{_gui['structure.instance.update.status']}"
+							value="#{updateContextBean.translatedUpdateState}" />
+						<ag:simpleField
+							label="#{_gui['structure.instance.update.version']}">
+							<h:outputFormat
+								value="#{_gui['structure.instance.update.versionFmt']}">
+								<f:param value="#{updateContextBean.latestDescriptor.sequence}" />
+								<f:param value="#{updateContextBean.descriptorStream}" />
+							</h:outputFormat>
+						</ag:simpleField>
+						<ag:simpleField readOnly="true"
+							label="#{_gui['structure.instance.update.releaseDate']}"
+							value="#{dateTimeUtil.formatDateTime(updateContextBean.latestDescriptor.releaseDate)}" />
+
+						<ag:simpleField
+							onlyIf="#{not empty updateContextBean.latestDescriptor.changeLogRef}"
+							label="#{_gui['structure.instance.update.changelog']}">
+							<a target="_blank"
+								href="#{updateContextBean.latestDescriptor.changeLogRef}&amp;from=#{updateContextBean.currentSequence}">
+								<span class="ui-icon ui-icon-inline ui-icon-link" /> <h:outputText
+									value="#{_gui['structure.instance.update.changelog.view']}" />
+							</a>
+						</ag:simpleField>
+
+						<p:commandButton action="#{updateContextBean.install}"
+							value="#{_gui['structure.instance.update.install']}">
+							<p:confirm
+								header="#{_gui['structure.instance.update.install.promptHeader']}"
+								message="#{_gui['structure.instance.update.install.promptMsg']}"
+								icon="ui-icon-question" />
+						</p:commandButton>
+					</p:outputPanel>
+					<p:outputPanel
+						rendered="#{empty updateContextBean.latestDescriptor}">
+						<p>
+							<h:outputFormat
+								value="#{_gui['structure.instance.update.noUpdateFmt']}">
+								<f:param value="#{updateContextBean.overrideStream}" />
+							</h:outputFormat>
+						</p>
+					</p:outputPanel>
+				</p:fieldset>
+			</p:outputPanel>
+
+			<p:fieldset
+				legend="#{_gui['structure.instance.update.reboot.title']}"
+				rendered="#{updateContextBean.rebootIndicated}">
+				<ag:simpleField
+					label="#{_gui['structure.instance.update.reboot.label']}"
+					description="#{_gui['structure.instance.update.reboot.description']}">
+					<p:commandButton
+						value="#{_gui['structure.instance.update.reboot.confirm']}"
+						icon="ui-icon-refresh" action="#{instancePowerController.reboot}"
+						disabled="#{not agentStateTracker.isAgentOnline(structureViewContext.selectedInstance)}">
+						<p:confirm
+							header="#{_gui['structure.instance.update.reboot.promptHeader']}"
+							message="#{_gui['structure.instance.update.reboot.promptMsg']}"
+							icon="ui-icon-question" />
+					</p:commandButton>
+				</ag:simpleField>
+			</p:fieldset>
+
+			<p:fieldset
+				legend="#{_gui['structure.instance.update.installed.title']}"
+				rendered="#{not empty updateContextBean.status}">
+				<ag:simpleField label="#{_gui['structure.instance.update.version']}">
+					<h:outputFormat
+						value="#{_gui['structure.instance.update.versionFmt']}">
+						<f:param value="#{updateContextBean.currentSequence}" />
+						<f:param value="#{updateContextBean.currentStream}" />
+					</h:outputFormat>
+				</ag:simpleField>
+				<ag:simpleField readOnly="true"
+					label="#{_gui['structure.instance.update.installDate']}"
+					onlyIf="#{not empty updateContextBean.currentInstallDate}"
+					value="#{dateTimeUtil.formatDateTime(updateContextBean.currentInstallDate)}" />
+			</p:fieldset>
+
+			<p:outputPanel id="revertStatus">
+				<p:fieldset
+					legend="#{_gui['structure.instance.update.rollback.title']}"
+					rendered="#{not empty updateContextBean.revertSequence}">
+					<ag:simpleField
+						label="#{_gui['structure.instance.update.version']}">
+						<h:outputFormat
+							value="#{_gui['structure.instance.update.versionFmt']}">
+							<f:param value="#{updateContextBean.revertSequence}" />
+							<f:param value="#{updateContextBean.revertStream}" />
+						</h:outputFormat>
+					</ag:simpleField>
+					<ag:simpleField readOnly="true"
+						label="#{_gui['structure.instance.update.installDate']}"
+						value="#{dateTimeUtil.formatDateTime(updateContextBean.revertTimestamp)}" />
+
+					<p:commandButton action="#{updateContextBean.revert}"
+						value="#{_gui['structure.instance.update.revert']}">
+						<p:confirm
+							header="#{_gui['structure.instance.update.revertHeader']}"
+							message="#{_gui['structure.instance.update.revertMsg']}"
+							icon="ui-icon-alert" />
+					</p:commandButton>
+				</p:fieldset>
+			</p:outputPanel>
+
+			<p:fieldset
+				legend="#{_gui['structure.instance.update.backups.title']}"
+				rendered="#{agentStateTracker.isAgentOnline(structureViewContext.selectedInstance)}">
+				<p>
+					<h:outputText
+						value="#{_gui['structure.instance.update.backups.description']}" />
+				</p>
+				<p:toolbar>
+					<f:facet name="left">
+						<p:commandButton action="#{backupContextBean.makeBackup()}"
+							icon="ui-icon-disk"
+							value="#{_gui['structure.instance.update.backups.create']}" />
+					</f:facet>
+
+					<f:facet name="right">
+						<p:commandButton action="#{backupContextBean.refresh()}"
+							icon="ui-icon-arrowrefresh-1-e"
+							value="#{_gui['structure.instance.update.backups.refresh']}"
+							update="backupsTable" />
+					</f:facet>
+				</p:toolbar>
+
+				<p:dataTable id="backupsTable" value="#{backupContextBean.model}"
+					var="backup">
+
+					<p:column style="width: 1.4em">
+						<p:rowToggler />
+					</p:column>
+
+					<p:column
+						headerText="#{_gui['structure.instance.update.backups.dateHeader']}"
+						style="width: 40%">
+						<h:outputText
+							value="#{localeSettingsBean.formatDateTime(backup.timestamp, 'LM')}" />
+					</p:column>
+
+					<p:column
+						headerText="#{_gui['structure.instance.update.backups.sizeHeader']}">
+						<h:outputText value="#{ag:formatByteSizeSI(backup.totalSize)}" />
+					</p:column>
+
+					<p:column>
+						<p:commandButton
+							action="#{backupContextBean.restoreBackup(backup.id)}"
+							icon="ui-icon-arrowreturnthick-1-w"
+							value="#{_gui['structure.instance.update.backups.restore']}">
+							<p:confirm
+								message="#{_gui['structure.instance.update.backups.restorePrompt']}" />
+						</p:commandButton>
+
+						<p:commandButton
+							action="#{backupContextBean.removeBackup(backup.id)}"
+							icon="ui-icon-trash"
+							value="#{_gui['structure.instance.update.backups.delete']}"
+							update="backupsTable">
+							<p:confirm
+								message="#{_gui['structure.instance.update.backups.deletePrompt']}" />
+						</p:commandButton>
+					</p:column>
+
+					<p:rowExpansion>
+						<ul>
+							<ui:repeat value="#{backup.services}" var="service">
+								<li><h:outputFormat
+										value="#{_gui['structure.instance.update.backups.listFmt']}">
+										<f:param
+											value="#{backupContextBean.getServiceDisplayName(service)}" />
+										<f:param value="#{ag:formatByteSizeSI(service.size)}" />
+									</h:outputFormat></li>
+							</ui:repeat>
+						</ul>
+					</p:rowExpansion>
+				</p:dataTable>
+			</p:fieldset>
+		</h:form>
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+			<h:form>
+				<div class="buttons">
+					<p:commandButton
+						value="#{_gui['structure.instance.update.backups.confirm']}"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton
+						value="#{_gui['structure.instance.update.backups.cancel']}"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</div>
+			</h:form>
+		</p:confirmDialog>
+	</ui:define>
+</ui:composition>

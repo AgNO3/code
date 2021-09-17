@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<ui:include src="/cfg/fileshare/passthroughGroup/base.xhtml">
+		<ui:param name="configContext" value="#{configContext}" />
+		<ui:param name="current" value="#{current}" />
+		<ui:param name="defaults" value="#{defaults}" />
+		<ui:param name="enforced" value="#{enforced}" />
+		<ui:param name="base" value="#{path}" />
+		<ui:param name="isTemplate" value="#{isTemplate}" />
+		<ui:param name="isSubTemplate" value="#{isSubTemplate}" />
+		<ui:param name="readOnly" value="#{readOnly}" />
+		<ui:param name="outerWrapper" value="#{outerWrapper}" />
+	</ui:include>
+
+	<orch:objectFieldEditor inputId="uncPath" path="uncPath">
+		<p:inputText id="uncPath" value="#{current.uncPath}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="authType" path="authType"
+		update="@composite:@parent:authSettings"
+		readOnlyValueMapper="#{mountEntryBean.translateCifsAuthType}">
+		<p:selectOneMenu id="authType" value="#{current.authType}">
+			<f:selectItems value="#{mountEntryBean.cifsAuthTypes}" var="type"
+				itemLabel="#{mountEntryBean.translateCifsAuthType(type)}" />
+			<p:ajax event="change" update="@composite:@parent:authSettings" />
+		</p:selectOneMenu>
+	</orch:objectFieldEditor>
+
+	<p:outputPanel id="authSettings">
+		<p:outputPanel
+			rendered="#{(current.authType != null and current.authType != 'KERBEROS' and current.authType != 'GUEST') 
+				or (current.authType == null and defaults.authType != 'KERBEROS' and default.authType != 'GUEST')}">
+
+			<orch:objectFieldEditor inputId="username" path="username">
+				<p:inputText id="username" value="#{current.username}" />
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="domain" path="domain">
+				<p:inputText id="domain" value="#{current.domain}" />
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="password" path="password">
+				<p:password redisplay="true" id="password"
+					value="#{current.password}" />
+			</orch:objectFieldEditor>
+		</p:outputPanel>
+
+		<p:outputPanel
+			rendered="#{(current.authType != null and current.authType == 'KERBEROS') or (current.authType == null and defaults.authType == 'KERBEROS')}">
+			<orch:objectFieldEditor inputId="authRealm" path="authRealm">
+				<p:inputText id="authRealm" value="#{current.authRealm}" />
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="authKeytab" path="authKeytab">
+				<p:inputText id="authKeytab" value="#{current.authKeytab}" />
+			</orch:objectFieldEditor>
+		</p:outputPanel>
+
+
+		<p:outputPanel
+			rendered="#{(current.authType != null and current.authType != 'GUEST') or (current.authType == null and defaults.authType != 'GUEST')}">
+			<orch:objectFieldEditor inputId="enableSigning" path="enableSigning"
+				minLevel="2">
+				<p:selectBooleanCheckbox id="enableSigning"
+					value="#{current.enableSigning}" />
+			</orch:objectFieldEditor>
+		</p:outputPanel>
+	</p:outputPanel>
+	
+	<orch:objectFieldEditor inputId="allowSMB1" minLevel="2" path="allowSMB1">
+		<p:selectBooleanCheckbox id="allowSMB1" value="#{current.allowSMB1}" />
+	</orch:objectFieldEditor>
+	
+	<orch:objectFieldEditor inputId="disableSMB2" minLevel="2" path="disableSMB2">
+		<p:selectBooleanCheckbox id="disableSMB2" value="#{current.disableSMB2}" />
+	</orch:objectFieldEditor>
+
+</ui:composition>

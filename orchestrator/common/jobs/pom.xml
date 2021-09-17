@@ -1,0 +1,128 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.orchestrator.common</groupId>
+    <artifactId>common-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../common-parent/</relativePath>
+  </parent>
+  <artifactId>jobs</artifactId>
+  <packaging>pom</packaging>
+  <name>Orchestrator Job Coordination Module</name>
+  <modules>
+  	<module>eu.agno3.orchestrator.jobs</module>
+  	<module>eu.agno3.orchestrator.jobs.coord</module>
+  	<module>eu.agno3.orchestrator.jobs.test</module>
+  	<module>eu.agno3.orchestrator.jobs.coord.test</module>
+  	<module>jobs-feature</module>
+  	<module>eu.agno3.orchestrator.jobs.console</module>
+  </modules>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<configuration>
+					<bundleStartLevel combine.children="append">
+
+
+
+						<bundle>
+							<id>eu.agno3.runtime.xml</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.xml.schema</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.xml.binding</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.validation</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.transaction</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.orchestrator.types</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.orchestrator.types.net</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+						
+						<bundle>
+							<id>eu.agno3.runtime.messaging</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+						
+						<bundle>
+							<id>eu.agno3.runtime.messaging.transaction</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+						
+						<bundle>
+							<id>eu.agno3.runtime.messaging.xml</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+
+						<bundle>
+							<id>eu.agno3.orchestrator.jobs</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.orchestrator.jobs.coord</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+					</bundleStartLevel>
+
+
+					<dependencies combine.children="append">
+						
+						<dependency>
+							<groupId>eu.agno3.runtime</groupId>
+							<artifactId>eu.agno3.runtime.validation</artifactId>
+							<version>0.0.0</version>
+							<type>eclipse-plugin</type>
+						</dependency>
+
+						
+						<dependency>
+							<groupId>eu.agno3.runtime</groupId>
+							<artifactId>eu.agno3.runtime.messaging.transaction</artifactId>
+							<version>0.0.0</version>
+							<type>eclipse-plugin</type>
+						</dependency>
+					</dependencies>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

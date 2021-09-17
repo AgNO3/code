@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" immediate="true" name="eu.agno3.runtime.db.derby.client.DerbyNetworkDataSourceFactory">
+    <property name="osgi.jdbc.driver.class" value="org.apache.derby.jdbc.ClientDriver"/>
+    <service servicefactory="false">
+        <provide interface="org.osgi.service.jdbc.DataSourceFactory"/>
+    </service>
+    <reference name="DriverUtil" interface="eu.agno3.runtime.db.DatabaseDriverUtil" cardinality="1..1" policy="static" target="(osgi.jdbc.driver.class=org.apache.derby.jdbc.EmbeddedDriver)" bind="setDriverUtil" unbind="unsetDriverUtil"/>
+    <implementation class="eu.agno3.runtime.db.derby.client.DerbyNetworkDataSourceFactory"/>
+</scr:component>

@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+	<changeSet author="mbechler (generated)" id="1455968060528-1">
+		<createTable schemaName="APP" tableName="config_orchestrator_advc">
+			<column name="DATASTORAGE" type="VARCHAR(255)" />
+			<column name="TEMPSTORAGE" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="RUNTIMECONFIG_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-2">
+		<createTable schemaName="APP" tableName="config_orchestrator_advc_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="DATASTORAGE" type="VARCHAR(255)" />
+			<column name="TEMPSTORAGE" type="VARCHAR(255)" />
+			<column name="RUNTIMECONFIG_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-3">
+		<createTable schemaName="APP" tableName="config_orchestrator_authc">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="AUTHENTICATORSCONFIG_ID" type="BINARY(16)" />
+			<column name="ROLECONFIG_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-4">
+		<createTable schemaName="APP" tableName="config_orchestrator_authc_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="AUTHENTICATORSCONFIG_ID" type="BINARY(16)" />
+			<column name="ROLECONFIG_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-5">
+		<createTable schemaName="APP" tableName="config_orchestrator_eventlog">
+			<column name="DISABLELOGEXPIRATION" type="BOOLEAN" />
+			<column name="EVENTSTORAGE" type="VARCHAR(255)" />
+			<column name="RETAINDAYS" type="BIGINT" />
+			<column name="RETAININDEXEDDAYS" type="BIGINT" />
+			<column name="WRITELOGFILES" type="BOOLEAN" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-6">
+		<createTable schemaName="APP" tableName="config_orchestrator_eventlog_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="DISABLELOGEXPIRATION" type="BOOLEAN" />
+			<column name="EVENTSTORAGE" type="VARCHAR(255)" />
+			<column name="RETAINDAYS" type="BIGINT" />
+			<column name="RETAININDEXEDDAYS" type="BIGINT" />
+			<column name="WRITELOGFILES" type="BOOLEAN" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-7">
+		<createTable schemaName="APP" tableName="config_orchestrator_webc">
+			<column name="THEMELIBRARY" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="APIENDPC" type="BINARY(16)" />
+			<column name="WEBENDPC" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-8">
+		<createTable schemaName="APP" tableName="config_orchestrator_webc_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="THEMELIBRARY" type="VARCHAR(255)" />
+			<column name="APIENDPC" type="BINARY(16)" />
+			<column name="WEBENDPC" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-9">
+		<addColumn schemaName="APP" tableName="config_orchestrator">
+			<column name="ADVANCEDCONFIG_ID" type="java.sql.Types.BINARY(16)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-10">
+		<addColumn schemaName="APP" tableName="config_orchestrator_AUD">
+			<column name="ADVANCEDCONFIG_ID" type="java.sql.Types.BINARY(16)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-11">
+		<addColumn schemaName="APP" tableName="config_orchestrator">
+			<column name="AUTHENTICATIONCONFIG_ID" type="java.sql.Types.BINARY(16)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-12">
+		<addColumn schemaName="APP" tableName="config_orchestrator_AUD">
+			<column name="AUTHENTICATIONCONFIG_ID" type="java.sql.Types.BINARY(16)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-13">
+		<addColumn schemaName="APP" tableName="config_orchestrator">
+			<column name="EVENTLOGCONFIG_ID" type="java.sql.Types.BINARY(16)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-14">
+		<addColumn schemaName="APP" tableName="config_orchestrator_AUD">
+			<column name="EVENTLOGCONFIG_ID" type="java.sql.Types.BINARY(16)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-15">
+		<addColumn schemaName="APP" tableName="config_orchestrator">
+			<column name="WEBCONFIG_ID" type="java.sql.Types.BINARY(16)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-16">
+		<addColumn schemaName="APP" tableName="config_orchestrator_AUD">
+			<column name="WEBCONFIG_ID" type="java.sql.Types.BINARY(16)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-17">
+		<addPrimaryKey columnNames="ID" constraintName="config_orchestrator_advcPK"
+			schemaName="APP" tableName="config_orchestrator_advc" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-18">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_orchestrator_advc_AUDPK" schemaName="APP"
+			tableName="config_orchestrator_advc_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-19">
+		<addPrimaryKey columnNames="ID" constraintName="config_orchestrator_authcPK"
+			schemaName="APP" tableName="config_orchestrator_authc" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-20">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_orchestrator_authc_AUDPK" schemaName="APP"
+			tableName="config_orchestrator_authc_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-21">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_orchestrator_eventlogPK" schemaName="APP"
+			tableName="config_orchestrator_eventlog" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-22">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_orchestrator_eventlog_AUDPK" schemaName="APP"
+			tableName="config_orchestrator_eventlog_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-23">
+		<addPrimaryKey columnNames="ID" constraintName="config_orchestrator_webcPK"
+			schemaName="APP" tableName="config_orchestrator_webc" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-24">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_orchestrator_webc_AUDPK" schemaName="APP"
+			tableName="config_orchestrator_webc_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-25">
+		<addForeignKeyConstraint baseColumnNames="ROLECONFIG_ID"
+			baseTableName="config_orchestrator_authc" baseTableSchemaName="APP"
+			constraintName="FK2B4BD0Y7R9AK5B9ODUVIYDUDO" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_auth_roles_static"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-26">
+		<addForeignKeyConstraint baseColumnNames="WEBCONFIG_ID"
+			baseTableName="config_orchestrator" baseTableSchemaName="APP"
+			constraintName="FK2VATAH7XF7IOT8K0WAHOOQYBL" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_orchestrator_webc"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-27">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_orchestrator_eventlog_AUD" baseTableSchemaName="APP"
+			constraintName="FK4HQWBLRIHARC19FLH124SVCQI" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID,REV" referencedTableName="config_AUD"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-28">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_orchestrator_webc_AUD" baseTableSchemaName="APP"
+			constraintName="FK5SM1SSIHL5MNMNA1G0A9TV49G" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID,REV" referencedTableName="config_AUD"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-29">
+		<addForeignKeyConstraint baseColumnNames="AUTHENTICATIONCONFIG_ID"
+			baseTableName="config_orchestrator" baseTableSchemaName="APP"
+			constraintName="FK6DVVENMPGY9N893MW8184GARJ" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_orchestrator_authc"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-30">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_orchestrator_advc" baseTableSchemaName="APP"
+			constraintName="FK70F1S99DSJIB8KA82FGVD77WR" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-31">
+		<addForeignKeyConstraint baseColumnNames="RUNTIMECONFIG_ID"
+			baseTableName="config_orchestrator_advc" baseTableSchemaName="APP"
+			constraintName="FK82CKC0MIB4RTOLMEGGVGTNPXW" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_runtime"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-32">
+		<addForeignKeyConstraint baseColumnNames="WEBENDPC"
+			baseTableName="config_orchestrator_webc" baseTableSchemaName="APP"
+			constraintName="FKA1VF1QB7MU2INNGVOKJPCXLBO" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_web_endpoint"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-33">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_orchestrator_eventlog" baseTableSchemaName="APP"
+			constraintName="FKF1CLRDDHVB53TM35DCLM0MV1M" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-34">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_orchestrator_webc" baseTableSchemaName="APP"
+			constraintName="FKF7GVTT37VL4N5VQET76RH87N5" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-35">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_orchestrator_advc_AUD" baseTableSchemaName="APP"
+			constraintName="FKGMUB1DA9NGEFIU8G37I1RJ755" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID,REV" referencedTableName="config_AUD"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-36">
+		<addForeignKeyConstraint baseColumnNames="AUTHENTICATORSCONFIG_ID"
+			baseTableName="config_orchestrator_authc" baseTableSchemaName="APP"
+			constraintName="FKJDDQFAYRW0O6ET7LA3PCYAV0N" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_auths"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-37">
+		<addForeignKeyConstraint baseColumnNames="EVENTLOGCONFIG_ID"
+			baseTableName="config_orchestrator" baseTableSchemaName="APP"
+			constraintName="FKLEX2HYUKN2IAN1R80BQIONOB6" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_orchestrator_eventlog"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-38">
+		<addForeignKeyConstraint baseColumnNames="ADVANCEDCONFIG_ID"
+			baseTableName="config_orchestrator" baseTableSchemaName="APP"
+			constraintName="FKN1CFW5GAC3KURN6U2M3TVA0OY" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_orchestrator_advc"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-39">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_orchestrator_authc_AUD" baseTableSchemaName="APP"
+			constraintName="FKP5D1UCVQR3F9H42QOKL3YBSOA" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID,REV" referencedTableName="config_AUD"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-40">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_orchestrator_authc" baseTableSchemaName="APP"
+			constraintName="FKPUALYGP1EHX8VV98GR4ROXJY5" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1455968060528-41">
+		<addForeignKeyConstraint baseColumnNames="APIENDPC"
+			baseTableName="config_orchestrator_webc" baseTableSchemaName="APP"
+			constraintName="FKSEJA8QWK924YMOH87PKNLQIGF" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_web_endpoint"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+</databaseChangeLog>

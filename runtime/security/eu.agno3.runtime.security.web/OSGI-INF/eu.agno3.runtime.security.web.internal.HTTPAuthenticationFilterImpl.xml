@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.security.web.internal.HTTPAuthenticationFilterImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.security.web.filter.HTTPAuthenticationFilter"/>
+    </service>
+    <reference name="LoginRealmManager" interface="eu.agno3.runtime.security.login.LoginRealmManager" cardinality="1..1" policy="static" bind="setLoginRealmManager" unbind="unsetLoginRealmManager"/>
+    <reference name="UADetector" interface="eu.agno3.runtime.http.ua.UADetector" cardinality="1..1" policy="static" bind="setUADetector" unbind="unsetUADetector"/>
+    <implementation class="eu.agno3.runtime.security.web.internal.HTTPAuthenticationFilterImpl"/>
+</scr:component>

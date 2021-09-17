@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.elasticsearch.internal.NodeStatisticsImpl">
+    <property name="objectName" value="elasicsearch:type=NodeStatistics"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.jmx.MBean"/>
+        <provide interface="eu.agno3.runtime.elasticsearch.NodeStatisticMXBean"/>
+    </service>
+    <reference name="Node" interface="org.elasticsearch.node.Node" cardinality="1..1" policy="static" bind="setNode" unbind="unsetNode"/>
+    <implementation class="eu.agno3.runtime.elasticsearch.internal.NodeStatisticsImpl"/>
+</scr:component>

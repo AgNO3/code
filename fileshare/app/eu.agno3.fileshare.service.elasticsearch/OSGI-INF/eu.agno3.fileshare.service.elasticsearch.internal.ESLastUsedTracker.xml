@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.fileshare.service.elasticsearch.internal.ESLastUsedTracker" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.service.api.internal.LastUsedTracker"/>
+    </service>
+    <reference name="ClientProvider" interface="eu.agno3.runtime.elasticsearch.ClientProvider" cardinality="1..1" policy="static" bind="setClientProvider" unbind="unsetClientProvider"/>
+    <reference name="MappingManager" interface="eu.agno3.runtime.elasticsearch.MappingManager" cardinality="1..1" policy="static" bind="setMappingManager" unbind="unsetMappingManager"/>
+    <reference name="VFSService" interface="eu.agno3.fileshare.service.api.internal.VFSServiceInternal" cardinality="1..1" policy="static" bind="setVFSService" unbind="unsetVFSService"/>
+    <implementation class="eu.agno3.fileshare.service.elasticsearch.internal.ESLastUsedTracker"/>
+</scr:component>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="agent-base-feature"
+      label="Orchestrator/Agent Base Feature"
+      version="0.0.1.qualifier"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <includes
+         id="model-base-client-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="model-base-common-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="realm-model-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-dbus-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="system-dbus-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="agent-sysinfo-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="types-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="hostconfig-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="jobs-agent-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="jobs-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="agent-system-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="tpl-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-freemarker-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="agent-hostconfig-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="server-api-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="agent-crypto-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="agent-orchconfig-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="db-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-db-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="db-jmx-feature"
+         version="0.0.0"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.agent.app"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.agent.app.status"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.agent.connector"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.agent.connector.console"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.agent"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.server.connector"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.dependencies.envers-api"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.agent.bootstrap"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.bootstrap"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.agent.bootstrap.console"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.config.base.agent"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.agent.update"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

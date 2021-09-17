@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.net.ad.internal.ADRealmManagerImpl" configuration-policy="require" activate="activate" configuration-pid="adrealm">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.net.ad.internal.ADRealmManagerImpl"/>
+        <provide interface="eu.agno3.runtime.net.ad.ADRealmManager"/>
+    </service>
+    <reference name="CIFSSetup" interface="eu.agno3.runtime.net.ad.internal.CIFSSetup" cardinality="1..1" policy="static" bind="setCIFSSetup" unbind="unsetCIFSSetup"/>
+    <reference name="ADConnector" interface="eu.agno3.runtime.net.ad.ADConnector" cardinality="1..1" policy="static" bind="setADConnector" unbind="unsetADConnector"/>
+    <reference name="CredentialUnwrapper" interface="eu.agno3.runtime.security.credentials.CredentialUnwrapper" cardinality="0..1" policy="dynamic" bind="setCredentialUnwrapper" unbind="unsetCredentialUnwrapper"/>
+    <reference name="KerberosConfig" interface="eu.agno3.runtime.net.krb5.internal.KerberosConfig" cardinality="1..1" policy="static" bind="setKerberosConfig" unbind="unsetKerberosConfig"/>
+    <implementation class="eu.agno3.runtime.net.ad.internal.ADRealmManagerImpl"/>
+</scr:component>

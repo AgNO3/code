@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="jmsjmx-feature"
+      label="JMS/JMX Bridge Feature"
+      version="0.0.18"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <requires>
+      <import feature="messaging-feature" version="0.0.36"/>
+      <import feature="jmx-feature" version="0.0.2"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.runtime.jmsjmx"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

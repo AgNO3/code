@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.runtime.db.orm.internal.BasePersistenceUnitInfo" configuration-policy="require">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.db.orm.internal.BasePersistenceUnitInfo"/>
+    </service>
+    <reference name="PersistenceUnitDescriptor" interface="eu.agno3.runtime.db.orm.PersistenceUnitDescriptor" cardinality="1..1" policy="static" bind="setPersistenceUnitDescriptor" unbind="unsetPersistenceUnitDescriptor"/>
+    <reference name="DataSource" interface="eu.agno3.runtime.db.schema.SchemaManagedDataSource" cardinality="1..1" policy="static" bind="setDataSource" unbind="unsetDataSource"/>
+    <reference name="DsUtil" interface="eu.agno3.runtime.db.DataSourceUtil" cardinality="1..1" policy="static" bind="setDsUtil" unbind="unsetDsUtil"/>
+    <implementation class="eu.agno3.runtime.db.orm.internal.BasePersistenceUnitInfo"/>
+</scr:component>

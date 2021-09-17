@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.runtime.db.schema.liquibase.internal.LiquibaseSchemaManagerRegistration" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="org.osgi.util.tracker.ServiceTrackerCustomizer"/>
+    </service>
+    <reference name="ConfigAdmin" interface="org.osgi.service.cm.ConfigurationAdmin" cardinality="1..1" policy="static" bind="setConfigAdmin" unbind="unsetConfigAdmin"/>
+    <reference name="ChangeFileProvider" interface="eu.agno3.runtime.db.schema.ChangeFileProvider" cardinality="1..1" policy="static" bind="setChangeFileProvider" unbind="unsetChangeFileProvider"/>
+    <reference name="ChangeLogFactory" interface="eu.agno3.runtime.db.schema.liquibase.LiquibaseChangeLogFactory" cardinality="1..1" policy="static" bind="setChangeLogFactory" unbind="unsetChangeLogFactory"/>
+    <reference name="ServiceLocator" interface="eu.agno3.runtime.db.schema.liquibase.LiquibaseServiceLocator" cardinality="1..1" policy="static" bind="setServiceLocator" unbind="unsetServiceLocator"/>
+    <reference name="LiquibaseLogger" interface="liquibase.logging.Logger" cardinality="1..1" policy="static" bind="setLiquibaseLogger" unbind="unsetLiquibaseLogger"/>
+    <implementation class="eu.agno3.runtime.db.schema.liquibase.internal.LiquibaseSchemaManagerRegistration"/>
+</scr:component>

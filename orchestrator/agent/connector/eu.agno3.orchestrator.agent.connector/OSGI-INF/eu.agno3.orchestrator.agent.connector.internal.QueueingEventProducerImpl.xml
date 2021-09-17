@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.agent.connector.internal.QueueingEventProducerImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.agent.connector.QueueingEventProducer"/>
+    </service>
+    <reference name="MessageClient" interface="eu.agno3.runtime.messaging.client.MessagingClient" cardinality="0..1" policy="dynamic" bind="setMessageClient" unbind="unsetMessageClient"/>
+    <reference name="ServerConnectorConfig" interface="eu.agno3.orchestrator.server.connector.ServerConnectorConfiguration" cardinality="1..1" policy="static" bind="setServerConnectorConfig" unbind="unsetServerConnectorConfig"/>
+    <implementation class="eu.agno3.orchestrator.agent.connector.internal.QueueingEventProducerImpl"/>
+</scr:component>

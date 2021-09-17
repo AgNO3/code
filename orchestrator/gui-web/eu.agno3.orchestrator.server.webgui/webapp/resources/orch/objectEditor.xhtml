@@ -1,0 +1,160 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+<composite:interface
+	componentType="eu.agno3.orchestrator.server.webgui.components.ObjectEditor">
+	<composite:attribute name="context" required="false"
+		type="eu.agno3.orchestrator.server.webgui.config.ConfigContext" />
+	<composite:attribute name="path" />
+	<composite:attribute name="objectType" required="true" />
+	<composite:attribute name="template" type="java.lang.Boolean"
+		default="false" />
+	<composite:attribute name="subTemplate" type="java.lang.Boolean"
+		default="false" />
+	<composite:attribute name="newTemplate" type="java.lang.Boolean"
+		default="false" />
+	<composite:attribute name="readOnly" type="java.lang.Boolean"
+		default="false" />
+
+	<composite:attribute name="hideHeader" type="java.lang.Boolean"
+		default="false" />
+
+	<composite:attribute name="minLevel" type="java.lang.Integer"
+		default="1" />
+
+</composite:interface>
+
+<composite:implementation>
+	<p:fieldset styleClass="objectEditorMeta"
+		rendered="#{cc.attrs.context.abstract 
+			and not cc.attrs.readOnly 
+			and not cc.attrs.selectOnly 
+			and not cc.attrs.subTemplate 
+			and (cc.attrs.newTemplate or (not empty cc.current.name) or (not empty cc.current.displayName))}">
+		<h:panelGroup rendered="#{cc.attrs.newTemplate}">
+			<p:outputLabel for="name" value="#{_gui['config.object.name.label']}" />
+			<p:inputText id="name" value="#{cc.current.name}" />
+			<p:message for="name" />
+		</h:panelGroup>
+		<h:panelGroup
+			rendered="#{not cc.attrs.newTemplate and (not empty cc.current.name or not empty cc.current.displayName)}">
+			<p:outputLabel for="nameInherited"
+				value="#{_gui['config.object.name.label']}" />
+			<h:outputText id="nameInherited" value="#{configUtil.getDisplayNameFor(cc.current)}" />
+		</h:panelGroup>
+	</p:fieldset>
+
+	<composite:insertFacet name="top" />
+
+	<p:fieldset styleClass="objectEditor" id="objectFieldset">
+		<f:facet name="legend">
+			<p:panel rendered="#{not cc.hideHeader()}">
+				<div class="objectEditorTemplateTitle">
+					<h:outputText value="#{cc.displayTitle}" />
+					<h:outputText styleClass="ui-icon ui-icon-inline ui-icon-star"
+						title="#{_gui['config.detailHiddenElements']}"
+						rendered="#{cc.hasHiddenChildren}" />
+				</div>
+
+				<div class="objectEditorTemplateCommands">
+					<p:inplace
+						rendered="#{userPreferences.enableMultiHostManagement or not empty cc.localInherits}">
+						<f:facet name="output">
+							<h:outputText styleClass="inherited"
+								rendered="#{empty cc.localInherits}"
+								value="#{cc.defaultsDisplayName}" />
+							<h:outputText styleClass="inherited"
+								rendered="#{not empty cc.localInherits}"
+								value="#{configUtil.getDisplayNameFor(cc.localInherits)}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu disabled="#{cc.attrs.readOnly}" id="inherited"
+								title="#{_gui['config.selectTemplate']}"
+								value="#{cc.localInherits}"
+								converter="#{configurationObjectConverter}">
+								<f:selectItem itemLabel="#{cc.defaultsDisplayName}"
+									noSelectionOption="true" />
+								<f:selectItems value="#{cc.eligibleTemplates}" var="tpl"
+									itemValue="#{tpl}"
+									itemLabel="#{configUtil.getDisplayNameFor(tpl)}" />
+
+								<p:ajax event="change" update="objectFieldset"
+									resetValues="true" />
+							</p:selectOneMenu>
+						</f:facet>
+					</p:inplace>
+
+					<h:panelGroup>
+						<p:commandButton rendered="#{guiFeatureConfig.showDevTools}"
+							id="infoButton" icon="ui-icon-info"
+							title="#{_gui['config.objectInfo']}" type="button" />
+						<p:overlayPanel rendered="#{guiFeatureConfig.showDevTools}"
+							for="infoButton">
+							<ul>
+								<li><h:outputFormat
+										value="#{_gui['config.objectInfo.localVersionFmt']}">
+										<f:param value="#{cc.current.version}" />
+									</h:outputFormat></li>
+								<li><h:outputFormat
+										value="#{_gui['config.objectInfo.globalRevisionFmt']}">
+										<f:param value="#{cc.current.revision}" />
+									</h:outputFormat></li>
+								<li><h:outputFormat
+										value="#{_gui['config.objectInfo.inheritsFmt']}">
+										<f:param value="#{cc.localInherits.id}" />
+									</h:outputFormat></li>
+							</ul>
+							<h:outputText rendered="#{cc.isInheritsChanged()}"
+								value="#{_gui['config.object.inheritsModified']}" />
+						</p:overlayPanel>
+
+
+						<ag:dialogOpenButton rendered="#{false and not cc.attrs.readOnly}"
+							immediate="true" style="line-height: 1.0;" id="addTemplateButton"
+							icon="ui-icon-plus"
+							title="#{_gui['config.createNewParentObject']}"
+							dialog="/config/template/addTypeRaw?scope=#{cc.attrs.context.anchor.id}&amp;type=#{cc.attrs.objectType}&amp;cid="
+							returnLabel="#{_gui['config.dialogReturn']}" />
+						<ag:dialogOpenButton
+							rendered="#{not cc.attrs.readOnly and not empty cc.localInherits.id}"
+							style="line-height: 1.0;" icon="ui-icon-gear"
+							id="editTemplateButton"
+							title="#{_gui['config.editParentObject']}"
+							dialog="/config/template/editDialog?object=#{cc.localInherits.id}&amp;anchor=#{structureViewContext.selectedObjectId}&amp;cid="
+							returnLabel="#{_gui['config.dialogReturn']}">
+							<p:ajax event="return" listener="#{cc.resetLocalInherits}"
+								update="objectFieldset" />
+						</ag:dialogOpenButton>
+					</h:panelGroup>
+
+
+				</div>
+			</p:panel>
+		</f:facet>
+
+		<p:messages id="msgs" for="#{cc.clientId}" />
+
+		<ui:include src="${configUtil.getEditViewFor(cc.attrs.objectType)}">
+			<ui:param name="configContext" value="#{cc.attrs.context}" />
+			<ui:param name="current" value="#{cc.current}" />
+			<ui:param name="defaults" value="#{cc.defaults}" />
+			<ui:param name="enforced" value="#{cc.enforced}" />
+			<ui:param name="base" value="#{cc.attrs.path}" />
+			<ui:param name="isTemplate"
+				value="#{cc.attrs.template or cc.attrs.subTemplate}" />
+			<ui:param name="isSubTemplate" value="#{cc.attrs.subTemplate}" />
+			<ui:param name="readOnly" value="#{cc.childrenAreReadOnly()}" />
+			<ui:param name="outerWrapper" value="#{cc.outerWrapper}" />
+		</ui:include>
+	</p:fieldset>
+
+</composite:implementation>
+</html>
+
+
+

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.agent.system.info.internal.RefreshRequestEndpoint">
+    <property name="msgType" value="eu.agno3.orchestrator.system.info.msg.RefreshRequest"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.messaging.listener.RequestEndpoint"/>
+    </service>
+    <reference name="SystemInformationRefresher" interface="eu.agno3.orchestrator.agent.system.info.SystemInformationRefresher" cardinality="1..1" policy="static" bind="setSystemInformationRefresher" unbind="unsetSystemInformationRefresher"/>
+    <reference name="AgentConfig" interface="eu.agno3.orchestrator.agent.config.AgentConfig" cardinality="1..1" policy="static" bind="setAgentConfig" unbind="unsetAgentConfig"/>
+    <implementation class="eu.agno3.orchestrator.agent.system.info.internal.RefreshRequestEndpoint"/>
+</scr:component>

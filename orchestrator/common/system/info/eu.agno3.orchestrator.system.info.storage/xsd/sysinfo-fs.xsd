@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:fs="urn:agno3:model:1.0:system:info:storage:fs" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:model:1.0:system:info:storage:fs" elementFormDefault="qualified">
+   <xsd:complexType name="fileSystem" abstract="true">
+      <xsd:sequence>
+         <xsd:element name="label" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="uuid" type="xsd:string" minOccurs="0"/>
+      </xsd:sequence>
+      <xsd:attribute name="type" type="fs:fileSystemType"/>
+      <xsd:attribute name="id" type="xsd:string"/>
+   </xsd:complexType>
+   <xsd:complexType name="dataFileSystem">
+      <xsd:complexContent>
+         <xsd:extension base="fs:fileSystem">
+            <xsd:sequence>
+               <xsd:element name="mountPoints" minOccurs="0">
+                  <xsd:complexType>
+                     <xsd:sequence>
+                        <xsd:element name="mountPoint" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                     </xsd:sequence>
+                  </xsd:complexType>
+               </xsd:element>
+               <xsd:element name="totalSpace" type="xsd:long" minOccurs="0"/>
+               <xsd:element name="uncapturedSpace" type="xsd:long" minOccurs="0"/>
+               <xsd:element name="usableSpace" type="xsd:long" minOccurs="0"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="swapFileSystem">
+      <xsd:complexContent>
+         <xsd:extension base="fs:fileSystem">
+            <xsd:sequence/>
+            <xsd:attribute name="active" type="xsd:boolean" use="required"/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:element name="fs" type="fs:fileSystem"/>
+   <xsd:element name="dataFileSystem" type="fs:dataFileSystem"/>
+   <xsd:element name="swapFileSystem" type="fs:swapFileSystem"/>
+   <xsd:simpleType name="fileSystemType">
+      <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="UNKNOWN"/>
+         <xsd:enumeration value="SWAP"/>
+         <xsd:enumeration value="EXT2"/>
+         <xsd:enumeration value="EXT3"/>
+         <xsd:enumeration value="EXT4"/>
+         <xsd:enumeration value="XFS"/>
+         <xsd:enumeration value="REISERFS"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+</xsd:schema>

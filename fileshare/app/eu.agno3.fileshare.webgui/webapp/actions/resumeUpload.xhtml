@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	template="/tpl/common/dialog.xhtml">
+
+	<ui:param name="title" value="#{_msgs['actions.resumeUpload.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="target"
+				value="#{urlFileSelectionBean.encodedSingleSelection}"
+				required="true" />
+
+			<f:viewParam name="reference"
+				value="#{resumableUploadsBean.selectedRef}" required="true" />
+
+			<f:viewParam name="token" value="#{userTokenBean.token}"
+				required="false" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form" method="POST" enctype="multipart/form-data">
+			<ag:dialogContextHolder />
+
+			<p:hotkey bind="esc" action="#{dialog.close}" immediate="true" />
+			<p:messages autoUpdate="true" />
+
+			<div class="ui-messages ui-widget">
+				<div class="ui-messages-fatal message-not-supported"
+					style="display: none">
+					<span class="ui-messages-fatal-icon" /> <span
+						class="ui-messages-fatal-summary"> <h:outputText
+							value="#{_msgs['actions.resumeUpload.notSupported']}" />
+					</span>
+				</div>
+			</div>
+
+			<input type="hidden" name="token" value="#{userTokenBean.token}" />
+
+			<h:outputText style="display: none" styleClass="message-upload-fail"
+				value="#{_msgs['errors.uploadFail']}" />
+			<h:outputText style="display: none"
+				styleClass="message-upload-fail-start"
+				value="#{_msgs['errors.uploadFailStart']}" />
+			<h:outputText style="display: none"
+				styleClass="message-no-folder-support"
+				value="#{_msgs['errors.noFolderUpload']}" />
+
+
+			<p:fieldset styleClass="func-unit"
+				legend="#{_msgs['actions.resumeUpload.title']}">
+				<p:outputPanel id="chunkInfo">
+					<input type="hidden" name="target"
+						value="#{urlFileSelectionBean.singleSelectionId}" />
+
+					<input type="hidden" name="reference"
+						value="#{resumableUploadsBean.selectedRef}" />
+
+					<input type="hidden" name="missing_chunks"
+						value="#{resumableUploadsBean.missingChunks}" />
+
+					<input type="hidden" name="total_size"
+						value="#{resumableUploadsBean.selectedInfo.totalSize}" />
+
+					<input type="hidden" name="chunk_size"
+						value="#{resumableUploadsBean.selectedInfo.chunkSize}" />
+
+					<input type="hidden" name="expected_name"
+						value="#{resumableUploadsBean.selectedInfo.localName}" />
+
+					<ag:simpleField readOnly="true"
+						label="#{_msgs['actions.resumeUpload.filename.label']}"
+						description="#{_msgs['actions.resumeUpload.filename.description']}"
+						value="#{resumableUploadsBean.selectedInfo.localName}" />
+					<ag:simpleField readOnly="true"
+						label="#{_msgs['actions.resumeUpload.type.label']}"
+						description="#{_msgs['actions.resumeUpload.type.description']}"
+						value="#{mimeTypeBean.getDisplayType(resumableUploadsBean.selectedInfo.contentType)}" />
+					<ag:simpleField readOnly="true"
+						onlyIf="#{not empty resumableUploadsBean.selectedInfo.totalSize}"
+						description="#{_msgs['actions.resumeUpload.totalSize.description']}"
+						label="#{_msgs['actions.resumeUpload.totalSize.label']}"
+						value="#{ag:formatByteSizeSI(resumableUploadsBean.selectedInfo.totalSize)}" />
+
+					<div class="select-file">
+						<ag:simpleField readOnly="true"
+							onlyIf="#{not empty resumableUploadsBean.selectedInfo.totalSize and ( resumableUploadsBean.selectedInfo.completeSize != resumableUploadsBean.selectedInfo.totalSize)}"
+							description="#{_msgs['actions.resumeUpload.missingSize.description']}"
+							label="#{_msgs['actions.resumeUpload.missingSize.label']}"
+							value="#{ag:formatByteSizeSI(resumableUploadsBean.selectedInfo.totalSize - resumableUploadsBean.selectedInfo.completeSize)}" />
+					</div>
+				</p:outputPanel>
+
+				<div class="select-file">
+					<ag:simpleField
+						onlyIf="#{not empty resumableUploadsBean.selectedInfo.totalSize and (resumableUploadsBean.selectedInfo.completeSize != resumableUploadsBean.selectedInfo.totalSize)}"
+						label="#{_msgs['actions.resumeUpload.file.label']}"
+						description="#{_msgs['actions.resumeUpload.file.description']}"
+						rendered="#{not empty resumableUploadsBean.missingChunks}">
+						<input class="fake-upload" type="file" />
+
+						<p:fileUpload id="fileUpload" widgetVar="resumeFileUpload"
+							style="height: 6em" styleClass="resume-upload" auto="false"
+							fileUploadListener="#{resumableUploadsBean.onChunkUpload}"
+							multiple="false" update="@composite:@parent:chunkInfo"
+							mode="advanced" />
+					</ag:simpleField>
+
+					<ag:simpleField label="#{_msgs['actions.resumeUpload.retry']}"
+						rendered="#{empty resumableUploadsBean.missingChunks}">
+						<p:commandButton id="retryButton"
+							value="#{_msgs['actions.resumeUpload.retry']}"
+							icon="ui-icon-play"
+							action="#{resumableUploadsBean.retryCreation}" />
+						<p:blockUI block="retryButton" trigger="retryButton">
+							<p:graphicImage library="images" name="loading.gif" />
+						</p:blockUI>
+					</ag:simpleField>
+				</div>
+
+				<div class="message-file-mismatch" style="display: none">
+					<h:outputText value="#{_msgs['actions.resumeUpload.fileMismatch']}" />
+				</div>
+
+				<p:remoteCommand name="refreshUploadState"
+					action="#{resumableUploadsBean.refreshInfo()}" update="chunkInfo" />
+
+				<h:outputScript library="fileshare" name="fileshare.js" />
+				<h:outputScript type="text/javascript">
+							// <![CDATA[
+							$(window).on('load', function() {
+								AgNO3FileUpload.initResume(PF('resumeFileUpload'), function() {
+									refreshUploadState();
+								});
+							});
+							// ]]>
+				</h:outputScript>
+			</p:fieldset>
+
+			<div class="buttons">
+				<p:commandButton immediate="true" action="#{dialog.close}"
+					styleClass="close-button" icon="#{dialog.closeIcon}"
+					title="#{dialog.closeDescription}" value="#{dialog.closeLabel}" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

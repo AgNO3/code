@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="enableLocalAuth" minLevel="2"
+		onlyIf="#{not outerWrapper.getParameter('hideDisableLocalAuth')}"
+		path="enableLocalAuth">
+		<p:selectBooleanCheckbox id="enableLocalAuth"
+			value="#{current.enableLocalAuth}" />
+	</orch:objectFieldEditor>
+
+
+	<orch:objectFieldEditor inputId="allowInsecureAuth" minLevel="2"
+		onlyIf="#{not outerWrapper.getParameter('hideInsecureAuth')}"
+		path="allowInsecureAuth">
+		<p:selectBooleanCheckbox id="allowInsecureAuth"
+			value="#{current.allowInsecureAuth}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectEditor objectType="urn:agno3:objects:1.0:auth:pwPolicy"
+		minLevel="2" context="#{configContext}" path="passwordPolicy"
+		subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+
+	<orch:objectEditor objectType="urn:agno3:objects:1.0:auth:rateLimit"
+		minLevel="2" context="#{configContext}" path="loginRateLimit"
+		subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+
+	<p:fieldset legend="#{_config_auth['auth.collection.authenticators']}">
+		<orch:multiInheritanceObjectEditor
+			objectType="urn:agno3:objects:1.0:auth:authenticator"
+			context="#{configContext}" path="authenticators"
+			subTemplate="#{isTemplate}" readOnly="#{isReadOnly}"
+			listLabel="#{authenticatorConfigBean.labelFor}" collectionType="set"
+			setComparator="#{authenticatorConfigBean.comparator}"
+			clone="#{authenticatorConfigBean.cloneObject}" />
+	</p:fieldset>
+</ui:composition>

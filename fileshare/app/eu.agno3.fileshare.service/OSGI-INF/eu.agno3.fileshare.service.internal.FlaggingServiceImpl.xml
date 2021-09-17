@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.fileshare.service.internal.FlaggingServiceImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.service.FlaggingService"/>
+        <provide interface="eu.agno3.fileshare.service.api.internal.FlaggingServiceInternal"/>
+    </service>
+    <reference name="ServiceContext" interface="eu.agno3.fileshare.service.api.internal.DefaultServiceContext" cardinality="1..1" policy="static" bind="setServiceContext" unbind="unsetServiceContext"/>
+    <reference name="AccessControlService" interface="eu.agno3.fileshare.security.AccessControlService" cardinality="1..1" policy="static" bind="setAccessControlService" unbind="unsetAccessControlService"/>
+    <reference name="VFSService" interface="eu.agno3.fileshare.service.api.internal.VFSServiceInternal" cardinality="1..1" policy="static" bind="setVFSService" unbind="unsetVFSService"/>
+    <reference name="LastUsedTracker" interface="eu.agno3.fileshare.service.api.internal.LastUsedTracker" cardinality="0..1" policy="static" bind="setLastUsedTracker" unbind="unsetLastUsedTracker" policy-option="greedy"/>
+    <implementation class="eu.agno3.fileshare.service.internal.FlaggingServiceImpl"/>
+</scr:component>

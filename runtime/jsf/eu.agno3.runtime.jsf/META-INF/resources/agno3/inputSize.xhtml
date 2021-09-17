@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+<composite:interface
+	componentType="eu.agno3.runtime.jsf.components.InputSize">
+
+	<composite:attribute name="value" required="true" />
+	<composite:attribute name="si" type="java.lang.Boolean" default="true" />
+</composite:interface>
+
+<composite:implementation>
+	<div class="size-editor">
+		<p:spinner id="size" size="4"
+			style="display: inline-block; vertical-align: top; margin-left: 0.5em; box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box;"
+			value="#{cc.sizeValue}" />
+
+		<p:selectOneMenu id="sizeUnit"
+			style="display: inline-block; vertical-align: top; margin-left: 0.5em"
+			value="#{cc.sizeUnit}">
+			<f:selectItems value="#{cc.selectableUnits}" var="i" itemValue="#{i}"
+				itemLabel="#{cc.getUnitName(i)}" />
+		</p:selectOneMenu>
+	</div>
+</composite:implementation>
+</html>
+

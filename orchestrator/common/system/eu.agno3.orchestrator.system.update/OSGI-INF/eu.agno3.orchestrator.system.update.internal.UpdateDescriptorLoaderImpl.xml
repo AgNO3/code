@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.orchestrator.system.update.internal.UpdateDescriptorLoaderImpl" configuration-policy="require" activate="activate" configuration-pid="updateLoader">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.system.update.UpdateDescriptorLoader"/>
+    </service>
+    <reference name="PKCS7Verifier" interface="eu.agno3.runtime.crypto.pkcs7.PKCS7Verifier" cardinality="1..1" policy="static" bind="setPKCS7Verifier" unbind="unsetPKCS7Verifier"/>
+    <reference name="TrustConfiguration" interface="eu.agno3.runtime.update.UpdateTrustConfiguration" cardinality="1..1" policy="static" bind="setTrustConfiguration" unbind="unsetTrustConfiguration"/>
+    <reference name="TLSContext" interface="eu.agno3.runtime.crypto.tls.TLSContext" cardinality="1..1" policy="static" target="(subsystem=runtime/update/httpClient)" bind="setTLSContext" unbind="unsetTLSContext"/>
+    <reference name="XmlParserFactory" interface="eu.agno3.runtime.xml.XmlParserFactory" cardinality="1..1" policy="static" bind="setXmlParserFactory" unbind="unsetXmlParserFactory"/>
+    <reference name="MarshallingService" interface="eu.agno3.runtime.xml.binding.XmlMarshallingService" cardinality="1..1" policy="static" bind="setMarshallingService" unbind="unsetMarshallingService"/>
+    <reference name="LicensingService" interface="eu.agno3.runtime.update.LicensingService" cardinality="1..1" policy="static" bind="setLicensingService" unbind="unsetLicensingService"/>
+    <implementation class="eu.agno3.orchestrator.system.update.internal.UpdateDescriptorLoaderImpl"/>
+</scr:component>

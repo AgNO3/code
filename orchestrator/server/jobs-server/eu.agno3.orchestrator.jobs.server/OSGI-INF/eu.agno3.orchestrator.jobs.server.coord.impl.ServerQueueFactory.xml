@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.jobs.server.coord.impl.ServerQueueFactory">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.jobs.coord.QueueFactory"/>
+    </service>
+    <reference name="MessagingClient" interface="eu.agno3.runtime.messaging.client.MessagingClient" cardinality="1..1" policy="static" bind="setMessagingClient" unbind="unsetMessagingClient"/>
+    <reference name="RemoteQueueClient" interface="eu.agno3.orchestrator.jobs.server.coord.impl.RemoteQueueClient" cardinality="1..1" policy="static" bind="setRemoteQueueClient" unbind="unsetRemoteQueueClient"/>
+    <implementation class="eu.agno3.orchestrator.jobs.server.coord.impl.ServerQueueFactory"/>
+</scr:component>

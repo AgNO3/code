@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:shiro="http://shiro.ops4j.org/tags"
+	xmlns:pass="http://java.sun.com/jsf/passthrough"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0">
+	<p:outputPanel id="headerPanel" styleClass="header-panel header-color">
+
+		<div class="small-header at-most-medium"
+			style="display: inline-block; vertical-align: top; float: left">
+			<h:graphicImage library="cfgfiles" name="logo_small.png" />
+			<ui:include src="/tpl/filesSmallMenu.xhtml" />
+		</div>
+
+
+		<p:outputPanel styleClass="ajax-panel">
+			<p:dialog widgetVar="ajaxBlocker" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<h:graphicImage library="images" name="loading.gif" />
+			</p:dialog>
+			<p:ajaxStatus
+				onstart="document.activeElement.localName == 'body' || document.activeElement.localName == 'iframe' || $(document.activeElement).closest('.soft-ajax')[0] ? null : PF('ajaxBlocker').show();"
+				onerror="console.log('HTTP error ' + arguments[1].status + ': ' + arguments[1].statusText); console.log(arguments); PF('expiredDialog').show(); PF('pinger') ? PF('pinger').stop() : true;"
+				oncomplete="PF('ajaxBlocker').hide();">
+				<f:facet name="start">
+					<h:graphicImage library="images" name="loading.gif" />
+				</f:facet>
+				<f:facet name="success">
+					<h:graphicImage library="images" name="loading.gif" />
+				</f:facet>
+			</p:ajaxStatus>
+		</p:outputPanel>
+
+		<p:outputPanel id="resumeUploadPanel" styleClass="resume-upload">
+			<ag:dialogOpenCommandLink
+				rendered="#{chunkUploadBean.haveIncompleteUploads}"
+				title="#{msgs.formatEL('toolbar.resumeUploads.titleFmt', chunkUploadBean.numIncompleteUploads)}"
+				closable="true"
+				styleClass="ui-state-error button resume-uploads-button upload-info ui-corner-all"
+				dialog="/actions/resumeUploads.xhtml">
+				<p:ajax event="return"
+					update="resumeUploadPanel ${resumeupload_update}"
+					listener="#{fileTreeBean.refresh()}" />
+
+				<span class="ui-icon ui-icon-inline ui-icon-upload" />
+				<h:outputFormat value="#{_msgs['toolbar.resumeUploads.labelFmt']}">
+					<f:param value="#{chunkUploadBean.numIncompleteUploads}" />
+				</h:outputFormat>
+			</ag:dialogOpenCommandLink>
+		</p:outputPanel>
+
+		<p:outputPanel styleClass="search-panel min-medium"
+			rendered="#{not userSearchBean.searchingDisabled and currentUserBean.isAuthenticated()}">
+			<p:inputText id="searchBox" value="#{userSearchBean.query}"
+				onkeypress="if ( event.keyCode == 13 &amp;&amp; this.value.length &gt;= 3 ) { $(this).siblings('button.search-button').click(); }" />
+			<p:watermark for="searchBox"
+				value="#{_msgs['header.search.watermark']}" />
+			<p:commandButton icon="ui-icon-search"
+				title="#{_msgs['header.search.title']}" styleClass="search-button"
+				action="#{fileNavigationBean.getSearchResultTarget(userSearchBean.query, 0)}" />
+		</p:outputPanel>
+
+		<p:outputPanel styleClass="header-user-info"
+			rendered="#{currentUserBean.isAuthenticated()}"
+			style="vertical-align: middle; display: inline-block">
+
+			<fs:userOrGrant styleClass="user-info ui-icon-force-active"
+				noCheckPerm="true"
+				style="vertical-align: middle; display: inline-block"
+				user="#{currentUserBean.currentUser}" showTooltip="true" />
+		</p:outputPanel>
+
+
+		<p:outputPanel rendered="#{currentUserBean.isAuthenticated()}">
+			<p:commandButton id="loginWidgetButton" title=""
+				style="display: inline-block; margin-left: 0.5em"
+				image="ui-icon-gear" type="button" />
+
+			<p:overlayPanel id="userMenuWidget" widgetVar="userMenuWidget"
+				for="loginWidgetButton" hideEffect="fade" appendToBody="true"
+				dynamic="true" dismissable="true"
+				styleClass="login-widget overlay-menu">
+				<p:panel>
+					<div class="ui-helper-hidden-accessible" />
+					<div
+						class="ui-widget ui-widget-content ui-menu ui-corner-all ui-helper-clearfix"
+						pass:role="menu">
+						<ul class="ui-menu-list ui-helper-reset">
+							<li class="ui-menuitem ui-widget ui-corner-all"
+								pass:role="menuitem"><ag:dialogOpenCommandLink
+									styleClass="ui-menuitem-link ui-corner-all hover-shade-background"
+									onstart="PF('userMenuWidget').hide()"
+									dialog="/actions/settings.xhtml" closable="true">
+									<span class="ui-menuitem-icon ui-icon ui-icon-gear" />
+									<h:outputText value="#{_msgs['header.menu.settings']}" />
+									<p:ajax event="return"
+										listener="#{navigationController.refresh}" />
+								</ag:dialogOpenCommandLink></li>
+							<li class="ui-menuitem ui-widget ui-corner-all"
+								pass:role="menuitem"><p:commandLink
+									styleClass="ui-menuitem-link ui-corner-all hover-shade-background"
+									onstart="PF('userMenuWidget').hide()"
+									action="#{agsec_loginController.logout}">
+									<span class="ui-menuitem-icon ui-icon ui-icon-cancel" />
+									<h:outputText value="#{_msgs['header.menu.logout']}" />
+								</p:commandLink></li>
+						</ul>
+					</div>
+				</p:panel>
+			</p:overlayPanel>
+		</p:outputPanel>
+
+
+	</p:outputPanel>
+</ui:composition>

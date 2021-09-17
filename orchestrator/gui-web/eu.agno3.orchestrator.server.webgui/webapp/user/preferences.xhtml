@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0"
+	template="/tpl/common/dialog.xhtml">
+	<ui:param name="title"
+		value="#{msgs.formatEL('user.preferences.titleFmt', sessionInfoBean.username)}" />
+
+
+	<ui:define name="content">
+		<h:form id="userInfoForm">
+			<ag:dialogContextHolder />
+
+			<p:hotkey bind="esc" action="#{preferenceController.resetAndClose}"
+				immediate="true" />
+
+			<p:messages autoUpdate="true" />
+
+			<p:tabView>
+				<p:tab title="#{_gui['user.preferences.general.title']}">
+
+					<p:fieldset legend="#{_gui['user.preferences.prefs.title']}">
+
+
+						<ag:simpleField
+							label="#{_gui['user.preferences.prefs.overrideLocale.label']}"
+							description="#{_gui['user.preferences.prefs.overrideLocale.description']}"
+							inputId="overrideLocale">
+							<p:selectOneMenu id="overrideLocale" filter="true"
+								value="#{userPreferences.overrideLocale}"
+								converter="#{localeConverter}">
+								<f:selectItem
+									itemLabel="#{_gui['user.preferences.prefs.overrideLocale.default']}"
+									noSelectionOption="true" />
+								<f:selectItems value="#{localeModelBean.model}" var="locale"
+									itemValue="#{locale}"
+									itemLabel="#{localeModelBean.getLocaleLabel(locale)}" />
+							</p:selectOneMenu>
+
+							<h:outputFormat
+								style="display: inline-block; vertical-align: top; margin-left: 1em"
+								rendered="#{empty userPreferences.overrideLocale}"
+								value="#{_gui['user.preferences.prefs.overrideLocale.detectedFmt']}">
+								<f:param
+									value="#{localeModelBean.getLocaleLabel(facesContext.viewRoot.locale)}" />
+							</h:outputFormat>
+						</ag:simpleField>
+
+						<ag:simpleField
+							label="#{_gui['user.preferences.prefs.overrideDateLocale.label']}"
+							description="#{_gui['user.preferences.prefs.overrideDateLocale.description']}"
+							inputId="overrideDateLocale">
+							<p:selectOneMenu id="overrideDateLocale" filter="true"
+								value="#{userPreferences.overrideDateLocale}"
+								converter="#{localeConverter}">
+								<f:selectItem
+									itemLabel="#{_gui['user.preferences.prefs.overrideDateLocale.default']}"
+									noSelectionOption="true" />
+								<f:selectItems value="#{localeModelBean.model}" var="locale"
+									itemValue="#{locale}"
+									itemLabel="#{localeModelBean.getLocaleLabel(locale)}" />
+							</p:selectOneMenu>
+						</ag:simpleField>
+
+						<ag:simpleField
+							label="#{_gui['user.preferences.prefs.overrideTimezone.label']}"
+							description="#{_gui['user.preferences.prefs.overrideTimezone.description']}"
+							inputId="overrideTimezone">
+							<p:selectOneMenu id="overrideTimezone"
+								value="#{userPreferences.overrideTimezone}" filter="true"
+								filterMatchMode="contains" var="tz"
+								converter="#{timeZoneConverter}" style="width: 20em"
+								panelStyle="width: 30em">
+								<f:selectItem
+									itemLabel="#{msgs.formatEL('user.preferences.prefs.overrideTimezone.defaultFmt', localeSettingsBean.defaultTimeZoneDisplayName)}"
+									noSelectionOption="true" />
+								<f:selectItems value="${timeZoneInfo.selectItems}" var="tzInfo"
+									itemValue="${tzInfo.tz}"
+									itemLabel="#{msgs.formatEL('user.preferences.prefs.overrideTimezone.timezoneFmt', tzInfo.displayId ,tzInfo.tzShortName)}"
+									itemDescription="#{tzInfo.tzName}" />
+
+								<p:column>
+									<h:outputText rendered="#{not empty tz}"
+										value="#{timeZoneInfo.getDisplayId(tz)}" />
+									<h:outputText rendered="#{empty tz}"
+										value="#{_gui['user.preferences.prefs.overrideTimezone.default']}" />
+								</p:column>
+
+								<p:column>
+									<h:outputText rendered="#{not empty tz}"
+										value="#{timeZoneInfo.getShortName(tz)}" />
+									<h:outputText rendered="#{empty tz}"
+										value="#{localeSettingsBean.defaultTimeZoneDisplayName}" />
+								</p:column>
+
+								<p:column>
+									<h:outputText rendered="#{not empty tz}"
+										value="#{timeZoneInfo.getOffset(tz)}" />
+									<h:outputText rendered="#{empty tz}"
+										value="#{localeSettingsBean.defaultTimeZoneOffset}" />
+								</p:column>
+							</p:selectOneMenu>
+						</ag:simpleField>
+
+						<ag:simpleField
+							label="#{_gui['user.preferences.prefs.detailLevel.label']}"
+							description="#{_gui['user.preferences.prefs.detailLevel.description']}"
+							inputId="detailLevelPicker">
+							<p:selectOneRadio id="detailLevelPicker" autoUpdate="true"
+								value="#{userPreferences.defaultDetailLevel}">
+								<f:selectItems value="#{configContextUtil.detailLevels}" />
+							</p:selectOneRadio>
+						</ag:simpleField>
+					</p:fieldset>
+
+					<div class="buttons">
+						<p:commandButton action="#{preferenceController.save}"
+							icon="ui-icon-check"
+							value="#{_gui['user.preferences.prefs.save']}" />
+
+						<p:commandButton action="#{preferenceController.resetToDefaults}"
+							icon="ui-icon-trash"
+							value="#{_gui['user.preferences.prefs.reset']}" />
+
+						<p:commandButton immediate="true" styleClass="close-button"
+							action="#{preferenceController.resetAndClose}"
+							icon="#{dialog.closeIcon}" value="#{dialog.closeLabel}" />
+					</div>
+				</p:tab>
+
+				<p:tab title="#{_gui['user.preferences.info.title']}"
+					rendered="#{guiFeatureConfig.showDevTools}">
+					<ag:simpleField
+						label="#{_gui['user.preferences.info.username.label']}"
+						readOnly="true" value="#{sessionInfoBean.username}" />
+					<ag:simpleField
+						label="#{_gui['user.preferences.info.roles.label']}"
+						readOnly="true" collection="true" value="#{sessionInfoBean.roles}" />
+					<ag:simpleField
+						label="#{_gui['user.preferences.info.permissions.label']}"
+						readOnly="true" collection="true"
+						value="#{sessionInfoBean.permissions}" />
+
+					<div class="buttons">
+						<p:commandButton immediate="true" styleClass="close-button"
+							action="#{preferenceController.resetAndClose}"
+							icon="#{dialog.closeIcon}" value="#{dialog.closeLabel}" />
+					</div>
+				</p:tab>
+			</p:tabView>
+		</h:form>
+	</ui:define>
+</ui:composition>

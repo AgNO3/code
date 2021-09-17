@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<ui:include src="/cfg/auth/authenticator/base.xhtml">
+		<ui:param name="configContext" value="#{configContext}" />
+		<ui:param name="current" value="#{current}" />
+		<ui:param name="defaults" value="#{defaults}" />
+		<ui:param name="enforced" value="#{enforced}" />
+		<ui:param name="base" value="#{path}" />
+		<ui:param name="isTemplate" value="#{isTemplate}" />
+		<ui:param name="isSubTemplate" value="#{isSubTemplate}" />
+		<ui:param name="readOnly" value="#{readOnly}" />
+		<ui:param name="outerWrapper" value="#{outerWrapper}" />
+	</ui:include>
+
+	<orch:objectFieldEditor inputId="domain" path="domain">
+		<p:autoComplete id="domain" dropdown="true"
+					required="#{(not configContext.abstract) and (empty defaults.domain)}"
+					completeMethod="#{realmConfigBean.getRealmCompleter(configContext,realmConfigBean.adType).complete}"
+					value="#{current.domain}">
+				<p:ajax event="change" process="@composite:@parent" update="@composite:@parent" />
+				<p:ajax event="itemSelect" process="@composite:@parent" update="@composite:@parent" />
+		</p:autoComplete>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="allowPasswordFallback" minLevel="2"
+		path="allowPasswordFallback">
+		<p:selectBooleanCheckbox id="allowPasswordFallback"
+			value="#{current.allowPasswordFallback}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="acceptNTLMFallback" minLevel="2"
+		path="acceptNTLMFallback">
+		<p:selectBooleanCheckbox id="acceptNTLMFallback"
+			value="#{current.acceptNTLMFallback}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="disablePACValidation" minLevel="3"
+		path="disablePACValidation">
+		<p:selectBooleanCheckbox id="disablePACValidation"
+			value="#{current.disablePACValidation}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="enableSynchronization" minLevel="3"
+		path="enableSynchronization" update="@composite:@parent:syncOptions">
+		<p:selectBooleanCheckbox id="enableSynchronization"
+			value="#{current.enableSynchronization}">
+			<p:ajax event="change" update="@composite:@parent:syncOptions" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+
+	<p:outputPanel id="syncOptions">
+		<p:outputPanel
+			rendered="#{current.enableSynchronization or (current.enableSynchronization == null and defaults.enableSynchronization)}">
+
+			<orch:objectFieldEditor inputId="userSyncBase" path="userSyncBase"
+				minLevel="2">
+				<p:inputText id="userSyncBase" value="#{current.userSyncBase}" />
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="userSyncFilter"
+				path="userSyncFilter" minLevel="3">
+				<p:inputText id="userSyncFilter" value="#{current.userSyncFilter}" />
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="groupSyncBase" path="groupSyncBase"
+				minLevel="2">
+				<p:inputText id="groupSyncBase" value="#{current.groupSyncBase}" />
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="groupSyncFilter"
+				path="groupSyncFilter" minLevel="3">
+				<p:inputText id="groupSyncFilter" value="#{current.groupSyncFilter}" />
+			</orch:objectFieldEditor>
+
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:auth:authenticator:ldap:sync"
+				context="#{configContext}" path="syncOptions" minLevel="2"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}">
+			</orch:objectEditor>
+		</p:outputPanel>
+	</p:outputPanel>
+
+
+	<orch:objectFieldEditor inputId="requireDomainUserGroup" minLevel="2"
+		path="requireDomainUserGroup"
+		update="@composite:@parent:groupSettings">
+		<p:selectBooleanCheckbox id="requireDomainUserGroup"
+			value="#{current.requireDomainUserGroup}">
+			<p:ajax event="change" update="@composite:@parent:groupSettings" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+	<p:outputPanel id="groupSettings">
+		<p:outputPanel
+			rendered="#{(current.requireDomainUserGroup != null and not current.requireDomainUserGroup) or (current.requireDomainUserGroup == null and not defaults.requireDomainUserGroup)}">
+			<orch:objectFieldEditor inputId="requiredSids" path="requiredSids"
+				minLevel="2" collection="true">
+				<ag:setEditor id="requiredSids" value="#{current.requiredSids}"
+					comparator="#{setEditorUtilBean.stringComparator}"
+					factoryMethod="#{setEditorUtilBean.makeEmptyString}">
+					<p:column>
+						<orch:inputSid
+							domainHint="#{adAuthConfigBean.getDomain(outerWrapper)}"
+							lookupSID="#{adAuthConfigBean.lookupSID}"
+							search="#{adAuthConfigBean.search}" value="#{item.value}" />
+					</p:column>
+				</ag:setEditor>
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="rejectSids" path="rejectSids"
+				minLevel="2" collection="true">
+				<ag:setEditor id="rejectSids" value="#{current.rejectSids}"
+					comparator="#{setEditorUtilBean.stringComparator}"
+					factoryMethod="#{setEditorUtilBean.makeEmptyString}">
+					<p:column>
+						<orch:inputSid
+							domainHint="#{adAuthConfigBean.getDomain(outerWrapper)}"
+							lookupSID="#{adAuthConfigBean.lookupSID}"
+							search="#{adAuthConfigBean.search}" value="#{item.value}" />
+					</p:column>
+				</ag:setEditor>
+			</orch:objectFieldEditor>
+		</p:outputPanel>
+	</p:outputPanel>
+
+	<orch:objectFieldEditor inputId="acceptOnlyLocal" minLevel="2"
+		path="acceptOnlyLocal" update="@composite:@parent:domainSettings">
+		<p:selectBooleanCheckbox id="acceptOnlyLocal"
+			value="#{current.acceptOnlyLocal}">
+			<p:ajax event="change" update="@composite:@parent:domainSettings" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+	<p:outputPanel id="domainSettings">
+		<p:outputPanel
+			rendered="#{(current.acceptOnlyLocal != null and not current.acceptOnlyLocal) or (current.acceptOnlyLocal == null and not defaults.acceptOnlyLocal)}">
+			<orch:objectFieldEditor inputId="acceptDomainSids"
+				path="acceptDomainSids" collection="true">
+				<ag:setEditor id="acceptDomainSids" minLevel="2"
+					value="#{current.acceptDomainSids}"
+					comparator="#{setEditorUtilBean.stringComparator}"
+					factoryMethod="#{setEditorUtilBean.makeEmptyString}">
+					<p:column>
+						<orch:inputSid domainSid="true"
+							domainHint="#{adAuthConfigBean.getDomain(outerWrapper)}"
+							lookupSID="#{adAuthConfigBean.lookupDomainSID}"
+							search="#{adAuthConfigBean.lookupDomainByName}"
+							value="#{item.value}" />
+					</p:column>
+				</ag:setEditor>
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="rejectDomainSids"
+				path="rejectDomainSids" collection="true">
+				<ag:setEditor id="rejectDomainSids" minLevel="2"
+					value="#{current.rejectDomainSids}"
+					comparator="#{setEditorUtilBean.stringComparator}"
+					factoryMethod="#{setEditorUtilBean.makeEmptyString}">
+					<p:column>
+						<orch:inputSid domainSid="true"
+							domainHint="#{adAuthConfigBean.getDomain(outerWrapper)}"
+							lookupSID="#{adAuthConfigBean.lookupDomainSID}"
+							search="#{adAuthConfigBean.lookupDomainByName}"
+							value="#{item.value}" />
+					</p:column>
+				</ag:setEditor>
+			</orch:objectFieldEditor>
+		</p:outputPanel>
+	</p:outputPanel>
+
+	<orch:objectFieldEditor inputId="rejectNonADPrincipals" minLevel="3"
+		path="rejectNonADPrincipals"
+		update="@composite:@parent:pureKerberosSettings">
+		<p:selectBooleanCheckbox id="rejectNonADPrincipals"
+			value="#{current.rejectNonADPrincipals}">
+			<p:ajax event="change"
+				update="@composite:@parent:pureKerberosSettings" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="alwaysAddRoles" path="alwaysAddRoles"
+		collection="true">
+		<ag:setEditor id="alwaysAddRoles" value="#{current.alwaysAddRoles}"
+			comparator="#{setEditorUtilBean.stringComparator}"
+			factoryMethod="#{setEditorUtilBean.makeEmptyString}">
+			<p:column>
+				<p:autoComplete dropdown="true"
+					completeMethod="#{completerUtil.wrap(outerWrapper.getParameter('roleCompleter')).complete}"
+					value="#{item.value}" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="sidRoles" path="sidRoles" minLevel="2"
+		collection="true"
+		readOnlyValueMapper="#{authRoleMappingBean.mapStaticMapping}"
+		clone="#{authRoleMappingBean.cloneStaticMapping}">
+		<ag:setEditor id="sidRoles"
+			comparator="#{authRoleMappingBean.staticMappingComparator}"
+			factoryMethod="#{authRoleMappingBean.makeStaticMappingEntry}"
+			value="#{current.sidRoles}">
+			<p:column style="vertical-align: top; width: 45%">
+				<orch:inputSid
+					domainHint="#{adAuthConfigBean.getDomain(outerWrapper)}"
+					lookupSID="#{adAuthConfigBean.lookupSID}"
+					search="#{adAuthConfigBean.search}" style="display: inline-block"
+					value="#{item.value.instance}" />
+			</p:column>
+			<p:column>
+				<p:inputTextarea
+					completeMethod="#{outerWrapper.getParameterOr('roleCompleter',emptyCompleter).complete}"
+					value="#{item.value.addRoles}" rows="1"
+					converter="#{stringSetConverter}" queryDelay="300"
+					autoResize="true" minQueryLength="1" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+
+	<p:outputPanel id="pureKerberosSettings">
+		<p:fieldset
+			legend="#{_config_auth['auth.authenticator.ad.foreignKerberos']}"
+			rendered="#{(current.rejectNonADPrincipals != null and not current.rejectNonADPrincipals) or (current.rejectNonADPrincipals == null and not defaults.rejectNonADPrincipals)}">
+
+
+			<orch:objectFieldEditor inputId="acceptPrincipalPatterns"
+				minLevel="3" path="acceptPrincipalPatterns" collection="true">
+				<ag:setEditor id="acceptPrincipalPatterns"
+					value="#{current.acceptPrincipalPatterns}"
+					comparator="#{setEditorUtilBean.stringComparator}"
+					factoryMethod="#{setEditorUtilBean.makeEmptyString}">
+					<p:column>
+						<p:inputText value="#{item.value}" />
+					</p:column>
+				</ag:setEditor>
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="rejectPrincipalPatterns"
+				minLevel="3" path="rejectPrincipalPatterns" collection="true">
+				<ag:setEditor id="rejectPrincipalPatterns"
+					value="#{current.rejectPrincipalPatterns}"
+					comparator="#{setEditorUtilBean.stringComparator}"
+					factoryMethod="#{setEditorUtilBean.makeEmptyString}">
+					<p:column>
+						<p:inputText value="#{item.value}" />
+					</p:column>
+				</ag:setEditor>
+			</orch:objectFieldEditor>
+
+
+			<orch:objectFieldEditor inputId="principalAddRoles" minLevel="3"
+				collection="true" path="principalAddRoles"
+				clone="#{authRoleMappingBean.clonePatternMapping}"
+				readOnlyValueMapper="#{authRoleMappingBean.mapPatternMapping}">
+				<ag:setEditor id="principalAddRoles"
+					comparator="#{authRoleMappingBean.patternMappingComparator}"
+					factoryMethod="#{authRoleMappingBean.makePatternMappingEntry}"
+					value="#{current.principalAddRoles}">
+					<p:column style="vertical-align: top; width: 60%">
+						<p:inputText value="#{item.value.pattern}" />
+					</p:column>
+					<p:column>
+						<p:inputTextarea
+							completeMethod="#{outerWrapper.getParameterOr('roleCompleter',emptyCompleter).complete}"
+							value="#{item.value.addRoles}" rows="1"
+							converter="#{stringSetConverter}" queryDelay="300"
+							autoResize="true" minQueryLength="1" />
+					</p:column>
+				</ag:setEditor>
+			</orch:objectFieldEditor>
+		</p:fieldset>
+	</p:outputPanel>
+
+	<ag:simpleField styleClass="noLabel" id="testAuthField">
+		<ag:dialogOpenButton
+			title="#{_config_auth['test.authenticator.ad.title']}"
+			icon="ui-icon-check" style="display: block"
+			value="#{_config_auth['test.authenticator.ad.label']}"
+			closable="true" process="@form"
+			dialog="#{configTestUtil.makeTestLink(outerWrapper)}">
+			<p:ajax event="return" />
+		</ag:dialogOpenButton>
+	</ag:simpleField>
+</ui:composition>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.jmsjmx.internal.JMXMessageMarshaller">
+    <property name="msgType" value="eu.agno3.runtime.jmsjmx.AbstractJMXMessage"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.messaging.marshalling.MessageMarshaller"/>
+        <provide interface="eu.agno3.runtime.messaging.marshalling.MessageUnmarshaller"/>
+    </service>
+    <reference name="XmlMarshallingService" interface="eu.agno3.runtime.xml.binding.XmlMarshallingService" cardinality="1..1" policy="static" bind="setXmlMarshallingService" unbind="unsetXmlMarshallingService"/>
+    <reference name="XmlParserFactory" interface="eu.agno3.runtime.xml.XmlParserFactory" cardinality="1..1" policy="static" bind="setXmlParserFactory" unbind="unsetXmlParserFactory"/>
+    <reference name="MessageSourceRegistry" interface="eu.agno3.runtime.messaging.addressing.MessageSourceRegistry" cardinality="1..1" policy="static" bind="setMessageSourceRegistry" unbind="unsetMessageSourceRegistry"/>
+    <implementation class="eu.agno3.runtime.jmsjmx.internal.JMXMessageMarshaller"/>
+</scr:component>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.configloader.jmx.internal.ConfigLoaderMXBeanImpl">
+    <property name="objectName" value="eu.agno3.runtime.configloader:type=ConfigLoader"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.jmx.MBean"/>
+    </service>
+    <reference name="ConfigLoader" interface="eu.agno3.runtime.configloader.ConfigLoader" cardinality="1..1" policy="static" bind="setConfigLoader" unbind="unsetConfigLoader"/>
+    <implementation class="eu.agno3.runtime.configloader.jmx.internal.ConfigLoaderMXBeanImpl"/>
+</scr:component>

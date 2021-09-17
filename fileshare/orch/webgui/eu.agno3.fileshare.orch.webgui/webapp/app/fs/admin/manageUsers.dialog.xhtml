@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	template="/tpl/common/dialog.xhtml">
+	<ui:param name="title"
+		value="#{fs_orch_msgs.formatEL('users.manage.titleFmt', structureViewContext.selectedDisplayName)}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<ui:include src="/app/fs/admin/metadata.xhtml" />
+			<f:event listener="#{app_fs_adm_usersTableBean.init}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<ag:dialogContextHolder />
+
+			<ui:decorate template="/tpl/app/fs/admin/manageUsers.inc.xhtml">
+				<ui:define name="header">
+					<ui:include src="/tpl/onlineWarning.xhtml" />
+				</ui:define>
+			</ui:decorate>
+
+			<p:commandButton immediate="true" action="#{dialog.close}"
+				icon="#{dialog.closeIcon}" value="#{dialog.closeLabel}" />
+		</h:form>
+	</ui:define>
+
+</ui:composition>

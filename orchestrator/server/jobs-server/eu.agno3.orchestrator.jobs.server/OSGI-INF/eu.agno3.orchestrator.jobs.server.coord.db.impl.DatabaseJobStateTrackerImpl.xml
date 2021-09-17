@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.jobs.server.coord.db.impl.DatabaseJobStateTrackerImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.jobs.server.coord.db.impl.DatabaseJobStateTrackerImpl"/>
+    </service>
+    <reference name="Listener" interface="eu.agno3.orchestrator.jobs.state.LocalJobStateListener" cardinality="0..n" policy="dynamic" bind="bindListener" unbind="unbindListener"/>
+    <reference name="EMF" interface="javax.persistence.EntityManagerFactory" cardinality="1..1" policy="static" target="(persistenceUnit=jobs)" bind="setEMF" unbind="unsetEMF"/>
+    <reference name="XmlMarshallingService" interface="eu.agno3.runtime.xml.binding.XmlMarshallingService" cardinality="1..1" policy="static" bind="setXmlMarshallingService" unbind="unsetXmlMarshallingService"/>
+    <reference name="XmlParserFactory" interface="eu.agno3.runtime.xml.XmlParserFactory" cardinality="1..1" policy="static" bind="setXmlParserFactory" unbind="unsetXmlParserFactory"/>
+    <reference name="TransactionService" interface="eu.agno3.runtime.transaction.TransactionService" cardinality="1..1" policy="static" bind="setTransactionService" unbind="unsetTransactionService"/>
+    <implementation class="eu.agno3.orchestrator.jobs.server.coord.db.impl.DatabaseJobStateTrackerImpl"/>
+</scr:component>

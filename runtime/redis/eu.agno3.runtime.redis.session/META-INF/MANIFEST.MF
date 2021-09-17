@@ -1,0 +1,36 @@
+Bundle-SymbolicName: eu.agno3.runtime.redis.session
+Bundle-Version: 0.0.2
+Bundle-Name: Runtime Redis Jetty Session
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.runtime.crypto.random;version="0.0.150",
+ eu.agno3.runtime.http.service.session;version="0.0.138",
+ eu.agno3.runtime.redis,
+ eu.agno3.runtime.transaction,
+ eu.agno3.runtime.util.classloading,
+ eu.agno3.runtime.util.config;version="0.0.66",
+ eu.agno3.runtime.util.osgi;version="0.0.92",
+ eu.agno3.runtime.util.serialization;version="0.0.96",
+ io.netty.buffer;version="4.1.15",
+ io.netty.util;version="4.1.15",
+ javax.servlet;version="3.1.0",
+ javax.servlet.http;version="3.1.0",
+ javax.transaction;version="1.1.0",
+ javax.transaction.xa;version="1.1.0",
+ org.apache.commons.lang3;version="3.1.0",
+ org.apache.log4j;version="1.2.15",
+ org.eclipse.jetty.server.session;version="9.4.7",
+ org.eclipse.jetty.util.component;version="9.4.7",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.framework.wiring;version="1.2.0",
+ org.osgi.service.component;version="1.2.2",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.redisson;version="3.5.3",
+ org.redisson.api;version="3.5.3",
+ org.redisson.client.codec;version="3.5.3",
+ org.redisson.client.handler;version="3.5.3",
+ org.redisson.client.protocol;version="3.5.3",
+ org.redisson.codec;version="3.5.3",
+ org.redisson.config;version="3.5.3"
+Service-Component: OSGI-INF/*.xml

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.db.schema.liquibase.internal.LiquibasePostgresDatabaseFactory">
+    <property name="osgi.jdbc.driver.class" value="org.postgresql.Driver"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.db.schema.liquibase.LiquibaseDatabaseFactory"/>
+    </service>
+    <reference name="DriverUtil" interface="eu.agno3.runtime.db.DatabaseDriverUtil" cardinality="1..1" policy="static" target="(osgi.jdbc.driver.class=org.postgresql.Driver)" bind="setDriverUtil" unbind="unsetDriverUtil"/>
+    <implementation class="eu.agno3.runtime.db.schema.liquibase.internal.LiquibasePostgresDatabaseFactory"/>
+</scr:component>

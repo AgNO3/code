@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="fileshare-elasticsearch-feature"
+      label="Fileshare Elasticsearch Feature"
+      version="0.0.1.qualifier"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <includes
+         id="eventlog-elasticsearch-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-elasticsearch-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="elasticsearch-feature"
+         version="0.0.0"/>
+
+   <plugin
+         id="eu.agno3.fileshare.service.elasticsearch"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

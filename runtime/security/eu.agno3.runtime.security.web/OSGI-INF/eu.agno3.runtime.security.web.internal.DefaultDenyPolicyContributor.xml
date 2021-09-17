@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.security.web.internal.DefaultDenyPolicyContributor">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.security.web.config.FilterChainContributor"/>
+    </service>
+    <reference name="DenyFilter" interface="eu.agno3.runtime.security.web.SecurityFilter" cardinality="1..1" policy="static" target="(name=deny)" bind="setDenyFilter" unbind="unsetDenyFilter"/>
+    <implementation class="eu.agno3.runtime.security.web.internal.DefaultDenyPolicyContributor"/>
+</scr:component>

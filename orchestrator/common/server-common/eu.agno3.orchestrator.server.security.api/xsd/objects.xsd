@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:user="urn:agno3:security:1.0:principal" xmlns:sec="urn:agno3:security:1.0:objects" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:security:1.0:objects" elementFormDefault="qualified">
+   <xsd:complexType name="permissionsType">
+      <xsd:sequence>
+         <xsd:element name="permission" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="rolesType">
+      <xsd:sequence>
+         <xsd:element name="role" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:element name="permissions" type="sec:permissionsType"/>
+   <xsd:element name="roles" type="sec:rolesType"/>
+</xsd:schema>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:user="urn:agno3:security:1.0:principal" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:security:1.0:principal" elementFormDefault="qualified">
+   <xsd:complexType name="userPrincType">
+      <xsd:sequence/>
+      <xsd:attribute name="userId" type="xsd:string" use="required"/>
+      <xsd:attribute name="userName" type="xsd:string" use="required"/>
+      <xsd:attribute name="realmName" type="xsd:string" use="required"/>
+   </xsd:complexType>
+   <xsd:complexType name="userInfoType">
+      <xsd:sequence>
+         <xsd:element name="created" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="disabled" type="xsd:boolean" minOccurs="0"/>
+         <xsd:element name="failedLoginAttempts" type="xsd:int" minOccurs="0"/>
+         <xsd:element name="lastFailedLogin" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="lastPwChange" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="lastSuccessfulLogin" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="pwExpiry" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="principal" type="user:userPrincType"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:element name="userPrinc" type="user:userPrincType"/>
+   <xsd:element name="userInfo" type="user:userInfoType"/>
+</xsd:schema>

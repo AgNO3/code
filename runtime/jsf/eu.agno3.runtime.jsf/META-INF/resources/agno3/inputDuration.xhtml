@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+<composite:interface
+	componentType="eu.agno3.runtime.jsf.components.InputDuration">
+
+	<composite:attribute name="value" required="true"
+		type="org.joda.time.Duration" />
+
+</composite:interface>
+
+<composite:implementation>
+
+	<p:panel style="display: inline-block"
+		rendered="#{cc.shouldDisplayField('years')}">
+		<p:spinner id="years" value="#{cc.years}" size="2" />&#160;
+			<p:outputLabel for="years" value="#{_bm.get('duration.yearUnit')}"
+			title="#{_bm.get('duration.years')}" />
+	</p:panel>
+
+	<p:panel style="display: inline-block"
+		rendered="#{cc.shouldDisplayField('days')}">
+		<p:spinner id="days" value="#{cc.days}" size="2" />&#160;
+			<p:outputLabel for="days" value="#{_bm.get('duration.dayUnit')}"
+			title="#{_bm.get('duration.days')}" />
+	</p:panel>
+
+	<p:panel style="display: inline-block"
+		rendered="#{cc.shouldDisplayField('hours')}">
+		<p:spinner id="hours" value="#{cc.hours}" min="0" size="2" />&#160;
+			<p:outputLabel for="hours" value="#{_bm.get('duration.hourUnit')}"
+			title="#{_bm.get('duration.hours')}" />
+	</p:panel>
+
+	<p:panel style="display: inline-block"
+		rendered="#{cc.shouldDisplayField('minutes')}">
+		<p:spinner id="minutes" value="#{cc.minutes}" min="0" size="2" />&#160;
+			<p:outputLabel for="minutes"
+			value="#{_bm.get('duration.minuteUnit')}"
+			title="#{_bm.get('duration.minutes')}" />
+	</p:panel>
+
+	<p:panel style="display: inline-block"
+		rendered="#{cc.shouldDisplayField('seconds')}">
+		<p:spinner id="seconds" value="#{cc.seconds}" min="0" size="2" />&#160;
+			<p:outputLabel for="seconds"
+			value="#{_bm.get('duration.secondUnit')}"
+			title="#{_bm.get('duration.seconds')}" />
+	</p:panel>
+
+	<p:panel style="display: inline-block"
+		rendered="#{cc.shouldDisplayField('millis')}">
+		<p:spinner id="millis" value="#{cc.millis}" min="0" size="2" />&#160;
+			<p:outputLabel for="millis" value="#{_bm.get('duration.milliUnit')}"
+			title="#{_bm.get('duration.millis')}" />
+	</p:panel>
+
+</composite:implementation>
+</html>

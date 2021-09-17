@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:orchc="urn:agno3:model:1.0:orchestrator" xmlns:j="urn:agno3:job:1.0:base" xmlns:cmj="urn:agno3:model:1.0:jobs" xmlns:orchcj="urn:agno3:model:1.0:orchestrator:jobs" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:model:1.0:orchestrator:jobs" elementFormDefault="qualified">
+   <xsd:import schemaLocation="urn:agno3:model:1.0:jobs" namespace="urn:agno3:model:1.0:jobs"/>
+   <xsd:import schemaLocation="urn:agno3:model:1.0:orchestrator" namespace="urn:agno3:model:1.0:orchestrator"/>
+   <xsd:complexType name="orchestratorConfigJob">
+      <xsd:complexContent>
+         <xsd:extension base="cmj:configurationJob">
+            <xsd:sequence>
+               <xsd:element name="config" type="orchc:orchestratorConfigType"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:element name="orchestratorConfigJob" type="orchcj:orchestratorConfigJob"/>
+</xsd:schema>

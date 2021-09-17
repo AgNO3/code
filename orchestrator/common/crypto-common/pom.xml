@@ -1,0 +1,17 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.orchestrator.common</groupId>
+    <artifactId>common</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>crypto-common</artifactId>
+  <packaging>pom</packaging>
+  <name>Orchestrator Crypto Management Common</name>
+  <modules>
+  	<module>eu.agno3.orchestrator.crypto</module>
+  	<module>eu.agno3.orchestrator.crypto.i18n</module>
+  	<module>eu.agno3.orchestrator.realms</module>
+  	<module>eu.agno3.orchestrator.realms.i18n</module>
+  </modules>
+</project>

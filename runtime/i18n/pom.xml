@@ -1,0 +1,19 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.runtime</groupId>
+    <artifactId>runtime-parent</artifactId>
+    <version>0.1.254</version>
+    <relativePath></relativePath>
+  </parent>
+  <artifactId>i18n</artifactId>
+  <version>0.0.18</version>
+  <packaging>pom</packaging>
+  <name>Internationalization Module</name>
+  <modules>
+  	<module>eu.agno3.runtime.i18n</module>
+  	<module>eu.agno3.runtime.i18n.test</module>
+  	<module>i18n-feature</module>
+  </modules>
+
+</project>

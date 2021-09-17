@@ -1,0 +1,22 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+<composite:interface>
+</composite:interface>
+
+<composite:implementation>
+	<p:socket widgetVar="eventSubscriber"
+		channel="/events/#{pushContext.cometSessionId}"
+		onMessage="OrchEventListener.onServerEvent(this)"
+		onOpen="OrchEventListener.onOpen(this);"
+		onReconnect="OrchEventListener.onReconnect(this)"
+		onTransportFailure="OrchEventListener.onTransportFailure(this)"
+		onClose="OrchEventListener.onClose(this)"
+		onError="OrchEventListener.onError(this)" autoConnect="true" />
+</composite:implementation>
+</html>

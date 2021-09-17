@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<facelet-taglib xmlns="http://java.sun.com/xml/ns/javaee"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd"
+                version="2.0">
+    <namespace>http://agno3.eu/ns/jsf/taglib/1.0</namespace>
+    
+    <composite-library-name>
+    	agno3	
+    </composite-library-name>
+   
+   <tag>
+		<description><![CDATA[Open a dialog.]]></description>
+		<tag-name>dialogOpenButton</tag-name>
+		<component>
+			<component-type>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenButton</component-type>
+			<renderer-type>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenButtonRenderer</renderer-type>
+			<handler-class>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenComponentHandler</handler-class>
+		</component>
+	</tag>
+	
+	<tag>
+		<description><![CDATA[Open a dialog from menu.]]></description>
+		<tag-name>dialogOpenMenuItem</tag-name>
+		<component>
+			<component-type>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenMenuItem</component-type>
+			<handler-class>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenComponentHandler</handler-class>
+		</component>
+	</tag>
+	
+	<tag>
+		<description><![CDATA[Open a dialog via hotkey.]]></description>
+		<tag-name>dialogOpenHotkey</tag-name>
+		<component>
+			<component-type>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenHotkey</component-type>
+			<renderer-type>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenHotkeyRenderer</renderer-type>
+			<handler-class>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenComponentHandler</handler-class>
+		</component>
+	</tag>
+	
+	
+	<tag>
+		<description><![CDATA[Open a dialog via link.]]></description>
+		<tag-name>dialogOpenCommandLink</tag-name>
+		<component>
+			<component-type>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenCommandLink</component-type>
+			<renderer-type>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenCommandLinkRenderer</renderer-type>
+			<handler-class>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenComponentHandler</handler-class>
+		</component>
+	</tag>
+	
+	<tag>
+		<description><![CDATA[Hold dialog return pointer.]]></description>
+		<tag-name>dialogContextHolder</tag-name>
+		<component>
+			<component-type>eu.agno3.runtime.jsf.view.stacking.components.DialogContextHolder</component-type>
+		</component>
+	</tag>
+	
+	<tag>
+		<description><![CDATA[Tree Menu.]]></description>
+		<tag-name>treeMenu</tag-name>
+		<component>
+			<component-type>eu.agno3.runtime.jsf.components.TreeMenu</component-type>
+			<renderer-type>eu.agno3.runtime.jsf.components.TreeMenuRenderer</renderer-type>
+		</component>
+	</tag>
+	
+	<function>
+        <function-name>formatByteSize</function-name>
+        <function-class>eu.agno3.runtime.jsf.util.formatting.JSFByteSizeFormatter</function-class>
+        <function-signature>java.lang.String formatByteSize(java.lang.Object)</function-signature>
+    </function>
+    
+    <function>
+        <function-name>formatByteSizeSI</function-name>
+        <function-class>eu.agno3.runtime.jsf.util.formatting.JSFByteSizeFormatter</function-class>
+        <function-signature>java.lang.String formatByteSize(java.lang.Object)</function-signature>
+    </function>
+</facelet-taglib>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.orchestrator.agent.app.AgentApplicationStateProvider">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.update.ApplicationStateProvider"/>
+    </service>
+    <reference name="JobCoordinator" interface="eu.agno3.orchestrator.jobs.JobCoordinator" cardinality="0..1" policy="static" bind="bindJobCoordinator" unbind="unbindJobCoordinator" policy-option="greedy"/>
+    <reference name="ServerConnector" interface="eu.agno3.orchestrator.agent.connector.AgentServerConnector" cardinality="0..1" policy="static" bind="bindServerConnector" unbind="unbindServerConnector" policy-option="greedy"/>
+    <reference name="ServiceManager" interface="eu.agno3.orchestrator.jobs.agent.service.ServiceManager" cardinality="0..1" policy="static" bind="bindServiceManager" unbind="unbindServiceManager" policy-option="greedy"/>
+    <reference name="LicenseService" interface="eu.agno3.runtime.update.LicensingService" cardinality="0..1" policy="static" bind="bindLicenseService" unbind="unbindLicenseService" policy-option="greedy"/>
+    <implementation class="eu.agno3.orchestrator.agent.app.AgentApplicationStateProvider"/>
+</scr:component>

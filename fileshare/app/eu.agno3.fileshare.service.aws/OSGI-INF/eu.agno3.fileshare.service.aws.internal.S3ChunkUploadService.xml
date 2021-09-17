@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.fileshare.service.aws.internal.S3ChunkUploadService" configuration-policy="require" configuration-pid="chunks.aws">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.service.ChunkUploadService"/>
+    </service>
+    <reference name="ClientProvider" interface="eu.agno3.fileshare.service.aws.internal.S3ClientProvider" cardinality="1..1" policy="static" bind="setClientProvider" unbind="unsetClientProvider"/>
+    <reference name="AccessControlService" interface="eu.agno3.fileshare.security.AccessControlService" cardinality="1..1" policy="static" bind="setAccessControlService" unbind="unsetAccessControlService"/>
+    <implementation class="eu.agno3.fileshare.service.aws.internal.S3ChunkUploadService"/>
+</scr:component>

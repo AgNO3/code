@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.fileshare.service.config.internal.QuotaConfigurationImpl" activate="activate" modified="modified" configuration-pid="quotas">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.service.config.QuotaConfiguration"/>
+    </service>
+    <implementation class="eu.agno3.fileshare.service.config.internal.QuotaConfigurationImpl"/>
+</scr:component>

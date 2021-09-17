@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.server.security.internal.SessionServiceImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.server.session.service.SessionService"/>
+        <provide interface="eu.agno3.runtime.ws.common.SOAPWebService"/>
+    </service>
+    <reference name="DynamicModularRealmAuthorizer" interface="eu.agno3.runtime.security.DynamicModularRealmAuthorizer" cardinality="1..1" policy="static" bind="setDynamicModularRealmAuthorizer" unbind="unsetDynamicModularRealmAuthorizer"/>
+    <reference name="EMF" interface="javax.persistence.EntityManagerFactory" cardinality="1..1" policy="static" target="(persistenceUnit=orchestrator)" bind="setEMF" unbind="unsetEMF"/>
+    <implementation class="eu.agno3.orchestrator.server.security.internal.SessionServiceImpl"/>
+</scr:component>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	template="/tpl/common/dialog.xhtml">
+
+	<ui:param name="title" value="#{_msgs['actions.addFavorite.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="token" value="#{userTokenBean.token}"
+				required="false" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form" method="POST" enctype="multipart/form-data">
+			<ag:dialogContextHolder />
+
+			<p:hotkey bind="esc" action="#{dialog.close}" immediate="true" />
+			<p:messages autoUpdate="true" />
+
+			<input type="hidden" name="token" value="#{userTokenBean.token}" />
+
+
+			<p:fieldset styleClass="func-unit"
+				legend="#{_msgs['actions.addFavorite.title']}">
+				<ag:simpleField label="#{_msgs['actions.addFavorite.entity.label']}"
+					description="#{_msgs['actions.addFavorite.entity.description']}">
+					<fs:picker picker="#{entityPicker}" />
+				</ag:simpleField>
+			</p:fieldset>
+
+			<div class="buttons">
+				<p:commandButton id="confirm"
+					icon="ui-icon-star ui-icon-add-modifier"
+					action="#{userFavoritesBean.makeEntityFavoriteDialog(entityPicker.selection.attachedObject)}"
+					value="#{_msgs['actions.addFavorite.confirm']}" />
+
+				<p:commandButton immediate="true" action="#{dialog.close}"
+					styleClass="close-button inline" icon="#{dialog.closeIcon}"
+					title="#{dialog.closeDescription}"
+					value="#{_msgs['actions.addFavorite.cancel']}" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

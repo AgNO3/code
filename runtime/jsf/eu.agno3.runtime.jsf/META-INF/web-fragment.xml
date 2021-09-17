@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-fragment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+
+	<ordering>
+		<before>
+			<others />
+		</before>
+	</ordering>
+
+
+	<listener>
+		<listener-class>eu.agno3.runtime.jsf.config.RefreshAttributeListener</listener-class>
+	</listener>
+
+
+	<filter>
+		<filter-name>WelcomeRedirectFilter</filter-name>
+		<filter-class>eu.agno3.runtime.http.service.filter.WelcomeRedirectFilter</filter-class>
+
+		<init-param>
+			<param-name>redirectTo</param-name>
+			<param-value>index.xhtml</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>WelcomeRedirectFilter</filter-name>
+		<servlet-name>Default Servlet</servlet-name>
+	</filter-mapping>
+
+	<servlet>
+		<servlet-name>Default Servlet</servlet-name>
+		<servlet-class>org.eclipse.jetty.servlet.DefaultServlet</servlet-class>
+
+		<init-param>
+			<param-name>dirAllowed</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<init-param>
+			<param-name>welcomeServlets</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>aliases</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<init-param>
+			<param-name>relativeResourceBase</param-name>
+			<param-value>static/</param-value>
+		</init-param>
+
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+
+
+	<filter>
+		<filter-name>SessionSizeTrace</filter-name>
+		<filter-class>eu.agno3.runtime.http.service.session.SessionSizeTraceFilter</filter-class>
+		<async-supported>true</async-supported>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>SessionSizeTrace</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	
+	<filter>
+		<filter-name>CachingFilter</filter-name>
+		<filter-class>eu.agno3.runtime.jsf.filters.CachingFilter</filter-class>
+		<async-supported>true</async-supported>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>CachingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Default Servlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+
+	<context-param>
+		<param-name>compress-resources</param-name>
+		<param-value>/javax.faces.resource/*,/favico.ico</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>compress-resource-types</param-name>
+		<param-value>text/html,text/plain,text/xml,application/xhtml+xml,text/css,application/javascript,image/svg+xml</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.apache.myfaces.SUPPORT_JSP_AND_FACES_EL</param-name>
+		<param-value>false</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.apache.myfaces.ERROR_HANDLING</param-name>
+		<param-value>false</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>javax.faces.FACELETS_BUFFER_SIZE</param-name>
+		<param-value>65536</param-value>
+	</context-param>
+
+	<context-param>
+		<!-- this is handled by a custom serial factory -->
+		<param-name>org.apache.myfaces.USE_ENCRYPTION</param-name>
+		<param-value>false</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.apache.myfaces.EXPRESSION_FACTORY</param-name>
+		<param-value>de.odysseus.el.ExpressionFactoryImpl</param-value>
+	</context-param>
+
+	<!-- <context-param> <param-name>org.apache.myfaces.EL_RESOLVER_COMPARATOR</param-name> 
+		<param-value>org.apache.myfaces.el.unified.OpenWebBeansELResolverComparator</param-value> 
+		</context-param> -->
+
+	<context-param>
+		<param-name>org.apache.myfaces.LOG_WEB_CONTEXT_PARAMS</param-name>
+		<param-value>false</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>javax.faces.VALIDATE_EMPTY_FIELDS</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Production</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.xhtml</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>server</param-value>
+	</context-param>
+
+
+	<context-param>
+		<param-name>org.apache.myfaces.RANDOM_KEY_IN_VIEW_STATE_SESSION_TOKEN</param-name>
+		<param-value>secureRandom</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.apache.myfaces.RANDOM_KEY_IN_CSRF_SESSION_TOKEN</param-name>
+		<param-value>secureRandom</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.apache.myfaces.USE_FLASH_SCOPE_PURGE_VIEWS_IN_SESSION</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>javax.faces.CLIENT_WINDOW_MODE</param-name>
+		<param-value>url</param-value>
+	</context-param>
+
+	<!-- always recompile triggers some state saving bug -->
+	<context-param>
+		<param-name>org.apache.myfaces.CACHE_EL_EXPRESSIONS</param-name>
+		<param-value>strict</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.apache.myfaces.SERIALIZE_STATE_IN_SESSION</param-name>
+		<param-value>false</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.apache.myfaces.COMPRESS_STATE_IN_SESSION</param-name>
+		<param-value>false</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.apache.myfaces.CONFIG_REFRESH_PERIOD</param-name>
+		<param-value>0</param-value>
+	</context-param>
+	
+	<context-param>
+	    <param-name>org.apache.myfaces.FLASH_SCOPE_DISABLED</param-name>
+	    <param-value>false</param-value>
+	</context-param>
+	
+	 <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>#{themeSelector.theme}</param-value>
+  	</context-param>
+  	
+  	<context-param>
+  		<param-name>primefaces.FONT_AWESOME</param-name>
+  		<param-value>true</param-value>
+  	</context-param>
+
+	<context-param>
+		<param-name>org.apache.myfaces.extensions.validator.beanval.startup.JSF2AwareBeanValidationStartupListener:DEACTIVATED</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.apache.myfaces.extensions.validator.beanval.startup.BeanValidationStartupListener:DEACTIVATED</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>org.apache.myfaces.extensions.validator.core.startup.ExtValStartupListener:DEACTIVATED</param-name>
+		<param-value>true</param-value>
+	</context-param>
+</web-fragment>

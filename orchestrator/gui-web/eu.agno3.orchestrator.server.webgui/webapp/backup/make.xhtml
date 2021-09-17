@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0"
+	template="/tpl/structure/instance/template.xhtml">
+	<ui:param name="instanceSubtitle"
+		value="#{_gui['structure.instance.backup.make.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="instance"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+			<f:viewParam name="jobId" value="#{jobDetailContextBean.jobId}"
+				required="true" requiredMessage="#{_gui['require.param.jobId']}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<p:messages autoUpdate="true" />
+			<p:outputPanel id="jobDetail">
+				<p:outputPanel rendered="#{not empty jobDetailContextBean.jobId}">
+					<orch:jobDetail jobCtx="#{jobDetailContextBean}" showOutput="true"
+						outputCols="80" outputRows="30" />
+				</p:outputPanel>
+			</p:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.db.derby.auth.internal.DerbyAuthConfiguration" activate="activate" deactivate="deactivate" modified="activate" configuration-pid="db.server.derby.auth">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.db.derby.auth.internal.DerbyAuthConfiguration"/>
+    </service>
+    <reference name="SecretKeyProvider" interface="eu.agno3.runtime.crypto.secret.SecretKeyProvider" cardinality="1..1" policy="static" bind="setSecretKeyProvider" unbind="unsetSecretKeyProvider"/>
+    <implementation class="eu.agno3.runtime.db.derby.auth.internal.DerbyAuthConfiguration"/>
+</scr:component>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.agent.connector.internal.ServerShutdownListener">
+    <property name="eventType" value="eu.agno3.orchestrator.server.component.msg.ServerShutdownEvent"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.messaging.listener.EventListener"/>
+    </service>
+    <reference name="Connector" interface="eu.agno3.orchestrator.agent.connector.AgentServerConnector" cardinality="1..1" policy="static" bind="setConnector" unbind="unsetConnector"/>
+    <reference name="TransactionManager" interface="eu.agno3.runtime.transaction.TransactionService" cardinality="1..1" policy="static" bind="setTransactionManager" unbind="unsetTransactionManager"/>
+    <implementation class="eu.agno3.orchestrator.agent.connector.internal.ServerShutdownListener"/>
+</scr:component>

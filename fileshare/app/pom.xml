@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.fileshare.app</groupId>
+    <artifactId>fileshare-app-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>fileshare-app-parent</relativePath>
+  </parent>
+  <packaging>pom</packaging>
+  <name>Fileshare Application Maven Module</name>
+  <artifactId>fileshare-app</artifactId>
+
+  <properties>
+  	<ds.test.timeout>120</ds.test.timeout>
+  </properties>
+
+  <modules>
+  	<module>fileshare-app-parent</module>
+
+  	<module>eu.agno3.fileshare.webgui</module>
+  	<module>eu.agno3.fileshare.app</module>
+  	<module>eu.agno3.fileshare.security</module>
+	<module>eu.agno3.fileshare.webdav</module>
+  	<module>eu.agno3.fileshare.app.status</module>
+  	<module>eu.agno3.fileshare.service</module>
+	<module>eu.agno3.fileshare.service.ldap</module>
+	<module>eu.agno3.fileshare.service.elasticsearch</module>
+	<module>eu.agno3.fileshare.service.aws</module>
+	<!--<module>eu.agno3.fileshare.service.redis</module> -->
+
+  	<module>fileshare-runtime-feature</module>
+  	<module>fileshare-application-feature</module>
+  	<module>fileshare-ldap-feature</module>
+  	<module>fileshare-db-derby-feature</module>
+  	<module>fileshare-db-psql-feature</module>
+  	<module>fileshare-elasticsearch-feature</module>
+  	<module>fileshare-aws-feature</module>
+  </modules>
+  <dependencies>
+  </dependencies>
+</project>

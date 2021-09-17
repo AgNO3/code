@@ -1,0 +1,109 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+<composite:interface
+	componentType="eu.agno3.runtime.jsf.components.SimpleField">
+	<composite:attribute name="inputId" required="true"
+		type="java.lang.String" />
+	<composite:attribute name="label" required="false"
+		type="java.lang.String" />
+	<composite:attribute name="readOnly" required="false" default="false"
+		type="java.lang.Boolean" />
+	<composite:attribute name="onlyIf" required="false" default="true"
+		type="java.lang.Boolean" />
+	<composite:attribute name="inheritedDefault" required="false"
+		type="java.lang.Object" />
+	<composite:attribute name="enforced" required="false"
+		type="java.lang.Object" />
+	<composite:attribute name="alwaysEdit" required="false"
+		type="java.lang.Boolean" default="false" />
+
+	<composite:attribute name="collection" required="false"
+		type="java.lang.Boolean" default="false" />
+
+	<composite:attribute name="map" required="false"
+		type="java.lang.Boolean" default="false" />
+
+	<composite:attribute name="value" required="false"
+		type="java.lang.Object" />
+
+	<composite:attribute name="converter" required="false"
+		type="java.lang.Object" />
+
+	<composite:attribute name="keyConverter" required="false"
+		type="java.lang.Object" />
+
+
+	<composite:attribute name="update" required="false"
+		type="java.lang.String" />
+
+	<composite:attribute name="readOnlyValueMapper" required="false"
+		method-signature="java.lang.Object (java.lang.Object)" />
+
+	<composite:attribute name="clone" required="false"
+		method-signature="java.lang.Object (java.lang.Object)" />
+
+	<composite:attribute name="outputStyle" required="false" />
+
+	<composite:attribute name="styleClass" required="false" />
+
+	<composite:attribute name="description" required="false" />
+</composite:interface>
+
+<composite:implementation>
+	<h:outputStylesheet library="agno3" name="library.static.css" />
+
+	<p:outputPanel id="inputComponents" styleClass="inputComponents">
+
+		<p:outputPanel id="edit" rendered="#{cc.showEditField()}">
+			<composite:insertChildren />
+
+			<p:commandButton rendered="#{cc.hasInheritedDefaultValue()}"
+				actionListener="#{cc.resetToDefault}" image="ui-icon-cancel"
+				title="#{_bm.get('field.resetToDefault')}" immediate="true"
+				update="inputComponents ${cc.attrs.update}" style="float:right">
+				<p:resetInput target="inputComponents" />
+			</p:commandButton>
+		</p:outputPanel>
+
+		<p:outputPanel
+			rendered="#{not cc.isCollectionValued() and cc.showDefaultField()}">
+			<i><h:outputText
+					value="#{cc.mapReadOnlyValue(cc.attrs.inheritedDefault)}"
+					converter="#{converter}" /></i>
+			<p:commandButton actionListener="#{cc.doEdit}" image="ui-icon-wrench"
+				title="#{_bm.get('field.edit')}" immediate="true"
+				update="inputComponents ${cc.attrs.update}" style="float:right">
+				<p:resetInput target="inputComponents" />
+			</p:commandButton>
+		</p:outputPanel>
+
+		<p:outputPanel
+			rendered="#{cc.isCollectionValued() and cc.showDefaultField()}">
+			<ul class="readOnly">
+				<ui:repeat var="itm"
+					value="#{cc.mapReadOnlyCollection(cc.toCollection(cc.attrs.inheritedDefault))}">
+					<li><i><h:outputText value="#{itm}"
+								converter="#{converter}" /></i></li>
+				</ui:repeat>
+			</ul>
+
+			<p:commandButton actionListener="#{cc.doEdit}" image="ui-icon-wrench"
+				title="#{_bm.get('field.edit')}" immediate="true"
+				update="inputComponents ${cc.attrs.update}" style="float:right">
+				<p:resetInput target="inputComponents" />
+			</p:commandButton>
+		</p:outputPanel>
+	</p:outputPanel>
+
+	<p:message rendered="${not empty cc.attrs.inputId}"
+		for="${cc.attrs.inputId}" />
+
+
+</composite:implementation>
+</html>

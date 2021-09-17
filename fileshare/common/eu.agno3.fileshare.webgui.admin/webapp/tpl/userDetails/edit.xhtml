@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:shiro="http://shiro.ops4j.org/tags">
+
+	<p:fieldset styleClass="func-unit"
+		legend="#{_fs_adm_msg['detail.personalAttributesTitle']}">
+		<ag:simpleField
+			label="#{_fs_adm_msg['detail.fields.preferredName.label']}"
+			inputId="preferredName"
+			readOnly="#{readOnly or (not administrative and userDetails.preferredNameVerified)}"
+			value="#{userDetails.preferredName}"
+			description="#{_fs_adm_msg['detail.fields.preferredName.description']}">
+			<p:inputText id="preferredName" value="#{userDetails.preferredName}" />
+
+			<p:commandLink disabled="#{not administrative}"
+				rendered="#{not userDetails.preferredNameVerified}"
+				title="#{_fs_adm_msg['detail.unverified']}" update="@parent"
+				action="#{app_fs_adm_userDetailsBean.togglePreferredNameVerified(userDetails)}"
+				process="@composite:@parent"
+				style="vertical-align: middle"
+				styleClass="ui-icon ui-icon-inline ui-icon-help" />
+			<p:commandLink disabled="#{not administrative}" update="@parent"
+				action="#{app_fs_adm_userDetailsBean.togglePreferredNameVerified(userDetails)}"
+				rendered="#{userDetails.preferredNameVerified}"
+				process="@composite:@parent"
+				title="#{_fs_adm_msg['detail.verified']}"
+				style="vertical-align: middle"
+				styleClass="ui-icon ui-icon-inline ui-icon-check" />
+		</ag:simpleField>
+
+		<ag:simpleField label="#{_fs_adm_msg['detail.fields.email.label']}"
+			inputId="mailAddress"
+			description="#{_fs_adm_msg['detail.fields.email.description']}"
+			readOnly="#{readOnly or readOnlyMail or (not administrative and userDetails.mailAddressVerified)}"
+			value="#{userDetails.mailAddress}">
+			<p:inputText id="mailAddress" value="#{userDetails.mailAddress}" />
+
+			<p:commandLink disabled="#{not administrative}"
+				rendered="#{not userDetails.mailAddressVerified}"
+				title="#{_fs_adm_msg['detail.unverified']}" update="@parent"
+				process="@composite:@parent"
+				action="#{app_fs_adm_userDetailsBean.toggleMailAddressVerified(userDetails)}"
+				style="vertical-align: middle"
+				styleClass="ui-icon ui-icon-inline ui-icon-help" />
+			<p:commandLink disabled="#{not administrative}"
+				action="#{app_fs_adm_userDetailsBean.toggleMailAddressVerified(userDetails)}"
+				process="@composite:@parent"
+				update="@parent" rendered="#{userDetails.mailAddressVerified}"
+				style="vertical-align: middle"
+				title="#{_fs_adm_msg['detail.verified']}"
+				styleClass="ui-icon ui-icon-inline ui-icon-check" />
+		</ag:simpleField>
+
+		<ag:simpleField
+			label="#{_fs_adm_msg['detail.fields.salutationName.label']}"
+			inputId="salutationName"
+			description="#{_fs_adm_msg['detail.fields.salutationName.description']}"
+			readOnly="#{readOnly}" value="#{userDetails.salutationName}">
+			<p:inputText id="salutationName"
+				value="#{userDetails.salutationName}" />
+		</ag:simpleField>
+	</p:fieldset>
+
+	<p:fieldset styleClass="func-unit"
+		legend="#{_fs_adm_msg['detail.organizationAttributesTitle']}"
+		rendered="#{not empty user and not app_fs_adm_usersTableBean.isLocalUser(user)}">
+		<ag:simpleField label="#{_fs_adm_msg['detail.fields.jobTitle.label']}"
+			description="#{_fs_adm_msg['detail.fields.jobTitle.description']}"
+			rendered="#{not empty userDetails.jobTitle}" readOnly="true"
+			value="#{userDetails.jobTitle}" />
+
+		<ag:simpleField
+			label="#{_fs_adm_msg['detail.fields.organization.label']}"
+			description="#{_fs_adm_msg['detail.fields.organization.description']}"
+			readOnly="true" value="#{userDetails.organization}"
+			rendered="#{not empty userDetails.organization}" />
+
+		<ag:simpleField
+			label="#{_fs_adm_msg['detail.fields.organizationUnit.label']}"
+			description="#{_fs_adm_msg['detail.fields.organizationUnit.description']}"
+			readOnly="true" rendered="#{not empty userDetails.organizationUnit}"
+			value="#{userDetails.organizationUnit}" />
+	</p:fieldset>
+
+</ui:composition>

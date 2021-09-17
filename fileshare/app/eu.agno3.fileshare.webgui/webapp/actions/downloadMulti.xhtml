@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	template="/tpl/common/dialog.xhtml">
+
+	<ui:param name="title" value="#{_msgs['actions.downloadMulti.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="token" value="#{userTokenBean.token}"
+				required="false" />
+			<f:viewParam name="grant"
+				value="#{grantSelectionBean.encodedSingleSelection}"
+				required="false" />
+			<f:viewParam name="files"
+				value="#{urlFileSelectionBean.encodedMultiSelection}"
+				required="true" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form" method="POST" enctype="multipart/form-data">
+			<ag:dialogContextHolder />
+
+			<input type="hidden" name="token" value="#{userTokenBean.token}" />
+
+			<p:hotkey bind="esc" action="#{dialog.close}" immediate="true" />
+			<p:messages autoUpdate="true" />
+
+			<p:focus />
+
+			<p:fieldset styleClass="func-unit"
+				legend="#{_msgs['actions.downloadMulti.title']}">
+
+				<div class="download-type">
+					<ag:simpleField
+						label="#{_msgs['actions.downloadMulti.numEntities.label']}"
+						description="#{_msgs['actions.downloadMulti.numEntities.description']}"
+						readOnly="true"
+						value="#{urlFileSelectionBean.multiSelection.size()}" />
+
+					<ag:simpleField
+						label="#{_msgs['actions.downloadMulti.archiveType.label']}"
+						description="#{_msgs['actions.downloadMulti.archiveType.description']}"
+						inputId="archiveType">
+						<p:selectOneMenu id="archiveType"
+							value="#{archiveTypeBean.archiveType}" required="true">
+							<p:ajax event="change" update="@form" />
+							<f:selectItems value="#{archiveTypeBean.archiveTypes}" var="at"
+								itemValue="#{at}"
+								itemLabel="#{archiveTypeBean.translateArchiveType(at)}" />
+						</p:selectOneMenu>
+					</ag:simpleField>
+				</div>
+
+				<h:outputText styleClass="download-started" style="display: none"
+					value="#{_msgs['actions.downloadMulti.downloadStarted']}" />
+			</p:fieldset>
+
+			<p:defaultCommand target="downloadDirectoryButton" />
+
+			<div class="buttons">
+				<p:commandButton id="downloadDirectoryButton"
+					value="#{_msgs['actions.downloadMulti.confirm']}"
+					icon="ui-icon ui-icon-arrowreturnthick-1-s"
+					onclick="$(this).hide();
+								$(this).closest('fieldset').find('.download-type').hide();
+								$(this).closest('fieldset').find('.download-started').css('display', 'block');"
+					action="#{fileDownloadController.downloadAll(urlFileSelectionBean, archiveTypeBean.archiveType, grantSelectionBean.singleSelection, userTokenBean)}"
+					styleClass="download-link" style="display: inline-block">
+				</p:commandButton>
+
+				<p:commandButton immediate="true" action="#{dialog.close}"
+					value="#{dialog.closeLabel}" styleClass="close-button inline"
+					icon="#{dialog.closeIcon}" title="#{dialog.closeDescription}" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

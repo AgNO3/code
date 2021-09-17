@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/tpl/common/template.xhtml">
+	<ui:param name="subtitle"
+		value="#{msgs.formatEL('config.template.add.titleFmt', structureViewContext.selectedObject.displayName)}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="anchor"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="templateAddForm">
+			<p:messages autoUpdate="true" showDetail="true" />
+
+			<p:fieldset
+				label="#{msgs.formatEL('config.template.add.titleFmt', structureViewContext.selectedObject.displayName)}">
+				<ag:simpleField inputId="objectType"
+					label="#{_gui['config.template.add.objectType.label']}"
+					description="#{_gui['config.template.add.objectType.description']}">
+					<p:tree value="#{objectTypeProvider.objectTypeTree}"
+						id="objectType" var="objectType" required="true"
+						selectionMode="single"
+						selection="#{templateAddContext.objectTypeName}">
+						<p:treeNode expandedIcon="ui-icon-folder-open"
+							collapsedIcon="ui-icon-folder-collapsed">
+							<h:outputText
+								value="#{configLocalizationProvider.getTypeName(objectType)}" />
+						</p:treeNode>
+					</p:tree>
+				</ag:simpleField>
+
+				<div class="buttons">
+					<p:commandButton icon="ui-icon-pencil"
+						action="#{templateController.configureTemplate(structureViewContext.selectedObject, templateAddContext.objectTypeName)}"
+						value="#{_gui['config.template.add.confirm']}" />
+
+					<p:commandButton immediate="true" icon="ui-icon-cancel"
+						action="#{structureUtil.getOutcomeForObjectOverview(structureViewContext.selectedObject)}"
+						value="#{_gui['config.template.add.cancel']}" />
+				</div>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

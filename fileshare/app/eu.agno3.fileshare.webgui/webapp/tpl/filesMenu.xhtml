@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:shiro="http://shiro.ops4j.org/tags"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0">
+	<p:outputPanel id="menuPanel">
+		<ul>
+			<ui:fragment
+				rendered="#{not currentUserBean.isAuthenticated() and not empty rootGrant and fileDisplayBean.isDirectory(rootGrant.entity)}">
+				<li
+					class="#{navigationController.getSelectedClassIf(empty fileRootSelectionBean.selectedRootType or fileRootSelectionBean.selectedRootType == 'share-root')}">
+					<div class="hover-shade-background">
+						<p:commandLink title="#{_msgs['menu.shared.description']}"
+							styleClass="menu-item"
+							action="#{navigationController.shareRootFiles(rootGrant)}">
+
+							<span class="ui-icon ui-icon-inline ui-icon-folder-open" />
+							<h:outputText value="#{_msgs['menu.shared.title']}" />
+						</p:commandLink>
+					</div>
+				</li>
+			</ui:fragment>
+			<ui:fragment rendered="#{currentUserBean.isAuthenticated()}">
+				<ui:fragment rendered="#{not empty fileRootSelectionBean.userRoot}">
+					<li
+						class="#{navigationController.getSelectedClassIf(empty fileRootSelectionBean.selectedRootType or fileRootSelectionBean.selectedRootType == 'user-root')}">
+						<div
+							class="hover-shade-background ui-droppable no-drag drop-target"
+							data-id="#{fileRootSelectionBean.userRoot.entityKey}"
+							data-type="user-root">
+							<p:commandLink title="#{fileTreeBean.rootDescription}"
+								styleClass="menu-item" action="#{navigationController.files}">
+								<span class="ui-icon ui-icon-inline ui-icon-folder-open" />
+								<h:outputText value="#{fileTreeBean.rootTitle}" />
+							</p:commandLink>
+						</div>
+					</li>
+				</ui:fragment>
+
+				<li
+					class="#{navigationController.getSelectedClassIf(fileRootSelectionBean.selectedRootType == 'all-shared')}"><div
+						class="hover-shade-background">
+						<p:commandLink title="#{_msgs['menu.allshared.description']}"
+							action="#{navigationController.allSharedFiles}"
+							styleClass="menu-item">
+
+							<span class="ui-icon ui-icon-inline ui-icon-share" />
+							<h:outputText value="#{_msgs['menu.allshared.title']}" />
+						</p:commandLink>
+					</div></li>
+
+				<li>
+					<div
+						class="hover-shade-background #{navigationController.getSelectedClassIf((fileRootSelectionBean.selectedRootType == 'groups-root' or 
+						fileRootSelectionBean.selectedRootType == 'group-root') and not userFavoritesBean.isSubjectFavorite(fileRootSelectionBean.selectedRootContainer.owner))}">
+						<p:commandLink title="#{_msgs['menu.groups.description']}"
+							disabled="#{not currentUserMembershipBean.haveAnyGroups()}"
+							styleClass="menu-item" action="#{navigationController.groups}">
+
+							<span class="ui-icon ui-icon-inline ui-icon-groups" />
+							<h:outputText value="#{_msgs['menu.groups.title']}" />
+						</p:commandLink>
+					</div> <ui:fragment
+						rendered="#{not empty shortcutBean.memberGroupFavorites}">
+						<ul>
+							<ui:repeat value="#{shortcutBean.memberGroupFavorites}"
+								var="shortcut">
+
+								<li
+									class="#{navigationController.getSelectedClassIf(navigationController.isShortcutSelected(shortcut))}">
+									<div
+										class="hover-shade-background ui-droppable no-drag drop-target"
+										data-id="#{shortcut.targetId}" data-type="group-root">
+										<p:commandLink styleClass="menu-item"
+											action="#{navigationController.shortcut(shortcut)}">
+											<span class="ui-icon ui-icon-inline ui-icon-group" />
+											<h:outputText value="#{shortcut.label}" />
+										</p:commandLink>
+
+										<p:commandLink title="#{_msgs['files.unshortcut.title']}"
+											styleClass="remove-shortcut"
+											action="#{navigationController.removeShortcut(shortcut)}">
+											<!-- 
+											-->
+											<span class="ui-icon ui-icon-inline ui-icon-close " />
+										</p:commandLink>
+
+									</div>
+								</li>
+							</ui:repeat>
+						</ul>
+					</ui:fragment>
+				</li>
+
+
+				<li><div
+						class="hover-shade-background #{navigationController.getSelectedClassIf((fileRootSelectionBean.selectedRootType == 'peers-root' 
+					or fileRootSelectionBean.selectedRootType == 'share-root') and not 
+					navigationController.isPeerFavoriteSelected())}">
+						<p:commandLink title="#{_msgs['menu.peers.description']}"
+							action="#{navigationController.peers}" styleClass="menu-item">
+							<span class="ui-icon ui-icon-inline ui-icon-person" />
+							<h:outputText value="#{_msgs['menu.peers.title']}" />
+						</p:commandLink>
+					</div> <ui:fragment rendered="#{not empty shortcutBean.peerFavorites}">
+						<ul>
+							<ui:repeat value="#{shortcutBean.peerFavorites}" var="shortcut">
+								<li
+									class="hover-shade-background #{navigationController.getSelectedClassIf(navigationController.isShortcutSelected(shortcut))}"><div>
+										<p:commandLink
+											action="#{navigationController.shortcut(shortcut)}"
+											styleClass="menu-item">
+											<span
+												class="ui-icon ui-icon-inline #{shortcutBean.getIcon(shortcut)}" />
+											<h:outputText value="#{shortcutBean.getLabel(shortcut)}" />
+										</p:commandLink>
+										<p:commandLink title="#{_msgs['files.unshortcut.title']}"
+											styleClass="remove-shortcut"
+											action="#{navigationController.removeShortcut(shortcut)}">
+											<!-- 
+											-->
+											<span class="ui-icon ui-icon-inline ui-icon-close" />
+										</p:commandLink>
+									</div></li>
+							</ui:repeat>
+						</ul>
+					</ui:fragment></li>
+
+
+
+				<li><div
+						class="hover-shade-background #{navigationController.getSelectedClassIf(fileRootSelectionBean.selectedRootType == 'favorites')}">
+						<p:commandLink title="#{_msgs['menu.favorites.description']}"
+							action="#{navigationController.favorites}" styleClass="menu-item">
+							<span class="ui-icon ui-icon-inline ui-icon-star" />
+							<h:outputText value="#{_msgs['menu.favorites.title']}" />
+						</p:commandLink>
+					</div> <ui:fragment rendered="#{not empty shortcutBean.entityFavorites}">
+						<ul>
+							<ui:repeat value="#{shortcutBean.firstEntityFavorites}"
+								var="shortcut">
+								<li class="hover-shade-background"><div
+										class="ui-droppable no-drag drop-target"
+										data-id="#{shortcut.targetId}" data-type="dir">
+										<p:commandLink styleClass="menu-item"
+											action="#{navigationController.shortcut(shortcut)}">
+											<span class="ui-icon ui-icon-inline ui-icon-folder-open" />
+											<h:outputText value="#{shortcut.label}" />
+										</p:commandLink>
+									</div></li>
+							</ui:repeat>
+						</ul>
+					</ui:fragment></li>
+
+				<shiro:hasPermission name="manage:subjects:list">
+					<li><div class="hover-shade-background">
+							<p:commandLink title="#{_msgs['menu.admin.description']}"
+								styleClass="menu-item"
+								action="#{navigationController.userManagement}">
+								<span class="ui-icon ui-icon-inline ui-icon-wrench" />
+								<h:outputText value="#{_msgs['menu.admin.title']}" />
+							</p:commandLink>
+						</div></li>
+				</shiro:hasPermission>
+			</ui:fragment>
+		</ul>
+	</p:outputPanel>
+</ui:composition>

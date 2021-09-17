@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.jobs.msg"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:job:1.0:msg">
+		<xml-ns prefix="m" namespace-uri="urn:agno3:message:1.0:base" />
+		<xml-ns prefix="jm" namespace-uri="urn:agno3:job:1.0:msg" />
+		<xml-ns prefix="j" namespace-uri="urn:agno3:job:1.0:base" />
+		<xml-ns prefix="user" namespace-uri="urn:agno3:security:1.0:principal" />
+	</xml-schema>
+
+	<java-types>
+
+		<java-type name="JobEvent" xml-accessor-type="NONE">
+
+			<xml-type name="jobEvent" />
+
+			<xml-root-element name="jobEvent" />
+
+			<java-attributes>
+				<xml-attribute name="jobId" java-attribute="jobId"
+					required="true">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.UUIDAdapter" />
+				</xml-attribute>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="JobKeepAliveEvent" xml-accessor-type="NONE">
+			<xml-type name="jobKeepAliveEvent" />
+
+			<xml-root-element name="jobKeepAliveEvent" />
+
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="JobProgressEvent" xml-accessor-type="NONE">
+			<xml-type name="jobProgressEvent" />
+
+			<xml-root-element name="jobProgressEvent" />
+
+			<java-attributes>
+				<xml-element name="progressInfo" java-attribute="progressInfo" required="true" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="JobStateUpdatedEvent" xml-accessor-type="NONE">
+			<xml-type name="jobStateEvent" />
+
+			<xml-root-element name="jobStateEvent" />
+
+			<java-attributes>
+				<xml-element name="info" java-attribute="jobInfo"
+					required="true" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="JobCoordinatorRequestMessage"
+			xml-accessor-type="NONE">
+			<xml-type name="jobRequest" />
+
+			<xml-root-element name="jobRequest" />
+
+			<java-attributes>
+				<xml-attribute name="jobId" java-attribute="jobId"
+					required="true">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.UUIDAdapter" />
+				</xml-attribute>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="JobQueueRequestMessage" xml-accessor-type="NONE">
+			<xml-type name="jobQueueRequest" />
+
+			<xml-root-element name="jobQueueRequest" />
+
+			<java-attributes>
+				<xml-element name="job" java-attribute="job" required="true" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="JobCancelRequestMessage" xml-accessor-type="NONE">
+			<xml-type name="jobCancelRequest" />
+
+			<xml-root-element name="jobCancelRequest" />
+
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="JobInfoRequestMessage" xml-accessor-type="NONE">
+			<xml-type name="jobInfoRequest" />
+
+			<xml-root-element name="jobInfoRequest" />
+
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="JobInfoReplyMessage" xml-accessor-type="NONE">
+			<xml-type name="jobInfoReply" />
+
+			<xml-root-element name="jobInfoReply" />
+
+			<java-attributes>
+				<xml-element name="info" java-attribute="jobInfo"
+					required="true" />
+			</java-attributes>
+		</java-type>
+	</java-types>
+
+</xml-bindings>

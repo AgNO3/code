@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.console.internal.ConsoleFactoryImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.console.ConsoleFactory"/>
+    </service>
+    <reference name="CommandProcessor" interface="eu.agno3.runtime.console.internal.DynamicCommandProcessor" cardinality="1..1" policy="static" bind="setCommandProcessor" unbind="unsetCommandProcessor"/>
+    <reference name="ConsoleConfiguration" interface="eu.agno3.runtime.console.ConsoleConfiguration" cardinality="1..1" policy="dynamic" bind="setConsoleConfiguration" unbind="unsetConsoleConfiguration" policy-option="greedy"/>
+    <implementation class="eu.agno3.runtime.console.internal.ConsoleFactoryImpl"/>
+</scr:component>

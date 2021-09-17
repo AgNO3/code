@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.bootstrap"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED" namespace="urn:agno3:bootstrap:1.0">
+		<xml-ns prefix="bc" namespace-uri="urn:agno3:bootstrap:1.0" />
+		<xml-ns prefix="hc" namespace-uri="urn:agno3:model:1.0:hostconfig" />
+		<xml-ns prefix="orchc" namespace-uri="urn:agno3:model:1.0:orchconfig" />
+		<xml-ns prefix="cmb" namespace-uri="urn:agno3:model:1.0:base" />
+		<xml-ns prefix="cmr" namespace-uri="urn:agno3:model:1.0:realm" />
+	</xml-schema>
+
+	<java-types>
+
+		<java-type name="BootstrapContext" xml-accessor-type="NONE">
+			<xml-type name="bootstrapContext" />
+
+			<xml-root-element name="bootstrapContext" />
+
+			<java-attributes>
+				<xml-element name="instance" java-attribute="instance" />
+				<xml-element name="hostService" java-attribute="hostConfigService" />
+				<xml-element name="orchService" java-attribute="orchConfigService" />
+
+				<xml-element name="hostConfig" java-attribute="hostConfig"
+					required="false" />
+				<xml-element name="orchConfig" java-attribute="orchConfig"
+					required="false" />
+
+				<xml-element name="requirePasswordChange"
+					java-attribute="requirePasswordChange" />
+				<xml-element name="minimumPasswordEntropy"
+					java-attribute="minimumPasswordEntropy" />
+
+				<xml-element name="changeAdminPassword" java-attribute="changeAdminPassword"
+					required="false" />
+			</java-attributes>
+		</java-type>
+
+	</java-types>
+
+</xml-bindings>

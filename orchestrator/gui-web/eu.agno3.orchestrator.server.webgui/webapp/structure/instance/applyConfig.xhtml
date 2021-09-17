@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0"
+	template="/tpl/structure/instance/template.xhtml">
+
+	<ui:param name="subtitle"
+		value="#{_gui['structure.instance.applyConfig.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="instance"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+			<f:event listener="#{instanceConfigApplyContextBean.init}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="configApplyForm" enctype="multipart/form-data">
+
+			<p:messages autoUpdate="true" showDetail="true" />
+
+			<p:blockUI widgetVar="block" block="configApplyForm" />
+			
+			<ui:include src="/tpl/config/applyInfo.xhtml">
+				<ui:param name="applyContext" value="#{instanceConfigApplyContextBean}" />
+			</ui:include>
+
+			<p:fieldset id="saveButtons">
+				<div class="buttons">
+					<p:commandButton id="applyConfig" image="ui-icon-gear"
+						disabled="#{not instanceConfigApplyBean.canApply}"
+						value="#{_gui['structure.service.config.apply']}"
+						action="#{instanceConfigApplyBean.apply(instanceConfigApplyContextBean)}">
+					</p:commandButton>
+
+
+					<p:commandButton id="cancel" icon="ui-icon-cancel" immediate="true"
+						action="#{structureUtil.getOutcomeForObjectOverview(structureViewContext.selectedInstance)}"
+						value="#{_gui['config.applyDialog.cancel']}" />
+				</div>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

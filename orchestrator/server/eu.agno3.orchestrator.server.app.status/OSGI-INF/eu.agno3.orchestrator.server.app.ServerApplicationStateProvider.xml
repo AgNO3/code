@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.orchestrator.server.app.ServerApplicationStateProvider">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.update.ApplicationStateProvider"/>
+    </service>
+    <reference name="ServerContext" interface="eu.agno3.orchestrator.config.model.base.server.context.DefaultServerServiceContext" cardinality="0..1" policy="static" bind="bindServerContext" unbind="unbindServerContext" policy-option="greedy"/>
+    <reference name="LicenseService" interface="eu.agno3.runtime.update.LicensingService" cardinality="0..1" policy="static" bind="bindLicenseService" unbind="unbindLicenseService" policy-option="greedy"/>
+    <reference name="WebServiceEndpoint" interface="eu.agno3.runtime.ws.server.WebserviceEndpointInfo" cardinality="0..1" policy="static" bind="bindWebServiceEndpoint" unbind="unbindWebServiceEndpoint" policy-option="greedy"/>
+    <reference name="ManagementWebapp" interface="eu.agno3.runtime.http.service.ActiveHandler" cardinality="0..1" policy="static" target="(handler.id=eu.agno3.orchestrator.server.webgui)" bind="bindManagementWebapp" unbind="unbindManagementWebapp" policy-option="greedy"/>
+    <reference name="AuthWebapp" interface="eu.agno3.runtime.http.service.ActiveHandler" cardinality="0..1" policy="static" target="(handler.id=eu.agno3.orchestrator.server.auth.webapp)" bind="bindAuthWebapp" unbind="unbindAuthWebapp" policy-option="greedy"/>
+    <implementation class="eu.agno3.orchestrator.server.app.ServerApplicationStateProvider"/>
+</scr:component>

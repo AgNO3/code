@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.config.model.realm.service.jobs.ResourceLibraryTrackingRunnableBuilder">
+    <property name="jobType" value="eu.agno3.orchestrator.config.model.jobs.ResourceLibraryTrackingJob"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.jobs.exec.JobRunnableFactory"/>
+    </service>
+    <reference name="ResourceLibraryService" interface="eu.agno3.orchestrator.config.model.realm.server.service.ResourceLibraryServerService" cardinality="1..1" policy="static" bind="setResourceLibraryService" unbind="unsetResourceLibraryService"/>
+    <implementation class="eu.agno3.orchestrator.config.model.realm.service.jobs.ResourceLibraryTrackingRunnableBuilder"/>
+</scr:component>

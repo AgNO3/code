@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0"
+	template="/tpl/structure/group/template.xhtml">
+	<ui:param name="groupSubtitle"
+		value="#{_gui['structure.instance.add.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="parent"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<p:messages showDetail="false" autoUpdate="true" />
+
+			<p:fieldset legend="#{_gui['structure.instance.add.title']}">
+				<ag:simpleField label="#{_gui['structure.instance.add.parent']}"
+					readOnly="true" value="#{structureViewContext.selectedDisplayName}" />
+
+
+				<ag:simpleField inputId="attachTo"
+					label="#{_gui['structure.instance.add.attachToAgent']}">
+					<p:selectOneMenu id="attachTo"
+						value="#{instanceAdd.selectedAgentId}">
+						<p:ajax update="@composite:@parent:agentSelection" />
+						<f:selectItem
+							itemLabel="#{_gui['structure.instance.add.selectAttachAgent']}"
+							noSelectionOption="true" />
+						<f:selectItems value="#{instanceAdd.detachedAgents}"
+							var="agentInfo" itemValue="#{agentInfo.componentId}"
+							itemLabel="#{msgs.formatEL('structure.instance.add.agentFormat', instanceAdd.getHostNameOrAddress(agentInfo), agentInfo.imageType)}" />
+					</p:selectOneMenu>
+				</ag:simpleField>
+
+				<p:outputPanel id="agentSelection">
+					<ag:simpleField inputId="instanceName"
+						label="#{_gui['structure.instance.add.name']}">
+						<p:inputText id="instanceName" required="true"
+							value="#{instanceAdd.hostDisplayName}" />
+					</ag:simpleField>
+
+					<ag:simpleField inputId="imageType"
+						onlyIf="#{empty instanceAdd.selectedAgentId or empty instanceAdd.selectedAgent.imageType}"
+						label="#{_gui['structure.instance.add.imageType']}">
+						<p:selectOneMenu id="imageType" required="true"
+							value="#{instanceAdd.newInstance.imageType}">
+							<f:selectItems value="#{instanceAdd.imageTypes}" var="imageType"
+								itemValue="#{imageType}"
+								itemLabel="#{structureUtil.getImageTypeDisplayName(imageType)}" />
+						</p:selectOneMenu>
+					</ag:simpleField>
+				</p:outputPanel>
+			</p:fieldset>
+
+			<div class="buttons">
+				<p:commandButton action="#{instanceAddController.add}"
+					value="#{_gui['structure.instance.add.label']}" icon="ui-icon-plus"
+					includeViewParams="true" />
+
+				<p:commandButton icon="ui-icon-cancel" styleClass="close-button"
+					immediate="true" value="#{_gui['structure.instance.add.cancel']}"
+					action="#{structureUtil.getOutcomeForObjectOverview(structureViewContext.selectedObject)}" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

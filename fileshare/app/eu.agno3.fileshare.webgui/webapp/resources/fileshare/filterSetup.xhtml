@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough">
+
+<composite:interface>
+	<composite:attribute name="update" />
+</composite:interface>
+
+<composite:implementation>
+	<div class="${cc.attrs.styleClass} filter"
+		style="display: inline-block;">
+		<p:inputText rendered="#{fileTreeBean.singleLevel}"
+			styleClass="filter-input" id="filterInput"
+			style="margin-right: -10px" value="#{treeFilterBean.filter}"
+			onkeypress="AgNO3FileUpload.onFilterChange(this, event)"
+			onchange="AgNO3FileUpload.onFilterChange(this, event)"
+			onclick="AgNO3FileUpload.onFilterChange(this, event)" />
+
+		<p:watermark rendered="#{fileTreeBean.singleLevel}" for="filterInput"
+			value="#{_msgs['filter.watermark']}" />
+
+		<p:commandLink styleClass="ui-icon ui-icon-inline ui-icon-close"
+			style="vertical-align: baseline; position:relative; left: -12px"
+			title="#{_msgs['filter.clear']}"
+			action="#{treeFilterBean.resetFilter}"
+			rendered="#{fileTreeBean.singleLevel}" update="${cc.attrs.update}" />
+
+		<p:remoteCommand name="updateFilter" process="filterInput"
+			action="#{fileTreeBean.refresh()}"
+			oncomplete="AgNO3FileUpload.afterFilterChange(this)"
+			update="#{cc.attrs.update}" />
+
+
+		<p:selectOneMenu styleClass="filter-selection"
+			style="display: inline-block;" value="#{treeFilterBean.filterMode}">
+			<f:selectItems
+				value="#{treeFilterBean.getModes(fileRootSelectionBean.rootContainer)}"
+				var="mode" itemValue="#{mode.name()}"
+				itemLabel="#{treeFilterBean.translateMode(mode)}" />
+
+			<p:ajax event="change" listener="#{fileTreeBean.refresh()}"
+				update="${cc.attrs.update}" />
+		</p:selectOneMenu>
+	</div>
+</composite:implementation>
+</html>
+

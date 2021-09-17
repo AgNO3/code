@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.fileshare.service.audit.internal.NoAuditReaderService" configuration-policy="require" configuration-pid="audit.reader.none">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.service.AuditReaderService"/>
+    </service>
+    <implementation class="eu.agno3.fileshare.service.audit.internal.NoAuditReaderService"/>
+</scr:component>

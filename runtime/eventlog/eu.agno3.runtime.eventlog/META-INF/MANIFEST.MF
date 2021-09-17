@@ -1,0 +1,34 @@
+Bundle-SymbolicName: eu.agno3.runtime.eventlog
+Bundle-Version: 0.0.74
+Bundle-Name: Event Log
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: com.fasterxml.jackson.annotation;version="2.5.3",
+ com.fasterxml.jackson.core;version="2.5.3",
+ com.fasterxml.jackson.core.type;version="2.5.3",
+ com.fasterxml.jackson.databind;version="2.5.3",
+ com.fasterxml.jackson.datatype.joda;version="2.5.3",
+ eu.agno3.runtime.util.config;version="0.0.32",
+ eu.agno3.runtime.util.ip;version="0.0.76",
+ eu.agno3.runtime.util.osgi;version="0.0.8",
+ eu.agno3.runtime.util.threads;version="0.0.100",
+ eu.agno3.runtime.xml.binding.adapter.map;version="0.0.50";resolution:=optional,
+ org.apache.commons.codec.binary;version="1.10.0",
+ org.apache.commons.collections4;version="4.0.0",
+ org.apache.commons.io;version="2.4.0",
+ org.apache.commons.io.filefilter;version="2.4.0",
+ org.apache.commons.lang3;version="3.3.2",
+ org.apache.log4j;version="1.2.15",
+ org.joda.time;version="2.7.0",
+ org.joda.time.base;version="2.7.0",
+ org.joda.time.field;version="2.7.0",
+ org.joda.time.format;version="2.7.0",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.osgi.util.tracker;version="1.5.1"
+Service-Component: OSGI-INF/*.xml
+Bundle-ActivationPolicy: lazy
+Export-Package: eu.agno3.runtime.eventlog;version="0.0.74",
+ eu.agno3.runtime.eventlog.impl;version="0.0.74"

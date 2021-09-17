@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="agent-orchconfig-feature"
+      label="Orchestrator Agent Orchestrator Configuration Feature"
+      version="0.0.1.qualifier"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <includes
+         id="orchconfig-feature"
+         version="0.0.0"/>
+
+   <requires>
+      <import feature="agent-system-feature" version="0.0.1.qualifier"/>
+      <import feature="agent-hostconfig-feature" version="0.0.1.qualifier"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.orchestrator.config.orchestrator.agent"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

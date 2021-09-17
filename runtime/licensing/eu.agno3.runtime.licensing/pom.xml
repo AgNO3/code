@@ -1,0 +1,23 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.runtime</groupId>
+    <artifactId>licensing</artifactId>
+    <version>0.0.58</version>
+  </parent>
+  <artifactId>eu.agno3.runtime.licensing</artifactId>
+  <packaging>eclipse-plugin</packaging>
+  <name>Licensing</name>
+  <properties>
+  	<maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
+	<buildDate>${maven.build.timestamp}</buildDate>
+  </properties>
+  <build>
+  <resources>
+	  <resource>
+	  <directory>src/main/resources</directory>
+	  <filtering>true</filtering>
+	  </resource>
+  </resources>
+  </build>
+</project>

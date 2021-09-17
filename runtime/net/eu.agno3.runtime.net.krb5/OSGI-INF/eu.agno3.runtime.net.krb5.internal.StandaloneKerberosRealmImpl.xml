@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.net.krb5.internal.StandaloneKerberosRealmImpl" configuration-policy="require" activate="activate" deactivate="deactivate" modified="modified" configuration-pid="krb.standalone">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.net.krb5.KerberosRealm"/>
+    </service>
+    <reference name="KerberosConfig" interface="eu.agno3.runtime.net.krb5.internal.KerberosConfig" cardinality="1..1" policy="static" bind="setKerberosConfig" unbind="unsetKerberosConfig"/>
+    <implementation class="eu.agno3.runtime.net.krb5.internal.StandaloneKerberosRealmImpl"/>
+</scr:component>

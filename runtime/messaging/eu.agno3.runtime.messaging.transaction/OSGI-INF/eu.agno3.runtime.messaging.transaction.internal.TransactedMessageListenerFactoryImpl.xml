@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.runtime.messaging.transaction.internal.TransactedMessageListenerFactoryImpl" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.messaging.listener.MessageListenerFactory"/>
+    </service>
+    <reference name="TransactionService" interface="eu.agno3.runtime.transaction.TransactionService" cardinality="1..1" policy="static" bind="setTransactionService" unbind="unsetTransactionService"/>
+    <reference name="ConnectionFactory" interface="javax.jms.ConnectionFactory" cardinality="1..1" policy="static" bind="bindConnectionFactory" unbind="unbindConnectionFactory"/>
+    <implementation class="eu.agno3.runtime.messaging.transaction.internal.TransactedMessageListenerFactoryImpl"/>
+</scr:component>

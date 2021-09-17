@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough" template="/tpl/common/dialog.xhtml">
+
+	<ui:param name="title"
+		value="#{_msgs['actions.createDirectory.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="dir"
+				value="#{urlFileSelectionBean.encodedSingleSelection}"
+				required="false" />
+			<f:viewParam name="token" value="#{userTokenBean.token}"
+				required="false" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form" method="POST" enctype="multipart/form-data">
+			<ag:dialogContextHolder />
+
+			<p:hotkey bind="esc" action="#{dialog.close}" immediate="true" />
+			<p:messages autoUpdate="true" />
+
+			<p:focus />
+
+			<input type="hidden" name="token" value="#{userTokenBean.token}" />
+
+			<p:fieldset styleClass="func-unit"
+				legend="#{_msgs['actions.createDirectory.title']}">
+				<ag:simpleField
+					label="#{_msgs['actions.createDirectory.targetDirectory.label']}"
+					description="#{_msgs['actions.createDirectory.targetDirectory.description']}"
+					inputId="targetDirectory">
+					<h:outputText id="targetDirectory"
+						value="#{fileDisplayBean.getLocalDisplayName(urlFileSelectionBean.selectedEntity)}" />
+				</ag:simpleField>
+
+				<ag:simpleField
+					label="#{_msgs['actions.createDirectory.directoryName.label']}"
+					description="#{_msgs['actions.createDirectory.directoryName.description']}"
+					inputId="directoryName">
+					<p:inputText id="directoryName" required="true"
+						value="#{directoryCreateBean.directoryName}" />
+				</ag:simpleField>
+			</p:fieldset>
+
+			<p:defaultCommand target="createDirectoryButton" />
+
+			<div class="buttons">
+				<p:commandButton id="createDirectoryButton"
+					icon="ui-icon-folder-collapsed ui-icon-add-modifier"
+					action="#{directoryCreateController.create(urlFileSelectionBean.selectedEntity, directoryCreateBean)}"
+					value="#{_msgs['actions.createDirectory.confirm']}" />
+
+				<p:commandButton immediate="true" action="#{dialog.close}"
+					styleClass="close-button inline" icon="#{dialog.closeIcon}"
+					title="#{dialog.closeDescription}"
+					value="#{_msgs['actions.createDirectory.cancel']}" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

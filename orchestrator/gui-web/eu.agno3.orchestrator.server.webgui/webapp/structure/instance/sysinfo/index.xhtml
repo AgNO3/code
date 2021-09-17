@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0"
+	template="/tpl/structure/instance/template.xhtml">
+	<ui:param name="instanceSubtitle"
+		value="#{_gui['structure.instance.sysinfo.title']}" />
+
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="instance"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+
+			<f:event listener="#{agentSysInfoContext.init}" type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<orch:event
+				pattern="/instance/#{structureViewContext.selectedObjectId}/sysinfo_update">
+				console.log('Matched an event, refresh');
+				refresh();
+				</orch:event>
+
+			<p:remoteCommand name="refresh" delay="2000" ignoreAutoUpdate="true"
+				update="sysInfo" actionListener="#{agentSysInfoContext.refresh()}" />
+
+			<p:toolbar>
+				<f:facet name="right">
+					<p:commandButton icon="ui-icon-arrowrefresh-1-e" id="refreshButton"
+						title="#{_gui['structure.instance.sysinfo.refresh']}"
+						action="#{agentSysInfoContext.refreshInformation()}"
+						update="@form" />
+				</f:facet>
+			</p:toolbar>
+
+			<p:messages id="msgs" autoUpdate="true" />
+
+			<p:outputPanel id="sysInfo">
+				<p:tabView rendered="#{agentSysInfoContext.haveSystemInformation()}"
+					dynamic="true" cache="true">
+
+					<p:tab title="#{_gui['structure.instance.sysinfo.platform.title']}">
+						<ui:include src="/tpl/structure/instance/sysinfo/platform.xhtml" />
+					</p:tab>
+
+					<p:tab title="#{_gui['structure.instance.sysinfo.network.title']}">
+						<ui:include src="/tpl/structure/instance/sysinfo/network.xhtml" />
+					</p:tab>
+
+					<p:tab title="#{_gui['structure.instance.sysinfo.storage.title']}">
+						<ui:include src="/tpl/structure/instance/sysinfo/storage.xhtml" />
+					</p:tab>
+				</p:tabView>
+
+				<h:outputText
+					rendered="#{not agentSysInfoContext.haveSystemInformation()}"
+					value="#{_gui['structure.instance.sysinfo.unavailable']}" />
+			</p:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>

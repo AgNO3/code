@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.net.ad.internal.StandaloneADRealmImpl" configuration-policy="require" activate="activate" deactivate="deactivate" modified="modified" configuration-pid="ad.standalone">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.net.ad.ADRealm"/>
+        <provide interface="eu.agno3.runtime.net.krb5.KerberosRealm"/>
+        <provide interface="eu.agno3.runtime.ldap.client.LDAPClientFactory"/>
+    </service>
+    <reference name="KerberosConfig" interface="eu.agno3.runtime.net.krb5.internal.KerberosConfig" cardinality="1..1" policy="static" bind="setKerberosConfig" unbind="unsetKerberosConfig"/>
+    <reference name="LDAPClientBuilder" interface="eu.agno3.runtime.ldap.client.LDAPClientBuilder" cardinality="1..1" policy="static" bind="setLDAPClientBuilder" unbind="unsetLDAPClientBuilder"/>
+    <reference name="ADConnector" interface="eu.agno3.runtime.net.ad.ADConnector" cardinality="1..1" policy="static" bind="setADConnector" unbind="unsetADConnector"/>
+    <reference name="CIFSSetup" interface="eu.agno3.runtime.net.ad.internal.CIFSSetup" cardinality="1..1" policy="static" bind="setCIFSSetup" unbind="unsetCIFSSetup"/>
+    <reference name="CredentialUnwrapper" interface="eu.agno3.runtime.security.credentials.CredentialUnwrapper" cardinality="0..1" policy="dynamic" bind="setCredentialUnwrapper" unbind="unsetCredentialUnwrapper"/>
+    <reference name="SecureRandomProvider" interface="eu.agno3.runtime.crypto.random.SecureRandomProvider" cardinality="1..1" policy="static" bind="setSecureRandomProvider" unbind="unsetSecureRandomProvider"/>
+    <reference name="StateConfig" interface="eu.agno3.runtime.net.ad.internal.StandaloneADStateConfig" cardinality="1..1" policy="static" bind="setStateConfig" unbind="unsetStateConfig"/>
+    <implementation class="eu.agno3.runtime.net.ad.internal.StandaloneADRealmImpl"/>
+</scr:component>

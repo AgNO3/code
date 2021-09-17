@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.orchestrator.server</groupId>
+    <artifactId>server-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>server-parent</relativePath>
+  </parent>
+  <packaging>pom</packaging>
+  <name>Orchestrator/Server Maven Module</name>
+  <artifactId>server</artifactId>
+
+
+
+  <modules>
+  	<module>server-parent</module>
+  	<module>messaging-server</module>
+  	<module>agent-server</module>
+	<module>jobs-server</module>
+	<module>config-server</module>
+  	<module>server-runtime-feature</module>
+  	<module>eu.agno3.orchestrator.server.app</module>
+  	<module>gui-server</module>
+  	<module>server-base</module>
+  	<module>bootstrap-server</module>
+  	<module>server-security</module>
+  	<module>crypto-server</module>
+  	<module>eu.agno3.orchestrator.server.app.status</module>
+  </modules>
+  <dependencies>
+  	<dependency>
+  		<groupId>eu.agno3.orchestrator.common</groupId>
+  		<artifactId>common</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  		<type>pom</type>
+  	</dependency>
+  </dependencies>
+  <build>
+    <plugins>
+	<plugin>
+		<groupId>org.eclipse.tycho</groupId>
+		<artifactId>tycho-surefire-plugin</artifactId>
+		<configuration>
+			<systemProperties combine.children="append">
+				<ds.test.timeout>120</ds.test.timeout>
+			</systemProperties>
+		</configuration>
+	</plugin>
+    </plugins>
+  </build>
+
+</project>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="webdav-server-feature"
+      label="WebDAV Server Feature"
+      version="0.0.40"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <requires>
+      <import feature="deps-jackrabbit-webdav-feature" version="0.0.0"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.runtime.webdav.jcr-server-fragment"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.runtime.webdav.server"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

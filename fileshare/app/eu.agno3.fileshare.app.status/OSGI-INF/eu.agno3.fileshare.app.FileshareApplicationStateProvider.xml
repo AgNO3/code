@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.fileshare.app.FileshareApplicationStateProvider">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.update.ApplicationStateProvider"/>
+    </service>
+    <reference name="ServiceContext" interface="eu.agno3.fileshare.service.api.internal.DefaultServiceContext" cardinality="0..1" policy="static" bind="bindServiceContext" unbind="unbindServiceContext" policy-option="greedy"/>
+    <reference name="WebDAVServlet" interface="eu.agno3.fileshare.webdav.FileshareWebDAVServlet" cardinality="0..1" policy="static" bind="bindWebDAVServlet" unbind="unbindWebDAVServlet" policy-option="greedy"/>
+    <reference name="LicenseService" interface="eu.agno3.runtime.update.LicensingService" cardinality="0..1" policy="static" bind="bindLicenseService" unbind="unbindLicenseService" policy-option="greedy"/>
+    <reference name="FrontendConfig" interface="eu.agno3.fileshare.service.config.FrontendConfiguration" cardinality="0..1" policy="static" bind="bindFrontendConfig" unbind="unbindFrontendConfig" policy-option="greedy"/>
+    <reference name="Webapp" interface="eu.agno3.runtime.http.service.ActiveHandler" cardinality="0..1" policy="static" target="(handler.id=eu.agno3.fileshare.webgui)" bind="bindWebapp" unbind="unbindWebapp" policy-option="greedy"/>
+    <implementation class="eu.agno3.fileshare.app.FileshareApplicationStateProvider"/>
+</scr:component>

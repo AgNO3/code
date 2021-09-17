@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.config.hostconfig.agent.HostConfigJobBuilder">
+    <property name="jobType" value="eu.agno3.orchestrator.config.hostconfig.jobs.HostConfigurationJob"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.config.hostconfig.agent.HostConfigJobBuilder"/>
+        <provide interface="eu.agno3.orchestrator.jobs.exec.JobRunnableFactory"/>
+        <provide interface="eu.agno3.orchestrator.jobs.agent.system.ConfigJobBuilder"/>
+    </service>
+    <reference name="ConfigRepository" interface="eu.agno3.orchestrator.jobs.agent.system.ConfigRepository" cardinality="1..1" policy="static" bind="setConfigRepository" unbind="unsetConfigRepository"/>
+    <reference name="TemplateConfigBuilder" interface="eu.agno3.runtime.tpl.TemplateConfigurationBuilder" cardinality="1..1" policy="static" bind="setTemplateConfigBuilder" unbind="unsetTemplateConfigBuilder"/>
+    <reference name="RunnerFactory" interface="eu.agno3.orchestrator.system.base.execution.RunnerFactory" cardinality="1..1" policy="static" bind="setRunnerFactory" unbind="unsetRunnerFactory"/>
+    <reference name="ValidatorFactory" interface="javax.validation.ValidatorFactory" cardinality="1..1" policy="static" bind="setValidatorFactory" unbind="unsetValidatorFactory"/>
+    <reference name="ExecutionConfig" interface="eu.agno3.orchestrator.system.base.execution.ExecutionConfig" cardinality="1..1" policy="static" bind="setExecutionConfig" unbind="unsetExecutionConfig"/>
+    <reference name="SystemInfoContext" interface="eu.agno3.orchestrator.agent.system.info.BaseSystemInformationContext" cardinality="1..1" policy="static" bind="setSystemInfoContext" unbind="unsetSystemInfoContext"/>
+    <reference name="ServiceTypeRegistry" interface="eu.agno3.orchestrator.config.model.descriptors.ServiceTypeRegistry" cardinality="1..1" policy="static" bind="setServiceTypeRegistry" unbind="unsetServiceTypeRegistry"/>
+    <reference name="BaseSystemIntegration" interface="eu.agno3.orchestrator.config.hostconfig.agent.BaseSystemIntegration" cardinality="1..1" policy="static" bind="setBaseSystemIntegration" unbind="unsetBaseSystemIntegration"/>
+    <reference name="CryptoConfigJobBuilder" interface="eu.agno3.orchestrator.config.hostconfig.agent.CryptoConfigJobBuilder" cardinality="1..1" policy="static" bind="setCryptoConfigJobBuilder" unbind="unsetCryptoConfigJobBuilder"/>
+    <reference name="ObjectTypeRegistry" interface="eu.agno3.orchestrator.config.model.descriptors.ObjectTypeRegistry" cardinality="1..1" policy="static" bind="setObjectTypeRegistry" unbind="unsetObjectTypeRegistry"/>
+    <reference name="ConfigEventProducer" interface="eu.agno3.orchestrator.jobs.agent.system.ConfigEventProducer" cardinality="1..1" policy="static" bind="setConfigEventProducer" unbind="unsetConfigEventProducer"/>
+    <reference name="RealmConfigJobBuilder" interface="eu.agno3.orchestrator.config.hostconfig.agent.RealmConfigJobBuilder" cardinality="1..1" policy="static" bind="setRealmConfigJobBuilder" unbind="unsetRealmConfigJobBuilder"/>
+    <reference name="StorageConfigJobBuilder" interface="eu.agno3.orchestrator.config.hostconfig.agent.StorageConfigJobBuilder" cardinality="1..1" policy="static" bind="setStorageConfigJobBuilder" unbind="unsetStorageConfigJobBuilder"/>
+    <reference name="RuntimeConfigBuilder" interface="eu.agno3.orchestrator.config.web.agent.RuntimeConfigUtil" cardinality="1..1" policy="static" bind="setRuntimeConfigBuilder" unbind="unsetRuntimeConfigBuilder"/>
+    <reference name="ServiceManager" interface="eu.agno3.orchestrator.jobs.agent.service.ServiceManager" cardinality="1..1" policy="static" bind="setServiceManager" unbind="unsetServiceManager"/>
+    <implementation class="eu.agno3.orchestrator.config.hostconfig.agent.HostConfigJobBuilder"/>
+</scr:component>

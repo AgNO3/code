@@ -1,0 +1,973 @@
+.field {
+	margin-bottom: 0.8em;
+	display: flex;
+	align-items: baseline;
+	flex-flow: row wrap;
+}
+
+.field .ui-outputlabel.fieldLabel {
+	align-self: flex-start;
+	display: inline-block;
+	flex: 1 1 auto;
+	vertical-align: baseline;
+	font-weight: 500;
+	min-width: 6em;
+	width: 20%;
+	max-width: 20em;
+	text-align: right;
+	padding-right: 1.5em;
+	margin-top: 0.1em;
+	min-width: 6em;
+	white-space: nowrap;
+}
+
+.field .ui-outputlabel.fieldLabel .label-text {
+	white-space: pre-wrap;
+}
+
+.field .ui-outputlabel.fieldLabel .field-description p {
+	white-space: normal;
+	border-width: 1px;
+}
+
+.field .ui-outputlabel.fieldLabel:after {
+	content: ":";
+	white-space: nowrap;
+}
+
+.field .inputComponents {
+	display: inline-block;
+	vertical-align: baseline;
+	min-width: 20em;
+	width: 70%;
+	margin-top: 0.1em;
+}
+
+.field.small .inputComponents {
+	min-width: 0;
+	width: auto;
+}
+
+/* allow switching between output and input without moving page contents too much */
+.field .inputComponents .ui-outputpanel>.ui-widget.ui-inputtextarea {
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	margin-left: -4px;
+	margin-top: -4px;
+	margin-bottom: -4px;
+}
+
+.field .inputComponents .ui-outputpanel>.ui-widget.ui-inputtext, .field .inputComponents .ui-outputpanel>.ui-widget.ui-password,
+	.field .inputComponents .ui-outputpanel>span.ui-autocomplete {
+	margin-left: -5px;
+	margin-top: -5px;
+	margin-bottom: -5px;
+}
+
+/* allow switching between output and input without moving page contents too much (5px = padding + border) */
+.field .inputComponents .ui-outputpanel>.ui-widget.ui-selectonemenu {
+	margin-left: -5px;
+	margin-top: -5px;
+	margin-bottom: -5px;
+	vertical-align: bottom;
+	/* override calculated min width */
+	min-width: 15em !important;
+}
+
+.ui-fileupload.small {
+	border-style: none;
+	display: inline-block;
+}
+
+.ui-fileupload.small .ui-fileupload-choose {
+	overflow: visible;
+}
+
+.ui-fileupload.small .ui-button.ui-fileupload-choose .ui-icon:before {
+	content: "\f093";
+}
+
+.ui-widget.ui-fileupload.small .ui-fileupload-buttonbar {
+	padding: 0;
+	margin: 0;
+	background: transparent none repeat scroll 0% 0% !important;
+	border-style: none;
+}
+
+.ui-fileupload.small .ui-fileupload-buttonbar .ui-fileupload-choose span.ui-button-text
+	{
+	display: none;
+}
+
+.ui-fileupload.small .ui-fileupload-buttonbar .ui-fileupload-choose .ui-icon
+	{
+	padding: 0.2em;
+}
+
+.ui-fileupload.small .ui-fileupload-content {
+	display: none;
+}
+
+.ui-fileupload.small .ui-fileupload-buttonbar .ui-fileupload-choose input
+	{
+	height: auto;
+	width: auto;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-style: none;
+	background: transparent none repeat scroll 0% 0% !important;
+}
+
+
+.ui-panel.optional-panel .ui-panel-titlebar {
+	background-color: inherit;
+	border-style: none;	
+}
+
+.ui-panel.optional-panel .ui-panel-titlebar .ui-icon {
+	padding: 0.2em;
+}
+
+.ui-panel.optional-panel .ui-panel-titlebar a {
+	text-decoration: none;
+}
+
+
+
+.field.simple .ui-message {
+	display: block;
+	margin-top: 0.5em;
+}
+
+.field ul.readOnly {
+	list-style-type: none;
+	padding-left: 0;
+	display: inline;
+}
+
+.ui-outputlabel.inlineLabel {
+	margin-left: 1ex;
+	margin-right: 1ex;
+}
+
+.ui-outputlabel.fieldLabel .ui-outputlabel-rfi {
+	margin-left: 0;
+}
+
+.ui-panelgrid.verticalFields {
+	
+}
+
+.ui-panelgrid.verticalFields .fieldHeader {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.ui-panelgrid.verticalFields .fieldHeader .ui-outputlabel {
+	width: auto;
+	max-width: none;
+	font-size: 80%;
+	text-shadow: none;
+	margin-bottom: 0;
+	font-size: 80%;
+}
+
+.field.fullWidth .inputComponents {
+	display: block;
+	width: 100%;
+}
+
+.field.fullWidth .ui-outputlabel {
+	display: block;
+	text-align: left;
+	margin-bottom: 0.5em;
+}
+
+.field.simple .listEditor .ui-message {
+	margin: 0;
+}
+
+.field .ui-outputlabel.fieldLabel .field-description {
+	display: inline;
+}
+
+.field .ui-outputlabel.fieldLabel .field-description span {
+	display: inline-block;
+}
+
+.field .ui-outputlabel.fieldLabel .field-description .field-description-icon
+	{
+	margin-left: 0.1em;
+	display: inline;
+}
+
+.field .ui-outputlabel.fieldLabel .field-description p {
+	background: #F8F8F8;
+	border-style: solid;
+	position: absolute;
+	display: none;
+	z-index: 1000000;
+	left: 15px;
+	padding: 0.5em;
+	margin-left: 20%;
+	margin-top: 0.1em;
+	border-radius: 0.5em;
+	max-width: 50%;
+	text-align: left;
+}
+
+.field .ui-outputlabel.fieldLabel .field-description:hover p {
+	display: block;
+}
+
+.ui-widget.listEditor {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.listEditor .listEditorActions {
+	width: 8em;
+	padding: 0;
+}
+
+.listEditor.set .listEditorActions {
+	width: 6em;
+}
+
+.listEditor thead {
+	display: none;
+	background: none;
+}
+
+.listEditor tbody {
+	border-style: solid;
+	border-color: transparent;
+}
+
+.listEditor.showHeader thead {
+	display: table-header-group;
+}
+
+.listEditor.showHeader.empty thead {
+	display: none;
+}
+
+.listEditor.showHeader>.ui-datatable-tablewrapper>table>tbody {
+	border-style: solid;
+	border-color: transparent;
+	border-top-color: inherit;
+}
+
+.listEditor.ui-datatable {
+	table-layout: auto;
+	width: 90%;
+	border-style: none;
+}
+
+.listEditor.ui-datatable tr {
+	border-style: solid;
+	border-color: transparent;
+	border-bottom-color: inherit;
+}
+
+.listEditor.ui-datatable td {
+	border-style: solid;
+	border-color: transparent;
+}
+
+.listEditor.ui-datatable td>* {
+	vertical-align: baseline;
+}
+
+.listEditor.ui-datatable td.listEditorActions {
+	padding-left: 0.5em;
+	border-left-style: none;
+}
+
+.listEditor.ui-datatable .ui-widget.ui-inputfield, .listEditor.ui-datatable td>.ui-widget.ui-selectonemenu
+	{
+	width: 100% !important;
+	min-width: 0 !important;
+	min-width: 0 !important;
+}
+
+.listEditor.ui-datatable .ui-widget.ui-inputfield.ui-autocomplete-input
+	{
+	width: -moz-calc(100% - 2em) !important; /* Firefox */
+	width: -webkit-calc(100% - 2em) !important; /* Chrome, Safari */
+	width: calc(100% - 2em) !important; /* IE9+ and future browsers */
+}
+
+.ui-widget.uri-editor, .ui-widget.uri-editor * {
+	font-size: 95%;
+}
+
+.ui-widget.uri-editor .ui-spinner-input {
+	font-size: 90%;
+}
+
+.ui-widget.uri-editor .ui-spinner .ui-icon {
+	display: inline;
+	margin: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	padding: 0;
+	margin-top: -2px;
+}
+
+.ui-widget.uri-editor>div {
+	display: inline;
+	vertical-align: baseline;
+	font-weight: bold;
+}
+
+.ui-widget.uri-editor>div input {
+	margin: 0 !important;
+}
+
+.ui-button.ui-button-icon-only .ui-icon, .ui-menubutton.icon-only .ui-icon
+	{
+	display: inline;
+	position: static;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 0;
+	height: auto;
+	width: auto;
+	padding: 0;
+}
+
+.ui-button.ui-button-icon-only .ui-button-text, .ui-menubutton.icon-only .ui-button-text
+	{
+	display: none;
+}
+
+.ui-menubutton.icon-only {
+	text-align: center;
+}
+
+.ui-menubutton.icon-only .ui-button .ui-icon {
+	display: inline;
+	text-align: center;
+}
+
+.ui-menubutton.icon-only .ui-button.ui-button-text-icon-left .ui-button-text
+	{
+	display: none;
+}
+
+.ui-menu .ui-menuitem-link {
+	text-align: left;
+}
+
+.ui-menu .ui-menuitem-text {
+	padding-left: 0.4em;
+	display: inline !important;
+	float: none !important;
+	text-align: left;
+}
+
+.ui-menu .ui-menuitem-link .ui-menuitem-icon, .ui-menu .ui-submenu-icon
+	{
+	float: none !important;
+	display: inline !important;
+	margin-right: 0.5em;
+}
+
+.ui-selectoneradio td label {
+	margin-top: auto;
+	margin-left: 0.4em;
+}
+
+.ui-radiobutton .ui-radiobutton-box {
+	text-align: center;
+	height: 1.2em !important;
+	width: 1.2em !important;
+	border-radius: 1.2em !important;
+}
+
+.ui-radiobutton .ui-radiobutton-box .ui-icon {
+	display: inline-block;
+	font-size: 0.9em !important;
+	vertical-align: middle;
+	text-align: center;
+	margin: auto;
+}
+
+ .ui-chkbox .ui-chkbox-box {
+	text-align: center;
+	height: 1.2em !important;
+	width: 1.2em !important;
+}
+
+.ui-datatable th.ui-selection-column .ui-chkbox-all {
+	display: inline;
+	width: auto;
+	height: auto;
+}
+
+
+.ui-chkbox .ui-chkbox-box .ui-icon {
+	display: inline-block;
+	vertical-align: top;
+}
+
+
+
+.ui-menubutton.icon-only .ui-button-text {
+	display: none;
+}
+
+.ui-button.ui-button-text-icon-left .ui-icon, .ui-button.ui-button-text-icon-right .ui-icon
+	{
+	position: static;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 0;
+	height: auto;
+	width: auto;
+	display: inline;
+}
+
+.ui-button.ui-button-text-icon-left .ui-button-text, .ui-button.ui-button-text-icon-right .ui-button-text
+	{
+	display: inline;
+	padding: 0 0.2em 0 0.6em;
+}
+
+input.ui-inputfield {
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	display: inline-block;
+	vertical-align: baseline;
+	height: 1.8em;
+}
+
+div.jsUnvailable {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+div.jsUnvailable>div.background {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 90000;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	filter: alpha(opacity = 50);
+	opacity: .5;
+}
+
+div.jsUnvailable>div.content {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10em;
+	width: 40%;
+	height: 6em;
+	background-color: white;
+	padding: 1em;
+	border: 3px solid red;
+	z-index: 99000;
+	opacity: 1.0 !important;
+}
+
+.dialog-buttons {
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 99999;
+	padding: 0.3em;
+}
+
+.ui-breadcrumb.dialogBreadcrumps {
+	background: inherit;
+	color: inherit;
+	border-style: none;
+	font-weight: normal;
+	font-size: 90%;
+	border-bottom-style: dashed;
+	margin-bottom: 0.5em;
+}
+
+.ui-breadcrumb.dialogBreadcrumps ul li {
+	margin-left: 0.3em;
+}
+
+.no-select {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.ui-icon.ui-icon-inline {
+	display: inline;
+	margin-left: 0.4em;
+	margin-right: 0.4em;
+	width: auto;
+	height: auto;
+}
+
+.ui-widget.ui-selectonemenu {
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	height: 1.8em;
+}
+
+.ui-widget.ui-selectonemenu select {
+	padding-right: 2em;
+}
+
+.ui-toolbar>* {
+	line-height: normal;
+}
+
+.ui-widget.ui-selectonemenu {
+	padding: 0;
+}
+
+.ui-widget.ui-selectonemenu label.ui-selectonemenu-label {
+	display: inline-block;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	width: 100% !important;
+	height: auto;
+	padding: 3px;
+	/* This is so stupid, overflow: hidden sets the baseline to the bottom margin and breaks alignment */
+	/* This seems to be the only way to make it actually work correctly */
+	overflow: visible;
+}
+
+.ui-widget.ui-selectonemenu .ui-selectonemenu-trigger {
+	width: 2em;
+	height: 100%;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	border-style: none;
+	border-left-width: 1px;
+	border-left-style: solid;
+	box-sizing: border-box;
+}
+
+.ui-autocomplete .ui-button.ui-autocomplete-dropdown {
+	-moz-border-radius-topleft: 0 !important;
+	-webkit-border-top-left-radius: 0 !important;
+	border-top-left-radius: 0 !important;
+	-moz-border-radius-bottomleft: 0 !important;
+	-webkit-border-bottom-left-radius: 0 !important;
+	border-bottom-left-radius: 0 !important;
+	border-left-width: 1px;
+	border-left-style: solid;
+	margin-left: -1px;
+	right: auto;
+	height: 100%;
+	width: 2em;
+}
+
+.ui-autocomplete .ui-autocomplete-input.ui-autocomplete-dd-input {
+	padding-right: inherit;
+}
+
+.ui-autocomplete .ui-autocomplete-dropdown .ui-icon {
+	position: relative;
+	left: 0;
+	top: 0;
+	margin-left: 0;
+	margin-top: 0;
+}
+
+.ui-widget.ui-treetable table, .ui-widget.ui-treetable.ui-treetable-resizable table,
+	.ui-datatable table {
+	table-layout: fixed;
+}
+
+.ui-treetable .ui-treetable-toggler {
+	margin-right: 0.4em;
+	margin-top: 0;
+}
+
+.ui-datatable.list-table {
+	border-style: none;
+}
+
+.ui-datatable.list-table thead, .ui-datatable.list-table tfoot {
+	display: none;
+}
+
+.ui-datatable.list-table tbody, .ui-datatable.list-table tr,
+	.ui-datatable.list-table tr td {
+	border-style: none;
+	padding-left: 0;
+	padding-bottom: 0;
+}
+
+.no-border table tbody, .no-border table tbody tr, .no-border table tbody td,
+	.no-border table thead td, .no-border table thead th {
+	border-style: solid !important;
+	border-color: transparent !important;
+}
+
+.no-header table thead tr {
+	display: none;
+}
+
+.ui-datatable.list-table thead, .ui-datatable.list-table tfoot {
+	display: none;
+}
+
+.ui-datatable.list-table tbody, .ui-datatable.list-table tr,
+	.ui-datatable.list-table tr td {
+	border-style: none;
+}
+
+table tr .ui-selectonemenu.ui-state-disabled .ui-selectonemenu-label,
+	table tr .ui-selectonemenu.ui-state-disabled .ui-selectonemenu-trigger
+	{
+	opacity: 0.65;
+}
+
+.ui-selectonemenu-panel .ui-selectonemenu-filter-container,
+	.ui-selectonemenu-panel .ui-selectonemenu-filter-container .ui-selectonemenu-filter
+	{
+	width: -moz-calc(100% - 0.4em); /* Firefox */
+	width: -webkit-calc(100% - 0.4em); /* Chrome, Safari */
+	width: calc(100% - 0.4em); /* IE9+ and future browsers */
+}
+
+.ui-selectonemenu-panel .ui-selectonemenu-list.ui-selectonemenu-items {
+	max-height: 200px;
+}
+
+.ui-spinner .ui-widget.ui-button.ui-spinner-button {
+	height: 50%;
+	text-align: center;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+.ui-widget.ui-button, input.button.ui-widget, button.button.ui-widget, a.button.ui-widget,
+	div.button.ui-widget, span.button.ui-widget {
+	zoom: 1;
+	border-radius: 0.3em;
+	text-decoration: none;
+	padding: 0.2em;
+	/*height: 1.8em;*/
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	vertical-align: baseline;
+	outline: 0;
+	cursor: pointer;
+}
+
+a.button .left, div.button .left, span.button .left {
+	border-radius: 0.3em 0 0 0.3em;
+	padding-right: 0.4em;
+}
+
+a.button .right, div.button .right, span.button .right {
+	border-radius: 0 0.3em 0.3em 0;
+	background: transparent;
+}
+
+.button.ui-widget a.ui-widget {
+	background: transparent;
+	border-style: none;
+	box-shadow: none;
+	vertical-align: baseline;
+	display: inline-block;
+	font-weight: inherit;
+	text-shadow: inherit;
+}
+
+.ui-button-text-only  .ui-button-text {
+	padding: 0 1em 0 1em;
+}
+
+.ui-button-text-icon-left .ui-button-text {
+	padding: 0 1em 0 2.1em;
+}
+
+a.button:hover {
+	color: inherit;
+}
+
+.ui-state-highlight a.button {
+	color: inherit;
+}
+
+a.button .ui-icon.ui-icon-inline {
+	vertical-align: baseline;
+}
+
+input.button.ui-widget, button.button.ui-widget, a.button.ui-widget, div.button.ui-widget,
+	span.button.ui-widget {
+	display: inline-block;
+}
+
+dl.properties dt:after {
+	content: ":";
+}
+
+dl.properties dt {
+	clear: both;
+	float: left;
+	font-weight: bold;
+}
+
+dl.properties dd {
+	margin-left: 10em;
+}
+
+.ui-tabs .ui-tabs-nav {
+	border-radius: 0;
+	border-style: none;
+	border-bottom-style: solid;
+	background: transparent;
+}
+
+body .ui-tabs {
+	padding: 0;
+}
+
+body .ui-tabs .ui-tabs-panel {
+	padding: 0;
+	padding-top: 1.5em;
+}
+
+
+.ui-widget-header .ui-widget-content {
+	color: inherit;
+	border: inherit;
+}
+
+.overlay-menu .ui-overlaypanel-content {
+	padding: 0;
+}
+
+.ui-overlaypanel-close, .ui-dialog-titlebar-icon.dialog-close, .ui-dialog-titlebar-icon.ui-dialog-titlebar-close, 
+	.ui-layout-unit-header-icon {
+	text-decoration: none;
+	padding: 0.2em;
+	min-width: 1em;
+	min-height: 1em;
+	border-radius: 1em;
+}
+
+.ui-dialog-titlebar {
+	padding: 0px 2px 2px 1em;
+	font-size:0.8em;
+}
+
+.dialogButtons {
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 99999;
+	padding: 0.3em;
+}
+
+.ui-dialog.ui-confirm-dialog {
+	min-width: 30%;
+	max-width: 50%;
+	min-height: 0;
+	padding-bottom: 0;
+}
+
+.ui-confirm-dialog .ui-icon.ui-confirm-dialog-severity {
+	background-position: -0px -144px;
+	margin-top: 1em;
+	margin-left: 1em;
+}
+
+.ui-confirm-dialog .ui-confirm-dialog-message {
+	background-position: -0px -144px;
+	margin: 1em;
+}
+
+.ui-confirm-dialog.ui-dialog .ui-dialog-buttonpane {
+	text-align: center;
+}
+
+.overlay-menu .ui-panel {
+	padding: 0;
+}
+
+.overlay-menu .ui-panel .ui-panel-titlebar {
+	border-radius: 0.3em 0.3em 0 0;
+	border-top-style: none;
+	border-left-style: none;
+	border-right-style: none;
+}
+
+.overlay-menu .ui-panel .ui-panel-content {
+	line-height: 1.2;
+	padding: 0;
+}
+
+.overlay-menu .ui-menu {
+	background: none;
+	border-style: none;
+	width: 100%;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+.overlay-menu .ui-menu a {
+	border-style: none;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	width: 100%;
+}
+
+.overlay-menu .ui-menu .ui-menuitem-text, .overlay-menu .ui-menu .ui-menuitem-link
+	{
+	padding-left: 0.3em;
+	text-indent: 0.4em;
+}
+
+.ui-treetable td.action-column, .ui-treetable th.action-column,
+	.ui-datatable td.action-column, .ui-datatable th.action-column {
+	width: 2em;
+	max-width: 2em;
+	min-width: 2em;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	padding: 0.2em 0 0.2em 0.2em;
+	border-left-style: none;
+	border-right-style: none;
+	vertical-align: baseline;
+}
+
+.ui-treetable td.action-column.first, .ui-treetable th.action-column.first,
+	.ui-datatable td.action-column.first, .ui-datatable th.action-column.first
+	{
+	border-left-style: solid !important;
+}
+
+.ui-treetable td.action-column.last, .ui-treetable th.action-column.last,
+	.ui-datatable td.action-column.last, .ui-datatable th.action-column.last
+	{
+	padding-right: 0.2em;
+	border-right-style: solid;
+}
+
+.ui-treetable tbody tr td.action-column a {
+	text-decoration: none;
+}
+
+.ui-treetable thead tr, .ui-datatable thead tr {
+	border-width: inherit;
+}
+
+.ui-treetable tbody tr td.action-column a.ui-state-active>.ui-icon,
+	.ui-treetable tbody tr td.action-column a>.ui-icon.ui-state-active,
+	.ui-treetable tbody tr td.action-column a.ui-icon.ui-state-active,
+	.ui-treetable tbody tr td.action-column .ui-icon:hover, .ui-datatable tbody tr td.action-column a.ui-state-active>.ui-icon,
+	.ui-datatable tbody tr td.action-column a>.ui-icon.ui-state-active,
+	.ui-datatable tbody tr td.action-column a.ui-icon.ui-state-active,
+	.ui-datatable tbody tr td.action-column .ui-icon:hover, .ui-treetable tbody tr td.action-column.always-visible a>.ui-icon,
+	.ui-datatable tr td.action-column.always-visible a>.ui-icon,
+	.ui-treetable tbody tr td.action-column.always-visible a.ui-icon,
+	.ui-datatable tr td.action-column.always-visible a.ui-icon {
+	opacity: 1.0;
+	visibility: visible;
+}
+
+.ui-treetable tr:hover .action-column a>.ui-icon, .ui-datatable tr:hover .action-column a>.ui-icon,
+	.ui-treetable tr:hover .action-column a.ui-icon, .ui-datatable tr:hover .action-column a.ui-icon
+	{
+	opacity: 0.5;
+	visibility: visible;
+}
+
+.ui-treetable tbody tr td.action-column a>.ui-icon, .ui-datatable tbody tr td.action-column a>.ui-icon,
+	.ui-treetable tbody tr td.action-column a.ui-icon, .ui-datatable tbody tr td.action-column a.ui-icon
+	{
+	opacity: 0.1;
+	visibility: visible;
+}
+
+.ui-treetable .ui-treetable-header, .ui-treetable .ui-treetable-scrollable-header,
+	.ui-datatable .ui-datatable-header, .ui-datatable .ui-datatable-footer,
+	.ui-datatable .ui-paginator {
+	padding: 0;
+	border-style: solid;
+	border-bottom-style: none;
+}
+
+.ui-treetable .ui-treetable-header .ui-toolbar, .ui-datatable .ui-datatable-header .ui-toolbar
+	{
+	background: none;
+	border-style: none;
+}
+
+.ui-datatable .ui-datatable-header table {
+	width: auto;
+}
+
+.ui-datepicker td span, .ui-datepicker td a {
+	width: 1.3em;
+}
+
+.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {
+	cursor: pointer;
+}
+
+/* Hack to prevent the useless component text to show up */
+.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span
+	{
+	font-size: 0 !important;
+	overflow: visible !important;
+}
+
+.ui-datepicker .ui-datepicker-prev span:before, .ui-datepicker .ui-datepicker-next span:before
+	{
+	font-size: 1rem !important;
+}
+
+
+.ui-paginator span.ui-icon {
+	font-size: 0 !important;
+	overflow: visible !important; 
+}
+
+.ui-paginator span.ui-icon:before {
+	font-size: 1rem !important;
+}
+
+.inline-space {
+	margin-left: 0.5em;
+}
+
+.func-unit .ui-widget-content {
+	background-color: inherit;
+}
+
+.ui-tree .ui-tree-toggler {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+}

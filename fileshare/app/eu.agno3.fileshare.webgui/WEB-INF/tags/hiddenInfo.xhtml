@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough">
+
+	<h:link onclick="PF('hiddenInfo_overlay').show(); return false;"
+		href="#"
+		styleClass="ui-button min-medium button hidden-info ui-corner-all #{fileDisplayBean.getHiddenStyleClass(entity)}"
+		rendered="#{entity.hiddenTotal gt 0}">
+		<span class="ui-icon ui-icon-inline ui-icon-alert" />
+
+		<h:outputText value="#{fileDisplayBean.getHiddenMessage(entity)}" />
+	</h:link>
+	<p:overlayPanel
+		style="width: 20em; margin-left: -20em; margin-top: 1.5em"
+		my="left top" at="right top" appendToBody="false" dynamic="false"
+		styleClass="hidden-info" widgetVar="hiddenInfo_overlay">
+		<p:outputPanel>
+			<p:outputPanel styleClass="hidden-policy ui-warning"
+				rendered="#{entity.hiddenPolicy gt 0}">
+				<h:outputFormat value="#{_msgs['hiddenInfo.policyFmt']}">
+					<f:param value="#{entity.hiddenPolicy}" />
+				</h:outputFormat>
+				<ul>
+					<ui:repeat var="violation" value="#{entity.policyViolations}">
+						<li class="policy-violation"><h:outputText
+								value="#{policyBean.getPolicyViolationMessage(violation)}" /></li>
+					</ui:repeat>
+				</ul>
+			</p:outputPanel>
+			<p:outputPanel styleClass="hidden-flagged ui-warning"
+				rendered="#{entity.hiddenFlagged gt 0}">
+				<h:outputFormat value="#{_msgs['hiddenInfo.flaggedFmt']}">
+					<f:param value="#{entity.hiddenFlagged}" />
+				</h:outputFormat>
+				<p:commandLink style="margin-left: 0.4em"
+					action="#{treeFilterBean.showAll()}" update="${update}"
+					value="#{_msgs['hiddenInfo.showAllFlagged']}" />
+			</p:outputPanel>
+			<p:outputPanel styleClass="hidden-filter"
+				rendered="#{entity.hiddenFilter gt 0}">
+				<h:outputFormat value="#{_msgs['hiddenInfo.filterFmt']}">
+					<f:param value="#{entity.hiddenFilter}" />
+				</h:outputFormat>
+				<p:commandLink style="margin-left: 0.4em"
+					action="#{treeFilterBean.resetFilter()}" update="${update}"
+					value="#{_msgs['filter.clear']}" />
+			</p:outputPanel>
+		</p:outputPanel>
+	</p:overlayPanel>
+</ui:composition>

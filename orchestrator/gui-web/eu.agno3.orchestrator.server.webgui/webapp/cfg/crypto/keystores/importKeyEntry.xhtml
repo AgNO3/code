@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor id="aliasField" inputId="alias" path="alias" readOnlyIfPersistent="true">
+		<p:inputText id="alias" value="#{current.alias}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="keyPair" path="keyPair">
+		<ag:rsaPrivateKeyEditor id="keyPair" value="#{current.keyPair}"
+			process="@composite @composite:@parent:@composite:@parent:aliasField" update="@composite:@parent:@composite:@parent"
+			chainUpdate="@composite:@parent:@composite:@parent:chainField"
+			chainHandler="#{importKeyPairEntryBean.getChainWrapper(current).setChainArray}" />
+	</orch:objectFieldEditor>
+
+	<p:outputPanel id="chainField" rendered="#{not empty current}">
+		<orch:objectFieldEditor id="certificateChain" collection="true"
+			onlyIf="#{not empty current.keyPair}" inputId="certificateChain"
+			path="certificateChain" clone="#{certEntryUtil.cloneX509CertEntry}">
+
+			<ag:certificateChainEditor id="certificateChain"
+				value="#{importKeyPairEntryBean.getChainWrapper(current).chain}"
+				publicKey="#{current.keyPair.public}" />
+
+		</orch:objectFieldEditor>
+	</p:outputPanel>
+</ui:composition>

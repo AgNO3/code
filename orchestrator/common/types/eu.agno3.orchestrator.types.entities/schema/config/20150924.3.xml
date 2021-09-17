@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+	<changeSet author="mbechler (generated)" id="1443182418850-1">
+		<createTable tableName="config_crypto_certificates">
+			<column name="CERTID" type="VARCHAR(64)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DATA" type="BLOB" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418850-2">
+		<createTable tableName="config_crypto_keypairs">
+			<column name="KEYID" type="VARCHAR(128)">
+				<constraints nullable="false" />
+			</column>
+			<column name="KEYPAIR" type="BLOB" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418850-3">
+		<createTable tableName="config_crypto_public_keys">
+			<column name="KEYID" type="VARCHAR(128)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PUBLICKEY" type="BLOB" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418850-4">
+		<addPrimaryKey columnNames="CERTID"
+			constraintName="config_crypto_certificatesPK" tableName="config_crypto_certificates" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418850-5">
+		<addPrimaryKey columnNames="KEYID" constraintName="config_crypto_keypairsPK"
+			tableName="config_crypto_keypairs" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418850-6">
+		<addPrimaryKey columnNames="KEYID" constraintName="config_crypto_public_keysPK"
+			tableName="config_crypto_public_keys" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476802856831-1">
+		<addColumn schemaName="APP" tableName="config_crypto_public_keys">
+			<column name="COMMENT" type="varchar(128 BYTE)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476802856831-2">
+		<addColumn schemaName="APP" tableName="config_crypto_public_keys">
+			<column name="VERSION" type="INT" defaultValueNumeric="0" />
+		</addColumn>
+		<addColumn schemaName="APP" tableName="config_crypto_certificates">
+			<column name="VERSION" type="INT" defaultValueNumeric="0" />
+		</addColumn>
+		<addColumn schemaName="APP" tableName="config_crypto_keypairs">
+			<column name="VERSION" type="INT" defaultValueNumeric="0" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1485267589848-1">
+		<dropDefaultValue columnDataType="int" columnName="VERSION"
+			schemaName="APP" tableName="config_crypto_certificates" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1485267589848-2">
+		<dropDefaultValue columnDataType="int" columnName="VERSION"
+			schemaName="APP" tableName="config_crypto_keypairs" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1485267589848-3">
+		<dropDefaultValue columnDataType="int" columnName="VERSION"
+			schemaName="APP" tableName="config_crypto_public_keys" />
+	</changeSet>
+</databaseChangeLog>

@@ -1,0 +1,17 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.orchestrator.agent</groupId>
+    <artifactId>agent-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../agent-parent/</relativePath>
+  </parent>
+  <artifactId>connector</artifactId>
+  <packaging>pom</packaging>
+  <name>Orchestrator Agent Connector Module</name>
+  <modules>
+  	<module>eu.agno3.orchestrator.agent.connector</module>
+  	<module>eu.agno3.orchestrator.agent.connector.console</module>
+  	
+  </modules>
+</project>

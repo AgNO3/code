@@ -1,0 +1,1281 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+	
+	
+	<property name="blob_type" value="bytea" dbms="postgresql"/>
+	<property name="blob_type" value="blob" dbms="derby"/>
+	
+	<changeSet author="mbechler (generated)" id="1421578068151-1">
+		<createTable tableName="content_container">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-2">
+		<createTable tableName="content_entity">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="CREATED" type="timestamp" />
+			<column name="LASTMODIFIED" type="timestamp" />
+			<column name="LOCALNAME" type="VARCHAR(255)" />
+			<column name="VERSION" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="OWNER_ID" type="BINARY(16)" />
+			<column name="PARENT" type="BINARY(16)" />
+			<column name="SECURITYLABEL_LABEL" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1421578068151-3">
+		<createTable tableName="content_file">
+			<column name="CONTENTENCODING" type="VARCHAR(255)" />
+			<column name="CONTENTTYPE" type="VARCHAR(255)" />
+			<column name="FILESIZE" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1421578068151-4">
+		<createTable tableName="content_user_grouping">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1421578068151-5">
+		<createTable tableName="content_user_grouping_subjects">
+			<column name="CONTENT_USER_GROUPING_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="SUBJECTS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1421578068151-6">
+		<createTable tableName="grants">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="VERSION" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ENTITY_ID" type="BINARY(16)" />
+			<column name="TARGET_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1421578068151-7">
+		<createTable tableName="group_members">
+			<column name="MEMBERSHIPS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="MEMBERS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1421578068151-8">
+		<createTable tableName="groups">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1421578068151-9">
+		<createTable tableName="security_level">
+			<column name="LABEL" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1421578068151-10">
+		<createTable tableName="subjects">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="VERSION" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="SUBJECTROOT_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1421578068151-11">
+		<createTable tableName="users">
+			<column name="REALMNAME" type="VARCHAR(255)" />
+			<column name="USERID" type="BINARY(16)" />
+			<column name="USERNAME" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1421578068151-12">
+		<addPrimaryKey columnNames="ID" tableName="content_container" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-13">
+		<addPrimaryKey columnNames="ID" tableName="content_entity" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-14">
+		<addPrimaryKey columnNames="ID" tableName="content_file" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-15">
+		<addPrimaryKey columnNames="ID" tableName="content_user_grouping" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-16">
+		<addPrimaryKey columnNames="CONTENT_USER_GROUPING_ID, SUBJECTS_ID"
+			tableName="content_user_grouping_subjects" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-17">
+		<addPrimaryKey columnNames="ID" tableName="grants" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-18">
+		<addPrimaryKey columnNames="MEMBERSHIPS_ID, MEMBERS_ID"
+			tableName="group_members" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-19">
+		<addPrimaryKey columnNames="ID" tableName="groups" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-20">
+		<addPrimaryKey columnNames="LABEL" tableName="security_level" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-21">
+		<addPrimaryKey columnNames="ID" tableName="subjects" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-22">
+		<addPrimaryKey columnNames="ID" tableName="users" />
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1421578068151-23">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="grants" constraintName="FK_6YD33F0HX80NV05DAYVGA1D1R"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="grants" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-24">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="content_file" constraintName="FK_75R551O2JROQW1E5T7S772LPK"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="content_entity" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-25">
+		<addForeignKeyConstraint baseColumnNames="TARGET_ID"
+			baseTableName="grants" constraintName="FK_92F6G2MRGR367LQ0GKUSGY9ML"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="subjects" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-26">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="groups" constraintName="FK_AWK219WEQUL59I12TO591UQNR"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="subjects" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-27">
+		<addForeignKeyConstraint baseColumnNames="PARENT"
+			baseTableName="content_entity" constraintName="FK_AY6EVR990D8CBLKNL3X1A08Y8"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="content_container" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-28">
+		<addForeignKeyConstraint baseColumnNames="SUBJECTROOT_ID"
+			baseTableName="subjects" constraintName="FK_CSWLHX8AYOTD3ELIDXWB5AAFA"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="content_container" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-29">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="content_container" constraintName="FK_CX1VNQ8MXF2AXE1PSW5HQVJLN"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="content_entity" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-30">
+		<addForeignKeyConstraint baseColumnNames="SUBJECTS_ID"
+			baseTableName="content_user_grouping_subjects" constraintName="FK_E0MV6FIDG30FLRHV5LO4EPPVX"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="subjects" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-31">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="content_user_grouping" constraintName="FK_EBTQ3MFPAMURQWY99I497400E"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="content_entity" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-32">
+		<addForeignKeyConstraint baseColumnNames="ENTITY_ID"
+			baseTableName="grants" constraintName="FK_H81IDX7WFRS1LUE25LPDJURE7"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="content_entity" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-33">
+		<addForeignKeyConstraint baseColumnNames="SECURITYLABEL_LABEL"
+			baseTableName="content_entity" constraintName="FK_JN4QN7GE0R8DG3ER1XPMVFBN"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="LABEL"
+			referencedTableName="security_level" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-34">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="users" constraintName="FK_JR4HQ4OC9QX88IDAT9Q6E7EEJ"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="subjects" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-35">
+		<addForeignKeyConstraint baseColumnNames="OWNER_ID"
+			baseTableName="content_entity" constraintName="FK_KQWAR7G0TEOU7NBLCF5TSUOEP"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="subjects" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-36">
+		<addForeignKeyConstraint baseColumnNames="CONTENT_USER_GROUPING_ID"
+			baseTableName="content_user_grouping_subjects" constraintName="FK_N945TM3OFOXETTE84B7Q5G4H1"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="content_user_grouping" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-37">
+		<addForeignKeyConstraint baseColumnNames="MEMBERS_ID"
+			baseTableName="group_members" constraintName="FK_SLXFT93329ULFQCUI8G93M7OK"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="subjects" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-38">
+		<addForeignKeyConstraint baseColumnNames="MEMBERSHIPS_ID"
+			baseTableName="group_members" constraintName="FK_TIE56G84FPJLI5VMCMKO5FD8U"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="groups" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-39">
+		<addUniqueConstraint columnNames="SUBJECTROOT_ID"
+			constraintName="UK_CSWLHX8AYOTD3ELIDXWB5AAFA" deferrable="false"
+			disabled="false" initiallyDeferred="false" tableName="subjects" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-40">
+		<addUniqueConstraint columnNames="PARENT, LOCALNAME"
+			constraintName="UK_EUHH4LM9V07LGU7J3I1SHXQFD" deferrable="false"
+			disabled="false" initiallyDeferred="false" tableName="content_entity" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-41">
+		<addUniqueConstraint columnNames="USERID"
+			constraintName="UK_FYIMIHQCKKDNYIBBF1DPQI479" deferrable="false"
+			disabled="false" initiallyDeferred="false" tableName="users" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421578068151-42">
+		<addUniqueConstraint columnNames="REALMNAME, USERNAME"
+			constraintName="UK_L9HHIM23BNFR56GCL72SH1F3L" deferrable="false"
+			disabled="false" initiallyDeferred="false" tableName="users" />
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1421590145939-1">
+		<addColumn tableName="groups">
+			<column name="NAME" type="varchar(255)" />
+		</addColumn>
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1421591787616-1">
+		<dropNotNullConstraint columnDataType="binary(16)"
+			columnName="SUBJECTROOT_ID" tableName="subjects" />
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1421600436325-1">
+		<addColumn tableName="subjects">
+			<column name="TYPE" type="integer" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1421600436325-2">
+		<addUniqueConstraint columnNames="NAME"
+			constraintName="UK_I7RCWFMF61XTAXS6ON3J24LS5" deferrable="false"
+			disabled="false" initiallyDeferred="false" tableName="groups" />
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1421600436325-3">
+		<addColumn tableName="grants">
+			<column name="WRITEABLE" type="boolean" defaultValueBoolean="false">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1422528292202-1">
+		<createTable tableName="subject_grants">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="TARGET_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1422528292202-2">
+		<addColumn tableName="grants">
+			<column name="CREATED" type="timestamp" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1422528292202-3">
+		<addColumn tableName="grants">
+			<column name="CREATOR_ID" type="java.sql.Types.BINARY(16)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1422528292202-4">
+		<addColumn tableName="grants">
+			<column name="EXPIRES" type="timestamp" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1422528292202-5">
+		<addPrimaryKey columnNames="ID" tableName="subject_grants" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1422528292202-6">
+		<addForeignKeyConstraint baseColumnNames="TARGET_ID"
+			baseTableName="subject_grants" constraintName="FK_3HPLTKCNKXUV0DJ43FHXK30LU"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="subjects" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1422528292202-7">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="subject_grants" constraintName="FK_72TAETIDTL7QEHP3BPQMGDD9N"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="grants" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1422528292202-8">
+		<addForeignKeyConstraint baseColumnNames="CREATOR_ID"
+			baseTableName="grants" constraintName="FK_GF8QVPCP2JIY0GMIDU8FU1UC6"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="users" />
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1422550004162-1">
+		<createTable tableName="subject_roles">
+			<column name="SUBJECTS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ROLES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1422550004162-2">
+		<addColumn tableName="content_entity">
+			<column name="CREATOR_ID" type="java.sql.Types.BINARY(16)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1422550004162-3">
+		<addColumn tableName="content_entity">
+			<column name="EXPIRES" type="timestamp" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1422550004162-4">
+		<addForeignKeyConstraint baseColumnNames="SUBJECTS_ID"
+			baseTableName="subject_roles" constraintName="FK_Q2VBUJT4NX7UB44SYJ7L094MS"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="subjects" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1422550004162-5">
+		<addForeignKeyConstraint baseColumnNames="CREATOR_ID"
+			baseTableName="content_entity" constraintName="FK_RQY80WMH771OERFTQ412KYSY7"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="users" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1422550004162-6">
+		<dropDefaultValue columnDataType="boolean"
+			columnName="WRITEABLE" tableName="grants" />
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1423158036488-1">
+		<createTable tableName="mail_grants">
+			<column name="MAILADDRESS" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1423158036488-2">
+		<createTable tableName="token_grants">
+			<column name="TOKEN" type="VARCHAR(64)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1423158036488-3">
+		<createTable tableName="users_details">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="FULLNAME" type="VARCHAR(255)" />
+			<column name="GENDER" type="INT" />
+			<column name="JOBTITLE" type="VARCHAR(255)" />
+			<column name="MAILADDRESS" type="VARCHAR(255)" />
+			<column name="ORGANIZATION" type="VARCHAR(255)" />
+			<column name="ORGANIZATIONUNIT" type="VARCHAR(255)" />
+			<column name="PREFERREDNAME" type="VARCHAR(255)" />
+			<column name="VERSION" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="USER_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1423158036488-4">
+		<addPrimaryKey columnNames="ID" tableName="mail_grants" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1423158036488-5">
+		<addPrimaryKey columnNames="ID" tableName="token_grants" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1423158036488-6">
+		<addPrimaryKey columnNames="ID" tableName="users_details" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1423158036488-7">
+		<addForeignKeyConstraint baseColumnNames="USER_ID"
+			baseTableName="users_details" constraintName="FK_7QRBXX6HQQE46FGEH9V5IQ5PX"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="users" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1423158036488-8">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="mail_grants" constraintName="FK_D8UIALBIAAN2PQP28DHK0MB5Y"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="token_grants" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1423158036488-9">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="token_grants" constraintName="FK_LAIPMRYV092K7XTW2VQOX6QS6"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="grants" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1423158036488-10">
+		<createIndex indexName="UK_1GUVDG0B72ARJHADV4X0K5JHL"
+			tableName="users_details" unique="false">
+			<column name="FULLNAME" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1423158036488-11">
+		<createIndex indexName="UK_NNFE45PH7VRNQFVBGVJ8JVPNN"
+			tableName="users_details" unique="false">
+			<column name="MAILADDRESS" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1423158036488-12">
+		<createIndex indexName="UK_OMN4EDP8WFSSYHW5QD50YNXBG"
+			tableName="users_details" unique="false">
+			<column name="PREFERREDNAME" />
+		</createIndex>
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1423668600553-1">
+		<addColumn tableName="token_grants">
+			<column name="IDENTIFIER" type="varchar(255)" />
+		</addColumn>
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1423737249390-1">
+		<createTable tableName="user_preferences">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="VALUE" type="VARCHAR(255)" />
+			<column name="PREFKEY" type="VARCHAR(64)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1423737249390-2">
+		<addPrimaryKey columnNames="ID, PREFKEY" tableName="user_preferences" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1423737249390-3">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="user_preferences" constraintName="FK_N61CXBM3F4UWE8CDQ0EW11MBL"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="users" />
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1423738022636-1">
+		<addColumn tableName="users_details">
+			<column name="PREFERTEXTMAIL" type="boolean" />
+		</addColumn>
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1425399278669-1">
+		<addColumn tableName="subjects">
+			<column name="SYNCHRONIZATIONHINT" type="VARCHAR(255)" />
+		</addColumn>
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1425399629775-1">
+		<addUniqueConstraint columnNames="SYNCHRONIZATIONHINT"
+			constraintName="UK_3TY1QJNK2458FGKE0AC7SWJ0A" deferrable="false"
+			disabled="false" initiallyDeferred="false" tableName="subjects" />
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1425637068253-2">
+		<addColumn tableName="content_container">
+			<column name="ALLOWFILEOVERWRITE" type="boolean" valueBoolean="false"
+				defaultValueBoolean="false">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+		<addColumn tableName="content_container">
+			<column name="SENDNOTIFICATIONS" type="boolean" valueBoolean="false"
+				defaultValueBoolean="false">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1425732296346-1">
+		<dropDefaultValue columnDataType="boolean"
+			columnName="ALLOWFILEOVERWRITE" tableName="content_container" />
+		<dropDefaultValue columnDataType="boolean"
+			columnName="SENDNOTIFICATIONS" tableName="content_container" />
+	</changeSet>
+
+
+	<changeSet author="mbechler (generated)" id="1425998396592-1">
+		<addColumn tableName="content_entity">
+			<column name="LASTMODIFIER_ID" type="java.sql.Types.BINARY(16)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1425998396592-5">
+		<addForeignKeyConstraint baseColumnNames="LASTMODIFIER_ID"
+			baseTableName="content_entity" constraintName="FK_8MTCJVQ46YGLS0EJNVUA85PAE"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="users" />
+	</changeSet>
+
+
+	<changeSet author="mbechler (generated)" id="1425998396592-3">
+		<addColumn tableName="users">
+			<column name="SECURITYLABEL_LABEL" type="varchar(255)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1425998396592-4">
+		<addForeignKeyConstraint baseColumnNames="SECURITYLABEL_LABEL"
+			baseTableName="users" constraintName="FK_6ODSONT1VCWWF5O1K0WWVKWB7"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="LABEL"
+			referencedTableName="security_level" />
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1425998396592-2">
+		<addColumn tableName="grants">
+			<column name="PERMS" type="integer"
+				valueComputed="CASE WHEN writeable THEN 7 ELSE 3 END">
+				<constraints nullable="true" />
+			</column>
+		</addColumn>
+		<addNotNullConstraint tableName="grants"
+			columnName="PERMS" columnDataType="integer" />
+		<dropColumn tableName="grants" columnName="WRITEABLE" />
+	</changeSet>
+
+
+	<changeSet author="mbechler (generated)" id="1426434488951-1">
+		<createTable tableName="full_name_index">
+			<column name="USER_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="NAME_PART" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426434488951-2">
+		<addColumn tableName="content_entity">
+			<column name="CREATORGRANT_ID" type="java.sql.Types.BINARY(16)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426434488951-3">
+		<addColumn tableName="groups">
+			<column name="DISABLENOTIFICATIONS" type="boolean"
+				valueBoolean="false" defaultValueBoolean="false">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+		<dropDefaultValue columnDataType="boolean"
+			columnName="DISABLENOTIFICATIONS" tableName="groups" />
+	</changeSet>
+
+
+	<changeSet author="mbechler (generated)" id="1426434488951-4">
+		<addColumn tableName="groups">
+			<column name="GROUPLOCALE" type="varchar(20)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426434488951-5">
+		<addColumn tableName="content_entity">
+			<column name="LASTMODIFIEDGRANT_ID" type="java.sql.Types.BINARY(16)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426434488951-6">
+		<addColumn tableName="groups">
+			<column name="NOTIFICATIONOVERRIDEADDRESS" type="varchar(255)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426434488951-7">
+		<addColumn tableName="users_details">
+			<column name="SALUTATIONNAME" type="varchar(255)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426434488951-8">
+		<addForeignKeyConstraint baseColumnNames="USER_ID"
+			baseTableName="full_name_index" constraintName="FK_577S20B2ACAB2D0R4452QMA05"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="users_details" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426434488951-9">
+		<addForeignKeyConstraint baseColumnNames="LASTMODIFIEDGRANT_ID"
+			baseTableName="content_entity" constraintName="FK_93ME079LIQP42BMH8TN5H4BU6"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="grants" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426434488951-10">
+		<addForeignKeyConstraint baseColumnNames="CREATORGRANT_ID"
+			baseTableName="content_entity" constraintName="FK_CIK2Y0LUPIGD3HBM7DNIYTOFP"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="grants" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426434488951-11">
+		<createIndex indexName="UK_7SJ8QK6C93BFE2DLBCUWUN0SV"
+			tableName="full_name_index" unique="false">
+			<column name="NAME_PART" />
+		</createIndex>
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1426782483505-1">
+		<createTable tableName="notification_tracker">
+			<column name="DEDUPID" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="EXPIRATION" type="timestamp" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426782483505-2">
+		<createTable tableName="pref_name_index">
+			<column name="USER_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="NAME_PART" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426782483505-3">
+		<createTable tableName="used_tokens">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="EXPIRES" type="timestamp" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426782483505-4">
+		<addPrimaryKey columnNames="DEDUPID" tableName="notification_tracker" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426782483505-5">
+		<addPrimaryKey columnNames="ID" tableName="used_tokens" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426782483505-6">
+		<addForeignKeyConstraint baseColumnNames="USER_ID"
+			baseTableName="pref_name_index" constraintName="FK_HBH24VCKV3RYPB5F088T7JC3S"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="users_details" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426782483505-7">
+		<createIndex indexName="UK_QAX0OXK9SVG2QKUCSQOA034DG"
+			tableName="pref_name_index" unique="false">
+			<column name="NAME_PART" />
+		</createIndex>
+	</changeSet>
+
+
+	<changeSet author="mbechler (generated)" id="1427291011981-1">
+		<addColumn tableName="content_container">
+			<column name="CHILDRENSIZE" type="bigint" defaultValueNumeric="0"
+				valueNumeric="0">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+		<dropDefaultValue columnDataType="bigint" columnName="CHILDRENSIZE"
+			tableName="content_container" />
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1427283006027-1">
+		<addColumn tableName="subjects">
+			<column name="QUOTA" type="bigint" />
+		</addColumn>
+	</changeSet>
+
+
+	<changeSet author="mbechler (generated)" id="1431334391020-1">
+		<addColumn tableName="users_details">
+			<column name="FULLNAMEVERIFIED" type="boolean" valueBoolean="false"
+				defaultValueBoolean="false">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1431334391020-2">
+		<addColumn tableName="users_details">
+			<column name="MAILADDRESSVERIFIED" type="boolean"
+				valueBoolean="false" defaultValueBoolean="false">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1431334391020-3">
+		<addColumn tableName="users_details">
+			<column name="PREFERREDNAMEVERIFIED" type="boolean"
+				valueBoolean="false" defaultValueBoolean="false">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1431612446946-1">
+		<createTable tableName="user_favorite_entities">
+			<column name="FAVORITEBY_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="FAVORITEENTITIES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1431612446946-2">
+		<createTable tableName="user_favorite_subjects">
+			<column name="FAVORITEBY_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="FAVORITESUBJECTS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1431612446946-3">
+		<createTable tableName="user_hidden_entities">
+			<column name="HIDDENBY_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="HIDDENENTITIES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1431612446946-4">
+		<createTable tableName="user_hidden_subjects">
+			<column name="HIDDENBY_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="HIDDENSUBJECTS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1431612446946-5">
+		<addPrimaryKey columnNames="FAVORITEBY_ID, FAVORITEENTITIES_ID"
+			tableName="user_favorite_entities" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1431612446946-6">
+		<addPrimaryKey columnNames="FAVORITEBY_ID, FAVORITESUBJECTS_ID"
+			tableName="user_favorite_subjects" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1431612446946-7">
+		<addPrimaryKey columnNames="HIDDENBY_ID, HIDDENENTITIES_ID"
+			tableName="user_hidden_entities" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1431612446946-8">
+		<addPrimaryKey columnNames="HIDDENBY_ID, HIDDENSUBJECTS_ID"
+			tableName="user_hidden_subjects" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1431612446946-9">
+		<addForeignKeyConstraint baseColumnNames="FAVORITEENTITIES_ID"
+			baseTableName="user_favorite_entities" constraintName="FK_3LIKE7QUA6TMDJ6VNO156SH60"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="content_entity" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1431612446946-10">
+		<addForeignKeyConstraint baseColumnNames="FAVORITEBY_ID"
+			baseTableName="user_favorite_entities" constraintName="FK_C1P50P9DNBYTXEB44N1UUMVRK"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="users" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1431612446946-11">
+		<addForeignKeyConstraint baseColumnNames="HIDDENBY_ID"
+			baseTableName="user_hidden_entities" constraintName="FK_MJ8KRAH1YHK3BRW4DPRIL8I0V"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="users" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1431612446946-12">
+		<addForeignKeyConstraint baseColumnNames="HIDDENBY_ID"
+			baseTableName="user_hidden_subjects" constraintName="FK_NYQPI187TP6U3BCURJ170FDPS"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="users" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1431612446946-13">
+		<addForeignKeyConstraint baseColumnNames="HIDDENSUBJECTS_ID"
+			baseTableName="user_hidden_subjects" constraintName="FK_PBC3VGQ8J8NENQMCX79512BI4"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="subjects" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1431612446946-14">
+		<addForeignKeyConstraint baseColumnNames="FAVORITESUBJECTS_ID"
+			baseTableName="user_favorite_subjects" constraintName="FK_RLEIU8MFB2QL4TN9HLM6WQR19"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="subjects" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1431612446946-15">
+		<addForeignKeyConstraint baseColumnNames="FAVORITEBY_ID"
+			baseTableName="user_favorite_subjects" constraintName="FK_SAA6CMAKQHKGKMFPV4EN1TVO0"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="users" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1431612446946-16">
+		<addForeignKeyConstraint baseColumnNames="HIDDENENTITIES_ID"
+			baseTableName="user_hidden_entities" constraintName="FK_SV96XHNOBC2YGRHQLV7OHBE3D"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="content_entity" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1431612446946-17">
+		<dropDefaultValue columnDataType="boolean"
+			columnName="FULLNAMEVERIFIED" tableName="users_details" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1431612446946-18">
+		<dropDefaultValue columnDataType="boolean"
+			columnName="MAILADDRESSVERIFIED" tableName="users_details" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1431612446946-19">
+		<dropDefaultValue columnDataType="boolean"
+			columnName="PREFERREDNAMEVERIFIED" tableName="users_details" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1431689428666-1">
+		<addColumn tableName="users">
+			<column name="NOSUBJECTROOT" type="boolean" valueBoolean="false"
+				defaultValueBoolean="false">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1431700479940-1">
+		<dropDefaultValue columnDataType="boolean"
+			columnName="NOSUBJECTROOT" tableName="users" />
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1432203723322-1">
+		<createTable tableName="user_mail_favorites">
+			<column name="USERS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="MAILFAVORITES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1432203723322-2">
+		<addColumn tableName="users">
+			<column name="LINKSFAVORITE" type="boolean" valueBoolean="false"
+				defaultValueBoolean="false">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1432203723322-3">
+		<addForeignKeyConstraint baseColumnNames="USERS_ID"
+			baseTableName="user_mail_favorites" constraintName="FK_INTBIQWPCLUM2QM4YFMKOD2Q7"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="users" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1432215061748-1">
+		<createTable tableName="user_mail_hidden">
+			<column name="USERS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="MAILHIDDEN" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1432215061748-2">
+		<addColumn tableName="users">
+			<column name="LINKSHIDDEN" type="boolean" valueBoolean="false"
+				defaultValueBoolean="false">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1432215061748-3">
+		<addForeignKeyConstraint baseColumnNames="USERS_ID"
+			baseTableName="user_mail_hidden" constraintName="FK_QV7FQTJAGGOFVERXWW1C7OKR8"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="users" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1432215061748-4">
+		<dropDefaultValue columnDataType="boolean"
+			columnName="LINKSFAVORITE" tableName="users" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1432219619353-1">
+		<dropDefaultValue columnDataType="boolean"
+			columnName="LINKSHIDDEN" tableName="users" />
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1434048062186-1">
+		<addColumn tableName="token_grants">
+			<column name="COMMENT" type="clob(255)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1434048062186-2">
+		<addColumn tableName="token_grants">
+			<column name="PASSWORD" type="varchar(255)" />
+		</addColumn>
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1434115161074-1">
+		<createIndex indexName="UK_4NUUPOP76UF1JEB6L877E0R42"
+			tableName="mail_grants" unique="false">
+			<column name="MAILADDRESS" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1434115161074-2">
+		<createIndex indexName="UK_SGPW15YXPA9YCQ77IBVDQCL3M"
+			tableName="grants" unique="false">
+			<column name="EXPIRES" />
+		</createIndex>
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1434621621910-1">
+		<addColumn tableName="content_file">
+			<column name="CONTENTLASTMODIFIED" type="timestamp" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1434621621910-2">
+		<addColumn tableName="subjects">
+			<column name="LASTMODIFIED" type="timestamp" />
+		</addColumn>
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1435048484093-1">
+		<addColumn tableName="subjects">
+			<column name="CREATOR_ID" type="java.sql.Types.BINARY(16)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1435048484093-2">
+		<addColumn tableName="subjects">
+			<column name="EXPIRATION" type="timestamp" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1435048484093-3">
+		<addForeignKeyConstraint baseColumnNames="CREATOR_ID"
+			baseTableName="subjects" constraintName="FK_5RQQ7QQ7BYMDE8K3I0OAWAD35"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="users" />
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1437038576685-1">
+		<addColumn tableName="subjects">
+			<column name="CREATED" type="timestamp" />
+		</addColumn>
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1437038576686">
+		<addColumn tableName="groups">
+			<column name="REALM" type="varchar(255)" />
+		</addColumn>
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1441972992699-1">
+		<addUniqueConstraint columnNames="REALM, NAME"
+			constraintName="UK_HQ5C7B6I7MJVBLEY28OABIW4B" tableName="groups" />
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1441972992699-2">
+		<dropUniqueConstraint constraintName="UK_I7RCWFMF61XTAXS6ON3J24LS5"
+			tableName="groups" />
+	</changeSet>
+
+	<changeSet author="mbechler (generated)" id="1445514681468-1">
+		<createTable tableName="vgroups">
+			<column name="REALM" type="VARCHAR(255)" />
+			<column name="VFS" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445514681468-2">
+		<addPrimaryKey columnNames="ID" constraintName="vgroupsPK"
+			tableName="vgroups" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445514681468-3">
+		<addUniqueConstraint columnNames="VFS"
+			constraintName="UK_LCD7V0H2HK1JL9C0WITPM9K6G" tableName="vgroups" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445514681468-5">
+		<createIndex indexName="FK_FK_PSK9A8DV7RGHCROGT8Q5PSQGJ"
+			tableName="vgroups">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445514681468-6">
+		<createIndex indexName="UK_I7RCWFMF61XTAXS6ON3J24LS5"
+			tableName="groups">
+			<column name="NAME" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445514681468-8">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="vgroups" constraintName="FK_PSK9A8DV7RGHCROGT8Q5PSQGJ"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="groups" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445860358205-1">
+		<addColumn tableName="content_container">
+			<column name="RECURSIVELASTMODIFIED" type="timestamp" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445860358205-2">
+		<dropNotNullConstraint columnDataType="bigint"
+			columnName="CHILDRENSIZE" tableName="content_container" />
+	</changeSet>
+
+
+	<changeSet author="mbechler (generated)" id="1445873529374-1">
+		<createTable tableName="content_mapped_container">
+			<column name="INODE" type="VARBINARY(16)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="VFS_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445873529374-2">
+		<createTable tableName="content_mapped_file">
+			<column name="INODE" type="VARBINARY(16)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="VFS_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445873529374-3">
+		<addPrimaryKey columnNames="ID" constraintName="content_mapped_containerPK"
+			tableName="content_mapped_container" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445873529374-4">
+		<addPrimaryKey columnNames="ID" constraintName="content_mapped_filePK"
+			tableName="content_mapped_file" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445873529374-5">
+		<createIndex indexName="FK_FK_DTAELEPLX82A0MAY3I5DB6M6P"
+			tableName="content_mapped_file">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445873529374-6">
+		<createIndex indexName="FK_FK_K158TM5XLI1CHYG11F4JM3MNT"
+			tableName="content_mapped_container">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445873529374-7">
+		<createIndex indexName="FK_FK_KYEHRUSRKPEC9K0NM9HBCEML8"
+			tableName="content_mapped_file">
+			<column name="VFS_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445873529374-8">
+		<createIndex indexName="FK_FK_TJHWEVILGVSV82P7UMG4HM6B7"
+			tableName="content_mapped_container">
+			<column name="VFS_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445873529374-9">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="content_mapped_file" constraintName="FK_DTAELEPLX82A0MAY3I5DB6M6P"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="content_file" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445873529374-10">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="content_mapped_container" constraintName="FK_K158TM5XLI1CHYG11F4JM3MNT"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="content_container" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445873529374-11">
+		<addForeignKeyConstraint baseColumnNames="VFS_ID"
+			baseTableName="content_mapped_file" constraintName="FK_KYEHRUSRKPEC9K0NM9HBCEML8"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="vgroups" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445873529374-12">
+		<addForeignKeyConstraint baseColumnNames="VFS_ID"
+			baseTableName="content_mapped_container" constraintName="FK_TJHWEVILGVSV82P7UMG4HM6B7"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="vgroups" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445878320162-1">
+		<addColumn tableName="content_mapped_container">
+			<column name="RELATIVEPATH" type="clob(4096)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445878320162-2">
+		<addColumn tableName="content_mapped_file">
+			<column name="RELATIVEPATH" type="clob(4096)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445878697027-1">
+		<addUniqueConstraint columnNames="VFS_ID, INODE"
+			constraintName="UK_JYIJGMG4BTK9DXU9YT4MY8S4" tableName="content_mapped_container" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445878697027-2">
+		<addUniqueConstraint columnNames="VFS_ID, INODE"
+			constraintName="UK_YI6U6L0OU3E5LV3E5EHP42VE" tableName="content_mapped_file" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445947636138-1">
+		<addNotNullConstraint columnDataType="binary(16)"
+			columnName="VFS_ID" tableName="content_mapped_container" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445947636138-2">
+		<addNotNullConstraint columnDataType="binary(16)"
+			columnName="VFS_ID" tableName="content_mapped_file" />
+	</changeSet>
+
+
+	<changeSet author="mbechler (generated)" id="1445950976134-1">
+		<createTable tableName="content_entity_reference">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="RELATIVEPATH" type="CLOB(4096)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445950976134-2">
+		<addColumn tableName="content_mapped_container">
+			<column name="REFERENCESTORAGE_ID" type="BINARY(16)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445950976134-3">
+		<addColumn tableName="content_mapped_file">
+			<column name="REFERENCESTORAGE_ID" type="BINARY(16)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445950976134-4">
+		<addPrimaryKey columnNames="ID" constraintName="content_entity_referencePK"
+			tableName="content_entity_reference" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445950976134-5">
+		<createIndex indexName="FK_FK_85GN9V26XI6IGB297QSS7EBOE"
+			tableName="content_mapped_file">
+			<column name="REFERENCESTORAGE_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445950976134-6">
+		<createIndex indexName="FK_FK_RG6LS69IS4SWMPIQ7CN78IHXV"
+			tableName="content_mapped_container">
+			<column name="REFERENCESTORAGE_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445950976134-7">
+		<addForeignKeyConstraint baseColumnNames="REFERENCESTORAGE_ID"
+			baseTableName="content_mapped_file" constraintName="FK_85GN9V26XI6IGB297QSS7EBOE"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="content_entity_reference" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445950976134-8">
+		<addForeignKeyConstraint baseColumnNames="REFERENCESTORAGE_ID"
+			baseTableName="content_mapped_container" constraintName="FK_RG6LS69IS4SWMPIQ7CN78IHXV"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="content_entity_reference" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445951104923-1">
+		<addUniqueConstraint columnNames="REFERENCESTORAGE_ID"
+			constraintName="UK_85GN9V26XI6IGB297QSS7EBOE" tableName="content_mapped_file" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445951104923-2">
+		<addUniqueConstraint columnNames="REFERENCESTORAGE_ID"
+			constraintName="UK_RG6LS69IS4SWMPIQ7CN78IHXV" tableName="content_mapped_container" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445951104923-3">
+		<addNotNullConstraint columnDataType="binary(16)"
+			columnName="REFERENCESTORAGE_ID" tableName="content_mapped_container" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445951104923-4">
+		<addNotNullConstraint columnDataType="binary(16)"
+			columnName="REFERENCESTORAGE_ID" tableName="content_mapped_file" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1461345220935-1">
+		<validCheckSum>7:0ead4401566f936f68e22d07e7c57ecc</validCheckSum>
+		<addColumn tableName="grants">
+			<column name="LASTMODIFIED" type="timestamp" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1461400295124-1">
+		<validCheckSum>7:a10c9628377fde20a68e042a8dfa8104</validCheckSum>
+		<createTable tableName="content_container_changes">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="CHANGETIME" type="timestamp" />
+			<column name="CHANGETYPE" type="INT" />
+			<column name="ENTITYTYPE" type="INT" />
+			<column name="LOCALNAME" type="VARCHAR(255)" />
+			<column name="VERSION" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONTAINER" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1461400295124-2">
+		<validCheckSum>7:b8aea63f7435e27a06780198c8d9e003</validCheckSum>
+		<addPrimaryKey columnNames="ID" constraintName="content_container_changesPK" tableName="content_container_changes" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1461400295124-3">
+		<validCheckSum>7:3cace3dc9fc841f6a4f1c2c3b1a5717c</validCheckSum>
+		<addForeignKeyConstraint baseColumnNames="CONTAINER"
+			baseTableName="content_container_changes"
+			constraintName="FK3TEJWLM71MNBT99YP7W4S2ODS" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="content_container" />
+	</changeSet>
+	
+	
+	<changeSet author="mbechler (generated)" id="1461400295124-4">
+		<addColumn tableName="content_entity">
+			<column name="LASTMOVED" type="timestamp" />
+		</addColumn>
+	</changeSet>
+	
+	
+	<changeSet author="mbechler (generated)" id="1508500552-1">
+		<createTable tableName="audit_event">
+			<column name="EVID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="TS" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="TYPE" type="VARCHAR(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ACTION" type="VARCHAR(50)" />
+			<column name="PAYLOAD" type="${blob_type}" />
+		</createTable>
+		<createTable tableName="audit_entity">
+			<column name="KEY" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="EVID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<addPrimaryKey columnNames="EVID" constraintName="audit_eventPK" tableName="audit_event" />
+		<addForeignKeyConstraint baseColumnNames="EVID"
+			baseTableName="audit_entity"
+			constraintName="EVENT_KEY_INDEX" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="EVID" referencedTableName="audit_event" />
+	</changeSet>
+	
+</databaseChangeLog>

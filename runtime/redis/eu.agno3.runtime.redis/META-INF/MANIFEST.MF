@@ -1,0 +1,23 @@
+Bundle-SymbolicName: eu.agno3.runtime.redis
+Bundle-Version: 0.0.2
+Bundle-Name: Runtime Redis
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.runtime.transaction,
+ eu.agno3.runtime.util.classloading,
+ eu.agno3.runtime.util.config;version="0.0.66",
+ eu.agno3.runtime.util.osgi;version="0.0.92",
+ javax.transaction;version="1.1.0",
+ javax.transaction.xa;version="1.1.0",
+ org.apache.commons.lang3;version="3.1.0",
+ org.apache.log4j;version="1.2.15",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.framework.wiring;version="1.2.0",
+ org.osgi.service.component;version="1.2.2",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.redisson;version="3.5.3",
+ org.redisson.api;version="3.5.3",
+ org.redisson.config;version="3.5.3"
+Service-Component: OSGI-INF/*.xml
+Export-Package: eu.agno3.runtime.redis;version="0.0.2"

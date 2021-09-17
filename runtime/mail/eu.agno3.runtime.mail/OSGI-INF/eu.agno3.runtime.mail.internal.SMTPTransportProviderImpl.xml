@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.mail.internal.SMTPTransportProviderImpl" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.mail.SMTPTransportProvider"/>
+    </service>
+    <reference name="TLSContext" interface="eu.agno3.runtime.crypto.tls.TLSContext" cardinality="0..1" policy="static" target="(|(subsystem=smtp)(role=client)(role=default))" bind="setTLSContext" unbind="unsetTLSContext" updated="updatedTLSContext" policy-option="greedy"/>
+    <reference name="SMTPConfiguration" interface="eu.agno3.runtime.mail.SMTPConfiguration" cardinality="1..1" policy="static" bind="setSMTPConfiguration" unbind="unsetSMTPConfiguration" updated="updatedSMTPConfiguration"/>
+    <reference name="TransportFactory" interface="eu.agno3.runtime.mail.SMTPTransportFactory" cardinality="1..1" policy="static" bind="setTransportFactory" unbind="unsetTransportFactory"/>
+    <implementation class="eu.agno3.runtime.mail.internal.SMTPTransportProviderImpl"/>
+</scr:component>

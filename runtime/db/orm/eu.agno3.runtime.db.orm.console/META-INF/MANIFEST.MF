@@ -1,0 +1,24 @@
+Bundle-SymbolicName: eu.agno3.runtime.db.orm.console
+Bundle-Version: 0.0.166
+Bundle-Name: Console ORM Commands
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.runtime.console;version="0.0.2",
+ eu.agno3.runtime.db.orm;version="0.0.10",
+ eu.agno3.runtime.db.orm.hibernate;version="0.0.10",
+ eu.agno3.runtime.db.schema;version="0.0.10",
+ eu.agno3.runtime.db.schema.orm.hibernate;version="0.0.10",
+ org.apache.commons.collections4.map;version="4.0.0",
+ org.apache.commons.lang3;version="3.1.0",
+ org.apache.log4j;provider=paxlogging;version="1.2.15",
+ org.fusesource.jansi;version="1.9.0",
+ org.hibernate.boot;version="5.0.3.Final",
+ org.hibernate.cfg;version="4.2.3",
+ org.hibernate.mapping;version="4.2.3",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.osgi.service.jdbc;version="1.0.0"
+Require-Bundle: eu.agno3.dependencies.karaf-console;bundle-version="3.0.0"
+Service-Component: OSGI-INF/*.xml

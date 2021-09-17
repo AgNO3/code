@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.crypto.tls.internal.DelegatingTLSConfiguration" configuration-policy="require" activate="activate" deactivate="deactivate" modified="modified" configuration-pid="crypto.tls.delegatingConfig">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.crypto.tls.internal.DelegatingTLSConfiguration"/>
+        <provide interface="eu.agno3.runtime.crypto.tls.InternalTLSConfiguration"/>
+    </service>
+    <reference name="KeyStoreConfiguration" interface="eu.agno3.runtime.crypto.tls.KeyStoreConfiguration" cardinality="1..1" policy="static" bind="setKeyStoreConfiguration" unbind="unsetKeyStoreConfiguration" updated="updateKeyStoreConfiguration"/>
+    <reference name="TrustManagerFactory" interface="javax.net.ssl.TrustManagerFactory" cardinality="1..1" policy="static" bind="setTrustManagerFactory" unbind="unsetTrustManagerFactory" updated="updateTrustManagerFactory"/>
+    <reference name="HostnameVerifier" interface="javax.net.ssl.HostnameVerifier" cardinality="1..1" policy="static" bind="setHostnameVerifier" unbind="unsetHostnameVerifier"/>
+    <reference name="SNIMatcher" interface="eu.agno3.runtime.crypto.tls.internal.DefaultSNIMatcher" cardinality="1..1" policy="static" bind="setSNIMatcher" unbind="unsetSNIMatcher"/>
+    <reference name="SNIHandler" interface="eu.agno3.runtime.crypto.tls.SNIHandler" cardinality="0..n" policy="dynamic" bind="bindSNIHandler" unbind="unbindSNIHandler"/>
+    <implementation class="eu.agno3.runtime.crypto.tls.internal.DelegatingTLSConfiguration"/>
+</scr:component>

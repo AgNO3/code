@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="enableSshAccess"
+		path="enableSshAccess" update="@composite:@parent:sshSettings">
+		<p:selectBooleanCheckbox id="enableSshAccess"
+			value="#{current.enableSshAccess}">
+			<p:ajax event="change" update="@composite:@parent:sshSettings" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+	<p:outputPanel id="sshSettings">
+		<p:outputPanel
+			rendered="#{current.enableSshAccess or (current.enableSshAccess == null and defaults.enableSshAccess)}">
+			<orch:objectFieldEditor inputId="sshKeyOnly" path="sshKeyOnly">
+				<p:selectBooleanCheckbox id="sshKeyOnly"
+					value="#{current.sshKeyOnly}" />
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="adminSshPublicKeys"
+				clone="#{pubkeyEntryUtil.clonePublicKeyEntry}"
+				path="adminSshPublicKeys" collection="true"
+				readOnlyValueMapper="#{pubkeyEntryUtil.pubkeyEntryReadOnlyMapper}">
+				<ag:setEditor id="adminSshPublicKeys"
+					value="#{current.adminSshPublicKeys}"
+					comparator="#{pubkeyEntryUtil.publicKeyEntryComparator}"
+					factoryMethod="#{pubkeyEntryUtil.makePublicKeyEntry}">
+					<p:column>
+						<ag:rsaPublicKeyEditor
+							value="#{pubkeyEntryUtil.getWrapper(item.value).value}"
+							comment="#{pubkeyEntryUtil.getWrapper(item.value).comment}" />
+					</p:column>
+				</ag:setEditor>
+			</orch:objectFieldEditor>
+		</p:outputPanel>
+	</p:outputPanel>
+
+	<orch:objectFieldEditor inputId="swapiness" path="swapiness"
+		minLevel="2">
+		<h:inputHidden id="swapiness" value="#{current.swapiness}" />
+		<p:slider style="width: 250px; display: inline-block" for="swapiness"
+			display="swapinessOutput" minValue="0" maxValue="100"
+			displayTemplate="{value}" />
+		<h:outputText style="padding-left: 0.5em" id="swapinessOutput"
+			value="#{current.swapiness}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectEditor objectType="urn:agno3:objects:1.0:runtime"
+		title="#{_config_hostconfig['hostconfig.system.agentConfig']}"
+		context="#{configContext}" path="agentConfig"
+		subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+
+</ui:composition>

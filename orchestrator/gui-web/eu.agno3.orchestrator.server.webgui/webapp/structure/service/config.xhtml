@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0"
+	template="/tpl/structure/service/template.xhtml">
+	<ui:param name="serviceSubtitle"
+		value="#{_gui['structure.service.config.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="service"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+			<f:viewParam name="anchor"
+				value="#{structureViewContext.selectedAnchorId}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="configEditForm"
+			styleClass="config-form #{instanceConfigContext.styleClass}">
+
+			<ui:decorate template="/tpl/config/configCommon.xhtml">
+				<ui:define name="saveActions">
+					<div class="click-container">
+						<p:commandButton
+							title="#{_gui['structure.service.config.save']}"
+							value="#{_gui['structure.service.config.save']}"
+							icon="ui-icon-disk" styleClass="save-button"
+							action="#{instanceConfigController.saveNoDialog}"
+							oncomplete="savedConfig(args.saved);" process="@form"
+							update="@form" />
+					</div>
+
+					<div class="click-container">
+						<p:commandButton
+							action="#{instanceConfigController.cancelNoDialog}"
+							oncomplete="savedConfig(args.saved);" process="@form"
+							icon="ui-icon-cancel" styleClass="cancel-button"
+							update="@form" value="#{_gui['structure.service.config.cancel']}"
+							title="#{_gui['structure.service.config.cancel']}">
+							<p:confirm header="#{_gui['structure.service.config.cancel.confirmHeader']}"
+								message="#{_gui['structure.service.config.cancel.confirmMsg']}" />
+						</p:commandButton>
+					</div>
+
+					<ag:dialogOpenButton
+						disabled="#{not instanceConfigController.canApply}"
+						rendered="#{guiFeatureConfig.showDevTools}" id="applyConfigDialog"
+						closable="true" title="#{_gui['structure.service.config.apply']}"
+						styleClass="apply-button" icon="ui-icon-gear"
+						value="#{_gui['structure.service.config.apply']}"
+						dialog="/structure/service/applyConfig?cid=#{instanceConfigContext.conversation.id}&amp;service=#{structureViewContext.selectedObjectId}"
+						returnLabel="#{_gui['config.dialogReturn']}">
+						<p:ajax event="return"
+							listener="#{instanceConfigController.applyReturn}" update="@form" />
+					</ag:dialogOpenButton>
+				</ui:define>
+				<ui:param name="configContext" value="#{instanceConfigContext}" />
+			</ui:decorate>
+
+			<f:validateBean
+				validationGroups="javax.validation.groups.Default,eu.agno3.orchestrator.config.model.validation.Instance">
+				<orch:objectEditor template="false"
+					context="#{instanceConfigContext}" path=""
+					title="#{configLocalizationProvider.getTypeName(instanceConfigContext.objectTypeName)}"
+					objectType="#{instanceConfigContext.objectTypeName}" />
+			</f:validateBean>
+		</h:form>
+	</ui:define>
+</ui:composition>

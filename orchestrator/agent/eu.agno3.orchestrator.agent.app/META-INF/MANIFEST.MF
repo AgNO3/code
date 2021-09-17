@@ -1,0 +1,20 @@
+Bundle-SymbolicName: eu.agno3.orchestrator.agent.app;singleton:=true
+Bundle-Version: 0.0.1.qualifier
+Bundle-Name: Orchestrator/Agent Application
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.9.0"
+Bundle-Activator: eu.agno3.orchestrator.agent.app.AgentActivator
+Import-Package: eu.agno3.orchestrator.agent.config;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.agent.connector;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.jobs;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.jobs.agent.service;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.server.connector;version="0.0.1.qualifier",
+ eu.agno3.runtime.console,
+ eu.agno3.runtime.update;version="0.0.38",
+ org.apache.log4j,
+ org.fusesource.jansi;version="1.9.0",
+ org.osgi.service.cm;version="1.4.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0"

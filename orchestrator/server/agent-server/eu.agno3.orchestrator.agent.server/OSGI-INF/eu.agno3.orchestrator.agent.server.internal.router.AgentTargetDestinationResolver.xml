@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" immediate="true" name="eu.agno3.orchestrator.agent.server.internal.router.AgentTargetDestinationResolver">
+    <property name="targetClass" value="eu.agno3.orchestrator.agent.msg.addressing.AgentMessageTarget"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.messaging.routing.MessageDestinationResolver"/>
+    </service>
+    <reference name="AgentConfigProvider" interface="eu.agno3.orchestrator.agent.server.AgentConfigurationProvider" cardinality="1..1" policy="static" bind="setAgentConfigProvider" unbind="unsetAgentConfigProvider"/>
+    <implementation class="eu.agno3.orchestrator.agent.server.internal.router.AgentTargetDestinationResolver"/>
+</scr:component>

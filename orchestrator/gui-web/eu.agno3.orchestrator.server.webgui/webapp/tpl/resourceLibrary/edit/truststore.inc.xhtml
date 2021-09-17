@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+	<h:outputScript library="agno3" name="library.js" />
+
+	<p:messages autoUpdate="true" />
+
+
+	<p:fieldset legend="#{_gui['resourceLibrary.truststore.create.title']}"
+		style="margin-bottom: 1.5em">
+		<ag:certificateEditor value="#{truststoreLibraryBean.certificate}" />
+	</p:fieldset>
+
+	<p:outputPanel style="height: 300px; width: auto; overflow-y: scroll">
+		<p:treeTable value="#{resourceLibraryEditorBean.filesModel}"
+			id="fileTree" var="file" styleClass="files-tree"
+			selectionMode="single" 
+			selection="#{resourceLibraryFileEditorBean.selectedFile}">
+
+			<p:ajax event="select" update="@parent:certificateDisplay" />
+
+			<p:column>
+				<h:outputText value="#{file.path}" />
+			</p:column>
+
+			<p:column styleClass="action-column">
+				<ag:dialogOpenCommandLink rendered="#{not file.inherited}"
+					styleClass="ui-icon ui-icon-inline ui-icon-trash"
+					dialog="/resourceLibrary/deleteFile.xhtml?library=#{resourceLibraryEditorBean.selectedLibraryId}&amp;path=#{uriUtil.encodeParam(file.path)}">
+					<p:ajax event="return"
+						listener="#{resourceLibraryFileEditorBean.returnFromDelete}"
+						update="fileTree" />
+				</ag:dialogOpenCommandLink>
+
+				<ag:dialogOpenCommandLink
+					styleClass="ui-icon ui-icon-inline ui-icon-extlink"
+					rendered="#{file.inherited}"
+					title="#{resourceLibraryFileEditorBean.getInheritedTitle(file)}"
+					dialog="#{resourceLibraryController.editLibraryDialog(file.anchorId, file.libraryId, resourceLibraryEditorBean.libraryType)}">
+					<p:ajax event="return" listener="#{resourceLibraryEditorBean.refresh()}" update="fileTree" />
+				</ag:dialogOpenCommandLink>
+			</p:column>
+		</p:treeTable>
+	</p:outputPanel>
+
+	<p:outputPanel id="certificateDisplay" style="margin-top: 1.5em">
+		<p:outputPanel
+			rendered="#{truststoreLibraryBean.haveSelectedCertificate()}">
+			<ag:certificateDisplay
+				value="#{truststoreLibraryBean.selectedCertificate}" />
+		</p:outputPanel>
+	</p:outputPanel>
+</ui:composition>

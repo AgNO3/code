@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.runtime.eventlog"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:xml:1.0:eventlog">
+		<xml-ns prefix="l" namespace-uri="urn:agno3:xml:1.0:eventlog" />
+		<xml-ns prefix="map" namespace-uri="urn:agno3:xml:1.0:map" />
+	</xml-schema>
+
+	<java-types>
+		<java-type name="EventFilter" xml-accessor-type="NONE">
+
+			<xml-type name="eventFilterType" />
+			<xml-root-element name="eventFilter" />
+
+			<java-attributes>
+				<xml-element name="startTime" java-attribute="startTime">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter" />
+				</xml-element>
+				<xml-element name="endTime" java-attribute="endTime">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter" />
+				</xml-element>
+				
+				<xml-element name="severity" java-attribute="filterSeverity" />
+				<xml-element name="message" java-attribute="filterMessage" />
+				<xml-element name="property" java-attribute="filterProperties">
+					<xml-java-type-adapter value="eu.agno3.runtime.xml.binding.adapter.map.StringMapAdapter" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+	</java-types>
+
+</xml-bindings>

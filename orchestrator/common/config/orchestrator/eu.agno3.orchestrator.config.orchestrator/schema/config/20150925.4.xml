@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+	<changeSet author="mbechler (generated)" id="1443182418955-1">
+		<createTable tableName="config_orchestrator">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418955-2">
+		<createTable tableName="config_orchestrator_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418955-3">
+		<addPrimaryKey columnNames="ID" constraintName="config_orchestratorPK"
+			tableName="config_orchestrator" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418955-4">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_orchestrator_AUDPK"
+			tableName="config_orchestrator_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418955-5">
+		<createIndex indexName="FK_FK_AKQAEMXFWGU657PTHQ2RFCGQ6"
+			tableName="config_orchestrator">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418955-6">
+		<createIndex indexName="FK_FK_OEN12UV9NRRD0BA17SQ4IAC2C"
+			tableName="config_orchestrator_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418955-7">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_orchestrator" constraintName="FK_AKQAEMXFWGU657PTHQ2RFCGQ6"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_instances" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418955-8">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_orchestrator_AUD" constraintName="FK_OEN12UV9NRRD0BA17SQ4IAC2C"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_instances_AUD" />
+	</changeSet>
+</databaseChangeLog>

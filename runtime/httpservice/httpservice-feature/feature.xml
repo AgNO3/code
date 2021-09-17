@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="httpservice-feature"
+      label="Http Service Feature"
+      version="0.0.154"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <requires>
+      <import feature="deps-jetty-feature" version="9.3.0"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.runtime.http.service"
+         download-size="0"
+         install-size="0"
+         version="0.0.154"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.runtime.http.service.console"
+         download-size="0"
+         install-size="0"
+         version="0.0.154"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.runtime.http.service.webapp"
+         download-size="0"
+         install-size="0"
+         version="0.0.154"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.runtime.httpservice.jetty.fragment"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+</feature>

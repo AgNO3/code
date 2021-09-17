@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:agsec="http://agno3.eu/ns/jsfsec/taglib/1.0"
+	template="/tpl/common/raw.xhtml">
+	<ui:param name="title" value="#{_login.title}" />
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{agsec_loginController.preRenderViewListener}"
+				type="preRenderView" />
+
+			<f:viewParam name="disableAutoLogin" required="false"
+				value="${agsec_loginController.disableAutoLogin}" />
+
+			<f:viewParam name="realm" required="false"
+				value="${agsec_loginController.selectedLoginRealmId}" />
+		</f:metadata>
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+			<agsec:loginBox terms="#{termsBean}" />
+		</h:form>
+	</ui:define>
+</ui:composition>

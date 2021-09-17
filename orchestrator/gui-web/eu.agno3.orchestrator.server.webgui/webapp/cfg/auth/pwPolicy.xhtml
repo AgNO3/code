@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="entropyLowerLimit" minLevel="2"
+		path="entropyLowerLimit">
+		<p:spinner id="entropyLowerLimit" min="0" max="256"
+			value="#{current.entropyLowerLimit}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="enableAgeCheck" path="enableAgeCheck"
+		minLevel="2" update="@composite:@parent:ageSettings">
+		<p:selectBooleanCheckbox id="enableAgeCheck"
+			value="#{current.enableAgeCheck}">
+			<p:ajax event="change" update="@composite:@parent:ageSettings" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+	<p:outputPanel id="ageSettings">
+		<p:outputPanel
+			rendered="#{current.enableAgeCheck or (current.enableAgeCheck == null and defaults.enableAgeCheck)}">
+			<orch:objectFieldEditor inputId="maximumPasswordAge"
+				path="maximumPasswordAge"
+				readOnlyValueMapper="#{dateFormatter.formatDurationObject}">
+				<ag:inputDuration id="maximumPasswordAge" minUnit="days"
+					maxUnit="years" value="#{current.maximumPasswordAge}" />
+			</orch:objectFieldEditor>
+		</p:outputPanel>
+	</p:outputPanel>
+</ui:composition>

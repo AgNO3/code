@@ -1,0 +1,13 @@
+Bundle-SymbolicName: eu.agno3.runtime.db.orm.test.model2
+Bundle-Version: 0.0.166
+Bundle-Name: Database ORM Tests Model 2
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.runtime.db.orm.test.model1;version="0.0.10",
+ javassist.util.proxy;version="3.18.0.GA",
+ javax.persistence;version="2.0.0",
+ org.hibernate.proxy;version="4.2.3",
+ eu.agno3.runtime.db.orm.test.model2;version="0.0.10"
+Export-Package: eu.agno3.runtime.db.orm.test.model2;version="0.0.166"
+Hibernate-Contribution: auto

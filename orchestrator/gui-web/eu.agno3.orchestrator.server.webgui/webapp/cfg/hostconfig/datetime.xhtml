@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<orch:objectFieldEditor inputId="timezone" path="timezone"
+		converter="#{timeZoneConverter}">
+		<p:selectOneMenu id="timezone" value="#{current.timezone}"
+			filter="true" filterMatchMode="contains" var="tz"
+			converter="#{timeZoneConverter}" style="width: 20em"
+			panelStyle="width: 30em">
+			<f:selectItem itemValue=""
+				itemLabel="#{_config_hostconfig['hostconfig.datetime.timezone.noSelection']}"
+				noSelectionOption="true" />
+			<f:selectItems value="${timeZoneInfo.selectItems}" var="tzInfo"
+				itemValue="${tzInfo.tz}"
+				itemLabel="#{msgs.formatEL('user.preferences.prefs.overrideTimezone.timezoneFmt', tzInfo.id, tzInfo.tzShortName)}"
+				itemDescription="#{tzInfo.tzName}" />
+
+			<p:column>
+				<h:outputText value="#{timeZoneInfo.getId(tz)}" />
+			</p:column>
+
+			<p:column>
+				<h:outputText value="#{timeZoneInfo.getShortName(tz)}" />
+			</p:column>
+
+			<p:column>
+				<h:outputText value="#{timeZoneInfo.getOffset(tz)}" />
+			</p:column>
+		</p:selectOneMenu>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="ntpEnabled" path="ntpEnabled"
+		update="@composite:@parent" process="@composite:@parent">
+		<p:selectBooleanCheckbox id="ntpEnabled" value="#{current.ntpEnabled}">
+			<p:ajax update="@composite:@parent"
+				process="@composite:@parent" event="change" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="ntpServers" path="ntpServers"
+		collection="true"
+		onlyIf="#{current.ntpEnabled or (current.ntpEnabled == null and defaults.ntpEnabled)}">
+
+		<ag:listEditor id="ntpServers" value="#{current.ntpServers}">
+			<p:column>
+				<p:inputText id="ntpServer"
+					label="#{_config_hostconfig['type.hostconfig.datetime.ntpServers.ntpServer']}"
+					value="#{item.value}" converter="#{hostOrAddressConverter}">
+					<f:validateBean />
+				</p:inputText>
+				<p:message for="ntpServer" />
+			</p:column>
+		</ag:listEditor>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="hwClockUTC" path="hwClockUTC"
+		minLevel="2">
+		<p:selectBooleanCheckbox id="hwClockUTC" value="#{current.hwClockUTC}" />
+	</orch:objectFieldEditor>
+</ui:composition>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	template="/tpl/common/raw.xhtml">
+	<ui:param name="title"
+		value="#{msgs.formatEL('config.revisions.titleFmt', configUtil.getDisplayNameFor(revisionsDataModel.configuration),configUtil.getDisplayTypeName(revisionsDataModel.configuration))}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="object" value="#{revisionsDataModel.configId}"
+				requiredMessage="#{_gui['require.param.objectId']}" required="true" />
+		</f:metadata>
+	</ui:define>
+
+
+	<ui:define name="content">
+		<h:form>
+			<ag:dialogContextHolder />
+			<p:messages autoUpdate="true" />
+
+			<p:dataTable value="#{revisionsDataModel}" paginator="true" rows="15"
+				lazy="true" var="rev">
+
+				<p:column headerText="#{_gui['config.revisions.revNoHeader']}">
+					<h:outputText value="#{rev.revisionNumber}" />
+				</p:column>
+
+				<p:column headerText="#{_gui['config.revisions.dateHeader']}">
+					<h:outputText value="#{rev.revisionTime}" />
+				</p:column>
+
+				<p:column headerText="#{_gui['config.revisions.typeHeader']}">
+					<h:outputText value="#{rev.revisionType}" />
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

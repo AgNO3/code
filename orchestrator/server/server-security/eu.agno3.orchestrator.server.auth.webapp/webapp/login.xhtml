@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:shiro="http://shiro.ops4j.org/tags">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{casController.loginEndpoint}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:param name="title" value="#{_login.title}" />
+	
+	<ui:define name="content">
+		<h:form>
+			<p:panel header="#{_login.welcome}" styleClass="loginBox">
+				<p:panelGrid cellpadding="10">
+					<p:row>
+						<p:column colspan="2">
+							<p:messages />
+						</p:column>
+					</p:row>
+					<shiro:authenticated>
+						<p:row>
+							<p:column>
+								<h:outputFormat value="#{_msgs['welcome.msgFmt']}">
+									<f:param value="#{guiAuthController.principal}" />
+								</h:outputFormat>
+								<h:outputLink
+									value="#{uriUtil.getCurrentBaseUriWithTrailingSlash()}">
+									<h:outputText value="#{_msgs['error.unknown.continue']}" />
+								</h:outputLink>
+							</p:column>
+						</p:row>
+					</shiro:authenticated>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

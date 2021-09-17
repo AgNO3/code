@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
+
+	<application>
+		<locale-config>
+			<default-locale>en</default-locale>
+		</locale-config>
+		<el-resolver>org.primefaces.fixed.exceptionhandler.PrimeExceptionHandlerELResolver</el-resolver>
+		
+		<resource-bundle>
+			<base-name>eu.agno3.orchestrator.server.auth.webapp.messages</base-name>
+			<var>_msgs</var>
+		</resource-bundle>
+	</application>
+	
+	<factory>
+		<exception-handler-factory>org.primefaces.fixed.exceptionhandler.PrimeExceptionHandlerFactory</exception-handler-factory>
+	</factory>
+</faces-config>

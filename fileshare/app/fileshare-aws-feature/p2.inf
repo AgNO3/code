@@ -1,0 +1,24 @@
+requires.0.namespace=org.eclipse.equinox.p2.iu
+requires.0.name=configure.fileshare-aws
+requires.0.greedy=true
+requires.0.range=$version$
+
+units.0.id=configure.fileshare-aws
+units.0.version=$version$
+units.0.provides.1.namespace=org.eclipse.equinox.p2.iu
+units.0.provides.1.name=configure.fileshare-aws
+units.0.provides.1.version=$version$
+units.0.instructions.install=installBundle(bundle:${artifact});
+units.0.instructions.uninstall=uninstallBundle(bundle:${artifact});
+units.0.instructions.unconfigure=setStartLevel(startLevel:-1); markStarted(started:false);
+units.0.instructions.configure=setStartLevel(startLevel:9); markStarted(started:true);
+units.0.hostRequirements.1.namespace=osgi.bundle
+units.0.hostRequirements.1.name=eu.agno3.fileshare.service.aws
+units.0.hostRequirements.1.greedy=false
+units.0.hostRequirements.2.namespace=org.eclipse.equinox.p2.eclipse.type
+units.0.hostRequirements.2.name=bundle
+units.0.hostRequirements.2.range=[1.0.0,2.0.0)
+units.0.hostRequirements.2.greedy=false
+units.0.requires.1.namespace=osgi.bundle
+units.0.requires.1.name=eu.agno3.fileshare.service.aws
+units.0.requires.1.greedy=false

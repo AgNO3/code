@@ -1,0 +1,95 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough">
+
+
+<composite:interface>
+	<composite:attribute name="shareBean" required="true"
+		type="eu.agno3.fileshare.webgui.service.share.AbstractSharesBean" />
+	<composite:attribute name="entity" required="true"
+		type="eu.agno3.fileshare.model.VFSEntity" />
+	<composite:attribute name="update" />
+	<composite:facet name="shareTarget" />
+</composite:interface>
+
+<composite:implementation>
+
+	<table pass:role="grid"
+		class="share-table ui-widget ui-datatable list-table">
+		<tbody class="ui-datatable-data ui-widget-content">
+			<tr>
+				<td class="share-target"><p:outputLabel
+						for="${cc.attrs.targetId}"
+						value="#{cc.attrs.targetLabel}" /></td>
+				<td style="width: 25%; text-align: right;"><p:outputLabel
+						for="expirationPanel"
+						value="#{_msgs['shareProps.permissions.label']}" /></td>
+				<td style="width: 20%"><p:outputLabel for="expirationPanel"
+						value="#{_msgs['shareProps.expiration.label']}" /></td>
+				<td style="width: 2em;" />
+			</tr>
+			<tr>
+				<td class="share-target"><composite:renderFacet
+						name="shareTarget" /></td>
+
+				<td style="width: 25%; text-align: right;"><p:selectOneMenu
+						id="dirPermissions" styleClass="permissions"
+						value="#{cc.attrs.shareBean.permissionsInt}">
+						<f:selectItems
+							value="#{sharePermissionsBean.getPermissionOptions(cc.attrs.entity)}" />
+						<p:ajax event="change" update="#{cc.attrs.update}" />
+					</p:selectOneMenu></td>
+
+				<td style="width: 20%"><p:outputPanel id="expirationPanel"
+						styleClass="date-editor hover-shade-background"
+						style="display: inline-block">
+						<span class="ui-icon ui-icon-calendar ui-icon-inline"
+							title="#{_msgs['shareProps.expiration.set']}" />
+						<p:outputPanel id="expirationValue" style="display:inline-block">
+							<h:outputText id="realValue" style="font-style: italic;"
+								rendered="#{not empty cc.attrs.shareBean.expires}"
+								value="#{localeSettingsBean.formatDateTime(cc.attrs.shareBean.expires, 'S-')}" />
+							<h:outputText id="neverValue"
+								rendered="#{empty cc.attrs.shareBean.expires}"
+								value="#{_msgs['shareProps.expiration.never']}" />
+						</p:outputPanel>
+					</p:outputPanel> <p:overlayPanel widgetVar="#{cc.clientId}_ExpirePanel"
+						at="left bottom" my="right bottom" appendToBody="false"
+						dynamic="false" for="expirationPanel" showCloseIcon="true">
+						<p:calendar id="expirationDate" mode="inline"
+							readonlyInput="false"
+							locale="#{localeSettingsBean.dateLocale}"
+							timeZone="#{localeSettingsBean.timeZone}"
+							value="#{cc.attrs.shareBean.expires}"
+							converter="#{dateTimeConverter}"
+							mindate="#{grantInfoBean.minDate}"
+							maxdate="#{cc.attrs.shareBean.maximumExpirationDate}">
+							<p:ajax event="dateSelect" process="@this"
+								listener="#{cc.attrs.shareBean.onExpirationSet}"
+								update="expirationValue #{cc.attrs.update}"
+								oncomplete="PF('#{cc.clientId}_ExpirePanel').hide();" />
+						</p:calendar>
+						<p:commandButton
+							rendered="#{empty cc.attrs.shareBean.maximumExpirationDate}"
+							actionListener="#{cc.attrs.shareBean.unsetExpiration}"
+							update="expirationValue expirationDate #{cc.attrs.update}"
+							icon="ui-icon-closethick"
+							value="#{_msgs['shareProps.expiration.unset']}"
+							oncomplete="PF('#{cc.clientId}_ExpirePanel').hide();">
+							<p:resetInput target="expirationDate" />
+						</p:commandButton>
+					</p:overlayPanel></td>
+
+				<td style="width: 2em;" />
+			</tr>
+		</tbody>
+	</table>
+</composite:implementation>
+</html>
+

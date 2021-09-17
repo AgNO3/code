@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<ag:simpleField
+		label="#{_gui['structure.instance.sysinfo.platform.platformType']}"
+		readOnly="true"
+		value="#{sysInfoUtil.translatePlatformType(agentSysInfoContext.platformInformation.platformType)}" />
+
+	<p:panel styleClass="outputGroup"
+		rendered="#{not empty agentSysInfoContext.platformInformation}"
+		header="#{_gui['structure.instance.sysinfo.platform.memory']}">
+
+		<p:panelGrid>
+			<p:row>
+				<p:column>
+					<div
+						title="#{_gui['structure.instance.sysinfo.platform.physicalMemory']}">
+						<p:chart type="metergauge" id="physicalMemoryChart"
+							model="#{agentSysInfoMemoryChartModel.physicalModel}"
+							style="width:200px;height:150px" />
+					</div>
+				</p:column>
+				<p:column style="vertical-align: middle">
+					<h:outputFormat
+						value="#{_gui['structure.instance.sysinfo.platform.physicalMemoryFmt']}">
+						<f:param
+							value="#{ag:formatByteSize(agentSysInfoContext.platformInformation.memoryInformation.totalPhysicalMemory)}" />
+						<f:param
+							value="#{ag:formatByteSize(agentSysInfoContext.platformInformation.memoryInformation.currentPhysicalMemoryFree)}" />
+						<f:param
+							value="#{ag:formatByteSize(agentSysInfoContext.platformInformation.memoryInformation.currentPhysicalMemoryUsedTotal)}" />
+					</h:outputFormat>
+					<br />
+					<h:outputFormat
+						value="#{_gui['structure.instance.sysinfo.platform.physicalMemoryCacheFmt']}">
+						<f:param
+							value="#{ag:formatByteSize(agentSysInfoContext.platformInformation.memoryInformation.currentPhysicalMemoryUsedBuffers)}" />
+						<f:param
+							value="#{ag:formatByteSize(agentSysInfoContext.platformInformation.memoryInformation.currentPhysicalMemoryUsedCache)}" />
+					</h:outputFormat>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+	</p:panel>
+
+	<p:panel styleClass="outputGroup"
+		rendered="#{not empty agentSysInfoContext.platformInformation}"
+		header="#{_gui['structure.instance.sysinfo.platform.swap']}">
+
+		<p:panelGrid>
+			<p:row
+				rendered="#{agentSysInfoContext.platformInformation.memoryInformation.totalSwapMemory gt 0}">
+				<p:column>
+					<div
+						title="#{_gui['structure.instance.sysinfo.platform.swapMemory']}">
+						<p:chart type="metergauge" id="swapMemoryChart"
+							model="#{agentSysInfoMemoryChartModel.swapModel}"
+							style="width:200px;height:150px" />
+					</div>
+				</p:column>
+
+				<p:column style="vertical-align: middle">
+					<h:outputFormat
+						value="#{_gui['structure.instance.sysinfo.platform.swapMemoryFmt']}">
+						<f:param
+							value="#{ag:formatByteSize(agentSysInfoContext.platformInformation.memoryInformation.totalSwapMemory)}" />
+						<f:param
+							value="#{ag:formatByteSize(agentSysInfoContext.platformInformation.memoryInformation.currentSwapMemoryFree)}" />
+						<f:param
+							value="#{ag:formatByteSize(agentSysInfoContext.platformInformation.memoryInformation.currentSwapMemoryUsed)}" />
+					</h:outputFormat>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+	</p:panel>
+
+	<p:panel styleClass="outputGroup" id="load"
+		rendered="#{not empty agentSysInfoContext.platformInformation}"
+		header="#{_gui['structure.instance.sysinfo.platform.load']}">
+
+		<div class="load-graphs ui-widget-content">
+			<div class="load-graph">
+				<h:outputFormat styleClass="load-label"
+					value="#{_gui['structure.instance.sysinfo.platform.load1']}">
+					<f:param
+						value="#{100 * agentSysInfoContext.platformInformation.cpuInformation.load1}" />
+				</h:outputFormat>
+				<div class="load-bar ui-widget-content">
+					<div  class="#{agentSysInfoLoadChartModel.load1BarStyleClass}" style="#{agentSysInfoLoadChartModel.load1BarStyle}"></div>
+				</div>
+			</div>
+			<div class="load-graph">
+				<h:outputFormat styleClass="load-label"
+					value="#{_gui['structure.instance.sysinfo.platform.load5']}">
+					<f:param
+						value="#{100 * agentSysInfoContext.platformInformation.cpuInformation.load5}" />
+				</h:outputFormat>
+				<div class="load-bar ui-widget-content">
+					<div class="#{agentSysInfoLoadChartModel.load5BarStyleClass}"  style="#{agentSysInfoLoadChartModel.load5BarStyle}"></div>
+				</div>
+			</div>
+			<div class="load-graph">
+				<h:outputFormat styleClass="load-label"
+					value="#{_gui['structure.instance.sysinfo.platform.load15']}">
+					<f:param
+						value="#{100 * agentSysInfoContext.platformInformation.cpuInformation.load15}" />
+				</h:outputFormat>
+				<div class="load-bar ui-widget-content">
+					<div class="#{agentSysInfoLoadChartModel.load15BarStyleClass}"  style="#{agentSysInfoLoadChartModel.load15BarStyle}"></div>
+				</div>
+			</div>
+		</div>
+	</p:panel>
+
+	<p:panel styleClass="outputGroup" id="cpu"
+		rendered="#{not empty agentSysInfoContext.platformInformation}">
+		<f:facet name="header">
+			<h:outputFormat
+				value="#{_gui['structure.instance.sysinfo.platform.cpuTitleFmt']}">
+				<f:param
+					value="#{agentSysInfoContext.platformInformation.cpuInformation.totalCPUCount}" />
+				<f:param
+					value="#{agentSysInfoContext.platformInformation.cpuInformation.totalCoreCount}" />
+			</h:outputFormat>
+		</f:facet>
+
+		<p:dataGrid styleClass="cpuGrid"
+			value="#{agentSysInfoContext.platformInformation.cpuInformation.cpuCores}"
+			var="core" itemType="none" paginator="false" columns="4">
+
+			<p:panel>
+				<f:facet name="header">
+					<h:outputFormat
+						value="#{_gui['structure.instance.sysinfo.platform.cpuEntryTitleFmt']}">
+						<f:param value="#{core.physicalIndex+1}" />
+						<f:param value="#{core.coreIndex+1}" />
+					</h:outputFormat>
+				</f:facet>
+
+				<h:outputText value="#{sysInfoUtil.cleanCpuModel(core.model)}" />
+				<br />
+				<h:outputFormat
+					value="#{_gui['structure.instance.sysinfo.platform.cpuClockFmt']}">
+					<f:param value="#{core.maximumFrequency}" />
+				</h:outputFormat>
+				<br />
+				<h:outputFormat
+					value="#{_gui['structure.instance.sysinfo.platform.cpuCacheFmt']}">
+					<f:param value="#{ag:formatByteSize(core.cacheSize)}" />
+				</h:outputFormat>
+			</p:panel>
+		</p:dataGrid>
+	</p:panel>
+
+</ui:composition>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<orch:objectFieldEditor inputId="recursiveResolveGroups" minLevel="3"
+		path="recursiveResolveGroups">
+		<p:selectBooleanCheckbox id="recursiveResolveGroups"
+			value="#{current.recursiveResolveGroups}" />
+	</orch:objectFieldEditor>
+
+	<p:outputPanel
+		rendered="#{not ldapAuthConfigBean.isActiveDirectory(outerWrapper)}">
+		<orch:objectFieldEditor inputId="referencesAreDNs" minLevel="3"
+			path="referencesAreDNs">
+			<p:selectBooleanCheckbox id="referencesAreDNs"
+				value="#{current.referencesAreDNs}" />
+		</orch:objectFieldEditor>
+
+		<orch:objectFieldEditor inputId="useForwardGroups" minLevel="3"
+			path="useForwardGroups">
+			<p:selectBooleanCheckbox id="useForwardGroups"
+				value="#{current.useForwardGroups}" />
+		</orch:objectFieldEditor>
+	</p:outputPanel>
+
+	<orch:objectEditor objectType="urn:agno3:objects:1.0:web:ldap:object"
+		minLevel="2"
+		title="#{_config_auth['auth.authenticator.ldap.schema.userSchema']}"
+		context="#{configContext}" path="userSchema"
+		subTemplate="#{isTemplate}" readOnly="#{isReadOnly}">
+		<f:param name="fixedSchemaStyle"
+			value="#{ldapAuthConfigBean.isActiveDirectory(outerWrapper)}" />
+	</orch:objectEditor>
+
+	<orch:objectEditor objectType="urn:agno3:objects:1.0:web:ldap:object"
+		minLevel="2"
+		title="#{_config_auth['auth.authenticator.ldap.schema.groupSchema']}"
+		context="#{configContext}" path="groupSchema"
+		subTemplate="#{isTemplate}" readOnly="#{isReadOnly}">
+		<f:param name="fixedSchemaStyle"
+			value="#{ldapAuthConfigBean.isActiveDirectory(outerWrapper)}" />
+	</orch:objectEditor>
+</ui:composition>

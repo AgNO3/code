@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.config.model.realm.server.util.ModelObjectValidationUtil">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.config.model.realm.server.util.ModelObjectValidationUtil"/>
+    </service>
+    <reference name="Context" interface="eu.agno3.orchestrator.config.model.base.server.context.DefaultServerServiceContext" cardinality="1..1" policy="static" bind="setContext" unbind="unsetContext"/>
+    <reference name="ObjectPoolProvider" interface="eu.agno3.orchestrator.config.model.realm.server.util.ObjectPoolProvider" cardinality="1..1" policy="static" bind="setObjectPoolProvider" unbind="unsetObjectPoolProvider"/>
+    <reference name="InheritanceProxyBuilder" interface="eu.agno3.orchestrator.config.model.realm.server.util.InheritanceProxyBuilder" cardinality="1..1" policy="static" bind="setInheritanceProxyBuilder" unbind="unsetInheritanceProxyBuilder"/>
+    <reference name="ValidatorRegistry" interface="eu.agno3.orchestrator.config.model.realm.validation.ValidatorRegistry" cardinality="1..1" policy="static" bind="setValidatorRegistry" unbind="unsetValidatorRegistry"/>
+    <reference name="PersistenceUtil" interface="eu.agno3.orchestrator.config.model.realm.server.util.PersistenceUtil" cardinality="1..1" policy="static" bind="setPersistenceUtil" unbind="unsetPersistenceUtil"/>
+    <implementation class="eu.agno3.orchestrator.config.model.realm.server.util.ModelObjectValidationUtil"/>
+</scr:component>

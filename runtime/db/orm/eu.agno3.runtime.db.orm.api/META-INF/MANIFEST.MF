@@ -1,0 +1,14 @@
+Bundle-SymbolicName: eu.agno3.runtime.db.orm.api
+Bundle-Version: 0.0.166
+Bundle-Name: Database ORM API
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.runtime.db;version="0.0.154",
+ javax.persistence;version="2.1.0",
+ javax.persistence.criteria;version="1.1.0",
+ javax.persistence.metamodel;version="2.1.0",
+ javax.persistence.spi;version="2.1.0"
+Service-Component: OSGI-INF/*.xml
+Export-Package: eu.agno3.runtime.db.orm;version="0.0.166";uses:="javax.persistence,javax.persistence.spi"
+

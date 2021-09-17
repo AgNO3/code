@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.runtime</groupId>
+    <artifactId>runtime-parent</artifactId>
+    <version>0.1.254</version>
+    <relativePath></relativePath>
+  </parent>
+  <artifactId>messaging</artifactId>
+  <version>0.0.124</version>
+  <packaging>pom</packaging>
+  <name>Messaging Subsystem Module</name>
+  <modules>
+  	<module>messaging-feature</module>
+  	<module>eu.agno3.runtime.messaging</module>
+  	<module>eu.agno3.runtime.messaging.broker</module>
+  	<module>eu.agno3.runtime.messaging.broker.test</module>
+  	<module>eu.agno3.runtime.messaging.transaction</module>
+  	<module>eu.agno3.runtime.messaging.test.messages</module>
+  	<module>eu.agno3.runtime.messaging.test</module>
+  	
+  	<module>messaging-broker-feature</module>
+  	<module>eu.agno3.runtime.messaging.xml</module>
+  	<module>eu.agno3.runtime.messaging.xml.test</module>
+  	<module>eu.agno3.runtime.messaging.xml.test.messages</module>
+  	<module>eu.agno3.runtime.messaging.standalone</module>
+  </modules>
+
+</project>

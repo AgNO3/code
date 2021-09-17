@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<ui:include src="/cfg/auth/authenticator/base.xhtml">
+		<ui:param name="configContext" value="#{configContext}" />
+		<ui:param name="current" value="#{current}" />
+		<ui:param name="defaults" value="#{defaults}" />
+		<ui:param name="enforced" value="#{enforced}" />
+		<ui:param name="base" value="#{path}" />
+		<ui:param name="isTemplate" value="#{isTemplate}" />
+		<ui:param name="isSubTemplate" value="#{isSubTemplate}" />
+		<ui:param name="readOnly" value="#{readOnly}" />
+		<ui:param name="outerWrapper" value="#{outerWrapper}" />
+	</ui:include>
+
+	<orch:objectFieldEditor inputId="enforcePasswordPolicy" minLevel="3"
+		path="enforcePasswordPolicy">
+		<p:selectBooleanCheckbox id="enforcePasswordPolicy"
+			value="#{current.enforcePasswordPolicy}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="enforcePasswordPolicyOnChange"
+		minLevel="3" path="enforcePasswordPolicyOnChange">
+		<p:selectBooleanCheckbox id="enforcePasswordPolicyOnChange"
+			value="#{current.enforcePasswordPolicyOnChange}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="addGroupNameAsRole" minLevel="2"
+		path="addGroupNameAsRole">
+		<p:selectBooleanCheckbox id="addGroupNameAsRole"
+			value="#{current.addGroupNameAsRole}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="alwaysAddRoles" path="alwaysAddRoles"
+		collection="true">
+		<ag:setEditor id="alwaysAddRoles" value="#{current.alwaysAddRoles}"
+			comparator="#{setEditorUtilBean.stringComparator}"
+			factoryMethod="#{setEditorUtilBean.makeEmptyString}">
+			<p:column>
+				<p:autoComplete dropdown="true"
+					completeMethod="#{completerUtil.wrap(outerWrapper.getParameter('roleCompleter')).complete}"
+					value="#{item.value}" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="staticRoleMappings" minLevel="2"
+		path="staticRoleMappings" collection="true"
+		clone="#{authRoleMappingBean.cloneStaticMapping}"
+		readOnlyValueMapper="#{authRoleMappingBean.mapStaticMapping}">
+		<ag:setEditor id="staticRoleMappings"
+			comparator="#{authRoleMappingBean.staticMappingComparator}"
+			factoryMethod="#{authRoleMappingBean.makeStaticMappingEntry}"
+			value="#{current.staticRoleMappings}">
+			<p:column style="vertical-align: top">
+				<p:inputText value="#{item.value.instance}" />
+			</p:column>
+			<p:column>
+				<p:inputTextarea
+					completeMethod="#{completerUtil.wrap(outerWrapper.getParameter('roleCompleter')).complete}"
+					value="#{item.value.addRoles}" rows="1"
+					converter="#{stringSetConverter}" queryDelay="300"
+					autoResize="true" minQueryLength="1" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="patternRoleMappings" minLevel="2"
+		path="patternRoleMappings" collection="true"
+		clone="#{authRoleMappingBean.clonePatternMapping}"
+		readOnlyValueMapper="#{authRoleMappingBean.mapPatternMapping}">
+		<ag:setEditor id="patternRoleMappings"
+			comparator="#{authRoleMappingBean.patternMappingComparator}"
+			factoryMethod="#{authRoleMappingBean.makePatternMappingEntry}"
+			value="#{current.patternRoleMappings}">
+			<p:column style="vertical-align: top">
+				<p:inputText value="#{item.value.pattern}" />
+			</p:column>
+			<p:column>
+				<p:inputTextarea
+					completeMethod="#{completerUtil.wrap(outerWrapper.getParameter('roleCompleter')).complete}"
+					value="#{item.value.addRoles}" rows="1"
+					converter="#{stringSetConverter}" queryDelay="300"
+					autoResize="true" minQueryLength="1" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="enableSynchronization"
+		path="enableSynchronization" update="@composite:@parent:syncOptions">
+		<p:selectBooleanCheckbox id="enableSynchronization"
+			value="#{current.enableSynchronization}">
+			<p:ajax event="change" update="@composite:@parent:syncOptions" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+
+	<p:outputPanel id="syncOptions">
+		<p:outputPanel
+			rendered="#{current.enableSynchronization or (current.enableSynchronization == null and defaults.enableSynchronization)}">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:auth:authenticator:ldap:sync"
+				context="#{configContext}" path="syncOptions" minLevel="2"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}">
+			</orch:objectEditor>
+		</p:outputPanel>
+	</p:outputPanel>
+
+	<orch:objectEditor id="connectionConfig" objectType="urn:agno3:objects:1.0:web:ldap"
+		context="#{configContext}" path="connectionConfig"
+		subTemplate="#{isTemplate}" readOnly="#{isReadOnly}">
+		<f:param name="serverTypeChangeUpdate"
+			value="@composite:@parent:@composite:@parent:schemaConfigEditor" />
+		<f:param name="hideTest" value="true" />
+	</orch:objectEditor>
+	
+	<p:outputPanel id="schemaConfigEditor">
+		<orch:objectEditor minLevel="2"
+			objectType="urn:agno3:objects:1.0:auth:authenticator:ldap:schema"
+			context="#{configContext}" path="schemaConfig"
+			subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+	</p:outputPanel>
+	
+	
+	<ag:simpleField styleClass="noLabel" id="testAuthField">
+		<ag:dialogOpenButton title="#{_config_auth['test.authenticator.ldap.title']}"
+			icon="ui-icon-check" style="display: block"
+			value="#{_config_auth['test.authenticator.ldap.label']}" closable="true"
+			process="@form" dialog="#{configTestUtil.makeTestLink(outerWrapper)}">
+			<p:ajax event="return"
+				listener="#{configTestInteractionUtil.makeReturnWrapper(cc, auth_authenticator_ldap_testBean).onReturn}"
+				update="@composite:@parent:connectionConfig:sslSettings" />
+		</ag:dialogOpenButton>
+	</ag:simpleField>
+</ui:composition>

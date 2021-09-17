@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.config.web"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:web">
+		<xml-ns prefix="cmr" namespace-uri="urn:agno3:model:1.0:realm" />
+		<xml-ns prefix="cmv" namespace-uri="urn:agno3:model:1.0:validation" />
+		<xml-ns prefix="webc" namespace-uri="urn:agno3:model:1.0:web" />
+		<xml-ns prefix="tnet" namespace-uri="urn:agno3:model:1.0:types:net" />
+	</xml-schema>
+
+	<java-types>
+		<java-type name="WebEndpointConfig" xml-accessor-type="NONE">
+			<xml-type name="webEndpointConfigType"
+				factory-class="eu.agno3.orchestrator.config.web.ObjectFactory"
+				factory-method="makeWebEndpointConfig" />
+			<xml-root-element name="webEndpointConfig" />
+			<java-attributes>
+				<xml-element name="bindAddress" java-attribute="bindAddresses">
+					<xml-element-wrapper name="bindAddresses" />
+					<xml-java-type-adapter
+						value="eu.agno3.orchestrator.types.net.NetworkAddressXmlAdapter" />
+				</xml-element>
+
+				<xml-element name="bindInterface" java-attribute="bindInterface" />
+				<xml-element name="bindPort" java-attribute="bindPort" />
+				<xml-element name="contextPath" java-attribute="contextPath" />
+
+				<xml-element name="behindReverseProxy" java-attribute="behindReverseProxy" />
+
+				<xml-element name="sessionInactiveTimeout"
+					java-attribute="sessionInactiveTimeout">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+
+				<xml-element name="disableSSL" java-attribute="disableSSL" />
+
+
+				<xml-element name="enableHPKP" java-attribute="enableHPKP" />
+				<xml-element name="pinnedKey" java-attribute="hpkpPinnedKeys">
+					<xml-java-type-adapter
+						value="eu.agno3.orchestrator.types.entities.crypto.XmlPublicKeyEntryAdapter" />
+					<xml-element-wrapper name="hpkpPinnedKeys" />
+				</xml-element>
+				<xml-element name="hpkpIncludeSubdomains"
+					java-attribute="hpkpIncludeSubdomains" />
+				<xml-element name="hpkpReportUri" java-attribute="hpkpReportUri" />
+				<xml-element name="hpkpPinningTimeout" java-attribute="hpkpPinningTimeout">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+				<xml-element name="hpkpReportOnly" java-attribute="hpkpReportOnly" />
+
+				<xml-element name="enableHSTS" java-attribute="enableHSTS" />
+				<xml-element name="hstsIncludeSubdomains"
+					java-attribute="hstsIncludeSubdomains" />
+				<xml-element name="hstsAcceptPreload" java-attribute="hstsAcceptPreload" />
+				<xml-element name="hstsTimeout" java-attribute="hstsTimeout">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+
+				<xml-element name="sslConfig" java-attribute="sslEndpointConfiguration" />
+
+				<xml-element name="reverseProxyConfig" java-attribute="reverseProxyConfig" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="WebReverseProxyConfiguration"
+			xml-accessor-type="NONE">
+			<xml-type name="webReverseProxyConfigurationType"
+				factory-class="eu.agno3.orchestrator.config.web.ObjectFactory"
+				factory-method="makeWebReverseProxyConfiguration" />
+			<xml-root-element name="webReverseProxyConfiguration" />
+
+			<java-attributes>
+				<xml-element name="overrideURI" java-attribute="overrideURI">
+					<xml-java-type-adapter
+						value="eu.agno3.orchestrator.types.uri.XmlURIAdapter" />
+				</xml-element>
+
+				<xml-element name="trustedProxy" java-attribute="trustedProxies">
+					<xml-element-wrapper name="trustedProxies" />
+				</xml-element>
+
+				<xml-element name="proxyType" java-attribute="proxyType" />
+
+				<xml-element name="forwardedHostHeader" java-attribute="forwardedHostHeader" />
+				<xml-element name="forwardedPortHeader" java-attribute="forwardedPortHeader" />
+				<xml-element name="forwardedRemoteAddrHeader"
+					java-attribute="forwardedRemoteAddrHeader" />
+				<xml-element name="forwardedSSLMatchHeader"
+					java-attribute="forwardedSSLMatchHeader" />
+				<xml-element name="forwardedSSLMatchValue"
+					java-attribute="forwardedSSLMatchValue" />
+
+				<xml-element name="forwardedSSLCiphersType"
+					java-attribute="forwardedSSLCiphersType" />
+				<xml-element name="forwardedSSLCiphersHeader"
+					java-attribute="forwardedSSLCiphersHeader" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="SSLEndpointConfiguration"
+			xml-accessor-type="NONE">
+			<xml-type name="sslEndpointConfigType"
+				factory-class="eu.agno3.orchestrator.config.web.ObjectFactory"
+				factory-method="makeSslEndpointConfig" />
+			<xml-root-element name="sslEndpointConfig" />
+			<java-attributes>
+
+				<xml-element name="securityMode" java-attribute="securityMode" />
+
+				<xml-element name="keystoreAlias" java-attribute="keystoreAlias" />
+				<xml-element name="keyAlias" java-attribute="keyAlias" />
+
+
+				<xml-element name="customProtocol" java-attribute="customProtocols">
+					<xml-element-wrapper name="customProtocols" />
+				</xml-element>
+
+				<xml-element name="customCiphers" java-attribute="customCiphers">
+					<xml-element-wrapper name="customCiphers" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="SSLClientConfiguration" xml-accessor-type="NONE">
+			<xml-type name="sslClientConfigType"
+				factory-class="eu.agno3.orchestrator.config.web.ObjectFactory"
+				factory-method="makeSslClientConfig" />
+			<xml-root-element name="sslClientConfig" />
+			<java-attributes>
+				<xml-element name="securityMode" java-attribute="securityMode" />
+
+				<xml-element name="truststoreAlias" java-attribute="truststoreAlias" />
+
+				<xml-element name="publicKeyPinMode" java-attribute="publicKeyPinMode" />
+				<xml-element name="pinnedPublicKey" java-attribute="pinnedPublicKeys">
+					<xml-element-wrapper name="pinnedPublicKeys" />
+					<xml-java-type-adapter
+						value="eu.agno3.orchestrator.types.entities.crypto.XmlPublicKeyEntryAdapter" />
+				</xml-element>
+
+				<xml-element name="disableHostnameVerification"
+					java-attribute="disableHostnameVerification" />
+
+				<xml-element name="disableCertificateVerification"
+					java-attribute="disableCertificateVerification" />
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="ICAPConfiguration" xml-accessor-type="NONE">
+			<xml-type name="icapConfigType"
+				factory-class="eu.agno3.orchestrator.config.web.ObjectFactory"
+				factory-method="makeICAPConfig" />
+			<xml-root-element name="icapConfig" />
+			<java-attributes>
+				<xml-element name="sslClientMode" java-attribute="sslClientMode" />
+				<xml-element name="sslClientConfiguration"
+					java-attribute="sslClientConfiguration" />
+
+				<xml-element name="socketTimeout" java-attribute="socketTimeout">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+
+				<xml-element name="sendICAPSInRequestUri"
+					java-attribute="sendICAPSInRequestUri" />
+
+				<xml-element name="overrideRequestURI" java-attribute="overrideRequestURI">
+					<xml-java-type-adapter
+						value="eu.agno3.orchestrator.types.uri.XmlURIAdapter" />
+				</xml-element>
+
+				<xml-element name="servers" java-attribute="servers" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="SMTPConfiguration" xml-accessor-type="NONE">
+			<xml-type name="smtpConfigType"
+				factory-class="eu.agno3.orchestrator.config.web.ObjectFactory"
+				factory-method="makeSMTPConfig" />
+			<xml-root-element name="smtpConfig" />
+			<java-attributes>
+				<xml-element name="sslClientMode" java-attribute="sslClientMode" />
+				<xml-element name="sslClientConfiguration"
+					java-attribute="sslClientConfiguration" />
+
+				<xml-element name="socketTimeout" java-attribute="socketTimeout">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+
+				<xml-element name="serverUri" java-attribute="serverUri">
+					<xml-java-type-adapter
+						value="eu.agno3.orchestrator.types.uri.XmlURIAdapter" />
+				</xml-element>
+
+				<xml-element name="overrideEhloHostName" java-attribute="overrideEhloHostName" />
+				<xml-element name="overrideDefaultFromAddress"
+					java-attribute="overrideDefaultFromAddress" />
+				<xml-element name="overrideDefaultFromName"
+					java-attribute="overrideDefaultFromName" />
+
+				<xml-element name="authEnabled" java-attribute="authEnabled" />
+				<xml-element name="smtpUser" java-attribute="smtpUser" />
+				<xml-element name="smtpPassword" java-attribute="smtpPassword" />
+
+
+				<xml-element name="mech" java-attribute="authMechanisms">
+					<xml-element-wrapper name="authMechs" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="SMTPConfigurationTestParams"
+			xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.config.model.validation.ConfigTestParams">
+			<xml-type name="smtpConfigTestParamsType" />
+			<xml-root-element name="smtpConfigTestParams" />
+
+			<java-attributes>
+				<xml-element name="targetAddress" java-attribute="targetAddress" />
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="LDAPConfiguration" xml-accessor-type="NONE">
+			<xml-type name="ldapConfigType"
+				factory-class="eu.agno3.orchestrator.config.web.ObjectFactory"
+				factory-method="makeLDAPConfig" />
+			<xml-root-element name="ldapConfig" />
+			<java-attributes>
+
+				<xml-element name="serverType" java-attribute="serverType" />
+
+				<xml-element name="serverUri" java-attribute="servers">
+					<xml-element-wrapper name="servers" />
+					<xml-java-type-adapter
+						value="eu.agno3.orchestrator.types.uri.XmlURIAdapter" />
+				</xml-element>
+				<xml-element name="srvDomain" java-attribute="srvDomain" />
+
+
+				<xml-element name="authType" java-attribute="authType" />
+				<xml-element name="bindDN" java-attribute="bindDN" />
+
+				<xml-element name="saslMechanism" java-attribute="saslMechanism" />
+				<xml-element name="saslUsername" java-attribute="saslUsername" />
+				<xml-element name="saslRealm" java-attribute="saslRealm" />
+				<xml-element name="saslQOP" java-attribute="saslQOP" />
+
+				<xml-element name="password" java-attribute="password" />
+
+				<xml-element name="baseDN" java-attribute="baseDN" />
+
+				<xml-element name="socketTimeout" java-attribute="socketTimeout">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+
+				<xml-element name="sslClientMode" java-attribute="sslClientMode" />
+				<xml-element name="sslClientConfiguration"
+					java-attribute="sslClientConfiguration" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="LDAPObjectConfig" xml-accessor-type="NONE">
+			<xml-type name="ldapObjectConfigType"
+				factory-class="eu.agno3.orchestrator.config.web.ObjectFactory"
+				factory-method="makeLDAPObjectConfig" />
+			<xml-root-element name="ldapObjectConfig" />
+			<java-attributes>
+				<xml-element name="baseDN" java-attribute="baseDN" />
+				<xml-element name="scope" java-attribute="scope" />
+				<xml-element name="customFilter" java-attribute="customFilter" />
+				<xml-element name="attributeStyle" java-attribute="attributeStyle" />
+
+				<xml-element name="mapping" java-attribute="customAttributeMappings">
+					<xml-element-wrapper name="customAttributeMappings" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="LDAPObjectAttributeMapping"
+			xml-accessor-type="NONE">
+			<xml-type name="ldapObjectAttributeMappingType"
+				factory-class="eu.agno3.orchestrator.config.web.ObjectFactory"
+				factory-method="makeLDAPObjectAttributeMapping" />
+			<xml-root-element name="ldapObjectAttributeMapping" />
+			<java-attributes>
+				<xml-attribute name="attributeId" java-attribute="attributeId" />
+				<xml-attribute name="attributeName" java-attribute="attributeName" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="RuntimeConfiguration" xml-accessor-type="NONE">
+			<xml-type name="runtimeConfigType"
+				factory-class="eu.agno3.orchestrator.config.web.ObjectFactory"
+				factory-method="makeRuntimeConfiguration" />
+			<xml-root-element name="runtimeConfig" />
+			<java-attributes>
+				<xml-element name="autoMemoryLimit" java-attribute="autoMemoryLimit" />
+				<xml-element name="memoryLimit" java-attribute="memoryLimit"
+					required="false" />
+
+				<xml-element name="pkg" java-attribute="debugPackages">
+					<xml-element-wrapper name="debug" />
+				</xml-element>
+				<xml-element name="pkg" java-attribute="tracePackages">
+					<xml-element-wrapper name="trace" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="X509CertChainInvalidTestResultEntry">
+			<xml-type name="x509CertChainInvalidTestResultEntry" />
+			<xml-root-element name="invalidX509CertChain" />
+
+			<java-attributes>
+				<xml-element name="chainElement" java-attribute="chain">
+					<xml-element-wrapper name="chain" />
+					<xml-java-type-adapter
+						value="eu.agno3.orchestrator.types.crypto.XmlX509CertificateAdapter" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+	</java-types>
+</xml-bindings>

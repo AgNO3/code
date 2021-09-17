@@ -1,0 +1,11 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.runtime</groupId>
+    <artifactId>httpservice</artifactId>
+    <version>0.0.154</version>
+  </parent>
+  <artifactId>eu.agno3.runtime.http.ua</artifactId>
+  <packaging>eclipse-plugin</packaging>
+  <name>User Agent Detection</name>
+</project>

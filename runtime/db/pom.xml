@@ -1,0 +1,79 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>eu.agno3.runtime</groupId>
+		<artifactId>runtime-parent</artifactId>
+		<version>0.1.254</version>
+    		<relativePath></relativePath>
+	</parent>
+	<artifactId>db</artifactId>
+	<packaging>pom</packaging>
+	<name>Database Subsystem</name>
+	<version>0.0.166</version>
+	<modules>
+		<module>db-feature</module>
+		<module>eu.agno3.runtime.db</module>
+		<module>eu.agno3.runtime.db.transaction</module>
+
+		<module>orm</module>
+		<module>schema</module>
+		<module>derby</module>
+		<module>eu.agno3.runtime.db.console</module>
+
+		<module>eu.agno3.runtime.db.jmx</module>
+		<module>db-jmx-feature</module>
+		<module>psql</module>
+		<module>db-transaction-feature</module>
+	</modules>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-surefire-plugin</artifactId>
+					<version>${tycho-surefire.version}</version>
+					<configuration>
+						<bundleStartLevel combine.children="append">
+
+							<bundle>
+								<id>eu.agno3.runtime.crypto</id>
+								<level>3</level>
+								<autoStart>true</autoStart>
+							</bundle>
+							<bundle>
+								<id>eu.agno3.runtime.db</id>
+								<level>3</level>
+								<autoStart>true</autoStart>
+							</bundle>
+
+
+							<bundle>
+								<id>eu.agno3.runtime.db.derby</id>
+								<level>3</level>
+								<autoStart>true</autoStart>
+							</bundle>
+
+							<bundle>
+								<id>eu.agno3.runtime.transaction</id>
+								<level>3</level>
+								<autoStart>true</autoStart>
+							</bundle>
+
+							<bundle>
+								<id>eu.agno3.runtime.db.transaction</id>
+								<level>3</level>
+								<autoStart>true</autoStart>
+							</bundle>
+						</bundleStartLevel>
+						<systemProperties>
+							<config.dir>/tmp/test-db-keys/</config.dir>
+						</systemProperties>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>

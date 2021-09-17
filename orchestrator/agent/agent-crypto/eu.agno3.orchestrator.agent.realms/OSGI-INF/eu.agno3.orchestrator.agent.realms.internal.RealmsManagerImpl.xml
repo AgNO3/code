@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.orchestrator.agent.realms.internal.RealmsManagerImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.agent.realms.RealmsManager"/>
+        <provide interface="eu.agno3.orchestrator.system.base.SystemService"/>
+    </service>
+    <reference name="KrbRealmManager" interface="eu.agno3.runtime.net.krb5.KrbRealmManager" cardinality="1..1" policy="static" bind="setKrbRealmManager" unbind="unsetKrbRealmManager"/>
+    <reference name="ADRealmManager" interface="eu.agno3.runtime.net.ad.ADRealmManager" cardinality="1..1" policy="static" bind="setADRealmManager" unbind="unsetADRealmManager"/>
+    <reference name="ServiceManager" interface="eu.agno3.orchestrator.jobs.agent.service.ServiceManager" cardinality="0..1" policy="static" bind="setServiceManager" unbind="unsetServiceManager" policy-option="greedy"/>
+    <implementation class="eu.agno3.orchestrator.agent.realms.internal.RealmsManagerImpl"/>
+</scr:component>

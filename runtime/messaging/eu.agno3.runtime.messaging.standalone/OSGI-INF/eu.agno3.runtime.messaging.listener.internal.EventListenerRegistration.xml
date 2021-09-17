@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.runtime.messaging.listener.internal.EventListenerRegistration" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="org.osgi.util.tracker.ServiceTrackerCustomizer"/>
+    </service>
+    <reference name="UnmarshallerManager" interface="eu.agno3.runtime.messaging.marshalling.UnmarshallerManager" cardinality="1..1" policy="static" bind="setUnmarshallerManager" unbind="unsetUnmarshallerManager"/>
+    <reference name="MessageListenerFactory" interface="eu.agno3.runtime.messaging.listener.MessageListenerFactory" cardinality="1..1" policy="static" bind="setMessageListenerFactory" unbind="unsetMessageListenerFactory"/>
+    <implementation class="eu.agno3.runtime.messaging.listener.internal.EventListenerRegistration"/>
+</scr:component>

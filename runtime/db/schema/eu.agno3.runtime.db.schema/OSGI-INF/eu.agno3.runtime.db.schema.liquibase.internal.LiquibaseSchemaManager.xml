@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.runtime.db.schema.liquibase.internal.LiquibaseSchemaManager" configuration-policy="require" activate="activate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.db.schema.SchemaManager"/>
+    </service>
+    <reference name="Config" interface="eu.agno3.runtime.db.schema.liquibase.internal.LiquibaseSchemaManagerConfig" cardinality="1..1" policy="static" bind="setConfig" unbind="unsetConfig"/>
+    <reference name="AdminDataSource" interface="eu.agno3.runtime.db.AdministrativeDataSource" cardinality="1..1" policy="static" bind="setAdminDataSource" unbind="unsetAdminDataSource"/>
+    <reference name="AdminDsUtil" interface="eu.agno3.runtime.db.AdministrativeDataSourceUtil" cardinality="1..1" policy="static" bind="setAdminDsUtil" unbind="unsetAdminDsUtil"/>
+    <reference name="ChangeFileProvider" interface="eu.agno3.runtime.db.schema.ChangeFileProvider" cardinality="1..1" policy="static" bind="setChangeFileProvider" unbind="unsetChangeFileProvider"/>
+    <reference name="DatabaseFactory" interface="eu.agno3.runtime.db.schema.liquibase.LiquibaseDatabaseFactory" cardinality="1..1" policy="static" bind="bindDatabaseFactory" unbind="unbindDatabaseFactory"/>
+    <reference name="ChangeLogFactory" interface="eu.agno3.runtime.db.schema.liquibase.LiquibaseChangeLogFactory" cardinality="1..1" policy="static" bind="setChangeLogFactory" unbind="unsetChangeLogFactory"/>
+    <reference name="ServiceLocator" interface="eu.agno3.runtime.db.schema.liquibase.LiquibaseServiceLocator" cardinality="1..1" policy="static" bind="setServiceLocator" unbind="unsetServiceLocator"/>
+    <reference name="LiquibaseLogger" interface="liquibase.logging.Logger" cardinality="1..1" policy="static" bind="setLiquibaseLogger" unbind="unsetLiquibaseLogger"/>
+    <implementation class="eu.agno3.runtime.db.schema.liquibase.internal.LiquibaseSchemaManager"/>
+</scr:component>

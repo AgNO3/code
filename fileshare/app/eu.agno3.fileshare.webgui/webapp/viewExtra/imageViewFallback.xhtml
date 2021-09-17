@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<f:metadata>
+	<f:viewParam name="file"
+		value="#{urlFileSelectionBean.encodedSingleSelection}" required="true" />
+
+	<f:viewParam name="grant"
+		value="#{grantSelectionBean.encodedSingleSelection}" required="false" />
+
+	<f:viewParam name="token" value="#{userTokenBean.token}"
+		required="false" />
+</f:metadata>
+<f:view>
+
+<h:body style="margin: 0">
+		<img style="display: block; margin-top: 1em; margin-left: auto; margin-right: auto; max-width: 100%; max-height: 100"
+			src="#{fileDownloadController.getViewLinkWithoutIntent(urlFileSelectionBean.selectedEntity, userTokenBean)}" />
+</h:body>
+</f:view>
+</html>

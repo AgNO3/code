@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	template="/tpl/common/dialog.xhtml">
+	<ui:param name="title"
+		value="#{msgs.formatEL('structure.instance.sysinfo.storage.titleFmt', structureViewContext.selectedDisplayName)}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="instance"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+
+			<f:event listener="#{agentSysInfoContext.init}" type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<ag:dialogContextHolder />
+			<ui:include src="/tpl/onlineWarning.xhtml" />
+
+			<p:outputPanel id="sysInfo">
+				<ui:include src="/tpl/structure/instance/sysinfo/storage.xhtml" />
+
+				<p:commandButton immediate="true" action="#{dialog.close}"
+					icon="#{dialog.closeIcon}" value="#{dialog.closeLabel}" />
+			</p:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>

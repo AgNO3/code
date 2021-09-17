@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.orchestrator.jobs.server.coord.output.JobOutputTrackerImpl" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.jobs.server.JobOutputTracker"/>
+    </service>
+    <reference name="EMF" interface="javax.persistence.EntityManagerFactory" cardinality="1..1" policy="static" target="(persistenceUnit=jobs)" bind="setEMF" unbind="unsetEMF"/>
+    <reference name="TransactionService" interface="eu.agno3.runtime.transaction.TransactionService" cardinality="1..1" policy="static" bind="setTransactionService" unbind="unsetTransactionService"/>
+    <reference name="MessagingClient" interface="eu.agno3.runtime.messaging.client.MessagingClient" cardinality="1..1" policy="static" bind="setMessagingClient" unbind="unsetMessagingClient"/>
+    <reference name="Coordinator" interface="eu.agno3.orchestrator.jobs.JobCoordinator" cardinality="1..1" policy="static" bind="setCoordinator" unbind="unsetCoordinator"/>
+    <implementation class="eu.agno3.orchestrator.jobs.server.coord.output.JobOutputTrackerImpl"/>
+</scr:component>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+	<ag:simpleField label="#{_gui['crypto.cert.attributes.san.label']}"
+		description="#{_gui['crypto.cert.attributes.san.description']}">
+		<ag:listEditor value="#{keystoreContext.sans}">
+			<p:column>
+				<p:inputText id="san" value="#{item.value}" />
+				<p:message for="san" />
+			</p:column>
+		</ag:listEditor>
+	</ag:simpleField>
+
+	<ag:simpleField label="#{_gui['crypto.cert.attributes.usage.label']}"
+		description="#{_gui['crypto.cert.attributes.usage.description']}">
+		<p:panel styleClass="optional-panel" header=""
+			toggleTitle="#{_gui['crypto.cert.attributes.usage.label']}"
+			toggleable="true" collapsed="true" style="font-size: smaller;">
+			<ag:simpleField
+				label="#{_gui['crypto.cert.attributes.keyUsage.label']}"
+				description="#{_gui['crypto.cert.attributes.keyUsage.description']}">
+				<p:selectManyCheckbox value="#{keystoreContext.keyUsages}"
+					layout="grid" columns="2">
+					<f:selectItems value="#{certificateUtil.getKeyUsages()}" var="ku"
+						itemLabel="#{ku}"
+						itemValue="#{certificateUtil.getKeyUsageVal(ku)}" />
+				</p:selectManyCheckbox>
+			</ag:simpleField>
+
+			<ag:simpleField label="#{_gui['crypto.cert.attributes.eku.label']}"
+				description="#{_gui['crypto.cert.attributes.eku.description']}">
+				<p:selectManyCheckbox value="#{keystoreContext.ekus}" layout="grid"
+					columns="2">
+					<f:selectItems value="#{certificateUtil.getExtendedKeyUsages()}"
+						var="eku" itemLabel="#{certificateUtil.translateEKU(eku)}" />
+				</p:selectManyCheckbox>
+			</ag:simpleField>
+		</p:panel>
+	</ag:simpleField>
+</ui:composition>

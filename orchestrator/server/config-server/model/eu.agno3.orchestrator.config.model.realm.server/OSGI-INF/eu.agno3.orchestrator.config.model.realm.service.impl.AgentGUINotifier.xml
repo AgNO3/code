@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.config.model.realm.service.impl.AgentGUINotifier">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.agent.server.AgentLifecycleListener"/>
+    </service>
+    <reference name="InstanceService" interface="eu.agno3.orchestrator.config.model.realm.server.service.InstanceServerService" cardinality="1..1" policy="static" bind="setInstanceService" unbind="unsetInstanceService"/>
+    <reference name="MessageClient" interface="eu.agno3.runtime.messaging.client.MessagingClient" cardinality="1..1" policy="static" bind="setMessageClient" unbind="unsetMessageClient"/>
+    <implementation class="eu.agno3.orchestrator.config.model.realm.service.impl.AgentGUINotifier"/>
+</scr:component>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" immediate="true" name="eu.agno3.runtime.db.schema.orm.autoapply.internal.SchemaAutoApplicator" configuration-policy="require" activate="activate" deactivate="deactivate" configuration-pid="schema.autoapply">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.db.schema.orm.autoapply.internal.SchemaAutoApplicator"/>
+        <provide interface="eu.agno3.runtime.db.orm.hibernate.HibernateConfigurationListener"/>
+    </service>
+    <reference name="HibernateSnapshotGenerator" interface="eu.agno3.runtime.db.schema.orm.hibernate.HibernateSnapshotGenerator" cardinality="1..1" policy="static" bind="setHibernateSnapshotGenerator" unbind="unsetHibernateSnapshotGenerator"/>
+    <reference name="DiffService" interface="eu.agno3.runtime.db.schema.diff.SchemaDiffService" cardinality="1..1" policy="static" bind="setDiffService" unbind="unsetDiffService"/>
+    <reference name="DatabaseFactory" interface="eu.agno3.runtime.db.schema.liquibase.LiquibaseDatabaseFactory" cardinality="1..1" policy="static" bind="setDatabaseFactory" unbind="unsetDatabaseFactory"/>
+    <reference name="OwnershipStrategy" interface="eu.agno3.runtime.db.schema.orm.hibernate.HibernateOwnershipStrategyFactory" cardinality="1..1" policy="static" bind="setOwnershipStrategy" unbind="unsetOwnershipStrategy"/>
+    <implementation class="eu.agno3.runtime.db.schema.orm.autoapply.internal.SchemaAutoApplicator"/>
+</scr:component>

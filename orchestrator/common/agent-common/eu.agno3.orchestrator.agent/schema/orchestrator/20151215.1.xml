@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+	<changeSet author="mbechler (generated)" id="1450170930021-1">
+		<createTable schemaName="APP" tableName="agent_state_cache2">
+			<column name="AGENTID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="CACHEDSTATE" type="VARCHAR(255)" />
+			<column name="IMAGETYPE" type="VARCHAR(255)" />
+			<column name="LASTKNOWNADDR" type="VARCHAR(255)" />
+			<column name="LASTSTATECHANGE" type="timestamp" />
+			<column name="PROVISIONSTATE" type="VARCHAR(255)" />
+			<column name="PUBLICKEYFINGERPRINT" type="VARBINARY(32)" />
+			<column name="VERSION" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1450170930021-2">
+		<addPrimaryKey columnNames="AGENTID" constraintName="agent_state_cache2PK"
+			schemaName="APP" tableName="agent_state_cache2" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1450285177959-1">
+		<addColumn schemaName="APP" tableName="agent_state_cache2">
+			<column name="LASTKNOWNHOSTNAME" type="varchar(255)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1498146610269-1">
+        <addColumn schemaName="APP" tableName="agent_state_cache2">
+            <column name="CERTIFICATE" type="blob"/>
+        </addColumn>
+    </changeSet>
+	
+</databaseChangeLog>

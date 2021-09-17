@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:fsadm="http://agno3.eu/ns/jsf/fsadm/taglib/1.0"
+	template="/tpl/common/dialog.xhtml">
+
+	<ui:param name="title" value="#{_fs_adm_msg['users.addUser']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<ui:include src="/tpl/app/fs/admin/metadata.xhtml" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form" method="POST" enctype="multipart/form-data">
+			<ag:dialogContextHolder />
+
+			<ag:dialogCrumps />
+
+			<p:hotkey bind="esc" action="#{dialog.close}" immediate="true" />
+			<p:messages autoUpdate="true" showDetail="true" />
+
+			<p:focus />
+			<p:fieldset legend="#{_fs_adm_msg['users.addUser']}">
+				<ag:simpleField label="#{_fs_adm_msg['user.username.label']}"
+					description="#{_fs_adm_msg['user.username.description']}"
+					inputId="userName">
+					<p:inputText id="userName"
+						value="#{app_fs_adm_userCreateContext.userName}" required="true" />
+				</ag:simpleField>
+
+				<ag:simpleField
+					label="#{_fs_adm_msg['detail.fields.preferredName.label']}"
+					description="#{_fs_adm_msg['detail.fields.preferredName.description']}"
+					inputId="preferredName">
+					<p:inputText id="preferredName"
+						value="#{app_fs_adm_userCreateContext.preferredName}"
+						required="false" />
+				</ag:simpleField>
+
+				<ag:simpleField label="#{_fs_adm_msg['detail.fields.email.label']}"
+					description="#{_fs_adm_msg['detail.fields.email.description']}"
+					inputId="mailAddress">
+					<p:inputText id="mailAddress"
+						value="#{app_fs_adm_userCreateContext.mailAddress}"
+						required="false" />
+				</ag:simpleField>
+
+				<ag:passwordInput value="#{app_fs_adm_userCreateContext.password}"
+					checker="#{app_fs_adm_userCreateContext.passwordPolicy}" />
+
+				<ag:simpleField
+					label="#{_fs_adm_msg['user.forcePasswordChange.label']}"
+					description="#{_fs_adm_msg['user.forcePasswordChange.description']}"
+					inputId="forcePasswordChange">
+					<p:selectBooleanCheckbox id="forcePasswordChange"
+						value="#{app_fs_adm_userCreateContext.forcePasswordChange}" />
+				</ag:simpleField>
+
+				<ag:simpleField label="#{_fs_adm_msg['user.disableUser.label']}"
+					description="#{_fs_adm_msg['user.disableUser.description']}"
+					inputId="disabled">
+					<p:selectBooleanCheckbox id="disabled"
+						value="#{app_fs_adm_userCreateContext.disabled}" />
+				</ag:simpleField>
+
+				<ag:simpleField label="#{_fs_adm_msg['user.noSubjectRoot.label']}"
+					description="#{_fs_adm_msg['user.noSubjectRoot.description']}"
+					inputId="noSubjectRoot">
+					<p:selectBooleanCheckbox id="noSubjectRoot"
+						value="#{app_fs_adm_userCreateContext.noRoot}" />
+				</ag:simpleField>
+
+
+				<ag:simpleField label="#{_fs_adm_msg['user.quota.label']}"
+					description="#{_fs_adm_msg['user.quota.description']}">
+					<fsadm:quotaEditor
+						quotaEnabled="#{app_fs_adm_userCreateContext.quotaEnabled}"
+						quotaSize="#{app_fs_adm_userCreateContext.quotaSize}"
+						quotaExponent="#{app_fs_adm_userCreateContext.quotaExponent}" />
+				</ag:simpleField>
+
+				<ag:simpleField label="#{_fs_adm_msg['user.securityLabel.label']}"
+					description="#{_fs_adm_msg['user.securityLabel.description']}"
+					inputId="securityLabel">
+					<p:selectOneMenu id="securityLabel" filter="true"
+						filterMatchMode="contains"
+						value="#{app_fs_adm_userCreateContext.securityLabel}">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="#{_fs_adm_msg['user.securityLabel.unlabeled']}" />
+						<f:selectItems
+							value="#{app_fs_adm_securityLabelBean.definedSecurityLabels}" />
+					</p:selectOneMenu>
+				</ag:simpleField>
+
+
+				<ag:simpleField label="#{_fs_adm_msg['permissions.title']}">
+					<p:dataTable styleClass="list-table" id="roleTable"
+						scrollable="true" scrollHeight="250"
+						value="#{app_fs_adm_subjectRolesBean.model}" paginator="false"
+						var="role" rowKey="#{role}" rowSelectMode="checkbox"
+						dblClickSelection="true"
+						selection="#{app_fs_adm_userCreateContext.roles}">
+
+						<p:column selectionMode="multiple" style="width: 20px" />
+						<p:column>
+							<h:outputText id="roleName"
+								value="#{app_fs_adm_roleDisplayBean.getRoleDisplayName(role)}" />
+							<p:tooltip for="roleName">
+								<h:outputText
+									value="#{app_fs_adm_roleDisplayBean.getRoleDescription(role)}" />
+							</p:tooltip>
+						</p:column>
+					</p:dataTable>
+				</ag:simpleField>
+			</p:fieldset>
+
+			<div class="buttons">
+				<p:commandButton id="confirm" process="@form"
+					icon="ui-icon-plusthick"
+					action="#{app_fs_adm_userController.createUser(app_fs_adm_userCreateContext)}"
+					value="#{_fs_adm_msg['user.create.confirm']}" />
+
+
+				<p:commandButton id="confirmAndContinue" process="@form"
+					icon="ui-icon-plusthick"
+					action="#{app_fs_adm_userController.createMoreUsers(app_fs_adm_userCreateContext)}"
+					value="#{_fs_adm_msg['user.create.confirmMultiple']}" />
+
+				<p:commandButton immediate="true" action="#{dialog.close}"
+					styleClass="close-button inline" icon="#{dialog.closeIcon}"
+					title="#{dialog.closeDescription}"
+					value="#{_fs_adm_msg['user.create.cancel']}" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,98 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+
+<composite:interface
+	componentType="eu.agno3.runtime.jsf.components.CertificateChainEditor">
+
+	<composite:attribute name="value" required="false"
+		type="java.util.List" />
+
+	<composite:attribute name="openInitial" required="false"
+		default="false" type="java.lang.Boolean" />
+
+	<composite:attribute name="publicKey" required="false"
+		type="java.security.PublicKey" />
+
+</composite:interface>
+
+<composite:implementation>
+
+	<p:outputPanel id="certificateEditor">
+		<input type="hidden" name="#{cc.clientId}_modified" value="#{cc.modified}" />
+		<p:dataTable rendered="#{cc.haveChain()}" id="certList"
+			value="#{cc.value}" var="cert" rowIndexVar="rowIndex"
+			emptyMessage="#{_bm.get('crypto.emptyChain')}">
+
+
+			<p:column style="width: 3ex">
+				<h:outputText rendered="#{rowIndex gt 0 and not cc.isRoot(cert)}"
+					value="#{rowIndex}"
+					title="#{_bm.get('crypto.cert.intermediate.title')}" />
+				<h:outputText rendered="#{rowIndex gt 0 and cc.isRoot(cert)}"
+					value="#{_bm.get('crypto.cert.root.label')}"
+					title="#{_bm.get('crypto.cert.root.title')}" />
+			</p:column>
+
+			<p:column>
+				<h:outputText style="#{certificateUtil.getValidityStyle(cert)}"
+					value="#{certificateUtil.formatPrincipalName(cert.subjectX500Principal)}" />
+
+			</p:column>
+
+			<p:column styleClass="action-column">
+				<p:commandLink id="certificateInfo"
+					title="#{_bm.get('chainEditor.certificateInfo')}"
+					styleClass="ui-icon ui-icon-inline ui-icon-info" />
+				<p:overlayPanel for="certificateInfo">
+					<p:outputPanel style="width: 40em">
+						<ag:certificateDisplay value="#{cert}" />
+					</p:outputPanel>
+				</p:overlayPanel>
+			</p:column>
+
+			<p:column styleClass="action-column">
+				<p:commandLink
+					title="#{_bm.get('chainEditor.truncateCertificateChain')}"
+					styleClass="ui-icon ui-icon-inline ui-icon-closethick"
+					action="#{cc.truncate(rowIndex)}" update="certList:@parent"
+					process="@composite" />
+			</p:column>
+
+		</p:dataTable>
+
+		<p:message for=":#{cc.clientId}" showSummary="true" showDetail="true" />
+
+		<p:commandButton rendered="#{not cc.shouldShowUpdate()}"
+			icon="ui-icon-gear"
+			value="#{_bm.get('crypto.chooseOtherCertificate')}" immediate="true"
+			actionListener="#{cc.chooseOther}" update="certificateEditor" />
+
+		<p:outputPanel id="changeTabs" rendered="#{cc.shouldShowUpdate()}">
+			<p:inputTextarea style="font-size: 9pt; font-family: monospace"
+				autoResize="false" id="textInput" rows="10" cols="70"
+				value="#{cc.textInput}" />
+			<br />
+
+			<p:outputPanel style="margin-top: 0.5em">
+				<p:commandButton icon="ui-icon-check"
+					title="#{_bm.get('crypto.usePastedCert')}"
+					actionListener="#{cc.useTextInput}" process="@this,textInput"
+					update="@parent:@parent:@parent ${cc.attrs.update}" />
+				<p:fileUpload styleClass="small"
+					id="fileUpload" auto="true" label="#{_bm.get('crypto.uploadCert')}"
+					fileUploadListener="#{cc.handleFileUpload}"
+					update="@parent:@parent:@parent ${cc.attrs.update}"
+					sizeLimit="100000" />
+			</p:outputPanel>
+		</p:outputPanel>
+
+	</p:outputPanel>
+
+</composite:implementation>
+</html>

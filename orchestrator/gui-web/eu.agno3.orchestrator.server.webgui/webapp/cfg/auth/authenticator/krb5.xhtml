@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<ui:include src="/cfg/auth/authenticator/base.xhtml">
+		<ui:param name="configContext" value="#{configContext}" />
+		<ui:param name="current" value="#{current}" />
+		<ui:param name="defaults" value="#{defaults}" />
+		<ui:param name="enforced" value="#{enforced}" />
+		<ui:param name="base" value="#{path}" />
+		<ui:param name="isTemplate" value="#{isTemplate}" />
+		<ui:param name="isSubTemplate" value="#{isSubTemplate}" />
+		<ui:param name="readOnly" value="#{readOnly}" />
+		<ui:param name="outerWrapper" value="#{outerWrapper}" />
+	</ui:include>
+
+
+	<orch:objectFieldEditor inputId="kerberosRealm" path="kerberosRealm">
+	<p:autoComplete id="kerberosRealm" dropdown="true"
+					required="#{(not configContext.abstract) and (empty defaults.kerberosRealm)}"
+					completeMethod="#{realmConfigBean.getRealmCompleter(configContext,null).complete}"
+					value="#{current.kerberosRealm}">
+				<p:ajax event="change" process="@composite:@parent" update="@composite:@parent" />
+		</p:autoComplete>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="keytabAlias" path="keytabAlias">
+		<p:inputText id="keytabAlias" value="#{current.keytabAlias}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="allowPasswordFallback" minLevel="2"
+		path="allowPasswordFallback">
+		<p:selectBooleanCheckbox id="allowPasswordFallback"
+			value="#{current.allowPasswordFallback}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="alwaysAddRoles" path="alwaysAddRoles"
+		collection="true">
+		<ag:setEditor id="alwaysAddRoles" value="#{current.alwaysAddRoles}"
+			comparator="#{setEditorUtilBean.stringComparator}"
+			factoryMethod="#{setEditorUtilBean.makeEmptyString}">
+			<p:column>
+				<p:autoComplete dropdown="true"
+					completeMethod="#{completerUtil.wrap(outerWrapper.getParameter('roleCompleter')).complete}"
+					value="#{item.value}" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="acceptPrincipalPatterns" minLevel="2"
+		path="acceptPrincipalPatterns" collection="true">
+		<ag:setEditor id="acceptPrincipalPatterns"
+			value="#{current.acceptPrincipalPatterns}"
+			comparator="#{setEditorUtilBean.stringComparator}"
+			factoryMethod="#{setEditorUtilBean.makeEmptyString}">
+			<p:column>
+				<p:inputText value="#{item.value}" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="rejectPrincipalPatterns" minLevel="2"
+		path="rejectPrincipalPatterns" collection="true">
+		<ag:setEditor id="rejectPrincipalPatterns"
+			value="#{current.rejectPrincipalPatterns}"
+			comparator="#{setEditorUtilBean.stringComparator}"
+			factoryMethod="#{setEditorUtilBean.makeEmptyString}">
+			<p:column>
+				<p:inputText value="#{item.value}" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+
+
+	<orch:objectFieldEditor inputId="principalAddRoles" collection="true"
+		minLevel="2"
+		readOnlyValueMapper="#{authRoleMappingBean.mapPatternMapping}"
+		path="principalAddRoles"
+		clone="#{authRoleMappingBean.clonePatternMapping}">
+		<ag:setEditor id="principalAddRoles"
+			comparator="#{authRoleMappingBean.patternMappingComparator}"
+			factoryMethod="#{authRoleMappingBean.makePatternMappingEntry}"
+			value="#{current.principalAddRoles}">
+			<p:column style="vertical-align: top" headerText="Principal">
+				<p:inputText value="#{item.value.pattern}" />
+			</p:column>
+			<p:column headerText="Roles">
+				<p:inputTextarea
+					completeMethod="#{completerUtil.wrap(outerWrapper.getParameter('roleCompleter')).complete}"
+					value="#{item.value.addRoles}" rows="1"
+					converter="#{stringSetConverter}" queryDelay="300"
+					autoResize="true" minQueryLength="1" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+	
+	<ag:simpleField styleClass="noLabel" id="testAuthField">
+		<ag:dialogOpenButton title="#{_config_auth['test.authenticator.krb5.title']}"
+			icon="ui-icon-check" style="display: block"
+			value="#{_config_auth['test.authenticator.krb5.label']}" closable="true"
+			process="@form" dialog="#{configTestUtil.makeTestLink(outerWrapper)}">
+			<p:ajax event="return" />
+		</ag:dialogOpenButton>
+	</ag:simpleField>
+</ui:composition>

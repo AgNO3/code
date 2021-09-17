@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<f:view>
+
+	<ui:insert name="metadata" />
+
+	<h:head>
+		<f:facet name="first">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+			<meta name="robots" content="noindex" />
+			<link rel="icon" type="image/vnd.microsoft.icon"
+				href="#{resource['cfgfiles:favicon.ico']}" />
+
+			<link rel="icon" type="image/png"
+				href="#{resource['cfgfiles:favicon.png']}" />
+		</f:facet>
+
+		<h:outputStylesheet name="main.static.css" library="css" />
+
+		<h:outputScript name="orch.js" library="orch" />
+		<h:outputScript name="iframeResizer.js" library="agno3" />
+		<title><h:outputFormat value="#{_gui['layout.subtitleFmt']}">
+				<f:param value="#{_gui['layout.title']}" />
+				<f:param value="#{subtitle}" />
+			</h:outputFormat></title>
+
+		<f:facet name="last">
+			<link rel="stylesheet" type="text/css"
+				href="#{resource['cfgfiles:theme.css']}" />
+		</f:facet>
+	</h:head>
+
+	<h:body id="body">
+		<ui:include src="/tpl/common/commonbody.xhtml" />
+
+		<p:blockUI widgetVar="pageBlock" block="body">
+			<ui:insert name="pageBlockMessage">
+				<ui:include src="/tpl/common/serverconnfailed.xhtml" />
+			</ui:insert>
+		</p:blockUI>
+
+		<p:layout id="layout" widgetVar="layout" fullPage="true">
+			<p:ajax event="toggle" listener="#{layout.handleToggle}"
+				oncomplete="consoleToggle &amp;&amp; consoleToggle()" />
+
+			<p:layoutUnit id="header" position="north" size="70"
+				resizable="false" styleClass="header ui-widget ui-widget-header">
+				<ui:insert name="header">
+					<ui:include src="/tpl/common/header.xhtml">
+						<ui:param name="subtitle" value="${subtitle}" />
+					</ui:include>
+				</ui:insert>
+			</p:layoutUnit>
+
+			<p:layoutUnit widgetVar="consoleView" id="console" position="south"
+				size="300" styleClass="console" header="Console" resizable="true"
+				collapsible="true" collapsed="#{not layout.consoleOpen}">
+				<ui:insert name="console">
+					<ui:include src="/tpl/console.xhtml" />
+				</ui:insert>
+			</p:layoutUnit>
+
+			<p:layoutUnit id="menu" position="west" size="250" minSize="200">
+				<ui:insert name="menu">
+					<ui:include src="/tpl/menu.xhtml">
+						<ui:param name="menuTitle" value="${menuTitle}" />
+						<ui:param name="menuSubtitle" value="${menuSubtitle}" />
+						<ui:param name="menuTitleIcon" value="${menuTitleIcon}" />
+					</ui:include>
+				</ui:insert>
+			</p:layoutUnit>
+
+
+			<p:layoutUnit position="center" id="mainContent">
+				<ui:insert name="content">
+					<ui:include src="/tpl/common/nocontent.xhtml" />
+				</ui:insert>
+			</p:layoutUnit>
+		</p:layout>
+
+	</h:body>
+</f:view>
+</html>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.jobs.agent.licensing.internal.LicenseInfoRequestEndpoint">
+    <property name="msgType" value="eu.agno3.orchestrator.config.model.realm.license.LicenseInfoRequest"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.messaging.listener.RequestEndpoint"/>
+    </service>
+    <reference name="MessageSource" interface="eu.agno3.runtime.messaging.addressing.MessageSource" cardinality="1..1" policy="static" bind="setMessageSource" unbind="unsetMessageSource"/>
+    <reference name="LicensingService" interface="eu.agno3.runtime.update.LicensingService" cardinality="1..1" policy="static" bind="setLicensingService" unbind="unsetLicensingService"/>
+    <implementation class="eu.agno3.orchestrator.jobs.agent.licensing.internal.LicenseInfoRequestEndpoint"/>
+</scr:component>

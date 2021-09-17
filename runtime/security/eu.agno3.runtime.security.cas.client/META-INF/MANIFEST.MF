@@ -1,0 +1,46 @@
+Bundle-SymbolicName: eu.agno3.runtime.security.cas.client
+Bundle-Version: 0.0.214
+Bundle-Name: CAS Client Support
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.runtime.crypto;version="0.0.10",
+ eu.agno3.runtime.crypto.tls;version="0.0.10",
+ eu.agno3.runtime.security;version="0.0.192",
+ eu.agno3.runtime.security.cas.client;version="0.0.8",
+ eu.agno3.runtime.security.principal;version="0.0.192",
+ eu.agno3.runtime.xml;version="0.0.10",
+ javax.servlet;version="3.1.0",
+ javax.servlet.http;version="3.1.0",
+ org.apache.commons.codec;version="1.9.0",
+ org.apache.commons.codec.binary;version="1.9.0",
+ org.apache.commons.codec.net;version="1.9.0",
+ org.apache.commons.collections4.map;version="4.0.0",
+ org.apache.commons.lang3;version="3.3.2",
+ org.apache.log4j;version="1.2.15",
+ org.apache.shiro;version="1.2.3",
+ org.apache.shiro.authc;version="1.2.3",
+ org.apache.shiro.authc.credential;version="1.2.3",
+ org.apache.shiro.authz;version="1.2.3",
+ org.apache.shiro.authz.permission;version="1.2.3",
+ org.apache.shiro.cache;version="1.2.4",
+ org.apache.shiro.mgt;version="1.2.3",
+ org.apache.shiro.realm;version="1.2.3",
+ org.apache.shiro.session;version="1.2.3",
+ org.apache.shiro.subject;version="1.2.3",
+ org.apache.shiro.web.filter;version="1.2.3",
+ org.apache.shiro.web.filter.authc;version="1.2.3",
+ org.apache.shiro.web.servlet;version="1.2.3",
+ org.apache.shiro.web.util;version="1.2.3",
+ org.jasig.cas.client.authentication;version="3.3.3.AG2",
+ org.jasig.cas.client.proxy;version="3.3.3.AG2",
+ org.jasig.cas.client.ssl;version="3.3.3.AG2",
+ org.jasig.cas.client.validation;version="3.3.3.AG2",
+ org.joda.time;version="2.3.0",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.osgi.util.tracker;version="1.5.1"
+Service-Component: OSGI-INF/*.xml
+Hibernate-Contribution: auto
+Export-Package: eu.agno3.runtime.security.cas.client;version="0.0.214";uses:="org.apache.shiro.authc,  org.jasig.cas.client.ssl,  eu.agno3.runtime.crypto.tls,  eu.agno3.runtime.xml,  org.apache.shiro.subject,  org.jasig.cas.client.authentication,  javax.servlet,  org.apache.shiro.realm,  org.jasig.cas.client.proxy,  org.apache.shiro.authz,  org.jasig.cas.client.validation,  org.apache.shiro.web.filter,  org.apache.shiro.session"

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.fileshare.service.internal.FileDownloadFilterImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.service.FileDownloadFilter"/>
+    </service>
+    <reference name="ServiceContext" interface="eu.agno3.fileshare.service.api.internal.DefaultServiceContext" cardinality="1..1" policy="static" bind="setServiceContext" unbind="unsetServiceContext"/>
+    <reference name="DeliveryService" interface="eu.agno3.fileshare.service.api.internal.DeliveryService" cardinality="1..1" policy="static" bind="setDeliveryService" unbind="unsetDeliveryService"/>
+    <reference name="VFSService" interface="eu.agno3.fileshare.service.api.internal.VFSServiceInternal" cardinality="1..1" policy="static" bind="setVFSService" unbind="unsetVFSService"/>
+    <reference name="UADetector" interface="eu.agno3.runtime.http.ua.UADetector" cardinality="1..1" policy="static" bind="setUADetector" unbind="unsetUADetector"/>
+    <implementation class="eu.agno3.fileshare.service.internal.FileDownloadFilterImpl"/>
+</scr:component>

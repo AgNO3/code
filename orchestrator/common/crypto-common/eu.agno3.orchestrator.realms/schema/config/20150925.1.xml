@@ -1,0 +1,755 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="mbechler (generated)" id="1443182418878-1">
+        <createTable tableName="config_realm_base">
+            <column name="OVERRIDELOCALHOSTNAME" type="VARCHAR(255)"/>
+            <column name="REALMNAME" type="VARCHAR(255)"/>
+            <column name="ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-2">
+        <createTable tableName="config_realm_base_AUD">
+            <column name="ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OVERRIDELOCALHOSTNAME" type="VARCHAR(255)"/>
+            <column name="REALMNAME" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-3">
+        <createTable tableName="config_realm_base_config_realms_capath">
+            <column name="CONFIG_REALM_BASE_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CAPATHS_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-4">
+        <createTable tableName="config_realm_base_config_realms_capath_AUD">
+            <column name="REV" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CONFIG_REALM_BASE_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CAPATHS_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="SMALLINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-5">
+        <createTable tableName="config_realm_base_config_realms_ktimport">
+            <column name="CONFIG_REALM_BASE_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IMPORTKEYTABS_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-6">
+        <createTable tableName="config_realm_base_config_realms_ktimport_AUD">
+            <column name="REV" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CONFIG_REALM_BASE_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IMPORTKEYTABS_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="SMALLINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-7">
+        <createTable tableName="config_realms">
+            <column name="ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-8">
+        <createTable tableName="config_realms_AUD">
+            <column name="ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-9">
+        <createTable tableName="config_realms_adrealm">
+            <column name="MACHINEBASEDN" type="VARCHAR(255)"/>
+            <column name="OVERRIDEMACHINEACCOUNT" type="VARCHAR(255)"/>
+            <column name="OVERRIDENETBIOSDOMAINNAME" type="VARCHAR(255)"/>
+            <column name="OVERRIDENETBIOSHOSTNAME" type="VARCHAR(255)"/>
+            <column name="ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-10">
+        <createTable tableName="config_realms_adrealm_AUD">
+            <column name="ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MACHINEBASEDN" type="VARCHAR(255)"/>
+            <column name="OVERRIDEMACHINEACCOUNT" type="VARCHAR(255)"/>
+            <column name="OVERRIDENETBIOSDOMAINNAME" type="VARCHAR(255)"/>
+            <column name="OVERRIDENETBIOSHOSTNAME" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-11">
+        <createTable tableName="config_realms_capath">
+            <column name="NEXTREALM" type="VARCHAR(255)"/>
+            <column name="TARGETREALM" type="VARCHAR(255)"/>
+            <column name="ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-12">
+        <createTable tableName="config_realms_capath_AUD">
+            <column name="ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NEXTREALM" type="VARCHAR(255)"/>
+            <column name="TARGETREALM" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-13">
+        <createTable tableName="config_realms_config_realm_base">
+            <column name="CONFIG_REALMS_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REALMS_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-14">
+        <createTable tableName="config_realms_config_realm_base_AUD">
+            <column name="REV" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CONFIG_REALMS_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REALMS_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="SMALLINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-15">
+        <createTable tableName="config_realms_kerberos">
+            <column name="ALLOWWEAKCRYPTO" type="BOOLEAN"/>
+            <column name="DEFAULTTGTFORWARDABLE" type="BOOLEAN"/>
+            <column name="DEFAULTTGTPROXIABLE" type="BOOLEAN"/>
+            <column name="DEFAULTTGTRENEWABLE" type="BOOLEAN"/>
+            <column name="DISABLEADDRESSES" type="BOOLEAN"/>
+            <column name="DNSLOOKUPKDC" type="BOOLEAN"/>
+            <column name="DNSLOOKUPREALM" type="BOOLEAN"/>
+            <column name="KDCTIMEOUT" type="BIGINT"/>
+            <column name="MAXCLOCKSKEW" type="BIGINT"/>
+            <column name="MAXRETRIES" type="INT"/>
+            <column name="UDPPREFERENCELIMIT" type="INT"/>
+            <column name="ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-16">
+        <createTable tableName="config_realms_kerberos_AUD">
+            <column name="ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ALLOWWEAKCRYPTO" type="BOOLEAN"/>
+            <column name="DEFAULTTGTFORWARDABLE" type="BOOLEAN"/>
+            <column name="DEFAULTTGTPROXIABLE" type="BOOLEAN"/>
+            <column name="DEFAULTTGTRENEWABLE" type="BOOLEAN"/>
+            <column name="DISABLEADDRESSES" type="BOOLEAN"/>
+            <column name="DNSLOOKUPKDC" type="BOOLEAN"/>
+            <column name="DNSLOOKUPREALM" type="BOOLEAN"/>
+            <column name="KDCTIMEOUT" type="BIGINT"/>
+            <column name="MAXCLOCKSKEW" type="BIGINT"/>
+            <column name="MAXRETRIES" type="INT"/>
+            <column name="UDPPREFERENCELIMIT" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-17">
+        <createTable tableName="config_realms_kerberos_permenctype">
+            <column name="CONFIG_REALMS_KERBEROS_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PERMITTEDENCTYPES" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-18">
+        <createTable tableName="config_realms_kerberos_permenctype_AUD">
+            <column name="REV" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CONFIG_REALMS_KERBEROS_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PERMITTEDENCTYPES" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="SMALLINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-19">
+        <createTable tableName="config_realms_kerberos_tgsenctype">
+            <column name="CONFIG_REALMS_KERBEROS_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DEFAULTTGSENCTYPES" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-20">
+        <createTable tableName="config_realms_kerberos_tgsenctype_AUD">
+            <column name="REV" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CONFIG_REALMS_KERBEROS_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DEFAULTTGSENCTYPES" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="SMALLINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-21">
+        <createTable tableName="config_realms_kerberos_tktenctype">
+            <column name="CONFIG_REALMS_KERBEROS_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DEFAULTTICKETENCTYPES" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-22">
+        <createTable tableName="config_realms_kerberos_tktenctype_AUD">
+            <column name="REV" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CONFIG_REALMS_KERBEROS_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DEFAULTTICKETENCTYPES" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="SMALLINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-23">
+        <createTable tableName="config_realms_krbrealm">
+            <column name="ADMINSERVER" type="VARCHAR(255)"/>
+            <column name="KPASSWDSERVER" type="VARCHAR(255)"/>
+            <column name="REALMTYPE" type="VARCHAR(255)"/>
+            <column name="ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-24">
+        <createTable tableName="config_realms_krbrealm_AUD">
+            <column name="ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ADMINSERVER" type="VARCHAR(255)"/>
+            <column name="KPASSWDSERVER" type="VARCHAR(255)"/>
+            <column name="REALMTYPE" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-25">
+        <createTable tableName="config_realms_krbrealm_dommap">
+            <column name="CONFIG_REALM_BASE_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DOMAINMAPPINGS" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-26">
+        <createTable tableName="config_realms_krbrealm_dommap_AUD">
+            <column name="REV" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CONFIG_REALM_BASE_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DOMAINMAPPINGS" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="SMALLINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-27">
+        <createTable tableName="config_realms_krbrealm_kdcs">
+            <column name="CONFIG_REALMS_KRBREALM_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="KDCS" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-28">
+        <createTable tableName="config_realms_krbrealm_kdcs_AUD">
+            <column name="REV" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CONFIG_REALMS_KRBREALM_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="KDCS" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="SMALLINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-29">
+        <createTable tableName="config_realms_ktimport">
+            <column name="KEYTABID" type="VARCHAR(255)"/>
+            <column name="ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-30">
+        <createTable tableName="config_realms_ktimport_AUD">
+            <column name="ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REV" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="KEYTABID" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-31">
+        <createTable tableName="config_realms_ktimport_entries">
+            <column name="CONFIG_REALMS_KTIMPORT_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ALGORITHM" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DATA" type="VARCHAR(255)"/>
+            <column name="KVNO" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRINCIPAL" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-32">
+        <createTable tableName="config_realms_ktimport_entries_AUD">
+            <column name="REV" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REVTYPE" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CONFIG_REALMS_KTIMPORT_ID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SETORDINAL" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRINCIPAL" type="VARCHAR(255)"/>
+            <column name="DATA" type="VARCHAR(255)"/>
+            <column name="KVNO" type="BIGINT"/>
+            <column name="ALGORITHM" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-33">
+        <addPrimaryKey columnNames="CONFIG_REALM_BASE_ID, CAPATHS_ID" tableName="config_realm_base_config_realms_capath"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-34">
+        <addPrimaryKey columnNames="CONFIG_REALM_BASE_ID, IMPORTKEYTABS_ID" tableName="config_realm_base_config_realms_ktimport"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-35">
+        <addPrimaryKey columnNames="CONFIG_REALMS_ID, REALMS_ID" tableName="config_realms_config_realm_base"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-36">
+        <addPrimaryKey columnNames="CONFIG_REALMS_KTIMPORT_ID, ALGORITHM, KVNO, PRINCIPAL" tableName="config_realms_ktimport_entries"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-37">
+        <addPrimaryKey columnNames="ID" constraintName="config_realm_basePK" tableName="config_realm_base"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-38">
+        <addPrimaryKey columnNames="ID, REV" constraintName="config_realm_base_AUDPK" tableName="config_realm_base_AUD"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-39">
+        <addPrimaryKey columnNames="REV, CONFIG_REALM_BASE_ID, CAPATHS_ID" constraintName="config_realm_base_config_realms_capath_AUDPK" tableName="config_realm_base_config_realms_capath_AUD"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-40">
+        <addPrimaryKey columnNames="REV, CONFIG_REALM_BASE_ID, IMPORTKEYTABS_ID" constraintName="config_realm_base_config_realms_ktimport_AUDPK" tableName="config_realm_base_config_realms_ktimport_AUD"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-41">
+        <addPrimaryKey columnNames="ID" constraintName="config_realmsPK" tableName="config_realms"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-42">
+        <addPrimaryKey columnNames="ID, REV" constraintName="config_realms_AUDPK" tableName="config_realms_AUD"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-43">
+        <addPrimaryKey columnNames="ID" constraintName="config_realms_adrealmPK" tableName="config_realms_adrealm"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-44">
+        <addPrimaryKey columnNames="ID, REV" constraintName="config_realms_adrealm_AUDPK" tableName="config_realms_adrealm_AUD"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-45">
+        <addPrimaryKey columnNames="ID" constraintName="config_realms_capathPK" tableName="config_realms_capath"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-46">
+        <addPrimaryKey columnNames="ID, REV" constraintName="config_realms_capath_AUDPK" tableName="config_realms_capath_AUD"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-47">
+        <addPrimaryKey columnNames="REV, CONFIG_REALMS_ID, REALMS_ID" constraintName="config_realms_config_realm_base_AUDPK" tableName="config_realms_config_realm_base_AUD"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-48">
+        <addPrimaryKey columnNames="ID" constraintName="config_realms_kerberosPK" tableName="config_realms_kerberos"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-49">
+        <addPrimaryKey columnNames="ID, REV" constraintName="config_realms_kerberos_AUDPK" tableName="config_realms_kerberos_AUD"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-50">
+        <addPrimaryKey columnNames="REV, CONFIG_REALMS_KERBEROS_ID, PERMITTEDENCTYPES" constraintName="config_realms_kerberos_permenctype_AUDPK" tableName="config_realms_kerberos_permenctype_AUD"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-51">
+        <addPrimaryKey columnNames="REV, CONFIG_REALMS_KERBEROS_ID, DEFAULTTGSENCTYPES" constraintName="config_realms_kerberos_tgsenctype_AUDPK" tableName="config_realms_kerberos_tgsenctype_AUD"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-52">
+        <addPrimaryKey columnNames="REV, CONFIG_REALMS_KERBEROS_ID, DEFAULTTICKETENCTYPES" constraintName="config_realms_kerberos_tktenctype_AUDPK" tableName="config_realms_kerberos_tktenctype_AUD"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-53">
+        <addPrimaryKey columnNames="ID" constraintName="config_realms_krbrealmPK" tableName="config_realms_krbrealm"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-54">
+        <addPrimaryKey columnNames="ID, REV" constraintName="config_realms_krbrealm_AUDPK" tableName="config_realms_krbrealm_AUD"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-55">
+        <addPrimaryKey columnNames="REV, CONFIG_REALM_BASE_ID, DOMAINMAPPINGS" constraintName="config_realms_krbrealm_dommap_AUDPK" tableName="config_realms_krbrealm_dommap_AUD"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-56">
+        <addPrimaryKey columnNames="REV, CONFIG_REALMS_KRBREALM_ID, KDCS" constraintName="config_realms_krbrealm_kdcs_AUDPK" tableName="config_realms_krbrealm_kdcs_AUD"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-57">
+        <addPrimaryKey columnNames="ID" constraintName="config_realms_ktimportPK" tableName="config_realms_ktimport"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-58">
+        <addPrimaryKey columnNames="ID, REV" constraintName="config_realms_ktimport_AUDPK" tableName="config_realms_ktimport_AUD"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-59">
+        <addPrimaryKey columnNames="REV, REVTYPE, CONFIG_REALMS_KTIMPORT_ID, SETORDINAL" constraintName="config_realms_ktimport_entries_AUDPK" tableName="config_realms_ktimport_entries_AUD"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-60">
+        <createIndex indexName="FK_FK_2O6XF6F0BCTWETMLV3IMVR606" tableName="config_realms_krbrealm">
+            <column name="ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-61">
+        <createIndex indexName="FK_FK_2WJQLB2RXPUK6C9LLKQ1728ED" tableName="config_realms_ktimport_entries">
+            <column name="CONFIG_REALMS_KTIMPORT_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-62">
+        <createIndex indexName="FK_FK_55WWF1H16E2EY8S7LS6S9BBE" tableName="config_realm_base_config_realms_capath">
+            <column name="CONFIG_REALM_BASE_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-63">
+        <createIndex indexName="FK_FK_56THJ18R8HX9879AS0USAAFUC" tableName="config_realms_capath">
+            <column name="ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-64">
+        <createIndex indexName="FK_FK_5RN6XFV5B1TMIOP9RARP2AY8T" tableName="config_realms_ktimport">
+            <column name="ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-65">
+        <createIndex indexName="FK_FK_5U3JJ88R0TOIL5NY4IEPFPTYL" tableName="config_realms_krbrealm_kdcs">
+            <column name="CONFIG_REALMS_KRBREALM_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-66">
+        <createIndex indexName="FK_FK_5Y1UFPQIAKHVAR64KCFBYXERE" tableName="config_realms_kerberos_tgsenctype_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-67">
+        <createIndex indexName="FK_FK_60BIQ9D7MC6QR74RXPTEDGO1" tableName="config_realm_base_config_realms_ktimport">
+            <column name="IMPORTKEYTABS_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-68">
+        <createIndex indexName="FK_FK_7DHE08GSAHWYK1XSUV2F0XYWO" tableName="config_realms">
+            <column name="ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-69">
+        <createIndex indexName="FK_FK_A39OX8FSD3T23NN17AIMKDOXG" tableName="config_realms_krbrealm_dommap">
+            <column name="CONFIG_REALM_BASE_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-70">
+        <createIndex indexName="FK_FK_A60QY3N9H95H7KE5U6U9NSWAT" tableName="config_realms_kerberos_tgsenctype">
+            <column name="CONFIG_REALMS_KERBEROS_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-71">
+        <createIndex indexName="FK_FK_AB3Y3CM0FM2TCWXJWCHX3GWEA" tableName="config_realms_adrealm_AUD">
+            <column name="ID"/>
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-72">
+        <createIndex indexName="FK_FK_BBT7AX1NVYIEJF8KDMDN0AE8D" tableName="config_realm_base">
+            <column name="ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-73">
+        <createIndex indexName="FK_FK_DK122I0FR9XUBTJGLX9KTOOYV" tableName="config_realms_capath_AUD">
+            <column name="ID"/>
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-74">
+        <createIndex indexName="FK_FK_ETCP86X0WXP8MBJQU2ANFWUQ4" tableName="config_realms_krbrealm_kdcs_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-75">
+        <createIndex indexName="FK_FK_FMHMEBMPDSKTBYAQYMK4XGLOP" tableName="config_realms_kerberos_tktenctype">
+            <column name="CONFIG_REALMS_KERBEROS_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-76">
+        <createIndex indexName="FK_FK_FQN96CC2HE70QFWHLXMHPJ078" tableName="config_realm_base_config_realms_capath">
+            <column name="CAPATHS_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-77">
+        <createIndex indexName="FK_FK_JLYRJ52XHQCXPBQXKYT648CMK" tableName="config_realms_krbrealm_AUD">
+            <column name="ID"/>
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-78">
+        <createIndex indexName="FK_FK_JPSOFWY6556R162RWKP1KRV1N" tableName="config_realms_kerberos">
+            <column name="ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-79">
+        <createIndex indexName="FK_FK_KGRAHUW9R3YIR7D7G552YDQ4G" tableName="config_realms_config_realm_base">
+            <column name="REALMS_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-80">
+        <createIndex indexName="FK_FK_KT90W7KMSATVBIM70V71AF4Y9" tableName="config_realms_ktimport_entries_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-81">
+        <createIndex indexName="FK_FK_MHRXUAWG2M91EE9N3FLH5R61P" tableName="config_realms_kerberos_permenctype_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-82">
+        <createIndex indexName="FK_FK_MST44KPBQLSCSLMG9S92AHWTS" tableName="config_realms_kerberos_tktenctype_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-83">
+        <createIndex indexName="FK_FK_NAP2RH9E4LYT5DSW4IUQ5EO8L" tableName="config_realms_kerberos_permenctype">
+            <column name="CONFIG_REALMS_KERBEROS_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-84">
+        <createIndex indexName="FK_FK_O3I0WAMIL7POUCVKSVE8Y59A0" tableName="config_realms_adrealm">
+            <column name="ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-85">
+        <createIndex indexName="FK_FK_O4LEUVPJXJ4MDRJU145N066CQ" tableName="config_realm_base_config_realms_capath_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-86">
+        <createIndex indexName="FK_FK_PLAVSS1RNFYVQ75QFS16OLWGE" tableName="config_realms_kerberos_AUD">
+            <column name="ID"/>
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-87">
+        <createIndex indexName="FK_FK_POG64QI512B4SLN49LVTVHATB" tableName="config_realm_base_AUD">
+            <column name="ID"/>
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-88">
+        <createIndex indexName="FK_FK_PREYAP8X0GH4EICPMQGJBJ1J4" tableName="config_realms_config_realm_base_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-89">
+        <createIndex indexName="FK_FK_PUE3Q7A1N1QCA20O03LSUI7D3" tableName="config_realms_AUD">
+            <column name="ID"/>
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-90">
+        <createIndex indexName="FK_FK_QWBOK7N5EJ2J4OOIR6STYTK2A" tableName="config_realm_base_config_realms_ktimport_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-91">
+        <createIndex indexName="FK_FK_SDSO5T8X30T2BXX5ARGPTSBED" tableName="config_realms_config_realm_base">
+            <column name="CONFIG_REALMS_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-92">
+        <createIndex indexName="FK_FK_SPCEPY6YV3W8567KA1HMKF822" tableName="config_realm_base_config_realms_ktimport">
+            <column name="CONFIG_REALM_BASE_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-93">
+        <createIndex indexName="FK_FK_STX3JA8P3BBHSUJOULXP3QSFF" tableName="config_realms_ktimport_AUD">
+            <column name="ID"/>
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-94">
+        <createIndex indexName="FK_FK_T6MGUQL7WQFPCDJGOG9VG0HE" tableName="config_realms_krbrealm_dommap_AUD">
+            <column name="REV"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-95">
+        <addForeignKeyConstraint baseColumnNames="ID" baseTableName="config_realms_krbrealm" constraintName="FK_2O6XF6F0BCTWETMLV3IMVR606" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_realm_base"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-96">
+        <addForeignKeyConstraint baseColumnNames="CONFIG_REALMS_KTIMPORT_ID" baseTableName="config_realms_ktimport_entries" constraintName="FK_2WJQLB2RXPUK6C9LLKQ1728ED" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_realms_ktimport"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-97">
+        <addForeignKeyConstraint baseColumnNames="CONFIG_REALM_BASE_ID" baseTableName="config_realm_base_config_realms_capath" constraintName="FK_55WWF1H16E2EY8S7LS6S9BBE" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_realm_base"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-98">
+        <addForeignKeyConstraint baseColumnNames="ID" baseTableName="config_realms_capath" constraintName="FK_56THJ18R8HX9879AS0USAAFUC" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-99">
+        <addForeignKeyConstraint baseColumnNames="ID" baseTableName="config_realms_ktimport" constraintName="FK_5RN6XFV5B1TMIOP9RARP2AY8T" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-100">
+        <addForeignKeyConstraint baseColumnNames="CONFIG_REALMS_KRBREALM_ID" baseTableName="config_realms_krbrealm_kdcs" constraintName="FK_5U3JJ88R0TOIL5NY4IEPFPTYL" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_realms_krbrealm"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-101">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="config_realms_kerberos_tgsenctype_AUD" constraintName="FK_5Y1UFPQIAKHVAR64KCFBYXERE" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="REVISION" referencedTableName="revisions"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-102">
+        <addForeignKeyConstraint baseColumnNames="IMPORTKEYTABS_ID" baseTableName="config_realm_base_config_realms_ktimport" constraintName="FK_60BIQ9D7MC6QR74RXPTEDGO1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_realms_ktimport"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-103">
+        <addForeignKeyConstraint baseColumnNames="ID" baseTableName="config_realms" constraintName="FK_7DHE08GSAHWYK1XSUV2F0XYWO" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-104">
+        <addForeignKeyConstraint baseColumnNames="CONFIG_REALM_BASE_ID" baseTableName="config_realms_krbrealm_dommap" constraintName="FK_A39OX8FSD3T23NN17AIMKDOXG" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_realm_base"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-105">
+        <addForeignKeyConstraint baseColumnNames="CONFIG_REALMS_KERBEROS_ID" baseTableName="config_realms_kerberos_tgsenctype" constraintName="FK_A60QY3N9H95H7KE5U6U9NSWAT" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_realms_kerberos"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-106">
+        <addForeignKeyConstraint baseColumnNames="ID,REV" baseTableName="config_realms_adrealm_AUD" constraintName="FK_AB3Y3CM0FM2TCWXJWCHX3GWEA" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID,REV" referencedTableName="config_realm_base_AUD"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-107">
+        <addForeignKeyConstraint baseColumnNames="ID" baseTableName="config_realm_base" constraintName="FK_BBT7AX1NVYIEJF8KDMDN0AE8D" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-108">
+        <addForeignKeyConstraint baseColumnNames="ID,REV" baseTableName="config_realms_capath_AUD" constraintName="FK_DK122I0FR9XUBTJGLX9KTOOYV" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID,REV" referencedTableName="config_AUD"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-109">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="config_realms_krbrealm_kdcs_AUD" constraintName="FK_ETCP86X0WXP8MBJQU2ANFWUQ4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="REVISION" referencedTableName="revisions"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-110">
+        <addForeignKeyConstraint baseColumnNames="CONFIG_REALMS_KERBEROS_ID" baseTableName="config_realms_kerberos_tktenctype" constraintName="FK_FMHMEBMPDSKTBYAQYMK4XGLOP" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_realms_kerberos"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-111">
+        <addForeignKeyConstraint baseColumnNames="CAPATHS_ID" baseTableName="config_realm_base_config_realms_capath" constraintName="FK_FQN96CC2HE70QFWHLXMHPJ078" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_realms_capath"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-112">
+        <addForeignKeyConstraint baseColumnNames="ID,REV" baseTableName="config_realms_krbrealm_AUD" constraintName="FK_JLYRJ52XHQCXPBQXKYT648CMK" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID,REV" referencedTableName="config_realm_base_AUD"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-113">
+        <addForeignKeyConstraint baseColumnNames="ID" baseTableName="config_realms_kerberos" constraintName="FK_JPSOFWY6556R162RWKP1KRV1N" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-114">
+        <addForeignKeyConstraint baseColumnNames="REALMS_ID" baseTableName="config_realms_config_realm_base" constraintName="FK_KGRAHUW9R3YIR7D7G552YDQ4G" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_realm_base"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-115">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="config_realms_ktimport_entries_AUD" constraintName="FK_KT90W7KMSATVBIM70V71AF4Y9" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="REVISION" referencedTableName="revisions"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-116">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="config_realms_kerberos_permenctype_AUD" constraintName="FK_MHRXUAWG2M91EE9N3FLH5R61P" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="REVISION" referencedTableName="revisions"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-117">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="config_realms_kerberos_tktenctype_AUD" constraintName="FK_MST44KPBQLSCSLMG9S92AHWTS" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="REVISION" referencedTableName="revisions"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-118">
+        <addForeignKeyConstraint baseColumnNames="CONFIG_REALMS_KERBEROS_ID" baseTableName="config_realms_kerberos_permenctype" constraintName="FK_NAP2RH9E4LYT5DSW4IUQ5EO8L" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_realms_kerberos"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-119">
+        <addForeignKeyConstraint baseColumnNames="ID" baseTableName="config_realms_adrealm" constraintName="FK_O3I0WAMIL7POUCVKSVE8Y59A0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_realm_base"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-120">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="config_realm_base_config_realms_capath_AUD" constraintName="FK_O4LEUVPJXJ4MDRJU145N066CQ" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="REVISION" referencedTableName="revisions"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-121">
+        <addForeignKeyConstraint baseColumnNames="ID,REV" baseTableName="config_realms_kerberos_AUD" constraintName="FK_PLAVSS1RNFYVQ75QFS16OLWGE" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID,REV" referencedTableName="config_AUD"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-122">
+        <addForeignKeyConstraint baseColumnNames="ID,REV" baseTableName="config_realm_base_AUD" constraintName="FK_POG64QI512B4SLN49LVTVHATB" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID,REV" referencedTableName="config_AUD"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-123">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="config_realms_config_realm_base_AUD" constraintName="FK_PREYAP8X0GH4EICPMQGJBJ1J4" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="REVISION" referencedTableName="revisions"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-124">
+        <addForeignKeyConstraint baseColumnNames="ID,REV" baseTableName="config_realms_AUD" constraintName="FK_PUE3Q7A1N1QCA20O03LSUI7D3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID,REV" referencedTableName="config_AUD"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-125">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="config_realm_base_config_realms_ktimport_AUD" constraintName="FK_QWBOK7N5EJ2J4OOIR6STYTK2A" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="REVISION" referencedTableName="revisions"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-126">
+        <addForeignKeyConstraint baseColumnNames="CONFIG_REALMS_ID" baseTableName="config_realms_config_realm_base" constraintName="FK_SDSO5T8X30T2BXX5ARGPTSBED" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_realms"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-127">
+        <addForeignKeyConstraint baseColumnNames="CONFIG_REALM_BASE_ID" baseTableName="config_realm_base_config_realms_ktimport" constraintName="FK_SPCEPY6YV3W8567KA1HMKF822" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_realm_base"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-128">
+        <addForeignKeyConstraint baseColumnNames="ID,REV" baseTableName="config_realms_ktimport_AUD" constraintName="FK_STX3JA8P3BBHSUJOULXP3QSFF" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID,REV" referencedTableName="config_AUD"/>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1443182418878-129">
+        <addForeignKeyConstraint baseColumnNames="REV" baseTableName="config_realms_krbrealm_dommap_AUD" constraintName="FK_T6MGUQL7WQFPCDJGOG9VG0HE" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="REVISION" referencedTableName="revisions"/>
+    </changeSet>
+</databaseChangeLog>

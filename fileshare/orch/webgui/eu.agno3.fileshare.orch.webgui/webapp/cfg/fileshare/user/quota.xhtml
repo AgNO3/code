@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="enableDefaultQuota"
+		path="enableDefaultQuota"
+		update="@composite:@parent:defaultQuotaSettings">
+		<p:selectBooleanCheckbox id="enableDefaultQuota"
+			value="#{current.enableDefaultQuota}">
+			<p:ajax event="change"
+				update="@composite:@parent:defaultQuotaSettings" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+	<p:outputPanel id="defaultQuotaSettings">
+		<p:outputPanel
+			rendered="#{current.enableDefaultQuota or (current.enableDefaultQuota == null and defaults.enableDefaultQuota)}">
+			<orch:objectFieldEditor inputId="globalDefaultQuota"
+				path="globalDefaultQuota">
+				<ag:inputSize id="globalDefaultQuota" minUnit="kB" maxUnit="GB"
+					defaultUnit="MB" value="#{current.globalDefaultQuota}" />
+			</orch:objectFieldEditor>
+		</p:outputPanel>
+	</p:outputPanel>
+
+	<orch:objectFieldEditor inputId="defaultQuotaRules" minLevel="2"
+		path="defaultQuotaRules" collection="true">
+		<ag:listEditor id="defaultQuotaRules"
+			factoryMethod="#{fs_quotaConfigBean.makeQuotaRule}"
+			value="#{current.defaultQuotaRules}">
+			<p:column>
+				<p:autoComplete dropdown="true"
+					completeMethod="#{fs_authenticationConfigBean.getRoleCompleter(outerWrapper).complete}"
+					value="#{item.value.matchRole}" />
+			</p:column>
+			<p:column style="width: 11em">
+				<ag:inputSize minUnit="kB" maxUnit="GB" defaultUnit="MB"
+					value="#{item.value.quota}" />
+			</p:column>
+		</ag:listEditor>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="disableSizeTrackingWithoutQuota"
+		minLevel="3" path="disableSizeTrackingWithoutQuota">
+		<p:selectBooleanCheckbox id="disableSizeTrackingWithoutQuota"
+			value="#{current.disableSizeTrackingWithoutQuota}" />
+	</orch:objectFieldEditor>
+
+</ui:composition>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.orchestrator.agent.server.internal.AgentEventPumpManager" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.agent.server.AgentLifecycleListener"/>
+    </service>
+    <reference name="EventRouterManager" interface="eu.agno3.runtime.messaging.routing.EventRouterManager" cardinality="1..1" policy="static" bind="setEventRouterManager" unbind="unsetEventRouterManager"/>
+    <reference name="EventTypeRegistry" interface="eu.agno3.runtime.messaging.events.EventTypeRegistry" cardinality="1..1" policy="static" bind="setEventTypeRegistry" unbind="unsetEventTypeRegistry"/>
+    <reference name="MessageListenerFactory" interface="eu.agno3.runtime.messaging.listener.MessageListenerFactory" cardinality="1..1" policy="static" bind="setMessageListenerFactory" unbind="unsetMessageListenerFactory"/>
+    <reference name="ConnectionFactory" interface="javax.jms.ConnectionFactory" cardinality="1..1" policy="static" bind="setConnectionFactory" unbind="unsetConnectionFactory"/>
+    <reference name="UnmarshallerManager" interface="eu.agno3.runtime.messaging.marshalling.UnmarshallerManager" cardinality="1..1" policy="static" bind="setUnmarshallerManager" unbind="unsetUnmarshallerManager"/>
+    <implementation class="eu.agno3.orchestrator.agent.server.internal.AgentEventPumpManager"/>
+</scr:component>

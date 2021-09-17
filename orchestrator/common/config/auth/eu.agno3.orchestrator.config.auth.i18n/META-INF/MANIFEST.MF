@@ -1,0 +1,6 @@
+Bundle-SymbolicName: eu.agno3.orchestrator.config.auth.i18n
+Bundle-Version: 0.0.1.qualifier
+Bundle-Name: Orchestrator Configuration Management Auth Configuration I18N
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2

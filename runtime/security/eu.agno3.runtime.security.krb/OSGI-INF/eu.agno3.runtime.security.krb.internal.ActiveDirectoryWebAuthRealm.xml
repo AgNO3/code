@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.security.krb.internal.ActiveDirectoryWebAuthRealm" configuration-policy="require" activate="activate" deactivate="deactivate" modified="modified" configuration-pid="auth.ad">
+    <service servicefactory="false">
+        <provide interface="org.apache.shiro.realm.Realm"/>
+        <provide interface="eu.agno3.runtime.security.login.LoginRealm"/>
+        <provide interface="org.apache.shiro.realm.AuthorizingRealm"/>
+    </service>
+    <reference name="KerberosRealm" interface="eu.agno3.runtime.net.ad.ADRealm" cardinality="1..1" policy="static" bind="setKerberosRealm" unbind="unsetKerberosRealm" updated="updatedKerberosRealm"/>
+    <reference name="UserMapper" interface="eu.agno3.runtime.security.UserMapper" cardinality="1..1" policy="static" bind="setUserMapper" unbind="unsetUserMapper"/>
+    <reference name="SecureRandomProvider" interface="eu.agno3.runtime.crypto.random.SecureRandomProvider" cardinality="1..1" policy="static" bind="setSecureRandomProvider" unbind="unsetSecureRandomProvider"/>
+    <reference name="ResourceBundleService" interface="eu.agno3.runtime.i18n.ResourceBundleService" cardinality="1..1" policy="static" bind="setResourceBundleService" unbind="unsetResourceBundleService"/>
+    <implementation class="eu.agno3.runtime.security.krb.internal.ActiveDirectoryWebAuthRealm"/>
+</scr:component>

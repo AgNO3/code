@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+	<changeSet author="mbechler (generated)" id="1449068667672-1">
+		<addColumn schemaName="APP" tableName="instances">
+			<column name="RELEASESTREAM" type="varchar(255)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1449068667672-2">
+		<addColumn schemaName="APP" tableName="instances_AUD">
+			<column name="RELEASESTREAM" type="varchar(255)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1450187191257-1">
+		<addColumn schemaName="APP" tableName="resource_libraries">
+			<column name="BUILTIN" type="boolean" valueBoolean="false"
+				defaultValueBoolean="false">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1450187191257-2">
+		<addColumn schemaName="APP" tableName="resource_libraries_AUD">
+			<column name="BUILTIN" type="boolean" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1450285272191-1">
+		<dropDefaultValue columnDataType="boolean"
+			columnName="BUILTIN" schemaName="APP" tableName="resource_libraries" />
+	</changeSet>
+</databaseChangeLog>

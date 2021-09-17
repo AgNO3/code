@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	template="/tpl/common/dialog.xhtml">
+
+	<ui:param name="title"
+		value="#{msgs.formatEL('actions.recursiveSetLabel.titleFmt',fileDisplayBean.getLocalDisplayName(shareEntitySelection.singleSelection))}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="root"
+				value="#{urlFileSelectionBean.encodedSingleSelection}"
+				required="true" />
+
+			<f:viewParam name="label" value="#{recursiveSetLabelBean.label}"
+				required="true" />
+
+			<f:viewParam name="grant"
+				value="#{grantSelectionBean.encodedSingleSelection}"
+				required="false" />
+
+			<f:viewParam name="token" value="#{userTokenBean.token}"
+				required="false" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form" method="POST" enctype="multipart/form-data">
+			<ag:dialogContextHolder />
+
+			<p:hotkey bind="esc" action="#{dialog.close}" immediate="true" />
+			<p:messages autoUpdate="true" />
+
+			<input type="hidden" name="token" value="#{userTokenBean.token}" />
+
+			<p:fieldset styleClass="func-unit"
+				legend="#{msgs.formatEL('actions.recursiveSetLabel.titleFmt',fileDisplayBean.getLocalDisplayName(shareEntitySelection.singleSelection))}">
+
+				<p>
+					<h:outputFormat
+						value="#{_msgs['actions.recursiveSetLabel.msgFmt']}">
+						<f:param value="#{recursiveSetLabelBean.label}" />
+					</h:outputFormat>
+				</p>
+
+
+				<p:outputPanel styleClass="ui-messages ui-widget">
+					<p:outputPanel styleClass="ui-messages-warn ui-corner-all"
+						rendered="#{recursiveSetLabelBean.numHigher gt 0}">
+
+						<span class="ui-messages-warn-icon" />
+						<h:outputFormat
+							value="#{_msgs['actions.recursiveSetLabel.higherLabelWarnFmt']}">
+							<f:param value="#{recursiveSetLabelBean.numHigher}" />
+							<f:param
+								value="#{urlFileSelectionBean.singleSelection.securityLabel}" />
+						</h:outputFormat>
+					</p:outputPanel>
+				</p:outputPanel>
+
+				<p:treeTable id="selectionTable" value="#{recursiveSetLabelBean.model}" nodeVar="node"
+					styleClass="no-header no-border" var="incons"
+					selectionMode="checkbox" propagateSelectionDown="deselect"
+					propagateSelectionUp="select"
+					selection="#{recursiveSetLabelBean.confirmed}">
+					<p:column>
+						<span
+							class="ui-icon file-icon ui-icon-inline ${fileDisplayBean.getTypeIconCollapsed(node.data)}" />
+						<h:outputText value="#{node.path}" />
+					</p:column>
+					<p:column style="width: 20%">
+						<h:outputText value="#{node.data.securityLabel}" />
+						<h:outputText styleClass="ui-icon ui-icon-inline ui-icon-alert"
+							rendered="#{node.data.securityLabel != urlFileSelectionBean.singleSelection.securityLabel}" />
+					</p:column>
+				</p:treeTable>
+
+				<div class="func-unit-buttons">
+					<p:commandButton icon="ui-icon-check" update="selectionTable"
+						action="#{recursiveSetLabelBean.selectAll}"
+						value="#{_msgs['actions.recursiveSetLabel.selectAll']}" />
+
+					<p:commandButton icon="ui-icon-close" update="selectionTable"
+						action="#{recursiveSetLabelBean.selectNone}"
+						value="#{_msgs['actions.recursiveSetLabel.selectNone']}" />
+				</div>
+			</p:fieldset>
+
+			<div class="buttons">
+				<p:commandButton id="confirm" icon="ui-icon-check"
+					disabled="#{empty urlFileSelectionBean.singleSelection or empty recursiveSetLabelBean.label}"
+					action="#{recursiveSetLabelBean.confirm}"
+					value="#{_msgs['actions.recursiveSetLabel.confirm']}" />
+
+				<p:commandButton immediate="true" action="#{dialog.close}"
+					styleClass="close-button inline" icon="#{dialog.closeIcon}"
+					title="#{dialog.closeDescription}"
+					value="#{_msgs['actions.recursiveSetLabel.cancel']}" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

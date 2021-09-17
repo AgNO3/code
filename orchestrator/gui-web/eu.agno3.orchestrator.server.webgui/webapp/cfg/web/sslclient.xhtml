@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<p:outputPanel
+		rendered="#{not empty outerWrapper.getParameter('noRevocationSupport')}">
+		<p>
+			<h:outputText value="#{_config_web['ssl.client.noRevocation']}" />
+		</p>
+	</p:outputPanel>
+
+	<orch:objectFieldEditor inputId="truststoreAlias"
+		path="truststoreAlias" update="truststoreAlias" minLevel="3">
+		<p:autoComplete id="truststoreAlias" dropdown="true"
+			completeMethod="#{sslEndpointConfigBean.getTruststoreCompleter(outerWrapper).complete}"
+			value="#{current.truststoreAlias}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="securityMode" path="securityMode"
+		readOnlyValueMapper="#{sslEndpointConfigBean.translateSecurityMode}">
+		<p:selectOneMenu id="securityMode" value="#{current.securityMode}">
+			<f:selectItems value="#{sslEndpointConfigBean.securityModes}"
+				var="mode"
+				itemLabel="#{sslEndpointConfigBean.translateSecurityMode(mode)}" />
+		</p:selectOneMenu>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="publicKeyPinMode"
+		path="publicKeyPinMode" minLevel="2"
+		readOnlyValueMapper="#{sslEndpointConfigBean.translatePublicKeyPinMode}">
+		<p:selectOneMenu id="publicKeyPinMode"
+			value="#{current.publicKeyPinMode}">
+			<f:selectItems value="#{sslEndpointConfigBean.publicKeyPinModes}"
+				var="mode"
+				itemLabel="#{sslEndpointConfigBean.translatePublicKeyPinMode(mode)}" />
+		</p:selectOneMenu>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="pinnedPublicKeys" minLevel="2"
+		clone="#{pubkeyEntryUtil.clonePublicKeyEntry}"
+		path="pinnedPublicKeys" collection="true"
+		readOnlyValueMapper="#{pubkeyEntryUtil.pubkeyEntryReadOnlyMapper}">
+		<ag:setEditor id="pinnedPublicKeys"
+			value="#{current.pinnedPublicKeys}"
+			comparator="#{pubkeyEntryUtil.publicKeyEntryComparator}"
+			factoryMethod="#{pubkeyEntryUtil.makePublicKeyEntry}">
+			<p:column>
+				<ag:rsaPublicKeyEditor
+					value="#{pubkeyEntryUtil.getWrapper(item.value).value}"
+					comment="#{pubkeyEntryUtil.getWrapper(item.value).comment}" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="disableHostnameVerification"
+		minLevel="2" path="disableHostnameVerification">
+		<p:selectBooleanCheckbox id="disableHostnameVerification"
+			value="#{current.disableHostnameVerification}" />
+	</orch:objectFieldEditor>
+
+
+
+
+</ui:composition>

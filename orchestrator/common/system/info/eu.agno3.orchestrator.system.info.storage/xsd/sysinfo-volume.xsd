@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:fs="urn:agno3:model:1.0:system:info:storage:fs" xmlns:v="urn:agno3:model:1.0:system:info:storage:volume" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:model:1.0:system:info:storage:volume" elementFormDefault="qualified">
+   <xsd:import schemaLocation="urn:agno3:model:1.0:system:info:storage:fs" namespace="urn:agno3:model:1.0:system:info:storage:fs"/>
+   <xsd:complexType name="volumeInformation" abstract="true">
+      <xsd:sequence>
+         <xsd:element name="device" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="fs" type="fs:fileSystem" minOccurs="0"/>
+         <xsd:element name="label" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="size" type="xsd:long"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="physicalVolume">
+      <xsd:complexContent>
+         <xsd:extension base="v:volumeInformation">
+            <xsd:sequence/>
+            <xsd:attribute name="index" type="xsd:int" use="required"/>
+            <xsd:attribute name="type" type="v:volumeType"/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="logicalVolume">
+      <xsd:complexContent>
+         <xsd:extension base="v:volumeInformation">
+            <xsd:sequence>
+               <xsd:element name="name" type="xsd:string" minOccurs="0"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="systemVolume">
+      <xsd:complexContent>
+         <xsd:extension base="v:physicalVolume">
+            <xsd:sequence/>
+            <xsd:attribute name="sysType" type="v:systemVolumeType"/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:element name="volume" type="v:volumeInformation"/>
+   <xsd:element name="physicalVolume" type="v:physicalVolume"/>
+   <xsd:element name="logicalVolume" type="v:logicalVolume"/>
+   <xsd:element name="systemVolume" type="v:systemVolume"/>
+   <xsd:simpleType name="volumeType">
+      <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="UNKNOWN"/>
+         <xsd:enumeration value="UNPARTITIONED"/>
+         <xsd:enumeration value="EMPTY"/>
+         <xsd:enumeration value="LINUX_SWAP"/>
+         <xsd:enumeration value="LINUX"/>
+         <xsd:enumeration value="LVM_PV"/>
+         <xsd:enumeration value="GPT"/>
+         <xsd:enumeration value="EFI"/>
+         <xsd:enumeration value="LINUX_RAID"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="systemVolumeType">
+      <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="RAID_MEMBER"/>
+         <xsd:enumeration value="LVM_PV"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+</xsd:schema>

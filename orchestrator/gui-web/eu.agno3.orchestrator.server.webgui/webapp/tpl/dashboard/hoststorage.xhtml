@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<p:panel id="hoststorage"
+		header="#{_gui['structure.instance.sysinfo.storage.title']}">
+		<p:outputPanel deferred="true" styleClass="load-graphs">
+			<p:outputPanel
+				rendered="#{agentSysInfoContext.haveData()}">
+				<ui:repeat var="fse"
+					value="#{agentSysInfoStorageChartModel.entries}">
+					<div class="load-graph">
+						<h:outputFormat styleClass="load-label"
+							value="{0} {1,number,0} % of {2}">
+							<f:param value="#{fse.name}" />
+							<f:param value="#{100*fse.usedPercent}" />
+							<f:param value="#{ag:formatByteSizeSI(fse.totalSpace)}" />
+						</h:outputFormat>
+						<div class="load-bar ui-widget-content">
+							<div class="#{fse.barStyleClass}" style="#{fse.barStyle}"></div>
+						</div>
+					</div>
+				</ui:repeat>
+			</p:outputPanel>
+			<p:outputPanel
+				rendered="#{not agentSysInfoContext.haveData()}">
+				<ui:include src="/tpl/dashboard/unavailable.xhtml" />
+			</p:outputPanel>
+		</p:outputPanel>
+	</p:panel>
+</ui:composition>

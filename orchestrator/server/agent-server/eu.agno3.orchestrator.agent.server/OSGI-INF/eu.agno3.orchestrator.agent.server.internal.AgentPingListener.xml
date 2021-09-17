@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.agent.server.internal.AgentPingListener">
+    <property name="msgType" value="eu.agno3.orchestrator.agent.msg.AgentPingMessage"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.messaging.listener.RequestEndpoint"/>
+    </service>
+    <reference name="AgentConnectorWatcher" interface="eu.agno3.orchestrator.agent.server.internal.AgentConnectorWatcherImpl" cardinality="1..1" policy="static" bind="setAgentConnectorWatcher" unbind="unsetAgentConnectorWatcher"/>
+    <reference name="MessageClient" interface="eu.agno3.runtime.messaging.client.MessagingClient" cardinality="1..1" policy="static" bind="setMessageClient" unbind="unsetMessageClient"/>
+    <implementation class="eu.agno3.orchestrator.agent.server.internal.AgentPingListener"/>
+</scr:component>

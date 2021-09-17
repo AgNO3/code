@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.orchestrator.agent.update.internal.ServiceReconfiguratorImpl" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.agent.update.ServiceReconfigurator"/>
+    </service>
+    <reference name="ConfigRepository" interface="eu.agno3.orchestrator.jobs.agent.system.ConfigRepository" cardinality="1..1" policy="static" bind="setConfigRepository" unbind="unsetConfigRepository"/>
+    <reference name="ServiceTypeRegistry" interface="eu.agno3.orchestrator.config.model.descriptors.ServiceTypeRegistry" cardinality="1..1" policy="static" bind="setServiceTypeRegistry" unbind="unsetServiceTypeRegistry"/>
+    <reference name="RunnerFactory" interface="eu.agno3.orchestrator.system.base.execution.RunnerFactory" cardinality="1..1" policy="static" bind="setRunnerFactory" unbind="unsetRunnerFactory"/>
+    <reference name="ObjectTypeRegistry" interface="eu.agno3.orchestrator.config.model.descriptors.ObjectTypeRegistry" cardinality="1..1" policy="static" bind="setObjectTypeRegistry" unbind="unsetObjectTypeRegistry"/>
+    <implementation class="eu.agno3.orchestrator.agent.update.internal.ServiceReconfiguratorImpl"/>
+</scr:component>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+
+
+	<orch:objectFieldEditor inputId="termsId" path="termsId" readOnlyIfPersistent="true">
+		<p:inputText id="termsId" value="#{current.termsId}" />
+	</orch:objectFieldEditor>
+
+
+	<ag:simpleField styleClass="noLabel" id="manageTermsField"
+		onlyIf="#{configContextUtil.isInstance(configContext)}">
+		<ag:dialogOpenButton id="manageTermsButton" icon="ui-icon-pencil"
+			dialog="/resourceLibrary/edit/terms.dialog.xhtml?#{resourceLibraryController.makeCreateOrEditArguments('terms', 'terms')}&amp;initialTermsId=#{current.termsId}"
+			closable="true" value="#{_fs_orch_msg['library.terms.manage']}">
+			<p:ajax event="return"
+				listener="#{resourceLibraryController.finishedReturnDialog}" />
+		</ag:dialogOpenButton>
+	</ag:simpleField>
+
+	<orch:objectFieldEditor inputId="priority" minLevel="2" path="priority">
+		<p:spinner id="priority" value="#{current.priority}" size="3" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="titles" path="titles" map="true">
+		<ag:localizedStringEditor id="titles" value="#{current.titles}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="descriptions" path="descriptions"
+		map="true" minLevel="2">
+		<ag:localizedStringEditor id="descriptions"
+			value="#{current.descriptions}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="applyType" path="applyType"
+		minLevel="2"
+		readOnlyValueMapper="#{termsConfigBean.translateApplyType}"
+		update="@composite:@parent:rolesConfig">
+		<p:selectOneMenu id="applyType" value="#{current.applyType}">
+			<f:selectItems value="#{termsConfigBean.applyTypes}" var="at"
+				itemValue="#{at}"
+				itemLabel="#{termsConfigBean.translateApplyType(at)}"
+				itemDescription="#{termsConfigBean.translateApplyDescription(at)}" />
+			<p:ajax event="change" update="@composite:@parent:rolesConfig" />
+		</p:selectOneMenu>
+	</orch:objectFieldEditor>
+
+
+	<p:outputPanel id="rolesConfig">
+		<p:outputPanel
+			rendered="#{(not empty current.applyType and current.applyType != 'ONLY') or (current.applyType == null and defaults.applyType != 'ONLY')}">
+			<orch:objectFieldEditor inputId="includeRoles" minLevel="2"
+				path="includeRoles" collection="true">
+				<ag:setEditor id="includeRoles" value="#{current.includeRoles}"
+					comparator="#{setEditorUtilBean.stringComparator}"
+					factoryMethod="#{setEditorUtilBean.makeEmptyString}">
+					<p:column>
+						<p:autoComplete dropdown="true"
+							completeMethod="#{fs_authenticationConfigBean.getRoleCompleter(outerWrapper).complete}"
+							value="#{item.value}" />
+					</p:column>
+				</ag:setEditor>
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="excludeRoles" minLevel="2"
+				path="excludeRoles" collection="true">
+				<ag:setEditor id="excludeRoles" value="#{current.excludeRoles}"
+					comparator="#{setEditorUtilBean.stringComparator}"
+					factoryMethod="#{setEditorUtilBean.makeEmptyString}">
+					<p:column>
+						<p:autoComplete dropdown="true"
+							completeMethod="#{fs_authenticationConfigBean.getRoleCompleter(outerWrapper).complete}"
+							value="#{item.value}" />
+					</p:column>
+				</ag:setEditor>
+			</orch:objectFieldEditor>
+		</p:outputPanel>
+	</p:outputPanel>
+
+	<orch:objectFieldEditor inputId="persistAcceptance" minLevel="3"
+		path="persistAcceptance">
+		<p:selectBooleanCheckbox id="persistAcceptance"
+			value="#{current.persistAcceptance}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="updated" minLevel="3" path="updated">
+		<p:calendar id="updated" value="#{current.updated}"
+			converter="#{dateTimeConverter}" />
+	</orch:objectFieldEditor>
+
+</ui:composition>

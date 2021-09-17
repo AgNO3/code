@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.crypto.x509.internal.X509UtilImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.crypto.x509.X509Util"/>
+    </service>
+    <reference name="SecureRandomProvider" interface="eu.agno3.runtime.crypto.random.SecureRandomProvider" cardinality="1..1" policy="static" bind="setSecureRandomProvider" unbind="unsetSecureRandomProvider"/>
+    <implementation class="eu.agno3.runtime.crypto.x509.internal.X509UtilImpl"/>
+</scr:component>

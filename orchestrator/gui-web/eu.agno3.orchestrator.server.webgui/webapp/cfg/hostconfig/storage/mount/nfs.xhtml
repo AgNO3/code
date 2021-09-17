@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<ui:include src="/cfg/hostconfig/storage/mount/base.xhtml">
+		<ui:param name="configContext" value="#{configContext}" />
+		<ui:param name="current" value="#{current}" />
+		<ui:param name="defaults" value="#{defaults}" />
+		<ui:param name="enforced" value="#{enforced}" />
+		<ui:param name="base" value="#{path}" />
+		<ui:param name="isTemplate" value="#{isTemplate}" />
+		<ui:param name="isSubTemplate" value="#{isSubTemplate}" />
+		<ui:param name="readOnly" value="#{readOnly}" />
+		<ui:param name="outerWrapper" value="#{outerWrapper}" />
+	</ui:include>
+
+
+	<orch:objectFieldEditor inputId="target" path="target">
+		<ag:inputUri id="target" fields="scheme,host,path" defaultScheme="nfs"
+			defaultPort="0" hostWidth="15em" pathWidth="10em" defaultPath="/"
+			readOnly="scheme" value="#{current.target}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="nfsVersion" path="nfsVersion"
+		update="@composite:@parent:securitySettings"
+		readOnlyValueMapper="#{mountEntryBean.translateNfsVersion}">
+		<p:selectOneMenu id="nfsVersion" value="#{current.nfsVersion}">
+			<f:selectItems value="#{mountEntryBean.nfsVersions}" var="ver"
+				itemLabel="#{mountEntryBean.translateNfsVersion(ver)}" />
+			<p:ajax event="change" update="@composite:@parent:securitySettings" />
+		</p:selectOneMenu>
+	</orch:objectFieldEditor>
+
+	<p:outputPanel id="securitySettings">
+		<ui:remove>
+			<!-- Not active as this is difficult to implement -->
+			<p:outputPanel
+				rendered="#{(current.nfsVersion != null and current.nfsVersion != 'NFS3') or (current.nfsVersion == null and defaults.nfsVersion != 'NFS3')}">
+
+				<orch:objectFieldEditor inputId="securityType" path="securityType"
+					update="@composite:@parent:authSettings"
+					readOnlyValueMapper="#{mountEntryBean.translateNfsSecurityType}">
+					<p:selectOneMenu id="securityType" value="#{current.securityType}">
+						<f:selectItems value="#{mountEntryBean.nfsSecurityTypes}"
+							var="type"
+							itemLabel="#{mountEntryBean.translateNfsSecurityType(type)}" />
+						<p:ajax event="change" update="@composite:@parent:authSettings" />
+					</p:selectOneMenu>
+				</orch:objectFieldEditor>
+
+				<p:outputPanel id="authSettings">
+					<p:outputPanel
+						rendered="#{(current.securityType != null and current.securityType != 'NONE') or (current.securityType == null and defaults.securityType != 'NONE')}">
+
+						<orch:objectFieldEditor inputId="authRealm" path="authRealm">
+							<p:inputText id="authRealm" value="#{current.authRealm}" />
+						</orch:objectFieldEditor>
+
+						<orch:objectFieldEditor inputId="authKeytab" path="authKeytab">
+							<p:inputText id="authKeytab" value="#{current.authKeytab}" />
+						</orch:objectFieldEditor>
+					</p:outputPanel>
+				</p:outputPanel>
+
+			</p:outputPanel>
+		</ui:remove>
+	</p:outputPanel>
+</ui:composition>

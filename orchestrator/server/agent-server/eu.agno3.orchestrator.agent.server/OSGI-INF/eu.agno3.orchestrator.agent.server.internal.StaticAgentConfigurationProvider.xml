@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.agent.server.internal.StaticAgentConfigurationProvider">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.agent.server.AgentConfigurationProvider"/>
+    </service>
+    <reference name="WebServiceInfo" interface="eu.agno3.runtime.ws.server.WebserviceEndpointInfo" cardinality="1..1" policy="static" bind="setWebServiceInfo" unbind="unsetWebServiceInfo"/>
+    <implementation class="eu.agno3.orchestrator.agent.server.internal.StaticAgentConfigurationProvider"/>
+</scr:component>

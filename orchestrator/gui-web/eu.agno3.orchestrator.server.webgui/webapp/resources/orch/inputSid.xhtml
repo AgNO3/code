@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+<composite:interface
+	componentType="eu.agno3.orchestrator.server.webgui.components.InputSid">
+	<composite:attribute name="value" required="true" />
+	<composite:attribute name="domainSid" required="false" default="false"
+		type="java.lang.Boolean" />
+	<composite:attribute name="domainHint" required="false" />
+	<composite:attribute name="lookupSID"
+		method-signature="eu.agno3.orchestrator.realms.RealmLookupResult (java.lang.String,java.lang.String)"
+		required="false" />
+	<composite:attribute name="search"
+		method-signature="java.util.Collection (java.lang.String,java.lang.String)"
+		required="false" />
+	<composite:attribute name="style" />
+	<composite:attribute name="styleClass" />
+</composite:interface>
+
+<composite:implementation>
+	<div class="input-sid #{cc.attrs.styleClass}" style="">
+		<p:outputPanel id="value">
+			<h:outputText value="${'S-1-'}" />
+			<p:inputText style="width: 50% !important" value="#{cc.baseSid}">
+				<p:ajax event="change" listener="#{cc.updateName()}"
+					update="nameOutput" />
+			</p:inputText>
+			<h:outputText rendered="#{not cc.attrs.domainSid}" value="${'-'}" />
+			<p:inputText style="width: 20% !important"
+				rendered="#{not cc.attrs.domainSid}" value="#{cc.rid}" size="4">
+				<p:ajax event="change" listener="#{cc.updateName()}"
+					update="nameOutput" />
+			</p:inputText>
+
+			<p:commandButton type="button" style="display: inline"
+				rendered="#{not empty cc.attrs.domainHint and not empty cc.attrs.search}"
+				icon="ui-icon-search" title="Lookup SID"
+				onclick="PF('#{cc.clientId}_lookup').show();" />
+		</p:outputPanel>
+		<p:outputPanel id="nameOutput"
+			rendered="#{not empty cc.attrs.domainHint and not empty cc.attrs.lookupSID}">
+			<p:outputPanel rendered="#{not empty cc.cachedResult}"
+				style="font-style: italic; font-size: small; margin-left: 0.5em;">
+				<span class="ui-icon ui-icon-inline #{cc.iconForType(cc.cachedResult.type)}" />
+				<h:outputText value="#{cc.cachedResult.displayName}"
+					title="#{cc.cachedResult.idName}" />
+			</p:outputPanel>
+		</p:outputPanel>
+		<p:overlayPanel dismissable="false"
+			rendered="#{not empty cc.attrs.domainHint and not empty cc.attrs.search}"
+			appendToBody="false" widgetVar="#{cc.clientId}_lookup">
+			<p:autoComplete completeMethod="#{cc.complete}" dropdown="true"
+				dropdownMode="current" var="itm" itemValue="#{itm.id}"
+				maxResults="5" minQueryLength="3" forceSelection="true"
+				itemLabel="#{itm.displayName}" value="#{cc.autoCompleteSelection}">
+				<p:ajax event="itemSelect" listener="#{cc.onSelect}"
+					update="value nameOutput"
+					oncomplete="PF('#{cc.clientId}_lookup').hide();" />
+			</p:autoComplete>
+			<p:commandButton type="button" icon="ui-icon-closethick"
+				onclick="PF('#{cc.clientId}_lookup').hide();" />
+		</p:overlayPanel>
+	</div>
+</composite:implementation>
+</html>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+	<changeSet author="mbechler (generated)" id="1426855982940-1">
+		<validCheckSum>7:8d79d07c3ea6793b8f35ac584113c754</validCheckSum>
+		<createTable tableName="roles_permissions">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="VERSION" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="PERMISSION" type="VARCHAR(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ROLE_NAME" type="VARCHAR(100)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426855982940-2">
+		<validCheckSum>7:2b012fb8e75bcc1fcc1e58c3b0fdeac3</validCheckSum>
+		<createTable tableName="users">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="VERSION" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CREATED" type="timestamp" />
+			<column name="DISABLED" type="BOOLEAN">
+				<constraints nullable="false" />
+			</column>
+			<column name="EXPIRES" type="timestamp" />
+			<column name="FAIL_ATTEMPTS" type="INT" />
+			<column name="LAST_FAILED" type="timestamp" />
+			<column name="LAST_PW_CHANGE" type="timestamp" />
+			<column name="LAST_SUCCESS" type="timestamp" />
+			<column name="PASSWORD" type="VARCHAR(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PW_EXPIRES" type="timestamp" />
+			<column name="PASSWORD_SALT" type="VARCHAR(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="USERNAME" type="VARCHAR(100)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426855982940-3">
+		<validCheckSum>7:6f7a0d4630e0911a1d98bc39cd00a115</validCheckSum>
+		<createTable tableName="user_mapping">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="VERSION" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="LAST_USED" type="timestamp" />
+			<column name="REALM" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="USERID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="USERNAME" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426855982940-4">
+		<validCheckSum>7:b90da3bee08cf66575749f55c63f5ff3</validCheckSum>
+		<createTable tableName="user_roles">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="VERSION" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ROLE_NAME" type="VARCHAR(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="USERID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426855982940-5">
+		<validCheckSum>7:f1b8474b760f18ba2a3c0fe5654d6ccb</validCheckSum>
+		<addPrimaryKey columnNames="ID" tableName="roles_permissions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426855982940-6">
+		<validCheckSum>7:b09f24aa0aee108fbdd2e37e176b9fc3</validCheckSum>
+		<addPrimaryKey columnNames="ID" tableName="users" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426855982940-7">
+		<validCheckSum>7:fb0b94a66da4eb5ab11e688449c16ecf</validCheckSum>
+		<addPrimaryKey columnNames="ID" tableName="user_mapping" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426855982940-8">
+		<validCheckSum>7:a91925197dbea1e569cfe049c2e90302</validCheckSum>
+		<addPrimaryKey columnNames="ID" tableName="user_roles" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426855982940-9">
+		<validCheckSum>7:321977ff452996e85d7bdcc363060e84</validCheckSum>
+		<addUniqueConstraint columnNames="ROLE_NAME, PERMISSION"
+			constraintName="UK_B008V55T4J8QT97V97P8WIA4T" deferrable="false"
+			disabled="false" initiallyDeferred="false" tableName="roles_permissions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426855982940-10">
+		<validCheckSum>7:814928f2423b4537c21ff98615caf872</validCheckSum>
+		<addUniqueConstraint columnNames="USERNAME"
+			constraintName="UK_H6K33R31I2NVRRI9LOK4R163J" deferrable="false"
+			disabled="false" initiallyDeferred="false" tableName="users" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426855982940-11">
+		<validCheckSum>7:2a1d68137532fe7eb4751157bed71256</validCheckSum>
+		<addUniqueConstraint columnNames="USERID, ROLE_NAME"
+			constraintName="UK_PRF48EMMS29L6TVJ7GYW3MU6M" deferrable="false"
+			disabled="false" initiallyDeferred="false" tableName="user_roles" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1426855982940-12">
+		<validCheckSum>7:bd7708bfecac247e9c163250ea1cd91c</validCheckSum>
+		<addUniqueConstraint columnNames="USERNAME, REALM"
+			constraintName="UK_T4W17Q4KVO6763HSQQ5RPE998" deferrable="false"
+			disabled="false" initiallyDeferred="false" tableName="user_mapping" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445264489363-1">
+		<validCheckSum>7:e35e4f3a2a26ae1d7e548eaaa1101123</validCheckSum>
+		<dropNotNullConstraint columnDataType="varchar(100)"
+			columnName="PASSWORD" tableName="users" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1445264489363-2">
+		<validCheckSum>7:8d2ecefc0726c5bc296fa18187049fea</validCheckSum>
+		<dropNotNullConstraint columnDataType="varchar(100)"
+			columnName="PASSWORD_SALT" tableName="users" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1473689265524-1">
+		<validCheckSum>7:3f08bcfd91f8c3bedd0affd12e2a21aa</validCheckSum>
+		<validCheckSum>7:33390d3c6f8d143b3b190a416b3a57a8</validCheckSum>
+		<createTable tableName="terms_acceptance">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="VERSION" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ACCEPTANCE_DATE" type="TIMESTAMP">
+				<constraints nullable="false" />
+			</column>
+			<column name="TERMS_ID" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="USER_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1473689265524-2">
+		<validCheckSum>7:f0b7e22f2fa3833acf2c91311f7acff9</validCheckSum>
+		<validCheckSum>7:19a667c14d39abdc82a92e771c824376</validCheckSum>
+		<addPrimaryKey columnNames="ID" constraintName="TERMS_ACCEPTANCEPK"
+			tableName="terms_acceptance" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1473689265524-3">
+		<validCheckSum>7:65a89bafb403e39fe60dc47faac0ea7b</validCheckSum>
+		<validCheckSum>7:c07ccb82ae9035f927a8fdee71235ed0</validCheckSum>
+		<addUniqueConstraint columnNames="USER_ID, TERMS_ID"
+			constraintName="UKidnryl38x74ww3ruj3fna1vls" tableName="terms_acceptance" />
+	</changeSet>
+	
+	
+	<changeSet id="1505979510-4" author="mbechler" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <preConditions onFail="MARK_RAN">
+        	<tableExists schemaName="APP" tableName="ROLES_PERMISSIONS" />
+    	</preConditions>
+        <comment>Fix table casing.</comment>
+        <renameTable oldTableName="ROLES_PERMISSIONS" newTableName="roles_permissions" />
+        <renameTable oldTableName="USERS" newTableName="users" />
+        <renameTable oldTableName="USER_MAPPING" newTableName="user_mapping" />
+        <renameTable oldTableName="USER_ROLES" newTableName="user_roles" />
+        <renameTable oldTableName="TERMS_ACCEPTANCE" newTableName="terms_acceptance" />
+    </changeSet>
+	
+</databaseChangeLog>

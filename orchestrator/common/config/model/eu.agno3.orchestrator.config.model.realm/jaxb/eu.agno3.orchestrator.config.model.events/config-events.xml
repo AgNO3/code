@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.config.model.events"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:events">
+		<xml-ns prefix="cmj" namespace-uri="urn:agno3:model:1.0:events" />
+		<xml-ns prefix="cmb" namespace-uri="urn:agno3:model:1.0:base" />
+		<xml-ns prefix="cmr" namespace-uri="urn:agno3:model:1.0:realm" />
+		<xml-ns prefix="cmv" namespace-uri="urn:agno3:model:1.0:validation" />
+		<xml-ns prefix="m" namespace-uri="urn:agno3:message:1.0:base" />
+	</xml-schema>
+
+
+	<java-types>
+
+		<java-type name="ServiceConfigAppliedEvent"
+			xml-accessor-type="NONE">
+
+			<xml-root-element name="serviceConfigApplied" />
+
+			<java-attributes>
+				<xml-element name="service" java-attribute="service" />
+				<xml-element name="anchor" java-attribute="anchor" />
+				<xml-element name="revision" java-attribute="revision" />
+			</java-attributes>
+
+		</java-type>
+		
+		<java-type name="ServiceConfigFailedEvent"
+			xml-accessor-type="NONE">
+
+			<xml-root-element name="serviceConfigFailed" />
+
+			<java-attributes>
+				<xml-element name="service" java-attribute="service" />
+				<xml-element name="anchor" java-attribute="anchor" />
+				<xml-element name="revision" java-attribute="revision" />
+			</java-attributes>
+
+		</java-type>
+		
+		
+		<java-type name="ConfigTestResultUpdateEvent"
+			xml-accessor-type="NONE">
+
+			<xml-root-element name="configTestResultUpdate" />
+
+			<java-attributes>
+				<xml-element name="result" java-attribute="result" />
+				<xml-element name="sequence" java-attribute="sequence" />
+			</java-attributes>
+		</java-type>
+	</java-types>
+
+
+</xml-bindings> 
+

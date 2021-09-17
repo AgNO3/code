@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.runtime.http.service.internal.DefaultErrorHandler" deactivate="deactivate">
+    <service servicefactory="true">
+        <provide interface="org.eclipse.jetty.server.handler.ErrorHandler"/>
+    </service>
+    <implementation class="eu.agno3.runtime.http.service.internal.DefaultErrorHandler"/>
+</scr:component>

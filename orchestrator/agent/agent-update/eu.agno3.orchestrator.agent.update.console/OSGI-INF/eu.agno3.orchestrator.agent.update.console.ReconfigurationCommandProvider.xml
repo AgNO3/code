@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" immediate="true" name="eu.agno3.orchestrator.agent.update.console.ReconfigurationCommandProvider">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.console.CommandProvider"/>
+    </service>
+    <reference name="ServiceReconfigurator" interface="eu.agno3.orchestrator.agent.update.ServiceReconfigurator" cardinality="1..1" policy="static" bind="setServiceReconfigurator" unbind="unsetServiceReconfigurator"/>
+    <reference name="RunnerFactory" interface="eu.agno3.orchestrator.system.base.execution.RunnerFactory" cardinality="1..1" policy="static" bind="setRunnerFactory" unbind="unsetRunnerFactory"/>
+    <reference name="ExecConfig" interface="eu.agno3.orchestrator.system.base.execution.ExecutionConfig" cardinality="1..1" policy="static" bind="setExecConfig" unbind="unsetExecConfig"/>
+    <reference name="ConfigRepository" interface="eu.agno3.orchestrator.jobs.agent.system.ConfigRepository" cardinality="1..1" policy="static" bind="setConfigRepository" unbind="unsetConfigRepository"/>
+    <reference name="ServiceManager" interface="eu.agno3.orchestrator.jobs.agent.service.ServiceManager" cardinality="1..1" policy="static" bind="setServiceManager" unbind="unsetServiceManager"/>
+    <implementation class="eu.agno3.orchestrator.agent.update.console.ReconfigurationCommandProvider"/>
+</scr:component>

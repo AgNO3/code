@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	template="/tpl/common/template.xhtml">
+	<ui:param name="subtitle"
+		value="#{msgs.formatEL('structure.defaults.titleFmt', structureViewContext.selectedDisplayName)}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="anchor"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<p:messages autoUpdate="true" />
+
+			<p:dataTable id="localDefaultsTable" widgetVar="localDefaultsTable"
+				value="#{defaultsTableBean.localModel}" var="obj"
+				rendered="#{not structureViewContext.isServiceSelected()}"
+				editable="true" editMode="cell"
+				emptyMessage="#{_gui['structure.defaults.noLocalDefaults']}">
+
+				<f:facet name="header">
+					<h:outputText value="#{_gui['structure.defaults.localDefaults']}" />
+				</f:facet>
+
+				<p:ajax event="cellEdit"
+					listener="#{defaultsController.saveTemplateChange}"
+					update="localDefaultsTable" resetValues="true" />
+
+				<p:column width="40%"
+					headerText="#{_gui['structure.objects.objectType']}">
+					<h:outputText value="#{configUtil.getDisplayTypeName(obj)}" />
+				</p:column>
+
+				<p:column width="40%"
+					headerText="#{_gui['structure.defaults.objectName']}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText styleClass="inlineEditable"
+								value="#{configUtil.getDisplayNameFor(obj)}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu style="width: 100%" id="rowSelectedTemplate"
+								value="#{inlineEditContext.get(obj).newVal}"
+								converter="#{configurationObjectConverter}">
+								<f:selectItems value="#{defaultAddContext.getTemplatesFor(obj)}"
+									var="tpl" itemValue="#{tpl}"
+									itemLabel="#{configUtil.getDisplayNameFor(tpl)}" />
+							</p:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column>
+					<p:commandButton icon="ui-icon-trash"
+						title="#{_gui['structure.defaults.remove']}"
+						action="#{defaultsController.doRemove(obj)}"
+						update="localDefaultsTable" resetValues="true" />
+				</p:column>
+
+				<f:facet name="footer">
+
+					<p:selectOneMenu
+						style="display: inline-block; vertical-align: middle"
+						id="objectType" value="#{defaultAddContext.objectTypeName}">
+						<f:selectItem itemLabel="#{_gui['structure.defaults.selectType']}"
+							noSelectionOption="true" />
+						<f:selectItems value="#{defaultsTableBean.unsetObjectTypes}"
+							var="itm"
+							itemLabel="#{configLocalizationProvider.getTypeName(itm)}" />
+
+						<p:ajax event="change" update="selectedTemplate" />
+					</p:selectOneMenu>
+
+					<p:selectOneMenu
+						style="display: inline-block; vertical-align: middle"
+						disabled="#{empty defaultAddContext.objectTypeName}"
+						id="selectedTemplate" value="#{defaultAddContext.object}"
+						converter="#{configurationObjectConverter}">
+						<f:selectItem
+							itemLabel="#{_gui['structure.defaults.selectTemplate']}" />
+						<f:selectItems value="#{defaultAddContext.templates}" var="tpl"
+							itemValue="#{tpl}"
+							itemLabel="#{configUtil.getDisplayNameFor(tpl)}" />
+					</p:selectOneMenu>
+
+					<p:commandButton style="display:  inline-block" icon="ui-icon-plus"
+						title="#{_gui['structure.defaults.add']}"
+						action="#{defaultsController.doAdd()}" update="localDefaultsTable"
+						resetValues="true" />
+				</f:facet>
+			</p:dataTable>
+
+
+			<p:dataTable id="inheritedDefaultsTable"
+				rendered="#{not empty structureViewContext.parentForSelection}"
+				widgetVar="inheritedDefaultsTable"
+				value="#{defaultsTableBean.inheritedModel}" var="obj"
+				emptyMessage="#{_gui['structure.defaults.noInheritedDefaults']}">
+
+				<f:facet name="header">
+					<h:outputText
+						value="#{_gui['structure.defaults.inheritedDefaults']}" />
+				</f:facet>
+
+				<p:column width="40%"
+					headerText="#{_gui['structure.objects.objectType']}">
+					<h:outputText value="#{configUtil.getDisplayTypeName(obj)}" />
+				</p:column>
+
+				<p:column width="40%"
+					headerText="#{_gui['structure.defaults.objectName']}">
+					<h:outputText value="#{configUtil.getDisplayNameFor(obj)}" />
+				</p:column>
+
+				<p:column>
+
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

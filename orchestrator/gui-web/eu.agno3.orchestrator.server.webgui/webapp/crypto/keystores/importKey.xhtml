@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	template="/tpl/common/dialog.xhtml">
+	<ui:param name="title"
+		value="#{msgs.formatEL('crypto.keystore.importKey.titleFmt', keystoreContext.keystore)}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="instance"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+
+			<f:viewParam name="keystore" value="#{keystoreContext.keystore}"
+				required="true" requiredMessage="#{_gui['require.param']}" />
+
+			<f:viewParam name="key" value="#{keystoreContext.keyAliasInitial}"
+				required="false" />
+
+			<f:viewParam name="allowAnonymous"
+				value="#{keystoreContext.allowAnonymous}" required="false"
+				default="#{false}" />
+		</f:metadata>
+	</ui:define>
+
+
+	<ui:define name="content">
+		<h:form>
+			<ag:dialogContextHolder />
+
+			<p:messages autoUpdate="true" />
+
+			<p:fieldset
+				legend="#{msgs.formatEL('crypto.keystore.importKey.titleFmt', keystoreContext.keystore)}">
+
+				<ag:simpleField
+					label="#{_gui['crypto.keystore.importKey.keyAlias.label']}"
+					description="#{_gui['crypto.keystore.importKey.keyAlias.description']}"
+					inputId="keyAlias" value="#{keystoreContext.keyAlias}"
+					readOnly="#{not empty keystoreContext.keyAliasInitial}">
+					<p:inputText id="keyAlias" value="#{keystoreContext.keyAlias}"
+						required="#{not keystoreContext.allowAnonymous and empty keystoreContext.keyAliasInitial}" />
+				</ag:simpleField>
+
+				<ag:simpleField
+					label="#{_gui['crypto.keystore.importKey.key.label']}"
+					description="#{_gui['crypto.keystore.importKey.key.description']}"
+					inputId="key">
+					<ag:rsaPrivateKeyEditor id="key" process="@form" update="@form"
+						value="#{keystoreContext.importKeyPair}"
+						chainHandler="#{keystoreContext.handleChain}"
+						chainUpdate="@composite:@parent:chainField" />
+				</ag:simpleField>
+
+
+				<p:outputPanel id="chainField">
+					<ag:simpleField
+						label="#{_gui['crypto.keystore.importKey.chain.label']}"
+						description="#{_gui['crypto.keystore.importKey.chain.description']}"
+						rendered="#{not empty keystoreContext.importKeyPair}">
+						<p:outputPanel id="certificate">
+							<p:outputPanel>
+								<ag:certificateChainEditor
+									value="#{keystoreContext.importChain}"
+									publicKey="#{keystoreContext.importKeyPair.public}" />
+							</p:outputPanel>
+						</p:outputPanel>
+					</ag:simpleField>
+				</p:outputPanel>
+
+				<ag:simpleField
+					label="#{_gui['crypto.keystore.importKey.disableValidation.label']}"
+					description="#{_gui['crypto.keystore.importKey.disableValidation.description']}"
+					onlyIf="#{keystoreContext.certValidationFailed}"
+					inputId="disableValidation">
+					<p:selectBooleanCheckbox id="disableValidation"
+						value="#{keystoreContext.disableValidation}" />
+				</ag:simpleField>
+
+				<div class="buttons">
+					<p:commandButton action="#{keystoreContext.importKey()}"
+						update="@parent" icon="ui-icon-check"
+						value="#{_gui['crypto.keystore.importKey.confirm']}" />
+
+					<p:commandButton immediate="true" action="#{dialog.close}"
+						icon="ui-icon-cancel" styleClass="close-button"
+						value="#{_gui['crypto.keystore.importKey.cancel']}" />
+				</div>
+			</p:fieldset>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

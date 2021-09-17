@@ -1,0 +1,686 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+	<changeSet author="mbechler (generated)" id="1443182418854-1">
+		<createTable tableName="config_crypto_keystore">
+			<column name="ALIAS" type="VARCHAR(255)" />
+			<column name="VALIDATIONTRUSTSTORE" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-2">
+		<createTable tableName="config_crypto_keystore_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ALIAS" type="VARCHAR(255)" />
+			<column name="VALIDATIONTRUSTSTORE" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-3">
+		<createTable tableName="config_crypto_keystore_config_crypto_keystore_import">
+			<column name="CONFIG_CRYPTO_KEYSTORE_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="IMPORTKEYPAIRS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-4">
+		<createTable
+			tableName="config_crypto_keystore_config_crypto_keystore_import_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_CRYPTO_KEYSTORE_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="IMPORTKEYPAIRS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-5">
+		<createTable tableName="config_crypto_keystore_import">
+			<column name="ALIAS" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="KEYPAIR" type="VARCHAR(128)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-6">
+		<createTable tableName="config_crypto_keystore_import_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ALIAS" type="VARCHAR(255)" />
+			<column name="KEYPAIR" type="VARCHAR(128)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-7">
+		<createTable tableName="config_crypto_keystore_import_certs">
+			<column name="CONFIG_CRYPTO_KEYSTORE_IMPORT_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="CERTIFICATECHAIN_CERTID" type="VARCHAR(64)">
+				<constraints nullable="false" />
+			</column>
+			<column name="IDX" type="INT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-8">
+		<createTable tableName="config_crypto_keystore_import_certs_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_CRYPTO_KEYSTORE_IMPORT_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="CERTIFICATECHAIN_CERTID" type="VARCHAR(64)">
+				<constraints nullable="false" />
+			</column>
+			<column name="IDX" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-9">
+		<createTable tableName="config_crypto_keystores">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-10">
+		<createTable tableName="config_crypto_keystores_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-11">
+		<createTable tableName="config_crypto_keystores_config_crypto_keystore">
+			<column name="CONFIG_CRYPTO_KEYSTORES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="KEYSTORES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-12">
+		<createTable tableName="config_crypto_keystores_config_crypto_keystore_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_CRYPTO_KEYSTORES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="KEYSTORES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-13">
+		<createTable tableName="config_crypto_truststores">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-14">
+		<createTable tableName="config_crypto_truststores_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-15">
+		<createTable
+			tableName="config_crypto_truststores_config_crypto_truststores_store">
+			<column name="CONFIG_CRYPTO_TRUSTSTORES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="TRUSTSTORES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-16">
+		<createTable
+			tableName="config_crypto_truststores_config_crypto_truststores_store_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_CRYPTO_TRUSTSTORES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="TRUSTSTORES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-17">
+		<createTable tableName="config_crypto_truststores_revocation">
+			<column name="CHECKONLYENDENTITY" type="BOOLEAN" />
+			<column name="CRLCHECKLEVEL" type="VARCHAR(255)" />
+			<column name="CRLUPDATEINTERVAL" type="BIGINT" />
+			<column name="NETWORKTIMEOUT" type="BIGINT" />
+			<column name="OCSPCACHESIZE" type="INT" />
+			<column name="OCSPCHECKLEVEL" type="VARCHAR(255)" />
+			<column name="ONDEMANDCRLCACHESIZE" type="INT" />
+			<column name="ONDEMANDCRLDOWNLOAD" type="BOOLEAN" />
+			<column name="TRUSTEDRESPONDERCHECKALL" type="BOOLEAN" />
+			<column name="TRUSTEDRESPONDERURI" type="VARCHAR(255)" />
+			<column name="USETRUSTEDRESPONDER" type="BOOLEAN" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="TRUSTEDRESPONDERCERT" type="VARCHAR(64)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-18">
+		<createTable tableName="config_crypto_truststores_revocation_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CHECKONLYENDENTITY" type="BOOLEAN" />
+			<column name="CRLCHECKLEVEL" type="VARCHAR(255)" />
+			<column name="CRLUPDATEINTERVAL" type="BIGINT" />
+			<column name="NETWORKTIMEOUT" type="BIGINT" />
+			<column name="OCSPCACHESIZE" type="INT" />
+			<column name="OCSPCHECKLEVEL" type="VARCHAR(255)" />
+			<column name="ONDEMANDCRLCACHESIZE" type="INT" />
+			<column name="ONDEMANDCRLDOWNLOAD" type="BOOLEAN" />
+			<column name="TRUSTEDRESPONDERCHECKALL" type="BOOLEAN" />
+			<column name="TRUSTEDRESPONDERURI" type="VARCHAR(255)" />
+			<column name="USETRUSTEDRESPONDER" type="BOOLEAN" />
+			<column name="TRUSTEDRESPONDERCERT" type="VARCHAR(64)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-19">
+		<createTable tableName="config_crypto_truststores_store">
+			<column name="ALIAS" type="VARCHAR(255)" />
+			<column name="TRUSTLIBRARY" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVOCATIONCONFIGURATION_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-20">
+		<createTable tableName="config_crypto_truststores_store_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ALIAS" type="VARCHAR(255)" />
+			<column name="TRUSTLIBRARY" type="VARCHAR(255)" />
+			<column name="REVOCATIONCONFIGURATION_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-21">
+		<addPrimaryKey columnNames="CONFIG_CRYPTO_KEYSTORE_ID, IMPORTKEYPAIRS_ID"
+			tableName="config_crypto_keystore_config_crypto_keystore_import" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-22">
+		<addPrimaryKey columnNames="CONFIG_CRYPTO_KEYSTORE_IMPORT_ID, IDX"
+			tableName="config_crypto_keystore_import_certs" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-23">
+		<addPrimaryKey columnNames="CONFIG_CRYPTO_KEYSTORES_ID, KEYSTORES_ID"
+			tableName="config_crypto_keystores_config_crypto_keystore" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-24">
+		<addPrimaryKey columnNames="CONFIG_CRYPTO_TRUSTSTORES_ID, TRUSTSTORES_ID"
+			tableName="config_crypto_truststores_config_crypto_truststores_store" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-25">
+		<addPrimaryKey columnNames="ID" constraintName="config_crypto_keystorePK"
+			tableName="config_crypto_keystore" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-26">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_crypto_keystore_AUDPK" tableName="config_crypto_keystore_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-27">
+		<addPrimaryKey columnNames="REV, CONFIG_CRYPTO_KEYSTORE_ID, IMPORTKEYPAIRS_ID"
+			constraintName="config_crypto_keystore_config_crypto_keystore_import_AUDPK"
+			tableName="config_crypto_keystore_config_crypto_keystore_import_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-28">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_crypto_keystore_importPK" tableName="config_crypto_keystore_import" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-29">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_crypto_keystore_import_AUDPK" tableName="config_crypto_keystore_import_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-30">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_CRYPTO_KEYSTORE_IMPORT_ID, CERTIFICATECHAIN_CERTID, IDX"
+			constraintName="config_crypto_keystore_import_certs_AUDPK" tableName="config_crypto_keystore_import_certs_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-31">
+		<addPrimaryKey columnNames="ID" constraintName="config_crypto_keystoresPK"
+			tableName="config_crypto_keystores" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-32">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_crypto_keystores_AUDPK" tableName="config_crypto_keystores_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-33">
+		<addPrimaryKey columnNames="REV, CONFIG_CRYPTO_KEYSTORES_ID, KEYSTORES_ID"
+			constraintName="config_crypto_keystores_config_crypto_keystore_AUDPK"
+			tableName="config_crypto_keystores_config_crypto_keystore_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-34">
+		<addPrimaryKey columnNames="ID" constraintName="config_crypto_truststoresPK"
+			tableName="config_crypto_truststores" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-35">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_crypto_truststores_AUDPK" tableName="config_crypto_truststores_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-36">
+		<addPrimaryKey columnNames="REV, CONFIG_CRYPTO_TRUSTSTORES_ID, TRUSTSTORES_ID"
+			constraintName="config_crypto_truststores_config_crypto_truststores_2A07CF86_PK"
+			tableName="config_crypto_truststores_config_crypto_truststores_store_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-37">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_crypto_truststores_revocationPK" tableName="config_crypto_truststores_revocation" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-38">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_crypto_truststores_revocation_AUDPK"
+			tableName="config_crypto_truststores_revocation_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-39">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_crypto_truststores_storePK" tableName="config_crypto_truststores_store" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-40">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_crypto_truststores_store_AUDPK" tableName="config_crypto_truststores_store_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-41">
+		<createIndex indexName="FK_FK_27V9HM4RHPYAT0BBL4865MVNE"
+			tableName="config_crypto_truststores_store">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-42">
+		<createIndex indexName="FK_FK_2Q5KKR2YSMMSI7OPHTB6WJI01"
+			tableName="config_crypto_truststores_config_crypto_truststores_store">
+			<column name="CONFIG_CRYPTO_TRUSTSTORES_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-43">
+		<createIndex indexName="FK_FK_48YAGQEQMF84EWWWTGTD4VW2A"
+			tableName="config_crypto_truststores_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-44">
+		<createIndex indexName="FK_FK_54DQDN9Q5ELLVCP3AGB94CU5P"
+			tableName="config_crypto_keystores_config_crypto_keystore">
+			<column name="CONFIG_CRYPTO_KEYSTORES_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-45">
+		<createIndex indexName="FK_FK_5W626DKHRTOCEV64T7HFFV07Y"
+			tableName="config_crypto_truststores_config_crypto_truststores_store_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-46">
+		<createIndex indexName="FK_FK_6OP0JG3T248898PPYHFPU7MV0"
+			tableName="config_crypto_keystore_import_certs_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-47">
+		<createIndex indexName="FK_FK_6QJG3MPUFYSRG1GHHO70OOCYG"
+			tableName="config_crypto_keystore_import_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-48">
+		<createIndex indexName="FK_FK_7RXMBVOG8HI23RSSGP8K0FK0G"
+			tableName="config_crypto_keystores">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-49">
+		<createIndex indexName="FK_FK_9BXF6LQI3XKE11I6C8YD3S5P3"
+			tableName="config_crypto_truststores_revocation">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-50">
+		<createIndex indexName="FK_FK_EH817J0ASNAC5KIC0CC958CSQ"
+			tableName="config_crypto_keystores_config_crypto_keystore">
+			<column name="KEYSTORES_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-51">
+		<createIndex indexName="FK_FK_FBHAUA4RD33SYNK46FAU180VB"
+			tableName="config_crypto_truststores_revocation_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-52">
+		<createIndex indexName="FK_FK_GR6GENX9KXW5WT0GNI04W784M"
+			tableName="config_crypto_keystore_import">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-53">
+		<createIndex indexName="FK_FK_HPQKR854FBWE1S6GYN9XP47QG"
+			tableName="config_crypto_keystores_config_crypto_keystore_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-54">
+		<createIndex indexName="FK_FK_HQCUBGARKAX6EI837UPCHSNCF"
+			tableName="config_crypto_keystore_import_certs">
+			<column name="CERTIFICATECHAIN_CERTID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-55">
+		<createIndex indexName="FK_FK_HTPH1DRBRVM777TLBCVHE9LA0"
+			tableName="config_crypto_truststores_store">
+			<column name="REVOCATIONCONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-56">
+		<createIndex indexName="FK_FK_IHO8D6E6F2AFH93GXWI32ADH3"
+			tableName="config_crypto_truststores_config_crypto_truststores_store">
+			<column name="TRUSTSTORES_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-57">
+		<createIndex indexName="FK_FK_IL01BKOEE8SOSI8GWIBXUWRSS"
+			tableName="config_crypto_keystore_config_crypto_keystore_import">
+			<column name="IMPORTKEYPAIRS_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-58">
+		<createIndex indexName="FK_FK_J0K7NAM29F6BAO5RW0ON3SL84"
+			tableName="config_crypto_keystores_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-59">
+		<createIndex indexName="FK_FK_KUWKKDF812RM9FQQQCBY05Y6G"
+			tableName="config_crypto_keystore">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-60">
+		<createIndex indexName="FK_FK_LDJFEV3M1WXN50JEUSG3JY5HF"
+			tableName="config_crypto_keystore_import_certs">
+			<column name="CONFIG_CRYPTO_KEYSTORE_IMPORT_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-61">
+		<createIndex indexName="FK_FK_LX5RQ7NKHI1E9G6QQ14N6XE8L"
+			tableName="config_crypto_keystore_import">
+			<column name="KEYPAIR" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-62">
+		<createIndex indexName="FK_FK_M414AY70D12L3OH6J7TSKGQVO"
+			tableName="config_crypto_keystore_config_crypto_keystore_import_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-63">
+		<createIndex indexName="FK_FK_NYBJC4646TB7JKJ38G6LNOGT5"
+			tableName="config_crypto_keystore_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-64">
+		<createIndex indexName="FK_FK_OU73B27PRNX2NHD5U3240RNRM"
+			tableName="config_crypto_truststores_revocation">
+			<column name="TRUSTEDRESPONDERCERT" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-65">
+		<createIndex indexName="FK_FK_QPSMICVQJJ0JJL0X5DRIAR1C0"
+			tableName="config_crypto_keystore_config_crypto_keystore_import">
+			<column name="CONFIG_CRYPTO_KEYSTORE_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-66">
+		<createIndex indexName="FK_FK_RX4A2LCBJDEB5AB0BBMAQ36EE"
+			tableName="config_crypto_truststores">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-67">
+		<createIndex indexName="FK_FK_VVKH3PA2AH3HSE8BRP1X0YL9"
+			tableName="config_crypto_truststores_store_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-68">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_crypto_truststores_store" constraintName="FK_27V9HM4RHPYAT0BBL4865MVNE"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-69">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_CRYPTO_TRUSTSTORES_ID"
+			baseTableName="config_crypto_truststores_config_crypto_truststores_store"
+			constraintName="FK_2Q5KKR2YSMMSI7OPHTB6WJI01" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_crypto_truststores" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-70">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_crypto_truststores_AUD" constraintName="FK_48YAGQEQMF84EWWWTGTD4VW2A"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_instances_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-71">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_CRYPTO_KEYSTORES_ID"
+			baseTableName="config_crypto_keystores_config_crypto_keystore"
+			constraintName="FK_54DQDN9Q5ELLVCP3AGB94CU5P" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_crypto_keystores" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-72">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_crypto_truststores_config_crypto_truststores_store_AUD"
+			constraintName="FK_5W626DKHRTOCEV64T7HFFV07Y" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-73">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_crypto_keystore_import_certs_AUD"
+			constraintName="FK_6OP0JG3T248898PPYHFPU7MV0" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-74">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_crypto_keystore_import_AUD" constraintName="FK_6QJG3MPUFYSRG1GHHO70OOCYG"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-75">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_crypto_keystores" constraintName="FK_7RXMBVOG8HI23RSSGP8K0FK0G"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-76">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_crypto_truststores_revocation" constraintName="FK_9BXF6LQI3XKE11I6C8YD3S5P3"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-77">
+		<addForeignKeyConstraint baseColumnNames="KEYSTORES_ID"
+			baseTableName="config_crypto_keystores_config_crypto_keystore"
+			constraintName="FK_EH817J0ASNAC5KIC0CC958CSQ" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_crypto_keystore" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-78">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_crypto_truststores_revocation_AUD"
+			constraintName="FK_FBHAUA4RD33SYNK46FAU180VB" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID,REV" referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-79">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_crypto_keystore_import" constraintName="FK_GR6GENX9KXW5WT0GNI04W784M"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-80">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_crypto_keystores_config_crypto_keystore_AUD"
+			constraintName="FK_HPQKR854FBWE1S6GYN9XP47QG" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-81">
+		<addForeignKeyConstraint baseColumnNames="CERTIFICATECHAIN_CERTID"
+			baseTableName="config_crypto_keystore_import_certs" constraintName="FK_HQCUBGARKAX6EI837UPCHSNCF"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="CERTID"
+			referencedTableName="config_crypto_certificates" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-82">
+		<addForeignKeyConstraint baseColumnNames="REVOCATIONCONFIGURATION_ID"
+			baseTableName="config_crypto_truststores_store" constraintName="FK_HTPH1DRBRVM777TLBCVHE9LA0"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_crypto_truststores_revocation" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-83">
+		<addForeignKeyConstraint baseColumnNames="TRUSTSTORES_ID"
+			baseTableName="config_crypto_truststores_config_crypto_truststores_store"
+			constraintName="FK_IHO8D6E6F2AFH93GXWI32ADH3" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_crypto_truststores_store" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-84">
+		<addForeignKeyConstraint baseColumnNames="IMPORTKEYPAIRS_ID"
+			baseTableName="config_crypto_keystore_config_crypto_keystore_import"
+			constraintName="FK_IL01BKOEE8SOSI8GWIBXUWRSS" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_crypto_keystore_import" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-85">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_crypto_keystores_AUD" constraintName="FK_J0K7NAM29F6BAO5RW0ON3SL84"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-86">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_crypto_keystore" constraintName="FK_KUWKKDF812RM9FQQQCBY05Y6G"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-87">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_CRYPTO_KEYSTORE_IMPORT_ID"
+			baseTableName="config_crypto_keystore_import_certs" constraintName="FK_LDJFEV3M1WXN50JEUSG3JY5HF"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_crypto_keystore_import" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-88">
+		<addForeignKeyConstraint baseColumnNames="KEYPAIR"
+			baseTableName="config_crypto_keystore_import" constraintName="FK_LX5RQ7NKHI1E9G6QQ14N6XE8L"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="KEYID"
+			referencedTableName="config_crypto_keypairs" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-89">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_crypto_keystore_config_crypto_keystore_import_AUD"
+			constraintName="FK_M414AY70D12L3OH6J7TSKGQVO" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-90">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_crypto_keystore_AUD" constraintName="FK_NYBJC4646TB7JKJ38G6LNOGT5"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-91">
+		<addForeignKeyConstraint baseColumnNames="TRUSTEDRESPONDERCERT"
+			baseTableName="config_crypto_truststores_revocation" constraintName="FK_OU73B27PRNX2NHD5U3240RNRM"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="CERTID"
+			referencedTableName="config_crypto_certificates" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-92">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_CRYPTO_KEYSTORE_ID"
+			baseTableName="config_crypto_keystore_config_crypto_keystore_import"
+			constraintName="FK_QPSMICVQJJ0JJL0X5DRIAR1C0" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_crypto_keystore" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-93">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_crypto_truststores" constraintName="FK_RX4A2LCBJDEB5AB0BBMAQ36EE"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_instances" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418854-94">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_crypto_truststores_store_AUD" constraintName="FK_VVKH3PA2AH3HSE8BRP1X0YL9"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+</databaseChangeLog>

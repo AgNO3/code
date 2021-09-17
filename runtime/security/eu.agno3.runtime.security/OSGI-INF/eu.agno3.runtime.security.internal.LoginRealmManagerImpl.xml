@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.security.internal.LoginRealmManagerImpl" activate="activate" modified="activate" configuration-pid="login">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.security.login.LoginRealmManager"/>
+    </service>
+    <reference name="Authenticator" interface="eu.agno3.runtime.security.DynamicModularRealmAuthenticator" cardinality="1..1" policy="static" bind="setAuthenticator" unbind="unsetAuthenticator"/>
+    <reference name="RateLimiter" interface="eu.agno3.runtime.security.ratelimit.LoginRateLimiter" cardinality="1..1" policy="static" bind="setRateLimiter" unbind="unsetRateLimiter"/>
+    <reference name="EventLogger" interface="eu.agno3.runtime.eventlog.EventLogger" cardinality="1..1" policy="static" bind="setEventLogger" unbind="unsetEventLogger"/>
+    <implementation class="eu.agno3.runtime.security.internal.LoginRealmManagerImpl"/>
+</scr:component>

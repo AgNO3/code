@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+
+<composite:interface
+	componentType="eu.agno3.orchestrator.server.webgui.components.EventComponent">
+	<composite:attribute name="pattern" required="true" />
+</composite:interface>
+
+<composite:implementation>
+	<script type="text/javascript">
+		OrchEventListener.registerListener("#{cc.attrs.pattern}", function(
+				path, match, payload) {
+			<composite:insertChildren />
+		});
+	</script>
+</composite:implementation>
+
+</html>
+
+
+
+
+
+

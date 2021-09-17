@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="logging-syslog-feature"
+      label="Logging Syslog Feature"
+      version="0.0.34"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <requires>
+      <import feature="logging-feature" version="0.0.8"/>
+      <import feature="deps-syslog4j-feature" version="0.9.49.AG2"/>
+      <import feature="deps-junixsocket-feature" version="2.2.0"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.runtime.logging.syslog"
+         download-size="0"
+         install-size="0"
+         version="0.0.34"
+         unpack="false"/>
+
+</feature>

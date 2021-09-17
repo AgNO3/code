@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="localStorage" path="localStorage"
+		minLevel="2">
+		<p:autoComplete id="localStorage" dropdown="true"
+			style="width: auto; box-sizing: border-box;"
+			completeMethod="#{storageConfigBean.getMountCompleter(configContext).complete}"
+			value="#{current.localStorage}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="fileStorage" path="fileStorage">
+		<p:autoComplete id="fileStorage" dropdown="true"
+			style="width: auto; box-sizing: border-box;"
+			completeMethod="#{storageConfigBean.getMountCompleter(configContext).complete}"
+			value="#{current.fileStorage}" />
+	</orch:objectFieldEditor>
+
+
+	<p:fieldset rendered="#{not outerWrapper.getParameter('hideVFSGroups')}"
+		legend="#{fs_cfgmsgs.bundle['type.fileshare.storage.virtualGroups']}">
+		<orch:multiInheritanceObjectEditor
+			objectType="urn:agno3:objects:1.0:fileshare:passthroughGroup"
+			context="#{configContext}" path="passthroughGroups"
+			subTemplate="#{isTemplate}" readOnly="#{isReadOnly}"
+			listLabel="#{fs_passhroughConfigBean.labelFor}" collectionType="set"
+			setComparator="#{fs_passhroughConfigBean.comparator}"
+			clone="#{fs_passhroughConfigBean.cloneObject}" />
+	</p:fieldset>
+
+</ui:composition>

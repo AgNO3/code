@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0"
+	template="/tpl/common/dialog.xhtml">
+	<ui:param name="title"
+		value="#{msgs.formatEL('job.detail.titleFmt', jobDisplay.getType(jobDetailContextBean.initialJobInfo), jobDetailContextBean.initialJobInfo.targetDisplayName)}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="jobId" value="#{jobDetailContextBean.jobId}"
+				required="true" requiredMessage="#{_gui['require.param.jobId']}">
+			</f:viewParam>
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="jobLogForm" enctype="multipart/form-data">
+			<ag:dialogContextHolder />
+
+			<p:panel>
+				<p:messages autoUpdate="true" />
+				<orch:jobDetail jobCtx="#{jobDetailContextBean}" showOutput="true"
+					outputCols="80" outputRows="30" />
+
+				<div class="buttons">
+					<p:commandButton action="#{dialog.close}" styleClass="close-button"
+						icon="#{dialog.closeIcon}" title="#{dialog.closeDescription}"
+						value="#{dialog.closeLabel}" />
+				</div>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

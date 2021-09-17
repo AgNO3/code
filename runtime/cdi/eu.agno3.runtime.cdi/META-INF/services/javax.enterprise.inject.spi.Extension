@@ -1,0 +1,2 @@
+org.ops4j.pax.cdi.extension.impl.OsgiExtension
+eu.agno3.runtime.cdi.internal.EagerExtension

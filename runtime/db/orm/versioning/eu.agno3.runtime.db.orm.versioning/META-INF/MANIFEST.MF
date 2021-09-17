@@ -1,0 +1,40 @@
+Bundle-SymbolicName: eu.agno3.runtime.db.orm.versioning
+Bundle-Version: 0.0.166
+Bundle-Name: Database ORM Versioning/Auditing
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.runtime.db;version="0.0.10",
+ eu.agno3.runtime.db.orm;version="0.0.10",
+ eu.agno3.runtime.db.orm.hibernate;version="0.0.10",
+ eu.agno3.runtime.db.orm.versioning;version="0.0.10",
+ javax.persistence;version="2.1.0",
+ org.apache.log4j;version="1.2.15",
+ org.hibernate;version="5.2.0.Final",
+ org.hibernate.boot.model;version="5.2.0.Final",
+ org.hibernate.boot.spi;version="5.2.0.Final",
+ org.hibernate.cfg;version="4.3.9.AG1",
+ org.hibernate.engine.spi;version="4.3.9.AG1",
+ org.hibernate.envers;version="5.2.0.AG1",
+ org.hibernate.envers.boot.internal;version="5.0.3.AG1",
+ org.hibernate.envers.event.spi;version="4.3.7.AG3",
+ org.hibernate.envers.exception;version="5.2.0.AG1",
+ org.hibernate.envers.internal.entities;version="4.3.7.AG3",
+ org.hibernate.envers.query;version="4.3.7.AG3",
+ org.hibernate.envers.query.criteria;version="4.3.7.AG3",
+ org.hibernate.envers.query.order;version="4.3.7.AG3",
+ org.hibernate.envers.query.projection;version="4.3.7.AG3",
+ org.hibernate.exception;version="4.3.9.AG1",
+ org.hibernate.integrator.spi;version="4.3.7",
+ org.hibernate.service.spi;version="4.3.9.AG1",
+ org.jboss.jandex;version="2.0.0.Final",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.framework.namespace;version="1.0.0",
+ org.osgi.framework.wiring;version="1.1.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.osgi.service.jdbc;version="1.0.0",
+ org.osgi.util.tracker;version="1.5.1"
+Service-Component: OSGI-INF/*.xml
+Export-Package: eu.agno3.runtime.db.orm.versioning;version="0.0.166";uses:="org.hibernate.envers.query,org.hibernate.envers"
+

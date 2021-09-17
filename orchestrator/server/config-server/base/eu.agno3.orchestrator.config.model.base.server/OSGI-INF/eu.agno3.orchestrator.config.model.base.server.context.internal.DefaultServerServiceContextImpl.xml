@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.orchestrator.config.model.base.server.context.internal.DefaultServerServiceContextImpl" activate="activate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.config.model.base.server.context.DefaultServerServiceContext"/>
+    </service>
+    <reference name="EMF" interface="javax.persistence.EntityManagerFactory" cardinality="1..1" policy="static" target="(persistenceUnit=config)" bind="setEMF" unbind="unsetEMF"/>
+    <reference name="OrchEMF" interface="javax.persistence.EntityManagerFactory" cardinality="1..1" policy="static" target="(persistenceUnit=orchestrator)" bind="setOrchEMF" unbind="unsetOrchEMF"/>
+    <reference name="ValidatorFactory" interface="javax.validation.ValidatorFactory" cardinality="1..1" policy="static" bind="setValidatorFactory" unbind="unsetValidatorFactory"/>
+    <reference name="TransactionService" interface="eu.agno3.runtime.transaction.TransactionService" cardinality="1..1" policy="static" bind="setTransactionService" unbind="unsetTransactionService"/>
+    <reference name="ImageTypeRegistry" interface="eu.agno3.orchestrator.config.model.descriptors.ImageTypeRegistry" cardinality="1..1" policy="static" bind="setImageTypeRegistry" unbind="unsetImageTypeRegistry"/>
+    <reference name="ServiceTypeRegistry" interface="eu.agno3.orchestrator.config.model.descriptors.ServiceTypeRegistry" cardinality="1..1" policy="static" bind="setServiceTypeRegistry" unbind="unsetServiceTypeRegistry"/>
+    <reference name="ObjectTypeRegistry" interface="eu.agno3.orchestrator.config.model.descriptors.ObjectTypeRegistry" cardinality="1..1" policy="static" bind="setObjectTypeRegistry" unbind="unsetObjectTypeRegistry"/>
+    <reference name="MessagingClient" interface="eu.agno3.runtime.messaging.client.MessagingClient" cardinality="1..1" policy="static" bind="setMessagingClient" unbind="unsetMessagingClient"/>
+    <reference name="ServerConfig" interface="eu.agno3.orchestrator.server.config.ServerConfiguration" cardinality="1..1" policy="static" bind="setServerConfig" unbind="unsetServerConfig"/>
+    <implementation class="eu.agno3.orchestrator.config.model.base.server.context.internal.DefaultServerServiceContextImpl"/>
+</scr:component>

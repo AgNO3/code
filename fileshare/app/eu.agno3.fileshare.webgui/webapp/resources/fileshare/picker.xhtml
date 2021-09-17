@@ -1,0 +1,119 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough">
+
+<composite:interface>
+	<composite:attribute name="picker" required="true" />
+	<composite:attribute name="update" required="false" />
+</composite:interface>
+
+<composite:implementation>
+	<p:outputPanel id="selection" style="margin-bottom: 0.5em; height: 1.5em">
+		<p:outputPanel rendered="#{not empty cc.attrs.picker.selection}">
+			<h:outputText
+				styleClass="ui-icon ui-icon-inline #{fileDisplayBean.getEntityIconClass(cc.attrs.picker.selection)}" />
+			<h:outputText
+				styleClass="file-name-display ui-corner-all  #{fileDisplayBean.getFileNameStyleClass(cc.attrs.picker.selection)}"
+				title="#{fileDisplayBean.getEntityLocalDisplayName(cc.attrs.picker.selection)}"
+				value="#{fileDisplayBean.getTruncatedEntityLocalDisplayName(cc.attrs.picker.selection)}" />
+		</p:outputPanel>
+
+		<p:outputPanel rendered="#{empty cc.attrs.picker.selection}" style="font-style: italic;">
+			<h:outputText value="#{_msgs['picker.pickTargetMsg']}" />
+		</p:outputPanel>
+	</p:outputPanel>
+
+	<p:treeTable widgetVar="picker" value="#{cc.attrs.picker.model}"
+		var="entity" dynamic="true" selectionMode="single"
+		selection="#{cc.attrs.picker.selection}" styleClass="file-picker">
+		<p:ajax event="select" listener="#{cc.attrs.picker.onNodeSelect}"
+			update="@parent:selection ${cc.attrs.update}" />
+
+		<p:ajax event="unselect" listener="#{cc.attrs.picker.onNodeUnselect}"
+			update="@parent:selection ${cc.attrs.update}" />
+
+		<p:ajax event="expand" process="@this"
+			listener="#{cc.attrs.picker.onNodeExpand}" />
+
+		<p:ajax event="collapse" process="@this"
+			listener="#{cc.attrs.picker.onNodeCollapse}" />
+
+		<p:column styleClass="ui-static-column" toggleable="false"
+			selectionMode="multiple" style="display: none" />
+
+		<p:column>
+			<p:outputPanel rendered="#{not entity.isVirtualEmpty()}"
+				styleClass="#{fileDisplayBean.getEntityDropClass(entity)}"
+				pass:data-type="#{entity.type}"
+				pass:data-collabsible="#{fileDisplayBean.isCollabsible(entity)}"
+				pass:data-collapsed-icon="#{fileDisplayBean.getCollapsedEntityIconClass(entity)}"
+				pass:data-expanded-icon="#{fileDisplayBean.getExpandedEntityIconClass(entity)}"
+				pass:data-grant-id="#{fileDisplayBean.getGrantId(entity)}"
+				pass:data-can-replace="#{filePermissionBean.canOverwrite(entity)}"
+				pass:data-id="#{fileDisplayBean.getEntityId(entity.attachedObject)}"
+				pass:data-label="#{fileDisplayBean.getLabelString(entity)}"
+				style="display: inline-block; width:100%">
+				<h:outputText value=""
+					style="width: ${entity.depth-1}em; display: inline-block" />
+
+				<a class="file-name"
+					onclick="AgNO3_Picker_toggleRow(PF('picker'), this);"
+					title="#{fileDisplayBean.getEntityLocalDisplayName(entity)}"> <h:outputText
+						styleClass="ui-icon ui-icon-inline file-icon ${fileDisplayBean.getEntityIconClass(entity)}"
+						style="display: inline-block;" /> <h:outputText
+						styleClass="file-name-display ui-corner-all #{fileDisplayBean.getFileNameStyleClass(entity)}"
+						value="#{fileDisplayBean.getTruncatedEntityLocalDisplayName(entity)}" />
+				</a>
+			</p:outputPanel>
+
+			<p:outputPanel rendered="#{entity.isVirtualEmpty()}"
+				styleClass="no-drag #{fileDisplayBean.getEntityDropClass(entity)}"
+				pass:data-type="#{entity.type}" pass:data-collabsible="false"
+				pass:data-grant-id="#{fileDisplayBean.getGrantId(entity)}"
+				pass:data-can-replace="#{filePermissionBean.canOverwrite(entity)}"
+				pass:data-label="#{fileDisplayBean.getLabelString(entity)}"
+				pass:data-id="#{entity.attachedObject.entityKey}"
+				style="display: inline-block; width:100%">
+				<h:outputText value="#{_msgs['shareProps.emptyNode']}"
+					style="width: ${entity.depth-1}em; display: inline-block" />
+			</p:outputPanel>
+		</p:column>
+	</p:treeTable>
+
+	<script type="text/javascript">
+		// <![CDATA[	
+		function AgNO3_Picker_toggleRow(picker, target) {
+			var container = $(target).closest('div');
+			var row = $(target).closest('tr');
+			var entity = $(target).closest("a.file-name");
+			var icon = entity.find("span.ui-icon");
+			console && console.log && console.log("clicked");
+			if (container.attr('data-collabsible') == "true") {
+				if (row.attr('aria-expanded') == "true") {
+					row.attr('aria-expanded', 'false');
+					row.attr('aria-expanding', false);
+					picker.collapseNode(row);
+					icon.removeClass(container.attr('data-expanded-icon'));
+					icon.addClass(container.attr('data-collapsed-icon'));
+				} else if (row.attr('aria-expanding') == 'true') {
+					console && console.log
+							&& console.log("Currently expanding");
+				} else {
+					row.attr('aria-expanding', 'true');
+					picker.expandNode(row);
+					icon.removeClass(container.attr('data-collapsed-icon'));
+					icon.addClass(container.attr('data-expanded-icon'));
+				}
+			}
+		}
+		// ]]>
+	</script>
+
+</composite:implementation>
+</html>

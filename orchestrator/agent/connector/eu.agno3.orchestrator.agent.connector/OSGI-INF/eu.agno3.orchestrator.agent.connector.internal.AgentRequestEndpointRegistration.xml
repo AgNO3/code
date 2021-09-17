@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.orchestrator.agent.connector.internal.AgentRequestEndpointRegistration" activate="activate" deactivate="deactivate">
+    <reference name="AgentConfig" interface="eu.agno3.orchestrator.agent.config.AgentConfig" cardinality="1..1" policy="static" bind="setAgentConfig" unbind="unsetAgentConfig"/>
+    <reference name="MessageSource" interface="eu.agno3.runtime.messaging.addressing.MessageSource" cardinality="1..1" policy="static" bind="setMessageSource" unbind="unsetMessageSource"/>
+    <reference name="MarshallerManager" interface="eu.agno3.runtime.messaging.marshalling.MarshallerManager" cardinality="1..1" policy="static" bind="setMarshallerManager" unbind="unsetMarshallerManager"/>
+    <reference name="MessageListenerFactory" interface="eu.agno3.runtime.messaging.listener.MessageListenerFactory" cardinality="1..1" policy="static" bind="setMessageListenerFactory" unbind="unsetMessageListenerFactory"/>
+    <reference name="UnmarshallerManager" interface="eu.agno3.runtime.messaging.marshalling.UnmarshallerManager" cardinality="1..1" policy="static" bind="setUnmarshallerManager" unbind="unsetUnmarshallerManager"/>
+    <implementation class="eu.agno3.orchestrator.agent.connector.internal.AgentRequestEndpointRegistration"/>
+</scr:component>

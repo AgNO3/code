@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0"
+	template="/tpl/common/template.xhtml">
+	<ui:param name="subtitle"
+		value="#{msgs.formatEL('config.template.editNew.titleFmt', configUtil.getDisplayTypeName(templateConfigContext.current), structureViewContext.selectedDisplayName)}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="anchor"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+
+			<f:viewParam name="objectType"
+				value="#{templateConfigContext.objectTypeName}">
+			</f:viewParam>
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="templateConfigForm" enctype="multipart/form-data">
+			<input type="hidden" name="cid"
+				value="#{templateConfigContext.conversation.id}" />
+			<p:panel>
+				<ui:decorate template="/tpl/config/configCommon.xhtml">
+					<ui:define name="saveActions">
+						<div class="click-container">
+							<p:commandButton style="line-height: 1.0;"
+								title="#{_gui['config.template.saveNew']}"
+								value="#{_gui['config.template.saveNew']}" icon="ui-icon-disk"
+								styleClass="save-button"
+								action="#{templateConfigSaveController.saveNewNoDialog}"
+								oncomplete="savedConfig(args.saved);" process="@form"
+								update="@form" />
+						</div>
+					</ui:define>
+					<ui:param name="configContext" value="#{templateConfigContext}" />
+				</ui:decorate>
+
+				<p:panel id="configEdit"
+					rendered="#{not empty templateConfigContext.objectTypeName}">
+					<f:validateBean
+						validationGroups="eu.agno3.orchestrator.config.model.validation.Abstract">
+						<orch:objectEditor template="true" newTemplate="true"
+							context="#{templateConfigContext}" path=""
+							title="#{configLocalizationProvider.getTypeName(templateConfigContext.objectTypeName)}"
+							objectType="#{templateConfigContext.objectTypeName}" />
+					</f:validateBean>
+				</p:panel>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

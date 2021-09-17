@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+	<p:fieldset legend="#{_gui['resourceLibrary.defaultAddFile.title']}"
+		rendered="#{resourceLibraryFileEditorBean.inCreateMode}">
+
+		<p:focus />
+		<p:defaultCommand target="createButton" />
+
+
+		<ag:simpleField id="fileNameField"
+			label="#{_gui['resourceLibrary.defaultAddFile.filename.label']}"
+			description="#{_gui['resourceLibrary.defaultAddFile.filename.description']}"
+			inputId="filename">
+			<p:inputText id="filename" required="true"
+				value="#{resourceLibraryFileEditorBean.createFilename}" />
+		</ag:simpleField>
+
+		<ag:simpleField
+			label="#{_gui['resourceLibrary.defaultAddFile.upload.label']}"
+			description="#{_gui['resourceLibrary.defaultAddFile.upload.description']}"
+			inputId="createUpload">
+			<p:fileUpload id="createUpload" mode="advanced" auto="true"
+				sizeLimit="500000"
+				fileUploadListener="#{resourceLibraryFileEditorBean.createFromUpload}"
+				update="@composite:@parent:fileNameField:filename" />
+		</ag:simpleField>
+
+		<div class="buttons">
+			<p:commandButton id="createButton"
+				action="#{resourceLibraryFileEditorBean.doCreate()}" update="editor"
+				value="#{_gui['resourceLibrary.defaultAddFile.confirm']}" />
+
+			<p:commandButton immediate="true" styleClass="close-button"
+				action="#{resourceLibraryFileEditorBean.cancelCreate}"
+				value="#{_gui['resourceLibrary.defaultAddFile.cancel']}"
+				update="editor" />
+
+		</div>
+
+	</p:fieldset>
+</ui:composition>

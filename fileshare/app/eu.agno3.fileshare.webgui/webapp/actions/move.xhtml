@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/tpl/common/dialog.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ui:param name="title" value="#{_msgs['actions.move.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="files"
+				value="#{urlFileSelectionBean.encodedMultiSelection}"
+				required="true" />
+
+			<f:viewParam name="grant"
+				value="#{grantSelectionBean.encodedSingleSelection}"
+				required="false" />
+
+			<f:viewParam name="token" value="#{userTokenBean.token}"
+				required="false" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form" method="POST" enctype="multipart/form-data">
+			<ag:dialogContextHolder />
+
+			<p:hotkey bind="esc" action="#{dialog.close}" immediate="true" />
+			<p:messages autoUpdate="true" />
+
+			<input type="hidden" name="token" value="#{userTokenBean.token}" />
+
+
+			<p:fieldset styleClass="func-unit"
+				legend="#{_msgs['actions.move.title']}">
+				<ag:simpleField label="#{_msgs['actions.move.entity.label']}"
+					description="#{_msgs['actions.move.entity.description']}">
+
+					<ul style="list-style-type: none; padding-left: 0;">
+						<ui:repeat value="#{urlFileSelectionBean.selectedEntities}"
+							var="selected">
+							<li><span
+								class="ui-icon ui-icon-inline #{fileDisplayBean.getTypeIconCollapsed(selected)}" />
+								<h:outputText value="${selected.localName}" /></li>
+						</ui:repeat>
+					</ul>
+				</ag:simpleField>
+
+				<ag:simpleField label="#{_msgs['actions.move.target.label']}"
+					description="#{_msgs['actions.move.target.description']}">
+					<fs:picker picker="#{directoryPicker}" update="@composite:@parent:@composite:@parent:confirm" />
+				</ag:simpleField>
+			</p:fieldset>
+
+			<div class="buttons">
+				<p:commandButton id="confirm" icon="ui-icon-scissors"
+					disabled="#{empty urlFileSelectionBean.selectedEntities or empty directoryPicker.selection}"
+					action="#{fileController.multiMoveEntitiesDialog(urlFileSelectionBean.selectedEntities, directoryPicker.selection.attachedObject, directoryPicker.selection.grant )}"
+					value="#{_msgs['actions.move.confirm']}" />
+
+				<p:commandButton immediate="true" action="#{dialog.close}"
+					styleClass="close-button inline" icon="#{dialog.closeIcon}"
+					title="#{dialog.closeDescription}"
+					value="#{_msgs['actions.move.cancel']}" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

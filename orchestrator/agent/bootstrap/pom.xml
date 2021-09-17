@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.orchestrator.agent</groupId>
+    <artifactId>agent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>bootstrap</artifactId>
+  <packaging>pom</packaging>
+  <name>Orchestrator/Agent Bootstrapping</name>
+  <modules>
+  	<module>eu.agno3.orchestrator.agent.bootstrap</module>
+  	<module>eu.agno3.orchestrator.agent.bootstrap.test</module>
+  	<module>eu.agno3.orchestrator.agent.bootstrap.console</module>
+  </modules>
+
+   <build>
+	<plugins>
+		<plugin>
+			<groupId>org.eclipse.tycho</groupId>
+			<artifactId>tycho-surefire-plugin</artifactId>
+			<configuration>
+				<bundleStartLevel combine.children="append">
+					<bundle>
+						<id>eu.agno3.runtime.validation</id>
+						<level>3</level>
+						<autoStart>true</autoStart>
+					</bundle>
+
+					<bundle>
+						<id>eu.agno3.runtime.i18n</id>
+						<level>3</level>
+						<autoStart>true</autoStart>
+					</bundle>
+
+					<bundle>
+						<id>eu.agno3.runtime.configloader</id>
+						<level>2</level>
+						<autoStart>true</autoStart>
+					</bundle>
+				</bundleStartLevel>
+			</configuration>
+		</plugin>
+	</plugins>
+  </build>
+</project>

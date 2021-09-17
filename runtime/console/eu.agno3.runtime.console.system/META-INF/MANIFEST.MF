@@ -1,0 +1,15 @@
+Bundle-SymbolicName: eu.agno3.runtime.console.system
+Bundle-Version: 0.0.60
+Bundle-Name: Console System Commands
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.runtime.console;version="0.0.2",
+ org.apache.log4j;version="1.2.15",
+ org.eclipse.core.runtime.adaptor,
+ org.fusesource.jansi;version="1.9.0",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0"
+Service-Component: OSGI-INF/*.xml
+Require-Bundle: eu.agno3.dependencies.karaf-console;bundle-version="3.0.0"

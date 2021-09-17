@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.config.web.validation.ldap.internal.LDAPClientConfigurationTestPlugin">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.config.web.validation.ldap.LDAPConfigTestPlugin"/>
+        <provide interface="eu.agno3.orchestrator.config.model.realm.validation.ConfigTestPlugin"/>
+    </service>
+    <reference name="LDAPClientBuilder" interface="eu.agno3.runtime.ldap.client.LDAPClientBuilder" cardinality="1..1" policy="static" bind="setLDAPClientBuilder" unbind="unsetLDAPClientBuilder"/>
+    <reference name="SSLEndpointFactory" interface="eu.agno3.orchestrator.config.web.validation.SSLEndpointConfigTestFactory" cardinality="1..1" policy="static" bind="setSSLEndpointFactory" unbind="unsetSSLEndpointFactory"/>
+    <implementation class="eu.agno3.orchestrator.config.web.validation.ldap.internal.LDAPClientConfigurationTestPlugin"/>
+</scr:component>

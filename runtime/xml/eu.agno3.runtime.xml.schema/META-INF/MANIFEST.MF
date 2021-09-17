@@ -1,0 +1,21 @@
+Bundle-SymbolicName: eu.agno3.runtime.xml.schema
+Bundle-Version: 0.0.64
+Bundle-Name: XML Schema Management Service
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.runtime.util.config;version="0.0.56",
+ eu.agno3.runtime.util.log;version="0.0.8",
+ eu.agno3.runtime.util.osgi;version="0.0.8",
+ eu.agno3.runtime.xml;version="0.0.10",
+ org.apache.commons.collections4;version="4.0.0",
+ org.apache.commons.collections4.map;version="4.0.0",
+ org.apache.commons.io.input;version="2.4.0",
+ org.apache.commons.lang3;version="3.1.0",
+ org.apache.log4j;version="1.2.15",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.osgi.util.tracker;version="1.5.1"
+Service-Component: OSGI-INF/*.xml
+Export-Package: eu.agno3.runtime.xml.schema;version="0.0.64";uses:="org.w3c.dom.ls,javax.xml.parsers,javax.xml.validation"

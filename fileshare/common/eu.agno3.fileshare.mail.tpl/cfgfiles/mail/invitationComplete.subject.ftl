@@ -1,0 +1,1 @@
+"${data.user.userDisplayName}" has accepted your invitation

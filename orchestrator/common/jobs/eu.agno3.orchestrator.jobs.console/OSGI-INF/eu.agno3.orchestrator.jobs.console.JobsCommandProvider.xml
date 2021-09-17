@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.orchestrator.jobs.console.JobsCommandProvider" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.console.CommandProvider"/>
+    </service>
+    <reference name="Coordinator" interface="eu.agno3.orchestrator.jobs.JobCoordinator" cardinality="1..1" policy="static" bind="setCoordinator" unbind="unsetCoordinator"/>
+    <implementation class="eu.agno3.orchestrator.jobs.console.JobsCommandProvider"/>
+</scr:component>

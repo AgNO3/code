@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/tpl/structure/instance/template.xhtml">
+	<ui:param name="instanceSubtitle" value="#{sysInfoSubtitle}" />
+
+	<ui:define name="content">
+		<h:form id="sysInfoForm">
+			<p:panel id="sysInfoDisplay">
+				<p:toolbar>
+					<f:facet name="left">
+						<p:button title="#{_gui['structure.instance.sysinfo.back']}"
+							outcome="/structure/instance/index.xhtml?faces-redirect=true&amp;instance=#{structureViewContext.selectedInstance.id}"
+							image="ui-icon-arrowthick-1-w" />
+						<h:outputText value="#{sysInfoSubtitle}" />
+					</f:facet>
+					<f:facet name="right">
+						<p:commandButton icon="ui-icon-arrowrefresh-1-e"
+							id="refreshButton"
+							title="#{_gui['structure.instance.sysinfo.refresh']}"
+							action="#{agentSysInfoContext.refreshInformation()}"
+							update="sysInfoDisplay" />
+					</f:facet>
+				</p:toolbar>
+
+				<p:messages id="msgs" />
+
+				<ui:insert name="sysInfoContent">
+					<ui:include src="/tpl/common/nocontent.xhtml" />
+				</ui:insert>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

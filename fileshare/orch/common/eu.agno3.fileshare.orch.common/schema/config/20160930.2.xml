@@ -1,0 +1,190 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet author="mbechler (generated)" id="1475247099832-1">
+		<createTable schemaName="APP" tableName="config_fileshare_logger">
+			<column name="ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="DEFAULTLOG" type="CHAR (16) FOR BIT DATA" />
+			<column name="UNAUTHLOG" type="CHAR (16) FOR BIT DATA" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099832-2">
+		<createTable schemaName="APP" tableName="config_fileshare_logger_AUD">
+			<column name="ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="DEFAULTLOG" type="CHAR (16) FOR BIT DATA" />
+			<column name="UNAUTHLOG" type="CHAR (16) FOR BIT DATA" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099832-3">
+		<addColumn schemaName="APP" tableName="config_fileshare">
+			<column name="LOGGERCONFIGURATION_ID" type="java.sql.Types.BINARY(16)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099832-4">
+		<addColumn schemaName="APP" tableName="config_fileshare_AUD">
+			<column name="LOGGERCONFIGURATION_ID" type="java.sql.Types.BINARY(16)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099832-5">
+		<addColumn schemaName="APP" tableName="config_fileshare_user">
+			<column name="TERMSCONFIG_ID" type="java.sql.Types.BINARY(16)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099832-6">
+		<addColumn schemaName="APP" tableName="config_fileshare_user_AUD">
+			<column name="TERMSCONFIG_ID" type="java.sql.Types.BINARY(16)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099832-7">
+		<addPrimaryKey columnNames="ID" constraintName="config_fileshare_loggerPK"
+			schemaName="APP" tableName="config_fileshare_logger" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099832-8">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_fileshare_logger_AUDPK" schemaName="APP"
+			tableName="config_fileshare_logger_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099832-9">
+		<createIndex indexName="FK_FK3T7B0HLBVGOQBQAX66F76HNVJ"
+			schemaName="APP" tableName="config_fileshare_user">
+			<column name="TERMSCONFIG_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099832-10">
+		<createIndex indexName="FK_FK5GKTXA18T2TW628UE13JS6NE4"
+			schemaName="APP" tableName="config_fileshare_logger_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099832-11">
+		<createIndex indexName="FK_FKC83QSXHFX42O9B69LCB8MI4MB"
+			schemaName="APP" tableName="config_fileshare_logger">
+			<column name="DEFAULTLOG" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099832-12">
+		<createIndex indexName="FK_FKH5821ME2PGLL6DHWK5FQCF2J4"
+			schemaName="APP" tableName="config_fileshare_logger">
+			<column name="UNAUTHLOG" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099832-13">
+		<createIndex indexName="FK_FKMP94487TNCOLD8FQWQNI6SKDJ"
+			schemaName="APP" tableName="config_fileshare_logger">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099832-14">
+		<createIndex indexName="FK_FKRG9DW6KSKHP7E0DOKR1NXKU9X"
+			schemaName="APP" tableName="config_fileshare">
+			<column name="LOGGERCONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099832-15">
+		<addForeignKeyConstraint baseColumnNames="TERMSCONFIG_ID"
+			baseTableName="config_fileshare_user" baseTableSchemaName="APP"
+			constraintName="FK3T7B0HLBVGOQBQAX66F76HNVJ" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_terms"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099832-16">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_fileshare_logger_AUD" baseTableSchemaName="APP"
+			constraintName="FK5GKTXA18T2TW628UE13JS6NE4" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID,REV" referencedTableName="config_AUD"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099832-17">
+		<addForeignKeyConstraint baseColumnNames="DEFAULTLOG"
+			baseTableName="config_fileshare_logger" baseTableSchemaName="APP"
+			constraintName="FKC83QSXHFX42O9B69LCB8MI4MB" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_logger"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099832-18">
+		<addForeignKeyConstraint baseColumnNames="UNAUTHLOG"
+			baseTableName="config_fileshare_logger" baseTableSchemaName="APP"
+			constraintName="FKH5821ME2PGLL6DHWK5FQCF2J4" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_logger"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099832-19">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_fileshare_logger" baseTableSchemaName="APP"
+			constraintName="FKMP94487TNCOLD8FQWQNI6SKDJ" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099832-20">
+		<addForeignKeyConstraint baseColumnNames="LOGGERCONFIGURATION_ID"
+			baseTableName="config_fileshare" baseTableSchemaName="APP"
+			constraintName="FKRG9DW6KSKHP7E0DOKR1NXKU9X" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_fileshare_logger"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1485267179221-1">
+		<addColumn schemaName="APP" tableName="config_fileshare_web">
+			<column name="DEFAULTUPLOADCHUNKSIZE" type="bigint" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1485267179221-2">
+		<addColumn schemaName="APP" tableName="config_fileshare_web_AUD">
+			<column name="DEFAULTUPLOADCHUNKSIZE" type="bigint" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1485267179221-3">
+		<addColumn schemaName="APP" tableName="config_fileshare_web">
+			<column name="MAXIMUMUPLOADCHUNKSIZE" type="bigint" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1485267179221-4">
+		<addColumn schemaName="APP" tableName="config_fileshare_web_AUD">
+			<column name="MAXIMUMUPLOADCHUNKSIZE" type="bigint" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1485267179221-5">
+		<addColumn schemaName="APP" tableName="config_fileshare_web">
+			<column name="OPTIMALUPLOADCHUNKCOUNT" type="integer" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1485267179221-6">
+		<addColumn schemaName="APP" tableName="config_fileshare_web_AUD">
+			<column name="OPTIMALUPLOADCHUNKCOUNT" type="integer" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1498998404130-1">
+        <addColumn schemaName="APP" tableName="config_fileshare_passthrough_cifs">
+            <column name="ALLOWSMB1" type="boolean"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1498998404130-2">
+        <addColumn schemaName="APP" tableName="config_fileshare_passthrough_cifs_AUD">
+            <column name="ALLOWSMB1" type="boolean"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1498998404130-3">
+        <addColumn schemaName="APP" tableName="config_fileshare_passthrough_cifs">
+            <column name="DISABLESMB2" type="boolean"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1498998404130-4">
+        <addColumn schemaName="APP" tableName="config_fileshare_passthrough_cifs_AUD">
+            <column name="DISABLESMB2" type="boolean"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

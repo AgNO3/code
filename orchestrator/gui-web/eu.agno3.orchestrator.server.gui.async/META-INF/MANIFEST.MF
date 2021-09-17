@@ -1,0 +1,29 @@
+Bundle-SymbolicName: eu.agno3.orchestrator.server.gui.async
+Bundle-Version: 0.0.1.qualifier
+Bundle-Name: Orchestrator/WebGUI Async support
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.9.0",
+ org.eclipse.jdt.annotation;bundle-version="[2.0.0,3.0.0)";resolution:=optional
+Service-Component: OSGI-INF/*.xml
+Import-Package: 
+ eu.agno3.orchestrator.gui.connector,
+ eu.agno3.runtime.cdi.comet;version="0.0.6",
+ eu.agno3.runtime.http.service.session;version="0.0.18",
+ eu.agno3.runtime.messaging.listener;version="0.0.20",
+ eu.agno3.runtime.messaging.msg;version="0.0.20",
+ javax.jms;version="1.1.0",
+ javax.persistence;version="2.0.0",
+ javax.servlet.http;version="3.1.0",
+ org.apache.commons.lang3;version="3.3.2",
+ org.apache.log4j,
+ org.apache.shiro;version="1.2.3",
+ org.apache.shiro.session;version="1.2.4",
+ org.apache.shiro.subject;version="1.2.3",
+ org.osgi.service.cm;version="1.4.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.primefaces.json;version="5.0.0.AG1",
+ org.primefaces.push;version="5.0.0.AG1"
+Export-Package: eu.agno3.orchestrator.server.gui.async;version="0.0.1.qualifier";uses:="org.primefaces.push"

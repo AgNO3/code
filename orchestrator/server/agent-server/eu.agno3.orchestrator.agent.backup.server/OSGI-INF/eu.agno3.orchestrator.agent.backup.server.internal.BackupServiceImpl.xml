@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.agent.backup.server.internal.BackupServiceImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.system.backups.service.AgentBackupService"/>
+        <provide interface="eu.agno3.runtime.ws.common.SOAPWebService"/>
+    </service>
+    <reference name="Context" interface="eu.agno3.orchestrator.config.model.base.server.context.DefaultServerServiceContext" cardinality="1..1" policy="static" bind="setContext" unbind="unsetContext"/>
+    <reference name="MsgClient" interface="eu.agno3.runtime.messaging.client.MessagingClient" cardinality="1..1" policy="static" bind="setMsgClient" unbind="unsetMsgClient"/>
+    <reference name="AgentService" interface="eu.agno3.orchestrator.config.model.realm.server.service.AgentServerService" cardinality="1..1" policy="static" bind="setAgentService" unbind="unsetAgentService"/>
+    <implementation class="eu.agno3.orchestrator.agent.backup.server.internal.BackupServiceImpl"/>
+</scr:component>

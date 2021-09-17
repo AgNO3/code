@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.agent.server.internal.AgentConnectedListener">
+    <property name="eventType" value="eu.agno3.orchestrator.agent.events.AgentConnectedEvent"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.messaging.listener.EventListener"/>
+    </service>
+    <reference name="AgentConnectorWatcher" interface="eu.agno3.orchestrator.agent.server.internal.AgentConnectorWatcherImpl" cardinality="1..1" policy="static" bind="setAgentConnectorWatcher" unbind="unsetAgentConnectorWatcher"/>
+    <implementation class="eu.agno3.orchestrator.agent.server.internal.AgentConnectedListener"/>
+</scr:component>

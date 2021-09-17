@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.db.derby.auth.internal.DerbyConfigurationAuthenticator">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.db.derby.auth.DerbyAuthenticatorBackend"/>
+    </service>
+    <reference name="AuthConfig" interface="eu.agno3.runtime.db.derby.auth.internal.DerbyAuthConfiguration" cardinality="1..1" policy="static" bind="setAuthConfig" unbind="unsetAuthConfig"/>
+    <implementation class="eu.agno3.runtime.db.derby.auth.internal.DerbyConfigurationAuthenticator"/>
+</scr:component>

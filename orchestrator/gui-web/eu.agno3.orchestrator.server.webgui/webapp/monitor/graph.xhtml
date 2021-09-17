@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0"
+	template="/tpl/common/template.xhtml">
+	<ui:param name="title"
+		value="#{msgs.formatEL('log.titleFmt', structureUtil.getDisplayName(structureViewContext.selectedObject))}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="object"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+		</f:metadata>
+	</ui:define>
+
+
+	<ui:define name="content">
+		<h:form>
+			<p:messages autoUpdate="true" />
+
+
+			<ui:repeat value="#{graphBean.graphs}" var="g">
+
+				<p:chart type="#{g.type}" model="#{g.model}"
+					widgetVar="#{g.widgetVar}" />
+
+				<p:commandButton type="button" value="Export"
+					icon="ui-icon-download" onclick="exportChart(PF('#{g.widgetVar}'))" />
+			</ui:repeat>
+
+			<p:commandButton type="button" onclick="doLiveUpdate()"
+				value="Update" icon="ui-icon-refresh" />
+
+			<p:remoteCommand name="fetchGraphData" update=""
+				oncomplete="updateGraphCallback(xhr,status, args);"
+				actionListener="#{graphBean.fetchGraphData}" partialSubmit="true"
+				ignoreAutoUpdate="true" />
+
+			<p:dialog widgetVar="dlg" showEffect="fade" modal="true"
+				appendTo="body" width="90%" height="400px" header="Export"
+				resizable="false">
+				<p>Right click and save image</p>
+				<p:outputPanel id="output" styleClass="export-output" layout="block"
+					style="width:500px;height:300px" />
+			</p:dialog>
+
+			<h:outputScript>
+			// <!--
+			function chartExtender() { 
+				this.cfg.seriesDefaults['lineWidth'] = 2;
+				this.cfg.seriesDefaults['rendererOptions'] = { varyBarColor: true, smooth: false };
+			    this.cfg.seriesDefaults['markerOptions'] = { show: true, shadow: false };
+			    
+            	console.log(this);
+            	
+				this.cfg.fillBetween = {
+			    	//series1: [0],
+			    	//series2: [1]
+			    };
+			    
+			    this._draw();
+		    }
+		    
+		    function doLiveUpdate() {
+		    	fetchGraphData();
+		    }
+		    
+		    function updateGraphCallback(xhr, status, args) {
+		    	var newData = $.parseJSON(args.graphData);
+		    	if ( !newData || newData.length == 0 ) {
+		    		console.log("No data");
+		    		return;
+		    	}
+		    	console.log(newData);
+		    	for ( var g in newData ) {
+		    		updateGraph(PF(g), newData[g]);
+		    	}
+		    }
+		    
+		    function updateGraph(widget, newData) {
+		    	var p = widget.plot;
+		    	var curLatest = p.axes.xaxis.max;
+		    	var curFirst = p.axes.xaxis.min;
+		    	
+		    	var minTs = -1;
+		    	var maxTs = -1;
+		    	var nspls = 0;
+		    	var newBandData = {}
+		    	for ( var s in newData ) {
+		    		nspls = Math.max(nspls, newData[s].length);
+		    		for ( var i = 0; i < newData[s].length; i++) {
+		    			if ( newData[s][i].length >= 4 ) {
+		    				if ( !newBandData[s] ) {
+		    					newBandData[s] = [[],[]]
+		    				}
+		    				newBandData[s][0].push(newData[s][i][2]);
+		    				newBandData[s][1].push(newData[s][i][3]);
+		    			}
+		    			if ( minTs < 0 || minTs > newData[s][i][0] ) {
+		    				minTs = newData[s][i][0];
+		    			}
+		    			if ( maxTs < 0 || maxTs < newData[s][i][0] ) {
+		    				maxTs = newData[s][i][0];
+		    			}
+		    		}
+		    	}
+		    	
+		    	var timeDiff = maxTs - curLatest;
+		    	
+		    	console.log("Have " + nspls + " from " + minTs + " to " + maxTs);
+		    	
+		    	for ( var s in newData ) {
+			    	var series = p.series[s];
+			    	if ( ! series ) {
+			    		console.log("Series not found " + s);
+			    		continue;
+			    	}
+			    	var drop = 0;
+			    	for ( var i = 0; i < series.data.length; i++ ) {
+			    		if ( series.data[i][0] > curFirst + timeDiff ) {
+			    			break;
+			    		}
+			    		drop++;
+			    	}
+
+			    	console.log("Dropping " + drop + " adding " + newData[s].length)
+			    	series.data = series.data.slice(drop).concat(newData[s]);
+			    	series._plotData = series._plotData.slice(drop).concat(newData[s]);
+			    	
+			    	if ( newBandData[s] ) {
+			    		console.log("Have band data: " );
+			    		var l = newBandData[s][0];
+			    		var h = newBandData[s][1];
+			    		series.rendererOptions.bandData[0] = series.rendererOptions.bandData[0].slice(drop).concat(l);
+			    		series.rendererOptions.bandData[1] = series.rendererOptions.bandData[1].slice(drop).concat(h);
+			    		series.renderer.bandData[0] = series.renderer.bandData[0].slice(drop).concat(l);
+			    		series.renderer.bandData[1] = series.renderer.bandData[1].slice(drop).concat(h);
+			    	} 
+		    	}
+		    	
+		    	widget.cfg.axes.xaxis.max += timeDiff;
+		    	widget.cfg.axes.xaxis.min += timeDiff;
+		    	
+		    	var axOpts = {};
+		    	for ( var ax in PF('chart').cfg.axes) {
+		    		var orig = PF('chart').cfg.axes[ax];
+		    		axOpts[ax] = { 	
+		    			min: orig.min,
+			    		max: orig.max,
+			    		_min: null, // needs to be reset
+			    		_max: null, // needs to be reset
+			    		tickOptions: orig.tickOptions,
+			    		tickInterval: orig.tickInterval,
+			    		numberTicks: orig.numberTicks,
+		    		}
+		    	}
+		    	
+		    	// call resetAxesScale manually, otherwise replot bugs
+		    	p.resetAxesScale(true, axOpts);
+		    	p.replot();
+		    	
+		    	// these need to be set, so that returning from zoom does the right thing
+		    	p.axes.xaxis._options.max = p.axes.xaxis._max;
+		    	p.axes.xaxis._options.min = p.axes.xaxis._min;
+		    }
+		    
+			function exportChart(widget) {
+			    //export image
+			    $('.export-output').empty().append(widget.exportAsImage());
+			    //show the dialog
+			    PF('dlg').show();
+			}
+			// -->
+			</h:outputScript>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

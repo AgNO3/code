@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.fileshare.webdav.internal.FileshareDAVTreeProviderImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.webdav.FileshareDAVTreeProvider"/>
+    </service>
+    <reference name="GuiServiceContext" interface="eu.agno3.fileshare.service.gui.GuiServiceContext" cardinality="1..1" policy="static" bind="setGuiServiceContext" unbind="unsetGuiServiceContext"/>
+    <reference name="DeliveryService" interface="eu.agno3.fileshare.service.api.internal.DeliveryService" cardinality="1..1" policy="static" bind="setDeliveryService" unbind="unsetDeliveryService"/>
+    <reference name="PolicyEvaluator" interface="eu.agno3.fileshare.service.api.internal.PolicyEvaluator" cardinality="1..1" policy="static" bind="setPolicyEvaluator" unbind="unsetPolicyEvaluator"/>
+    <reference name="QuotaService" interface="eu.agno3.fileshare.service.QuotaService" cardinality="1..1" policy="static" bind="setQuotaService" unbind="unsetQuotaService"/>
+    <reference name="VFSService" interface="eu.agno3.fileshare.service.api.internal.VFSServiceInternal" cardinality="1..1" policy="static" bind="setVFSService" unbind="unsetVFSService"/>
+    <reference name="AccessControl" interface="eu.agno3.fileshare.security.AccessControlService" cardinality="1..1" policy="static" bind="setAccessControl" unbind="unsetAccessControl"/>
+    <reference name="EntityService" interface="eu.agno3.fileshare.service.api.internal.EntityServiceInternal" cardinality="1..1" policy="static" bind="setEntityService" unbind="unsetEntityService"/>
+    <reference name="BrowseServiceInternal" interface="eu.agno3.fileshare.service.api.internal.BrowseServiceInternal" cardinality="1..1" policy="static" bind="setBrowseServiceInternal" unbind="unsetBrowseServiceInternal"/>
+    <reference name="ShareServiceInternal" interface="eu.agno3.fileshare.service.api.internal.ShareServiceInternal" cardinality="1..1" policy="static" bind="setShareServiceInternal" unbind="unsetShareServiceInternal"/>
+    <reference name="DirectoryService" interface="eu.agno3.fileshare.service.DirectoryService" cardinality="1..1" policy="static" bind="setDirectoryService" unbind="unsetDirectoryService"/>
+    <implementation class="eu.agno3.fileshare.webdav.internal.FileshareDAVTreeProviderImpl"/>
+</scr:component>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.agent.realms.internal.RealmManagementBean">
+    <property name="objectName" value="eu.agno3.agent.realms:type=RealmManagementBean"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.jmx.MBean"/>
+        <provide interface="eu.agno3.orchestrator.agent.realms.internal.RealmManagementBean"/>
+    </service>
+    <reference name="RealmsManager" interface="eu.agno3.orchestrator.agent.realms.RealmsManager" cardinality="1..1" policy="static" bind="setRealmsManager" unbind="unsetRealmsManager"/>
+    <implementation class="eu.agno3.orchestrator.agent.realms.internal.RealmManagementBean"/>
+</scr:component>

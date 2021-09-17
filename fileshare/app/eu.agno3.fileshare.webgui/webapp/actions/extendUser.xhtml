@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0"
+	template="/tpl/common/raw.xhtml">
+
+	<ui:param name="subtitle" value="#{_msgs['actions.extendUser.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="token" value="#{userTokenBean.token}"
+				required="false" />
+			<f:viewParam name="user"
+				value="#{userSelectionBean.encodedSingleSelection}" required="true" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form" method="POST" enctype="multipart/form-data">
+			<p:messages autoUpdate="true" />
+
+			<p:focus />
+
+			<input type="hidden" name="token" value="#{userTokenBean.token}" />
+
+			<p:fieldset styleClass="func-unit"
+				legend="#{_msgs['actions.extendUser.title']}">
+
+
+				<ag:simpleField label="#{_msgs['actions.extendUser.user.label']}"
+					description="#{_msgs['actions.extendUser.user.description']}">
+					<fs:userDetails subject="#{userSelectionBean.singleSelection}" />
+				</ag:simpleField>
+
+
+				<ag:simpleField
+					label="#{_msgs['actions.extendUser.currentExpiry.label']}"
+					description="#{_msgs['actions.extendUser.currentExpiry.description']}"
+					onlyIf="#{not empty userSelectionBean.singleSelection.expiration}">
+					<h:outputText
+						value="#{localeSettingsBean.formatDateTime(userSelectionBean.singleSelection.expiration, 'M-')}" />
+				</ag:simpleField>
+
+				<ag:simpleField
+					label="#{_msgs['actions.extendUser.newExpiry.label']}"
+					description="#{_msgs['actions.extendUser.newExpiry.description']}">
+					<p:outputPanel id="expiration"
+						styleClass="date-editor hover-shade-background"
+						style="display: inline-block">
+						<p:outputPanel id="expiresOutput" style="display: inline-block">
+							<h:outputText
+								rendered="#{not empty userExtensionEditorBean.expires}"
+								value="#{localeSettingsBean.formatDateTime(userExtensionEditorBean.expires, 'M-')}" />
+							<h:outputText rendered="#{empty userExtensionEditorBean.expires}"
+								value="#{_msgs['actions.extendUser.newExpiry.never']}" />
+						</p:outputPanel>
+
+						<h:outputText class="ui-icon ui-icon-calendar ui-icon-inline"
+							title="#{_msgs['actions.extendUser.newExpiry.set']}" />
+					</p:outputPanel>
+
+					<p:overlayPanel widgetVar="expirePanel" appendToBody="false"
+						dynamic="false" for="expiration" showCloseIcon="true">
+						<p:calendar id="expiresCal" mode="inline"
+							value="#{userExtensionEditorBean.expires}"
+							converter="#{dateTimeConverter}"
+							mindate="#{userExtensionEditorBean.minExpires}">
+							<p:ajax event="dateSelect" update="expiresOutput"
+								oncomplete="PF('expirePanel').hide();" />
+						</p:calendar>
+						<p:commandButton actionListener="#{userExtensionEditorBean.unset}"
+							update="expiresOutput expiresCal" icon="ui-icon-closethick"
+							value="#{_msgs['actions.extendUser.newExpiry.never']}"
+							oncomplete="PF('expirePanel').hide();" />
+					</p:overlayPanel>
+				</ag:simpleField>
+			</p:fieldset>
+
+			<div class="buttons">
+				<p:commandButton id="extendButton" icon="ui-icon-clock"
+					action="#{userExtensionEditorBean.extend()}"
+					value="#{_msgs['actions.extendUser.confirm']}" />
+
+				<p:commandButton type="button" style="display: inline-block"
+					icon="ui-icon-cancel" value="#{_msgs['actions.extendUser.cancel']}"
+					onclick="window.close()" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.licensing.internal.LicenseParserImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.update.LicenseParser"/>
+    </service>
+    <reference name="UpdateTrustConfig" interface="eu.agno3.runtime.update.UpdateTrustConfiguration" cardinality="1..1" policy="static" bind="setUpdateTrustConfig" unbind="unsetUpdateTrustConfig"/>
+    <reference name="PKCS7Verifier" interface="eu.agno3.runtime.crypto.pkcs7.PKCS7Verifier" cardinality="1..1" policy="static" bind="setPKCS7Verifier" unbind="unsetPKCS7Verifier"/>
+    <implementation class="eu.agno3.runtime.licensing.internal.LicenseParserImpl"/>
+</scr:component>

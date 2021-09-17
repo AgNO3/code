@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="equinox-runtime-feature"
+      label="AgNO3 Equinox Runtime"
+      version="0.0.28"
+      provider-name="AgNO3 GmbH &amp; Co. KG"
+      os="linux">
+
+   <includes
+         id="deps-equinox-feature"
+         version="3.12.0.AG4"/>
+
+   <plugin
+         id="eu.agno3.javax-versions.fragment"
+         download-size="0"
+         install-size="0"
+         version="0.0.18"
+         fragment="true"
+         unpack="false"/>
+
+</feature>

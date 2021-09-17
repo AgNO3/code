@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:f="http://java.sun.com/jsf/core" template="/tpl/common/raw.xhtml">
+	<ui:param name="subtitle"
+		value="#{msgs.formatEL('config.default.add.titleFmt', structureViewContext.selectedObject.displayName)}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="anchor"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="templateAddForm">
+			<p:fieldset
+				legend="#{msgs.formatEL('config.default.add.titleFmt', structureViewContext.selectedObject.displayName)}">
+				<p:messages autoUpdate="true" showDetail="true" />
+
+				<ag:simpleField inputId="objectType"
+					label="#{_gui['config.default.add.templateType.label']}"
+					description="#{_gui['config.default.add.templateType.description']}">
+					<p:selectOneMenu id="objectType"
+						value="#{defaultAddContext.objectTypeName}" required="true">
+						<f:selectItem
+							itemLabel="#{_gui['config.default.add.templateType.select']}"
+							noSelectionOption="true" />
+						<f:selectItems value="#{objectTypeProvider.objectTypes}" var="itm"
+							itemValue="#{itm}"
+							itemLabel="#{configLocalizationProvider.getTypeName(itm)}" />
+					</p:selectOneMenu>
+				</ag:simpleField>
+
+				<ag:simpleField inputId="object"
+					label="#{_gui['config.default.add.object.label']}"
+					description="#{_gui['config.default.add.object.description']}">
+					<p:selectOneMenu id="object" value="#{defaultAddContext.object}"
+						required="true">
+						<f:selectItem
+							itemLabel="#{_gui['config.default.add.object.select']}"
+							noSelectionOption="true" />
+					</p:selectOneMenu>
+				</ag:simpleField>
+
+				<div class="buttons">
+					<p:commandButton icon="ui-icon-check"
+						action="#{defaultsController.setDefault(structureViewContext.selectedObject, defaultAddContext.object)}"
+						value="#{_gui['config.default.add.confirm']}" />
+
+					<p:commandButton immediate="true" icon="ui-icon-cancel"
+						action="#{structureUtil.getOutcomeForObjectOverview(structureViewContext.selectedObject)}"
+						value="#{_gui['config.default.add.confirm']}" />
+				</div>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

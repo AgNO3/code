@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.system.backup.msg"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:system:backup:msg">
+		<xml-ns prefix="sbm" namespace-uri="urn:agno3:model:1.0:system:backup:msg" />
+		<xml-ns prefix="sb" namespace-uri="urn:agno3:model:1.0:system:backup" />
+		<xml-ns prefix="m" namespace-uri="urn:agno3:message:1.0:base" />
+	</xml-schema>
+
+	<java-types>
+		<java-type name="BackupListRequest" xml-accessor-type="NONE">
+			<xml-type name="backupListRequestType" />
+			<xml-root-element name="backupListRequest" />
+
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="BackupRemoveRequest">
+			<xml-type name="backupRemoveRequestType" />
+			<xml-root-element name="backupRemoveRequest" />
+
+			<java-attributes>
+				<xml-element name="backup" java-attribute="backupId">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.UUIDAdapter" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="BackupListResponse" xml-accessor-type="NONE">
+			<xml-type name="backupListResponseType" />
+			<xml-root-element name="backupListResponse" />
+			
+			<java-attributes>
+				<xml-element name="backup" java-attribute="backups">
+					<xml-element-wrapper name="backups" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+	</java-types>
+</xml-bindings>

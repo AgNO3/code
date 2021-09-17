@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="realmName" path="realmName"
+		readOnlyIfPersistent="true"
+		update="@composite:@parent:realmManageField:realmManageButton">
+		<p:inputText id="realmName" value="#{current.realmName}">
+			<p:ajax event="change"
+				update="@composite:@parent:realmManageField:realmManageButton" />
+		</p:inputText>
+	</orch:objectFieldEditor>
+
+	<ag:simpleField styleClass="noLabel" id="realmManageField"
+		onlyIf="#{configContextUtil.isInstance(configContext)}">
+		<ag:dialogOpenButton icon="ui-icon-key" id="realmManageButton"
+			dialog="/realms/manageDialog.xhtml?instance=#{configContextUtil.getInstance(configContext).id}&amp;selectRealm=#{realmConfigBean.getRealmName(outerWrapper, 'urn:agno3:objects:1.0:realms:krb')}"
+			disabled="#{empty realmConfigBean.getRealmName(outerWrapper, 'urn:agno3:objects:1.0:realms:krb') or not configContextUtil.isOnline(configContext)}"
+			closable="true"
+			title="#{configContextUtil.getDisabledMessage(configContext)}"
+			value="#{_gui['realms.manage.krb']}">
+			<p:ajax event="return" />
+		</ag:dialogOpenButton>
+	</ag:simpleField>
+
+	<orch:objectFieldEditor inputId="securityLevel" minLevel="2"
+		readOnlyValueMapped="#{realmConfigBean.translateSecurityLevel}"
+		path="securityLevel">
+		<p:selectOneMenu id="securityLevel" value="#{current.securityLevel}">
+			<f:selectItems value="#{realmConfigBean.securityLevels}" var="level"
+				itemValue="#{level}"
+				itemLabel="#{realmConfigBean.translateSecurityLevel(level)}"
+				itemDescription="#{realmConfigBean.translateSecurityLevelDescription(level)}" />
+		</p:selectOneMenu>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="maximumTicketLifetime" minLevel="2"
+		readOnlyValueMapper="#{dateFormatter.formatDurationObject}"
+		path="maximumTicketLifetime">
+		<ag:inputDuration id="maximumTicketLifetime"
+			value="#{current.maximumTicketLifetime}" minUnit="hours"
+			maxUnit="days" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="overrideLocalHostname" minLevel="2"
+		path="overrideLocalHostname">
+		<p:inputText id="overrideLocalHostname"
+			value="#{current.overrideLocalHostname}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="realmType" path="realmType">
+		<p:selectOneMenu id="realmType" value="#{current.realmType}">
+			<f:selectItems value="#{krbRealmConfigBean.realmTypes}" var="type"
+				itemLabel="#{krbRealmConfigBean.translateRealmType(type)}" />
+		</p:selectOneMenu>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="kdcs" path="kdcs" collection="true"
+		minLevel="2">
+		<ag:listEditor id="kdcs" value="#{current.kdcs}">
+			<p:column style="width: 70%">
+				<p:inputText style="width: 100%;" id="kdc"
+					label="#{_gui['realms.manage.kdc.label']}" value="#{item.value}" />
+				<p:message for="kdc" />
+			</p:column>
+		</ag:listEditor>
+	</orch:objectFieldEditor>
+
+
+	<orch:objectFieldEditor inputId="domainMappings" path="domainMappings"
+		collection="true" minLevel="3">
+		<ag:listEditor id="domainMappings" value="#{current.domainMappings}">
+			<p:column style="width: 70%">
+				<p:inputText style="width: 100%;" id="mappedDomain"
+					label="#{_gui['realms.manage.mappedDomain.label']}"
+					value="#{item.value}" />
+				<p:message for="mappedDomain" />
+			</p:column>
+		</ag:listEditor>
+	</orch:objectFieldEditor>
+
+	<p:fieldset styleClass="objectEditor"
+		legend="#{configLocalizationProvider.getFieldName('urn:agno3:objects:1.0:realms:krb', 'importKeytabs')}">
+		<orch:multiObjectEditor
+			objectType="urn:agno3:objects:1.0:realms:keytab"
+			context="#{configContext}" path="importKeytabs"
+			subTemplate="#{isTemplate}" readOnly="#{isReadOnly}"
+			listLabel="#{realmKeytabEntryBean.labelFor}"
+			setComparator="#{realmKeytabEntryBean.comparator}"
+			collectionType="set" clone="#{realmKeytabEntryBean.cloneObject}" />
+	</p:fieldset>
+</ui:composition>

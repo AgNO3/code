@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.runtime.transaction.internal.TransactionManagerRegistration" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="org.osgi.util.tracker.ServiceTrackerCustomizer"/>
+    </service>
+    <implementation class="eu.agno3.runtime.transaction.internal.TransactionManagerRegistration"/>
+</scr:component>

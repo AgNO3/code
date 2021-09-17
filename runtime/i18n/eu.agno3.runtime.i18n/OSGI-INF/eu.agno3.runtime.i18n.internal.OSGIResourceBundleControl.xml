@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.runtime.i18n.internal.OSGIResourceBundleControl" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="java.util.ResourceBundle$Control"/>
+    </service>
+    <implementation class="eu.agno3.runtime.i18n.internal.OSGIResourceBundleControl"/>
+</scr:component>

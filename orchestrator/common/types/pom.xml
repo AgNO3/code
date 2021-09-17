@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.orchestrator.common</groupId>
+    <artifactId>common-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../common-parent/</relativePath>
+  </parent>
+  <artifactId>types</artifactId>
+  <packaging>pom</packaging>
+  <name>Orchestrator Common Types Module</name>
+  <modules>
+  	<module>eu.agno3.orchestrator.types.net</module>
+  	<module>eu.agno3.orchestrator.types.net.test</module>
+  	<module>eu.agno3.orchestrator.types</module>
+	<module>eu.agno3.orchestrator.types.entities</module>
+  	<module>types-feature</module>
+
+	<module>jsf</module>
+
+  </modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<configuration>
+					<bundleStartLevel combine.children="append">
+
+						<bundle>
+							<id>org.eclipse.equinox.event</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.xml</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.xml.schema</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.xml.binding</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+					</bundleStartLevel>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

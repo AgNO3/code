@@ -1,0 +1,27 @@
+Bundle-SymbolicName: eu.agno3.runtime.configloader
+Bundle-Version: 0.0.46
+Bundle-Name: Configuration Loader
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.runtime.configloader.contribs;version="0.0.2",
+ eu.agno3.runtime.configloader.file;version="0.0.10",
+ eu.agno3.runtime.jmx;version="0.0.6";resolution:=optional,
+ eu.agno3.runtime.ldap.filter;version="0.0.6",
+ eu.agno3.runtime.util.osgi;version="0.0.8",
+ org.apache.commons.collections4;version="4.0.0",
+ org.apache.commons.collections4.map;version="4.0.0",
+ org.apache.commons.collections4.multimap;version="4.1.0",
+ org.apache.commons.lang3;version="3.3.2",
+ org.apache.log4j;provider=paxlogging;version="1.2.15",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.framework.wiring;version="1.1.0",
+ org.osgi.service.cm;version="1.4.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.osgi.util.tracker;version="1.5.1"
+Service-Component: OSGI-INF/*.xml
+Export-Package: eu.agno3.runtime.configloader;version="0.0.46",
+ eu.agno3.runtime.configloader.contribs;version="0.0.46";uses:="org.osgi.framework,eu.agno3.runtime.configloader",
+ eu.agno3.runtime.configloader.file;version="0.0.46";uses:="org.osgi.framework",
+ eu.agno3.runtime.configloader.jmx

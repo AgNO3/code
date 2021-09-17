@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<p:outputPanel id="jobTablePanel" style="overflow-y: scroll; height: 300px;">
+		<p:dataTable id="jobTable" value="#{jobsTable.model}"
+			styleClass="jobTable" style="width: 100%; margin: 0"
+			scrollable="false" var="info" lazy="true" paginator="false" rows="8"
+			rowKey="#{info.jobId}" selection="#{jobsTable.selected}"
+			paginatorPosition="bottom" paginatorAlwaysVisible="false">
+
+			<f:facet name="emptyMessage">#{_gui['console.jobs.noJobs']}</f:facet>
+
+			<p:column style="width: 1em" styleClass="toggler">
+				<div jsf:data-jobId="#{info.jobId}" />
+				<p:rowToggler />
+			</p:column>
+
+			<p:column style="width: 10%"
+				headerText="#{_gui['console.jobs.state']}" styleClass="jobState">
+				<h:outputText value="#{jobDisplay.getStateLabel(info)}" />
+			</p:column>
+
+			<p:column headerText="#{_gui['console.jobs.target']}"
+				styleClass="jobTarget">
+				<h:outputText value="#{info.targetDisplayName}" />
+			</p:column>
+
+			<p:column headerText="#{_gui['console.jobs.owner']}"
+				styleClass="jobOwner">
+				<h:outputText value="#{jobDisplay.getDisplayOwner(info)}" />
+			</p:column>
+
+			<p:column headerText="#{_gui['console.jobs.jobType']}"
+				styleClass="jobType">
+				<h:outputText value="#{jobDisplay.getType(info)}" />
+			</p:column>
+
+			<p:column style="width: 15%"
+				headerText="#{_gui['console.jobs.progress']}"
+				styleClass="jobProgress">
+				<p:progressBar value="#{info.progress.progress}"
+					labelTemplate="{value}%" />
+			</p:column>
+
+			<p:column style="width: 6em">
+				<p:commandButton image="ui-icon-closethick"
+					rendered="#{not jobDisplay.isFinished(info)}"
+					title="#{_gui['console.jobs.cancelJob']}"
+					action="#{jobController.cancel(info.jobId)}" update="jobTable" />
+
+				<ag:dialogOpenButton image="ui-icon-script" closable="true"
+					title="#{_gui['console.jobs.showLog']}"
+					dialog="/jobs/showJobDetailDialog.xhtml?jobId=#{info.jobId}">
+					<p:ajax event="return" />
+				</ag:dialogOpenButton>
+
+
+			</p:column>
+
+			<p:rowExpansion>
+				<dl>
+					<dt>
+						<h:outputText value="#{_gui['console.jobs.jobId']}" />
+					</dt>
+					<dd>
+						<h:outputText value="#{info.jobId}" />
+					</dd>
+				</dl>
+				<dl>
+					<dt>
+						<h:outputText value="#{_gui['console.jobs.queuedTime']}" />
+					</dt>
+					<dd>
+						<h:outputText
+							value="#{dateTimeUtil.formatDateTime(info.queuedTime)}" />
+					</dd>
+				</dl>
+				<dl>
+					<dt>
+						<h:outputText value="#{_gui['console.jobs.startedTime']}" />
+					</dt>
+					<dd>
+						<h:outputText
+							value="#{dateTimeUtil.formatDateTime(info.startedTime)}" />
+					</dd>
+				</dl>
+				<dl>
+					<dt>
+						<h:outputText value="#{_gui['console.jobs.finishedTime']}" />
+					</dt>
+					<dd>
+						<h:outputText
+							value="#{dateTimeUtil.formatDateTime(info.finishedTime)}" />
+					</dd>
+				</dl>
+			</p:rowExpansion>
+		</p:dataTable>
+	</p:outputPanel>
+
+	<p:remoteCommand name="refreshJobTable"
+		actionListener="#{jobsTable.refresh}" update="jobTablePanel"
+		process="jobTablePanel" delay="1000" />
+	<orch:event pattern="/jobs/(progress|state)/(.*)">
+				//<![CDATA[
+					var type = match[1];
+					var jobId = match[2];
+					console.log(type + " for " + jobId);
+
+					var jobRow = $(
+							'.jobTable div[data-jobId="'
+									+ jobId + '"]').parent()
+							.parent();
+
+					if (!jobRow.length) {
+						console.log("job not found in table "
+								+ jobId);
+					} 
+					
+					var updateProgress = function(progress) {
+						var progressWidget = OrchUtils.getWidget(
+							jobRow.find(".jobProgress .ui-progressbar").first());
+						progressWidget.setValue(progress);
+					};
+
+					if (jobRow.length && type == "progress") {
+						var progressVal = payload
+								.match(/^([\d\.]+)\//);
+						updateProgress(Math.round(progressVal[1] * 1));
+					} else if (jobRow.length && type == "state") {
+						jobRow.find(".jobState").first()
+								.text(payload);
+						if ( payload == "FINISHED" ) {
+							updateProgress(100);
+						} else if ( payload == "FAILED" ) {
+							updateProgress(100);
+						}
+					} else if (!jobRow.length
+							&& type == "state"
+							&& payload == "QUEUED") {
+						console.log("New job " + jobId);
+						setTimeout(refreshJobTable, 1000);
+					}
+				//]]>
+	</orch:event>
+</ui:composition>

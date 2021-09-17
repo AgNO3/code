@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.orchestrator.gui.server.internal.EagerServiceTracker" activate="activate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.gui.server.internal.EagerServiceTracker"/>
+    </service>
+    <reference name="ServiceDescriptor" interface="eu.agno3.runtime.ws.common.SOAPServiceClientDescriptor" cardinality="0..n" policy="static" bind="bindServiceDescriptor" unbind="unbindServiceDescriptor"/>
+    <reference name="ActiveWebService" interface="eu.agno3.runtime.ws.server.ActiveWebService" cardinality="0..n" policy="dynamic" bind="bindActiveWebService" unbind="unbindActiveWebService"/>
+    <implementation class="eu.agno3.orchestrator.gui.server.internal.EagerServiceTracker"/>
+</scr:component>

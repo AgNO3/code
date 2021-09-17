@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0">
+
+	<p:outputPanel rendered="#{rendered}" styleClass="${styleClass}"
+		style="display: inline-block; text-align: center; overflow: hidden; ${style}">
+		<div title="#{longInfo}">
+			<h:outputText value="#{shortInfo}" />
+			<div style="height: 5px; width: 100%">
+				<h:outputText
+					style="width: #{usedPercent}%; height: 5px; background-color: #{quotaColorBean.getUsedColor(usedPercent)}; display: inline-block; " />
+				<h:outputText
+					style="width: #{100 - usedPercent}%; height: 5px; background-color: #{quotaColorBean.getFreeColor(usedPercent)}; display: inline-block; " />
+			</div>
+		</div>
+	</p:outputPanel>
+</ui:composition>
+

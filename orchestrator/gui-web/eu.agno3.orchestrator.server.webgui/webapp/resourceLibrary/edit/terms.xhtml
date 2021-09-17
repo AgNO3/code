@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	template="/tpl/common/template.xhtml">
+	<ui:param name="subtitle" value="#{resourceLibraryEditorBean.title}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="at"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+			<f:viewParam name="anchor"
+				value="#{structureViewContext.selectedAnchorId}" />
+			<f:viewParam name="library"
+				value="#{resourceLibraryEditorBean.selectedLibraryId}"
+				required="false" />
+			<f:viewParam name="createType"
+				value="#{resourceLibraryEditorBean.createType}" required="false" />
+			<f:viewParam name="createName"
+				value="#{resourceLibraryEditorBean.createName}" required="false" />
+			<f:viewParam name="initialTermsId"
+				value="#{termsLibraryFileEditorBean.initialTermsId}"
+				required="false" />
+
+			<f:event listener="#{resourceLibraryEditorBean.init}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form enctype="multipart/form-data">
+			<ui:include src="/tpl/resourceLibrary/edit/terms.inc.xhtml" />
+		</h:form>
+	</ui:define>
+</ui:composition>

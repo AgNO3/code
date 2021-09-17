@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.server.security.internal.CASProxyAuthenticationRealm">
+    <service servicefactory="false">
+        <provide interface="org.apache.shiro.realm.Realm"/>
+        <provide interface="org.apache.shiro.realm.AuthorizingRealm"/>
+    </service>
+    <reference name="TLSContext" interface="eu.agno3.runtime.crypto.tls.TLSContext" cardinality="1..1" policy="static" target="(subsystem=api/casClient)" bind="setTLSContext" unbind="unsetTLSContext"/>
+    <reference name="AuthConfig" interface="eu.agno3.orchestrator.server.security.internal.ServerAuthConfiguration" cardinality="1..1" policy="static" bind="setAuthConfig" unbind="unsetAuthConfig"/>
+    <implementation class="eu.agno3.orchestrator.server.security.internal.CASProxyAuthenticationRealm"/>
+</scr:component>

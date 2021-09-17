@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="proxyType" path="proxyType"
+		readOnlyValueMapper="#{webReverseProxyConfigBean.translateProxyType}"
+		update="@composite:@parent:overrideURIPanel, @composite:@parent:trustedProxiesPanel, @composite:@parent:customHeaderPanel, @composite:@parent:sslHeaderPanel">
+		<p:selectOneMenu id="proxyType" value="#{current.proxyType}">
+			<f:selectItems value="#{webReverseProxyConfigBean.proxyTypes}"
+				var="type" itemValue="#{type}"
+				itemLabel="#{webReverseProxyConfigBean.translateProxyType(type)}" />
+			<p:ajax event="change"
+				update="@composite:@parent:overrideURIPanel, @composite:@parent:trustedProxiesPanel, @composite:@parent:customHeaderPanel, @composite:@parent:sslHeaderPanel" />
+		</p:selectOneMenu>
+	</orch:objectFieldEditor>
+
+
+	<p:outputPanel id="overrideURIPanel">
+		<orch:objectFieldEditor
+			onlyIf="#{(not empty current.proxyType and webReverseProxyConfigBean.isNoneType(current.proxyType))
+				 or (empty current.proxyType and webReverseProxyConfigBean.isNoneType(defaults.proxyType))}"
+			inputId="overrideURI" path="overrideURI">
+			<p:inputText id="overrideURI" converter="#{uriConverter}"
+				value="#{current.overrideURI}" />
+		</orch:objectFieldEditor>
+	</p:outputPanel>
+
+	<p:outputPanel id="trustedProxiesPanel">
+		<orch:objectFieldEditor
+			onlyIf="#{(not empty current.proxyType and not webReverseProxyConfigBean.isNoneType(current.proxyType))
+				 or (empty current.proxyType and not webReverseProxyConfigBean.isNoneType(defaults.proxyType))}"
+			inputId="trustedProxies" path="trustedProxies" collections="true">
+			<ag:setEditor id="trustedProxies"
+				factoryMethod="#{setEditorUtilBean.makeEmptyString}"
+				comparator="#{networkTypeUtil.getNetworkSpecificationComparator()}"
+				value="#{current.trustedProxies}">
+				<p:column>
+					<p:inputText converter="#{networkSpecificationOrAddressConverter}"
+						value="#{item.value}">
+						<f:attribute name="exactIfNotPrefix" value="true" />
+					</p:inputText>
+				</p:column>
+			</ag:setEditor>
+		</orch:objectFieldEditor>
+	</p:outputPanel>
+
+	<p:outputPanel id="customHeaderPanel">
+		<p:outputPanel
+			rendered="#{(not empty current.proxyType and webReverseProxyConfigBean.isCustomType(current.proxyType))
+				 or (empty current.proxyType and webReverseProxyConfigBean.isCustomType(defaults.proxyType))}">
+			<orch:objectFieldEditor inputId="forwardedHostHeader"
+				path="forwardedHostHeader">
+				<p:selectOneMenu id="forwardedHostHeader" style="width: 15em"
+					value="#{current.forwardedHostHeader}" editable="true">
+					<f:selectItem itemValue="X-Forwarded-Host"
+						itemLabel="${'X-Forwarded-Host'}" />
+					<f:selectItem itemValue="Host" itemLabel="${'Host'}" />
+				</p:selectOneMenu>
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="forwardedPortHeader"
+				path="forwardedPortHeader">
+				<p:selectOneMenu id="forwardedPortHeader" style="width: 15em"
+					value="#{current.forwardedPortHeader}" editable="true">
+					<f:selectItem itemValue="X-Forwarded-Port"
+						itemLabel="${'X-Forwarded-Port'}" />
+				</p:selectOneMenu>
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="forwardedRemoteAddrHeader"
+				path="forwardedRemoteAddrHeader">
+				<p:selectOneMenu id="forwardedRemoteAddrHeader" style="width: 15em"
+					value="#{current.forwardedRemoteAddrHeader}" editable="true">
+					<f:selectItem itemValue="X-Forwarded-For"
+						itemLabel="${'X-Forwarded-For'}" />
+					<f:selectItem itemValue="X-Real-IP" itemLabel="${'X-Real-IP'}" />
+				</p:selectOneMenu>
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="forwardedSSLMatchHeader"
+				path="forwardedSSLMatchHeader">
+				<p:selectOneMenu id="forwardedSSLMatchHeader" style="width: 15em"
+					value="#{current.forwardedSSLMatchHeader}" editable="true">
+					<f:selectItem itemValue="X-Forwarded-Proto"
+						itemLabel="${'X-Forwarded-Proto'}" />
+					<f:selectItem itemValue="X-Forwarded-Protocol"
+						itemLabel="${'X-Forwarded-Protocol'}" />
+					<f:selectItem itemValue="Front-End-Https"
+						itemLabel="${'Front-End-Https'}" />
+				</p:selectOneMenu>
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="forwardedSSLMatchValue"
+				path="forwardedSSLMatchValue">
+				<p:selectOneMenu id="forwardedSSLMatchValue" style="width: 15em"
+					value="#{current.forwardedSSLMatchValue}" editable="true">
+					<f:selectItem itemValue="https" itemLabel="${'https'}" />
+					<f:selectItem itemValue="on" itemLabel="${'on'}" />
+				</p:selectOneMenu>
+			</orch:objectFieldEditor>
+
+		</p:outputPanel>
+	</p:outputPanel>
+
+
+	<p:outputPanel id="sslHeaderPanel">
+		<p:outputPanel
+			rendered="#{(not empty current.proxyType and not webReverseProxyConfigBean.isNoneType(current.proxyType))
+				 or (empty current.proxyType and not webReverseProxyConfigBean.isNoneType(defaults.proxyType))}">
+
+			<orch:objectFieldEditor inputId="forwardedSSLCiphersType"
+				path="forwardedSSLCiphersType"
+				readOnlyValueMapper="#{webReverseProxyConfigBean.translateProxySSLCiphersType}"
+				update="@composite:@parent:forwardedSSLCiphersHeaderField">
+				<p:selectOneMenu id="forwardedSSLCiphersType"
+					value="#{current.forwardedSSLCiphersType}">
+					<f:selectItems
+						value="#{webReverseProxyConfigBean.proxySSLCiphersTypes}"
+						var="type" itemValue="#{type}"
+						itemLabel="#{webReverseProxyConfigBean.translateProxySSLCiphersType(type)}" />
+					<p:ajax event="change"
+						update="@composite:@parent:forwardedSSLCiphersHeaderField" />
+				</p:selectOneMenu>
+			</orch:objectFieldEditor>
+
+			<p:outputPanel id="forwardedSSLCiphersHeaderField">
+				<p:outputPanel
+					rendered="#{(not empty current.forwardedSSLCiphersType and not 
+						webReverseProxyConfigBean.isNoneSSLType(current.forwardedSSLCiphersType))
+						 or (empty current.forwardedSSLCiphersType and not 
+						 webReverseProxyConfigBean.isNoneSSLType(defaults.forwardedSSLCiphersType))}">
+					<orch:objectFieldEditor inputId="forwardedSSLCiphersHeader"
+						path="forwardedSSLCiphersHeader">
+						<p:selectOneMenu id="forwardedSSLCiphersHeader"
+							style="width: 15em" value="#{current.forwardedSSLCiphersHeader}"
+							editable="true" />
+					</orch:objectFieldEditor>
+				</p:outputPanel>
+			</p:outputPanel>
+		</p:outputPanel>
+	</p:outputPanel>
+
+</ui:composition>

@@ -1,0 +1,2813 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+	<changeSet author="mbechler (generated)" id="1443185760966-1">
+		<createTable tableName="config_fileshare">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ADVANCEDCONFIGURATION_ID" type="BINARY(16)" />
+			<column name="AUTHCONFIGURATION_ID" type="BINARY(16)" />
+			<column name="CONTENTCONFIGURATION_ID" type="BINARY(16)" />
+			<column name="NOTIFICATIONCONFIGURATION_ID" type="BINARY(16)" />
+			<column name="SECURITYPOLICYCONFIGURATION_ID" type="BINARY(16)" />
+			<column name="STORAGECONFIGURATION_ID" type="BINARY(16)" />
+			<column name="USERCONFIGURATION_ID" type="BINARY(16)" />
+			<column name="WEBCONFIGURATION_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-2">
+		<createTable tableName="config_fileshare_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ADVANCEDCONFIGURATION_ID" type="BINARY(16)" />
+			<column name="AUTHCONFIGURATION_ID" type="BINARY(16)" />
+			<column name="CONTENTCONFIGURATION_ID" type="BINARY(16)" />
+			<column name="NOTIFICATIONCONFIGURATION_ID" type="BINARY(16)" />
+			<column name="SECURITYPOLICYCONFIGURATION_ID" type="BINARY(16)" />
+			<column name="STORAGECONFIGURATION_ID" type="BINARY(16)" />
+			<column name="USERCONFIGURATION_ID" type="BINARY(16)" />
+			<column name="WEBCONFIGURATION_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-3">
+		<createTable tableName="config_fileshare_advanced">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="RUNTIMECONFIGURATION_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-4">
+		<createTable tableName="config_fileshare_advanced_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="RUNTIMECONFIGURATION_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-5">
+		<createTable tableName="config_fileshare_auth">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="AUTHENTICATORS_ID" type="BINARY(16)" />
+			<column name="ROLECONFIG_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-6">
+		<createTable tableName="config_fileshare_auth_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="AUTHENTICATORS_ID" type="BINARY(16)" />
+			<column name="ROLECONFIG_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-7">
+		<createTable tableName="config_fileshare_auth_role_nosync">
+			<column name="CONFIG_FILESHARE_AUTH_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="NOSYNCHRONIZATIONROLES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-8">
+		<createTable tableName="config_fileshare_auth_role_nosync_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_FILESHARE_AUTH_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="NOSYNCHRONIZATIONROLES" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-9">
+		<createTable tableName="config_fileshare_content">
+			<column name="ALLOWMIMETYPECHANGES" type="BOOLEAN" />
+			<column name="FALLBACKMIMETYPE" type="VARCHAR(255)" />
+			<column name="USEUSERSUPPLIEDTYPEINFO" type="BOOLEAN" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PREVIEWCONFIG_ID" type="BINARY(16)" />
+			<column name="SCANCONFIG_ID" type="BINARY(16)" />
+			<column name="SEARCHCONFIG_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-10">
+		<createTable tableName="config_fileshare_content_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ALLOWMIMETYPECHANGES" type="BOOLEAN" />
+			<column name="FALLBACKMIMETYPE" type="VARCHAR(255)" />
+			<column name="USEUSERSUPPLIEDTYPEINFO" type="BOOLEAN" />
+			<column name="PREVIEWCONFIG_ID" type="BINARY(16)" />
+			<column name="SCANCONFIG_ID" type="BINARY(16)" />
+			<column name="SEARCHCONFIG_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-11">
+		<createTable tableName="config_fileshare_content_preview">
+			<column name="LIMITPREVIEWFILESIZE" type="BOOLEAN" />
+			<column name="MAXPREVIEWFILESIZE" type="BIGINT" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-12">
+		<createTable tableName="config_fileshare_content_preview_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="LIMITPREVIEWFILESIZE" type="BOOLEAN" />
+			<column name="MAXPREVIEWFILESIZE" type="BIGINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-13">
+		<createTable tableName="config_fileshare_content_quotaRule">
+			<column name="MATCHROLE" type="VARCHAR(255)" />
+			<column name="QUOTA" type="BIGINT" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-14">
+		<createTable tableName="config_fileshare_content_quotaRule_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="MATCHROLE" type="VARCHAR(255)" />
+			<column name="QUOTA" type="BIGINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-15">
+		<createTable tableName="config_fileshare_content_scan">
+			<column name="ENABLEICAP" type="BOOLEAN" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ICAPCONFIG_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-16">
+		<createTable tableName="config_fileshare_content_scan_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ENABLEICAP" type="BOOLEAN" />
+			<column name="ICAPCONFIG_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-17">
+		<createTable tableName="config_fileshare_content_search">
+			<column name="SEARCHALLOWPAGING" type="BOOLEAN" />
+			<column name="SEARCHDISABLED" type="BOOLEAN" />
+			<column name="SEARCHPAGESIZE" type="INT" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-18">
+		<createTable tableName="config_fileshare_content_search_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="SEARCHALLOWPAGING" type="BOOLEAN" />
+			<column name="SEARCHDISABLED" type="BOOLEAN" />
+			<column name="SEARCHPAGESIZE" type="INT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-19">
+		<createTable tableName="config_fileshare_content_types_blacklist">
+			<column name="CONFIG_FILESHARE_CONTENT_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="BLACKLISTMIMETYPES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-20">
+		<createTable tableName="config_fileshare_content_types_blacklist_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_FILESHARE_CONTENT_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="BLACKLISTMIMETYPES" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-21">
+		<createTable tableName="config_fileshare_content_types_nosandbox">
+			<column name="CONFIG_FILESHARE_CONTENT_PREVIEW_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PREVIEWNOSANDBOXMIMETYPES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-22">
+		<createTable tableName="config_fileshare_content_types_nosandbox_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_FILESHARE_CONTENT_PREVIEW_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PREVIEWNOSANDBOXMIMETYPES" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-23">
+		<createTable tableName="config_fileshare_content_types_relaxed_csp">
+			<column name="CONFIG_FILESHARE_CONTENT_PREVIEW_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PREVIEWRELAXEDCSPMIMETYPES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-24">
+		<createTable tableName="config_fileshare_content_types_relaxed_csp_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_FILESHARE_CONTENT_PREVIEW_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PREVIEWRELAXEDCSPMIMETYPES" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-25">
+		<createTable tableName="config_fileshare_content_types_safe">
+			<column name="CONFIG_FILESHARE_CONTENT_PREVIEW_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PREVIEWSAFEMIMETYPES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-26">
+		<createTable tableName="config_fileshare_content_types_safe_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_FILESHARE_CONTENT_PREVIEW_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PREVIEWSAFEMIMETYPES" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-27">
+		<createTable tableName="config_fileshare_content_types_view">
+			<column name="CONFIG_FILESHARE_CONTENT_PREVIEW_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PREVIEWMIMETYPES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-28">
+		<createTable tableName="config_fileshare_content_types_view_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_FILESHARE_CONTENT_PREVIEW_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PREVIEWMIMETYPES" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-29">
+		<createTable tableName="config_fileshare_content_types_whitelist">
+			<column name="CONFIG_FILESHARE_CONTENT_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="WHITELISTMIMETYPES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-30">
+		<createTable tableName="config_fileshare_content_types_whitelist_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_FILESHARE_CONTENT_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="WHITELISTMIMETYPES" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-31">
+		<createTable tableName="config_fileshare_notify">
+			<column name="ADMINCONTACTADDRESS" type="VARCHAR(255)" />
+			<column name="DEFAULTNOTIFICATIONLOCALE" type="VARCHAR(255)" />
+			<column name="DEFAULTSENDERADDRESS" type="VARCHAR(255)" />
+			<column name="DEFAULTSENDERNAME" type="VARCHAR(255)" />
+			<column name="EXPIRATIONNOTIFICATIONPERIOD" type="BIGINT" />
+			<column name="FOOTER" type="CLOB(255)" />
+			<column name="NOTIFICATIONDISABLED" type="BOOLEAN" />
+			<column name="TEMPLATELIBRARY" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-32">
+		<createTable tableName="config_fileshare_notify_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ADMINCONTACTADDRESS" type="VARCHAR(255)" />
+			<column name="DEFAULTNOTIFICATIONLOCALE" type="VARCHAR(255)" />
+			<column name="DEFAULTSENDERADDRESS" type="VARCHAR(255)" />
+			<column name="DEFAULTSENDERNAME" type="VARCHAR(255)" />
+			<column name="EXPIRATIONNOTIFICATIONPERIOD" type="BIGINT" />
+			<column name="FOOTER" type="CLOB(255)" />
+			<column name="NOTIFICATIONDISABLED" type="BOOLEAN" />
+			<column name="TEMPLATELIBRARY" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-33">
+		<createTable tableName="config_fileshare_notify_sendasuserdom">
+			<column name="CONFIG_FILESHARE_NOTIFY_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="SENDASUSERNOTIFICATIONDOMAINS" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-34">
+		<createTable tableName="config_fileshare_notify_sendasuserdom_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_FILESHARE_NOTIFY_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="SENDASUSERNOTIFICATIONDOMAINS" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-35">
+		<createTable tableName="config_fileshare_secpolicies">
+			<column name="DEFAULTENTITYLABEL" type="VARCHAR(255)" />
+			<column name="DEFAULTROOTLABEL" type="VARCHAR(255)" />
+			<column name="DEFAULTSHAREPASSWORDBITS" type="INT" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-36">
+		<createTable tableName="config_fileshare_secpolicies_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="DEFAULTENTITYLABEL" type="VARCHAR(255)" />
+			<column name="DEFAULTROOTLABEL" type="VARCHAR(255)" />
+			<column name="DEFAULTSHAREPASSWORDBITS" type="INT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-37">
+		<createTable tableName="config_fileshare_secpolicies_config_fileshare_secpolicy">
+			<column name="CONFIG_FILESHARE_SECPOLICIES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="POLICIES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-38">
+		<createTable
+			tableName="config_fileshare_secpolicies_config_fileshare_secpolicy_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_FILESHARE_SECPOLICIES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="POLICIES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-39">
+		<createTable
+			tableName="config_fileshare_secpolicies_config_fileshare_user_labelrule">
+			<column name="CONFIG_FILESHARE_SECPOLICIES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="USERLABELRULES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="IDX" type="INT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-40">
+		<createTable
+			tableName="config_fileshare_secpolicies_config_fileshare_user_labelrule_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_FILESHARE_SECPOLICIES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="USERLABELRULES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="IDX" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-41">
+		<createTable tableName="config_fileshare_secpolicy">
+			<column name="AFTERSHAREGRACEPERIOD" type="BIGINT" />
+			<column name="DEFAULTEXPIRATIONDURATION" type="BIGINT" />
+			<column name="DEFAULTSHARELIFETIME" type="BIGINT" />
+			<column name="DISALLOWWEBDAVACCESS" type="BOOLEAN" />
+			<column name="ENABLEDEFAULTEXPIRATION" type="BOOLEAN" />
+			<column name="ENABLESHAREEXPIRATION" type="BOOLEAN" />
+			<column name="LABEL" type="VARCHAR(255)" />
+			<column name="MAXIMUMEXPIRATIONDURATION" type="BIGINT" />
+			<column name="MAXIMUMSHARELIFETIME" type="BIGINT" />
+			<column name="MINTOKENPASSWORDENTROPY" type="INT" />
+			<column name="NOUSERTOKENPASSWORDS" type="BOOLEAN" />
+			<column name="REQUIRETOKENPASSWORD" type="BOOLEAN" />
+			<column name="RESTRICTEXPIRATIONDURATION" type="BOOLEAN" />
+			<column name="RESTRICTSHARELIFETIME" type="BOOLEAN" />
+			<column name="SORTPRIORITY" type="INT" />
+			<column name="TRANSPORTMINHASHBLOCKSIZE" type="INT" />
+			<column name="TRANSPORTMINKEYSIZE" type="INT" />
+			<column name="TRANSPORTREQUIREENCRYPTION" type="BOOLEAN" />
+			<column name="TRANSPORTREQUIREPFS" type="BOOLEAN" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-42">
+		<createTable tableName="config_fileshare_secpolicy_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="AFTERSHAREGRACEPERIOD" type="BIGINT" />
+			<column name="DEFAULTEXPIRATIONDURATION" type="BIGINT" />
+			<column name="DEFAULTSHARELIFETIME" type="BIGINT" />
+			<column name="DISALLOWWEBDAVACCESS" type="BOOLEAN" />
+			<column name="ENABLEDEFAULTEXPIRATION" type="BOOLEAN" />
+			<column name="ENABLESHAREEXPIRATION" type="BOOLEAN" />
+			<column name="LABEL" type="VARCHAR(255)" />
+			<column name="MAXIMUMEXPIRATIONDURATION" type="BIGINT" />
+			<column name="MAXIMUMSHARELIFETIME" type="BIGINT" />
+			<column name="MINTOKENPASSWORDENTROPY" type="INT" />
+			<column name="NOUSERTOKENPASSWORDS" type="BOOLEAN" />
+			<column name="REQUIRETOKENPASSWORD" type="BOOLEAN" />
+			<column name="RESTRICTEXPIRATIONDURATION" type="BOOLEAN" />
+			<column name="RESTRICTSHARELIFETIME" type="BOOLEAN" />
+			<column name="SORTPRIORITY" type="INT" />
+			<column name="TRANSPORTMINHASHBLOCKSIZE" type="INT" />
+			<column name="TRANSPORTMINKEYSIZE" type="INT" />
+			<column name="TRANSPORTREQUIREENCRYPTION" type="BOOLEAN" />
+			<column name="TRANSPORTREQUIREPFS" type="BOOLEAN" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-43">
+		<createTable tableName="config_fileshare_secpolicy_disallowrole">
+			<column name="CONFIG_FILESHARE_SECPOLICY_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DISALLOWROLES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-44">
+		<createTable tableName="config_fileshare_secpolicy_disallowrole_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_FILESHARE_SECPOLICY_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DISALLOWROLES" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-45">
+		<createTable tableName="config_fileshare_secpolicy_reqrole">
+			<column name="CONFIG_FILESHARE_SECPOLICY_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REQUIREANYROLE" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-46">
+		<createTable tableName="config_fileshare_secpolicy_reqrole_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_FILESHARE_SECPOLICY_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REQUIREANYROLE" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-47">
+		<createTable tableName="config_fileshare_secpolicy_stypes">
+			<column name="CONFIG_FILESHARE_SECPOLICY_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ALLOWEDSHARETYPES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-48">
+		<createTable tableName="config_fileshare_secpolicy_stypes_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_FILESHARE_SECPOLICY_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ALLOWEDSHARETYPES" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-49">
+		<createTable tableName="config_fileshare_storage">
+			<column name="FILESTORAGE" type="VARCHAR(255)" />
+			<column name="LOCALSTORAGE" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-50">
+		<createTable tableName="config_fileshare_storage_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="FILESTORAGE" type="VARCHAR(255)" />
+			<column name="LOCALSTORAGE" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-51">
+		<createTable tableName="config_fileshare_user">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="QUOTACONFIG_ID" type="BINARY(16)" />
+			<column name="SELFSERVICECONFIG_ID" type="BINARY(16)" />
+			<column name="USERTRUSTLEVELCONFIG_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-52">
+		<createTable tableName="config_fileshare_user_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="QUOTACONFIG_ID" type="BINARY(16)" />
+			<column name="SELFSERVICECONFIG_ID" type="BINARY(16)" />
+			<column name="USERTRUSTLEVELCONFIG_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-53">
+		<createTable tableName="config_fileshare_user_defroles">
+			<column name="CONFIG_FILESHARE_USER_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DEFAULTROLES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-54">
+		<createTable tableName="config_fileshare_user_defroles_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_FILESHARE_USER_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DEFAULTROLES" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-55">
+		<createTable tableName="config_fileshare_user_labelrule">
+			<column name="ASSIGNLABEL" type="VARCHAR(255)" />
+			<column name="MATCHROLE" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-56">
+		<createTable tableName="config_fileshare_user_labelrule_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ASSIGNLABEL" type="VARCHAR(255)" />
+			<column name="MATCHROLE" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-57">
+		<createTable tableName="config_fileshare_user_norootroles">
+			<column name="CONFIG_FILESHARE_USER_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="NOSUBJECTROOTROLES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-58">
+		<createTable tableName="config_fileshare_user_norootroles_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_FILESHARE_USER_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="NOSUBJECTROOTROLES" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-59">
+		<createTable tableName="config_fileshare_user_quota">
+			<column name="DISABLESIZETRACKINGWITHOUTQUOTA" type="BOOLEAN" />
+			<column name="ENABLEDEFAULTQUOTA" type="BOOLEAN" />
+			<column name="GLOBALDEFAULTQUOTA" type="BIGINT" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-60">
+		<createTable tableName="config_fileshare_user_quota_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="DISABLESIZETRACKINGWITHOUTQUOTA" type="BOOLEAN" />
+			<column name="ENABLEDEFAULTQUOTA" type="BOOLEAN" />
+			<column name="GLOBALDEFAULTQUOTA" type="BIGINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-61">
+		<createTable
+			tableName="config_fileshare_user_quota_config_fileshare_content_quotaRule">
+			<column name="CONFIG_FILESHARE_USER_QUOTA_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DEFAULTQUOTARULES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="IDX" type="INT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-62">
+		<createTable
+			tableName="config_fileshare_user_quota_config_fileshare_content_quotaRule_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_FILESHARE_USER_QUOTA_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DEFAULTQUOTARULES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="IDX" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-63">
+		<createTable tableName="config_fileshare_user_selfservice">
+			<column name="ALLOWINVITINGUSEREXTENSION" type="BOOLEAN" />
+			<column name="INVITATIONENABLED" type="BOOLEAN" />
+			<column name="INVITATIONTOKENLIFETIME" type="BIGINT" />
+			<column name="INVITATIONUSEREXPIRATION" type="BIGINT" />
+			<column name="INVITATIONUSEREXPIRES" type="BOOLEAN" />
+			<column name="LOCALPASSWORDRECOVERYENABLED" type="BOOLEAN" />
+			<column name="PASSWORDRECOVERYTOKENLIFETIME" type="BIGINT" />
+			<column name="REGISTRATIONENABLED" type="BOOLEAN" />
+			<column name="REGISTRATIONTOKENLIFETIME" type="BIGINT" />
+			<column name="REGISTRATIONUSEREXPIRATION" type="BIGINT" />
+			<column name="REGISTRATIONUSEREXPIRES" type="BOOLEAN" />
+			<column name="TRUSTINVITEDUSERNAMES" type="BOOLEAN" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-64">
+		<createTable tableName="config_fileshare_user_selfservice_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ALLOWINVITINGUSEREXTENSION" type="BOOLEAN" />
+			<column name="INVITATIONENABLED" type="BOOLEAN" />
+			<column name="INVITATIONTOKENLIFETIME" type="BIGINT" />
+			<column name="INVITATIONUSEREXPIRATION" type="BIGINT" />
+			<column name="INVITATIONUSEREXPIRES" type="BOOLEAN" />
+			<column name="LOCALPASSWORDRECOVERYENABLED" type="BOOLEAN" />
+			<column name="PASSWORDRECOVERYTOKENLIFETIME" type="BIGINT" />
+			<column name="REGISTRATIONENABLED" type="BOOLEAN" />
+			<column name="REGISTRATIONTOKENLIFETIME" type="BIGINT" />
+			<column name="REGISTRATIONUSEREXPIRATION" type="BIGINT" />
+			<column name="REGISTRATIONUSEREXPIRES" type="BOOLEAN" />
+			<column name="TRUSTINVITEDUSERNAMES" type="BOOLEAN" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-65">
+		<createTable tableName="config_fileshare_user_selfservice_invroles">
+			<column name="CONFIG_FILESHARE_USER_SELFSERVICE_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="INVITATIONUSERROLES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-66">
+		<createTable tableName="config_fileshare_user_selfservice_invroles_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_FILESHARE_USER_SELFSERVICE_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="INVITATIONUSERROLES" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-67">
+		<createTable tableName="config_fileshare_user_selfservice_regroles">
+			<column name="CONFIG_FILESHARE_USER_SELFSERVICE_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REGISTRATIONUSERROLES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-68">
+		<createTable tableName="config_fileshare_user_selfservice_regroles_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_FILESHARE_USER_SELFSERVICE_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REGISTRATIONUSERROLES" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-69">
+		<createTable tableName="config_fileshare_user_trustLevel">
+			<column name="COLOR" type="VARCHAR(255)" />
+			<column name="TITLE" type="VARCHAR(255)" />
+			<column name="TRUSTLEVELID" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-70">
+		<createTable tableName="config_fileshare_user_trustLevel_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="COLOR" type="VARCHAR(255)" />
+			<column name="TITLE" type="VARCHAR(255)" />
+			<column name="TRUSTLEVELID" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-71">
+		<createTable tableName="config_fileshare_user_trustLevel_msgs">
+			<column name="CONFIG_FILESHARE_USER_TRUSTLEVEL_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="MSG" type="VARCHAR(255)" />
+			<column name="LOCALE" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-72">
+		<createTable tableName="config_fileshare_user_trustLevel_msgs_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_FILESHARE_USER_TRUSTLEVEL_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="MSG" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="LOCALE" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-73">
+		<createTable tableName="config_fileshare_user_trustLevel_roles">
+			<column name="CONFIG_FILESHARE_USER_TRUSTLEVEL_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="MATCHROLES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-74">
+		<createTable tableName="config_fileshare_user_trustLevel_roles_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_FILESHARE_USER_TRUSTLEVEL_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="MATCHROLES" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-75">
+		<createTable tableName="config_fileshare_user_trustLevels">
+			<column name="GROUPTRUSTLEVEL" type="VARCHAR(255)" />
+			<column name="LINKTRUSTLEVEL" type="VARCHAR(255)" />
+			<column name="MAILTRUSTLEVEL" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-76">
+		<createTable tableName="config_fileshare_user_trustLevels_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="GROUPTRUSTLEVEL" type="VARCHAR(255)" />
+			<column name="LINKTRUSTLEVEL" type="VARCHAR(255)" />
+			<column name="MAILTRUSTLEVEL" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-77">
+		<createTable
+			tableName="config_fileshare_user_trustLevels_config_fileshare_user_trustLevel">
+			<column name="CONFIG_FILESHARE_USER_TRUSTLEVELS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="TRUSTLEVELS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-78">
+		<createTable
+			tableName="config_fileshare_user_trustLevels_config_fileshare_user_trustLevel_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_FILESHARE_USER_TRUSTLEVELS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="TRUSTLEVELS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-79">
+		<createTable tableName="config_fileshare_web">
+			<column name="ENABLEWEBDAV" type="BOOLEAN" />
+			<column name="INTENTTIMEOUT" type="BIGINT" />
+			<column name="OVERRIDEBASEURI" type="VARCHAR(255)" />
+			<column name="PERSESSIONINCOMPLETESIZELIMIT" type="BIGINT" />
+			<column name="PERUSERINCOMPLETESIZELIMIT" type="BIGINT" />
+			<column name="SESSIONINCOMPLETEEXPIREDURATION" type="BIGINT" />
+			<column name="THEMELIBRARY" type="VARCHAR(255)" />
+			<column name="USERINCOMPLETEEXPIREDURATION" type="BIGINT" />
+			<column name="WEBDAVALLOWSETMODIFICATIONTIME" type="BOOLEAN" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="WEBENDPOINTCONFIG_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-80">
+		<createTable tableName="config_fileshare_web_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ENABLEWEBDAV" type="BOOLEAN" />
+			<column name="INTENTTIMEOUT" type="BIGINT" />
+			<column name="OVERRIDEBASEURI" type="VARCHAR(255)" />
+			<column name="PERSESSIONINCOMPLETESIZELIMIT" type="BIGINT" />
+			<column name="PERUSERINCOMPLETESIZELIMIT" type="BIGINT" />
+			<column name="SESSIONINCOMPLETEEXPIREDURATION" type="BIGINT" />
+			<column name="THEMELIBRARY" type="VARCHAR(255)" />
+			<column name="USERINCOMPLETEEXPIREDURATION" type="BIGINT" />
+			<column name="WEBDAVALLOWSETMODIFICATIONTIME" type="BOOLEAN" />
+			<column name="WEBENDPOINTCONFIG_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-81">
+		<addPrimaryKey columnNames="CONFIG_FILESHARE_SECPOLICIES_ID, POLICIES_ID"
+			tableName="config_fileshare_secpolicies_config_fileshare_secpolicy" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-82">
+		<addPrimaryKey columnNames="CONFIG_FILESHARE_SECPOLICIES_ID, IDX"
+			tableName="config_fileshare_secpolicies_config_fileshare_user_labelrule" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-83">
+		<addPrimaryKey columnNames="CONFIG_FILESHARE_USER_QUOTA_ID, IDX"
+			tableName="config_fileshare_user_quota_config_fileshare_content_quotaRule" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-84">
+		<addPrimaryKey columnNames="CONFIG_FILESHARE_USER_TRUSTLEVEL_ID, LOCALE"
+			tableName="config_fileshare_user_trustLevel_msgs" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-85">
+		<addPrimaryKey columnNames="CONFIG_FILESHARE_USER_TRUSTLEVELS_ID, TRUSTLEVELS_ID"
+			tableName="config_fileshare_user_trustLevels_config_fileshare_user_trustLevel" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-86">
+		<addPrimaryKey columnNames="ID" constraintName="config_filesharePK"
+			tableName="config_fileshare" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-87">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_fileshare_AUDPK"
+			tableName="config_fileshare_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-88">
+		<addPrimaryKey columnNames="ID" constraintName="config_fileshare_advancedPK"
+			tableName="config_fileshare_advanced" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-89">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_fileshare_advanced_AUDPK" tableName="config_fileshare_advanced_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-90">
+		<addPrimaryKey columnNames="ID" constraintName="config_fileshare_authPK"
+			tableName="config_fileshare_auth" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-91">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_fileshare_auth_AUDPK"
+			tableName="config_fileshare_auth_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-92">
+		<addPrimaryKey columnNames="REV, CONFIG_FILESHARE_AUTH_ID, NOSYNCHRONIZATIONROLES"
+			constraintName="config_fileshare_auth_role_nosync_AUDPK" tableName="config_fileshare_auth_role_nosync_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-93">
+		<addPrimaryKey columnNames="ID" constraintName="config_fileshare_contentPK"
+			tableName="config_fileshare_content" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-94">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_fileshare_content_AUDPK" tableName="config_fileshare_content_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-95">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_fileshare_content_previewPK" tableName="config_fileshare_content_preview" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-96">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_fileshare_content_preview_AUDPK" tableName="config_fileshare_content_preview_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-97">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_fileshare_content_quotaRulePK" tableName="config_fileshare_content_quotaRule" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-98">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_fileshare_content_quotaRule_AUDPK" tableName="config_fileshare_content_quotaRule_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-99">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_fileshare_content_scanPK" tableName="config_fileshare_content_scan" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-100">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_fileshare_content_scan_AUDPK" tableName="config_fileshare_content_scan_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-101">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_fileshare_content_searchPK" tableName="config_fileshare_content_search" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-102">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_fileshare_content_search_AUDPK" tableName="config_fileshare_content_search_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-103">
+		<addPrimaryKey columnNames="REV, CONFIG_FILESHARE_CONTENT_ID, BLACKLISTMIMETYPES"
+			constraintName="config_fileshare_content_types_blacklist_AUDPK"
+			tableName="config_fileshare_content_types_blacklist_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-104">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_FILESHARE_CONTENT_PREVIEW_ID, PREVIEWNOSANDBOXMIMETYPES"
+			constraintName="config_fileshare_content_types_nosandbox_AUDPK"
+			tableName="config_fileshare_content_types_nosandbox_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-105">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_FILESHARE_CONTENT_PREVIEW_ID, PREVIEWRELAXEDCSPMIMETYPES"
+			constraintName="config_fileshare_content_types_relaxed_csp_AUDPK"
+			tableName="config_fileshare_content_types_relaxed_csp_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-106">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_FILESHARE_CONTENT_PREVIEW_ID, PREVIEWSAFEMIMETYPES"
+			constraintName="config_fileshare_content_types_safe_AUDPK" tableName="config_fileshare_content_types_safe_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-107">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_FILESHARE_CONTENT_PREVIEW_ID, PREVIEWMIMETYPES"
+			constraintName="config_fileshare_content_types_view_AUDPK" tableName="config_fileshare_content_types_view_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-108">
+		<addPrimaryKey columnNames="REV, CONFIG_FILESHARE_CONTENT_ID, WHITELISTMIMETYPES"
+			constraintName="config_fileshare_content_types_whitelist_AUDPK"
+			tableName="config_fileshare_content_types_whitelist_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-109">
+		<addPrimaryKey columnNames="ID" constraintName="config_fileshare_notifyPK"
+			tableName="config_fileshare_notify" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-110">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_fileshare_notify_AUDPK" tableName="config_fileshare_notify_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-111">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_FILESHARE_NOTIFY_ID, SENDASUSERNOTIFICATIONDOMAINS"
+			constraintName="config_fileshare_notify_sendasuserdom_AUDPK"
+			tableName="config_fileshare_notify_sendasuserdom_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-112">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_fileshare_secpoliciesPK" tableName="config_fileshare_secpolicies" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-113">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_fileshare_secpolicies_AUDPK" tableName="config_fileshare_secpolicies_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-114">
+		<addPrimaryKey columnNames="REV, CONFIG_FILESHARE_SECPOLICIES_ID, POLICIES_ID"
+			constraintName="config_fileshare_secpolicies_config_fileshare_secpolicy_AUDPK"
+			tableName="config_fileshare_secpolicies_config_fileshare_secpolicy_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-115">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_FILESHARE_SECPOLICIES_ID, USERLABELRULES_ID, IDX"
+			constraintName="config_fileshare_secpolicies_config_fileshare_user__C8E2D24F_PK"
+			tableName="config_fileshare_secpolicies_config_fileshare_user_labelrule_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-116">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_fileshare_secpolicyPK" tableName="config_fileshare_secpolicy" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-117">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_fileshare_secpolicy_AUDPK" tableName="config_fileshare_secpolicy_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-118">
+		<addPrimaryKey columnNames="REV, CONFIG_FILESHARE_SECPOLICY_ID, DISALLOWROLES"
+			constraintName="config_fileshare_secpolicy_disallowrole_AUDPK"
+			tableName="config_fileshare_secpolicy_disallowrole_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-119">
+		<addPrimaryKey columnNames="REV, CONFIG_FILESHARE_SECPOLICY_ID, REQUIREANYROLE"
+			constraintName="config_fileshare_secpolicy_reqrole_AUDPK" tableName="config_fileshare_secpolicy_reqrole_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-120">
+		<addPrimaryKey columnNames="REV, CONFIG_FILESHARE_SECPOLICY_ID, ALLOWEDSHARETYPES"
+			constraintName="config_fileshare_secpolicy_stypes_AUDPK" tableName="config_fileshare_secpolicy_stypes_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-121">
+		<addPrimaryKey columnNames="ID" constraintName="config_fileshare_storagePK"
+			tableName="config_fileshare_storage" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-122">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_fileshare_storage_AUDPK" tableName="config_fileshare_storage_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-123">
+		<addPrimaryKey columnNames="ID" constraintName="config_fileshare_userPK"
+			tableName="config_fileshare_user" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-124">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_fileshare_user_AUDPK"
+			tableName="config_fileshare_user_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-125">
+		<addPrimaryKey columnNames="REV, CONFIG_FILESHARE_USER_ID, DEFAULTROLES"
+			constraintName="config_fileshare_user_defroles_AUDPK" tableName="config_fileshare_user_defroles_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-126">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_fileshare_user_labelrulePK" tableName="config_fileshare_user_labelrule" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-127">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_fileshare_user_labelrule_AUDPK" tableName="config_fileshare_user_labelrule_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-128">
+		<addPrimaryKey columnNames="REV, CONFIG_FILESHARE_USER_ID, NOSUBJECTROOTROLES"
+			constraintName="config_fileshare_user_norootroles_AUDPK" tableName="config_fileshare_user_norootroles_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-129">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_fileshare_user_quotaPK" tableName="config_fileshare_user_quota" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-130">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_fileshare_user_quota_AUDPK" tableName="config_fileshare_user_quota_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-131">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_FILESHARE_USER_QUOTA_ID, DEFAULTQUOTARULES_ID, IDX"
+			constraintName="config_fileshare_user_quota_config_fileshare_conten_A3A27288_PK"
+			tableName="config_fileshare_user_quota_config_fileshare_content_quotaRule_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-132">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_fileshare_user_selfservicePK" tableName="config_fileshare_user_selfservice" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-133">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_fileshare_user_selfservice_AUDPK" tableName="config_fileshare_user_selfservice_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-134">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_FILESHARE_USER_SELFSERVICE_ID, INVITATIONUSERROLES"
+			constraintName="config_fileshare_user_selfservice_invroles_AUDPK"
+			tableName="config_fileshare_user_selfservice_invroles_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-135">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_FILESHARE_USER_SELFSERVICE_ID, REGISTRATIONUSERROLES"
+			constraintName="config_fileshare_user_selfservice_regroles_AUDPK"
+			tableName="config_fileshare_user_selfservice_regroles_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-136">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_fileshare_user_trustLevelPK" tableName="config_fileshare_user_trustLevel" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-137">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_fileshare_user_trustLevel_AUDPK" tableName="config_fileshare_user_trustLevel_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-138">
+		<addPrimaryKey columnNames="REV, CONFIG_FILESHARE_USER_TRUSTLEVEL_ID, MSG, LOCALE"
+			constraintName="config_fileshare_user_trustLevel_msgs_AUDPK"
+			tableName="config_fileshare_user_trustLevel_msgs_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-139">
+		<addPrimaryKey columnNames="REV, CONFIG_FILESHARE_USER_TRUSTLEVEL_ID, MATCHROLES"
+			constraintName="config_fileshare_user_trustLevel_roles_AUDPK"
+			tableName="config_fileshare_user_trustLevel_roles_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-140">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_fileshare_user_trustLevelsPK" tableName="config_fileshare_user_trustLevels" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-141">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_fileshare_user_trustLevels_AUDPK" tableName="config_fileshare_user_trustLevels_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-142">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_FILESHARE_USER_TRUSTLEVELS_ID, TRUSTLEVELS_ID"
+			constraintName="config_fileshare_user_trustLevels_config_fileshare__C905C12B_PK"
+			tableName="config_fileshare_user_trustLevels_config_fileshare_user_trustLevel_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-143">
+		<addPrimaryKey columnNames="ID" constraintName="config_fileshare_webPK"
+			tableName="config_fileshare_web" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-144">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_fileshare_web_AUDPK"
+			tableName="config_fileshare_web_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-145">
+		<addUniqueConstraint columnNames="USERLABELRULES_ID"
+			constraintName="UK_9HFBLETMJ38O4YF41PA6UNNK"
+			tableName="config_fileshare_secpolicies_config_fileshare_user_labelrule" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-146">
+		<addUniqueConstraint columnNames="DEFAULTQUOTARULES_ID"
+			constraintName="UK_S76FIJQLYJF6L21XQ602BFKB2"
+			tableName="config_fileshare_user_quota_config_fileshare_content_quotaRule" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-147">
+		<createIndex indexName="FK_FK_1770400KYQT1L5EFW86VKJW32"
+			tableName="config_fileshare_user">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-148">
+		<createIndex indexName="FK_FK_1K0KVF1MH2J5CESR0F262M87Y"
+			tableName="config_fileshare_secpolicies_config_fileshare_secpolicy">
+			<column name="CONFIG_FILESHARE_SECPOLICIES_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-149">
+		<createIndex indexName="FK_FK_1LG531VBJDFQ25QYQ2EATO25T"
+			tableName="config_fileshare_notify">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-150">
+		<createIndex indexName="FK_FK_1M05XPH1KUMLOAW9JD1I35F0"
+			tableName="config_fileshare_secpolicy_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-151">
+		<createIndex indexName="FK_FK_1M5ASOLAGF4WNQQNYVIL5WULW"
+			tableName="config_fileshare_secpolicy_disallowrole">
+			<column name="CONFIG_FILESHARE_SECPOLICY_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-152">
+		<createIndex indexName="FK_FK_1NGRYIYB02AXQ1OPPB1GVHWHI"
+			tableName="config_fileshare_user_norootroles_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-153">
+		<createIndex indexName="FK_FK_1YABNOT302LPMUGBOX6TW9GYD"
+			tableName="config_fileshare_content_scan">
+			<column name="ICAPCONFIG_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-154">
+		<createIndex indexName="FK_FK_21E15W9GMEJRWCTFTF0PBEX0O"
+			tableName="config_fileshare_secpolicy_stypes">
+			<column name="CONFIG_FILESHARE_SECPOLICY_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-155">
+		<createIndex indexName="FK_FK_21MEDA1UDG3CN9FQBBNFK1C91"
+			tableName="config_fileshare_secpolicies_config_fileshare_secpolicy">
+			<column name="POLICIES_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-156">
+		<createIndex indexName="FK_FK_230GJAANGIYN4KKEQOWNUWXDX"
+			tableName="config_fileshare_user_selfservice_invroles_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-157">
+		<createIndex indexName="FK_FK_26F3DDJJ65PDYR6LGD6DB7TMD"
+			tableName="config_fileshare_auth">
+			<column name="ROLECONFIG_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-158">
+		<createIndex indexName="FK_FK_29VCGIWXDW1CVPCGULXPY7GCH"
+			tableName="config_fileshare_user_quota_config_fileshare_content_quotaRule">
+			<column name="CONFIG_FILESHARE_USER_QUOTA_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-159">
+		<createIndex indexName="FK_FK_2HL4VKMCRAJ8O7XEBJ6F72F5S"
+			tableName="config_fileshare_user_defroles_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-160">
+		<createIndex indexName="FK_FK_2UT0M6NRP0GQSEPV839LXXIG5"
+			tableName="config_fileshare_content_types_whitelist">
+			<column name="CONFIG_FILESHARE_CONTENT_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-161">
+		<createIndex indexName="FK_FK_34HMIIJSFAXYYFVNE69DSVTN5"
+			tableName="config_fileshare_web">
+			<column name="WEBENDPOINTCONFIG_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-162">
+		<createIndex indexName="FK_FK_34LRT1IGYWCV69EIPC5K3TYY9"
+			tableName="config_fileshare_user_trustLevels_config_fileshare_user_trustLevel_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-163">
+		<createIndex indexName="FK_FK_35QFV23Q2TUP9ER5HT06QIS1O"
+			tableName="config_fileshare_user_trustLevel_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-164">
+		<createIndex indexName="FK_FK_3NB9G8A4DQ4E2QM49DXK75IYQ"
+			tableName="config_fileshare_auth_role_nosync_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-165">
+		<createIndex indexName="FK_FK_3O8F92P9H38H7U7420O3I9BNA"
+			tableName="config_fileshare_content_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-166">
+		<createIndex indexName="FK_FK_4FCI97ITQ3GLG8RQJOLITWR18"
+			tableName="config_fileshare_secpolicy_reqrole_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-167">
+		<createIndex indexName="FK_FK_4H2OMOXD4F8CIQLIPQAB6XJ4I"
+			tableName="config_fileshare_content_scan">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-168">
+		<createIndex indexName="FK_FK_68B2WH9GAOYF1HGBV2U6M6QH"
+			tableName="config_fileshare_user_labelrule">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-169">
+		<createIndex indexName="FK_FK_6V7RN4P4YPSLUYUTM3NLTREVY"
+			tableName="config_fileshare_secpolicy_stypes_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-170">
+		<createIndex indexName="FK_FK_6Y4IAJB6LC7G9JPFXCGCHI0FT"
+			tableName="config_fileshare_content_types_view">
+			<column name="CONFIG_FILESHARE_CONTENT_PREVIEW_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-171">
+		<createIndex indexName="FK_FK_7JDGC55E6BR5E23VTOW5OPWFQ"
+			tableName="config_fileshare_secpolicies_config_fileshare_user_labelrule_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-172">
+		<createIndex indexName="FK_FK_7UNJHWDH2B12ONU7ALLHP2X2W"
+			tableName="config_fileshare_content_types_nosandbox_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-173">
+		<createIndex indexName="FK_FK_87OEE71AUFHPX3GNP6UORNG8O"
+			tableName="config_fileshare_advanced_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-174">
+		<createIndex indexName="FK_FK_8BVC3P4L93OOWDTKIIUPFWPYE"
+			tableName="config_fileshare_content">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-175">
+		<createIndex indexName="FK_FK_8H8UE37HTB9Y5R7E5OAETG8K8"
+			tableName="config_fileshare_content_search">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-176">
+		<createIndex indexName="FK_FK_8OMXU33NIPL0O0KAJU595GKYE"
+			tableName="config_fileshare_user_selfservice_regroles_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-177">
+		<createIndex indexName="FK_FK_8RFWLXXRD7BPUUQUOGEOROH88"
+			tableName="config_fileshare_secpolicies_config_fileshare_secpolicy_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-178">
+		<createIndex indexName="FK_FK_9HFBLETMJ38O4YF41PA6UNNK"
+			tableName="config_fileshare_secpolicies_config_fileshare_user_labelrule">
+			<column name="USERLABELRULES_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-179">
+		<createIndex indexName="FK_FK_9KELP8NE6AOOS8X3IY2Y8BKHN"
+			tableName="config_fileshare_user_quota">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-180">
+		<createIndex indexName="FK_FK_9P41M9KMVXEKDU2B7YVYTRTY7"
+			tableName="config_fileshare">
+			<column name="CONTENTCONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-181">
+		<createIndex indexName="FK_FK_9TACSKMPCFYUY7LO676ORQPXP"
+			tableName="config_fileshare_user_selfservice_invroles">
+			<column name="CONFIG_FILESHARE_USER_SELFSERVICE_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-182">
+		<createIndex indexName="FK_FK_9VKOW220IEPG24CNWH3D8QX6C"
+			tableName="config_fileshare">
+			<column name="STORAGECONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-183">
+		<createIndex indexName="FK_FK_AIQ8M81ETLCDBC01X1SYCCR1Y"
+			tableName="config_fileshare_content_preview_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-184">
+		<createIndex indexName="FK_FK_ALU34JR6RQRBQKQWD7O7FJ91O"
+			tableName="config_fileshare_advanced">
+			<column name="RUNTIMECONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-185">
+		<createIndex indexName="FK_FK_AVWELYKV4L173B1EG5C7XMCTP"
+			tableName="config_fileshare_content_quotaRule_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-186">
+		<createIndex indexName="FK_FK_B6DJ6TKP076BNQIP86J7BW4TC"
+			tableName="config_fileshare_user_selfservice">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-187">
+		<createIndex indexName="FK_FK_B7RLDLQH84MPHGU3R1NEKWS0A"
+			tableName="config_fileshare">
+			<column name="WEBCONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-188">
+		<createIndex indexName="FK_FK_BDS5OC6PS18IT4MX5TJERGT3E"
+			tableName="config_fileshare_content_types_nosandbox">
+			<column name="CONFIG_FILESHARE_CONTENT_PREVIEW_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-189">
+		<createIndex indexName="FK_FK_BYCAA4AA8190PGQKUHEAL7I1Y"
+			tableName="config_fileshare">
+			<column name="USERCONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-190">
+		<createIndex indexName="FK_FK_CLSMC9Y46P4URXCM9I4YS16TS"
+			tableName="config_fileshare">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-191">
+		<createIndex indexName="FK_FK_CPV0R19HICEOAK7RE3YHR3OBH"
+			tableName="config_fileshare_user_trustLevel_roles">
+			<column name="CONFIG_FILESHARE_USER_TRUSTLEVEL_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-192">
+		<createIndex indexName="FK_FK_CRPVI9287WMYD6QXIC19L98VF"
+			tableName="config_fileshare_user_trustLevels_config_fileshare_user_trustLevel">
+			<column name="TRUSTLEVELS_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-193">
+		<createIndex indexName="FK_FK_CVHU4MC50S4K28RSTK48Y5VWY"
+			tableName="config_fileshare_user">
+			<column name="USERTRUSTLEVELCONFIG_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-194">
+		<createIndex indexName="FK_FK_CVV2BSMPBM3YLYGKX5E83HQFC"
+			tableName="config_fileshare_user_trustLevels">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-195">
+		<createIndex indexName="FK_FK_D4INX3W7LWKUAFCQOQ3HHE6HF"
+			tableName="config_fileshare_content_scan_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-196">
+		<createIndex indexName="FK_FK_D6Q17MVQKF9WUV9798RWLNNXS"
+			tableName="config_fileshare_user_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-197">
+		<createIndex indexName="FK_FK_E1AQICVNNK7XJOAESFG0YPOLY"
+			tableName="config_fileshare_user_norootroles">
+			<column name="CONFIG_FILESHARE_USER_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-198">
+		<createIndex indexName="FK_FK_E6FF4AGN9Q9FWE6E8JBTF4AR9"
+			tableName="config_fileshare_secpolicy_disallowrole_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-199">
+		<createIndex indexName="FK_FK_EDE4IAHLC3VGHRCHFC3431MU2"
+			tableName="config_fileshare_content_types_view_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-200">
+		<createIndex indexName="FK_FK_EKI70WUFH044VXPOFHCQYRRWE"
+			tableName="config_fileshare_content_types_relaxed_csp_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-201">
+		<createIndex indexName="FK_FK_EQ4GNSP9CN18N6S8HDNBGL5UE"
+			tableName="config_fileshare_web_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-202">
+		<createIndex indexName="FK_FK_EVNCG7JRCJSQGNNAMGR2N7N6Q"
+			tableName="config_fileshare_notify_sendasuserdom_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-203">
+		<createIndex indexName="FK_FK_FHGRVLJKYQATQMGE694Q67SQP"
+			tableName="config_fileshare_notify_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-204">
+		<createIndex indexName="FK_FK_FP7FF4FI00PITXMMLROKPD96P"
+			tableName="config_fileshare_content_types_blacklist_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-205">
+		<createIndex indexName="FK_FK_FPS44TE9A05JY609YWOAAYAP1"
+			tableName="config_fileshare_content_quotaRule">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-206">
+		<createIndex indexName="FK_FK_G4BHOQTMLG8BRSSMBQ2DX2GNY"
+			tableName="config_fileshare_user_trustLevel_msgs_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-207">
+		<createIndex indexName="FK_FK_G8IKQIENO96I8048P0LCNQDT3"
+			tableName="config_fileshare_secpolicies_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-208">
+		<createIndex indexName="FK_FK_GIURBVY31F7JLLQIFFVMOQ202"
+			tableName="config_fileshare_content">
+			<column name="SCANCONFIG_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-209">
+		<createIndex indexName="FK_FK_GKTMVOCYD4AHQJQ51H695DL1P"
+			tableName="config_fileshare_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-210">
+		<createIndex indexName="FK_FK_HH0W41HULORQLM6TK0KQOBQIL"
+			tableName="config_fileshare_user_trustLevel_msgs">
+			<column name="CONFIG_FILESHARE_USER_TRUSTLEVEL_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-211">
+		<createIndex indexName="FK_FK_HYG8ODXNBHMIFMH9RK05HY616"
+			tableName="config_fileshare_auth_role_nosync">
+			<column name="CONFIG_FILESHARE_AUTH_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-212">
+		<createIndex indexName="FK_FK_I1OHO0IWNIU4BLY0PBMOXKQHB"
+			tableName="config_fileshare_content_types_safe">
+			<column name="CONFIG_FILESHARE_CONTENT_PREVIEW_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-213">
+		<createIndex indexName="FK_FK_IIEQDBJ0XTSI5YLSCLSV06U0C"
+			tableName="config_fileshare">
+			<column name="ADVANCEDCONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-214">
+		<createIndex indexName="FK_FK_K0Q4JQX1S8V8VPR2FD1BA8BWT"
+			tableName="config_fileshare_advanced">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-215">
+		<createIndex indexName="FK_FK_K2EXKIN93J275PL2ESE0MO1ED"
+			tableName="config_fileshare_content">
+			<column name="SEARCHCONFIG_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-216">
+		<createIndex indexName="FK_FK_K7XJCUOOCOWTH86C38JWLMSXR"
+			tableName="config_fileshare_web">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-217">
+		<createIndex indexName="FK_FK_KJ1Y3QMF2H1VH9H6JEOUYIR98"
+			tableName="config_fileshare_user_trustLevels_config_fileshare_user_trustLevel">
+			<column name="CONFIG_FILESHARE_USER_TRUSTLEVELS_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-218">
+		<createIndex indexName="FK_FK_LA7E8BHMHSHEO30O96072G3H"
+			tableName="config_fileshare_storage_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-219">
+		<createIndex indexName="FK_FK_LCKBQDEL6NGWUYA4XE6XR69N1"
+			tableName="config_fileshare_content_types_whitelist_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-220">
+		<createIndex indexName="FK_FK_LXX5DPKCUP2FPNCXLMA2QYHVG"
+			tableName="config_fileshare_content">
+			<column name="PREVIEWCONFIG_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-221">
+		<createIndex indexName="FK_FK_M17PWHS94UA0PD02G40X5WL8N"
+			tableName="config_fileshare_user_trustLevel">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-222">
+		<createIndex indexName="FK_FK_M5NQETX44FYM3GKRWC1Y59WM4"
+			tableName="config_fileshare_content_types_relaxed_csp">
+			<column name="CONFIG_FILESHARE_CONTENT_PREVIEW_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-223">
+		<createIndex indexName="FK_FK_MIRL5LYGYHJJE4LW6XFUGLWAX"
+			tableName="config_fileshare_user_selfservice_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-224">
+		<createIndex indexName="FK_FK_MJ97GHX74RJ8VBBUP0UT3LB1A"
+			tableName="config_fileshare_auth">
+			<column name="AUTHENTICATORS_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-225">
+		<createIndex indexName="FK_FK_MP1BVLX5WOSFL2K5GDBB9M7A8"
+			tableName="config_fileshare_user_trustLevel_roles_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-226">
+		<createIndex indexName="FK_FK_MPG45NCXFY7PCF79VRPL3F9UL"
+			tableName="config_fileshare_content_search_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-227">
+		<createIndex indexName="FK_FK_N0XR22KSP0C1F5EERONNIMHU2"
+			tableName="config_fileshare_notify_sendasuserdom">
+			<column name="CONFIG_FILESHARE_NOTIFY_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-228">
+		<createIndex indexName="FK_FK_NHAERHSP1MA9QA7WCFQ73XAEH"
+			tableName="config_fileshare_user_labelrule_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-229">
+		<createIndex indexName="FK_FK_NU4XKY6L4LX7WK50NLO32NRJW"
+			tableName="config_fileshare_secpolicy_reqrole">
+			<column name="CONFIG_FILESHARE_SECPOLICY_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-230">
+		<createIndex indexName="FK_FK_OD6NJOQBJRBI3EOL3ODC1A70D"
+			tableName="config_fileshare_user">
+			<column name="SELFSERVICECONFIG_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-231">
+		<createIndex indexName="FK_FK_OHWPVS9DNPQVPJW8HINY3U61T"
+			tableName="config_fileshare_auth_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-232">
+		<createIndex indexName="FK_FK_OKWG685M0CLIKJYGVDVTFHBK8"
+			tableName="config_fileshare_user_quota_config_fileshare_content_quotaRule_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-233">
+		<createIndex indexName="FK_FK_P71CRPEM0ET7EQEYBBTGSLI6J"
+			tableName="config_fileshare_storage">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-234">
+		<createIndex indexName="FK_FK_PCMVY58XAUKA5E1DCCPXQXNUK"
+			tableName="config_fileshare_secpolicies">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-235">
+		<createIndex indexName="FK_FK_Q5QO6S401P5K3PJ85EITRM5M"
+			tableName="config_fileshare_secpolicies_config_fileshare_user_labelrule">
+			<column name="CONFIG_FILESHARE_SECPOLICIES_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-236">
+		<createIndex indexName="FK_FK_QCGIME1L4SII1M29SF01F6P14"
+			tableName="config_fileshare">
+			<column name="AUTHCONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-237">
+		<createIndex indexName="FK_FK_QJLYUK4EAC0AWQ1FBCPAFGNE9"
+			tableName="config_fileshare_user_defroles">
+			<column name="CONFIG_FILESHARE_USER_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-238">
+		<createIndex indexName="FK_FK_QKEMYPMGRJS98RF34DI30UTY0"
+			tableName="config_fileshare">
+			<column name="NOTIFICATIONCONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-239">
+		<createIndex indexName="FK_FK_QKWEFPE4AJ1CTKK2YWEG6TDVI"
+			tableName="config_fileshare_content_types_blacklist">
+			<column name="CONFIG_FILESHARE_CONTENT_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-240">
+		<createIndex indexName="FK_FK_RJ6GCWV72H0TPF4MU9VRL6OKD"
+			tableName="config_fileshare_content_types_safe_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-241">
+		<createIndex indexName="FK_FK_S0L2P7V8N2FL98SKKP74H526T"
+			tableName="config_fileshare_user_trustLevels_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-242">
+		<createIndex indexName="FK_FK_S76FIJQLYJF6L21XQ602BFKB2"
+			tableName="config_fileshare_user_quota_config_fileshare_content_quotaRule">
+			<column name="DEFAULTQUOTARULES_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-243">
+		<createIndex indexName="FK_FK_S9FQPHK9B6CVGBFG78RVOE3JW"
+			tableName="config_fileshare_user_quota_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-244">
+		<createIndex indexName="FK_FK_SNQ2WWVWNN5Q4NQHUBXPSJQW7"
+			tableName="config_fileshare">
+			<column name="SECURITYPOLICYCONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-245">
+		<createIndex indexName="FK_FK_SPLR202EJ2WDSKD9JALQ6THWA"
+			tableName="config_fileshare_secpolicy">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-246">
+		<createIndex indexName="FK_FK_SVJIC21YV8TIJKBCFWNOMETVB"
+			tableName="config_fileshare_content_preview">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-247">
+		<createIndex indexName="FK_FK_T0LYSBHRNH2SSVWOX5WRDYN99"
+			tableName="config_fileshare_user_selfservice_regroles">
+			<column name="CONFIG_FILESHARE_USER_SELFSERVICE_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-248">
+		<createIndex indexName="FK_FK_T3AJFWHQ712P09CC4FEKLEIOT"
+			tableName="config_fileshare_user">
+			<column name="QUOTACONFIG_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-249">
+		<createIndex indexName="FK_FK_TL24AGIMJUFE5VU5O34B9UEVQ"
+			tableName="config_fileshare_auth">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-250">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_fileshare_user" constraintName="FK_1770400KYQT1L5EFW86VKJW32"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-251">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_FILESHARE_SECPOLICIES_ID"
+			baseTableName="config_fileshare_secpolicies_config_fileshare_secpolicy"
+			constraintName="FK_1K0KVF1MH2J5CESR0F262M87Y" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_fileshare_secpolicies" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-252">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_fileshare_notify" constraintName="FK_1LG531VBJDFQ25QYQ2EATO25T"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-253">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_fileshare_secpolicy_AUD" constraintName="FK_1M05XPH1KUMLOAW9JD1I35F0"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-254">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_FILESHARE_SECPOLICY_ID"
+			baseTableName="config_fileshare_secpolicy_disallowrole"
+			constraintName="FK_1M5ASOLAGF4WNQQNYVIL5WULW" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_fileshare_secpolicy" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-255">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_fileshare_user_norootroles_AUD" constraintName="FK_1NGRYIYB02AXQ1OPPB1GVHWHI"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-256">
+		<addForeignKeyConstraint baseColumnNames="ICAPCONFIG_ID"
+			baseTableName="config_fileshare_content_scan" constraintName="FK_1YABNOT302LPMUGBOX6TW9GYD"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_web_icap" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-257">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_FILESHARE_SECPOLICY_ID"
+			baseTableName="config_fileshare_secpolicy_stypes" constraintName="FK_21E15W9GMEJRWCTFTF0PBEX0O"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_fileshare_secpolicy" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-258">
+		<addForeignKeyConstraint baseColumnNames="POLICIES_ID"
+			baseTableName="config_fileshare_secpolicies_config_fileshare_secpolicy"
+			constraintName="FK_21MEDA1UDG3CN9FQBBNFK1C91" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_fileshare_secpolicy" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-259">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_fileshare_user_selfservice_invroles_AUD"
+			constraintName="FK_230GJAANGIYN4KKEQOWNUWXDX" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-260">
+		<addForeignKeyConstraint baseColumnNames="ROLECONFIG_ID"
+			baseTableName="config_fileshare_auth" constraintName="FK_26F3DDJJ65PDYR6LGD6DB7TMD"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_roles_static" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-261">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_FILESHARE_USER_QUOTA_ID"
+			baseTableName="config_fileshare_user_quota_config_fileshare_content_quotaRule"
+			constraintName="FK_29VCGIWXDW1CVPCGULXPY7GCH" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_fileshare_user_quota" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-262">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_fileshare_user_defroles_AUD" constraintName="FK_2HL4VKMCRAJ8O7XEBJ6F72F5S"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-263">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_FILESHARE_CONTENT_ID"
+			baseTableName="config_fileshare_content_types_whitelist"
+			constraintName="FK_2UT0M6NRP0GQSEPV839LXXIG5" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_fileshare_content" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-264">
+		<addForeignKeyConstraint baseColumnNames="WEBENDPOINTCONFIG_ID"
+			baseTableName="config_fileshare_web" constraintName="FK_34HMIIJSFAXYYFVNE69DSVTN5"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_web_endpoint" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-265">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_fileshare_user_trustLevels_config_fileshare_user_trustLevel_AUD"
+			constraintName="FK_34LRT1IGYWCV69EIPC5K3TYY9" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-266">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_fileshare_user_trustLevel_AUD" constraintName="FK_35QFV23Q2TUP9ER5HT06QIS1O"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-267">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_fileshare_auth_role_nosync_AUD" constraintName="FK_3NB9G8A4DQ4E2QM49DXK75IYQ"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-268">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_fileshare_content_AUD" constraintName="FK_3O8F92P9H38H7U7420O3I9BNA"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-269">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_fileshare_secpolicy_reqrole_AUD"
+			constraintName="FK_4FCI97ITQ3GLG8RQJOLITWR18" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-270">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_fileshare_content_scan" constraintName="FK_4H2OMOXD4F8CIQLIPQAB6XJ4I"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-271">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_fileshare_user_labelrule" constraintName="FK_68B2WH9GAOYF1HGBV2U6M6QH"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-272">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_fileshare_secpolicy_stypes_AUD" constraintName="FK_6V7RN4P4YPSLUYUTM3NLTREVY"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-273">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_FILESHARE_CONTENT_PREVIEW_ID"
+			baseTableName="config_fileshare_content_types_view" constraintName="FK_6Y4IAJB6LC7G9JPFXCGCHI0FT"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_fileshare_content_preview" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-274">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_fileshare_secpolicies_config_fileshare_user_labelrule_AUD"
+			constraintName="FK_7JDGC55E6BR5E23VTOW5OPWFQ" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-275">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_fileshare_content_types_nosandbox_AUD"
+			constraintName="FK_7UNJHWDH2B12ONU7ALLHP2X2W" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-276">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_fileshare_advanced_AUD" constraintName="FK_87OEE71AUFHPX3GNP6UORNG8O"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-277">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_fileshare_content" constraintName="FK_8BVC3P4L93OOWDTKIIUPFWPYE"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-278">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_fileshare_content_search" constraintName="FK_8H8UE37HTB9Y5R7E5OAETG8K8"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-279">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_fileshare_user_selfservice_regroles_AUD"
+			constraintName="FK_8OMXU33NIPL0O0KAJU595GKYE" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-280">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_fileshare_secpolicies_config_fileshare_secpolicy_AUD"
+			constraintName="FK_8RFWLXXRD7BPUUQUOGEOROH88" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-281">
+		<addForeignKeyConstraint baseColumnNames="USERLABELRULES_ID"
+			baseTableName="config_fileshare_secpolicies_config_fileshare_user_labelrule"
+			constraintName="FK_9HFBLETMJ38O4YF41PA6UNNK" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_fileshare_user_labelrule" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-282">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_fileshare_user_quota" constraintName="FK_9KELP8NE6AOOS8X3IY2Y8BKHN"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-283">
+		<addForeignKeyConstraint baseColumnNames="CONTENTCONFIGURATION_ID"
+			baseTableName="config_fileshare" constraintName="FK_9P41M9KMVXEKDU2B7YVYTRTY7"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_fileshare_content" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-284">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_FILESHARE_USER_SELFSERVICE_ID"
+			baseTableName="config_fileshare_user_selfservice_invroles"
+			constraintName="FK_9TACSKMPCFYUY7LO676ORQPXP" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_fileshare_user_selfservice" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-285">
+		<addForeignKeyConstraint baseColumnNames="STORAGECONFIGURATION_ID"
+			baseTableName="config_fileshare" constraintName="FK_9VKOW220IEPG24CNWH3D8QX6C"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_fileshare_storage" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-286">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_fileshare_content_preview_AUD" constraintName="FK_AIQ8M81ETLCDBC01X1SYCCR1Y"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-287">
+		<addForeignKeyConstraint baseColumnNames="RUNTIMECONFIGURATION_ID"
+			baseTableName="config_fileshare_advanced" constraintName="FK_ALU34JR6RQRBQKQWD7O7FJ91O"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_runtime" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-288">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_fileshare_content_quotaRule_AUD"
+			constraintName="FK_AVWELYKV4L173B1EG5C7XMCTP" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID,REV" referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-289">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_fileshare_user_selfservice" constraintName="FK_B6DJ6TKP076BNQIP86J7BW4TC"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-290">
+		<addForeignKeyConstraint baseColumnNames="WEBCONFIGURATION_ID"
+			baseTableName="config_fileshare" constraintName="FK_B7RLDLQH84MPHGU3R1NEKWS0A"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_fileshare_web" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-291">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_FILESHARE_CONTENT_PREVIEW_ID"
+			baseTableName="config_fileshare_content_types_nosandbox"
+			constraintName="FK_BDS5OC6PS18IT4MX5TJERGT3E" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_fileshare_content_preview" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-292">
+		<addForeignKeyConstraint baseColumnNames="USERCONFIGURATION_ID"
+			baseTableName="config_fileshare" constraintName="FK_BYCAA4AA8190PGQKUHEAL7I1Y"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_fileshare_user" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-293">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_fileshare" constraintName="FK_CLSMC9Y46P4URXCM9I4YS16TS"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_instances" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-294">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_FILESHARE_USER_TRUSTLEVEL_ID"
+			baseTableName="config_fileshare_user_trustLevel_roles"
+			constraintName="FK_CPV0R19HICEOAK7RE3YHR3OBH" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_fileshare_user_trustLevel" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-295">
+		<addForeignKeyConstraint baseColumnNames="TRUSTLEVELS_ID"
+			baseTableName="config_fileshare_user_trustLevels_config_fileshare_user_trustLevel"
+			constraintName="FK_CRPVI9287WMYD6QXIC19L98VF" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_fileshare_user_trustLevel" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-296">
+		<addForeignKeyConstraint baseColumnNames="USERTRUSTLEVELCONFIG_ID"
+			baseTableName="config_fileshare_user" constraintName="FK_CVHU4MC50S4K28RSTK48Y5VWY"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_fileshare_user_trustLevels" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-297">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_fileshare_user_trustLevels" constraintName="FK_CVV2BSMPBM3YLYGKX5E83HQFC"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-298">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_fileshare_content_scan_AUD" constraintName="FK_D4INX3W7LWKUAFCQOQ3HHE6HF"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-299">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_fileshare_user_AUD" constraintName="FK_D6Q17MVQKF9WUV9798RWLNNXS"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-300">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_FILESHARE_USER_ID"
+			baseTableName="config_fileshare_user_norootroles" constraintName="FK_E1AQICVNNK7XJOAESFG0YPOLY"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_fileshare_user" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-301">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_fileshare_secpolicy_disallowrole_AUD"
+			constraintName="FK_E6FF4AGN9Q9FWE6E8JBTF4AR9" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-302">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_fileshare_content_types_view_AUD"
+			constraintName="FK_EDE4IAHLC3VGHRCHFC3431MU2" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-303">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_fileshare_content_types_relaxed_csp_AUD"
+			constraintName="FK_EKI70WUFH044VXPOFHCQYRRWE" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-304">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_fileshare_web_AUD" constraintName="FK_EQ4GNSP9CN18N6S8HDNBGL5UE"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-305">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_fileshare_notify_sendasuserdom_AUD"
+			constraintName="FK_EVNCG7JRCJSQGNNAMGR2N7N6Q" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-306">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_fileshare_notify_AUD" constraintName="FK_FHGRVLJKYQATQMGE694Q67SQP"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-307">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_fileshare_content_types_blacklist_AUD"
+			constraintName="FK_FP7FF4FI00PITXMMLROKPD96P" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-308">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_fileshare_content_quotaRule" constraintName="FK_FPS44TE9A05JY609YWOAAYAP1"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-309">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_fileshare_user_trustLevel_msgs_AUD"
+			constraintName="FK_G4BHOQTMLG8BRSSMBQ2DX2GNY" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-310">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_fileshare_secpolicies_AUD" constraintName="FK_G8IKQIENO96I8048P0LCNQDT3"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-311">
+		<addForeignKeyConstraint baseColumnNames="SCANCONFIG_ID"
+			baseTableName="config_fileshare_content" constraintName="FK_GIURBVY31F7JLLQIFFVMOQ202"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_fileshare_content_scan" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-312">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_fileshare_AUD" constraintName="FK_GKTMVOCYD4AHQJQ51H695DL1P"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_instances_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-313">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_FILESHARE_USER_TRUSTLEVEL_ID"
+			baseTableName="config_fileshare_user_trustLevel_msgs" constraintName="FK_HH0W41HULORQLM6TK0KQOBQIL"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_fileshare_user_trustLevel" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-314">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_FILESHARE_AUTH_ID"
+			baseTableName="config_fileshare_auth_role_nosync" constraintName="FK_HYG8ODXNBHMIFMH9RK05HY616"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_fileshare_auth" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-315">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_FILESHARE_CONTENT_PREVIEW_ID"
+			baseTableName="config_fileshare_content_types_safe" constraintName="FK_I1OHO0IWNIU4BLY0PBMOXKQHB"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_fileshare_content_preview" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-316">
+		<addForeignKeyConstraint baseColumnNames="ADVANCEDCONFIGURATION_ID"
+			baseTableName="config_fileshare" constraintName="FK_IIEQDBJ0XTSI5YLSCLSV06U0C"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_fileshare_advanced" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-317">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_fileshare_advanced" constraintName="FK_K0Q4JQX1S8V8VPR2FD1BA8BWT"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-318">
+		<addForeignKeyConstraint baseColumnNames="SEARCHCONFIG_ID"
+			baseTableName="config_fileshare_content" constraintName="FK_K2EXKIN93J275PL2ESE0MO1ED"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_fileshare_content_search" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-319">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_fileshare_web" constraintName="FK_K7XJCUOOCOWTH86C38JWLMSXR"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-320">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_FILESHARE_USER_TRUSTLEVELS_ID"
+			baseTableName="config_fileshare_user_trustLevels_config_fileshare_user_trustLevel"
+			constraintName="FK_KJ1Y3QMF2H1VH9H6JEOUYIR98" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_fileshare_user_trustLevels" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-321">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_fileshare_storage_AUD" constraintName="FK_LA7E8BHMHSHEO30O96072G3H"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-322">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_fileshare_content_types_whitelist_AUD"
+			constraintName="FK_LCKBQDEL6NGWUYA4XE6XR69N1" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-323">
+		<addForeignKeyConstraint baseColumnNames="PREVIEWCONFIG_ID"
+			baseTableName="config_fileshare_content" constraintName="FK_LXX5DPKCUP2FPNCXLMA2QYHVG"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_fileshare_content_preview" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-324">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_fileshare_user_trustLevel" constraintName="FK_M17PWHS94UA0PD02G40X5WL8N"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-325">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_FILESHARE_CONTENT_PREVIEW_ID"
+			baseTableName="config_fileshare_content_types_relaxed_csp"
+			constraintName="FK_M5NQETX44FYM3GKRWC1Y59WM4" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_fileshare_content_preview" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-326">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_fileshare_user_selfservice_AUD" constraintName="FK_MIRL5LYGYHJJE4LW6XFUGLWAX"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-327">
+		<addForeignKeyConstraint baseColumnNames="AUTHENTICATORS_ID"
+			baseTableName="config_fileshare_auth" constraintName="FK_MJ97GHX74RJ8VBBUP0UT3LB1A"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auths" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-328">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_fileshare_user_trustLevel_roles_AUD"
+			constraintName="FK_MP1BVLX5WOSFL2K5GDBB9M7A8" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-329">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_fileshare_content_search_AUD" constraintName="FK_MPG45NCXFY7PCF79VRPL3F9UL"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-330">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_FILESHARE_NOTIFY_ID"
+			baseTableName="config_fileshare_notify_sendasuserdom" constraintName="FK_N0XR22KSP0C1F5EERONNIMHU2"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_fileshare_notify" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-331">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_fileshare_user_labelrule_AUD" constraintName="FK_NHAERHSP1MA9QA7WCFQ73XAEH"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-332">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_FILESHARE_SECPOLICY_ID"
+			baseTableName="config_fileshare_secpolicy_reqrole" constraintName="FK_NU4XKY6L4LX7WK50NLO32NRJW"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_fileshare_secpolicy" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-333">
+		<addForeignKeyConstraint baseColumnNames="SELFSERVICECONFIG_ID"
+			baseTableName="config_fileshare_user" constraintName="FK_OD6NJOQBJRBI3EOL3ODC1A70D"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_fileshare_user_selfservice" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-334">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_fileshare_auth_AUD" constraintName="FK_OHWPVS9DNPQVPJW8HINY3U61T"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-335">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_fileshare_user_quota_config_fileshare_content_quotaRule_AUD"
+			constraintName="FK_OKWG685M0CLIKJYGVDVTFHBK8" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-336">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_fileshare_storage" constraintName="FK_P71CRPEM0ET7EQEYBBTGSLI6J"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-337">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_fileshare_secpolicies" constraintName="FK_PCMVY58XAUKA5E1DCCPXQXNUK"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-338">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_FILESHARE_SECPOLICIES_ID"
+			baseTableName="config_fileshare_secpolicies_config_fileshare_user_labelrule"
+			constraintName="FK_Q5QO6S401P5K3PJ85EITRM5M" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_fileshare_secpolicies" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-339">
+		<addForeignKeyConstraint baseColumnNames="AUTHCONFIGURATION_ID"
+			baseTableName="config_fileshare" constraintName="FK_QCGIME1L4SII1M29SF01F6P14"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_fileshare_auth" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-340">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_FILESHARE_USER_ID"
+			baseTableName="config_fileshare_user_defroles" constraintName="FK_QJLYUK4EAC0AWQ1FBCPAFGNE9"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_fileshare_user" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-341">
+		<addForeignKeyConstraint baseColumnNames="NOTIFICATIONCONFIGURATION_ID"
+			baseTableName="config_fileshare" constraintName="FK_QKEMYPMGRJS98RF34DI30UTY0"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_fileshare_notify" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-342">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_FILESHARE_CONTENT_ID"
+			baseTableName="config_fileshare_content_types_blacklist"
+			constraintName="FK_QKWEFPE4AJ1CTKK2YWEG6TDVI" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_fileshare_content" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-343">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_fileshare_content_types_safe_AUD"
+			constraintName="FK_RJ6GCWV72H0TPF4MU9VRL6OKD" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-344">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_fileshare_user_trustLevels_AUD" constraintName="FK_S0L2P7V8N2FL98SKKP74H526T"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-345">
+		<addForeignKeyConstraint baseColumnNames="DEFAULTQUOTARULES_ID"
+			baseTableName="config_fileshare_user_quota_config_fileshare_content_quotaRule"
+			constraintName="FK_S76FIJQLYJF6L21XQ602BFKB2" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_fileshare_content_quotaRule" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-346">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_fileshare_user_quota_AUD" constraintName="FK_S9FQPHK9B6CVGBFG78RVOE3JW"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-347">
+		<addForeignKeyConstraint baseColumnNames="SECURITYPOLICYCONFIGURATION_ID"
+			baseTableName="config_fileshare" constraintName="FK_SNQ2WWVWNN5Q4NQHUBXPSJQW7"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_fileshare_secpolicies" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-348">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_fileshare_secpolicy" constraintName="FK_SPLR202EJ2WDSKD9JALQ6THWA"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-349">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_fileshare_content_preview" constraintName="FK_SVJIC21YV8TIJKBCFWNOMETVB"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-350">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_FILESHARE_USER_SELFSERVICE_ID"
+			baseTableName="config_fileshare_user_selfservice_regroles"
+			constraintName="FK_T0LYSBHRNH2SSVWOX5WRDYN99" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_fileshare_user_selfservice" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-351">
+		<addForeignKeyConstraint baseColumnNames="QUOTACONFIG_ID"
+			baseTableName="config_fileshare_user" constraintName="FK_T3AJFWHQ712P09CC4FEKLEIOT"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_fileshare_user_quota" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760966-352">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_fileshare_auth" constraintName="FK_TL24AGIMJUFE5VU5O34B9UEVQ"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1456088133507-1">
+		<createTable schemaName="APP" tableName="config_fileshare_passthrough">
+			<column name="ALLOWSHARING" type="BOOLEAN" />
+			<column name="GROUPNAME" type="VARCHAR(255)" />
+			<column name="SECURITYPOLICY" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1456088133507-2">
+		<createTable schemaName="APP" tableName="config_fileshare_passthrough_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ALLOWSHARING" type="BOOLEAN" />
+			<column name="GROUPNAME" type="VARCHAR(255)" />
+			<column name="SECURITYPOLICY" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1456088133507-3">
+		<createTable schemaName="APP"
+			tableName="config_fileshare_passthrough_cifs">
+			<column name="AUTHKEYTAB" type="VARCHAR(255)" />
+			<column name="AUTHREALM" type="VARCHAR(255)" />
+			<column name="AUTHTYPE" type="INT" />
+			<column name="DOMAIN" type="VARCHAR(255)" />
+			<column name="ENABLESIGNING" type="BOOLEAN" />
+			<column name="PASSWORD" type="VARCHAR(255)" />
+			<column name="UNCPATH" type="VARCHAR(255)" />
+			<column name="USERNAME" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1456088133507-4">
+		<createTable schemaName="APP"
+			tableName="config_fileshare_passthrough_cifs_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="AUTHKEYTAB" type="VARCHAR(255)" />
+			<column name="AUTHREALM" type="VARCHAR(255)" />
+			<column name="AUTHTYPE" type="INT" />
+			<column name="DOMAIN" type="VARCHAR(255)" />
+			<column name="ENABLESIGNING" type="BOOLEAN" />
+			<column name="PASSWORD" type="VARCHAR(255)" />
+			<column name="UNCPATH" type="VARCHAR(255)" />
+			<column name="USERNAME" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1456088133507-5">
+		<createTable schemaName="APP"
+			tableName="config_fileshare_storage_config_fileshare_passthrough">
+			<column name="CONFIG_FILESHARE_STORAGE_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PASSTHROUGHGROUPS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1456088133507-6">
+		<createTable schemaName="APP"
+			tableName="config_fileshare_storage_config_fileshare_passthrough_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_FILESHARE_STORAGE_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PASSTHROUGHGROUPS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1456088133507-7">
+		<addPrimaryKey columnNames="CONFIG_FILESHARE_STORAGE_ID, PASSTHROUGHGROUPS_ID"
+			schemaName="APP" tableName="config_fileshare_storage_config_fileshare_passthrough" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1456088133507-8">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_fileshare_passthroughPK" schemaName="APP"
+			tableName="config_fileshare_passthrough" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1456088133507-9">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_fileshare_passthrough_AUDPK" schemaName="APP"
+			tableName="config_fileshare_passthrough_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1456088133507-10">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_fileshare_passthrough_cifsPK" schemaName="APP"
+			tableName="config_fileshare_passthrough_cifs" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1456088133507-11">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_fileshare_passthrough_cifs_AUDPK" schemaName="APP"
+			tableName="config_fileshare_passthrough_cifs_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1456088133507-12">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_FILESHARE_STORAGE_ID, PASSTHROUGHGROUPS_ID"
+			constraintName="config_fileshare_storage_config_fileshare_passthrough_AUDPK"
+			schemaName="APP"
+			tableName="config_fileshare_storage_config_fileshare_passthrough_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1456088133507-13">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_fileshare_storage_config_fileshare_passthrough_AUD"
+			baseTableSchemaName="APP" constraintName="FK4G4LFTU145QVBDN2VSW99E2AY"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1456088133507-14">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_fileshare_passthrough_AUD" baseTableSchemaName="APP"
+			constraintName="FK5J4DW7MHQ6MK11XM8JNJCNJCJ" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID,REV" referencedTableName="config_AUD"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1456088133507-15">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_FILESHARE_STORAGE_ID"
+			baseTableName="config_fileshare_storage_config_fileshare_passthrough"
+			baseTableSchemaName="APP" constraintName="FK8IET35M76GL2NW6ENJGBLFEU0"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_fileshare_storage"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1456088133507-16">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_fileshare_passthrough_cifs_AUD"
+			baseTableSchemaName="APP" constraintName="FKAACMYTQLKR4E49E5XKHP53435"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_fileshare_passthrough_AUD"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1456088133507-17">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_fileshare_passthrough" baseTableSchemaName="APP"
+			constraintName="FKJH1BOBNCI8NGY0UFTPFG584NU" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1456088133507-18">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_fileshare_passthrough_cifs"
+			baseTableSchemaName="APP" constraintName="FKL84VY9ST6F007YSIRLPDK7O4W"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_fileshare_passthrough"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1456088133507-19">
+		<addForeignKeyConstraint baseColumnNames="PASSTHROUGHGROUPS_ID"
+			baseTableName="config_fileshare_storage_config_fileshare_passthrough"
+			baseTableSchemaName="APP" constraintName="FKQ6TPNI8I1JN40OMKDTOJPNS3P"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_fileshare_passthrough"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1460040427668-1">
+		<addColumn schemaName="APP" tableName="config_fileshare_web">
+			<column name="PERSESSIONINCOMPLETESIZELIMITENABLED" type="boolean" />
+		</addColumn>
+		<addColumn schemaName="APP" tableName="config_fileshare_web_AUD">
+			<column name="PERSESSIONINCOMPLETESIZELIMITENABLED" type="boolean" />
+		</addColumn>
+		<addColumn schemaName="APP" tableName="config_fileshare_web">
+			<column name="PERUSERINCOMPLETESIZELIMITENABLED" type="boolean" />
+		</addColumn>
+		<addColumn schemaName="APP" tableName="config_fileshare_web_AUD">
+			<column name="PERUSERINCOMPLETESIZELIMITENABLED" type="boolean" />
+		</addColumn>
+	</changeSet>
+</databaseChangeLog>

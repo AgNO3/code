@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="cdi-comet-feature"
+      label="CDI Comet Support Feature"
+      version="0.0.36"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <requires>
+      <import feature="httpservice-feature" version="0.0.1.qualifier"/>
+      <import feature="deps-javax-feature" version="0.0.1.qualifier"/>
+      <import feature="deps-apache-commons-feature" version="0.0.1.qualifier"/>
+      <import feature="cdi-feature" version="0.0.1.qualifier"/>
+      <import feature="deps-jetty-websocket-feature" version="9.1.3"/>
+      <import feature="jsf-feature" version="0.0.58"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.runtime.cdi.comet"
+         download-size="0"
+         install-size="0"
+         version="0.0.36"
+         unpack="false"/>
+
+</feature>

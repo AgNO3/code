@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0"
+	template="/tpl/common/template.xhtml">
+	<ui:param name="subtitle" value="#{_gui['security.localUsers.title']}" />
+
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="service"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+			<f:viewParam name="anchor"
+				value="#{structureViewContext.selectedAnchorId}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<p:toolbar>
+				<f:facet name="left">
+					<ag:dialogOpenButton value="#{_gui['security.localUsers.add']}"
+						closable="true"
+						dialog="/security/addUserDialog.xhtml?service=#{structureViewContext.selectedService.id}"
+						icon="ui-icon-plusthick">
+						<p:ajax event="return" listener="#{localUsersTableBean.refresh()}"
+							update="userTable" />
+					</ag:dialogOpenButton>
+				</f:facet>
+
+				<f:facet name="right">
+					<p:commandButton actionListener="#{localUsersTableBean.refresh()}"
+						icon="ui-icon-arrowrefresh-1-e"
+						title="#{_gui['security.localUsers.refresh']}" update="userTable" />
+				</f:facet>
+			</p:toolbar>
+
+			<p:messages autoUpdate="true" />
+
+			<p:dataTable id="userTable" value="#{localUsersTableBean.model}"
+				var="userInfo">
+
+				<p:column style="width: 15px">
+					<p:rowToggler />
+				</p:column>
+
+				<p:column headerText="#{_gui['security.localUsers.usernameHeader']}"
+					width="55%">
+					<h:outputText value="#{userInfo.userPrincipal.userName}" />
+					<h:outputText
+						rendered="#{localUsersTableController.isCurrentUser(userInfo.userPrincipal)}"
+						styleClass="ui-icon ui-icon-inline ui-icon-star"
+						title="#{_gui['security.localUsers.currentUserMsg']}" />
+				</p:column>
+
+
+				<p:column headerText="#{_gui['security.localUsers.realmHeader']}"
+					width="15%">
+					<h:outputText value="#{userInfo.userPrincipal.realmName}" />
+				</p:column>
+
+				<p:column headerText="#{_gui['security.localUsers.disabledHeader']}"
+					width="10%">
+					<h:outputText value="#{userInfo.disabled}" />
+				</p:column>
+
+
+				<p:column width="15%">
+					<p:commandButton rendered="#{userInfo.disabled}"
+						disabled="#{not localUsersTableController.isLocalUser(userInfo.userPrincipal)}"
+						icon="ui-icon-locked"
+						title="#{_gui['security.localUsers.enable']}" update="userTable"
+						action="#{localUsersTableController.enableUser(userInfo.userPrincipal)}" />
+					<p:commandButton rendered="#{not userInfo.disabled}"
+						disabled="#{not localUsersTableController.isLocalUser(userInfo.userPrincipal) or localUsersTableController.isCurrentUser(userInfo.userPrincipal)}"
+						icon="ui-icon-unlocked"
+						title="#{_gui['security.localUsers.disable']}" update="userTable"
+						action="#{localUsersTableController.disableUser(userInfo.userPrincipal)}" />
+
+
+
+					<ag:dialogOpenButton title="#{_gui['security.localUsers.delete']}"
+						icon="ui-icon-trash"
+						dialog="/security/deleteUsersDialog.xhtml?service=#{structureViewContext.selectedService.id}&amp;users=#{orch_userSelectionBean.encodeSingleSelection(userInfo.userPrincipal)}"
+						closable="true"
+						disabled="#{not localUsersTableController.isLocalUser(userInfo.userPrincipal) or localUsersTableController.isCurrentUser(userInfo.userPrincipal)}">
+						<p:ajax event="return" listener="#{localUsersTableBean.refresh()}"
+							update="userTable" />
+					</ag:dialogOpenButton>
+
+					<ag:dialogOpenButton
+						title="#{_gui['security.localUsers.changePassword']}"
+						icon="ui-icon-key"
+						disabled="#{not localUsersTableController.isLocalUser(userInfo.userPrincipal)}"
+						closable="true"
+						dialog="/security/changePasswordDialog.xhtml?service=#{structureViewContext.selectedService.id}&amp;user=#{orch_userSelectionBean.encodeSingleSelection(userInfo.userPrincipal)}"
+						update="userTable">
+						<p:ajax event="return" listener="#{localUsersTableBean.refresh()}"
+							update="userTable" />
+					</ag:dialogOpenButton>
+				</p:column>
+
+				<p:rowExpansion>
+					<p:fieldset>
+						<ag:simpleField
+							label="#{_gui['security.localUsers.detail.realm']}"
+							readOnly="true" value="#{userInfo.userPrincipal.realmName}" />
+
+						<ag:simpleField
+							label="#{_gui['security.localUsers.detail.userId']}"
+							readOnly="true" value="#{userInfo.userPrincipal.userId}" />
+
+						<ag:simpleField
+							label="#{_gui['security.localUsers.detail.roles']}"
+							readOnly="true" collection="true"
+							value="#{localUsersTableController.getRoles(userInfo.userPrincipal)}" />
+
+						<ag:simpleField
+							label="#{_gui['security.localUsers.detail.disabled']}"
+							readOnly="true" value="#{userInfo.disabled}" />
+
+						<ag:simpleField
+							label="#{_gui['security.localUsers.detail.created']}"
+							readOnly="true"
+							value="#{localeSettingsBean.formatDateTime(userInfo.created, 'MS')}" />
+
+						<ag:simpleField
+							label="#{_gui['security.localUsers.detail.lastPwChange']}"
+							readOnly="true"
+							value="#{localeSettingsBean.formatDateTime(userInfo.lastPwChange, 'MS')}" />
+
+						<ag:simpleField
+							label="#{_gui['security.localUsers.detail.pwExpiry']}"
+							readOnly="true"
+							value="#{localeSettingsBean.formatDateTime(userInfo.pwExpiry, 'MS')}" />
+
+						<ag:simpleField
+							label="#{_gui['security.localUsers.detail.lastSuccessfulLogin']}"
+							readOnly="true"
+							value="#{localeSettingsBean.formatDateTime(userInfo.lastSuccessfulLogin, 'MS')}" />
+
+						<ag:simpleField
+							label="#{_gui['security.localUsers.detail.lastFailedLogin']}"
+							readOnly="true"
+							value="#{localeSettingsBean.formatDateTime(userInfo.lastFailedLogin, 'MS')}" />
+
+						<ag:simpleField
+							label="#{_gui['security.localUsers.detail.failedLoginAttempts']}"
+							readOnly="true" value="#{userInfo.failedLoginAttempts}" />
+
+					</p:fieldset>
+				</p:rowExpansion>
+
+			</p:dataTable>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

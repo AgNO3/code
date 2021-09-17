@@ -1,0 +1,32 @@
+Bundle-SymbolicName: eu.agno3.orchestrator.types.net
+Bundle-Version: 0.0.1.qualifier
+Bundle-Name: Orchestrator Common Networking Types
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.orchestrator.types.net;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.types.net.name;version="0.0.1.qualifier",
+ eu.agno3.runtime.util.ip;version="0.0.78",
+ eu.agno3.runtime.validation;version="0.0.6",
+ eu.agno3.runtime.validation.domain;version="0.0.1.qualifier",
+ eu.agno3.runtime.xml;version="0.0.2",
+ eu.agno3.runtime.xml.binding;version="0.0.2",
+ eu.agno3.runtime.xml.schema;version="0.0.2",
+ javax.persistence;version="2.1.0",
+ javax.validation;version="1.1.0.Final",
+ javax.validation.constraints;version="1.1.0.Final",
+ org.apache.commons.codec.binary;version="1.9.0",
+ org.apache.commons.collections4;version="4.0.0",
+ org.apache.commons.collections4.functors;version="4.0.0",
+ org.apache.commons.io;version="2.4.0",
+ org.apache.commons.lang3;version="3.1.0",
+ org.apache.log4j;version="1.2.15",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.osgi.util.tracker;version="1.5.1"
+Service-Component: OSGI-INF/*.xml
+Bundle-ActivationPolicy: lazy
+Export-Package: eu.agno3.orchestrator.types.net;version="0.0.1.qualifier";uses:="javax.persistence",
+ eu.agno3.orchestrator.types.net.name;version="0.0.1.qualifier";uses:="javax.xml.bind.annotation.adapters,eu.agno3.orchestrator.types.net,javax.persistence",
+ eu.agno3.orchestrator.types.net.validation

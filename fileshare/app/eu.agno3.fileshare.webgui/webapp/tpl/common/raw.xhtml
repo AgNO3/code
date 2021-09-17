@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<f:view locale="#{localeSettingsBean.userLocale}">
+
+	<ui:insert name="metadata" />
+
+	<h:head>
+		<f:facet name="first">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+			<meta name="robots" content="noindex" />
+			<link rel="icon" type="image/vnd.microsoft.icon"
+				href="#{resource['cfgfiles:favicon.ico']}" />
+
+			<link rel="icon" type="image/png"
+				href="#{resource['cfgfiles:favicon.png']}" />
+		</f:facet>
+
+
+
+		<h:outputScript name="iframeResizer.js" library="agno3" />
+
+		<title><h:outputFormat
+				value="#{_msgs['application.titleWithSubtitleFmt']}">
+				<f:param value="${subtitle}" />
+			</h:outputFormat></title>
+
+		<ui:insert name="head">
+		</ui:insert>
+
+		<f:facet name="last">
+			<link rel="stylesheet" type="text/css"
+				href="#{resource['cfgfiles:theme.css']}" />
+		</f:facet>
+	</h:head>
+
+	<h:body styleClass="${bodyStyle}">
+
+		<h:outputStylesheet name="library.static.css" library="agno3" />
+		<h:outputStylesheet name="main.static.css" library="css" />
+
+		<p:ajaxStatus
+			onerror="console.log('HTTP error ' + arguments[1].status + ': ' + arguments[1].statusText); console.log(arguments); PF('expiredDialog').show(); PF('pinger') ? PF('pinger').stop() : true;" />
+
+		<ui:include src="/tpl/common/commonbody.xhtml" />
+
+		<ui:include src="/cfgfiles/rawHeader.xhtml" />
+
+		<div class="rawBody ui-state-default">
+			<ui:insert name="content">
+				<ui:include src="/tpl/common/nocontent.xhtml" />
+			</ui:insert>
+		</div>
+
+		<ui:include src="/cfgfiles/rawFooter.xhtml" />
+
+	</h:body>
+</f:view>
+</html>

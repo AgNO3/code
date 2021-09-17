@@ -1,0 +1,30 @@
+Bundle-SymbolicName: eu.agno3.runtime.messaging.standalone
+Bundle-Version: 0.0.124
+Bundle-Name: Messaging Standlone Operation
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.runtime.messaging;version="0.0.12",
+ eu.agno3.runtime.messaging.addressing;version="0.0.12",
+ eu.agno3.runtime.messaging.broker.auth;version="0.0.12",
+ eu.agno3.runtime.messaging.listener;version="0.0.12",
+ eu.agno3.runtime.messaging.marshalling;version="0.0.12",
+ eu.agno3.runtime.messaging.msg;version="0.0.12",
+ eu.agno3.runtime.messaging.routing;version="0.0.12",
+ eu.agno3.runtime.util.osgi;version="0.0.8",
+ eu.agno3.runtime.transaction;version="0.0.2",
+ javax.jms;version="1.1.0",
+ javax.transaction;version="1.1.0",
+ org.apache.activemq;version="5.7.0",
+ org.apache.activemq.advisory;version="5.7.0",
+ org.apache.activemq.command;version="5.7.0",
+ org.apache.activemq.security;version="5.7.0",
+ org.apache.commons.lang3;version="3.1.0",
+ org.apache.log4j;version="1.2.15",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.osgi.util.tracker;version="1.5.1"
+Service-Component: OSGI-INF/*.xml
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.jdt.annotation;bundle-version="[2.0.0,3.0.0)";resolution:=optional

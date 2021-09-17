@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.config.model.realm.service.impl.ValidationServiceImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.config.model.realm.service.ValidationService"/>
+        <provide interface="eu.agno3.runtime.ws.common.SOAPWebService"/>
+    </service>
+    <reference name="Context" interface="eu.agno3.orchestrator.config.model.base.server.context.DefaultServerServiceContext" cardinality="1..1" policy="static" bind="setContext" unbind="unsetContext"/>
+    <reference name="ValidationUtil" interface="eu.agno3.orchestrator.config.model.realm.server.util.ModelObjectValidationUtil" cardinality="1..1" policy="static" bind="setValidationUtil" unbind="unsetValidationUtil"/>
+    <reference name="PersistenceUtil" interface="eu.agno3.orchestrator.config.model.realm.server.util.PersistenceUtil" cardinality="1..1" policy="static" bind="setPersistenceUtil" unbind="unsetPersistenceUtil"/>
+    <reference name="ServiceService" interface="eu.agno3.orchestrator.config.model.realm.server.service.ServiceServerService" cardinality="1..1" policy="static" bind="setServiceService" unbind="unsetServiceService"/>
+    <implementation class="eu.agno3.orchestrator.config.model.realm.service.impl.ValidationServiceImpl"/>
+</scr:component>

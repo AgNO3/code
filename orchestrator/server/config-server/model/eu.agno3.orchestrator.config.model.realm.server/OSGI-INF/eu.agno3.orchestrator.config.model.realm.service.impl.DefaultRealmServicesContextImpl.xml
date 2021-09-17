@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.config.model.realm.service.impl.DefaultRealmServicesContextImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.config.model.realm.server.service.DefaultRealmServicesContext"/>
+    </service>
+    <reference name="ConfigurationService" interface="eu.agno3.orchestrator.config.model.realm.server.service.ConfigurationServerService" cardinality="1..1" policy="static" bind="setConfigurationService" unbind="unsetConfigurationService"/>
+    <reference name="InstanceService" interface="eu.agno3.orchestrator.config.model.realm.server.service.InstanceServerService" cardinality="1..1" policy="static" bind="setInstanceService" unbind="unsetInstanceService"/>
+    <reference name="StructureService" interface="eu.agno3.orchestrator.config.model.realm.server.service.StructuralObjectServerService" cardinality="1..1" policy="static" bind="setStructureService" unbind="unsetStructureService"/>
+    <reference name="ServiceService" interface="eu.agno3.orchestrator.config.model.realm.server.service.ServiceServerService" cardinality="1..1" policy="static" bind="setServiceService" unbind="unsetServiceService"/>
+    <reference name="InheritanceService" interface="eu.agno3.orchestrator.config.model.realm.server.service.InheritanceServerService" cardinality="1..1" policy="static" bind="setInheritanceService" unbind="unsetInheritanceService"/>
+    <implementation class="eu.agno3.orchestrator.config.model.realm.service.impl.DefaultRealmServicesContextImpl"/>
+</scr:component>

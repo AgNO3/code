@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.server.app.GuiWebAppDependencies">
+    <property name="instanceId" value="orchserver-gui"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.http.service.webapp.WebAppDependencies"/>
+    </service>
+    <reference name="ServerContext" interface="eu.agno3.orchestrator.config.model.base.server.context.DefaultServerServiceContext" cardinality="1..1" policy="static" bind="bindServerContext" unbind="unbindServerContext"/>
+    <reference name="WebServiceEndpoint" interface="eu.agno3.runtime.ws.server.WebserviceEndpointInfo" cardinality="1..1" policy="static" bind="bindWebServiceEndpoint" unbind="unbindWebServiceEndpoint"/>
+    <reference name="EagerServicesActive" interface="eu.agno3.orchestrator.gui.server.EagerServicesActive" cardinality="1..1" policy="static" bind="bindEagerServicesActive" unbind="unbindEagerServicesActive"/>
+    <implementation class="eu.agno3.orchestrator.server.app.GuiWebAppDependencies"/>
+</scr:component>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<p:accordionPanel styleClass="outputGroup" id="storage" multiple="true"
+		dynamic="true" cache="false"
+		activeIndex="#{agentSysInfoStorageTable.panelActive}">
+
+		<p:tab title="#{_gui['structure.instance.sysinfo.storage.drives']}">
+
+			<ag:dialogOpenButton
+				dialog="/hardware/storage/rescanDrives.xhtml?instance=#{structureViewContext.selectedObjectId}"
+				icon="ui-icon-arrowrefresh-1-s" closable="true"
+				value="#{_gui['structure.instance.sysinfo.storage.rescan']}">
+				<p:ajax event="return" update="@form:sysInfo"
+					actionListener="#{agentSysInfoContext.refresh()}" />
+			</ag:dialogOpenButton>
+
+			<p:selectBooleanCheckbox id="includeSystem"
+				style="margin-left: 1em; margin-right: 0.2em;"
+				value="#{agentSysInfoStorageTable.includeSystem}">
+				<p:ajax event="change" update="driveTable" />
+			</p:selectBooleanCheckbox>
+			<p:outputLabel for="includeSystem">Include system drives</p:outputLabel>
+
+			<p:dataTable id="driveTable"
+				value="#{agentSysInfoStorageTable.drives}" selectionMode="single"
+				selection="#{agentSysInfoStorageTable.selectedDrive}" var="drive"
+				rowKey="#{drive.id}"
+				emptyMessage="#{_gui['structure.instance.sysinfo.storage.drives.empty']}">
+
+				<p:ajax event="rowSelect" process="@this" update="@parent:@parent"
+					oncomplete="$('#mainContent .ui-layout-unit-content').animate(
+							{scrollTop : $('.sysInfoDriveDetails').offset() ? $('.sysInfoDriveDetails').offset().top : 0},1000);" />
+
+				<p:column width="40%"
+					headerText="#{_gui['structure.instance.sysinfo.storage.drives.drive']}">
+
+					<h:outputText rendered="#{not empty drive.assignedAlias}"
+						title="#{agentSysInfoStorageTable.getDriveDisplayName(drive)}"
+						value="#{drive.assignedAlias}" />
+
+					<h:outputText rendered="#{empty drive.assignedAlias}"
+						value="#{agentSysInfoStorageTable.getDriveDisplayName(drive)}" />
+				</p:column>
+
+				<p:column width="30%"
+					headerText="#{_gui['structure.instance.sysinfo.storage.drives.driveDetail']}">
+					<h:outputText
+						value="#{agentSysInfoStorageTable.getDriveDisplayDetail(drive)}" />
+				</p:column>
+
+				<p:column width="15%"
+					headerText="#{_gui['structure.instance.sysinfo.storage.drives.driveSize']}">
+					<h:outputText rendered="#{drive.size gt 0}"
+						value="#{ag:formatByteSizeSI(drive.size)}" />
+				</p:column>
+
+				<p:column width="15%">
+					<p:commandButton icon="ui-icon-check"
+						rendered="#{dialog.inDialog() and sysInfoUtil.canPick(drive)}"
+						title="#{_gui['structure.instance.sysinfo.storage.pick']}"
+						action="#{sysInfoUtil.pick(drive)}" />
+					<p:commandButton type="button" icon="ui-icon-search"
+						onclick="$(this).closest('td').click()"
+						title="#{_gui['structure.instance.sysinfo.storage.inspect']}"
+						rendered="#{not dialog.inDialog() or not sysInfoUtil.canPick(vol)}" />
+
+					<ag:dialogOpenButton
+						dialog="/hardware/storage/initializeDrive.xhtml?instance=#{structureViewContext.selectedObjectId}&amp;drive=#{drive.id}"
+						rendered="#{agentSysInfoStorageTable.canInitialize(drive)}"
+						title="#{_gui['structure.instance.sysinfo.storage.initializeDrive']}"
+						icon="ui-icon-plusthick" closable="true">
+						<p:ajax event="return" update="@form:sysInfo"
+							actionListener="#{agentSysInfoContext.refresh()}" />
+					</ag:dialogOpenButton>
+					<ag:dialogOpenButton
+						dialog="/hardware/storage/reinitializeDrive.xhtml?instance=#{structureViewContext.selectedObjectId}&amp;drive=#{drive.id}"
+						rendered="#{agentSysInfoStorageTable.canReinitialize(drive)}"
+						title="#{_gui['structure.instance.sysinfo.storage.reinitialize']}"
+						icon="ui-icon-trash" closable="true">
+						<p:ajax event="return" update="@form:sysInfo"
+							actionListener="#{agentSysInfoContext.refresh()}" />
+					</ag:dialogOpenButton>
+				</p:column>
+			</p:dataTable>
+
+		</p:tab>
+
+		<p:tab id="driveDetails"
+			title="#{_gui['structure.instance.sysinfo.storage.volumes']}"
+			disabled="#{not agentSysInfoStorageTable.driveSelected}">
+
+			<p:outputPanel
+				rendered="#{agentSysInfoStorageTable.isPhysicalDrive(agentSysInfoStorageTable.selectedDrive)}">
+				<ag:simpleField readOnly="true"
+					label="#{_gui['structure.instance.sysinfo.storage.drive.blockDeviceName']}"
+					value="#{agentSysInfoStorageTable.selectedDrive.blockDeviceName}" />
+				<ag:simpleField readOnly="true"
+					label="#{_gui['structure.instance.sysinfo.storage.drive.partitionTableType']}"
+					value="#{agentSysInfoStorageTable.selectedDrive.partitionTableType}" />
+				<ag:simpleField readOnly="true"
+					onlyIf="#{agentSysInfoStorageTable.selectedDrive.uncapturedSpace gt 0}"
+					label="#{_gui['structure.instance.sysinfo.storage.drive.uncapturedSpace']}"
+					value="#{ag:formatByteSizeSI(agentSysInfoStorageTable.selectedDrive.uncapturedSpace)}" />
+
+			</p:outputPanel>
+
+			<ag:simpleField readOnly="true"
+				rendered="#{agentSysInfoStorageTable.selectedDrive.system}"
+				label="#{_gui['structure.instance.sysinfo.storage.drive.system']}"
+				value="#{agentSysInfoStorageTable.selectedDrive.system}" />
+
+			<p:dataTable styleClass="sysInfoDriveDetails"
+				value="#{agentSysInfoStorageTable.selectedDriveVolumes}"
+				selectionMode="single"
+				selection="#{agentSysInfoStorageTable.selectedVolume}" var="vol"
+				rowKey="#{agentSysInfoStorageTable.getVolRowKey(vol)}"
+				emptyMessage="#{_gui['structure.instance.sysinfo.storage.volumes.empty']}">
+
+				<p:ajax event="rowSelect" process="@this" update="@parent:@parent"
+					oncomplete="$('#mainContent .ui-layout-unit-content').animate(
+							{scrollTop : $('.sysInfoVolumeDetails').offset() ? $('.sysInfoVolumeDetails').offset().top : 0},1000);" />
+
+
+				<p:column width="40%"
+					headerText="#{_gui['structure.instance.sysinfo.storage.volumes.volume']}">
+					<h:outputText
+						value="#{agentSysInfoStorageTable.getVolumeDisplayName(vol)}" />
+				</p:column>
+
+				<p:column width="30%"
+					headerText="#{_gui['structure.instance.sysinfo.storage.volumes.volumeDetail']}">
+					<h:outputText
+						value="#{agentSysInfoStorageTable.getVolumeDisplayDetail(vol)}" />
+				</p:column>
+
+				<p:column width="15%"
+					headerText="#{_gui['structure.instance.sysinfo.storage.volumes.volumeSize']}">
+					<h:outputText rendered="#{vol.size gt 0}"
+						value="#{ag:formatByteSizeSI(vol.size)}" />
+				</p:column>
+
+				<p:column width="15%">
+					<p:commandButton icon="ui-icon-check"
+						rendered="#{dialog.inDialog() and sysInfoUtil.canPick(vol)}"
+						title="#{_gui['structure.instance.sysinfo.storage.pick']}"
+						action="#{sysInfoUtil.pick(vol)}" />
+					<p:commandButton type="button" icon="ui-icon-search"
+						onclick="$(this).closest('td').click()"
+						title="#{_gui['structure.instance.sysinfo.storage.inspect']}"
+						rendered="#{not dialog.inDialog() or not sysInfoUtil.canPick(vol)}" />
+
+					<ag:dialogOpenButton
+						dialog="/hardware/storage/expandVolume.xhtml?instance=#{structureViewContext.selectedObjectId}&amp;drive=#{vol.drive.id}&amp;volume=#{agentSysInfoStorageTable.getVolRowKey(vol)}"
+						rendered="#{agentSysInfoStorageTable.canExpand(agentSysInfoStorageTable.selectedDrive, vol)}"
+						title="#{_gui['structure.instance.sysinfo.storage.expand']}"
+						icon="ui-icon-arrowthick-2-e-w" closable="true">
+						<p:ajax event="return" update="@form:sysInfo"
+							actionListener="#{agentSysInfoContext.refresh()}" />
+					</ag:dialogOpenButton>
+					<ag:dialogOpenButton
+						dialog="/hardware/storage/initializeVolume.xhtml?instance=#{structureViewContext.selectedObjectId}&amp;drive=#{vol.drive.id}&amp;volume=#{agentSysInfoStorageTable.getVolRowKey(vol)}"
+						rendered="#{agentSysInfoStorageTable.canInitializeVolume(vol)}"
+						title="#{_gui['structure.instance.sysinfo.storage.initializeVolume']}"
+						icon="ui-icon-plusthick" closable="true">
+						<p:ajax event="return" update="@form:sysInfo"
+							actionListener="#{agentSysInfoContext.refresh()}" />
+					</ag:dialogOpenButton>
+				</p:column>
+			</p:dataTable>
+		</p:tab>
+
+		<p:tab id="volumeDetails"
+			disabled="#{not agentSysInfoStorageTable.volumeSelected or not agentSysInfoStorageTable.selectedVolume.holdsFilesystem()}">
+			<f:facet name="title">
+				<h:outputText styleClass="sysInfoVolumeDetails"
+					value="#{_gui['structure.instance.sysinfo.storage.fs']}" />
+			</f:facet>
+
+			<ag:simpleField styleClass="noLabel"
+				onlyIf="#{dialog.inDialog() and sysInfoUtil.canPick(agentSysInfoStorageTable.selectedVolume.fileSystem)}">
+				<p:commandButton icon="ui-icon-check"
+					value="#{_gui['structure.instance.sysinfo.storage.pick']}"
+					action="#{sysInfoUtil.pick(agentSysInfoStorageTable.selectedVolume)}" />
+			</ag:simpleField>
+
+			<ag:simpleField readOnly="true"
+				onlyIf="#{not empty agentSysInfoStorageTable.selectedVolume.fileSystem.uuid}"
+				label="#{_gui['structure.instance.sysinfo.storage.fs.uuid']}"
+				value="#{agentSysInfoStorageTable.selectedVolume.fileSystem.uuid}" />
+			<ag:simpleField readOnly="true"
+				onlyIf="#{not empty structure.instance.sysinfo.storage.fs.label}"
+				label="#{_gui['structure.instance.sysinfo.storage.fs.label']}"
+				value="#{agentSysInfoStorageTable.selectedVolume.fileSystem.label}" />
+			<ag:simpleField readOnly="true"
+				label="#{_gui['structure.instance.sysinfo.storage.fs.fsType']}"
+				value="#{agentSysInfoStorageTable.translateFileSystemType(agentSysInfoStorageTable.selectedVolume.fileSystem.fsType)}" />
+
+			<ag:simpleField readOnly="true"
+				label="#{_gui['structure.instance.sysinfo.storage.fs.swapActive']}"
+				onlyIf="#{agentSysInfoStorageTable.isSwapVolume(agentSysInfoStorageTable.selectedVolume.fileSystem)}"
+				value="#{agentSysInfoStorageTable.isActiveSwap(agentSysInfoStorageTable.selectedVolume.fileSystem)}" />
+
+			<ag:simpleField readOnly="true"
+				label="#{_gui['structure.instance.sysinfo.storage.fs.mountpoints']}"
+				collection="true"
+				onlyIf="#{agentSysInfoStorageTable.isDataVolume(agentSysInfoStorageTable.selectedVolume.fileSystem)}"
+				value="#{agentSysInfoStorageTable.getMountPoints(agentSysInfoStorageTable.selectedVolume.fileSystem)}" />
+
+			<ag:simpleField readOnly="true"
+				label="#{_gui['structure.instance.sysinfo.storage.fs.spaceTotal']}"
+				onlyIf="#{agentSysInfoStorageTable.isDataVolume(agentSysInfoStorageTable.selectedVolume.fileSystem) and 
+							empty agentSysInfoStorageTable.selectedVolume.fileSystem.mountPoints}"
+				value="#{_gui['structure.instance.sysinfo.storage.fs.spaceUnavailable']}" />
+
+			<ag:simpleField readOnly="true"
+				label="#{_gui['structure.instance.sysinfo.storage.fs.spaceTotal']}"
+				onlyIf="#{agentSysInfoStorageTable.isDataVolume(agentSysInfoStorageTable.selectedVolume.fileSystem) and 
+							not empty agentSysInfoStorageTable.selectedVolume.fileSystem.mountPoints}"
+				value="#{ag:formatByteSizeSI(agentSysInfoStorageTable.getTotalSpace(agentSysInfoStorageTable.selectedVolume.fileSystem))}" />
+
+			<ag:simpleField readOnly="true"
+				label="#{_gui['structure.instance.sysinfo.storage.fs.spaceUsable']}"
+				onlyIf="#{agentSysInfoStorageTable.isDataVolume(agentSysInfoStorageTable.selectedVolume.fileSystem) and 
+							not empty agentSysInfoStorageTable.selectedVolume.fileSystem.mountPoints}"
+				value="#{ag:formatByteSizeSI(agentSysInfoStorageTable.getUsableSpace(agentSysInfoStorageTable.selectedVolume.fileSystem))}" />
+
+			<ag:simpleField readOnly="true"
+				label="#{_gui['structure.instance.sysinfo.storage.fs.spaceUncaptured']}"
+				onlyIf="#{agentSysInfoStorageTable.isDataVolume(agentSysInfoStorageTable.selectedVolume.fileSystem) and 
+							not empty agentSysInfoStorageTable.selectedVolume.fileSystem.mountPoints 
+							and agentSysInfoStorageTable.selectedVolume.fileSystem.uncapturedSpace gt 0}"
+				value="#{ag:formatByteSizeSI(agentSysInfoStorageTable.getUncapturedSpace(agentSysInfoStorageTable.selectedVolume.fileSystem))}" />
+
+		</p:tab>
+	</p:accordionPanel>
+</ui:composition>

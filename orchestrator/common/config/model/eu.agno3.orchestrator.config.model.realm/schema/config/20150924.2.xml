@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+	<changeSet author="mbechler (generated)" id="1443182418958-1">
+		<createTable tableName="config">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="VERSION" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="DISPLAYNAME" type="VARCHAR(255)" />
+			<column name="NAME" type="VARCHAR(255)" />
+			<column name="ANCHOR_ID" type="BINARY(16)" />
+			<column name="INHERITS_ID" type="BINARY(16)" />
+			<column name="OUTEROBJECT_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-2">
+		<createTable tableName="config_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+			<column name="DISPLAYNAME" type="VARCHAR(255)" />
+			<column name="NAME" type="VARCHAR(255)" />
+			<column name="ANCHOR_ID" type="BINARY(16)" />
+			<column name="INHERITS_ID" type="BINARY(16)" />
+			<column name="OUTEROBJECT_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-3">
+		<createTable tableName="config_config">
+			<column name="USEDBY_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="USES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-4">
+		<createTable tableName="config_config_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="USEDBY_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="USES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-5">
+		<createTable tableName="config_instances">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-6">
+		<createTable tableName="config_instances_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-7">
+		<createTable tableName="groups">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-8">
+		<createTable tableName="groups_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-9">
+		<createTable tableName="instances">
+			<column name="AGENTID" type="BINARY(16)" />
+			<column name="IMAGETYPE" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-10">
+		<createTable tableName="instances_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="AGENTID" type="BINARY(16)" />
+			<column name="IMAGETYPE" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-11">
+		<createTable tableName="resource_libraries">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="VERSION" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="NAME" type="VARCHAR(255)" />
+			<column name="TYPE" type="VARCHAR(255)" />
+			<column name="ANCHOR" type="BINARY(16)" />
+			<column name="PARENT_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-12">
+		<createTable tableName="resource_libraries_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+			<column name="NAME" type="VARCHAR(255)" />
+			<column name="TYPE" type="VARCHAR(255)" />
+			<column name="ANCHOR" type="BINARY(16)" />
+			<column name="PARENT_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-13">
+		<createTable tableName="services">
+			<column name="APPLIEDREVISION" type="BIGINT" />
+			<column name="SERVICETYPE" type="VARCHAR(255)" />
+			<column name="STATE" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIGURATION" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-14">
+		<createTable tableName="services_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="APPLIEDREVISION" type="BIGINT" />
+			<column name="SERVICETYPE" type="VARCHAR(255)" />
+			<column name="STATE" type="VARCHAR(255)" />
+			<column name="CONFIGURATION" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-15">
+		<createTable tableName="structural_defaults">
+			<column name="DEFAULTFOR_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DEFAULTOBJECTS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-16">
+		<createTable tableName="structural_defaults_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="DEFAULTFOR_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DEFAULTOBJECTS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-17">
+		<createTable tableName="structural_enforment">
+			<column name="ENFORCEDFOR_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ENFORCEDOBJECTS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-18">
+		<createTable tableName="structural_enforment_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ENFORCEDFOR_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ENFORCEDOBJECTS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-19">
+		<createTable tableName="structure">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="VERSION" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="DISPLAYNAME" type="VARCHAR(255)" />
+			<column name="PERSISTENTSTATE" type="VARCHAR(255)" />
+			<column name="D" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="L" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="R" type="INT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-20">
+		<createTable tableName="structure_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+			<column name="DISPLAYNAME" type="VARCHAR(255)" />
+			<column name="PERSISTENTSTATE" type="VARCHAR(255)" />
+			<column name="D" type="INT" />
+			<column name="L" type="INT" />
+			<column name="R" type="INT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-21">
+		<addPrimaryKey columnNames="USEDBY_ID, USES_ID"
+			tableName="config_config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-22">
+		<addPrimaryKey columnNames="DEFAULTFOR_ID, DEFAULTOBJECTS_ID"
+			tableName="structural_defaults" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-23">
+		<addPrimaryKey columnNames="ENFORCEDFOR_ID, ENFORCEDOBJECTS_ID"
+			tableName="structural_enforment" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-24">
+		<addPrimaryKey columnNames="ID" constraintName="configPK"
+			tableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-25">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_AUDPK"
+			tableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-26">
+		<addPrimaryKey columnNames="REV, USEDBY_ID, USES_ID"
+			constraintName="config_config_AUDPK" tableName="config_config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-27">
+		<addPrimaryKey columnNames="ID" constraintName="config_instancesPK"
+			tableName="config_instances" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-28">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_instances_AUDPK"
+			tableName="config_instances_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-29">
+		<addPrimaryKey columnNames="ID" constraintName="groupsPK"
+			tableName="groups" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-30">
+		<addPrimaryKey columnNames="ID, REV" constraintName="groups_AUDPK"
+			tableName="groups_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-31">
+		<addPrimaryKey columnNames="ID" constraintName="instancesPK"
+			tableName="instances" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-32">
+		<addPrimaryKey columnNames="ID, REV" constraintName="instances_AUDPK"
+			tableName="instances_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-33">
+		<addPrimaryKey columnNames="ID" constraintName="resource_librariesPK"
+			tableName="resource_libraries" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-34">
+		<addPrimaryKey columnNames="ID, REV" constraintName="resource_libraries_AUDPK"
+			tableName="resource_libraries_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-35">
+		<addPrimaryKey columnNames="ID" constraintName="servicesPK"
+			tableName="services" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-36">
+		<addPrimaryKey columnNames="ID, REV" constraintName="services_AUDPK"
+			tableName="services_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-37">
+		<addPrimaryKey columnNames="REV, DEFAULTFOR_ID, DEFAULTOBJECTS_ID"
+			constraintName="structural_defaults_AUDPK" tableName="structural_defaults_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-38">
+		<addPrimaryKey columnNames="REV, ENFORCEDFOR_ID, ENFORCEDOBJECTS_ID"
+			constraintName="structural_enforment_AUDPK" tableName="structural_enforment_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-39">
+		<addPrimaryKey columnNames="ID" constraintName="structurePK"
+			tableName="structure" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-40">
+		<addPrimaryKey columnNames="ID, REV" constraintName="structure_AUDPK"
+			tableName="structure_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-41">
+		<addUniqueConstraint columnNames="ANCHOR, NAME"
+			constraintName="UK_C61GAMH43TD7X1243REN7MN4S" tableName="resource_libraries" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-42">
+		<addUniqueConstraint columnNames="L"
+			constraintName="UNIQUEL" tableName="structure" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-43">
+		<addUniqueConstraint columnNames="R"
+			constraintName="UNIQUER" tableName="structure" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-44">
+		<createIndex indexName="FK_FK_2323U1QV546W5XWF6HY5PMGD7"
+			tableName="config">
+			<column name="OUTEROBJECT_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-45">
+		<createIndex indexName="FK_FK_56HEBF07JOFYOUE3ONBMFED5A"
+			tableName="structural_defaults">
+			<column name="DEFAULTOBJECTS_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-46">
+		<createIndex indexName="FK_FK_5BSA48I5YIN9FDUVA14A5G66P"
+			tableName="structural_enforment_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-47">
+		<createIndex indexName="FK_FK_6CCJS2XXB6L301SH86UX9Q3HM"
+			tableName="config_instances">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-48">
+		<createIndex indexName="FK_FK_6JCT5CX5WQS9TN0C9U90P5S5B"
+			tableName="config_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-49">
+		<createIndex indexName="FK_FK_6L24AIRDQBU83N3IFSQJYL73T"
+			tableName="structural_enforment">
+			<column name="ENFORCEDOBJECTS_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-50">
+		<createIndex indexName="FK_FK_6Y7PU5WBTKCK9T4BL8H92F86Q"
+			tableName="instances_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-51">
+		<createIndex indexName="FK_FK_9CC7B6JOTEBA11800LJE52T4N"
+			tableName="config_instances_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-52">
+		<createIndex indexName="FK_FK_9JSMLDYHA4YNIEULTURNT3JDK"
+			tableName="resource_libraries_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-53">
+		<createIndex indexName="FK_FK_9NBDLJ0XGBNQ69KOI9X2B2VAI"
+			tableName="structure_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-54">
+		<createIndex indexName="FK_FK_AO09GC5EJFH287L704VJ0R2WR"
+			tableName="config">
+			<column name="INHERITS_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-55">
+		<createIndex indexName="FK_FK_AWK219WEQUL59I12TO591UQNR"
+			tableName="groups">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-56">
+		<createIndex indexName="FK_FK_BC6O9VKBLCHD6CGTRQ04D1LEL"
+			tableName="groups_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-57">
+		<createIndex indexName="FK_FK_G6Y6FRECYU8WXW6NVFX87JV8"
+			tableName="structural_enforment">
+			<column name="ENFORCEDFOR_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-58">
+		<createIndex indexName="FK_FK_IL7A02TMMJ525W8AL45X88UYH"
+			tableName="config">
+			<column name="ANCHOR_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-59">
+		<createIndex indexName="FK_FK_J5TUMC7PGO7GGQN9P1HDPEJ7P"
+			tableName="instances">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-60">
+		<createIndex indexName="FK_FK_KNL15WX7X0XTVSXBY4VI3QBI2"
+			tableName="resource_libraries">
+			<column name="ANCHOR" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-61">
+		<createIndex indexName="FK_FK_LE55T32OBSPJ6FHY8FWBABBDT"
+			tableName="config_config">
+			<column name="USES_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-62">
+		<createIndex indexName="FK_FK_LW5399JCP6U2SS4NTIGHDUP8A"
+			tableName="services">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-63">
+		<createIndex indexName="FK_FK_O1HS069NFH1E6XTQK9ABWMPCV"
+			tableName="services_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-64">
+		<createIndex indexName="FK_FK_O5WQFDWKYQA15RQKHCGL21924"
+			tableName="resource_libraries">
+			<column name="PARENT_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-65">
+		<createIndex indexName="FK_FK_PJUA264IHONG2Q8M7ALIE6W60"
+			tableName="structural_defaults_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-66">
+		<createIndex indexName="FK_FK_QV6J62GCHGJMCLXA9WSUISSKK"
+			tableName="config_config">
+			<column name="USEDBY_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-67">
+		<createIndex indexName="FK_FK_SKJ9EQJJWRU1U33SN6FQWD5S0"
+			tableName="config_config_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-68">
+		<createIndex indexName="FK_FK_SRCAM7MPYJ33FBL9CYR4SDEIL"
+			tableName="structural_defaults">
+			<column name="DEFAULTFOR_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-69">
+		<createIndex indexName="STRUCTTREE" tableName="structure">
+			<column name="L" />
+			<column name="R" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-70">
+		<createIndex indexName="UK_JX6FJ95MFW5C5WW50LSNPF1TC"
+			tableName="services">
+			<column name="SERVICETYPE" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-71">
+		<createIndex indexName="UK_N1AWCS2VFKR1R75XTK4V733TC"
+			tableName="services">
+			<column name="CONFIGURATION" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-72">
+		<addForeignKeyConstraint baseColumnNames="OUTEROBJECT_ID"
+			baseTableName="config" constraintName="FK_2323U1QV546W5XWF6HY5PMGD7"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-73">
+		<addForeignKeyConstraint baseColumnNames="DEFAULTOBJECTS_ID"
+			baseTableName="structural_defaults" constraintName="FK_56HEBF07JOFYOUE3ONBMFED5A"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-74">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="structural_enforment_AUD" constraintName="FK_5BSA48I5YIN9FDUVA14A5G66P"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-75">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_instances" constraintName="FK_6CCJS2XXB6L301SH86UX9Q3HM"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-76">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_AUD" constraintName="FK_6JCT5CX5WQS9TN0C9U90P5S5B"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-77">
+		<addForeignKeyConstraint baseColumnNames="ENFORCEDOBJECTS_ID"
+			baseTableName="structural_enforment" constraintName="FK_6L24AIRDQBU83N3IFSQJYL73T"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-78">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="instances_AUD" constraintName="FK_6Y7PU5WBTKCK9T4BL8H92F86Q"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="structure_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-79">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_instances_AUD" constraintName="FK_9CC7B6JOTEBA11800LJE52T4N"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-80">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="resource_libraries_AUD" constraintName="FK_9JSMLDYHA4YNIEULTURNT3JDK"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-81">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="structure_AUD" constraintName="FK_9NBDLJ0XGBNQ69KOI9X2B2VAI"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-82">
+		<addForeignKeyConstraint baseColumnNames="INHERITS_ID"
+			baseTableName="config" constraintName="FK_AO09GC5EJFH287L704VJ0R2WR"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-83">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="groups" constraintName="FK_AWK219WEQUL59I12TO591UQNR"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="structure" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-84">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="groups_AUD" constraintName="FK_BC6O9VKBLCHD6CGTRQ04D1LEL"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="structure_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-85">
+		<addForeignKeyConstraint baseColumnNames="ENFORCEDFOR_ID"
+			baseTableName="structural_enforment" constraintName="FK_G6Y6FRECYU8WXW6NVFX87JV8"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="structure" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-86">
+		<addForeignKeyConstraint baseColumnNames="ANCHOR_ID"
+			baseTableName="config" constraintName="FK_IL7A02TMMJ525W8AL45X88UYH"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="structure" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-87">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="instances" constraintName="FK_J5TUMC7PGO7GGQN9P1HDPEJ7P"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="structure" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-88">
+		<addForeignKeyConstraint baseColumnNames="ANCHOR"
+			baseTableName="resource_libraries" constraintName="FK_KNL15WX7X0XTVSXBY4VI3QBI2"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="structure" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-89">
+		<addForeignKeyConstraint baseColumnNames="USES_ID"
+			baseTableName="config_config" constraintName="FK_LE55T32OBSPJ6FHY8FWBABBDT"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-90">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="services" constraintName="FK_LW5399JCP6U2SS4NTIGHDUP8A"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="structure" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-91">
+		<addForeignKeyConstraint baseColumnNames="CONFIGURATION"
+			baseTableName="services" constraintName="FK_N1AWCS2VFKR1R75XTK4V733TC"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_instances" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-92">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="services_AUD" constraintName="FK_O1HS069NFH1E6XTQK9ABWMPCV"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="structure_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-93">
+		<addForeignKeyConstraint baseColumnNames="PARENT_ID"
+			baseTableName="resource_libraries" constraintName="FK_O5WQFDWKYQA15RQKHCGL21924"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="resource_libraries" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-94">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="structural_defaults_AUD" constraintName="FK_PJUA264IHONG2Q8M7ALIE6W60"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-95">
+		<addForeignKeyConstraint baseColumnNames="USEDBY_ID"
+			baseTableName="config_config" constraintName="FK_QV6J62GCHGJMCLXA9WSUISSKK"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-96">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_config_AUD" constraintName="FK_SKJ9EQJJWRU1U33SN6FQWD5S0"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418958-97">
+		<addForeignKeyConstraint baseColumnNames="DEFAULTFOR_ID"
+			baseTableName="structural_defaults" constraintName="FK_SRCAM7MPYJ33FBL9CYR4SDEIL"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="structure" />
+	</changeSet>
+</databaseChangeLog>

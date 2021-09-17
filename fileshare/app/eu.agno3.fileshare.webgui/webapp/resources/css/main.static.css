@@ -1,0 +1,1614 @@
+/* Theme */
+#menu, #menutop {
+	background-color: #dddddd;
+	border-right-style: none;
+}
+
+.file-browser .file-table .ui-state-highlight .file-name-display,
+	.file-browser .file-table .ui-state-active .file-name-display {
+	background-color: #999;
+	color: #FFF;
+	text-shadow: 0.05em 0.05em #333;
+}
+
+.user-details .verified {
+	color: darkgreen;
+}
+
+.user-details .user-supplied {
+	color: #999999;
+}
+
+/* Layout/Widgets */
+html {
+	height: 100%;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	overflow-x: hidden;
+	height: 100%;
+	margin: 0;
+	font-size: 12pt;
+}
+
+@media only screen and (max-device-width : 639px) {
+	.max-tiny {
+		
+	}
+	.min-medium {
+		display: none !important;
+	}
+	.ui-widget .ui-widget .smaller-if-tiny {
+		font-size: 90%;
+	}
+	.ui-widget .ui-widget .smaller-if-medium {
+		font-size: 90%;
+	}
+	.ui-button.ui-button-text-icon-left .ui-button-text, .ui-button.ui-button-text-icon-right .ui-button-text,
+		.button .shrbutton .ui-button-text {
+		display: none !important;
+	}
+	.ui-widget.ui-button .ui-icon {
+		margin-left: 0.4em;
+		margin-right: 0.4em;
+	}
+	.large-only {
+		display: none !important;
+	}
+	.content-width {
+		width: 100% !important;
+	}
+	.ui-dialog, .ui-dialog.preview-dialog, .ui-dialog .ui-dialog-content,
+		.ui-dialog iframe {
+		width: 100% !important;
+		height: 100% !important;
+		left: 0 !important;
+		top: 0 !important;
+		min-height: 0 !important;
+		min-width: 0 !important;
+		max-height: none !important;
+		max-width: none !important;
+		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		padding: 0 !important;
+	}
+	td.share-action .grant-list {
+		display: none !important;
+	}
+	td.share-action, th.share-action {
+		width: 6em !important;
+	}
+	td.file-column, th.file-column {
+		width: auto !important;
+	}
+	td.default-enabled, th.default-enabled {
+		display: none;
+	}
+	.file-browser .ui-treetable.ui-treetable-resizable {
+		width: auto !important;
+	}
+	html.dialog {
+		overflow: auto !important;
+	}
+}
+
+@media only screen and (min-device-width : 639px) and (max-device-width
+	: 1000px) {
+	.at-most-tiny {
+		display: none !important;
+	}
+	.large-only {
+		display: none !important;
+	}
+	.ui-widget .ui-widget .smaller-if-medium {
+		font-size: 90%;
+	}
+	.content-width {
+		width: 100% !important;
+	}
+	.ui-dialog, .ui-dialog.preview-dialog, .ui-dialog, .ui-dialog-content,
+		.ui-dialog iframe {
+		width: 100% !important;
+		height: 100% !important;
+		left: 0 !important;
+		top: 0 !important;
+		min-height: 0 !important;
+		min-width: 0 !important;
+		max-height: none !important;
+		max-width: none !important;
+		overflow: auto !important;
+		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+	}
+}
+
+@media only screen and (max-device-width : 1024px) {
+	body {
+		font-size: 10pt;
+	}
+}
+
+@media only screen and (min-device-width : 1000px) {
+	.at-most-tiny {
+		display: none !important;
+	}
+	.at-most-medium {
+		display: none !important;
+	}
+}
+
+.at-most-tiny {
+	display: none;
+}
+
+.at-most-medium {
+	display: none;
+}
+
+@media not screen {
+	.at-most-tiny {
+		display: none !important;
+	}
+	.at-most-medium {
+		display: none !important;
+	}
+}
+
+@media only print {
+	#header {
+		display: none !important;
+	}
+	#menu {
+		display: none !important;
+	}
+	#menutop {
+		display: block !important;
+	}
+	#content {
+		display: block;
+		clear: both;
+	}
+	.file-browser .file-toolbar {
+		display: none !important;
+	}
+	.file-browser .root-drop-zone {
+		display: none !important;
+	}
+	.content-width {
+		width: 100% !important;
+	}
+}
+
+#container {
+	padding: 0;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0
+}
+
+#header {
+	display: inline-block;
+	height: 2.5em;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	vertical-align: top;
+	border-style: none;
+	background: transparent;
+}
+
+#header .header-panel {
+	text-align: right;
+	padding: 0.5em;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	max-width: 1200px;
+}
+
+#header .small-header>* {
+	display: inline-block;
+	vertical-align: top;
+}
+
+#header .small-header img {
+	height: 1.5em;
+	margin-right: 1em;
+	vertical-align: middle;
+}
+
+#header .small-header .ui-menubutton .ui-icon {
+	padding: 0.2em;
+}
+
+#header .small-header .ui-menubutton .ui-icon:before {
+	content: "\f0c9";
+	width: 1.6em;
+}
+
+#menutop {
+	float: left;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	margin: 0;
+	height: 5.5em;
+	overflow: hidden;
+	border-style: none;
+	text-align: center;
+}
+
+#menutop img {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 1.5em;
+}
+
+#menu {
+	clear: both;
+	float: left;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	margin: 0;
+	height: -moz-calc(100% - 5.5em); /* Firefox */
+	height: -webkit-calc(100% - 5.5em); /* Chrome, Safari */
+	height: calc(100% - 5.5em); /* IE9+ and future browsers */
+	overflow: scroll-y
+}
+
+#content {
+	display: inline-block;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	vertical-align: top;
+	margin: 0;
+	padding: 2em;
+	padding-top: 0.4em;
+	height: -moz-calc(100% - 2.5em); /* Firefox */
+	height: -webkit-calc(100% - 2.5em); /* Chrome, Safari */
+	height: calc(100% - 2.5em); /* IE9+ and future browsers */
+}
+
+.menu-width {
+	width: 250px;
+}
+
+.content-width {
+	width: -moz-calc(100% - 250px); /* Firefox */
+	width: -webkit-calc(100% - 250px); /* Chrome, Safari */
+	width: calc(100% - 250px); /* IE9+ and future browsers */
+	max-width: 1410px;
+}
+
+#menu ul {
+	list-style-type: none;
+	padding-left: 0;
+	margin: 0;
+	width: 100%;
+}
+
+#menu>div>ul {
+	margin-top: 0.5em;
+}
+
+#menu ul li {
+	overflow: hidden;
+	font-weight: bold;
+}
+
+#menu ul li a {
+	color: inherit;
+}
+
+#menu ul li a.menu-item, #menu ul li span.menu-item {
+	padding: 0.3em 0.6em;
+	text-decoration: none;
+	display: inline-block;
+}
+
+#menu ul li li a.menu-item, #menu ul li li {
+	padding-left: 1.0em;
+	font-size: 85%;
+}
+
+#menu .ui-state-highlight {
+	text-shadow: none;
+	box-shadow: none;
+	border: 0;
+}
+
+#menu ul>li>div>a .ui-icon, #menu ul>li>div>span .ui-icon {
+	display: inline-block;
+	vertical-align: baseline;
+	overflow: visible !important;
+	width: 1.5em;
+}
+
+#menu ul li>div>a.remove-shortcut {
+	visibility: hidden;
+	text-decoration: none;
+}
+
+#menu ul li:hover>div>a.remove-shortcut {
+	visibility: visible;
+}
+
+.ui-icon.file-icon.ui-icon-inline {
+	vertical-align: baseline;
+	overflow: visible !important;
+}
+
+.ui-icon.file-icon.ui-icon-inline.empty {
+	vertical-align: top;
+}
+
+#header .header-panel {
+	padding-right: 2em;
+}
+
+#header .header-panel>.ui-outputpanel {
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 0.5em;
+}
+
+#header .search-panel>*, #header .ui-button, #header .button {
+	line-height: 1.0;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	height: 1.6em;
+	vertical-align: middle;
+	font-size: 100%;
+}
+
+.header-user-info .user-info, .header-user-info .user-info span {
+	font-weight: normal !important;
+}
+
+/* This has to be adjusted when changes to the selection operations are made */
+.selection-operations.no-selection .ui-toolbar-group-left .reserve-space
+	{
+	display: inline-block;
+	width: 39em;
+}
+
+.selection-operations.no-selection .ui-toolbar-group-right .reserve-space
+	{
+	display: inline-block;
+}
+
+.buttons {
+	text-align: right;
+	margin-right: 1em;
+	width: auto;
+	margin-top: 1.2em;
+}
+
+.func-unit-buttons {
+	width: auto;
+	margin-top: 1.2em;
+	margin-bottom: 1em;
+	text-align: right;
+}
+
+.ui-overlaypanel .buttons {
+	margin-right: auto;
+}
+
+.ui-button.close-button.inline {
+	float: none;
+	margin-left: 0.2em;
+}
+
+.ui-button.close-button.bottom {
+	background: transparent;
+}
+
+.ui-button.close-button.top {
+	position: absolute;
+	right: 0;
+	top: 0;
+	margin: 0;
+	border: 0;
+	background: transparent;
+}
+
+.ui-button.close-button.top .ui-button-text {
+	display: none;
+}
+
+a.dialog-close {
+	text-decoration: none;
+}
+
+.ui-button.close-button.top .ui-button-icon-left, .ui-button.close-button.top .ui-button-icon-right
+	{
+	margin: 0;
+	position: static;
+}
+
+.login-widget.ui-overlaypanel .ui-panel {
+	border: 0;
+}
+
+body.dialog {
+	height: auto;
+	padding-top: 1em;
+	padding-bottom: 0.5em;
+}
+
+.rawBody .ui-fieldset .field input {
+	width: 60%;
+}
+
+body.no-frame div.rawBody {
+	width: auto;
+	border: 0;
+	padding: 0;
+}
+
+div.rawBody {
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 2em;
+	margin-top: 4em;
+	border-style: solid;
+	border-radius: 0.5em;
+	background: inherit;
+}
+
+.ui-tabs.ui-tabs-top {
+	border: 0;
+}
+
+.ui-tabs .ui-tabs-panel {
+	padding: 0em;
+	padding-top: 1.2em;
+}
+
+.ui-widget .ui-widget-content .ui-panelgrid, .ui-widget .ui-widget-content .ui-panelgrid .ui-panelgrid-cell,
+	.ui-widget .ui-widget-content .ui-panelgrid tr.ui-widget-content {
+	border: 0;
+}
+
+.ui-fieldset.ui-widget-content {
+	border: 0;
+}
+
+.field .ui-outputlabel.fieldLabel {
+	text-align: left;
+}
+
+.ui-fieldset-legend {
+	font-weight: bold;
+}
+
+.func-unit>.ui-fieldset-content {
+	padding: 1em;
+	padding-bottom: 0.2em;
+	margin-bottom: 1em;
+	border-radius: 0.5em;
+}
+
+.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-icon span {
+	margin: 0.2em;
+}
+
+.ui-fieldset.ui-widget-content .ui-fieldset-legend {
+	background: transparent;
+	border: 0;
+	padding-left: 0.5em;
+}
+
+.ui-tabs.ui-widget .ui-tabs-nav li a {
+	padding: 0.2em 0.8em;
+}
+
+.file-browser .ui-toolbar {
+	background: none;
+	border-style: none;
+}
+
+.file-browser .file-table.ui-treetable .ui-treetable-header {
+	border-style: none;
+}
+
+div.file-browser {
+	height: 100%;
+	max-width: 1200px;
+}
+
+.ui-datatable {
+	max-width: 1200px;
+}
+
+.file-browser .file-table.ui-treetable .ui-treetable-footer .ui-panel {
+	border-style: none;
+}
+
+.file-browser .file-table.ui-treetable .ui-treetable-footer .ui-panel .ui-panel-content
+	{
+	padding: 0;
+}
+
+.file-browser .file-toolbar, .file-view .file-toolbar {
+	min-height: 6em;
+	clear: both;
+}
+
+.file-browser .file-toolbar .ui-toolbar, .file-view .file-toolbar .ui-toolbar
+	{
+	min-height: 2em;
+}
+
+.file-browser .file-toolbar .filter {
+	
+}
+
+.file-browser .file-toolbar .filter .ui-selectonemenu.filter-selection {
+	width: 8em !important;
+	line-height: normal;
+}
+
+.file-browser .file-toolbar .filter .ui-inputtext {
+	line-height: normal;
+}
+
+.file-browser .file-toolbar .ui-toolbar .ui-toolbar-group-right,
+	.file-browser .file-toolbar .ui-toolbar .ui-toolbar-group-left {
+	min-height: 2em;
+}
+
+.file-browser .file-toolbar .left-block {
+	display: inline-block;
+	vertical-align: middle;
+	width: 13em;
+}
+
+.file-browser .file-toolbar .left-block .local-node-display {
+	word-wrap: break-word;
+	word-break: break-all;
+	vertical-align: middle;
+	clear: both;
+}
+
+.file-browser .file-toolbar .container-operations, , .file-view .file-toolbar .container-operations
+	{
+	border-style: none solid none solid;
+	border-radius: 0 0 0 0;
+}
+
+.file-browser .file-toolbar .container-operations.top, .file-view .file-toolbar .container-operations.top
+	{
+	border-radius: 0.3em 0.3em 0 0;
+	border-style: solid solid none solid;
+}
+
+.file-browser .file-toolbar .container-operations.bottom, .file-view .file-toolbar .container-operations.bottom
+	{
+	border-radius: 0 0 0.3em 0.3em;
+	border-style: none solid solid solid;
+	margin-bottom: 0.2em;
+}
+
+.file-browser .file-toolbar .selection-operations .ui-button {
+	display: inline-block;
+	vertical-align: baseline;
+}
+
+.file-browser .file-toolbar  .selection-options  .ui-button.ui-state-hover .ui-button-text
+	{
+	color: inherit;
+	text-decoration: underline;
+}
+
+.file-browser .file-toolbar .selection-operations {
+	font-size: 90%;
+}
+
+.file-browser .file-toolbar .selection-info {
+	/*display: inline-block;*/
+	display: none;
+	vertical-align: baseline;
+	min-width: 7em;
+	white-space: nowrap;
+}
+
+.file-browser .file-toolbar .hidden-info, .file-browser .file-toolbar .upload-info
+	{
+	font-size: 95%;
+	display: inline-block;
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+	vertical-align: middle;
+	padding: 0.1em;
+	text-decoration: none;
+}
+
+.file-browser .file-toolbar .hidden-info.no-hidden {
+	display: none;
+}
+
+.file-browser .file-table-container {
+	width: 100%;
+	max-height: 80%;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	overflow-y: auto;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+.file-browser .root-drop-zone {
+	border-style: none;
+	padding: 0;
+	margin: 0;
+	text-align: left;
+	height: 100%;
+	text-align: left;
+}
+
+.file-browser .root-drop-zone .drop-info {
+	opacity: 0.4;
+	margin-top: 4em;
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: center;
+}
+
+.file-browser .root-drop-zone.ui-state-active {
+	font-weight: normal;
+	text-shadow: none;
+}
+
+.file-browser .root-drop-zone .drop-info, .file-browser .root-drop-zone .drop-info *
+	{
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none; /* From IE10 only */
+	user-select: none; /* Not valid CSS yet, as of July 2012 */
+	-webkit-user-drag: none; /* Prevents dragging of images/divs etc */
+	user-drag: none;
+}
+
+.file-browser .root-drop-zone .drop-info>img {
+	width: 3em;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.file-browser .root-drop-zone .drop-info>span {
+	width: auto;
+	padding-left: 1em;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.file-browser .label-node {
+	font-weight: bold;
+	font-size: 100%;
+	display: inline-block;
+	width: 90%;
+	margin: 0;
+	padding: 0;
+	white-space: normal;
+}
+
+.file-browser .file-column .action-link {
+	margin-left: -1em;
+	visibility: hidden;
+}
+
+.file-browser tr:hover .file-column .action-link {
+	visibility: visible;
+}
+
+.file-browser tr.ui-state-hover .file-column .action-link .ui-icon,
+	.file-browser tr.ui-state-hover td, .file-browser tr.ui-state-hover .file-column .action-link,
+	.file-browser tr.ui-state-highlight .file-column .action-link .ui-icon,
+	.file-browser tr.ui-state-highlight td, .file-browser tr.ui-state-highlight .file-column .action-link
+	{
+	background-color: inherit;
+}
+
+.file-browser.all-shared tr .button, .file-browser.favorites tr .button.notowner
+	{
+	visibility: visible;
+}
+
+.file-browser tr .button {
+	visibility: hidden;
+}
+
+.file-browser tr:hover .button {
+	visibility: visible;
+}
+
+.file-browser td.share-action, .file-browser th.share-action {
+	width: 14em;
+}
+
+.file-browser td.share-action .ui-widget.button {
+	vertical-align: initial;
+}
+
+.file-browser .file-table.ui-treetable td.action-column {
+	border-left-width: 0 !important;
+	border-right-width: 0 !important;
+}
+
+.file-browser .file-table.ui-treetable td.action-column .ui-icon {
+	display: inline;
+}
+
+.file-browser .file-table.ui-treetable>table {
+	border-left-width: 0 !important;
+	border-left-style: none !important;
+	border-left-color: transparent;
+}
+
+.file-browser .ui-treetable.ui-state-active a, .file-browser .ui-treetable.ui-state-active.ui-state-active a:link,
+	.file-browser .ui-treetable.ui-state-active.ui-state-active a:visited {
+	color: inherit;
+}
+
+.file-browser .ui-treetable.ui-state-active, .file-browser .ui-treetable.ui-widget-content .ui-state-active,
+	.file-browser .ui-treetable.ui-widget-header .ui-state-active {
+	border-style: inherit;
+	border-width: inherit;
+	background: inherit;
+	color: inherit;
+}
+
+.file-browser .file-table.ui-treetable>table>tbody, .file-browser .file-table.ui-treetable>table>tbody td
+	{
+	/* Fix for broken firefox rendering */
+	border-left-color: transparent !important;
+	border-right-color: transparent !important;
+	border-style: solid !important;
+	vertical-align: baseline;
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+
+.file-browser .file-table.ui-treetable td, .file-browser .file-table.ui-treetable tr
+	{
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+.file-browser .file-table.ui-treetable>table tbody tr {
+	border-style: none !important;
+}
+
+.file-browser tr.ui-state-hover .view-link {
+	visibility: visible;
+}
+
+.file-browser.tree-view .file-table-container {
+	width: 100%;
+	max-height: 85%;
+}
+
+.file-browser.tree-view .root-drop-zone {
+	display: none;
+}
+
+.file-browser .file-table.ui-treetable .ui-treetable-footer .ui-panel .ui-panel-titlebar
+	{
+	background: none;
+	padding: 0;
+	border-style: none;
+}
+
+.file-browser .ui-commandlink.ui-state-active {
+	color: inherit;
+}
+
+.download-confirm {
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5em;
+}
+
+.file-preview-content {
+	border-style: solid;
+	height: 100%;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+.preview-dialog {
+	width: 95% !important;
+	height: 80% !important;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+.preview-dialog .loading {
+	width: 100%;
+	text-align: center;
+	padding-top: 5em;
+}
+
+.preview-dialog .loading img {
+	margin-right: 1em;
+}
+
+.preview-dialog.ui-dialog .ui-dialog-titlebar {
+	height: 2.6em;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+.preview-dialog.ui-dialog .ui-dialog-content {
+	padding: 0;
+	height: calc(100% - 2.6em) !important;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	overflow: hidden;
+}
+
+.preview-dialog iframe {
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	margin: 0;
+	border-style: none;
+}
+
+.min-preview-body div.rawBody {
+	width: 100%;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	border-style: none;
+	height: 100%;
+}
+
+.min-preview-body .file-view .file-toolbar {
+	min-height: 0;
+}
+
+.min-preview-body form {
+	width: 100%;
+}
+
+.min-preview-body form, .preview-body #content {
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 0;
+}
+
+.min-preview-body .preview-container, .preview-body .preview-container {
+	flex-grow: 1;
+	width: 100%;
+	height: 80%;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+.upload-dialog .ui-fileupload {
+	background: inherit;
+	padding: 0;
+	border-style: none;
+	margin: 0;
+	margin-top: 0.5em;
+}
+
+.ui-fileupload.resume-upload .ui-fileupload-buttonbar {
+	display: none;
+}
+
+.ui-fileupload.resume-upload .ui-fileupload-content {
+	border-style: none;
+}
+
+.table-pref-overlay {
+	width: 15%;
+	min-width: 10em;
+}
+
+.table-pref-overlay .ui-sortable-handle {
+	text-align: left;
+}
+
+.ui-treetable th.resizeHelper .ui-column-title {
+	text-align: right;
+}
+
+.ui-treetable th.resizeHelper .ui-column-title a {
+	margin-right: 0.5em;
+}
+
+.upload-dialog .ui-fileupload .ui-fileupload-buttonbar {
+	background: inherit;
+	padding: 0;
+	border-style: none;
+	margin: 0;
+}
+
+.upload-dialog .ui-fileupload .ui-fileupload-content {
+	background: inherit;
+	padding: 0;
+	border-style: none;
+	margin: 0;
+}
+
+.upload-dialog .ui-fileupload .ui-fileupload-files {
+	border-style: none;
+	width: 100%;
+}
+
+.upload-dialog .ui-fileupload .ui-fileupload-files div {
+	border-style: none;
+}
+
+.upload-dialog .ui-fileupload .ui-fileupload-files div > div {
+	border-style: none;
+	max-width: 20em;
+	word-wrap: break-word;
+}
+
+.ui-treetable th .ui-column-title, .ui-datatable th .ui-column-title {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	width: 90%;
+	margin-right: auto;
+}
+
+.file-browser .file-table.ui-treetable th>span {
+	width: 100%;
+}
+
+.file-browser .file-table.ui-treetable th .ui-column-title {
+	display: inline-block;
+}
+
+.file-browser .file-table.ui-treetable th>span.ui-sortable-column-icon {
+	width: 1em;
+	opacity: 0.6;
+	position: relative;
+	left: -0.5em;
+	margin-top: -1.2em;
+	float: left;
+}
+
+.file-browser .drop-target.ui-state-active {
+	font-weight: inherit;
+}
+
+.file-browser .file-table.ui-treetable th:hover>span.ui-sortable-column-icon
+	{
+	opacity: 1.0;
+}
+
+.file-browser .file-table.ui-treetable th>span.ui-column-resizer {
+	width: 0.6em;
+}
+
+.file-browser .file-table.ui-treetable th .hide-column {
+	position: relative;
+	left: -0.5em;
+	display: inline-block;
+	opacity: 0.6;
+	vertical-align: top;
+}
+
+.file-browser .file-table.ui-treetable th .column-preferences {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.file-browser .file-table.ui-treetable th:hover .hide-column {
+	opacity: 1.0;
+}
+
+.file-browser .root-drop-zone .drop-target {
+	padding: 0.4em;
+}
+
+.file-browser .drop-target {
+	z-index: 99999;
+}
+
+.file-browser .root-drop-zone .ui-icon {
+	display: inline-block;
+}
+
+.file-browser .root-drop-zone .root-path {
+	display: inline-block;
+}
+
+a.action-link {
+	text-decoration: none;
+}
+
+a>.ui-icon:hover, a.ui-icon:hover, .ui-icon.ui-state-active {
+	opacity: 1.0;
+}
+
+.ui-icon.ui-state-inactive {
+	opacity: 0.3;
+}
+
+.ui-treetable .ui-treetable-data tr.ui-state-highlight, .ui-treetable .ui-treetable-data tbody tr.ui-state-hover,
+	.ui-datatable tbody tr.ui-state-highlight, .ui-datatable tbody tr.ui-state-hover
+	{
+	cursor: inherit;
+	box-shadow: inherit;
+	border-style: none;
+}
+
+.ui-treetable .ui-treetable-data tr.ui-state-hover, .ui-treetable .ui-treetable-data .ui-state-highlight,
+	.ui-datatable tr.ui-state-hover {
+	background: inherit;
+	box-shadow: inherit;
+	color: inherit;
+	text-shadow: inherit;
+	border-style: none;
+}
+
+.file-browser .file-table .ui-treetable-data .ui-state-hover {
+	background: inherit;
+	border-style: none;
+}
+
+.file-browser .file-table .root-drop-zone .ui-state-active {
+	background: inherit;
+	border: inherit;
+}
+
+.file-browser .file-table .ui-treetable-data .ui-state-active {
+	background: inherit;
+	border-style: none;
+	box-shadow: none;
+}
+
+.file-browser .file-table .file-name-display {
+	padding: 0.2em 0.6em;
+}
+
+.file-browser .file-table a.file-name {
+	text-decoration: none;
+}
+
+.file-browser .file-table a span.file-name-display {
+	text-decoration: underline;
+	text-decoration-style: dotted;
+	cursor: pointer;
+	vertical-align: top;
+}
+
+.file-browser .file-table a.single-level-file-name {
+	text-decoration: none;
+}
+
+.ui-state-error.expires-soon {
+	background: transparent;
+	border-style: none;
+	margin-left: 0.2em;
+	margin-right: 0.2em;
+}
+
+.expires-soon.small {
+	font-size: 85%;
+}
+
+.file-browser .file-table>table {
+	border-right-style: none;
+	border-left-style: none;
+}
+
+.file-browser .ui-treetable>table .ui-treetable-data {
+	border-style: none;
+}
+
+.file-browser .ui-treetable>table tr td, .file-browser .ui-treetable>table tr
+	{
+	border-style: none;
+}
+
+.file-browser .ui-treetable tbody td {
+	border-style: none;
+}
+
+.ui-treetable>table>thead tr {
+	font-size: inherit;
+	color: inherit;
+}
+
+.ui-treetable>table>thead tr th.ui-state-active, .ui-treetable>table>thead tr th.ui-state-hover,
+	.ui-treetable>table>thead tr th.ui-state-default {
+	font-size: inherit;
+	border-color: inherit;
+	font-weight: inherit;
+	border-style: solid;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	color: inherit;
+	background-color: transparent;
+	background-image: none;
+}
+
+.ui-treetable>table>thead tr th .ui-icon {
+	color: inherit;
+}
+
+.ui-treetable>table>thead tr th .column-title {
+	font-size: 75%;
+}
+
+.ui-treetable>table>thead tr th a.hide-column {
+	color: inherit;
+}
+
+.ui-selectonemenu-panel .ui-selectonemenu-list {
+	padding: 0.2em;
+}
+
+.ui-selectonemenu .ui-selectonemenu-label {
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	padding-right: 2em;
+}
+
+.file-browser .ui-treetable>table tbody tr {
+	border-bottom-color: transparent;
+	background: transparent;
+}
+
+.file-browser .file-table .ui-draggable-dragging {
+	width: auto !important;
+}
+
+.file-browser .ui-treetable-footer {
+	visibility: hidden;
+}
+
+.login-widget {
+	min-width: 10em;
+	text-align: left;
+}
+
+.ui-menubar.ui-menu {
+	background: none;
+	border-style: none;
+	padding: 0;
+}
+
+.breadcrumbs .root-display {
+	padding: 0;
+	font-size: 105%;
+	background: none;
+	border-style: none;
+	display: inline-block;
+	vertical-align: middle;
+	line-height: normal !important;
+	background: none;
+}
+
+.breadcrumbs .root-display li:last-child() {
+	font-weight: bold;
+}
+
+.breadcrumbs .root-display li span {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.breadcrumbs .root-display li span.ui-menuitem-link, .breadcrumbs .root-display li a.ui-menuitem-link,
+	.breadcrumbs .root-display .ui-breadcrumb-chevron {
+	margin-top: 0;
+}
+
+.breadcrumbs .root-display .ui-breadcrumb-chevron {
+	margin-left: 0.3em;
+	margin-right: 0;
+}
+
+.breadcrumbs .root-display li a {
+	color: inherit;
+	text-decoration: none;
+	font-weight: bolder;
+}
+
+.breadcrumbs .root-display li span.ui-menuitem-icon {
+	margin-right: 0.3em;
+}
+
+.breadcrumbs .ui-icon {
+	height: auto;
+	width: 1.2em;
+}
+
+.breadcrumbs .ui-breadcrumb-chevron.ui-icon {
+	width: 1em;
+}
+
+.breadcrumbs .ui-breadcrumb-chevron:before {
+	content: "/";
+}
+
+.breadcrumbs .ui-icon.ui-icon-inline {
+	vertical-align: baseline;
+}
+
+.breadcrumbs .ui-breadcrumb ul li {
+	display: inline-block;
+	vertical-align: middle;
+	position: static;
+	float: none;
+}
+
+.ui-fieldset.grant-list ul {
+	list-style-type: none;
+	padding-left: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+	display: block;
+	width: 60%;
+}
+
+.grant-buttons {
+	margin-top: 1em;
+}
+
+.ui-inplace-editor {
+	vertical-align: top;
+}
+
+.ui-inplace .ui-inplace-display {
+	padding: 0.2em 0.4em;
+	margin-left: -0.4em;
+	border-radius: 0.3em;
+}
+
+.ui-widget.grant-perms table {
+	width: auto;
+}
+
+.ui-widget.grant-perms table td {
+	padding-right: 0.2em;
+}
+
+.ui-widget.grant-perms .ui-radiobutton {
+	margin-right: 0.5em;
+}
+
+div.grant-perms>label {
+	display: inline-block;
+	vertical-align: middle;
+	width: 4em;
+	font-weight: bold;
+}
+
+div.grant-perms>label:after {
+	content: ":"
+}
+
+div.grant-perms>.ui-widget.grant-perms {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+div.grant-perms.buttons {
+	
+}
+
+div.date-editor {
+	border-radius: 0.3em;
+	padding: 0.2em 0.4em;
+	margin-left: -0.4em;
+}
+
+.login-extra-actions {
+	border-bottom-style: dashed;
+	border-bottom-width: 1px;
+	margin-top: 0.5em;
+	padding-top: 0.5em;
+	margin-top: 0.5em;
+}
+
+.login-extra-actions a {
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+}
+
+.quota-editor .ui-spinner .ui-spinner-input {
+	width: 5em;
+}
+
+.quota-editor {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+ul.shares {
+	display: inline-block;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+ul.shares a {
+	color: inherit;
+	text-decoration: none;
+}
+
+ul.shares li {
+	margin-left: 0.5em;
+	display: inline-block;
+	padding: 0.2em 0.4em;
+	font-weight: normal;
+	border-radius: 1em;
+	border-style: solid;
+	vertical-align: baseline;
+}
+
+ul.shares li.more a {
+	color: inherit !important;
+}
+
+.ui-autocomplete-itemtip.ui-state-highlight {
+	background: inherit;
+	color: inherit;
+	text-shadow: inherit;
+}
+
+.user-details {
+	padding: 0.5em;
+	width: 15em;
+}
+
+.user-details fieldset {
+	padding: 0;
+	margin: 0;
+	margin-top: 0.3em;
+}
+
+.user-details fieldset label:after {
+	content: ":"
+}
+
+.user-details fieldset label {
+	float: left;
+	clear: both;
+	font-weight: bold;
+	margin-right: 0.3em;
+}
+
+.user-details fieldset.verified legend, .user-details fieldset.verified a
+	{
+	color: inherit;
+}
+
+.user-details fieldset.user-supplied legend, .user-details fieldset.user-supplied a
+	{
+	color: inherit;
+}
+
+.ui-state-highlight .user-details .ui-icon {
+	background-image: inherit;
+}
+
+.user-details fieldset .ui-fieldset-content, .user-details fieldset .ui-fieldset-content
+	{
+	margin-left: 0.5em;
+}
+
+.user-details fieldset legend {
+	font-size: 90%;
+	padding: 0 !important;
+	margin: 0;
+}
+
+.ui-autocomplete-panel tr.ui-autocomplete-group td {
+	font-size: 95%;
+	padding: 0.1em;
+}
+
+table.share-table {
+	width: 100%;
+	table-layout: fixed !important;
+	border-collapse: collapse;
+}
+
+table.share-table tr td label.ui-outputlabel {
+	display: block;
+	font-size: 85%;
+	font-weight: bold;
+}
+
+fieldset.shr-panel .field.simple {
+	padding: 0.4em 0.8em;
+	margin: 0;
+	margin-left: 0.2em;
+	margin-right: 0.2em;
+}
+
+fieldset.shr-panel .field.simple .fieldLabel {
+	display: block;
+	width: auto;
+	text-align: left;
+	font-size: 85%;
+	font-weight: bold;
+}
+
+fieldset.shr-panel .ui-message {
+	display: none;
+}
+
+fieldset.shr-panel .field .inputComponents {
+	width: 100%;
+}
+
+fieldset.shr-panel .field .inputComponents .ui-outputpanel>.ui-widget.ui-inputtext,
+	fieldset.shr-panel .field .inputComponents .ui-outputpanel>.ui-widget.ui-inputtextarea
+	{
+	margin: 0;
+	margin-left: 0.2em;
+}
+
+.shares-table table td .grant-display a {
+	text-decoration: none;
+}
+
+.shares-table table td .ui-selectonemenu, table.share-table td .ui-selectonemenu.permissions
+	{
+	width: 8em;
+	min-width: 8em !important;
+}
+
+.shares-table table tr .ui-selectonemenu.ui-state-disabled {
+	opacity: 1.0;
+}
+
+.shares-table .shrbutton {
+	margin-top: 0.5em;
+}
+
+.links-share .field .ui-outputlabel.fieldLabel {
+	width: 10%;
+}
+
+.ui-button.ui-widget.ui-button-text-only .ui-button-text, .button.ui-widget.ui-button-text-only .ui-button-text
+	{
+	padding: 0;
+	font-weight: normal;
+}
+
+.file-browser .file-toolbar .container-operations .top-container-menu .button,
+	.file-view .file-toolbar .container-operations .top-container-menu .button
+	{
+	margin: 0 0.2em;
+}
+
+.username-display.mail {
+	font-style: italic;
+}
+
+.username-display.group-name, .username-display.full-name {
+	
+}
+
+.ui-toolbar.file-view-toolbar {
+	background: none;
+	border-style: none;
+	max-width: 1410px;
+}
+
+.grant-list {
+	display: inline-block;
+	text-align: center;
+	margin-left: 0.1em;
+	margin-right: 0.1em;
+	border-radius: 1em;
+	border-style: solid;
+	border-width: 1px;
+	padding: 0 0;
+	min-width: 1.7em;
+	line-height: normal;
+	height: 1.5em;
+	vertical-align: middle;
+	text-transform: lowercase;
+	font-variant: small-caps;
+	box-sizing: border-box;
+}
+
+.grant-list.ui-icon.ui-icon-inline {
+	display: inline-block;
+	vertical-align: middle;
+	overflow: visible !important;
+	line-height: normal;
+	margin: 0;
+	height: 1.5em;
+	margin-left: 0.1em;
+	margin-right: 0.1em;
+}
+
+.grant-list.ui-icon.ui-icon-inline:before {
+	vertical-align: middle;
+}
+
+.ui-icon-add-modifier:after {
+	content: "\f067";
+	position: relative;
+	font-size: 50%;
+	top: -1.0em;
+	right: 0;
+	margin-bottom: 0;
+	margin-right: 0;
+}
+
+.password-protect .ui-button {
+	margin-left: 0.4em;
+}
+
+html.dialog {
+	overflow: visible;
+	overflow-x: hidden;
+}
+
+.audit-table .ui-state-error.ui-icon {
+	background: inherit;
+	border-style: none;
+}
+
+iframe.terms {
+	border-style: none;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-width: 1px;
+	width: 100%;
+	height: 30em;
+}
+
+.file-picker thead {
+	display: none;
+}
+
+.func-unit ul {
+	padding: 0em;
+	margin: 0em;
+}
+
+.func-unit ul li {
+	padding-bottom: 0.8em;
+}
+
+p {
+	margin: 0em;
+	margin-bottom: 0.5em;
+}

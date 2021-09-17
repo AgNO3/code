@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.runtime.db.orm.internal.DynamicHibernatePersistenceProvider" activate="activate" deactivate="deactivate">
+    <property name="javax.persistence.provider" value="org.hibernate.ejb.HibernatePersistence"/>
+    <service servicefactory="false">
+        <provide interface="javax.persistence.spi.PersistenceProvider"/>
+        <provide interface="eu.agno3.runtime.db.orm.DynamicPersistenceProvider"/>
+        <provide interface="eu.agno3.runtime.update.RefreshListener"/>
+        <provide interface="eu.agno3.runtime.update.PlatformStateListener"/>
+    </service>
+    <reference name="Integrator" interface="org.hibernate.integrator.spi.Integrator" cardinality="0..n" policy="dynamic" bind="bindIntegrator" unbind="unbindIntegrator"/>
+    <reference name="TypeContributor" interface="org.hibernate.boot.model.TypeContributor" cardinality="0..n" policy="dynamic" bind="bindTypeContributor" unbind="unbindTypeContributor"/>
+    <reference name="ServiceContributor" interface="org.hibernate.service.spi.ServiceContributor" cardinality="0..n" policy="dynamic" bind="bindServiceContributor" unbind="unbindServiceContributor"/>
+    <reference name="MappingProducer" interface="org.hibernate.boot.spi.AdditionalJaxbMappingProducer" cardinality="0..n" policy="dynamic" bind="bindMappingProducer" unbind="unbindMappingProducer"/>
+    <reference name="AttributeConverter" interface="javax.persistence.AttributeConverter" cardinality="0..n" policy="dynamic" bind="bindAttributeConverter" unbind="unbindAttributeConverter"/>
+    <reference name="ConfigurationListener" interface="eu.agno3.runtime.db.orm.hibernate.HibernateConfigurationListener" cardinality="0..n" policy="dynamic" bind="bindConfigurationListener" unbind="unbindConfigurationListener"/>
+    <reference name="CacheRegionFactory" interface="eu.agno3.runtime.db.orm.internal.CacheRegionFactory" cardinality="1..1" policy="static" bind="bindCacheRegionFactory" unbind="unbindCacheRegionFactory"/>
+    <implementation class="eu.agno3.runtime.db.orm.internal.DynamicHibernatePersistenceProvider"/>
+</scr:component>

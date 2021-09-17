@@ -1,0 +1,20 @@
+Bundle-SymbolicName: eu.agno3.orchestrator.system.init.systemd
+Bundle-Version: 0.0.1.qualifier
+Bundle-Name: Orchestrator Init System Integration Systemd
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.orchestrator.system.base,
+ eu.agno3.orchestrator.system.base.service,
+ eu.agno3.orchestrator.system.dbus,
+ eu.agno3.orchestrator.system.logind,
+ org.apache.commons.lang3;version="3.1.0",
+ org.apache.log4j;version="1.2.15",
+ org.freedesktop.dbus;version="3.0.0.SNAPSHOT",
+ org.freedesktop.dbus.exceptions;version="3.0.0.SNAPSHOT",
+ org.freedesktop.dbus.types;version="3.0.0.SNAPSHOT",
+ org.osgi.service.component;version="1.2.2",
+ org.osgi.service.component.annotations;version="1.2.0"
+Service-Component: OSGI-INF/*.xml
+Bundle-ActivationPolicy: lazy
+Export-Package: org.freedesktop.systemd1

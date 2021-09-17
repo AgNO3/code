@@ -1,0 +1,158 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+<composite:interface
+	componentType="eu.agno3.orchestrator.server.webgui.components.MultiInheritanceObjectEditor">
+	<composite:attribute name="context" required="false"
+		type="eu.agno3.orchestrator.server.webgui.config.ConfigContext" />
+	<composite:attribute name="path" />
+	<composite:attribute name="objectType" required="true" />
+	<composite:attribute name="template" type="java.lang.Boolean"
+		default="false" />
+	<composite:attribute name="subTemplate" type="java.lang.Boolean"
+		default="false" />
+	<composite:attribute name="readOnly" type="java.lang.Boolean"
+		default="false" />
+
+	<composite:attribute name="toptitle" type="java.lang.String"
+		required="false" />
+
+	<composite:attribute name="minLevel" type="java.lang.Integer"
+		default="1" />
+
+	<composite:attribute name="paramContext" />
+
+	<composite:attribute name="setComparator" type="java.util.Comparator" />
+
+
+	<composite:attribute name="collectionType" type="java.lang.String"
+		required="true" />
+
+	<composite:attribute name="clone" required="false"
+		method-signature="eu.agno3.orchestrator.config.model.realm.ConfigurationObject (eu.agno3.orchestrator.server.webgui.config.ConfigContext,eu.agno3.orchestrator.config.model.realm.ConfigurationObject)" />
+
+	<composite:attribute name="listLabel"
+		method-signature="java.lang.String (java.lang.Object)" />
+</composite:interface>
+
+<composite:implementation>
+	<p:outputPanel id="multiObjectEditor"
+		styleClass="multi-editor multi-inheritance-editor">
+		<p:messages id="msgs" for="#{cc.clientId}" showDetail="true" />
+
+		<composite:insertFacet name="top" />
+
+		<p:outputLabel rendered="#{not empty cc.attrs.toptitle}"
+			styleClass="object-selection-header" for="objectSelection"
+			value="#{cc.attrs.toptitle}" />
+
+		<p:outputPanel style="vertical-align: top">
+			<p:selectOneListbox id="objects" value="#{cc.selectedObject}"
+				styleClass="ays-ignore"
+				style="display: inline-block; vertical-align: top; width: 90%; min-height: 7em; max-width: 40em"
+				converter="#{configurationObjectConverter}" var="object">
+				<p:ajax event="change" process="multiObjectEditor"
+					update="multiObjectEditor" resetValues="true"
+					listener="#{cc.objectChangedListener}" />
+
+				<f:selectItems value="#{cc.selectOptions}" var="obj"
+					itemValue="#{obj}" itemLabel="#{cc.proxyLabel(obj)}" />
+
+				<p:column>
+					<div
+						ondblclick="$(this).closest('.multi-editor').find('.edit-action').click()">
+						<h:outputText value="#{cc.proxyLabel(object)}" />
+					</div>
+				</p:column>
+			</p:selectOneListbox>
+
+			<p:outputPanel style="display: inline-block"
+				styleClass="multi-editor-icons">
+				<p:outputPanel styleClass="ui-widget"
+					rendered="#{not empty cc.selectedObject}">
+					<ag:dialogOpenButton
+						title="#{_gui['config.multiInheritance.edit']}"
+						icon="ui-icon-pencil" styleClass="edit-action"
+						style="display: block" rendered="#{not cc.childrenAreReadOnly()}"
+						dialog="#{cc.innerEditorTemplate}?type=#{cc.selectedObjectType}&amp;path=#{cc.absolutePath}&amp;object=#{structureViewContext.selectedObjectId}&amp;cid=#{cc.attrs.context.conversation.id}&amp;readOnly=false">
+						<p:ajax event="return"
+							update="multiObjectEditor @form:detailLevelPicker"
+							resetValues="multiObjectEditor" listener="#{cc.returnFromEdit}"
+							oncomplete="dirtyReturn(this,args)" />
+					</ag:dialogOpenButton>
+
+					<ag:dialogOpenButton
+						title="#{_gui['config.multiInheritance.view']}"
+						icon="ui-icon-search" styleClass="view-action edit-action"
+						style="display: block" rendered="#{cc.childrenAreReadOnly()}"
+						dialog="#{cc.innerEditorTemplate}?type=#{cc.selectedObjectType}&amp;path=#{cc.absolutePath}&amp;object=#{structureViewContext.selectedObjectId}&amp;cid=#{cc.attrs.context.conversation.id}&amp;readOnly=true">
+					</ag:dialogOpenButton>
+
+					<p:commandButton
+						rendered="#{not empty cc.selectedObject and not cc.childrenAreReadOnly()}"
+						style="display: block" icon="ui-icon-trash"
+						styleClass="remove-object"
+						title="#{_gui['config.multiobject.remove']}"
+						actionListener="#{cc.removeSelected}" immediate="true"
+						update="multiObjectEditor">
+						<p:resetInput target="multiObjectEditor" />
+					</p:commandButton>
+				</p:outputPanel>
+
+				<p:outputPanel styleClass="ui-widget">
+
+					<p:commandButton rendered="#{cc.isInEditMode() and cc.shouldShowResetToDefaults()}"
+						style="display: block" image="ui-icon-cancel"
+						actionListener="#{cc.resetToDefault}" styleClass="revert-defaults"
+						title="#{_gui['config.multiobject.resetToDefault']}"
+						immediate="true" update="multiObjectEditor">
+						<p:resetInput target="multiObjectEditor" />
+					</p:commandButton>
+					<p:commandButton
+						rendered="#{not cc.hasEnforcedValues() and not cc.attrs.readOnly and not cc.isInEditMode()}"
+						style="display: block" image="ui-icon-wrench"
+						styleClass="edit-inherited"
+						title="#{_gui['config.multiobject.editInherited']}"
+						actionListener="#{cc.doEdit}" immediate="true"
+						update="multiObjectEditor">
+						<p:resetInput target="multiObjectEditor" />
+					</p:commandButton>
+					<p:commandButton id="addButton" type="button"
+						rendered="#{not cc.hasEnforcedValues() and not cc.attrs.readOnly and cc.isInEditMode()}"
+						style="display: block" icon="ui-icon-plus"
+						title="#{_gui['config.multiobject.addNewObject']}" />
+
+					<p:overlayPanel for="addButton" dismissable="false"
+						showCloseIcon="true">
+						<p:selectOneMenu value="#{cc.createObjectType}">
+							<f:selectItems value="#{cc.applicableObjectTypes}" var="type"
+								itemLabel="#{configLocalizationProvider.getTypeName(type)}" />
+						</p:selectOneMenu>
+						<br />
+						<p:commandButton actionListener="#{cc.addNew}" icon="ui-icon-plus"
+							styleClass="add-object"
+							value="#{_gui['config.multiobject.addNewObject']}"
+							oncomplete="$(document.getElementById('#{cc.clientId}:multiObjectEditor')).find('.multi-editor-icons .edit-action').click()"
+							process="@composite"
+							update="multiObjectEditor @form:detailLevelPicker">
+							<p:resetInput target="multiObjectEditor" />
+						</p:commandButton>
+					</p:overlayPanel>
+				</p:outputPanel>
+			</p:outputPanel>
+
+		</p:outputPanel>
+
+
+	</p:outputPanel>
+
+</composite:implementation>
+</html>
+
+
+

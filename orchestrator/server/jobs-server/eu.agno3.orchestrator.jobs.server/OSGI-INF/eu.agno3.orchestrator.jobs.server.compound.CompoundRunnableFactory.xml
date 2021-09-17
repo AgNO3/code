@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.jobs.server.compound.CompoundRunnableFactory">
+    <property name="jobType" value="eu.agno3.orchestrator.jobs.compound.CompoundJob"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.jobs.exec.JobRunnableFactory"/>
+    </service>
+    <reference name="JobCoordinator" interface="eu.agno3.orchestrator.jobs.JobCoordinator" cardinality="1..1" policy="static" bind="setJobCoordinator" unbind="unsetJobCoordinator"/>
+    <reference name="JobOutputTracker" interface="eu.agno3.orchestrator.jobs.server.JobOutputTracker" cardinality="1..1" policy="static" bind="setJobOutputTracker" unbind="unsetJobOutputTracker"/>
+    <reference name="JobProgressTracker" interface="eu.agno3.orchestrator.jobs.server.JobProgressTracker" cardinality="1..1" policy="static" bind="setJobProgressTracker" unbind="unsetJobProgressTracker"/>
+    <implementation class="eu.agno3.orchestrator.jobs.server.compound.CompoundRunnableFactory"/>
+</scr:component>

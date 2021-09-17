@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" immediate="true" name="eu.agno3.runtime.jmx.internal.MBeanServerRegistrationImpl" configuration-policy="require" activate="activate" deactivate="deactivate" configuration-pid="mbean">
+    <reference name="MBean" interface="eu.agno3.runtime.jmx.MBean" cardinality="0..n" policy="dynamic" bind="bindMBean" unbind="unbindMBean"/>
+    <reference name="MBeanHolder" interface="eu.agno3.runtime.jmx.MBeanHolder" cardinality="0..n" policy="dynamic" bind="bindMBeanHolder" unbind="unbindMBeanHolder"/>
+    <implementation class="eu.agno3.runtime.jmx.internal.MBeanServerRegistrationImpl"/>
+</scr:component>

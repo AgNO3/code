@@ -1,0 +1,36 @@
+Bundle-SymbolicName: eu.agno3.orchestrator.gui
+Bundle-Version: 0.0.1.qualifier
+Bundle-Name: Orchestrator GUI APIs
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.orchestrator.gui.config;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.gui.events;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.gui.msg;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.gui.msg.addressing;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.server.component;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.server.component.auth,
+ eu.agno3.orchestrator.server.component.msg;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.server.messaging.addressing;version="0.0.1.qualifier",
+ eu.agno3.runtime.messaging;version="0.0.12",
+ eu.agno3.runtime.messaging.addressing;version="0.0.12",
+ eu.agno3.runtime.messaging.addressing.scopes;version="0.0.12",
+ eu.agno3.runtime.messaging.msg;version="0.0.12",
+ eu.agno3.runtime.messaging.msg.impl;version="0.0.12",
+ eu.agno3.runtime.messaging.routing;version="0.0.12",
+ eu.agno3.runtime.messaging.xml;version="0.0.12",
+ eu.agno3.runtime.xml.binding;version="0.0.2",
+ javax.servlet.http;version="3.1.0",
+ org.apache.log4j;version="1.2.15",
+ org.joda.time;version="2.3.0",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.osgi.util.tracker;version="1.5.1"
+Service-Component: OSGI-INF/*.xml
+Export-Package: eu.agno3.orchestrator.gui.component.auth;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.gui.config;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.gui.events;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.gui.msg;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.gui.msg.addressing;version="0.0.1.qualifier"
+Require-Bundle: org.eclipse.jdt.annotation;bundle-version="[2.0.0,3.0.0)";resolution:=optional

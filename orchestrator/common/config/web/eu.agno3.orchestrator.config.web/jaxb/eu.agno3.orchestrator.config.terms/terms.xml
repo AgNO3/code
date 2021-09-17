@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.config.terms"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:terms">
+		<xml-ns prefix="cmr" namespace-uri="urn:agno3:model:1.0:realm" />
+		<xml-ns prefix="loggerc" namespace-uri="urn:agno3:model:1.0:terms" />
+	</xml-schema>
+
+	<java-types>
+		<java-type name="TermsConfiguration" xml-accessor-type="NONE">
+			<xml-type name="termsConfigType"
+				factory-class="eu.agno3.orchestrator.config.terms.ObjectFactory"
+				factory-method="makeTermsConfiguration" />
+			<xml-root-element name="termsConfig" />
+
+			<java-attributes>
+				<xml-element name="terms" java-attribute="terms">
+					<xml-element-wrapper name="termsCollection" />
+				</xml-element>
+
+				<xml-element name="library" java-attribute="termsLibrary" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="TermsDefinition" xml-accessor-type="NONE">
+			<xml-type name="termsDefinitionConfigType"
+				factory-class="eu.agno3.orchestrator.config.terms.ObjectFactory"
+				factory-method="makeTermsDefinition" />
+			<xml-root-element name="termsDefinitionConfig" />
+
+			<java-attributes>
+				<xml-element name="id" java-attribute="termsId" />
+				<xml-element name="applyType" java-attribute="applyType" />
+
+
+				<xml-element name="priority" java-attribute="priority" />
+
+				<xml-element name="persistAcceptance" java-attribute="persistAcceptance" />
+
+				<xml-element name="updated" java-attribute="updated">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter" />
+				</xml-element>
+
+				<xml-element name="role" java-attribute="includeRoles">
+					<xml-element-wrapper name="includeRoles" />
+				</xml-element>
+
+				<xml-element name="role" java-attribute="excludeRoles">
+					<xml-element-wrapper name="excludeRoles" />
+				</xml-element>
+
+				<xml-element name="title" java-attribute="titles">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.localestr.LocalizedStringAdapter" />
+				</xml-element>
+
+				<xml-element name="description" java-attribute="descriptions">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.localestr.LocalizedStringAdapter" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+	</java-types>
+</xml-bindings>

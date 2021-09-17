@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.fileshare.service.internal.DefaultServiceContextImpl" activate="activate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.service.api.internal.DefaultServiceContext"/>
+    </service>
+    <reference name="EntityTransactionService" interface="eu.agno3.runtime.db.orm.EntityTransactionService" cardinality="1..1" policy="static" target="(persistenceUnit=fileshare)" bind="bindEntityTransactionService" unbind="unbindEntityTransactionService"/>
+    <reference name="ValidatorFactory" interface="javax.validation.ValidatorFactory" cardinality="1..1" policy="static" bind="setValidatorFactory" unbind="unsetValidatorFactory"/>
+    <reference name="ConfigurationProvider" interface="eu.agno3.fileshare.service.ConfigurationProvider" cardinality="1..1" policy="static" bind="setConfigurationProvider" unbind="unsetConfigurationProvider"/>
+    <reference name="EventLogger" interface="eu.agno3.runtime.eventlog.EventLogger" cardinality="1..1" policy="static" bind="setEventLogger" unbind="unsetEventLogger"/>
+    <implementation class="eu.agno3.fileshare.service.internal.DefaultServiceContextImpl"/>
+</scr:component>

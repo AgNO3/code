@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.runtime.db.derby.server.EmbeddedServerTest" activate="servicesSetUp">
+    <reference name="DBServer1" interface="eu.agno3.runtime.db.embedded.EmbeddedDBServer" cardinality="1..1" policy="static" target="(&amp;(osgi.jdbc.driver.class=org.apache.derby.jdbc.EmbeddedDriver)(dataSourceName=test))" bind="setDBServer1" unbind="unsetDBServer1"/>
+    <reference name="AuthConfig" interface="eu.agno3.runtime.db.derby.auth.internal.DerbyAuthConfiguration" cardinality="1..1" policy="static" bind="setAuthConfig" unbind="unsetAuthConfig"/>
+    <reference name="DBServer2" interface="eu.agno3.runtime.db.embedded.EmbeddedDBServer" cardinality="1..1" policy="static" target="(&amp;(osgi.jdbc.driver.class=org.apache.derby.jdbc.EmbeddedDriver)(dataSourceName=test2))" bind="setDBServer2" unbind="unsetDBServer2"/>
+    <implementation class="eu.agno3.runtime.db.derby.server.EmbeddedServerTest"/>
+</scr:component>

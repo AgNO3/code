@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/tpl/common/template.xhtml">
+	<ui:param name="subtitle"
+		value="#{msgs.format('structure.service.titleFmt', structureUtil.getObjectDescriptiveName(structureViewContext.selectedInstance), instanceSubtitle)}" />
+	<ui:param name="menuTitle"
+		value="#{structureUtil.getObjectShortName(structureViewContext.selectedInstance)}" />
+	<ui:param name="menuTitleIcon" value="${'ui-icon-home'}" />
+</ui:composition>

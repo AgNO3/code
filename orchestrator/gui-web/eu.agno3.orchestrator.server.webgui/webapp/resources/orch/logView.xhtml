@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:shiro="http://shiro.ops4j.org/tags"
+	xmlns:pass="http://java.sun.com/jsf/passthrough"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+<composite:interface>
+	<composite:attribute name="logBean"
+		type="eu.agno3.orchestrator.server.webgui.logs.LogEventTable" />
+	<composite:attribute name="widgetVar" />
+	<composite:attribute name="showHeader" type="java.lang.Boolean"
+		required="false" default="true" />
+	<composite:attribute name="refreshTimer" type="java.lang.Integer"
+		required="false" default="2" />
+	<composite:attribute name="followOnly" type="java.lang.Boolean"
+		required="false" default="false" />
+
+	<composite:attribute name="style" />
+	<composite:attribute name="styleClass" />
+</composite:interface>
+<composite:implementation>
+
+	<h:outputScript>
+		// <!--
+		$.timepicker.setDefaults({'timeFormat' : '#{localeSettingsBean.timeFormatPattern}'}) 
+		// -->
+	</h:outputScript>
+
+	<p:dataTable id="logEventTable"
+		styleClass="log-event-table ${cc.attrs.styleClass}"
+		style="${cc.attrs.style}" widgetVar="${cc.attrs.widgetVar}"
+		value="#{cc.attrs.logBean.model}" var="log" selectionMode="multiple"
+		rowKey="#{log.id}" selection="#{cc.attrs.logBean.selection}"
+		scrollable="true" liveScroll="true"
+		rows="#{cc.attrs.logBean.pageSize}"
+		scrollRows="#{cc.attrs.logBean.pageSize}" lazy="true"
+		rowStyleClass="log-entry #{log.severity}">
+
+
+		<f:facet name="header">
+			<p:panelGrid id="headerGrid" rendered="${cc.attrs.showHeader}">
+				<p:row>
+					<p:column
+						style="vertical-align: middle; width: 25%; white-space: nowrap">
+						<p:outputLabel for="startDate"
+							value="#{_gui['logView.startTime']}" />
+						<p:calendar id="startDate" value="#{cc.attrs.logBean.startDate}"
+							style="margin-left: 0.5em" size="14" autocomplete="false"
+							locale="#{localeSettingsBean.userLocale}" readOnlyInput="true"
+							timeZone="#{localeSettingsBean.timeZone}" showOn="button"
+							pattern="#{localeSettingsBean.dateFormatPattern}"
+							maxdate="#{cc.attrs.logBean.endDate}" timeControlType="slider"
+							popupIconOnly="true">
+							<p:ajax event="dateSelect" process="@parent" />
+						</p:calendar>
+					</p:column>
+
+
+					<p:column
+						style="vertical-align: middle; width: 25%; white-space: nowrap">
+						<p:outputLabel for="endDate" value="#{_gui['logView.endTime']}" />
+						<p:calendar id="endDate" value="#{cc.attrs.logBean.endDate}"
+							style="margin-left: 0.5em" size="14" autocomplete="false"
+							pattern="#{localeSettingsBean.dateFormatPattern}"
+							locale="#{localeSettingsBean.userLocale}" readOnlyInput="true"
+							timeZone="#{localeSettingsBean.timeZone}" showOn="button"
+							mindate="#{cc.attrs.logBean.startDate}" popupIconOnly="true">
+							<p:ajax event="dateSelect" process="@parent" />
+						</p:calendar>
+					</p:column>
+
+					<p:column style="vertical-align: middle; width: 30%">
+						<h:outputFormat value="#{_gui['logView.foundNumFmt']}">
+							<f:param value="#{cc.attrs.logBean.model.rowCount}" />
+						</h:outputFormat>
+						<h:outputText
+							rendered="#{cc.attrs.logBean.model.rowCount ge 8000}"
+							value="#{_gui['logView.listTruncatedMsg']}" />
+
+						<p:commandButton rendered="#{not cc.attrs.logBean.follow}"
+							style="margin-left: 0.2em;" icon="ui-icon-download" ajax="false"
+							title="#{_gui['logView.export']}">
+							<p:fileDownload value="#{cc.attrs.logBean.download}" />
+						</p:commandButton>
+					</p:column>
+
+					<p:column style="vertical-align: middle">
+						<p:outputLabel for="follow" value="#{_gui['logView.follow']}"
+							style="vertical-align: middle" />
+						<p:selectBooleanCheckbox id="follow" styleClass="follow-setting"
+							style="vertical-align: middle; margin-left: 0.5em"
+							value="#{cc.attrs.logBean.follow}">
+							<p:ajax event="change" listener="#{cc.attrs.logBean.refresh}"
+								onstart="PF('${cc.attrs.widgetVar}').collapseAllRows()"
+								oncomplete="PF('${cc.attrs.widgetVar}').jq.find('.follow-setting input').attr('checked') ? PF('${cc.attrs.widgetVar}_logTimer').restart() : PF('${cc.attrs.widgetVar}_logTimer') &amp;&amp; PF('${cc.attrs.widgetVar}_logTimer').stop();"
+								update="logEventTable" />
+						</p:selectBooleanCheckbox>
+
+						<p:commandButton rendered="#{not cc.attrs.logBean.follow}"
+							style="float: right" actionListener="#{cc.attrs.logBean.refresh}"
+							icon="ui-icon-arrowrefresh-1-e"
+							title="#{_gui['logView.refresh']}" update="logEventTable" />
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+			<pe:timer widgetVar="${cc.attrs.widgetVar}_logTimer"
+				singleRun="false" timeout="${cc.attrs.refreshTimer}"
+				autoStart="false" visible="false"
+				listener="#{cc.attrs.logBean.refresh()}" update="logEventTable" />
+		</f:facet>
+
+		<p:ajax event="filter"
+			listener="#{cc.attrs.logBean.model.refreshCount()}"
+			update="headerGrid" />
+
+		<p:column style="width: 1em" rendered="${not cc.attrs.followOnly}">
+			<p:rowToggler rendered="#{not cc.attrs.logBean.follow}" />
+		</p:column>
+
+		<p:column style="width: 5em; min-width: 0 !important;"
+			filterBy="#{log.severity}" field="severity" sortable="false"
+			filterValue="#{cc.attrs.logBean.filter.filterSeverity}"
+			filterFunction="#{logUtils.filterSeverity}">
+			<f:facet name="filter">
+				<p:selectOneMenu style="width: 100% !important;" autoWidth="false"
+					onchange="PF('${cc.attrs.widgetVar}').filter()"
+					value="#{cc.attrs.logBean.filter.filterSeverity}">
+					<f:selectItems value="#{logUtils.severities}" />
+				</p:selectOneMenu>
+			</f:facet>
+			<h:outputText value="#{log.severity}" />
+		</p:column>
+
+		<p:column style="width: 16px"
+			rendered="#{not structureViewContext.isGroupSelected()}">
+			<span class="ui-icon ui-icon-inline #{logUtils.getObjectIcon(log)}"
+				title="#{logUtils.getObjectName(log)}" />
+		</p:column>
+
+		<p:column style="width: 5em"
+			rendered="#{structureViewContext.isGroupSelected()}">
+			<h:outputText rendered="#{not empty log.objectId}"
+				value="#{logUtils.getHostName(log)}" />
+		</p:column>
+
+		<p:column style="width: 5em; white-space: nowrap" field="tag" sortable="false"
+			filterBy="#{log.tag}" filterValue="#{cc.attrs.logBean.filterTag}"
+			filterMatchMode="startsWith">
+			<f:facet name="filter">
+				<p:inputText style="width: 100%"
+					disabled="#{cc.attrs.logBean.follow}"
+					rendered="${not cc.attrs.followOnly}"
+					onchange="PF('${cc.attrs.widgetVar}').filter()"
+					value="#{cc.attrs.logBean.filterTag}" />
+			</f:facet>
+			<h:outputText value="#{log.tag}" title="#{log.tag}" />
+		</p:column>
+
+		<p:column style="width: 10em">
+			<f:facet name="header">
+				<p:selectOneButton value="#{cc.attrs.logBean.relativeTime}">
+					<f:selectItem itemLabel="#{_gui['logView.relTime.label']}"
+						itemValue="#{true}"
+						itemDescription="#{_gui['logView.relTime.description']}" />
+					<f:selectItem itemLabel="#{_gui['logView.absTime.label']}"
+						itemValue="#{false}"
+						itemDescription="#{_gui['logView.absTime.description']}" />
+					<p:ajax event="change" process="@parent" update="logEventTable" />
+				</p:selectOneButton>
+			</f:facet>
+			<h:outputText rendered="#{cc.attrs.logBean.relativeTime}"
+				title="#{logUtils.formatTimestamp(log.timestamp)}"
+				value="#{localeSettingsBean.formatTimestampRelative(log.timestamp)}" />
+			<h:outputText rendered="#{not cc.attrs.logBean.relativeTime}"
+				value="#{logUtils.formatTimestamp(log.timestamp)}" />
+		</p:column>
+
+		<p:column field="message" sortable="false"
+			filterValue="#{cc.attrs.logBean.filter.filterMessage}"
+			filterBy="#{log.message}" filterMatchMode="contains">
+			<f:facet name="filter">
+				<p:inputText style="width: 100%"
+					disabled="#{cc.attrs.logBean.follow}"
+					rendered="${not cc.attrs.followOnly}"
+					onchange="PF('${cc.attrs.widgetVar}').filter()"
+					value="#{cc.attrs.logBean.filter.filterMessage}" />
+			</f:facet>
+			<h:outputText rendered="#{log.message.length() lt 80}"
+				value="#{log.message}" />
+			<h:outputFormat rendered="#{log.message.length() ge 80}"
+				value="#{_gui['logView.truncatedMsgFmt']}">
+				<f:param value="#{log.message.substring(0,60)}" />
+			</h:outputFormat>
+		</p:column>
+
+		<p:rowExpansion>
+			<dl class="log-properties">
+				<ui:fragment rendered="#{log.message.length() ge 80}">
+					<dt>
+						<h:outputText value="#{_gui['logView.fullMessageField']}" />
+					</dt>
+					<dd>
+						<h:outputText style="white-space: pre" value="#{log.message}" />
+					</dd>
+				</ui:fragment>
+				<ui:repeat value="#{log.properties.keySet()}" var="prop">
+					<ui:fragment rendered="#{not logUtils.isPropertyHidden(prop)}">
+						<dt>
+							<h:outputText value="#{logUtils.getPropertyLabel(prop)}" />
+						</dt>
+						<dd>
+							<h:outputText style="white-space: pre"
+								value="#{log.properties.get(prop)}" />
+						</dd>
+					</ui:fragment>
+				</ui:repeat>
+			</dl>
+		</p:rowExpansion>
+	</p:dataTable>
+</composite:implementation>
+</html>

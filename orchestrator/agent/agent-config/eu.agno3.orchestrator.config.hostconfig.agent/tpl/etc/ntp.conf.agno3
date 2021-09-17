@@ -1,0 +1,9 @@
+[#include "/generatedConfig.ftl"]
+
+[#list cfg.dateTimeConfiguration.ntpServers as ntpServer]
+server ${ntpServer}
+[/#list]
+
+restrict default ignore
+restrict 127.0.0.1
+restrict [::1]

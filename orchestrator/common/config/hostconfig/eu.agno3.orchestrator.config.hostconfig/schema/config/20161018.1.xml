@@ -1,0 +1,133 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet author="mbechler (generated)" id="1476802856767-1">
+		<createTable schemaName="APP"
+			tableName="config_hostconfig_system_admpubkey">
+			<column name="ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="KEYID" type="VARCHAR(128)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476802856767-2">
+		<createTable schemaName="APP"
+			tableName="config_hostconfig_system_admpubkey_AUD">
+			<column name="ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="KEYID" type="VARCHAR(128)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476802856767-5">
+		<addColumn schemaName="APP" tableName="config_hostconfig_system">
+			<column name="SSHKEYONLY" type="boolean" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476802856767-6">
+		<addColumn schemaName="APP" tableName="config_hostconfig_system_AUD">
+			<column name="SSHKEYONLY" type="boolean" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476875989047-1">
+		<createTable schemaName="APP" tableName="config_hostconfig_system_admpub">
+			<column name="CONFIG_HOSTCONFIG_SYSTEM_ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="ADMINSSHPUBLICKEYS_KEYID" type="VARCHAR(128)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476875989047-2">
+		<createTable schemaName="APP"
+			tableName="config_hostconfig_system_admpub_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_HOSTCONFIG_SYSTEM_ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="ADMINSSHPUBLICKEYS_KEYID" type="VARCHAR(128)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476875989047-3">
+		<addPrimaryKey columnNames="CONFIG_HOSTCONFIG_SYSTEM_ID, ADMINSSHPUBLICKEYS_KEYID"
+			schemaName="APP" tableName="config_hostconfig_system_admpub" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476875989047-4">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_HOSTCONFIG_SYSTEM_ID, ADMINSSHPUBLICKEYS_KEYID"
+			constraintName="config_hostconfig_system_admpub_AUDPK" schemaName="APP"
+			tableName="config_hostconfig_system_admpub_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476875989047-5">
+		<createIndex indexName="FK_FKANFC2FUTO7ISCFB5ANQ546QXH"
+			schemaName="APP" tableName="config_hostconfig_system_admpub_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476875989047-6">
+		<createIndex indexName="FK_FKEH14HSCAJ3DF6VWOQ6G1D0T5O"
+			schemaName="APP" tableName="config_hostconfig_system_admpub">
+			<column name="ADMINSSHPUBLICKEYS_KEYID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476875989047-7">
+		<createIndex indexName="FK_FKEMXABFJ2FIJPQ7SNN1LQD61T8"
+			schemaName="APP" tableName="config_hostconfig_system_admpub">
+			<column name="CONFIG_HOSTCONFIG_SYSTEM_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476875989047-8">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_hostconfig_system_admpub_AUD"
+			baseTableSchemaName="APP" constraintName="FKANFC2FUTO7ISCFB5ANQ546QXH"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476875989047-9">
+		<addForeignKeyConstraint baseColumnNames="ADMINSSHPUBLICKEYS_KEYID"
+			baseTableName="config_hostconfig_system_admpub" baseTableSchemaName="APP"
+			constraintName="FKEH14HSCAJ3DF6VWOQ6G1D0T5O" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="KEYID" referencedTableName="config_crypto_public_keys"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476875989047-10">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_HOSTCONFIG_SYSTEM_ID"
+			baseTableName="config_hostconfig_system_admpub" baseTableSchemaName="APP"
+			constraintName="FKEMXABFJ2FIJPQ7SNN1LQD61T8" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_hostconfig_system"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1498998404151-1">
+        <addColumn schemaName="APP" tableName="config_hostconfig_storage_mount_cifs">
+            <column name="ALLOWSMB1" type="boolean"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1498998404151-2">
+        <addColumn schemaName="APP" tableName="config_hostconfig_storage_mount_cifs_AUD">
+            <column name="ALLOWSMB1" type="boolean"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1498998404151-3">
+        <addColumn schemaName="APP" tableName="config_hostconfig_storage_mount_cifs">
+            <column name="DISABLESMB2" type="boolean"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1498998404151-4">
+        <addColumn schemaName="APP" tableName="config_hostconfig_storage_mount_cifs_AUD">
+            <column name="DISABLESMB2" type="boolean"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

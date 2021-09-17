@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" immediate="true" name="eu.agno3.runtime.transaction.internal.AtomikosTransactionService" configuration-policy="require" activate="activate" deactivate="deactivate" modified="modified" configuration-pid="txservice">
+    <property name="tmService" value="com.atomikos.icatch.standalone.UserTransactionServiceFactory"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.transaction.TransactionService"/>
+    </service>
+    <reference name="LogAdministrator" interface="com.atomikos.icatch.admin.LogAdministrator" cardinality="0..n" policy="dynamic" bind="bindLogAdministrator" unbind="unbindLogAdministrator"/>
+    <reference name="TSListener" interface="com.atomikos.icatch.TransactionServicePlugin" cardinality="0..n" policy="dynamic" bind="bindTSListener" unbind="unbindTSListener"/>
+    <reference name="RecoverableResource" interface="com.atomikos.datasource.RecoverableResource" cardinality="0..n" policy="dynamic" bind="bindRecoverableResource" unbind="unbindRecoverableResource"/>
+    <implementation class="eu.agno3.runtime.transaction.internal.AtomikosTransactionService"/>
+</scr:component>

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="fileshare-runtime-feature"
+      label="Fileshare Application Runtime Feature"
+      version="0.0.1.qualifier"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <includes
+         id="deps-apache-commons-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="console-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="console-ssh-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="crypto-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="db-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="httpservice-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-javax-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="logging-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="orm-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="schema-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="util-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-xml-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-pax-logging-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="validation-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-hibernate-orm-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-hibernate-validator-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="schema-orm-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-bouncycastle-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-ssh-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-db-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-liquibase-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-jetty-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="i18n-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-shiro-web-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-shiro-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="security-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="security-web-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-junixsocket-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="logging-syslog-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-syslog4j-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="cdi-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-pax-cdi-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-jsf-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="jsf-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-openwebbeans-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="xml-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="security-db-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="security-web-gui-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-tika-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-uadetector-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="http-ua-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-apache-commons-compress-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="mail-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="jmx-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="tpl-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-guava-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-freemarker-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-auth-extra-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-equinox-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-jackrabbit-webdav-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="equinox-runtime-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="icap-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="webdav-server-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="eventlog-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-jackson-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-console-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-jcifs-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="licensing-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="db-jmx-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="net-ad-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="net-dns-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="net-krb-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-apache-http-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-util-feature"
+         version="0.0.0"/>
+
+   <plugin
+         id="eu.agno3.runtime.configloader"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.runtime.configloader.console"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.runtime.update"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.runtime.update.console"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.commons.codec"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

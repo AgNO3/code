@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.fileshare.service.internal.GuiServiceContextImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.service.gui.GuiServiceContext"/>
+    </service>
+    <reference name="BrowseService" interface="eu.agno3.fileshare.service.BrowseService" cardinality="1..1" policy="static" bind="setBrowseService" unbind="unsetBrowseService"/>
+    <reference name="DirectoryService" interface="eu.agno3.fileshare.service.DirectoryService" cardinality="1..1" policy="static" bind="setDirectoryService" unbind="unsetDirectoryService"/>
+    <reference name="EntityService" interface="eu.agno3.fileshare.service.EntityService" cardinality="1..1" policy="static" bind="setEntityService" unbind="unsetEntityService"/>
+    <reference name="LocalUserService" interface="eu.agno3.fileshare.security.LocalUserService" cardinality="1..1" policy="static" bind="setLocalUserService" unbind="unsetLocalUserService"/>
+    <reference name="GroupService" interface="eu.agno3.fileshare.service.admin.GroupServiceMBean" cardinality="1..1" policy="static" bind="setGroupService" unbind="unsetGroupService"/>
+    <reference name="UserService" interface="eu.agno3.fileshare.service.admin.UserServiceMBean" cardinality="1..1" policy="static" bind="setUserService" unbind="unsetUserService"/>
+    <reference name="SubjectService" interface="eu.agno3.fileshare.service.admin.SubjectServiceMBean" cardinality="1..1" policy="static" bind="setSubjectService" unbind="unsetSubjectService"/>
+    <reference name="ShareService" interface="eu.agno3.fileshare.service.ShareService" cardinality="1..1" policy="static" bind="setShareService" unbind="unsetShareService"/>
+    <reference name="ConfigurationProvider" interface="eu.agno3.fileshare.service.ConfigurationProvider" cardinality="1..1" policy="static" bind="setConfigurationProvider" unbind="unsetConfigurationProvider"/>
+    <reference name="PreferenceService" interface="eu.agno3.fileshare.service.PreferenceService" cardinality="1..1" policy="static" bind="setPreferenceService" unbind="unsetPreferenceService"/>
+    <reference name="UploadService" interface="eu.agno3.fileshare.service.UploadService" cardinality="1..1" policy="static" bind="setUploadService" unbind="unsetUploadService"/>
+    <reference name="LinkService" interface="eu.agno3.fileshare.service.LinkService" cardinality="1..1" policy="static" bind="setLinkService" unbind="unsetLinkService"/>
+    <reference name="RegistrationService" interface="eu.agno3.fileshare.service.RegistrationService" cardinality="1..1" policy="static" bind="setRegistrationService" unbind="unsetRegistrationService"/>
+    <reference name="QuotaService" interface="eu.agno3.fileshare.service.QuotaService" cardinality="1..1" policy="static" bind="setQuotaService" unbind="unsetQuotaService"/>
+    <reference name="FlaggingService" interface="eu.agno3.fileshare.service.FlaggingService" cardinality="1..1" policy="static" bind="setFlaggingService" unbind="unsetFlaggingService"/>
+    <reference name="ShortcutService" interface="eu.agno3.fileshare.service.ShortcutService" cardinality="1..1" policy="static" bind="setShortcutService" unbind="unsetShortcutService"/>
+    <reference name="ChunkUploadService" interface="eu.agno3.fileshare.service.ChunkUploadService" cardinality="1..1" policy="static" bind="setChunkUploadService" unbind="unsetChunkUploadService"/>
+    <reference name="AuditReaderService" interface="eu.agno3.fileshare.service.AuditReaderService" cardinality="1..1" policy="static" bind="setAuditReaderService" unbind="unsetAuditReaderService"/>
+    <implementation class="eu.agno3.fileshare.service.internal.GuiServiceContextImpl"/>
+</scr:component>

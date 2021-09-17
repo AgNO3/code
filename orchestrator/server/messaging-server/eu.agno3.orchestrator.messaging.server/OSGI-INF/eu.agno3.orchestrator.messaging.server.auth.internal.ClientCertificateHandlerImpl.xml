@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.messaging.server.auth.internal.ClientCertificateHandlerImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.messaging.server.auth.internal.ClientCertificateHandlerImpl"/>
+    </service>
+    <reference name="CertificateListener" interface="eu.agno3.orchestrator.messaging.server.ClientCertificateListener" cardinality="0..n" policy="dynamic" bind="bindCertificateListener" unbind="unbindCertificateListener"/>
+    <implementation class="eu.agno3.orchestrator.messaging.server.auth.internal.ClientCertificateHandlerImpl"/>
+</scr:component>

@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+	<composite:interface>
+	</composite:interface>
+
+	<composite:implementation>
+		<h:outputStylesheet library="agsec" name="login.static.css" />
+		<ui:fragment rendered="#{not empty agsec_termsViewBean.definition}">
+
+			<h1>
+				<h:outputText value="#{agsec_termsViewBean.label}" />
+			</h1>
+
+			<p:outputPanel
+				rendered="#{not empty agsec_termsViewBean.description}">
+				<p>
+					<h:outputText value="#{agsec_termsViewBean.description}" />
+				</p>
+			</p:outputPanel>
+
+			<iframe class="terms" seamless="" sandbox=""
+				src="#{request.contextPath}/terms/#{agsec_termsViewBean.definition.id}.html" />
+		</ui:fragment>
+
+		<h:outputText rendered="#{empty agsec_termsViewBean.definition}"
+			value="#{_login['termsNotFound']}" />
+	</composite:implementation>
+</html>

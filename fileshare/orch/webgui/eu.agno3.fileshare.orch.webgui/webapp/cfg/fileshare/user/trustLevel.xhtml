@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="trustLevelId" path="trustLevelId">
+		<p:inputText id="trustLevelId" value="#{current.trustLevelId}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="title" path="title">
+		<p:inputText id="title" value="#{current.title}" />
+	</orch:objectFieldEditor>
+
+
+	<orch:objectFieldEditor inputId="color" path="color">
+		<p:colorPicker id="color" mode="popup" value="#{current.color}" />
+	</orch:objectFieldEditor>
+
+
+	<orch:objectFieldEditor inputId="matchRoles" path="matchRoles"
+		collection="true">
+		<ag:setEditor id="matchRoles"
+			comparator="#{setEditorUtilBean.stringComparator}"
+			factoryMethod="#{setEditorUtilBean.makeEmptyString}"
+			value="#{current.matchRoles}">
+			<p:column>
+				<p:autoComplete dropdown="true"
+					completeMethod="#{fs_authenticationConfigBean.getRoleCompleter(outerWrapper).complete}"
+					value="#{item.value}" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+
+
+	<orch:objectFieldEditor inputId="messages" path="messages" map="true">
+		<ag:localizedStringEditor id="messages" value="#{current.messages}" />
+	</orch:objectFieldEditor>
+
+</ui:composition>

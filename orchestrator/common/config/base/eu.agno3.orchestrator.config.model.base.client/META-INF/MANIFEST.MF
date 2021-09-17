@@ -1,0 +1,16 @@
+Bundle-SymbolicName: eu.agno3.orchestrator.config.model.base.client
+Bundle-Version: 0.0.1.qualifier
+Bundle-Name: Orchestrator Conifguration Management Base Model (Client)
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.orchestrator.config.model.base;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.config.model.base.session;version="0.0.1.qualifier",
+ eu.agno3.runtime.xml.binding;version="0.0.2",
+ org.apache.log4j;version="1.2.15",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ eu.agno3.orchestrator.config.model.base.client.session;version="0.0.1.qualifier"
+Service-Component: OSGI-INF/*.xml
+Export-Package: eu.agno3.orchestrator.config.model.base.client.session;version="0.0.1.qualifier";uses:="eu.agno3.orchestrator.config.model.base.session"

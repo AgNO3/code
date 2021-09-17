@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.agent.update.internal.UpdateStatusRequestEndpoint">
+    <property name="msgType" value="eu.agno3.orchestrator.system.update.msg.AgentUpdateStatusRequest"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.messaging.listener.RequestEndpoint"/>
+    </service>
+    <reference name="AgentConfig" interface="eu.agno3.orchestrator.agent.config.AgentConfig" cardinality="1..1" policy="static" bind="setAgentConfig" unbind="unsetAgentConfig"/>
+    <reference name="UpdateTracker" interface="eu.agno3.orchestrator.agent.update.UpdateTracker" cardinality="1..1" policy="static" bind="setUpdateTracker" unbind="unsetUpdateTracker"/>
+    <implementation class="eu.agno3.orchestrator.agent.update.internal.UpdateStatusRequestEndpoint"/>
+</scr:component>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<p:outputPanel id="serversPanel">
+		<orch:objectFieldEditor id="serverField" inputId="serverUri"
+			path="serverUri">
+			<ag:inputUri id="serverUri" fields="scheme,host,port"
+				defaultScheme="#{smtpClientConfigBean.getScheme(outerWrapper)}"
+				hostWidth="10em"
+				defaultPort="#{smtpClientConfigBean.getDefaultPort(outerWrapper)}"
+				readOnly="scheme" value="#{current.serverUri}" />
+		</orch:objectFieldEditor>
+	</p:outputPanel>
+
+
+	<orch:objectFieldEditor inputId="sslClientMode" path="sslClientMode"
+		update="@composite:@parent:sslSettings @composite:@parent:serversPanel"
+		readOnlyValueMapper="#{sslClientConfigBean.translateClientMode}">
+		<p:selectOneMenu id="sslClientMode" value="#{current.sslClientMode}">
+			<f:selectItems value="#{sslClientConfigBean.clientModes}" var="mode"
+				itemLabel="#{sslClientConfigBean.translateClientMode(mode)}" />
+			<p:ajax event="change"
+				process="@this,@composite:@parent:serversPanel"
+				update="@composite:@parent:sslSettings @composite:@parent:serversPanel" />
+		</p:selectOneMenu>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="socketTimeout" path="socketTimeout"
+		readOnlyValueMapper="#{dateFormatter.formatDurationObject}"
+		minLevel="2"
+		onlyIf="#{not empty outerWrapper.getParameter('showSocketTimeout')}">
+		<ag:inputDuration id="socketTimeout" value="#{current.socketTimeout}"
+			minUnit="seconds" maxUnit="minutes" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="overrideEhloHostName" minLevel="2"
+		path="overrideEhloHostName">
+		<p:inputText id="overrideEhloHostName"
+			value="#{current.overrideEhloHostName}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="overrideDefaultFromAddress"
+		path="overrideDefaultFromAddress">
+		<p:inputText id="overrideDefaultFromAddress"
+			value="#{current.overrideDefaultFromAddress}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="overrideDefaultFromName"
+		path="overrideDefaultFromName">
+		<p:inputText id="overrideDefaultFromName"
+			value="#{current.overrideDefaultFromName}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="authEnabled" path="authEnabled"
+		update="@composite:@parent:authSettings">
+		<p:selectBooleanCheckbox id="authEnabled"
+			value="#{current.authEnabled}">
+			<p:ajax event="change" update="@composite:@parent:authSettings" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+	<p:outputPanel id="authSettings">
+		<p:outputPanel
+			rendered="#{current.authEnabled or (current.authEnabled == null and defaults.authEnabled)}">
+			<orch:objectFieldEditor inputId="smtpUser" path="smtpUser">
+				<p:inputText id="smtpUser" value="#{current.smtpUser}" />
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="smtpPassword" path="smtpPassword">
+				<p:password id="smtpPassword" redisplay="true"
+					value="#{current.smtpPassword}" />
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="authMechanisms"
+				path="authMechanisms" collection="true">
+				<p:selectManyCheckbox id="authMechanisms"
+					value="#{current.authMechanisms}">
+					<f:selectItems value="#{smtpClientConfigBean.authMechs}" var="mech"
+						itemLabel="#{smtpClientConfigBean.translateAuthMech(mech)}" />
+				</p:selectManyCheckbox>
+			</orch:objectFieldEditor>
+		</p:outputPanel>
+	</p:outputPanel>
+
+	<p:outputPanel id="sslSettings">
+		<p:outputPanel
+			rendered="#{(current.sslClientMode != null and current.sslClientMode != 'DISABLE') or (current.sslClientMode == null and defaults.sslClientMode != 'DISABLE')}">
+
+			<orch:objectEditor objectType="urn:agno3:objects:1.0:web:sslclient"
+				context="#{configContext}" path="sslClientConfiguration"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+
+		</p:outputPanel>
+	</p:outputPanel>
+
+	<ag:simpleField styleClass="noLabel" id="testSMTPField">
+		<ag:dialogOpenButton title="#{_config_web['test.smtp.title']}"
+			icon="ui-icon-check" style="display: block"
+			value="#{_config_web['test.ldap.label']}" closable="true"
+			process="@form" dialog="#{configTestUtil.makeTestLink(outerWrapper)}">
+			<p:ajax event="return"
+				listener="#{configTestInteractionUtil.makeReturnWrapper(cc, web_smtp_testBean).onReturn}"
+				update="@composite:@parent:sslSettings"/>
+		</ag:dialogOpenButton>
+	</ag:simpleField>
+	
+</ui:composition>

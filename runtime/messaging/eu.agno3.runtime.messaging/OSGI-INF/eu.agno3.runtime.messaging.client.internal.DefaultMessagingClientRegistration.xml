@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.runtime.messaging.client.internal.DefaultMessagingClientRegistration" activate="activate" deactivate="deactivate">
+    <reference name="ConnectionFactory" interface="javax.jms.ConnectionFactory" cardinality="1..1" policy="static" bind="setConnectionFactory" unbind="unsetConnectionFactory"/>
+    <reference name="MessagingClientFactory" interface="eu.agno3.runtime.messaging.client.MessagingClientFactory" cardinality="1..1" policy="static" bind="setMessagingClientFactory" unbind="unsetMessagingClientFactory"/>
+    <reference name="MessageSource" interface="eu.agno3.runtime.messaging.addressing.MessageSource" cardinality="1..1" policy="static" bind="setMessageSource" unbind="unsetMessageSource"/>
+    <implementation class="eu.agno3.runtime.messaging.client.internal.DefaultMessagingClientRegistration"/>
+</scr:component>

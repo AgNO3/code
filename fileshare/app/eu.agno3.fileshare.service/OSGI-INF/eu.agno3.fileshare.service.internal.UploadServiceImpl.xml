@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.fileshare.service.internal.UploadServiceImpl" configuration-policy="require" activate="activate" modified="modified" configuration-pid="upload">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.service.UploadService"/>
+    </service>
+    <reference name="ServiceContext" interface="eu.agno3.fileshare.service.api.internal.DefaultServiceContext" cardinality="1..1" policy="static" bind="setServiceContext" unbind="unsetServiceContext"/>
+    <reference name="BlockStorageService" interface="eu.agno3.fileshare.service.api.internal.BlockStorageService" cardinality="1..1" policy="static" bind="setBlockStorageService" unbind="unsetBlockStorageService"/>
+    <reference name="AccessControlService" interface="eu.agno3.fileshare.security.AccessControlService" cardinality="1..1" policy="static" bind="setAccessControlService" unbind="unsetAccessControlService"/>
+    <reference name="NotificationService" interface="eu.agno3.fileshare.service.api.internal.NotificationService" cardinality="1..1" policy="static" bind="setNotificationService" unbind="unsetNotificationService"/>
+    <reference name="EntityService" interface="eu.agno3.fileshare.service.api.internal.EntityServiceInternal" cardinality="1..1" policy="static" bind="setEntityService" unbind="unsetEntityService"/>
+    <reference name="ContentFilter" interface="eu.agno3.fileshare.service.api.internal.ContentFilter" cardinality="0..n" policy="dynamic" bind="bindContentFilter" unbind="unbindContentFilter"/>
+    <reference name="PolicyEvaluator" interface="eu.agno3.fileshare.service.api.internal.PolicyEvaluator" cardinality="1..1" policy="static" bind="setPolicyEvaluator" unbind="unsetPolicyEvaluator"/>
+    <reference name="QuotaService" interface="eu.agno3.fileshare.service.api.internal.QuotaServiceInternal" cardinality="1..1" policy="static" bind="setQuotaService" unbind="unsetQuotaService"/>
+    <reference name="ChunkUploadService" interface="eu.agno3.fileshare.service.ChunkUploadService" cardinality="1..1" policy="static" bind="setChunkUploadService" unbind="unsetChunkUploadService"/>
+    <reference name="VFSService" interface="eu.agno3.fileshare.service.api.internal.VFSServiceInternal" cardinality="1..1" policy="static" bind="setVFSService" unbind="unsetVFSService"/>
+    <reference name="RecursiveModTracker" interface="eu.agno3.fileshare.service.api.internal.RecursiveModificationTimeTracker" cardinality="1..1" policy="static" bind="setRecursiveModTracker" unbind="unsetRecursiveModTracker"/>
+    <implementation class="eu.agno3.fileshare.service.internal.UploadServiceImpl"/>
+</scr:component>

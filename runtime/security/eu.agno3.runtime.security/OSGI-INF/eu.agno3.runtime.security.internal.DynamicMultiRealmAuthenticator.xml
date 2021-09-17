@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.security.internal.DynamicMultiRealmAuthenticator">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.security.DynamicModularRealmAuthenticator"/>
+        <provide interface="org.apache.shiro.authc.pam.ModularRealmAuthenticator"/>
+    </service>
+    <reference name="Realm" interface="org.apache.shiro.realm.Realm" cardinality="0..n" policy="dynamic" bind="bindRealm" unbind="unbindRealm" updated="updatedRealm"/>
+    <reference name="AuthenticationListener" interface="org.apache.shiro.authc.AuthenticationListener" cardinality="0..n" policy="dynamic" bind="bindAuthenticationListener" unbind="unbindAuthenticationListener"/>
+    <implementation class="eu.agno3.runtime.security.internal.DynamicMultiRealmAuthenticator"/>
+</scr:component>

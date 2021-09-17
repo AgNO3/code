@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.runtime.messaging.broker.transport.impl.LocalTransportConnectionRegistration" activate="activate" deactivate="deactivate">
+    <reference name="BrokerService" interface="eu.agno3.runtime.messaging.broker.EmbeddedBrokerService" cardinality="1..1" policy="static" bind="setBrokerService" unbind="unsetBrokerService"/>
+    <reference name="VMTransport" interface="eu.agno3.runtime.messaging.broker.transport.TransportFactory" cardinality="1..1" policy="static" target="(type=vm)" bind="setVMTransport" unbind="unsetVMTransport"/>
+    <implementation class="eu.agno3.runtime.messaging.broker.transport.impl.LocalTransportConnectionRegistration"/>
+</scr:component>

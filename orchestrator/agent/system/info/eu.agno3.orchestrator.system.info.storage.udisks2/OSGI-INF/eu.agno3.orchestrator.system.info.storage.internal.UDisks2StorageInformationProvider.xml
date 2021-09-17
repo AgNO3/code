@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.system.info.storage.internal.UDisks2StorageInformationProvider">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.system.info.storage.StorageInformationProvider"/>
+    </service>
+    <reference name="DBUSClient" interface="eu.agno3.orchestrator.system.dbus.SystemDBusClient" cardinality="1..1" policy="static" bind="setDBUSClient" unbind="unsetDBUSClient"/>
+    <implementation class="eu.agno3.orchestrator.system.info.storage.internal.UDisks2StorageInformationProvider"/>
+</scr:component>

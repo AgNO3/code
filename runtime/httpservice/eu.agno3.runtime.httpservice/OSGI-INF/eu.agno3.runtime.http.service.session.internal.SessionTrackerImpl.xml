@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.http.service.session.internal.SessionTrackerImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.http.service.session.SessionTracker"/>
+        <provide interface="javax.servlet.http.HttpSessionListener"/>
+    </service>
+    <implementation class="eu.agno3.runtime.http.service.session.internal.SessionTrackerImpl"/>
+</scr:component>

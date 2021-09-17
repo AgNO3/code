@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ul class="shares">
+		<ui:repeat var="grant" value="#{entityShareInfo.firstGrants}">
+			<li style="#{userTrustBean.getDisplayGrantTrustLevelStyle(grant)}"
+				class="grant-list hover-shade-background #{subjectDisplayBean.getGrantClass(grant)}"><ag:dialogOpenCommandLink
+					closable="true"
+					dialog="/actions/share.xhtml?entity=#{entity.entityKey}&amp;selected=#{grant.id}"
+					style="display: inline-block;">
+					<p:ajax event="return" listener="#{entityShareInfo.refresh()}"
+						update="${update}" oncomplete="window.focus()" />
+					<fs:userOrGrant style="display:inline-block" grant="#{grant}"
+						showTooltip="true" />
+
+					<h:outputText
+						rendered="#{sharePermissionsBean.containsWrite(grant.effectivePerms)}"
+						style="margin-left: 0.2em"
+						styleClass="ui-icon ui-icon-inline ui-icon-pencil" />
+				</ag:dialogOpenCommandLink></li>
+		</ui:repeat>
+		<ui:fragment rendered="#{entityShareInfo.grantsExceedingLimit gt 0}">
+			<li class="more grant-list hover-shade-background"><ag:dialogOpenCommandLink
+					closable="true"
+					dialog="/actions/share.xhtml?entity=#{entity.entityKey}"
+					style="display: inline-block">
+					<p:ajax event="return" listener="#{entityShareInfo.refresh()}"
+						update="${update}" oncomplete="window.focus()" />
+					<h:outputFormat value="#{_msgs['shareList.moreFmt']}">
+						<f:param value="#{entityShareInfo.grantsExceedingLimit}" />
+					</h:outputFormat>
+				</ag:dialogOpenCommandLink></li>
+		</ui:fragment>
+	</ul>
+</ui:composition>

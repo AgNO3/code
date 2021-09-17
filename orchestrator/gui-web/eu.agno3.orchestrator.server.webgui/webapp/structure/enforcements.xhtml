@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	template="/tpl/common/template.xhtml">
+	<ui:param name="subtitle" value="#{enforcementsTableBean.subtitle}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="anchor"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<p:messages autoUpdate="true" />
+
+			<p:dataTable id="localEnforcementsTable"
+				rendered="#{not structureViewContext.isServiceSelected()}"
+				widgetVar="localEnforcementsTable"
+				value="#{enforcementsTableBean.localModel}" var="obj"
+				editable="true" editMode="cell"
+				emptyMessage="#{_gui['structure.enforcements.noLocalEnforcements']}">
+
+				<f:facet name="header">
+					<h:outputText
+						value="#{_gui['structure.enforcements.localEnforcements']}" />
+				</f:facet>
+
+				<p:ajax event="cellEdit"
+					listener="#{enforcementsController.saveTemplateChange}"
+					update="localEnforcementsTable" resetValues="true" />
+
+				<p:column width="40%"
+					headerText="#{_gui['structure.objects.objectType']}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText styleClass="inlineEditable"
+								value="#{configUtil.getDisplayNameFor(obj)}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu style="width: 100%" id="rowSelectedTemplate"
+								value="#{obj}" converter="#{configurationObjectConverter}">
+								<f:selectItem
+									itemLabel="#{_gui['structure.enforcements.selectTemplate']}"
+									noSelectionOption="true" />
+								<f:selectItems
+									value="#{enforcementAddContext.getTemplatesFor(obj)}" var="tpl"
+									itemValue="#{tpl}"
+									itemLabel="#{configUtil.getDisplayNameFor(tpl)}" />
+							</p:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column width="40%"
+					headerText="#{_gui['structure.enforcements.objectName']}">
+					<h:outputText value="#{configUtil.getDisplayTypeName(obj)}" />
+				</p:column>
+
+				<p:column>
+					<p:commandButton icon="ui-icon-trash"
+						title="#{_gui['structure.enforcements.remove']}"
+						action="#{enforcementsController.doRemove(obj)}"
+						update="localEnforcementsTable" resetValues="true" />
+				</p:column>
+
+				<f:facet name="footer">
+
+					<p:selectOneMenu
+						style="display: inline-block; vertical-align: middle"
+						id="objectType" value="#{enforcementAddContext.objectTypeName}">
+						<f:selectItem
+							itemLabel="#{_gui['structure.enforcements.selectType']}"
+							noSelectionOption="true" />
+						<f:selectItems value="#{enforcementsTableBean.unsetObjectTypes}"
+							var="itm"
+							itemLabel="#{configLocalizationProvider.getTypeName(itm)}" />
+
+						<p:ajax event="change" update="selectedTemplate" />
+					</p:selectOneMenu>
+
+					<p:selectOneMenu
+						style="display: inline-block; vertical-align: middle"
+						disabled="#{empty enforcementAddContext.objectTypeName}"
+						id="selectedTemplate" value="#{enforcementAddContext.object}"
+						converter="#{configurationObjectConverter}">
+						<f:selectItem
+							itemLabel="#{_gui['structure.enforcements.selectTemplate']}"
+							noSelectionOption="true" />
+						<f:selectItems value="#{enforcementAddContext.templates}"
+							var="tpl" itemValue="#{tpl}"
+							itemLabel="#{configUtil.getDisplayNameFor(tpl)}" />
+					</p:selectOneMenu>
+
+					<p:commandButton style="display: inline-block" icon="ui-icon-plus"
+						title="#{_gui['structure.enforcements.add']}"
+						action="#{enforcementsController.doAdd()}"
+						update="localEnforcementsTable" resetValues="true" />
+				</f:facet>
+			</p:dataTable>
+
+			<p:dataTable id="inheritedEnforcementsTable"
+				rendered="#{not empty structureViewContext.parentForSelection}"
+				widgetVar="inheritedEnforcementsTable"
+				value="#{enforcementsTableBean.inheritedModel}" var="obj"
+				emptyMessage="#{_gui['structure.enforcements.noInheritedEnforcements']}">
+				<f:facet name="header">
+					<h:outputText
+						value="#{_gui['structure.enforcements.inheritedEnforcements']}" />
+				</f:facet>
+
+				<p:column width="40%"
+					headerText="#{_gui['structure.objects.objectType']}">
+					<h:outputText value="#{configUtil.getDisplayTypeName(obj)}" />
+				</p:column>
+
+				<p:column width="40%"
+					headerText="#{_gui['structure.enforcements.objectName']}">
+					<h:outputText value="#{configUtil.getDisplayNameFor(obj)}" />
+				</p:column>
+
+				<p:column>
+
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

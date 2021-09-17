@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="model-base-client-feature"
+      label="Orchestrator Configuration Management Model Base Client Feature"
+      version="0.0.1.qualifier"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <includes
+         id="model-base-common-feature"
+         version="0.0.0"/>
+
+   <requires>
+      <import feature="ws-common-feature" version="0.0.1.qualifier"/>
+      <import feature="xml-binding-feature" version="0.0.1.qualifier"/>
+      <import feature="ws-client-feature" version="0.0.80"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.orchestrator.config.model.base.client"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

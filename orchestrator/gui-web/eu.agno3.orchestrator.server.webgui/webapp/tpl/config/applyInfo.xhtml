@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+
+	<p:fieldset legend="#{_gui['structure.service.config.applyOptions']}">
+		<ag:simpleField
+			onlyIf="#{guiFeatureConfig.showDevTools and not empty instanceConfigApplyContextBean.revision}"
+			label="#{_gui['structure.service.config.applyRevision.label']}"
+			description="#{_gui['structure.service.config.applyRevision.description']}"
+			readOnly="true" value="#{applyContext.revision}" />
+		<ag:simpleField inputId="force"
+			label="#{_gui['structure.service.config.forcedApply']}"
+			description="#{_gui['structure.service.config.forcedApply.description']}">
+			<p:selectBooleanCheckbox id="force"
+				value="#{applyContext.applyInfo.force}" />
+		</ag:simpleField>
+	</p:fieldset>
+
+
+	<p:fieldset rendered="#{not empty applyContext.challenges}"
+		legend="#{_gui['structure.service.config.applyChallenges']}">
+
+		<ui:repeat var="chlg" value="#{applyContext.challenges}">
+			<p:outputPanel rendered="#{chlg.type == 'boolean'}"
+				styleClass="applyChallenge boolean">
+				<ag:simpleField inputId="boolChlg"
+					label="#{configChallengeBean.translateLabel(chlg)}">
+					<p:selectBooleanCheckbox id="boolChlg" value="#{chlg.value}"
+						required="#{chld.required}" />
+				</ag:simpleField>
+			</p:outputPanel>
+			<p:outputPanel rendered="#{chlg.type == 'credential'}"
+				styleClass="applyChallenge userpass">
+				<ag:simpleField inputId="userPassChlg"
+					label="#{configChallengeBean.translateLabel(chlg)}">
+					<p:outputPanel styleClass="username">
+						<p:outputLabel for="userPassChlg"
+							value="#{_gui['structure.service.config.challenge.userpass.username']}" />
+						<p:inputText id="userPassChlg" value="#{chlg.username}"
+							required="#{chlg.required}" />
+					</p:outputPanel>
+					<p:outputPanel styleClass="password">
+						<p:outputLabel for="userPassChlgPassword"
+							value="#{_gui['structure.service.config.challenge.userpass.password']}" />
+						<p:password id="userPassChlgPassword" value="#{chlg.password}"
+							required="#{chlg.required}" />
+					</p:outputPanel>
+				</ag:simpleField>
+			</p:outputPanel>
+		</ui:repeat>
+	</p:fieldset>
+
+</ui:composition>

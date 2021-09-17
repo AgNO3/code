@@ -1,0 +1,40 @@
+Bundle-SymbolicName: eu.agno3.runtime.db.derby
+Bundle-Version: 0.0.166
+Bundle-Name: Derby Database
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.runtime.crypto;version="0.0.72",
+ eu.agno3.runtime.crypto.secret;version="0.0.72",
+ eu.agno3.runtime.db;version="0.0.10",
+ eu.agno3.runtime.db.derby;version="0.0.10",
+ eu.agno3.runtime.db.derby.auth;version="0.0.10",
+ eu.agno3.runtime.db.derby.server;version="0.0.10",
+ eu.agno3.runtime.db.embedded;version="0.0.10",
+ eu.agno3.runtime.jmx;version="0.0.14",
+ eu.agno3.runtime.util.config;version="0.0.66",
+ eu.agno3.runtime.util.log;version="0.0.8",
+ eu.agno3.runtime.util.osgi;version="0.0.92",
+ eu.agno3.runtime.util.uuid;version="0.0.94",
+ javax.transaction;version="1.1.0",
+ javax.transaction.xa;version="1.1.0",
+ org.apache.commons.io.output;version="2.4.0",
+ org.apache.commons.lang3;version="3.1.0",
+ org.apache.derby.authentication;version="10.9.1.0",
+ org.apache.derby.drda;version="10.9.1.0",
+ org.apache.derby.iapi.services.monitor;version="10.12.1.1",
+ org.apache.derby.jdbc;version="10.9.1.0",
+ org.apache.derby.mbeans;version="10.12.1.1",
+ org.apache.log4j;version="1.2.15",
+ org.bouncycastle.jce.provider;version="1.50",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.framework.startlevel;version="1.0.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.osgi.service.jdbc;version="1.0.0",
+ org.osgi.service.startlevel;version="1.1.0",
+ org.osgi.util.tracker;version="1.5.1"
+Service-Component: OSGI-INF/*.xml
+Export-Package: eu.agno3.runtime.db.derby;version="0.0.166";uses:="eu.agno3.runtime.db.embedded",
+ eu.agno3.runtime.db.derby.auth;version="0.0.166";uses:="org.apache.derby.authentication",
+ eu.agno3.runtime.db.derby.server;version="0.0.166";uses:="eu.agno3.runtime.db.derby,  org.osgi.service.component,  eu.agno3.runtime.db.derby.auth.internal,  org.apache.derby.authentication,  javax.sql,  org.osgi.util.tracker,  org.osgi.framework,  eu.agno3.runtime.db.derby.auth,  org.osgi.service.jdbc,  eu.agno3.runtime.db.embedded"

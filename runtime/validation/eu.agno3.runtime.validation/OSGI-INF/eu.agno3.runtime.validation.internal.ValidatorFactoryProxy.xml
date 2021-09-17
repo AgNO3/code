@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.runtime.validation.internal.ValidatorFactoryProxy" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="javax.validation.ValidatorFactory"/>
+    </service>
+    <reference name="ConstraintValidatorFactory" interface="javax.validation.ConstraintValidatorFactory" cardinality="1..1" policy="static" bind="bindConstraintValidatorFactory" unbind="unbindConstraintValidatorFactory"/>
+    <reference name="MessageInterpolator" interface="javax.validation.MessageInterpolator" cardinality="1..1" policy="static" bind="bindMessageInterpolator" unbind="unbindMessageInterpolator"/>
+    <implementation class="eu.agno3.runtime.validation.internal.ValidatorFactoryProxy"/>
+</scr:component>

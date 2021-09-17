@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.config.model.realm.validation.internal.ConfigTestPluginRegistryImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.config.model.realm.validation.ConfigTestPluginRegistry"/>
+    </service>
+    <reference name="Plugin" interface="eu.agno3.orchestrator.config.model.realm.validation.ConfigTestPlugin" cardinality="0..n" policy="dynamic" bind="bindPlugin" unbind="unbindPlugin"/>
+    <reference name="TypeRegistry" interface="eu.agno3.orchestrator.config.model.descriptors.ObjectTypeRegistry" cardinality="1..1" policy="static" bind="setTypeRegistry" unbind="unsetTypeRegistry"/>
+    <implementation class="eu.agno3.orchestrator.config.model.realm.validation.internal.ConfigTestPluginRegistryImpl"/>
+</scr:component>

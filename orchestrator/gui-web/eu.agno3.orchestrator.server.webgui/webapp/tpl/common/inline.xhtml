@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<f:view>
+
+	<ui:insert name="metadata" />
+
+	<h:head>
+		<f:facet name="first">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+			<meta name="robots" content="noindex" />
+			<link rel="icon" type="image/vnd.microsoft.icon"
+				href="#{resource['cfgfiles:favicon.ico']}" />
+
+			<link rel="icon" type="image/png"
+				href="#{resource['cfgfiles:favicon.png']}" />
+		</f:facet>
+
+		<h:outputStylesheet name="main.static.css" library="css" />
+
+		<h:outputScript name="orch.js" library="orch" />
+		<h:outputScript name="iframeResizer.js" library="agno3" />
+		<h:outputScript name="iframeResizer.contentWindow.js" library="agno3" />
+
+		<title>${title}</title>
+
+		<f:facet name="last">
+			<link rel="stylesheet" type="text/css"
+				href="#{resource['cfgfiles:theme.css']}" />
+		</f:facet>
+	</h:head>
+
+	<h:body styleClass="inline" id="body">
+
+
+		<ui:include src="/tpl/common/commonbody.xhtml" />
+
+		<p:blockUI id="pageBlock" widgetVar="pageBlock" block="body">
+			<ui:insert name="pageBlockMessage">
+				<ui:include src="/tpl/common/serverconnfailed.xhtml" />
+			</ui:insert>
+		</p:blockUI>
+
+		<ui:include src="/cfgfiles/rawHeader.xhtml" />
+
+		<ui:insert name="content">
+			<ui:include src="/tpl/common/nocontent.xhtml" />
+		</ui:insert>
+
+		<ui:include src="/cfgfiles/rawFooter.xhtml" />
+
+	</h:body>
+</f:view>
+</html>

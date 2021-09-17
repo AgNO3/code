@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.fileshare.service.config.internal.FrontendConfigurationImpl" activate="activate" modified="modified" configuration-pid="frontend">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.service.config.FrontendConfiguration"/>
+    </service>
+    <reference name="HttpServiceInfo" interface="eu.agno3.runtime.http.service.HttpServiceInfo" cardinality="1..1" policy="static" bind="setHttpServiceInfo" unbind="unsetHttpServiceInfo"/>
+    <reference name="WebAppConfig" interface="eu.agno3.runtime.http.service.webapp.WebAppConfiguration" cardinality="1..1" policy="static" bind="setWebAppConfig" unbind="unsetWebAppConfig"/>
+    <implementation class="eu.agno3.fileshare.service.config.internal.FrontendConfigurationImpl"/>
+</scr:component>

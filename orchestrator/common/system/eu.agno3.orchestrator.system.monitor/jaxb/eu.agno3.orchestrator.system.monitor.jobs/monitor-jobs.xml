@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.system.monitor.jobs"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:system:monitor:jobs">
+		<xml-ns prefix="smj" namespace-uri="urn:agno3:model:1.0:system:monitor:jobs" />
+		<xml-ns prefix="sm" namespace-uri="urn:agno3:model:1.0:system:monitor" />
+		<xml-ns prefix="j" namespace-uri="urn:agno3:job:1.0:base" />
+		<xml-ns prefix="cmr" namespace-uri="urn:agno3:model:1.0:realm" />
+	</xml-schema>
+
+	<java-types>
+		<java-type name="ServiceJobGroup" xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.jobs.JobGroup">
+			<xml-type name="serviceGroup" />
+			<xml-root-element name="serviceGroup" />
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="AbstractServiceJob" xml-accessor-type="NONE">
+			<xml-type name="serviceJobType" />
+			<java-attributes>
+				<xml-element name="service" java-attribute="service" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="EnableServiceJob" xml-accessor-type="NONE">
+			<xml-root-element name="enableServiceJob" />
+			<xml-type name="enableServiceJobType" />
+			<java-attributes></java-attributes>
+		</java-type>
+
+		<java-type name="DisableServiceJob" xml-accessor-type="NONE">
+			<xml-root-element name="disableServiceJob" />
+			<xml-type name="disableServiceJobType" />
+			<java-attributes></java-attributes>
+		</java-type>
+
+		<java-type name="RestartServiceJob" xml-accessor-type="NONE">
+			<xml-root-element name="restartServiceJob" />
+			<xml-type name="restartServiceJobType" />
+			<java-attributes></java-attributes>
+		</java-type>
+	</java-types>
+</xml-bindings>

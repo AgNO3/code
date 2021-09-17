@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="searchDisabled" path="searchDisabled"
+		update="@composite:@parent:searchPageSettings">
+		<p:selectBooleanCheckbox id="searchDisabled"
+			value="#{current.searchDisabled}">
+			<p:ajax event="change" update="@composite:@parent:searchPageSettings" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+	<p:outputPanel id="searchPageSettings">
+		<p:outputPanel
+			rendered="#{(current.searchDisabled != null and not current.searchDisabled) or (current.searchDisabled == null and not defaults.searchDisabled)}">
+			<orch:objectFieldEditor inputId="searchAllowPaging"
+				path="searchAllowPaging">
+				<p:selectBooleanCheckbox id="searchAllowPaging"
+					value="#{current.searchAllowPaging}" />
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="searchPageSize"
+				path="searchPageSize">
+				<p:spinner id="searchPageSize" min="5" max="100" size="5"
+					value="#{current.searchPageSize}" />
+			</orch:objectFieldEditor>
+		</p:outputPanel>
+	</p:outputPanel>
+</ui:composition>

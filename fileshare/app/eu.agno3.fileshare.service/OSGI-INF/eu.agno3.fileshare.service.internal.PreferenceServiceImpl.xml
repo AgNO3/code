@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.fileshare.service.internal.PreferenceServiceImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.service.PreferenceService"/>
+        <provide interface="eu.agno3.fileshare.service.api.internal.PreferenceServiceInternal"/>
+    </service>
+    <reference name="ServiceContext" interface="eu.agno3.fileshare.service.api.internal.DefaultServiceContext" cardinality="1..1" policy="static" bind="setServiceContext" unbind="unsetServiceContext"/>
+    <reference name="UserService" interface="eu.agno3.fileshare.service.api.internal.UserServiceInternal" cardinality="1..1" policy="static" bind="setUserService" unbind="unsetUserService"/>
+    <reference name="AccessControlService" interface="eu.agno3.fileshare.security.AccessControlService" cardinality="1..1" policy="static" bind="setAccessControlService" unbind="unsetAccessControlService"/>
+    <implementation class="eu.agno3.fileshare.service.internal.PreferenceServiceImpl"/>
+</scr:component>

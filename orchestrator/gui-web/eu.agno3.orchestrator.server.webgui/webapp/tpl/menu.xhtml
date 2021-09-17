@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:menu="http://java.sun.com/jsf/composite/menu"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<h:form id="menuForm" styleClass="menu">
+		<orch:event pattern="#{subMenuStateBean.listenTo}">
+			console.log('Matched an event, refresh menu');
+			console.log(path);
+			console.log(match);
+			console.log(payload);
+			refreshSubMenu();
+			OrchMenu.menuExpandAll();
+		</orch:event>
+
+		<p:remoteCommand name="refreshSubMenu" delay="2000"
+			ignoreAutoUpdate="true" update="submenu optMenu customMenuPanel menuToolbar"
+			actionListener="#{subMenuStateBean.notifyRefresh}" />
+
+		<p:toolbar id="menuToolbar">
+			<f:facet name="left">
+				<h:panelGroup rendered="#{not empty menuTitleIcon}"
+					styleClass="menuTitleIcon ui-icon #{menuTitleIcon}" />
+				<h:outputText styleClass="menuTitle" value="#{menuTitle}" />
+				<br />
+				<h:outputText styleClass="menuSubtitle" value="#{menuSubtitle}" />
+			</f:facet>
+			<f:facet name="right">
+				<p:commandButton title="#{_gui['menu.refresh']}"
+					rendered="#{guiFeatureConfig.showStructure}"
+					styleClass="treeMenuRefresh" actionListener="#{menuState.reload}"
+					icon="ui-icon-arrowrefresh-1-e" update="@form" />
+				<ui:include src="#{subMenuStateBean.customMenuActions}" />
+				<p:menuButton rendered="#{subMenuStateBean.haveActionMenu()}"
+					styleClass="icon-only" model="#{subMenuStateBean.actionModel}"
+					title="#{_gui['menu.actions']}" />
+			</f:facet>
+		</p:toolbar>
+		<p:accordionPanel rendered="#{guiFeatureConfig.showStructure}"
+			id="optMenu" effect="slide" effectDuration="normal" dynamic="true"
+			widgetVar="menuTabs" styleClass="optMenuTabs" multiple="true"
+			activeIndex="#{menuStateBean.activeIndices}">
+
+			<p:ajax event="tabChange" />
+			<p:ajax event="tabClose" />
+
+			<p:tab title="#{_gui['menu.structure']}">
+				<p:tree id="menuTree" value="#{mainTreeMenu.root}" var="node"
+					dynamic="true" cache="false" styleClass="menuTree"
+					selectionMode="single" highlight="false"
+					selection="#{mainTreeMenu.state.selectedNode}">
+
+					<p:ajax event="select"
+						listener="#{mainTreeMenu.state.onNodeSelect}" />
+
+					<p:ajax event="expand" process="@this"
+						listener="#{mainTreeMenu.state.onNodeExpand}" />
+
+					<p:ajax event="collapse" process="@this"
+						listener="#{mainTreeMenu.state.onNodeCollapse}" />
+
+					<p:treeNode type="group" styleClass="group"
+						collapsedIcon="ui-icon-folder-collapsed"
+						expandedIcon="ui-icon-folder-open">
+						<p:link styleClass="group"
+							outcome="#{structureViewController.group(node.attachedObject)}"
+							value="#{structureUtil.getObjectShortName(node.attachedObject)}">
+							<f:param name="cid" value="" />
+						</p:link>
+					</p:treeNode>
+
+					<p:treeNode type="instance" styleClass="instance"
+						collapsedIcon="ui-icon-home" expandedIcon="ui-icon-home">
+						<p:link styleClass="instance"
+							outcome="#{structureViewController.instance(node.attachedObject)}"
+							value="#{structureUtil.getObjectShortName(node.attachedObject)}">
+							<f:param name="cid" value="" />
+						</p:link>
+					</p:treeNode>
+
+					<p:treeNode type="service" styleClass="service"
+						collapsedIcon="ui-icon-lightbulb" expandedIcon="ui-icon-lightbulb">
+						<p:link styleClass="service"
+							outcome="#{structureViewController.service(node.attachedObject)}"
+							value="#{structureUtil.getObjectShortName(node.attachedObject)}">
+							<f:param name="cid" value="" />
+						</p:link>
+					</p:treeNode>
+
+				</p:tree>
+
+				<p:contextMenu for="menuTree" nodeType="group"
+					model="#{subMenuStateBean.groupContextModel}" />
+
+				<p:contextMenu for="menuTree" nodeType="instance"
+					model="#{subMenuStateBean.instanceContextModel}" />
+
+				<p:contextMenu for="menuTree" nodeType="service"
+					model="#{subMenuStateBean.serviceContextModel}" />
+			</p:tab>
+		</p:accordionPanel>
+		<ag:treeMenu widgetVar="submenu" id="submenu" styleClass="submenu"
+			model="#{subMenuStateBean.model}">
+		</ag:treeMenu>
+		<p:outputPanel id="customMenuPanel">
+			<ui:include src="#{subMenuStateBean.customPanel}" />
+		</p:outputPanel>
+		<h:outputScript>
+		// <!--
+			$(document).ready(OrchMenu.menuSetActive);
+		// -->
+		</h:outputScript>
+	</h:form>
+</ui:composition>

@@ -1,0 +1,66 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+<composite:interface
+	componentType="eu.agno3.runtime.jsf.components.InputUri">
+
+	<composite:attribute name="value" required="true" />
+
+
+	<composite:attribute name="hostWidth" required="false" default="5em" />
+	<composite:attribute name="pathWidth" required="false" default="5em" />
+</composite:interface>
+
+<composite:implementation>
+	<div class="uri-editor ui-widget">
+		<p:outputPanel styleClass="scheme"
+			rendered="#{cc.isVisible('scheme')}">
+			<h:outputText rendered="#{cc.isReadOnly('scheme')}"
+				value="#{cc.scheme}" />
+			<p:inputText style="width: 2.4em"
+				rendered="#{not cc.isReadOnly('scheme')}" size="4" id="scheme"
+				value="#{cc.scheme}" />
+			<h:outputText value="${'://'}" />
+		</p:outputPanel>
+
+		<p:outputPanel styleClass="userInfo"
+			rendered="#{cc.isVisible('userInfo')}">
+			<h:outputText rendered="#{cc.isReadOnly('userInfo')}"
+				value="#{cc.userInfo}" />
+			<p:inputText style="width: 5em"
+				rendered="#{not cc.isReadOnly('userInfo')}" id="userInfo"
+				value="#{cc.userInfo}" />
+			<h:outputText value="${'@'}" />
+		</p:outputPanel>
+
+		<p:outputPanel styleClass="host" rendered="#{cc.isVisible('host')}">
+			<h:outputText rendered="#{cc.isReadOnly('host')}" value="#{cc.host}" />
+			<p:inputText style="width: ${cc.attrs.hostWidth}"
+				rendered="#{not cc.isReadOnly('host')}" id="host" value="#{cc.host}" />
+		</p:outputPanel>
+
+		<p:outputPanel styleClass="port" rendered="#{cc.isVisible('port')}">
+			<h:outputText value="${':'}" />
+			<h:outputText rendered="#{cc.isReadOnly('port')}" value="#{cc.port}" />
+			<p:spinner size="2" min="0" max="65535" style="margin-top: -3px"
+				rendered="#{not cc.isReadOnly('port')}" id="port" value="#{cc.port}" />
+		</p:outputPanel>
+
+		<p:outputPanel styleClass="path" rendered="#{cc.isVisible('path')}">
+			<h:outputText
+				rendered="#{cc.isReadOnly('path') and not empty cc.path}"
+				value="#{cc.path}" />
+			<h:outputText rendered="#{cc.isReadOnly('path') and empty cc.path}"
+				value="${'/'}" />
+			<p:inputText style="width: ${cc.attrs.pathWidth}"
+				rendered="#{not cc.isReadOnly('path')}" id="path" value="#{cc.path}" />
+		</p:outputPanel>
+	</div>
+</composite:implementation>
+</html>
+

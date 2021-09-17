@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="util-feature"
+      label="Utility Feature"
+      version="0.0.106"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <requires>
+      <import feature="deps-apache-commons-feature" version="0.0.18"/>
+      <import feature="deps-util-feature" version="0.0.42"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.runtime.util"
+         download-size="0"
+         install-size="0"
+         version="0.0.106"
+         unpack="false"/>
+
+</feature>

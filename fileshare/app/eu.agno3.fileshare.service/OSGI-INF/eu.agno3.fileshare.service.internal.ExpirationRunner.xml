@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.fileshare.service.internal.ExpirationRunner" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.service.internal.ExpirationRunner"/>
+    </service>
+    <reference name="ServiceContext" interface="eu.agno3.fileshare.service.api.internal.DefaultServiceContext" cardinality="1..1" policy="static" bind="setServiceContext" unbind="unsetServiceContext"/>
+    <reference name="EntityService" interface="eu.agno3.fileshare.service.api.internal.EntityServiceInternal" cardinality="1..1" policy="static" bind="setEntityService" unbind="unsetEntityService"/>
+    <reference name="UserService" interface="eu.agno3.fileshare.service.api.internal.UserServiceInternal" cardinality="1..1" policy="static" bind="setUserService" unbind="unsetUserService"/>
+    <reference name="ShareService" interface="eu.agno3.fileshare.service.api.internal.ShareServiceInternal" cardinality="1..1" policy="static" bind="setShareService" unbind="unsetShareService"/>
+    <reference name="NotifyService" interface="eu.agno3.fileshare.service.api.internal.NotificationService" cardinality="1..1" policy="static" bind="setNotifyService" unbind="unsetNotifyService"/>
+    <reference name="PrefService" interface="eu.agno3.fileshare.service.api.internal.PreferenceServiceInternal" cardinality="1..1" policy="static" bind="setPrefService" unbind="unsetPrefService"/>
+    <reference name="LinkService" interface="eu.agno3.fileshare.service.LinkService" cardinality="1..1" policy="static" bind="setLinkService" unbind="unsetLinkService"/>
+    <reference name="VFSService" interface="eu.agno3.fileshare.service.api.internal.VFSServiceInternal" cardinality="1..1" policy="static" bind="setVFSService" unbind="unsetVFSService"/>
+    <implementation class="eu.agno3.fileshare.service.internal.ExpirationRunner"/>
+</scr:component>

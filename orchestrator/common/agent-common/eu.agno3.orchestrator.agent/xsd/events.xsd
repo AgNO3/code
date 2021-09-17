@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:am="urn:agno3:agent:1.0:msg" xmlns:ac="urn:agno3:agent:1.0:config" xmlns:m="urn:agno3:message:1.0:base" xmlns:ae="urn:agno3:agent:1.0:events" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:agent:1.0:events" elementFormDefault="qualified">
+   <xsd:import schemaLocation="urn:agno3:message:1.0:base" namespace="urn:agno3:message:1.0:base"/>
+   <xsd:import schemaLocation="urn:agno3:agent:1.0:config" namespace="urn:agno3:agent:1.0:config"/>
+   <xsd:complexType name="agentUpEvent">
+      <xsd:complexContent>
+         <xsd:extension base="m:xmlMarshallableMessage">
+            <xsd:sequence>
+               <xsd:element name="id" type="xsd:string" minOccurs="0"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="agentDownEvent">
+      <xsd:complexContent>
+         <xsd:extension base="m:xmlMarshallableMessage">
+            <xsd:sequence>
+               <xsd:element name="id" type="xsd:string" minOccurs="0"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="agentIllegalConnStateEvent">
+      <xsd:complexContent>
+         <xsd:extension base="m:xmlMarshallableMessage">
+            <xsd:sequence>
+               <xsd:element name="id" type="xsd:string" minOccurs="0"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="agentConfigUpdatedEvent">
+      <xsd:complexContent>
+         <xsd:extension base="m:xmlMarshallableMessage">
+            <xsd:sequence>
+               <xsd:element name="newConfig" type="ac:agentConfig" minOccurs="0"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:element name="agentUpEvent" type="ae:agentUpEvent"/>
+   <xsd:element name="agentDownEvent" type="ae:agentDownEvent"/>
+   <xsd:element name="agentIllegalConnStateEvent" type="ae:agentIllegalConnStateEvent"/>
+   <xsd:element name="agentConfigUpdated" type="ae:agentConfigUpdatedEvent"/>
+</xsd:schema>

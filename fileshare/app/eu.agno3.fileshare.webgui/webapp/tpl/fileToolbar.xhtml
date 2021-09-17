@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:shiro="http://shiro.ops4j.org/tags"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0">
+
+	<p:outputPanel styleClass="file-toolbar ui-widget" id="fileToolbar">
+		<p:toolbar
+			styleClass="breadcrumbs container-operations ui-widget-header ui-light-border top func-unit">
+			<f:facet name="left">
+				<p:breadCrumb widgetVar="pathBreadcrumbs"
+					styleClass="root-display smaller-if-medium" homeDisplay="text"
+					model="#{rootPathBreadcrumbBean.model}" />
+			</f:facet>
+			<f:facet name="right">
+				<ag:dialogOpenCommandLink id="dirInfoButton"
+					style="text-decoration: none; text-align: right; font-size: 10pt; display:inline-block; margin-right: 0.3em; vertical-align: middle"
+					styleClass="directory-indicator min-medium" closable="true"
+					rendered="#{(fileTreeBean.singleLevel or not empty fileRootSelectionBean.selectedRootType) and (fileDisplayBean.isFileNode(fileRootSelectionBean.root) or fileDisplayBean.isDirectoryNode(fileRootSelectionBean.root))}"
+					disabled="#{not fileRootSelectionBean.haveRootPermission('READ')}"
+					dialog="/actions/info.xhtml?entity=#{fileRootSelectionBean.rootContainer.entityKey}&amp;grant=#{fileRootSelectionBean.selectedRootGrantId}#{userTokenBean.tokenQueryArg}">
+					<p:ajax event="return" listener="#{fileTreeBean.refresh()}"
+						update="fileTable fileToolbar @form:msgs"
+						oncomplete="window.focus();" />
+
+					<h:outputText
+						rendered="#{fileRootSelectionBean.rootContainer.sendNotifications}"
+						styleClass="ui-icon ui-icon-inline ui-icon-mail-open"
+						title="#{_msgs['toolbar.state.sendNotifications']}" />
+
+					<ui:fragment
+						rendered="#{fileRootSelectionBean.haveRootPermission('UPLOAD') or fileRootSelectionBean.haveRootPermission('EDIT')}">
+						<h:outputText styleClass="ui-icon ui-icon-inline ui-icon-disk"
+							title="#{_msgs['toolbar.state.upload']}"
+							rendered="#{not fileRootSelectionBean.rootContainer.allowFileOverwrite or not fileRootSelectionBean.haveRootPermission('EDIT')}" />
+						<h:outputText styleClass="ui-icon ui-icon-inline ui-icon-pencil"
+							title="#{_msgs['toolbar.state.overwrite']}"
+							rendered="#{fileRootSelectionBean.rootContainer.allowFileOverwrite and fileRootSelectionBean.haveRootPermission('EDIT')}" />
+					</ui:fragment>
+					<h:outputText styleClass="ui-icon ui-icon-inline ui-icon-cancel"
+						title="#{_msgs['toolbar.state.readOnly']}"
+						rendered="#{not fileRootSelectionBean.haveRootPermission('UPLOAD') and not fileRootSelectionBean.haveRootPermission('EDIT')}" />
+				</ag:dialogOpenCommandLink>
+
+
+
+
+				<fs:hiddenInfo entity="#{fileRootSelectionBean.root}"
+					update="@parent:fileTable @parent:fileToolbar" />
+
+				<fs:quotaDisplay
+					rendered="#{userQuotaBean.haveCurrentUserQuota() and fileRootSelectionBean.selectedRootType !='group-root'}"
+					styleClass="large-only"
+					style="margin-right: 1em; width: 12em; font-size: 9pt; line-height: 9pt; height: 20px; display: inline-block; vertical-align:middle"
+					usedPercent="#{userQuotaBean.currentUserQuotaUsagePercent}"
+					shortInfo="#{userQuotaBean.formattedQuotaUsagePercent}"
+					longInfo="#{userQuotaBean.formattedQuotaDetail}" />
+
+				<fs:quotaDisplay
+					rendered="#{fileRootSelectionBean.selectedRootType =='group-root' and groupQuotaBean.haveGroupQuota(fileRootSelectionBean.rootContainer)}"
+					styleClass="large-only"
+					style="margin-right: 1em; width: 12em; font-size: 9pt; line-height: 9pt; height: 20px; display: inline-block; vertical-align:middle"
+					usedPercent="#{groupQuotaBean.getGroupQuotaUsagePercent(fileRootSelectionBean.rootContainer)}"
+					shortInfo="#{groupQuotaBean.getFormattedQuotaUsagePercent(fileRootSelectionBean.rootContainer)}"
+					longInfo="#{groupQuotaBean.getFormattedQuotaDetail(fileRootSelectionBean.rootContainer)}" />
+
+
+				<p:commandLink id="refreshButton"
+					style="display: inline-block; vertical-align: middle"
+					styleClass="ui-icon min-medium ui-icon-inline ui-icon-arrowrefresh-1-e"
+					title="#{_msgs['toolbar.refresh.title']}"
+					update="fileTable fileToolbar"
+					actionListener="#{fileTreeBean.refresh}" />
+			</f:facet>
+		</p:toolbar>
+		<p:toolbar
+			styleClass="container-operations ui-widget-header ui-light-border bottom func-unit">
+			<f:facet name="left">
+				<div class="top-container-menu"
+					style="display: inline-block; vertical-align: top">
+
+					<p:outputPanel styleClass="ui-widget"
+						rendered="#{fileRootSelectionBean.selectedType == 'search-result' and fileRootSelectionBean.root.pagingAllowed}">
+
+						<p:commandButton
+							disabled="#{fileRootSelectionBean.root.offset le 0}"
+							action="#{fileNavigationBean.prevResultPage()}"
+							icon="ui-icon-arrowthick-1-w"
+							value="#{_msgs['toolbar.search.prevPage']}">
+						</p:commandButton>
+
+						<p:commandButton
+							disabled="#{not fileRootSelectionBean.root.haveMoreResults}"
+							action="#{fileNavigationBean.nextResultPage()}"
+							icon="ui-icon-arrowthick-1-e"
+							value="#{_msgs['toolbar.search.nextPage']}">
+						</p:commandButton>
+					</p:outputPanel>
+
+					<p:commandButton
+						rendered="#{fileTreeBean.singleLevel and (fileDisplayBean.isFileNode(fileRootSelectionBean.root) or fileDisplayBean.isDirectoryNode(fileRootSelectionBean.root))}"
+						disabled="#{empty rootPathBreadcrumbBean.parentOutcome}"
+						action="#{rootPathBreadcrumbBean.getParentOutcome()}"
+						icon="ui-icon-back" value="#{_msgs['toolbar.up.label']}"
+						title="#{_msgs['toolbar.up.title']}" />
+
+					<ag:dialogOpenButton
+						rendered="#{(fileTreeBean.singleLevel or not empty fileRootSelectionBean.selectedRootType) and (fileRootSelectionBean.haveRootPermission('UPLOAD') or fileRootSelectionBean.haveRootPermission('EDIT'))}"
+						dialog="/actions/createDirectory.xhtml?dir=#{fileRootSelectionBean.rootContainer.entityKey}#{userTokenBean.tokenQueryArg}"
+						closable="true"
+						icon="ui-icon-folder-collapsed ui-icon-add-modifier"
+						styleClass="action-link button create-dir-action"
+						title="#{_msgs['toolbar.createDirectory.title']}"
+						value="#{_msgs['toolbar.createDirectory.label']}">
+						<p:ajax event="return"
+							listener="#{directoryCreateController.returnFromDialog}"
+							update="fileTable fileToolbar @form:msgs"
+							oncomplete="window.focus();" />
+					</ag:dialogOpenButton>
+
+					<p:commandButton id="dirUploadButton" actionListener=""
+						rendered="#{(fileTreeBean.singleLevel or not empty fileRootSelectionBean.selectedRootType) and fileRootSelectionBean.haveRootPermission('UPLOAD')}"
+						disabled="#{not policyBean.isEntityPolicyFulfilled(fileRootSelectionBean.rootContainer)}"
+						closable="true"
+						title="#{policyBean.getViolationMessageOr(fileRootSelectionBean.rootContainer.securityLabel, _msgs['toolbar.upload.title'])}"
+						onclick="AgNO3FileUpload.showUploadDialog(this, false, false, true, false, true)"
+						styleClass="action-link button upload-action"
+						icon="ui-icon-upload" value="#{_msgs['toolbar.upload.label']}" />
+
+					<ag:dialogOpenButton
+						styleClass="action-link button  favorite-action"
+						dialog="/actions/addFavorite.xhtml#{userTokenBean.tokenQueryString}"
+						closable="true"
+						rendered="#{fileRootSelectionBean.selectedType == 'favorites'}"
+						title="#{_msgs['toolbar.addfavorite.title']}"
+						value="#{_msgs['toolbar.addfavorite.label']}"
+						icon="ui-icon-star ui-icon-add-modifier">
+						<p:ajax event="return" listener="#{fileTreeBean.refresh()}"
+							update="fileTable fileToolbar @form:msgs menuPanel"
+							oncomplete="window.focus();" />
+					</ag:dialogOpenButton>
+
+					<ag:dialogOpenButton
+						rendered="#{fileRootSelectionBean.selectedType == 'share-root' and not currentUserBean.isAuthenticated() and fileRootSelectionBean.haveRootPermission('READ')}"
+						title="#{policyBean.getViolationMessageOr(fileRootSelectionBean.rootContainer.securityLabel,_msgs['toolbar.downloadDirectory.title'])}"
+						disabled="#{not policyBean.isEntityPolicyFulfilled(fileRootSelectionBean.rootContainer)}"
+						closable="true"
+						dialog="/actions/downloadDirectory.xhtml?dir=#{fileRootSelectionBean.rootContainer.entityKey}&amp;grant=#{fileRootSelectionBean.selectedRootGrantId}#{userTokenBean.tokenQueryArg}"
+						styleClass="download-link button action-link download-action"
+						value="#{_msgs['toolbar.downloadDirectory.label']}"
+						icon="ui-icon-download" style="display: inline-block">
+						<p:ajax event="return" oncomplete="window.focus();" />
+					</ag:dialogOpenButton>
+
+					<ag:dialogOpenButton
+						styleClass="action-link button add-group-action"
+						dialog="/actions/activateGroup.xhtml#{userTokenBean.tokenQueryString}"
+						rendered="#{fileRootSelectionBean.selectedType == 'groups-root'}"
+						closable="true"
+						disabled="#{not currentUserMembershipBean.haveInactiveGroups()}"
+						title="#{_msgs['toolbar.activateGroup.title']}"
+						value="#{_msgs['toolbar.activateGroup.label']}"
+						icon="ui-icon-group ui-icon-add-modifier">
+						<p:ajax event="return" listener="#{fileTreeBean.refresh()}"
+							update="fileTable fileToolbar @form:msgs"
+							oncomplete="window.focus();" />
+					</ag:dialogOpenButton>
+
+					<ag:dialogOpenButton styleClass="action-link button add-share"
+						dialog="/actions/share.xhtml#{userTokenBean.tokenQueryString}"
+						rendered="#{(fileRootSelectionBean.selectedType == 'peers-root' or fileRootSelectionBean.selectedType == 'all-shared')}"
+						closable="true" title="#{_msgs['toolbar.share.title']}"
+						value="#{_msgs['toolbar.share.label']}"
+						icon="ui-icon-share ui-icon-add-modifier">
+						<p:ajax event="return" listener="#{fileTreeBean.refresh()}"
+							update="fileTable fileToolbar @form:msgs"
+							oncomplete="window.focus();" />
+					</ag:dialogOpenButton>
+
+					<ag:dialogOpenButton styleClass="action-link button add-peer-share"
+						dialog="/actions/share.xhtml?peer=#{fileRootSelectionBean.selectedPeer}&amp;tab=#{shareTabsBean.getTabFromPeerInfo(fileRootSelectionBean.peerInfo)}#{userTokenBean.tokenQueryArg}"
+						rendered="#{(fileRootSelectionBean.selectedType == 'peer-root')}"
+						closable="true" title="#{_msgs['toolbar.sharepeer.title']}"
+						value="#{_msgs['toolbar.sharepeer.label']}"
+						icon="ui-icon-share ui-icon-add-modifier">
+						<p:ajax event="return" listener="#{fileTreeBean.refresh()}"
+							update="fileTable fileToolbar @form:msgs"
+							oncomplete="window.focus();" />
+					</ag:dialogOpenButton>
+
+					<ag:dialogOpenButton styleClass="action-link button invite"
+						rendered="#{fileRootSelectionBean.selectedType == 'peers-root' and registrationBean.isInvitationEnabled() and currentUserBean.hasPermission('user:inviteUser')}"
+						closable="true" icon="ui-icon-person"
+						title="#{_msgs['toolbar.invite.title']}"
+						value="#{_msgs['toolbar.invite.label']}"
+						dialog="/actions/inviteUser.xhtml">
+						<p:ajax event="return" />
+					</ag:dialogOpenButton>
+
+					<ag:dialogOpenButton styleClass="action-link button info-action"
+						closable="true"
+						rendered="#{(fileTreeBean.singleLevel or not empty fileRootSelectionBean.selectedRootType) and (fileDisplayBean.isFileNode(fileRootSelectionBean.root) or fileDisplayBean.isDirectoryNode(fileRootSelectionBean.root))}"
+						disabled="#{not fileRootSelectionBean.haveRootPermission('READ') or (fileSelectionBean.isSingleSelection() and not fileSelectionBean.isEmptyDirSelection())}"
+						value="#{_msgs['toolbar.info.label']}" icon="ui-icon-info"
+						title="#{componentUtils.ifTrue(fileSelectionBean.isSingleSelection() and not fileSelectionBean.isEmptyDirSelection(), _msgs['toolbar.disabledWhileSelected'])}"
+						dialog="/actions/info.xhtml?entity=#{fileRootSelectionBean.rootContainer.entityKey}&amp;grant=#{fileRootSelectionBean.selectedRootGrantId}#{userTokenBean.tokenQueryArg}">
+						<p:ajax event="return" listener="#{fileTreeBean.refresh()}"
+							update="fileTable fileToolbar @form:msgs"
+							oncomplete="window.focus();" />
+					</ag:dialogOpenButton>
+
+					<fs:shareButton recursive="#{true}"
+						rendered="#{((fileDisplayBean.isFileNode(fileRootSelectionBean.root) or fileDisplayBean.isDirectoryNode(fileRootSelectionBean.root)) and not fileDisplayBean.isRootNode(fileRootSelectionBean.root)) and filePermissionBean.isOwner(fileRootSelectionBean.rootContainer) and fileRootSelectionBean.rootContainer.hasParent()}"
+						disabled="#{fileSelectionBean.isSingleSelection() and not fileSelectionBean.isEmptyDirSelection()}"
+						title="#{componentUtils.ifTrue(fileSelectionBean.isSingleSelection() and not fileSelectionBean.isEmptyDirSelection(), _msgs['toolbar.disabledWhileSelected'])}"
+						style="display: inline-block;" entityShareInfo="#{fileTreeBean}"
+						grant="#{fileRootSelectionBean.rootGrant}"
+						entity="#{fileRootSelectionBean.root.attachedObject}"
+						update="@composite:@parent:fileTable @composite:@parent:fileToolbar" />
+				</div>
+			</f:facet>
+			<f:facet name="right">
+				<p:outputPanel styleClass="ui-widget"
+					style="display: inline-block; font-size: 10pt"
+					rendered="#{fileRootSelectionBean.selectedType == 'search-result'}">
+					<h:outputFormat
+						value="#{_msgs['toolbar.search.showingResultsFmt']}">
+						<f:param value="#{fileRootSelectionBean.root.numSearchResults}" />
+						<f:param value="#{fileRootSelectionBean.query}" />
+					</h:outputFormat>
+					<p:outputPanel style="display: inline-block; font-size: 10pt"
+						rendered="#{fileRootSelectionBean.root.pagingAllowed}">
+						<h:outputText
+							rendered="#{fileRootSelectionBean.root.haveMoreResults}"
+							value="#{_msgs['toolbar.search.moreIndicator']}" />
+					</p:outputPanel>
+					<p:outputPanel style="display: inline-block; font-size: 10pt"
+						rendered="#{not fileRootSelectionBean.root.pagingAllowed}">
+						<h:outputText
+							rendered="#{fileRootSelectionBean.root.haveMoreResults}"
+							value="#{_msgs['toolbar.search.moreIndicatorNoPage']}" />
+					</p:outputPanel>
+				</p:outputPanel>
+				<p:outputPanel style="display: inline-block"
+					rendered="#{filePermissionBean.isOwner(fileRootSelectionBean.rootContainer) and fileRootSelectionBean.rootContainer.hasParent()}">
+					<fs:shareList entityShareInfo="#{fileRootSelectionBean}"
+						entity="#{fileRootSelectionBean.rootContainer}"
+						update="@parent:@parent:fileTable @parent:@parent:fileToolbar"
+						listener="#{fileTreeBean.refresh}" />
+				</p:outputPanel>
+			</f:facet>
+		</p:toolbar>
+
+		<p:toolbar reverseBreak="true"
+			styleClass="selection-operations no-selection"
+			left="min-width: #{_msgs['toolbar.left.minWidth']};"
+			rendered="#{fileSelectionBean.isEmptySelection() or fileSelectionBean.isEmptyDirSelection()}">
+
+			<f:facet name="left">
+
+				<p:commandButton action="#{fileTreeBean.selectAll()}"
+					rendered="#{fileTreeBean.singleLevel}"
+					update="fileTable fileToolbar"
+					title="#{_msgs['toolbar.selectAll.title']}" icon="ui-icon-check"
+					styleClass="action-link select-all-action" />
+			</f:facet>
+
+			<f:facet name="right">
+				<fs:filterSetup styleClass="min-medium"
+					update="@composite:@parent:fileTable @composite:@parent:fileToolbar" />
+			</f:facet>
+		</p:toolbar>
+
+		<p:toolbar reverseBreak="true"
+			left="min-width: #{_msgs['toolbar.left.minWidth']};"
+			styleClass="selection-operations single-selection"
+			rendered="#{(fileSelectionBean.isSingleSelection() and not fileSelectionBean.isEmptyDirSelection())}">
+			<f:facet name="left">
+
+				<p:commandButton action="#{fileTreeBean.clearSelection()}"
+					update="fileTable fileToolbar"
+					title="#{_msgs['toolbar.clearSelection.title']}"
+					icon="ui-icon-close"
+					styleClass="action-link clear-selection-action" />
+
+				<div class="selection-info min-medium">
+					<h:outputText rendered="#{fileSelectionBean.isAllEntities()}"
+						styleClass="selection-file-size"
+						value="#{ag:formatByteSizeSI(fileSelectionBean.selectionTotalSize)}" />
+				</div>
+
+				<p:commandButton
+					rendered="#{filePermissionBean.canRead(fileSelectionBean.firstSelection) and fileDisplayBean.isFileNode(fileSelectionBean.firstSelection)}"
+					title="#{policyBean.getViolationMessageOr(fileSelectionBean.firstSelection.attachedObject.securityLabel,_msgs['toolbar.download.file.title'])}"
+					disabled="#{not policyBean.isNodePolicyFulfilled(fileSelectionBean.firstSelection)}"
+					styleClass="download-link action-link download-action"
+					style="display: inline-block"
+					action="#{fileDownloadController.download(fileSelectionBean.firstSelection.attachedObject, fileSelectionBean.firstSelection.grant, userTokenBean)}"
+					icon="ui-icon-download"
+					value="#{_msgs['toolbar.download.file.label']}">
+				</p:commandButton>
+
+				<ag:dialogOpenButton
+					rendered="#{filePermissionBean.canRead(fileSelectionBean.firstSelection) and fileDisplayBean.isDirectoryNode(fileSelectionBean.firstSelection)}"
+					title="#{policyBean.getViolationMessageOr(fileSelectionBean.firstSelection.attachedObject.securityLabel,_msgs['toolbar.download.dir.title'])}"
+					disabled="#{not policyBean.isNodePolicyFulfilled(fileSelectionBean.firstSelection)}"
+					closable="true"
+					dialog="/actions/downloadDirectory.xhtml?dir=#{fileSelectionBean.firstSelection.attachedObject.entityKey}#{userTokenBean.tokenQueryArg}"
+					styleClass="download-link action-link download-action"
+					icon="ui-icon-download"
+					value="#{_msgs['toolbar.download.dir.label']}"
+					style="display: inline-block">
+					<p:ajax event="return" oncomplete="window.focus();" />
+				</ag:dialogOpenButton>
+
+				<ag:dialogOpenButton
+					rendered="#{not fileTreeBean.singleLevel and not empty fileSelectionBean.singleSelectionContainer and filePermissionBean.canUpload(fileSelectionBean.firstSelection)}"
+					dialog="/actions/createDirectory.xhtml?dir=#{urlFileSelectionUtil.encodedSingleSelectionFromSelectionOrRoot}&amp;grant=#{fileSelectionBean.singleSelectionGrantId}#{userTokenBean.tokenQueryArg}"
+					closable="true"
+					icon="ui-icon-folder-collapsed ui-icon-add-modifier"
+					title="#{_msgs['toolbar.createDirectory.title']}"
+					value="#{_msgs['toolbar.createDirectory.label']}"
+					styleClass="action-link create-dir-action">
+					<p:ajax event="return"
+						listener="#{directoryCreateController.returnFromDialog}"
+						update="fileTable @form:msgs" oncomplete="window.focus();" />
+				</ag:dialogOpenButton>
+
+				<ag:dialogOpenButton styleClass="action-link add-group-action"
+					dialog="/actions/activateGroup.xhtml#{userTokenBean.tokenQueryString}"
+					closable="true"
+					rendered="#{not fileTreeBean.singleLevel and not empty fileSelectionBean.firstSelection and fileSelectionBean.firstSelection.type == 'groups-root'}"
+					disabled="#{not currentUserMembershipBean.haveInactiveGroups()}"
+					title="#{_msgs['toolbar.activateGroup.title']}"
+					value="#{_msgs['toolbar.activateGroup.label']}"
+					icon="ui-icon-group ui-icon-add-modifier">
+					<p:ajax event="return" listener="#{fileTreeBean.refresh()}"
+						update="fileTable fileToolbar @form:msgs"
+						oncomplete="window.focus();" />
+				</ag:dialogOpenButton>
+
+				<ag:dialogOpenButton
+					rendered="#{filePermissionBean.canEditOrEditSelf(fileSelectionBean.firstSelection) and filePermissionBean.canEditOrEditSelf(fileSelectionBean.firstSelection.parent) and fileSelectionBean.singleSelectionEntity.hasParent()}"
+					icon="ui-icon-trash" closable="true"
+					dialog="/actions/delete.xhtml?files=#{urlFileSelectionUtil.encodedMultiSelectionFromSelection}&amp;grant=#{fileSelectionBean.singleSelectionGrantId}#{userTokenBean.tokenQueryArg}"
+					title="#{_msgs['toolbar.delete.title']}"
+					value="#{_msgs['toolbar.delete.label']}">
+					<p:ajax event="return"
+						listener="#{fileTreeBean.refreshAndClearSelectionIfTrue}"
+						update="fileTable fileToolbar" oncomplete="window.focus();" />
+				</ag:dialogOpenButton>
+
+				<p:commandButton type="button"
+					rendered="#{not fileTreeBean.singleLevel and fileDisplayBean.isDirectoryOrEmptyDirNode(fileSelectionBean.firstSelection) and filePermissionBean.canUpload(fileSelectionBean.firstSelection)}"
+					disabled="#{not policyBean.isNodePolicyFulfilled(fileSelectionBean.firstSelection)}"
+					value="#{_msgs['toolbar.uploadto.label']}"
+					styleClass="action-link upload-action"
+					title="#{policyBean.getViolationMessageOr(fileSelectionBean.firstSelection.attachedObject.securityLabel,_msgs['toolbar.uploadto.title'])}"
+					onclick="AgNO3FileUpload.showUploadDialog(this, false, false, false, true, true)"
+					icon="ui-icon-upload" />
+
+				<ag:dialogOpenButton
+					rendered="#{fileSelectionBean.singleSelectionEntity.hasParent() and filePermissionBean.canEdit(fileSelectionBean.firstSelection) and filePermissionBean.canEditOrEditSelf(fileSelectionBean.firstSelection.parent)}"
+					styleClass="action-link move-action" closable="true"
+					value="#{_msgs['toolbar.move.label']}"
+					title="#{_msgs['toolbar.move.title']}"
+					dialog="/actions/move.xhtml?files=#{urlFileSelectionUtil.encodedSingleSelectionFromSelection}&amp;grant=#{fileSelectionBean.singleSelectionGrantId}#{userTokenBean.tokenQueryArg}"
+					icon="ui-icon-scissors">
+					<p:ajax event="return"
+						listener="#{fileTreeBean.refreshAndClearSelectionIfTrue}"
+						update="fileTable fileToolbar" oncomplete="window.focus();" />
+				</ag:dialogOpenButton>
+
+				<p:commandButton id="renameButton"
+					styleClass="action-link rename-action"
+					rendered="#{fileSelectionBean.singleSelectionEntity.hasParent() and filePermissionBean.canEdit(fileSelectionBean.firstSelection) and filePermissionBean.canEditOrEditSelf(fileSelectionBean.firstSelection.parent)}"
+					value="#{_msgs['toolbar.rename.label']}"
+					action="#{fileSelectionRenameBean.setNewName(fileSelectionBean.singleSelectionEntity.localName)}"
+					title="#{_msgs['toolbar.rename.title']}" icon="ui-icon-pencil"
+					update="renamePanel" oncomplete="PF('renameOverlay').show();">
+				</p:commandButton>
+
+				<p:overlayPanel id="renamePanel"
+					rendered="#{fileSelectionBean.singleSelectionEntity.hasParent() and filePermissionBean.canEdit(fileSelectionBean.firstSelection) and filePermissionBean.canEditOrEditSelf(fileSelectionBean.firstSelection.parent)}"
+					widgetVar="renameOverlay" dismissable="false">
+
+					<div style="margin-bottom: 0.5em">
+						<h:outputFormat value="#{_msgs['toolbar.rename.promptFmt']}">
+							<f:param
+								value="#{fileDisplayBean.getLocalDisplayName(fileSelectionBean.singleSelectionEntity)}" />
+						</h:outputFormat>
+					</div>
+					<p:inputText id="nameInput"
+						value="#{fileSelectionRenameBean.newName}" />
+
+					<p:defaultCommand scope="renamePanel" target="renameSubmitButton" />
+
+					<div class="buttons">
+						<p:commandButton id="renameSubmitButton"
+							action="#{fileController.rename(fileSelectionBean.singleSelectionEntity, fileSelectionRenameBean)}"
+							value="#{_msgs['toolbar.rename.confirm']}"
+							update="fileTable fileToolbar" icon="ui-icon-check" />
+
+						<p:commandButton value="#{_msgs['toolbar.rename.cancel']}"
+							action="#{fileSelectionRenameBean.clear()}" update="nameInput"
+							oncomplete="PF('renameOverlay').hide();" icon="ui-icon-cancel" />
+					</div>
+				</p:overlayPanel>
+
+				<ag:dialogOpenButton icon="ui-icon-trash"
+					rendered="#{fileRootSelectionBean.selectedRootType =='groups-root' and not fileDisplayBean.isVirtualGroup(fileSelectionBean.singleSelectionEntity) and currentUserBean.hasPermission('manage:groups:delete')}"
+					title="#{_msgs['toolbar.delete.group.title']}"
+					value="#{_msgs['toolbar.delete.group.label']}" closable="true"
+					dialog="/app/fs/admin/deleteGroupsDialog.xhtml?groups=#{fileSelectionBean.singleSelectionEntity.owner.id}">
+					<p:ajax event="return"
+						listener="#{fileTreeBean.refreshAndClearSelectionIfTrue}"
+						update="fileTable fileToolbar" oncomplete="window.focus();" />
+				</ag:dialogOpenButton>
+
+				<p:commandButton
+					rendered="#{currentUserBean.isAuthenticated() and userHidingBean.isHideable(fileSelectionBean.firstSelection) and userHidingBean.isHidden(fileSelectionBean.firstSelection)}"
+					action="#{userHidingBean.makeVisible(fileSelectionBean.selection)}"
+					title="#{_msgs['toolbar.unhide.title']}"
+					value="#{_msgs['toolbar.unhide.label']}"
+					update="fileTable fileToolbar" icon="ui-icon-visible" />
+
+				<p:commandButton id="hideSingleButton" styleClass="min-medium"
+					rendered="#{currentUserBean.isAuthenticated() and userHidingBean.isHideable(fileSelectionBean.firstSelection) and not userHidingBean.isHidden(fileSelectionBean.firstSelection)}"
+					title="#{_msgs['toolbar.hide.title']}"
+					value="#{_msgs['toolbar.hide.label']}" icon="ui-icon-hidden" />
+
+				<p:overlayPanel
+					rendered="#{currentUserBean.isAuthenticated() and userHidingBean.isHideable(fileSelectionBean.firstSelection) and not userHidingBean.isHidden(fileSelectionBean.firstSelection)}"
+					widgetVar="hideSingleConfirmOverlay" for="hideSingleButton"
+					dismissable="false">
+
+					<h:outputText style="display: block"
+						value="#{_msgs['toolbar.hide.prompt']}" />
+
+					<div class="buttons">
+						<p:commandButton
+							action="#{userHidingBean.makeHidden(fileSelectionBean.selection)}"
+							value="#{_msgs['toolbar.hide.confirm']}"
+							update="fileTable fileToolbar" icon="ui-icon-check" />
+
+						<p:commandButton value="#{_msgs['toolbar.hide.cancel']}"
+							oncomplete="PF('hideSingleConfirmOverlay').hide();"
+							icon="ui-icon-cancel" />
+					</div>
+				</p:overlayPanel>
+
+				<ag:dialogOpenButton
+					rendered="#{filePermissionBean.canReadOrIsCreator(fileSelectionBean.firstSelection) and (fileDisplayBean.isFileNode(fileSelectionBean.firstSelection) or fileDisplayBean.isDirectoryOrEmptyDirNode(fileSelectionBean.firstSelection)) }"
+					icon="ui-icon-info" closable="true"
+					title="#{_msgs['toolbar.info.title']}"
+					value="#{_msgs['toolbar.info.label']}"
+					styleClass="action-link info-action info-container"
+					dialog="/actions/info.xhtml?entity=#{fileSelectionBean.firstSelection.attachedObject.entityKey}&amp;grant=#{fileSelectionBean.singleSelectionGrantId}#{userTokenBean.tokenQueryArg}"
+					style="display: inline-block">
+					<p:ajax event="return" listener="#{fileTreeBean.refresh()}"
+						update="fileTable" oncomplete="window.focus();" />
+				</ag:dialogOpenButton>
+
+
+				<fs:shareButton style="display: inline-block" buttonOnly="true"
+					rendered="#{(fileDisplayBean.isFileNode(fileSelectionBean.firstSelection) or fileDisplayBean.isDirectoryNode(fileSelectionBean.firstSelection)) and not fileDisplayBean.isRootNode(fileSelectionBean.firstSelection)}"
+					disabled="#{not sharePolicyBean.mayShareAny(fileSelectionBean.firstSelection)}"
+					grant="#{fileSelectionBean.firstSelection.grant}"
+					entityShareInfo="#{fileTreeBean}"
+					entity="#{fileSelectionBean.firstSelection.attachedObject}"
+					update="@composite:@parent:fileTable" />
+			</f:facet>
+
+			<f:facet name="right">
+				<fs:filterSetup styleClass="large-only"
+					update="@composite:@parent:fileTable @composite:@parent:fileToolbar" />
+			</f:facet>
+		</p:toolbar>
+
+		<p:toolbar reverseBreak="true"
+			left="min-width: #{_msgs['toolbar.left.minWidth']};"
+			styleClass="selection-operations multi-selection"
+			rendered="#{fileSelectionBean.isMultiSelection()}">
+			<f:facet name="left">
+
+				<p:commandButton action="#{fileTreeBean.clearSelection()}"
+					update="fileTable fileToolbar"
+					title="#{_msgs['toolbar.clearSelection.title']}"
+					icon="ui-icon-close"
+					styleClass="action-link clear-selection-action" />
+
+				<div class="selection-info min-medium">
+
+					<h:outputFormat styleClass="selection-file-size"
+						rendered="#{fileSelectionBean.isAllEntities()}"
+						value="#{_msgs['toolbar.multiSelection.sizeFormat']}">
+						<f:param
+							value="#{ag:formatByteSizeSI(fileSelectionBean.selectionTotalSize)}" />
+					</h:outputFormat>
+				</div>
+
+				<ag:dialogOpenButton
+					styleClass="download-link action-link download-action"
+					style="display: inline-block"
+					disabled="#{not fileSelectionBean.isAllEntities()}"
+					dialog="/actions/downloadMulti.xhtml?files=#{urlFileSelectionUtil.encodedMultiSelectionFromSelection}&amp;grant=#{fileSelectionBean.singleSelectionGrantId}#{userTokenBean.tokenQueryArg}"
+					icon="ui-icon-download"
+					value="#{_msgs['toolbar.download.multi.label']}"
+					title="#{_msgs['toolbar.download.multi.title']}">
+					<p:ajax event="return" oncomplete="window.focus();" />
+				</ag:dialogOpenButton>
+
+
+				<ag:dialogOpenButton
+					rendered="#{fileSelectionBean.isAllEntities() and (not fileSelectionBean.containsSubjects()) and (fileRootSelectionBean.haveRootPermission('EDIT_SELF') or fileRootSelectionBean.haveRootPermission('EDIT'))}"
+					closable="true" icon="ui-icon-trash"
+					dialog="/actions/delete.xhtml?files=#{urlFileSelectionUtil.encodedMultiSelectionFromSelection}#{userTokenBean.tokenQueryArg}"
+					value="#{_msgs['toolbar.delete.multi.label']}"
+					title="#{_msgs['toolbar.delete.multi.title']}">
+					<p:ajax event="return"
+						listener="#{fileTreeBean.refreshAndClearSelectionIfTrue}"
+						update="fileTable fileToolbar" oncomplete="window.focus();" />
+				</ag:dialogOpenButton>
+
+				<ag:dialogOpenButton
+					rendered="#{fileSelectionBean.isAllEntities() and (not fileSelectionBean.containsSubjects()) and (fileRootSelectionBean.haveRootPermission('EDIT_SELF') or fileRootSelectionBean.haveRootPermission('EDIT'))}"
+					styleClass="action-link move-action"
+					value="#{_msgs['toolbar.move.multi.label']}"
+					title="#{_msgs['toolbar.move.multi.title']}" closable="true"
+					dialog="/actions/move.xhtml?files=#{urlFileSelectionUtil.encodedMultiSelectionFromSelection}&amp;grant=#{fileSelectionBean.singleSelectionGrantId}#{userTokenBean.tokenQueryArg}"
+					icon="ui-icon-scissors">
+					<p:ajax event="return"
+						listener="#{fileTreeBean.refreshAndClearSelectionIfTrue}"
+						update="fileTable fileToolbar" oncomplete="window.focus();" />
+				</ag:dialogOpenButton>
+
+				<p:outputPanel style="display:inline-block"
+					rendered="#{currentUserBean.isAuthenticated() and fileSelectionBean.isAllEntities() and (not fileSelectionBean.containsSubjects())}">
+					<p:commandButton
+						rendered="#{not userFavoritesBean.allEntitiesFavorite(fileSelectionBean.selectedEntities)}"
+						action="#{userFavoritesBean.makeEntitiesFavorite(fileSelectionBean.selectedEntities)}"
+						styleClass="action-link favorite-action"
+						update="fileTable fileToolbar"
+						value="#{_msgs['toolbar.favorite.label']}"
+						title="#{_msgs['toolbar.favorite.title']}" icon="ui-icon-star" />
+
+					<p:commandButton
+						rendered="#{userFavoritesBean.allEntitiesFavorite(fileSelectionBean.selectedEntities)}"
+						action="#{userFavoritesBean.removeEntitiesFavorite(fileSelectionBean.selectedEntities)}"
+						styleClass="action-link favorite-action"
+						update="fileTable fileToolbar"
+						value="#{_msgs['toolbar.unfavorite.label']}"
+						title="#{_msgs['toolbar.unfavorite.title']}" icon="ui-icon-star" />
+				</p:outputPanel>
+
+				<p:outputPanel style="display:inline-block"
+					rendered="#{currentUserBean.isAuthenticated() and fileSelectionBean.isAllSubjects()}">
+					<p:commandButton
+						rendered="#{not userFavoritesBean.allSubjectsFavorite(fileSelectionBean.selectedSubjects)}"
+						action="#{userFavoritesBean.makeSubjectsFavorite(fileSelectionBean.selectedSubjects)}"
+						styleClass="action-link favorite-action"
+						update="fileTable fileToolbar"
+						value="#{_msgs['toolbar.shortcutsubject.label']}"
+						title="#{_msgs['toolbar.shortcutsubject.title']}"
+						icon="ui-icon-star" />
+
+					<p:commandButton
+						rendered="#{userFavoritesBean.allSubjectsFavorite(fileSelectionBean.selectedSubjects)}"
+						action="#{userFavoritesBean.removeSubjectsFavorite(fileSelectionBean.selectedSubjects)}"
+						styleClass="action-link favorite-action"
+						value="#{_msgs['toolbar.unshortcutsubject.label']}"
+						title="#{_msgs['toolbar.unshortcutsubject.title']}"
+						update="fileTable fileToolbar" icon="ui-icon-star" />
+				</p:outputPanel>
+
+				<p:outputPanel style="display:inline-block"
+					rendered="#{currentUserBean.isAuthenticated() and fileSelectionBean.isAllPeers()}">
+					<p:commandButton
+						rendered="#{not userFavoritesBean.allPeersFavorite(fileSelectionBean.selectedPeers)}"
+						action="#{userFavoritesBean.makePeersFavorite(fileSelectionBean.selectedPeers)}"
+						styleClass="action-link favorite-action"
+						update="fileTable fileToolbar"
+						value="#{_msgs['toolbar.shortcutpeer.label']}"
+						title="#{_msgs['toolbar.shortcutpeer.title']}" icon="ui-icon-star" />
+
+					<p:commandButton
+						rendered="#{userFavoritesBean.allPeersFavorite(fileSelectionBean.selectedPeers)}"
+						action="#{userFavoritesBean.removePeersFavorite(fileSelectionBean.selectedPeers)}"
+						styleClass="action-link favorite-action"
+						update="fileTable fileToolbar"
+						value="#{_msgs['toolbar.unshortcutpeer.label']}"
+						title="#{_msgs['toolbar.unshortcutpeer.title']}"
+						icon="ui-icon-star" />
+				</p:outputPanel>
+
+				<p:commandButton
+					rendered="#{currentUserBean.isAuthenticated() and not userHidingBean.allVisible(fileSelectionBean.selection)}"
+					action="#{userHidingBean.makeVisible(fileSelectionBean.selection)}"
+					update="fileTable fileToolbar"
+					value="#{_msgs['toolbar.unhide.label']}"
+					title="#{_msgs['toolbar.unhide.title']}" icon="ui-icon-visible" />
+
+				<p:commandButton id="hideButton" styleClass="min-medium"
+					rendered="#{currentUserBean.isAuthenticated() and userHidingBean.allVisible(fileSelectionBean.selection)}"
+					value="#{_msgs['toolbar.hide.label']}"
+					title="#{_msgs['toolbar.hide.title']}" icon="ui-icon-hidden" />
+
+				<p:overlayPanel
+					rendered="#{currentUserBean.isAuthenticated() and userHidingBean.allVisible(fileSelectionBean.selection)}"
+					widgetVar="hideConfirmOverlay" for="hideButton" dismissable="false">
+
+					<h:outputText style="display: block"
+						value="#{_msgs['toolbar.hide.prompt']}" />
+
+					<div class="buttons">
+						<p:commandButton
+							action="#{userHidingBean.makeHidden(fileSelectionBean.selection)}"
+							value="#{_msgs['toolbar.hide.confirm']}"
+							update="fileTable fileToolbar" icon="ui-icon-check" />
+
+						<p:commandButton value="#{_msgs['toolbar.hide.cancel']}"
+							oncomplete="PF('hideConfirmOverlay').hide();"
+							icon="ui-icon-cancel" />
+					</div>
+				</p:overlayPanel>
+			</f:facet>
+			<f:facet name="right">
+				<fs:filterSetup styleClass="large-only"
+					update="@composite:@parent:fileTable @composite:@parent:fileToolbar" />
+			</f:facet>
+		</p:toolbar>
+	</p:outputPanel>
+</ui:composition>

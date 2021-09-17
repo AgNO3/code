@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.fileshare.service.internal.VFSServiceImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.service.VFSService"/>
+        <provide interface="eu.agno3.fileshare.service.api.internal.VFSServiceInternal"/>
+    </service>
+    <reference name="NativeVFS" interface="eu.agno3.fileshare.service.vfs.NativeVFS" cardinality="1..1" policy="static" bind="setNativeVFS" unbind="unsetNativeVFS"/>
+    <reference name="VFS" interface="eu.agno3.fileshare.vfs.VFS" cardinality="0..n" policy="dynamic" bind="bindVFS" unbind="unbindVFS"/>
+    <implementation class="eu.agno3.fileshare.service.internal.VFSServiceImpl"/>
+</scr:component>

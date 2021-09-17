@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.orchestrator.agent.update.console.AgentUpdateCommandProvider" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.console.CommandProvider"/>
+    </service>
+    <reference name="UpdateDescriptorGenerator" interface="eu.agno3.orchestrator.agent.update.UpdateDescriptorGenerator" cardinality="1..1" policy="static" bind="setUpdateDescriptorGenerator" unbind="unsetUpdateDescriptorGenerator"/>
+    <reference name="XmlMarshallingService" interface="eu.agno3.runtime.xml.binding.XmlMarshallingService" cardinality="1..1" policy="static" bind="setXmlMarshallingService" unbind="unsetXmlMarshallingService"/>
+    <reference name="UpdateInstallFactory" interface="eu.agno3.orchestrator.agent.update.UpdateInstallRunnableFactory" cardinality="1..1" policy="static" bind="setUpdateInstallFactory" unbind="unsetUpdateInstallFactory"/>
+    <reference name="JobCoordinator" interface="eu.agno3.orchestrator.jobs.JobCoordinator" cardinality="1..1" policy="static" bind="setJobCoordinator" unbind="unsetJobCoordinator"/>
+    <reference name="AgentConnector" interface="eu.agno3.orchestrator.agent.connector.AgentServerConnector" cardinality="1..1" policy="static" bind="setAgentConnector" unbind="unsetAgentConnector"/>
+    <implementation class="eu.agno3.orchestrator.agent.update.console.AgentUpdateCommandProvider"/>
+</scr:component>

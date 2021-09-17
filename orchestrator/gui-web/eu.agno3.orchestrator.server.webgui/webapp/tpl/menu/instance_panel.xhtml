@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<p:outputPanel styleClass="config-apply-panel bg-color-warning-low #{instanceConfigApplyBean.styleClass}"
+		rendered="#{instanceConfigApplyBean.haveChanges}">
+		<h:outputText styleClass="msg"
+			value="#{instanceConfigApplyBean.message}" />
+		<p:commandButton id="applyCustomButton"
+			disabled="#{not instanceConfigApplyBean.canApply}"
+			styleClass="config-apply-button"
+			value="#{_gui['structure.instance.applyConfig.label']}"
+			action="#{instanceConfigApplyBean.goApply}" icon="ui-icon-gear" />
+	</p:outputPanel>
+
+	<p:outputPanel styleClass="config-apply-panel unconfigured bg-color-warning-low"
+		rendered="#{instanceConfigApplyBean.unconfigured}">
+		<h:outputText styleClass="msg" value="#{_gui['structure.instance.applyConfig.unconfigured.msg']}" />
+	</p:outputPanel>
+</ui:composition>

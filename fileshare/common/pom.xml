@@ -1,0 +1,24 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.fileshare.common</groupId>
+    <artifactId>fileshare-common-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>fileshare-common-parent</relativePath>
+  </parent>
+  <artifactId>common</artifactId>
+  <packaging>pom</packaging>
+  <name>Fileshare Common Modules</name>
+  <modules>
+
+  	<module>fileshare-common-parent</module>
+
+  	<module>eu.agno3.fileshare.api</module>
+  	<module>eu.agno3.fileshare.mail.tpl</module>
+  	<module>eu.agno3.fileshare.webgui.admin</module>
+
+
+  	<module>fileshare-common-feature</module>
+  	<module>fileshare-common-gui-feature</module>
+  </modules>
+</project>

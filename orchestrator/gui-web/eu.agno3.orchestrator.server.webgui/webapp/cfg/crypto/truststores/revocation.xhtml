@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<orch:objectFieldEditor inputId="ocspCheckLevel" path="ocspCheckLevel"
+		update="@composite:@parent" minLevel="2"
+		readOnlyValueMapper="#{revocationConfigBean.translateOCSPCheckLevel}">
+
+		<p:selectOneMenu id="ocspCheckLevel" value="#{current.ocspCheckLevel}">
+			<p:ajax event="change" process="@composite:@parent"
+				update="@composite:@parent" />
+			<f:selectItems value="#{revocationConfigBean.ocspCheckLevels}"
+				var="itm"
+				itemLabel="#{revocationConfigBean.translateOCSPCheckLevel(itm)}" />
+		</p:selectOneMenu>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="crlCheckLevel" path="crlCheckLevel" minLevel="2"
+		update="@composite:@parent"
+		readOnlyValueMapper="#{revocationConfigBean.translateCRLCheckLevel}">
+
+		<p:selectOneMenu id="crlCheckLevel" value="#{current.crlCheckLevel}">
+			<p:ajax event="change" process="@composite:@parent"
+				update="@composite:@parent" />
+			<f:selectItems value="#{revocationConfigBean.crlCheckLevels}"
+				var="itm"
+				itemLabel="#{revocationConfigBean.translateCRLCheckLevel(itm)}" />
+		</p:selectOneMenu>
+	</orch:objectFieldEditor>
+
+
+	<orch:objectFieldEditor inputId="useTrustedResponder" minLevel="2"
+		path="useTrustedResponder" update="@composite:@parent"
+		onlyIf="#{revocationConfigBean.shouldShowOCSPSettings(current,defaults,enforced)}">
+		<p:selectBooleanCheckbox id="useTrustedResponder"
+			value="#{current.useTrustedResponder}">
+			<p:ajax event="change" process="@composite:@parent"
+				update="@composite:@parent:trustedResponderSettings" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+	<p:panel id="trustedResponderSettings">
+		<orch:objectFieldEditor inputId="trustedResponderUri" minLevel="2"
+			required="#{revocationConfigBean.shouldShowTrustedResponder(current,defaults,enforced)}"
+			onlyIf="#{revocationConfigBean.shouldShowTrustedResponder(current,defaults,enforced)}"
+			path="trustedResponderUri">
+			<p:inputText id="trustedResponderUri"
+				value="#{current.trustedResponderUri}" converter="#{uriConverter}" />
+		</orch:objectFieldEditor>
+
+		<orch:objectFieldEditor inputId="trustedResponderTrustCertificate"
+			minLevel="2"
+			required="#{revocationConfigBean.shouldShowTrustedResponder(current,defaults,enforced)}"
+			onlyIf="#{revocationConfigBean.shouldShowTrustedResponder(current,defaults,enforced)}"
+			path="trustedResponderTrustCertificate"
+			readOnlyValueMapper="#{certEntryUtil.certEntryReadOnlyMapper}"
+			clone="#{certEntryUtil.cloneX509CertEntry}">
+			<ag:certificateEditor id="trustedResponderTrustCertificate"
+				value="#{revocationConfigBean.certEntryWrapper(current).certificate}" />
+		</orch:objectFieldEditor>
+
+		<orch:objectFieldEditor inputId="trustedResponderCheckAll"
+			minLevel="2"
+			onlyIf="#{revocationConfigBean.shouldShowTrustedResponder(current,defaults,enforced)}"
+			path="trustedResponderCheckAll">
+			<p:selectBooleanCheckbox id="trustedResponderCheckAll"
+				value="#{current.trustedResponderCheckAll}" />
+		</orch:objectFieldEditor>
+	</p:panel>
+
+
+	<orch:objectFieldEditor inputId="checkOnlyEndEntity" minLevel="3"
+		path="checkOnlyEndEntity">
+		<p:selectBooleanCheckbox id="checkOnlyEndEntity"
+			value="#{current.checkOnlyEndEntity}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="networkTimeout" minLevel="3"
+		readOnlyValueMapper="#{dateFormatter.formatDurationObject}"
+		path="networkTimeout">
+		<h:outputText id="networkTimeout" value="#{current.networkTimeout}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="crlUpdateInterval" minLevel="3"
+		onlyIf="#{revocationConfigBean.shouldShowCRLSettings(current,defaults,enforced)}"
+		readOnlyValueMapper="#{dateFormatter.formatDurationObject}"
+		path="crlUpdateInterval">
+		<ag:inputDuration id="crlUpdateInterval"
+			value="#{current.crlUpdateInterval}" minUnit="minutes" min="5 min" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="onDemandCRLDownload" minLevel="2"
+		onlyIf="#{revocationConfigBean.shouldShowCRLSettings(current,defaults,enforced)}"
+		path="onDemandCRLDownload" update="@composite:@parent">
+		<p:selectBooleanCheckbox id="onDemandCRLDownload"
+			value="#{current.onDemandCRLDownload}">
+			<p:ajax event="change" process="@composite:@parent"
+				update="@composite:@parent" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="onDemandCRLCacheSize" minLevel="3"
+		onlyIf="#{revocationConfigBean.shouldShowOnDemandCRLSettings(current,defaults,enforced)}"
+		path="onDemandCRLCacheSize">
+		<h:inputHidden id="onDemandCRLCacheSize"
+			value="#{current.onDemandCRLCacheSize}" />
+		<p:slider style="width: 250px; display: inline-block"
+			for="onDemandCRLCacheSize" display="onDemandCRLCacheSizeOutput"
+			minValue="0" maxValue="128" displayTemplate="{value}" />
+		<h:outputText style="padding-left: 0.5em"
+			id="onDemandCRLCacheSizeOutput"
+			value="#{current.onDemandCRLCacheSize}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="ocspCacheSize" path="ocspCacheSize"
+		minLevel="3"
+		onlyIf="#{revocationConfigBean.shouldShowOCSPSettings(current,defaults,enforced)}">
+		<h:inputHidden id="ocspCacheSize" value="#{current.ocspCacheSize}" />
+		<p:slider style="width: 250px; display: inline-block"
+			for="ocspCacheSize" display="ocspCacheSizeOutput" minValue="0"
+			maxValue="4096" displayTemplate="{value}" />
+		<h:outputText style="padding-left: 0.5em" id="ocspCacheSizeOutput"
+			value="#{current.ocspCacheSize}" />
+	</orch:objectFieldEditor>
+
+</ui:composition>

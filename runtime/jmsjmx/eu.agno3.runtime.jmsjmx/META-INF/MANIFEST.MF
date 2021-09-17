@@ -1,0 +1,34 @@
+Bundle-SymbolicName: eu.agno3.runtime.jmsjmx
+Bundle-Version: 0.0.18
+Bundle-Name: JMS/JMX Bridge
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.runtime.crypto;version="0.0.56",
+ eu.agno3.runtime.crypto.tls;version="0.0.56",
+ eu.agno3.runtime.messaging;version="0.0.36",
+ eu.agno3.runtime.messaging.addressing;version="0.0.36",
+ eu.agno3.runtime.messaging.client;version="0.0.36",
+ eu.agno3.runtime.messaging.listener;version="0.0.36",
+ eu.agno3.runtime.messaging.marshalling;version="0.0.36",
+ eu.agno3.runtime.messaging.msg;version="0.0.36",
+ eu.agno3.runtime.messaging.msg.impl;version="0.0.36",
+ eu.agno3.runtime.util.osgi;version="0.0.8",
+ eu.agno3.runtime.util.serialization;version="0.0.50",
+ eu.agno3.runtime.xml;version="0.0.20",
+ eu.agno3.runtime.xml.binding;version="0.0.20",
+ javax.jms;version="1.1.0",
+ org.apache.activemq.command;version="5.11.0",
+ org.apache.commons.codec.binary;version="1.10.0",
+ org.apache.commons.lang3;version="3.3.2",
+ org.apache.log4j;version="1.2.15",
+ org.newsclub.net.unix;version="2.4.0",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.osgi.service.http;version="1.2.1",
+ org.osgi.util.tracker;version="1.5.1"
+Service-Component: OSGI-INF/*.xml
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.jdt.annotation;bundle-version="[2.0.0,3.0.0)";resolution:=optional
+Export-Package: eu.agno3.runtime.jmsjmx

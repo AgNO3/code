@@ -1,0 +1,78 @@
+inet_interfaces = loopback-only
+inet_protocols = all
+smtpd_banner = $myhostname ESMTP $mail_name
+biff = no
+readme_directory = no
+append_dot_mydomain = no
+notify_classes =
+alias_maps =
+alias_database =
+mailbox_size_limit = 0
+authorized_submit_users =
+
+[#if cfg.mailingConfiguration.smtpConfiguration.overrideEhloHostName??]
+	[#lt]myhostname = ${cfg.mailingConfiguration.smtpConfiguration.overrideEhloHostName}
+[#else]
+	[#lt]myhostname = ${cfg.hostIdentification.hostName}.${cfg.hostIdentification.domainName}
+[/#if]
+myorigin = $myhostname
+mydestination =
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+
+smtp_connect_timeout = ${cfg.mailingConfiguration.smtpConfiguration.socketTimeout.getStandardSeconds()?c}s
+
+relayhost = [${cfg.mailingConfiguration.smtpConfiguration.serverUri.host}]:${cfg.mailingConfiguration.smtpConfiguration.serverUri.port}
+
+# Server Authentication
+smtpd_relay_restrictions = permit_sasl_authenticated reject_unauth_destination
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_path = smtpd
+smtpd_sasl_local_domain = localsmtp
+smtpd_sasl_security_options = noanonymous
+smtpd_sasl_authenticated_header = yes
+
+[#if cfg.mailingConfiguration.smtpConfiguration.authEnabled]
+	[#lt]# Client Authentication
+	[#lt]smtp_sasl_auth_enable = yes
+	[#lt]smtp_sasl_mechanism_filter = ${cfg.mailingConfiguration.smtpConfiguration.authMechanisms?join(", ")}
+	[#lt]smtp_sasl_password_maps=hash:/etc/postfix/sasl_passwords
+[#else]
+	[#lt]smtp_sasl_auth_enable = no
+[/#if]
+
+# SSL/TLS
+[#if cfg.mailingConfiguration.smtpConfiguration.sslClientMode == "DISABLE"]
+	[#lt]smtp_tls_security_level=none
+[#else]
+	[#lt]smtp_tls_session_cache_database = btree:${r"${data_directory}"}/smtp_scache
+	[#lt]smtp_tls_CApath=${postfix_truststore_path}
+	[#lt]tls_append_default_CA = no
+	[#lt]tls_high_cipherlist=${postfix_tls_ciphers}
+	[#if cfg.mailingConfiguration.smtpConfiguration.sslClientMode == "TRY_STARTTLS"]
+		[#lt]smtp_tls_security_level=may
+		[#lt]smtp_tls_ciphers=high
+		[#lt]smtp_tls_protocols=${postfix_tls_protocols}
+	[#elseif use_tls_fingerprint]
+	    [#lt]smtp_tls_security_level = fingerprint
+		[#lt]smtp_tls_fingerprint_digest = sha256
+		[#lt]smtp_tls_ciphers=high
+		[#lt]smtp_tls_protocols=${postfix_tls_protocols}
+		[#list tls_fingerprints as fingerprint]
+			[#lt]smtp_tls_fingerprint_cert_match = ${fingerprint}
+		[/#list]
+	[#else]
+		[#if cfg.mailingConfiguration.smtpConfiguration.sslClientConfiguration.disableHostnameVerification]
+			[#lt]smtp_tls_security_level=encrypt
+		[#else]
+			[#lt]smtp_tls_security_level=secure
+		[/#if]
+		[#if cfg.mailingConfiguration.smtpConfiguration.sslClientMode == "SSL"]
+			[#lt]# only 3.0
+			[#lt]#smtp_tls_wrappermode=yes
+		[/#if]		
+		[#lt]smtp_tls_secure_cert_match=nexthop
+		[#lt]smtp_tls_verify_cert_match=nexthop
+		[#lt]smtp_tls_mandatory_ciphers=high
+		[#lt]smtp_tls_mandatory_protocols=${postfix_tls_protocols}
+	[/#if]
+[/#if]

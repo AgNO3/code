@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="roleId" path="roleId" readOnlyIfPersistent="true">
+		<p:inputText id="roleId" value="#{current.roleId}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="permissions" path="permissions"
+		collection="true">
+		<ag:setEditor id="permissions"
+			comparator="#{setEditorUtilBean.stringComparator}"
+			factoryMethod="#{setEditorUtilBean.makeEmptyString}"
+			value="#{current.permissions}">
+			<p:column>
+				<p:inputText value="#{item.value}" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="hidden" path="hidden" minLevel="2">
+		<p:selectBooleanCheckbox id="hidden" value="#{current.hidden}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="titles" path="titles" map="true">
+		<ag:localizedStringEditor id="titles" value="#{current.titles}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="descriptions" path="descriptions"
+		map="true">
+		<ag:localizedStringEditor id="descriptions"
+			value="#{current.descriptions}" />
+	</orch:objectFieldEditor>
+
+</ui:composition>

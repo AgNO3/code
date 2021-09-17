@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         id="entry"
+         name="Fileshare Application"
+         point="org.eclipse.core.runtime.applications">
+      <application
+            cardinality="singleton-global"
+            thread="main"
+            visible="true">
+         <run
+               class="eu.agno3.fileshare.app.FileshareApplication">
+         </run>
+      </application>
+   </extension>
+</plugin>

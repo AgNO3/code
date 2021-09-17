@@ -1,0 +1,76 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+
+<composite:interface
+	componentType="eu.agno3.runtime.jsf.components.ListEditor">
+	<composite:attribute name="value" required="true" type="java.util.List" />
+	<composite:attribute name="factoryMethod" required="false"
+		method-signature="java.lang.Object ()" />
+	<composite:attribute name="maxItems" required="false" default="-1" />
+
+	<composite:attribute name="style" required="false" />
+	<composite:attribute name="styleClass" required="false" />
+</composite:interface>
+
+<composite:implementation>
+	<h:outputStylesheet library="agno3" name="library.static.css" />
+	<p:dataTable styleClass="#{cc.effectiveStyleClass}"
+		style="#{cc.attrs.style}" id="table" value="#{cc.model}" var="item"
+		rowIndexVar="rowIndex" rowStatePreserved="true">
+		<f:facet name="emptyMessage">
+			<p:commandButton icon="ui-icon-circle-plus"
+				title="#{_bm.get('listEditor.addItem')}" action="#{cc.add}"
+				immediate="true" update="table" />
+		</f:facet>
+
+
+		<composite:insertChildren />
+
+		<p:column styleClass="listEditorActions">
+			<div style="display: inline-block">
+				<p:commandLink
+					styleClass="ui-icon ui-icon-inline ui-icon-triangle-1-n"
+					rendered="#{rowIndex != 0}" title="#{_bm.get('listEditor.moveUp')}"
+					action="#{cc.moveTo(rowIndex, rowIndex-1)}" process="@composite"
+					update="table">
+					<p:resetInput target="table" />
+				</p:commandLink>
+				<h:outputText rendered="#{rowIndex == 0}"
+					styleClass="ui-icon ui-icon-inline ui-icon-blank" />
+				<p:commandLink
+					styleClass="ui-icon ui-icon-inline ui-icon-triangle-1-s"
+					rendered="#{rowIndex+1 != cc.model.rowCount}"
+					title="#{_bm.get('listEditor.moveDown')}"
+					action="#{cc.moveTo(rowIndex, rowIndex+1)}" process="@composite"
+					update="table">
+					<p:resetInput target="table" />
+				</p:commandLink>
+				<h:outputText rendered="#{rowIndex+1 == cc.model.rowCount}"
+					styleClass="ui-icon ui-icon-inline ui-icon-blank" />
+			</div>
+
+			<div style="float: right">
+				<p:commandButton icon="ui-icon-circle-plus"
+					rendered="#{((rowIndex+1) eq cc.model.rowCount) and ((cc.attrs.maxItems lt 0) or ((rowIndex+1) lt cc.attrs.maxItems))}"
+					title="#{_bm.get('listEditor.addItem')}" action="#{cc.add}"
+					process="@composite" update="table">
+					<p:resetInput target="table" />
+				</p:commandButton>
+				<p:commandButton icon="ui-icon-circle-minus"
+					title="#{_bm.get('listEditor.removeItem')}"
+					action="#{cc.remove(rowIndex)}" update="table">
+					<p:resetInput target="table" />
+				</p:commandButton>
+
+			</div>
+
+		</p:column>
+	</p:dataTable>
+</composite:implementation>
+</html>

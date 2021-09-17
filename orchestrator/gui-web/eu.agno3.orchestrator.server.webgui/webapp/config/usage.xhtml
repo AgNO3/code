@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	template="/tpl/common/raw.xhtml">
+	<ui:param name="title"
+		value="#{msgs.formatEL('config.usage.titleFmt', configUtil.getDisplayNameFor(usageDataModels.configuration), configUtil.getDisplayTypeName(usageDataModels.configuration))}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="object" value="#{usageDataModels.configId}"
+				required="true" requiredMessage="#{_gui['require.param.objectId']}" />
+		</f:metadata>
+	</ui:define>
+
+
+	<ui:define name="content">
+		<h:form>
+			<ag:dialogContextHolder />
+
+			<div class="dialogButtons">
+				<p:commandButton action="#{usageDataModels.refresh()}"
+					icon="ui-icon-arrowrefresh-1-e"
+					title="#{_gui['config.usage.reload']}" update="usageTabs"
+					resetValues="true" />
+			</div>
+
+			<p:messages autoUpdate="true" />
+
+			<p:tabView id="usageTabs" dynamic="true">
+				<p:tab title="#{_gui['config.usage.structure.title']}">
+					<p:tabView value="#{usageDataModels.serviceModels}"
+						var="serviceUsageType" dynamic="true" cache="false">
+
+						<p:tab title="#{serviceUsageType.title}">
+							<p:dataTable value="#{serviceUsageType.model}" paginator="true"
+								paginatorAlwaysVisible="false" rows="15" lazy="true"
+								var="service">
+
+								<p:column>
+									<h:outputText value="#{structureUtil.getDisplayName(service)}" />
+								</p:column>
+
+							</p:dataTable>
+						</p:tab>
+					</p:tabView>
+				</p:tab>
+
+				<p:tab title="#{_gui['config.usage.objects.title']}">
+					<p:tabView value="#{usageDataModels.objectModels}"
+						var="objectUsageType" dynamic="true" cache="false">
+						<p:tab title="#{objectUsageType.title}">
+							<p:dataTable value="#{objectUsageType.model}" paginator="true"
+								paginatorAlwaysVisible="false" rows="15" lazy="true" var="obj">
+
+								<p:column
+									headerText="#{_gui['config.usage.objects.nameHeader']}">
+									<h:outputText value="#{configUtil.getDisplayNameFor(obj)}" />
+								</p:column>
+
+								<p:column headerText="#{_gui['config.usage.objects.idHeader']}">
+									<h:outputText value="#{obj.id}" />
+								</p:column>
+
+								<p:column
+									headerText="#{_gui['config.usage.objects.typeHeader']}">
+									<h:outputText value="#{configUtil.getDisplayTypeName(obj)}" />
+								</p:column>
+
+							</p:dataTable>
+						</p:tab>
+
+					</p:tabView>
+				</p:tab>
+			</p:tabView>
+		</h:form>
+	</ui:define>
+</ui:composition>

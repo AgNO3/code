@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" immediate="true" name="eu.agno3.runtime.licensing.internal.LicensingServiceImpl" configuration-policy="require" activate="activate" modified="modified" configuration-pid="license">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.update.LicensingService"/>
+    </service>
+    <reference name="LicenseParser" interface="eu.agno3.runtime.update.LicenseParser" cardinality="1..1" policy="static" bind="setLicenseParser" unbind="unsetLicenseParser"/>
+    <implementation class="eu.agno3.runtime.licensing.internal.LicensingServiceImpl"/>
+</scr:component>

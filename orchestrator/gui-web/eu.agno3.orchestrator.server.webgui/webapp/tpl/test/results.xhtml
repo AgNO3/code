@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<p:outputPanel id="results">
+		<p:fieldset styleClass="func-unit"
+			rendered="#{not empty configTestBean.results}">
+
+			<f:facet name="legend">
+				<h:graphicImage style="margin-right: 0.3em"
+					rendered="#{configTestBean.isRunning()}" library="images"
+					name="loading.gif" />
+				<h:outputText rendered="#{not configTestBean.isRunning()}"
+					styleClass="ui-icon ui-icon-inline #{configTestBean.stateIcon}"
+					value="" />
+
+				<h:outputText value="#{configTestBean.stateMessage}" />
+			</f:facet>
+
+			<div class="ui-widget ui-datatable no-border">
+				<table class="config-test-results">
+					<ui:repeat value="#{configTestBean.results.violations}"
+						var="violation">
+						<tr class="violation #{violation.level}">
+							<td style="width: 1em;"><h:outputText
+									styleClass="ui-icon #{configTestBean.getViolationIcon(violation.level)}"
+									value=""
+									title="#{configTestBean.translateViolationLevel(violation.level)}" />
+							</td>
+							<td><h:outputText
+									value="#{configTestBean.formatViolation(violation)}" /></td>
+						</tr>
+					</ui:repeat>
+
+					<ui:repeat value="#{configTestBean.results.entries}" var="entry">
+						<tr class="testentry #{entry.severity}">
+							<td style="width: 2em;"><h:outputText
+									styleClass="ui-icon #{configTestBean.getEntryIcon(entry.severity)}"
+									title="#{configTestBean.translateEntrySeverity(entry.severity)}" />
+							</td>
+							<td><h:outputText
+									value="#{configTestBean.formatEntry(entry)}" /></td>
+						</tr>
+					</ui:repeat>
+				</table>
+			</div>
+		</p:fieldset>
+
+		<p:outputPanel rendered="#{not empty configTestBean.challenges}">
+			<ui:repeat var="chlg" value="#{configTestBean.challenges}">
+				<p:outputPanel rendered="#{chlg.type == 'x509-certificate-trust'}">
+					<ui:include src="/tpl/test/challenge/x509-certificate-trust.xhtml">
+						<ui:param name="challenge" value="#{chlg}" />
+					</ui:include>
+				</p:outputPanel>
+			</ui:repeat>
+		</p:outputPanel>
+	</p:outputPanel>
+
+
+
+	<p:poll widgetVar="configTestPoller" interval="3" autoStart="false"
+		listener="#{configTestBean.refresh}" update="results testButton" />
+
+	<div class="buttons">
+		<p:commandButton icon="ui-icon-check" id="testButton"
+			disabled="#{configTestBean.isRunning()}"
+			value="#{_gui['config.test.run.label']}" update="results testButton"
+			oncomplete="PF('configTestPoller').start()"
+			action="#{serviceTestBean.test(configContext)}">
+		</p:commandButton>
+
+		<p:commandButton id="cancel" icon="#{dialog.closeIcon}"
+			immediate="true" styleClass="close-button"
+			title="#{dialog.closeDescription}" value="#{dialog.closeLabel}"
+			action="#{dialog.close}" />
+	</div>
+</ui:composition>

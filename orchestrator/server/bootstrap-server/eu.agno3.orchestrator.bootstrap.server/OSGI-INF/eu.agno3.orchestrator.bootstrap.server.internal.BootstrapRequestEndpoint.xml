@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.orchestrator.bootstrap.server.internal.BootstrapRequestEndpoint" activate="activate" deactivate="deactivate">
+    <property name="msgType" value="eu.agno3.orchestrator.bootstrap.msg.BootstrapRequestMessage"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.messaging.listener.RequestEndpoint"/>
+    </service>
+    <reference name="MessageSource" interface="eu.agno3.runtime.messaging.addressing.MessageSource" cardinality="1..1" policy="static" bind="setMessageSource" unbind="unsetMessageSource"/>
+    <reference name="Context" interface="eu.agno3.orchestrator.config.model.base.server.context.DefaultServerServiceContext" cardinality="1..1" policy="static" bind="setContext" unbind="unsetContext"/>
+    <reference name="RealmContext" interface="eu.agno3.orchestrator.config.model.realm.server.service.DefaultRealmServicesContext" cardinality="1..1" policy="static" bind="setRealmContext" unbind="unsetRealmContext"/>
+    <reference name="SecurityInitializer" interface="eu.agno3.orchestrator.server.security.LocalSecurityInitializer" cardinality="1..1" policy="static" bind="setSecurityInitializer" unbind="unsetSecurityInitializer"/>
+    <reference name="TrustConfiguration" interface="eu.agno3.runtime.crypto.tls.TrustConfiguration" cardinality="1..1" policy="static" target="(instanceId=internal)" bind="setTrustConfiguration" unbind="unsetTrustConfiguration"/>
+    <reference name="ResourceLibraryService" interface="eu.agno3.orchestrator.config.model.realm.server.service.ResourceLibraryServerService" cardinality="1..1" policy="static" bind="setResourceLibraryService" unbind="unsetResourceLibraryService"/>
+    <reference name="PasswordPolicy" interface="eu.agno3.runtime.security.password.PasswordPolicyChecker" cardinality="1..1" policy="static" bind="setPasswordPolicy" unbind="unsetPasswordPolicy"/>
+    <reference name="BootstrapPlugin" interface="eu.agno3.orchestrator.bootstrap.BootstrapPlugin" cardinality="0..n" policy="static" bind="bindBootstrapPlugin" unbind="unbindBootstrapPlugin" policy-option="greedy"/>
+    <reference name="BootstrapService" interface="eu.agno3.orchestrator.bootstrap.service.BootstrapService" cardinality="1..1" policy="static" bind="setBootstrapService" unbind="unsetBootstrapService"/>
+    <implementation class="eu.agno3.orchestrator.bootstrap.server.internal.BootstrapRequestEndpoint"/>
+</scr:component>

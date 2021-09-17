@@ -1,0 +1,22 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.runtime</groupId>
+    <artifactId>runtime-parent</artifactId>
+    <version>0.1.254</version>
+    <relativePath></relativePath>
+  </parent>
+  <artifactId>jsf</artifactId>
+  <packaging>pom</packaging>
+  <name>JSF Web Application Module</name>
+  <version>0.0.226</version>
+  <modules>
+  	
+  	<module>eu.agno3.runtime.jsf</module>
+  	<module>eu.agno3.runtime.jsf.myfaces.fragment</module>
+  	<module>eu.agno3.runtime.jsf.juel.fragment</module>
+  	
+  	<module>jsf-feature</module>
+  	<module>eu.agno3.runtime.jsf.extval</module>
+  </modules>
+</project>

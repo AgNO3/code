@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.security.internal.DelegatingRolePermissionsResolver">
+    <service servicefactory="false">
+        <provide interface="org.apache.shiro.authz.permission.RolePermissionResolver"/>
+    </service>
+    <reference name="Contributor" interface="eu.agno3.runtime.security.RolePermissionContributor" cardinality="0..n" policy="dynamic" bind="bindContributor" unbind="unbindContributor"/>
+    <implementation class="eu.agno3.runtime.security.internal.DelegatingRolePermissionsResolver"/>
+</scr:component>

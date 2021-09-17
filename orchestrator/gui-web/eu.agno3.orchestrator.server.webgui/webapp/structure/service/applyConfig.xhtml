@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0"
+	template="/tpl/common/raw.xhtml">
+	<ui:param name="instanceSubtitle"
+		value="#{msgs.formatEL('structure.service.applyConfig.titleFmt', 
+			configUtil.getDisplayNameFor(instanceConfigContext.current), configUtil.getDisplayTypeName(instanceConfigContext.current))}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="service"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+			<f:viewParam name="anchor"
+				value="#{structureViewContext.selectedAnchorId}" />
+			<f:event listener="#{instanceConfigContext.addSavedViolations}"
+				type="preRenderView" />
+			<f:event listener="#{serviceConfigApplyContextBean.init}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="configApplyForm" enctype="multipart/form-data">
+			<input type="hidden" name="cid"
+				value="#{instanceConfigContext.conversation.id}" />
+			<ag:dialogContextHolder />
+
+			<p:messages autoUpdate="true" showDetail="true" />
+
+			<p:blockUI widgetVar="block" block="configApplyForm" />
+			
+			<ui:include src="/tpl/config/applyInfo.xhtml">
+				<ui:param name="applyContext" value="#{serviceConfigApplyContextBean}" />
+			</ui:include>
+
+			<p:fieldset id="saveButtons">
+				<div class="buttons">
+					<p:commandButton id="applyConfig" image="ui-icon-disk"
+						disabled="#{not configContextUtil.isInstanceOnline(instanceConfigContext)}"
+						value="#{_gui['structure.service.config.apply']}"
+						onclick="PF('block').show()" oncomplete="PF('block').hide();"
+						action="#{instanceConfigController.apply(serviceConfigApplyContextBean)}">
+					</p:commandButton>
+
+					<p:commandButton id="cancel" image="ui-icon-close"
+						styleClass="close-button"
+						value="#{_gui['config.applyDialog.cancel']}"
+						onclick="PF('block').show()" oncomplete="PF('block').hide();"
+						action="#{dialog.close}" />
+				</div>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

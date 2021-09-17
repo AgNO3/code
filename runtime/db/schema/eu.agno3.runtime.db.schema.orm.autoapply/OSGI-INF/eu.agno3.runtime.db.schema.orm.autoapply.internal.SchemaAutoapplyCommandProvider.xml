@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.runtime.db.schema.orm.autoapply.internal.SchemaAutoapplyCommandProvider" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.console.CommandProvider"/>
+    </service>
+    <reference name="SchemaAutoApplicator" interface="eu.agno3.runtime.db.schema.orm.autoapply.internal.SchemaAutoApplicator" cardinality="1..1" policy="static" bind="setSchemaAutoApplicator" unbind="unsetSchemaAutoApplicator"/>
+    <reference name="ModularChangeGen" interface="eu.agno3.runtime.db.schema.orm.hibernate.ModularChangeSetGenerator" cardinality="1..1" policy="static" bind="setModularChangeGen" unbind="unsetModularChangeGen"/>
+    <reference name="HibernateConfigRegistry" interface="eu.agno3.runtime.db.orm.hibernate.HibernateConfigurationRegistry" cardinality="1..1" policy="static" bind="setHibernateConfigRegistry" unbind="unsetHibernateConfigRegistry"/>
+    <implementation class="eu.agno3.runtime.db.schema.orm.autoapply.internal.SchemaAutoapplyCommandProvider"/>
+</scr:component>

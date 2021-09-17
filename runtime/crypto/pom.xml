@@ -1,0 +1,32 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.runtime</groupId>
+    <artifactId>runtime-parent</artifactId>
+    <version>0.1.254</version>
+    <relativePath></relativePath>
+  </parent>
+  <artifactId>crypto</artifactId>
+  <packaging>pom</packaging>
+  <version>0.0.166</version>
+  <modules>
+  	<module>crypto-feature</module>
+  	<module>eu.agno3.runtime.crypto</module>
+  	<module>eu.agno3.runtime.crypto.test</module>
+  </modules>
+
+  <build>
+	<plugins>
+		<plugin>
+		<groupId>org.eclipse.tycho</groupId>
+		<artifactId>tycho-surefire-plugin</artifactId>
+		<configuration>
+			 <systemProperties combine.children="append">
+				<test.pkcs11.lib>${test.pkcs11.lib}</test.pkcs11.lib>
+				<test.pkcs11.pin>${test.pkcs11.pin}</test.pkcs11.pin> 
+			 </systemProperties>
+		</configuration>
+		</plugin>
+	</plugins>
+  </build>
+</project>

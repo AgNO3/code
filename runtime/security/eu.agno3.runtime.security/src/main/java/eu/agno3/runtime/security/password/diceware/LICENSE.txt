@@ -1,0 +1,18 @@
+wordlist_en.txt: 
+Copyright © 1995-2015, Arnold G. Reinhold, Cambridge, Massachusetts USA.
+The author hereby grants rights for free, non-commercial, electronic
+distribution, with attribution, of this entire text. Linking to this page or
+the word list, including for commercial use, is permitted and encouraged. All
+other rights reserved. Reasonable requests for other uses, such as
+translations, are encouraged and will be carefully and promptly considered.
+This information is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.
+To the extent that a word list is protected by copyright, A G Reinhold
+licenses its rights to the English Diceware Wordlist under the Creative
+Commons CC-BY 3.0 license.
+Diceware is a trademark of A G Reinhold.
+
+
+wordlist_de.txt:
+provided by Benjamin Tenne under the terms of the GNU General Public License. 

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+	<changeSet author="mbechler (generated)" id="1443452332646-1">
+		<createTable tableName="job_output">
+			<column name="OFFSET" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="LEVEL" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="JOBID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONTENT" type="CLOB(65535)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443452332646-2">
+		<createTable tableName="jobs">
+			<column name="JOBID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="FINISHEDTIME" type="timestamp" />
+			<column name="JOBGROUP" type="VARCHAR(255)" />
+			<column name="LASTKEEPALIVETIME" type="timestamp" />
+			<column name="REALMNAME" type="VARCHAR(255)" />
+			<column name="USERID" type="BINARY(16)" />
+			<column name="USERNAME" type="VARCHAR(255)" />
+			<column name="PROGRESS" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="QUEUEDTIME" type="timestamp" />
+			<column name="SERIALIZEDJOB" type="BLOB" />
+			<column name="STARTEDTIME" type="timestamp" />
+			<column name="STATE" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443452332646-3">
+		<addPrimaryKey columnNames="OFFSET, LEVEL, JOBID"
+			constraintName="job_outputPK" tableName="job_output" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443452332646-4">
+		<addPrimaryKey columnNames="JOBID" constraintName="jobsPK"
+			tableName="jobs" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1495523990002-1">
+		<addColumn schemaName="APP" tableName="jobs">
+			<column name="TYPE" type="varchar(255 BYTE)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1497365476159-1">
+		<addColumn schemaName="APP" tableName="job_output">
+			<column name="EOF" type="boolean" defaultValueBoolean="true">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1497369229487-1">
+		<addColumn schemaName="APP" tableName="job_output">
+			<column name="COMBINEDOFFSET" type="bigint"
+				defaultValueNumeric="-1" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1497369229487-2">
+		<dropDefaultValue columnDataType="boolean"
+			columnName="EOF" schemaName="APP" tableName="job_output" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1498146569558-1">
+		<addNotNullConstraint columnDataType="bigint"
+			columnName="COMBINEDOFFSET" schemaName="APP" tableName="job_output" />
+		<dropDefaultValue columnDataType="bigint" columnName="COMBINEDOFFSET"
+			schemaName="APP" tableName="job_output" />
+	</changeSet>
+</databaseChangeLog>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.gui.connector.ws.internal.GuiWsClientSessionContextImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.gui.connector.ws.GuiWsClientSessionContext"/>
+    </service>
+    <reference name="TlsContext" interface="eu.agno3.runtime.crypto.tls.TLSContext" cardinality="1..1" policy="static" target="(subsystem=webgui/casClient)" bind="setTlsContext" unbind="unsetTlsContext"/>
+    <reference name="GuiConfig" interface="eu.agno3.orchestrator.gui.config.GuiConfig" cardinality="1..1" policy="static" bind="setGuiConfig" unbind="unsetGuiConfig"/>
+    <implementation class="eu.agno3.orchestrator.gui.connector.ws.internal.GuiWsClientSessionContextImpl"/>
+</scr:component>

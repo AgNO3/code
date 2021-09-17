@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<p:fieldset styleClass="func-unit">
+		<ag:simpleField inputId="username"
+			label="#{_config_auth['test.username.label']}"
+			description="#{_config_auth['test.username.description']}">
+			<p:inputText id="username"
+				value="#{auth_authenticator_krb5_testBean.username}" />
+		</ag:simpleField>
+
+		<ag:simpleField inputId="password"
+			label="#{_config_auth['test.password.label']}"
+			description="#{_config_auth['test.password.description']}">
+			<p:password id="password" redisplay="true" autocomplete="false"
+				feedback="false"
+				value="#{auth_authenticator_krb5_testBean.password}" />
+		</ag:simpleField>
+	</p:fieldset>
+
+	<ui:include src="/tpl/test/results.xhtml">
+		<ui:param name="serviceTestBean"
+			value="#{auth_authenticator_krb5_testBean}" />
+		<ui:param name="configContext" value="#{configContext}" />
+	</ui:include>
+</ui:composition>

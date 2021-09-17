@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.jobs"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:job:1.0:base">
+		<xml-ns prefix="j" namespace-uri="urn:agno3:job:1.0:base" />
+		<xml-ns prefix="xsd" namespace-uri="http://www.w3.org/2001/XMLSchema" />
+		<xml-ns prefix="user" namespace-uri="urn:agno3:security:1.0:principal" />
+	</xml-schema>
+
+	<xml-java-type-adapters>
+		<xml-java-type-adapter type="org.joda.time.DateTime"
+			value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter"
+			value-type="datetime" />
+	</xml-java-type-adapters>
+
+	<java-types>
+
+		<java-type name="Job" xml-accessor-type="NONE">
+
+			<xml-type name="job" factory-class="eu.agno3.orchestrator.jobs.ObjectFactory"
+				factory-method="createJob" />
+
+			<xml-root-element name="job" />
+
+			<java-attributes>
+				<xml-attribute name="id" java-attribute="jobId"
+					required="true">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.UUIDAdapter" />
+				</xml-attribute>
+
+				<xml-element name="owner" java-attribute="owner"
+					required="false" />
+
+				<xml-element name="target" java-attribute="target"
+					required="true">
+					<xml-java-type-adapter
+						value="eu.agno3.orchestrator.jobs.targets.TargetXmlAdapter" />
+				</xml-element>
+
+				<xml-element name="group" java-attribute="jobGroup" />
+
+				<xml-element name="deadline" java-attribute="deadline">
+					<xml-schema-type name="dateTime" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="JobImpl" xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.jobs.Job">
+			<xml-type name="jobImpl" />
+
+		</java-type>
+
+		<java-type name="JobInfo" xml-accessor-type="NONE">
+
+			<xml-type name="jobInfo" factory-class="eu.agno3.orchestrator.jobs.ObjectFactory"
+				factory-method="createJobInfo" />
+
+			<xml-root-element name="jobInfo" />
+
+			<java-attributes>
+				<xml-attribute name="id" java-attribute="jobId"
+					required="true">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.UUIDAdapter" />
+				</xml-attribute>
+
+
+				<xml-element name="owner" java-attribute="owner"
+					required="false" />
+					
+				<xml-element name="type" java-attribute="type"
+					required="false" />
+
+				<xml-element name="state" java-attribute="state"
+					required="true" />
+
+				<xml-element name="queuedTime" java-attribute="queuedTime"
+					required="false">
+					<xml-schema-type name="dateTime" />
+				</xml-element>
+
+				<xml-element name="startedTime" java-attribute="startedTime"
+					required="false">
+					<xml-schema-type name="dateTime" />
+				</xml-element>
+				<xml-element name="finishedTime" java-attribute="finishedTime"
+					required="false">
+					<xml-schema-type name="dateTime" />
+				</xml-element>
+
+				<xml-element name="lastKeepAliveTime" java-attribute="lastKeepAliveTime"
+					required="false">
+					<xml-schema-type name="dateTime" />
+				</xml-element>
+			</java-attributes>
+
+		</java-type>
+
+		<java-type name="JobInfoImpl" xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.jobs.JobInfo">
+		</java-type>
+
+		<java-type name="JobStatusInfo" xml-accessor-type="NONE">
+
+			<xml-type name="jobStatusInfo" factory-class="eu.agno3.orchestrator.jobs.ObjectFactory"
+				factory-method="createJobStatusInfo" />
+
+			<xml-root-element name="jobStatusInfo" />
+
+			<java-attributes>
+				<xml-attribute name="id" java-attribute="jobId"
+					required="true">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.UUIDAdapter" />
+				</xml-attribute>
+
+
+				<xml-element name="owner" java-attribute="owner"
+					required="false" />
+
+
+				<xml-element name="type" java-attribute="jobType"
+					requried="true" />
+
+				<xml-element name="target" java-attribute="target"
+					required="true">
+					<xml-java-type-adapter
+						value="eu.agno3.orchestrator.jobs.targets.TargetXmlAdapter" />
+				</xml-element>
+
+
+				<xml-element name="targetDisplayName" java-attribute="targetDisplayName" />
+
+				<xml-element name="state" java-attribute="state"
+					required="true" />
+
+				<xml-element name="progress" java-attribute="progress" />
+				
+				<xml-element name="queuedTime" java-attribute="queuedTime"
+					required="true">
+					<xml-schema-type name="dateTime" />
+				</xml-element>
+
+				<xml-element name="startedTime" java-attribute="startedTime"
+					required="false">
+					<xml-schema-type name="dateTime" />
+				</xml-element>
+				<xml-element name="finishedTime" java-attribute="finishedTime"
+					required="false">
+					<xml-schema-type name="dateTime" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="JobProgressInfo" xml-accessor-type="NONE">
+
+			<xml-type name="jobProgressInfo" factory-class="eu.agno3.orchestrator.jobs.ObjectFactory"
+				factory-method="createJobProgressInfo" />
+
+			<xml-root-element name="jobProgressInfo" />
+
+			<java-attributes>
+				<xml-element name="lastUpdate" java-attribute="lastUpdate"
+					required="false">
+					<xml-schema-type name="dateTime" />
+				</xml-element>
+
+				<xml-element name="progress" java-attribute="progress"
+					required="true" />
+
+				<xml-element name="msg" java-attribute="stateMessage"
+					required="false" />
+				<xml-element name="e" java-attribute="stateMessageContext"
+					required="false" container-type="java.util.HashSet">
+					<xml-element-wrapper name="ctx" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="DefaultGroup" xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.jobs.JobGroup">
+			<xml-type name="defaultGroup" />
+			<xml-root-element name="defaultGroup" />
+		</java-type>
+
+		<java-type name="MessageContextEntry" xml-accessor-type="NONE">
+
+			<java-attributes>
+				<xml-attribute name="key" java-attribute="key"
+					required="true" />
+				<xml-attribute name="value" java-attribute="value"
+					required="true" />
+			</java-attributes>
+		</java-type>
+
+	</java-types>
+
+</xml-bindings>

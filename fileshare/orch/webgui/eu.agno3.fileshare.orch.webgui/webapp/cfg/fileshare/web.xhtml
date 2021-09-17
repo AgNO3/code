@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="themeLibrary" path="themeLibrary"
+		update="@composite:parent:manageThemeField:manageThemeButton">
+		<p:autoComplete id="themeLibrary" dropdown="true"
+			completeMethod="#{resourceLibraryCompleterFactory.getNameCompleterForType('fs_web').complete}"
+			value="#{current.themeLibrary}">
+			<p:ajax event="change" process="@this"
+				update="@composite:@parent:manageThemeField:manageThemeButton" />
+		</p:autoComplete>
+	</orch:objectFieldEditor>
+
+	<ag:simpleField styleClass="noLabel" id="manageThemeField"
+		onlyIf="#{configContextUtil.isInstance(configContext)}">
+		<ag:dialogOpenButton id="manageThemeButton" icon="ui-icon-pencil"
+			disabled="#{empty fs_webConfigBean.getSelectedThemeLibrary(outerWrapper)}"
+			dialog="/resourceLibrary/edit/webTheme.dialog.xhtml?#{resourceLibraryController.makeCreateOrEditArguments('fs_web', fs_webConfigBean.getSelectedThemeLibrary(outerWrapper))}"
+			closable="true" value="#{_fs_orch_msg['library.web.manage']}">
+			<p:ajax event="return"
+				listener="#{resourceLibraryController.finishedReturnDialog}" />
+		</ag:dialogOpenButton>
+	</ag:simpleField>
+
+
+	<orch:objectFieldEditor inputId="overrideBaseURI" minLevel="2"
+		path="overrideBaseURI">
+		<p:inputText id="overrideBaseURI" converter="#{uriConverter}"
+			value="#{current.overrideBaseURI}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="intentTimeout" path="intentTimeout"
+		minLevel="2"
+		readOnlyValueMapper="#{dateFormatter.formatDurationObject}">
+		<ag:inputDuration id="intentTimeout" value="#{current.intentTimeout}"
+			minUnit="minutes" maxUnit="hours" />
+	</orch:objectFieldEditor>
+
+
+	<p:fieldset legend="#{fs_cfgmsgs.bundle['fileshare.web.webdav']}"
+		update="@composite:@parent:webdavSettings">
+		<orch:objectFieldEditor inputId="enableWebDAV" path="enableWebDAV"
+			update="@composite:@parent:webdavSettings">
+			<p:selectBooleanCheckbox id="enableWebDAV"
+				value="#{current.enableWebDAV}">
+				<p:ajax event="change" update="@composite:@parent:webdavSettings" />
+			</p:selectBooleanCheckbox>
+		</orch:objectFieldEditor>
+
+		<p:outputPanel id="webdavSettings">
+			<p:outputPanel
+				rendered="#{current.enableWebDAV or (current.enableWebDAV == null and defaults.enableWebDAV)}">
+				<orch:objectFieldEditor inputId="webDAVAllowSetModificationTime"
+					minLevel="2" path="webDAVAllowSetModificationTime">
+					<p:selectBooleanCheckbox id="webDAVAllowSetModificationTime"
+						value="#{current.webDAVAllowSetModificationTime}" />
+				</orch:objectFieldEditor>
+			</p:outputPanel>
+		</p:outputPanel>
+	</p:fieldset>
+
+	<orch:objectFieldEditor inputId="defaultUploadChunkSize"
+		path="defaultUploadChunkSize" minLevel="2"
+		readOnlyValueMapper="#{byteSizeFormatter.formatByteSize}">
+		<ag:inputSize id="defaultUploadChunkSize" si="false"
+			value="#{current.defaultUploadChunkSize}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="maximumUploadChunkSize"
+		path="maximumUploadChunkSize" minLevel="2"
+		readOnlyValueMapper="#{byteSizeFormatter.formatByteSize}">
+		<ag:inputSize id="maximumUploadChunkSize" si="false"
+			value="#{current.maximumUploadChunkSize}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="optimalUploadChunkCount"
+		path="optimalUploadChunkCount" minLevel="3">
+		<p:spinner id="optimalUploadChunkCount"
+			value="#{current.optimalUploadChunkCount}" min="0" max="1024" />
+	</orch:objectFieldEditor>
+
+	<p:fieldset
+		legend="#{fs_cfgmsgs.bundle['fileshare.web.incompleteUploads']}">
+
+		<orch:objectFieldEditor inputId="sessionIncompleteExpireDuration"
+			path="sessionIncompleteExpireDuration" minLevel="2"
+			readOnlyValueMapper="#{dateFormatter.formatDurationObject}">
+			<ag:inputDuration id="sessionIncompleteExpireDuration"
+				value="#{current.sessionIncompleteExpireDuration}" minUnit="minutes"
+				maxUnit="hours" />
+		</orch:objectFieldEditor>
+
+		<orch:objectFieldEditor inputId="perSessionIncompleteSizeLimitEnabled"
+			path="perSessionIncompleteSizeLimitEnabled" minLevel="2"
+			update="@composite:@parent:perSessionIncompleteSizeLimitSettings">
+			<p:selectBooleanCheckbox id="perSessionIncompleteSizeLimitEnabled"
+				value="#{current.perSessionIncompleteSizeLimitEnabled}">
+				<p:ajax event="change"
+					update="@composite:@parent:perSessionIncompleteSizeLimitSettings" />
+			</p:selectBooleanCheckbox>
+		</orch:objectFieldEditor>
+
+		<p:outputPanel id="perSessionIncompleteSizeLimitSettings">
+			<p:outputPanel
+				rendered="#{current.perSessionIncompleteSizeLimitEnabled or (current.perSessionIncompleteSizeLimitEnabled == null and defaults.perSessionIncompleteSizeLimitEnabled)}">
+				<orch:objectFieldEditor inputId="perSessionIncompleteSizeLimit"
+					path="perSessionIncompleteSizeLimit" minLevel="2"
+					readOnlyValueMapper="#{byteSizeFormatter.formatByteSizeSI}">
+					<ag:inputSize id="perSessionIncompleteSizeLimit"
+						value="#{current.perSessionIncompleteSizeLimit}" />
+				</orch:objectFieldEditor>
+			</p:outputPanel>
+		</p:outputPanel>
+
+		<orch:objectFieldEditor inputId="userIncompleteExpireDuration"
+			path="userIncompleteExpireDuration" minLevel="2"
+			readOnlyValueMapper="#{dateFormatter.formatDurationObject}">
+			<ag:inputDuration id="userIncompleteExpireDuration"
+				value="#{current.userIncompleteExpireDuration}" minUnit="minutes"
+				maxUnit="hours" />
+		</orch:objectFieldEditor>
+
+		<orch:objectFieldEditor inputId="perUserIncompleteSizeLimitEnabled"
+			path="perUserIncompleteSizeLimitEnabled" minLevel="2"
+			update="@composite:@parent:perUserIncompleteSizeLimitSettings">
+			<p:selectBooleanCheckbox id="perUserIncompleteSizeLimitEnabled"
+				value="#{current.perUserIncompleteSizeLimitEnabled}">
+				<p:ajax event="change"
+					update="@composite:@parent:perUserIncompleteSizeLimitSettings" />
+			</p:selectBooleanCheckbox>
+		</orch:objectFieldEditor>
+
+		<p:outputPanel id="perUserIncompleteSizeLimitSettings">
+			<p:outputPanel
+				rendered="#{current.perUserIncompleteSizeLimitEnabled or (current.perUserIncompleteSizeLimitEnabled == null and defaults.perUserIncompleteSizeLimitEnabled)}">
+				<orch:objectFieldEditor inputId="perUserIncompleteSizeLimit"
+					path="perUserIncompleteSizeLimit" minLevel="2"
+					readOnlyValueMapper="#{byteSizeFormatter.formatByteSizeSI}">
+					<ag:inputSize id="perUserIncompleteSizeLimit"
+						value="#{current.perUserIncompleteSizeLimit}" />
+				</orch:objectFieldEditor>
+			</p:outputPanel>
+		</p:outputPanel>
+	</p:fieldset>
+
+	<orch:objectEditor objectType="urn:agno3:objects:1.0:web:endpoint"
+		context="#{configContext}" path="webEndpointConfig"
+		subTemplate="#{isTemplate}" readOnly="#{isReadOnly}">
+		<f:param name="sslConfigContext" value="#{fs_webSSLConfigContext}" />
+	</orch:objectEditor>
+</ui:composition>

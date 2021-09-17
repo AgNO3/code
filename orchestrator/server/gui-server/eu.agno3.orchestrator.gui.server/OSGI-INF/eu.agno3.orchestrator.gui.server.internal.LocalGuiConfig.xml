@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.gui.server.internal.LocalGuiConfig">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.gui.config.GuiConfig"/>
+        <provide interface="eu.agno3.orchestrator.gui.server.internal.LocalGuiConfig"/>
+    </service>
+    <reference name="WebServiceInfo" interface="eu.agno3.runtime.ws.server.WebserviceEndpointInfo" cardinality="1..1" policy="static" bind="setWebServiceInfo" unbind="unsetWebServiceInfo"/>
+    <reference name="ServerConfiguration" interface="eu.agno3.orchestrator.server.config.ServerConfiguration" cardinality="1..1" policy="static" bind="setServerConfiguration" unbind="unsetServerConfiguration"/>
+    <reference name="EagerServicesActive" interface="eu.agno3.orchestrator.gui.server.EagerServicesActive" cardinality="1..1" policy="static" bind="bindEagerServicesActive" unbind="unbindEagerServicesActive"/>
+    <implementation class="eu.agno3.orchestrator.gui.server.internal.LocalGuiConfig"/>
+</scr:component>

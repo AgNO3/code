@@ -1,0 +1,18 @@
+Bundle-SymbolicName: eu.agno3.runtime.transaction
+Bundle-Version: 0.0.40
+Bundle-Name: Transaction Manager
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Require-Bundle: eu.agno3.dependencies.atomikos;bundle-version="[4.0.0,4.1)"
+Import-Package: eu.agno3.runtime.transaction;version="0.0.8",
+ eu.agno3.runtime.util.osgi;version="0.0.92",
+ javax.transaction;version="1.1.0",
+ javax.transaction.xa;version="1.1.0",
+ org.apache.log4j;version="[1.2,1.3)",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.osgi.util.tracker;version="1.5.1"
+Service-Component: OSGI-INF/*.xml
+Export-Package: eu.agno3.runtime.transaction;version="0.0.40";uses:="javax.transaction"

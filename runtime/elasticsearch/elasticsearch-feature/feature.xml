@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="elasticsearch-feature"
+      label="Elasticsearch Feature"
+      version="0.0.60"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <requires>
+      <import feature="deps-elasticsearch-feature" version="2.3.2.AG1"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.runtime.elasticsearch"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

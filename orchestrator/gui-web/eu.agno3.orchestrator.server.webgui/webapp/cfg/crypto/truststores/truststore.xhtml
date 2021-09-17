@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="alias" path="alias"
+		readOnlyIfPersistent="true" hideIfSimplified="true">
+		<p:inputText id="alias" value="#{current.alias}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="trustLibrary" path="trustLibrary"
+		minLevel="2">
+		<p:autoComplete id="trustLibrary" dropdown="true"
+			completeMethod="#{resourceLibraryCompleterFactory.getNameCompleterForType('truststore').complete}"
+			value="#{current.trustLibrary}">
+			<p:ajax event="change" update="@composite:@parent:manageTrustLibraryField:manageTrustLibraryButton @composite:@parent:truststoreDisplay" />
+			<p:ajax event="itemSelect" update="@composite:@parent:manageTrustLibraryField:manageTrustLibraryButton @composite:@parent:truststoreDisplay" />
+		</p:autoComplete>
+	</orch:objectFieldEditor>
+
+	<ag:simpleField styleClass="noLabel" id="manageTrustLibraryField">
+		<ag:dialogOpenButton id="manageTrustLibraryButton"
+			icon="ui-icon-pencil"
+			disabled="#{empty truststoreConfigBean.getTrustLibrary(outerWrapper)}"
+			dialog="/resourceLibrary/edit/truststore.dialog.xhtml?#{resourceLibraryController.makeCreateOrEditArguments('truststore', truststoreConfigBean.getTrustLibrary(outerWrapper))}"
+			closable="true" value="#{_gui['crypto.truststore.manage']}">
+			<p:ajax event="return"
+				listener="#{resourceLibraryController.finishedReturnDialog}" update="@composite:@parent:truststoreDisplay" />
+		</ag:dialogOpenButton>
+	</ag:simpleField>
+
+
+	<p:outputPanel styleClass="inline-online-editor" id="truststoreDisplay"
+		rendered="#{outerWrapper.simplified}">
+		<iframe seamless="seamless"
+			src="#{truststoreConfigBean.getTruststoreViewUrl(outerWrapper)}" />
+
+		<h:outputScript type="text/javascript">
+		// <!-- 
+			$(document).ready(function() {
+				if (typeof (iFrameResize) == "function") {
+					iFrameResize(
+					{
+						heightCalculationMethod : (navigator.userAgent.indexOf("MSIE") !== -1) ? 'max' : 'lowestElement',
+						scrolling : true,
+						bodyMargin : "0 0 0 0"
+					}, $('.inline-online-editor iframe')[0]);
+				}
+			});
+		//  -->
+		</h:outputScript>
+	</p:outputPanel>
+
+
+	<orch:objectEditor minLevel="2"
+		objectType="urn:agno3:objects:1.0:crypto:truststores:revocation"
+		context="#{configContext}" path="revocationConfiguration"
+		subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+</ui:composition>

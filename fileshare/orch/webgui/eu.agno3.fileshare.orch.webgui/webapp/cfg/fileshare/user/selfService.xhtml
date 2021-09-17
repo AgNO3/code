@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<p:outputPanel
+		rendered="#{(not fs_notificationConfigBean.isMailingEnabled(outerWrapper)) or (not fs_authenticationConfigBean.isLocalAuthEnabled(outerWrapper))}">
+		<h:outputText
+			value="#{fs_cfgmsgs.bundle['fileshare.user.selfService.requirements']}" />
+	</p:outputPanel>
+
+	<p:outputPanel
+		rendered="#{fs_notificationConfigBean.isMailingEnabled(outerWrapper) and fs_authenticationConfigBean.isLocalAuthEnabled(outerWrapper)}">
+		<p:fieldset
+			legend="#{fs_cfgmsgs.bundle['fileshare.user.selfService.passwordRecovery']}">
+			<orch:objectFieldEditor inputId="localPasswordRecoveryEnabled"
+				path="localPasswordRecoveryEnabled"
+				update="@composite:@parent:passwordRecoverySettings">
+				<p:selectBooleanCheckbox id="localPasswordRecoveryEnabled"
+					value="#{current.localPasswordRecoveryEnabled}">
+					<p:ajax event="change"
+						update="@composite:@parent:passwordRecoverySettings" />
+				</p:selectBooleanCheckbox>
+			</orch:objectFieldEditor>
+
+			<p:outputPanel id="passwordRecoverySettings">
+				<p:outputPanel
+					rendered="#{current.localPasswordRecoveryEnabled or (current.localPasswordRecoveryEnabled == null and defaults.localPasswordRecoveryEnabled)}">
+					<orch:objectFieldEditor inputId="passwordRecoveryTokenLifetime"
+						minLevel="2" path="passwordRecoveryTokenLifetime"
+						readOnlyValueMapper="#{dateFormatter.formatDurationObject}">
+						<ag:inputDuration id="passwordRecoveryTokenLifetime"
+							value="#{current.passwordRecoveryTokenLifetime}"
+							minUnit="minutes" maxUnit="days" />
+					</orch:objectFieldEditor>
+				</p:outputPanel>
+			</p:outputPanel>
+		</p:fieldset>
+
+		<p:fieldset
+			legend="#{fs_cfgmsgs.bundle['fileshare.user.selfService.invitation']}">
+
+			<orch:objectFieldEditor inputId="invitationEnabled"
+				path="invitationEnabled"
+				update="@composite:@parent:invitationSettings">
+				<p:selectBooleanCheckbox id="invitationEnabled"
+					value="#{current.invitationEnabled}">
+					<p:ajax event="change"
+						update="@composite:@parent:invitationSettings" />
+				</p:selectBooleanCheckbox>
+			</orch:objectFieldEditor>
+
+			<p:outputPanel id="invitationSettings">
+				<p:outputPanel
+					rendered="#{current.invitationEnabled or (current.invitationEnabled == null and defaults.invitationEnabled)}">
+
+					<orch:objectFieldEditor inputId="trustInvitedUserNames"
+						minLevel="2" path="trustInvitedUserNames">
+						<p:selectBooleanCheckbox id="trustInvitedUserNames"
+							value="#{current.trustInvitedUserNames}" />
+					</orch:objectFieldEditor>
+
+
+
+					<orch:objectFieldEditor inputId="invitationUserRoles" minLevel="2"
+						path="invitationUserRoles" collection="true">
+						<ag:setEditor id="invitationUserRoles"
+							comparator="#{setEditorUtilBean.stringComparator}"
+							factoryMethod="#{setEditorUtilBean.makeEmptyString}"
+							value="#{current.invitationUserRoles}">
+							<p:column>
+								<p:autoComplete dropdown="true"
+									completeMethod="#{fs_authenticationConfigBean.getRoleCompleter(outerWrapper).complete}"
+									value="#{item.value}" />
+							</p:column>
+						</ag:setEditor>
+					</orch:objectFieldEditor>
+
+					<orch:objectFieldEditor inputId="invitationUserExpires"
+						minLevel="2" path="invitationUserExpires"
+						update="@composite:@parent:invitationExpirySettings">
+						<p:selectBooleanCheckbox id="invitationUserExpires"
+							value="#{current.invitationUserExpires}">
+							<p:ajax event="change"
+								update="@composite:@parent:invitationExpirySettings" />
+						</p:selectBooleanCheckbox>
+					</orch:objectFieldEditor>
+
+					<p:outputPanel id="invitationExpirySettings">
+						<p:outputPanel
+							rendered="#{current.invitationUserExpires or (current.invitationUserExpires == null and defaults.invitationUserExpires)}">
+							<orch:objectFieldEditor inputId="allowInvitingUserExtension"
+								path="allowInvitingUserExtension">
+								<p:selectBooleanCheckbox id="allowInvitingUserExtension"
+									value="#{current.allowInvitingUserExtension}" />
+							</orch:objectFieldEditor>
+							<orch:objectFieldEditor inputId="invitationUserExpiration"
+								path="invitationUserExpiration"
+								readOnlyValueMapper="#{dateFormatter.formatDurationObject}">
+								<ag:inputDuration id="invitationUserExpiration"
+									value="#{current.invitationUserExpiration}" minUnit="days"
+									maxUnit="days" />
+							</orch:objectFieldEditor>
+						</p:outputPanel>
+					</p:outputPanel>
+
+					<orch:objectFieldEditor inputId="invitationTokenLifetime"
+						minLevel="2" path="invitationTokenLifetime"
+						readOnlyValueMapper="#{dateFormatter.formatDurationObject}">
+						<ag:inputDuration id="invitationTokenLifetime"
+							value="#{current.invitationTokenLifetime}" minUnit="minutes"
+							maxUnit="days" />
+					</orch:objectFieldEditor>
+				</p:outputPanel>
+			</p:outputPanel>
+
+		</p:fieldset>
+
+		<p:fieldset
+			legend="#{fs_cfgmsgs.bundle['fileshare.user.selfService.registration']}">
+
+			<orch:objectFieldEditor inputId="registrationEnabled"
+				path="registrationEnabled"
+				update="@composite:@parent:registrationSettings">
+				<p:selectBooleanCheckbox id="registrationEnabled"
+					value="#{current.registrationEnabled}">
+					<p:ajax event="change"
+						update="@composite:@parent:registrationSettings" />
+				</p:selectBooleanCheckbox>
+			</orch:objectFieldEditor>
+
+			<p:outputPanel id="registrationSettings">
+				<p:outputPanel
+					rendered="#{current.registrationEnabled or (current.registrationEnabled == null and defaults.registrationEnabled)}">
+
+					<orch:objectFieldEditor inputId="registrationUserRoles"
+						path="registrationUserRoles" collection="true">
+						<ag:setEditor id="registrationUserRoles" minLevel="2"
+							comparator="#{setEditorUtilBean.stringComparator}"
+							factoryMethod="#{setEditorUtilBean.makeEmptyString}"
+							value="#{current.registrationUserRoles}">
+							<p:column>
+								<p:autoComplete dropdown="true"
+									completeMethod="#{fs_authenticationConfigBean.getRoleCompleter(outerWrapper).complete}"
+									value="#{item.value}" />
+							</p:column>
+						</ag:setEditor>
+					</orch:objectFieldEditor>
+
+
+					<orch:objectFieldEditor inputId="registrationUserExpires"
+						path="registrationUserExpires" minLevel="2"
+						update="@composite:@parent:registrationExpirySettings">
+						<p:selectBooleanCheckbox id="registrationUserExpires"
+							value="#{current.registrationUserExpires}">
+							<p:ajax event="change"
+								update="@composite:@parent:registrationExpirySettings" />
+						</p:selectBooleanCheckbox>
+					</orch:objectFieldEditor>
+
+					<p:outputPanel id="registrationExpirySettings">
+						<orch:objectFieldEditor inputId="registrationUserExpiration"
+							path="registrationUserExpiration"
+							onlyIf="#{current.registrationUserExpires or (current.registrationUserExpires == null and defaults.registrationUserExpires)}"
+							readOnlyValueMapper="#{dateFormatter.formatDurationObject}">
+							<ag:inputDuration id="registrationUserExpiration"
+								value="#{current.registrationUserExpiration}" minUnit="days"
+								maxUnit="days" />
+						</orch:objectFieldEditor>
+					</p:outputPanel>
+
+					<orch:objectFieldEditor inputId="registrationTokenLifetime"
+						path="registrationTokenLifetime" minLevel="2"
+						readOnlyValueMapper="#{dateFormatter.formatDurationObject}">
+						<ag:inputDuration id="registrationTokenLifetime"
+							value="#{current.registrationTokenLifetime}" minUnit="minutes"
+							maxUnit="days" />
+					</orch:objectFieldEditor>
+
+
+				</p:outputPanel>
+			</p:outputPanel>
+		</p:fieldset>
+	</p:outputPanel>
+
+</ui:composition>

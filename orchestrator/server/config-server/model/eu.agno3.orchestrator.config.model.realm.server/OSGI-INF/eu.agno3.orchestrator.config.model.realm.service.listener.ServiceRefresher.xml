@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.config.model.realm.service.listener.ServiceRefresher">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.config.model.realm.service.listener.ServiceRefresher"/>
+        <provide interface="eu.agno3.orchestrator.agent.server.AgentLifecycleListener"/>
+    </service>
+    <reference name="MessagingClient" interface="eu.agno3.runtime.messaging.client.MessagingClient" cardinality="1..1" policy="static" bind="setMessagingClient" unbind="unsetMessagingClient"/>
+    <reference name="ServiceService" interface="eu.agno3.orchestrator.config.model.realm.server.service.ServiceServerService" cardinality="1..1" policy="static" bind="setServiceService" unbind="unsetServiceService"/>
+    <reference name="Context" interface="eu.agno3.orchestrator.config.model.base.server.context.DefaultServerServiceContext" cardinality="1..1" policy="static" bind="setContext" unbind="unsetContext"/>
+    <reference name="ConfigApplyService" interface="eu.agno3.orchestrator.config.model.realm.server.service.ConfigApplyServerService" cardinality="1..1" policy="static" bind="setConfigApplyService" unbind="unsetConfigApplyService"/>
+    <implementation class="eu.agno3.orchestrator.config.model.realm.service.listener.ServiceRefresher"/>
+</scr:component>

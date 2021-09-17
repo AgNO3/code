@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.runtime.security.web.internal.OSGIEnvironmentLoaderListener" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="javax.servlet.ServletContextListener"/>
+    </service>
+    <reference name="ServletFilterFactory" interface="org.osgi.service.component.ComponentFactory" cardinality="1..1" policy="static" target="(component.factory=eu.agno3.runtime.security.web.internal.SecurityFilterRegistration)" bind="setServletFilterFactory" unbind="unsetServletFilterFactory"/>
+    <reference name="SecurityManagerFactory" interface="org.osgi.service.component.ComponentFactory" cardinality="1..1" policy="static" target="(component.factory=eu.agno3.runtime.security.web.internal.OSGIWebSecurityManager)" bind="setSecurityManagerFactory" unbind="unsetSecurityManagerFactory"/>
+    <reference name="FilterChainManagerFactory" interface="org.osgi.service.component.ComponentFactory" cardinality="1..1" policy="static" target="(component.factory=eu.agno3.runtime.security.web.internal.OSGIFilterChainManager)" bind="setFilterChainManagerFactory" unbind="unsetFilterChainManagerFactory"/>
+    <implementation class="eu.agno3.runtime.security.web.internal.OSGIEnvironmentLoaderListener"/>
+</scr:component>

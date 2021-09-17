@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	template="/tpl/common/template.xhtml">
+	<ui:param name="subtitle"
+		value="#{msgs.formatEL('crypto.keystore.manage.title', structureViewContext.selectedDisplayName)}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="instance"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param']}" />
+
+			<f:viewParam name="selectKeystore"
+				value="#{keystoreManageContext.selectKeystore}" required="false" />
+
+			<f:viewParam name="selectKey"
+				value="#{keystoreManageContext.selectKey}" required="false" />
+
+
+			<f:viewParam name="selectionMode"
+				value="#{keystoreManageContext.selectionMode}" required="false"
+				default="none" />
+				
+			<f:viewParam name="allowAnonymous"
+				value="#{keystoreManageContext.allowAnonymous}" required="false"
+				default="#{false}" />
+
+			<f:event listener="#{keystoreManageContext.init}"
+				type="preRenderView" />
+
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<ui:include src="/tpl/crypto/keystores/manage.inc.xhtml">
+				<ui:param name="kmc" value="#{keystoreManageContext}" />
+				<ui:param name="allowShowInternal" value="true" />
+				<ui:param name="selectionMode"
+					value="#{keystoreManageContext.selectionMode}" />
+			</ui:include>
+		</h:form>
+	</ui:define>
+</ui:composition>

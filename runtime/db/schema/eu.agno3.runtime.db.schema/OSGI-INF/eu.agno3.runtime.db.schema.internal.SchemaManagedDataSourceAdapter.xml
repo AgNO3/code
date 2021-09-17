@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.runtime.db.schema.internal.SchemaManagedDataSourceAdapter" configuration-policy="require" activate="activate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.db.schema.SchemaManagedDataSource"/>
+    </service>
+    <reference name="DataSource" interface="javax.sql.DataSource" cardinality="1..1" policy="static" bind="setDataSource" unbind="unsetDataSource"/>
+    <reference name="DsUtil" interface="eu.agno3.runtime.db.DataSourceUtil" cardinality="1..1" policy="static" bind="setDsUtil" unbind="unsetDsUtil"/>
+    <reference name="SchemaManager" interface="eu.agno3.runtime.db.schema.SchemaManager" cardinality="1..1" policy="static" bind="setSchemaManager" unbind="unsetSchemaManager"/>
+    <implementation class="eu.agno3.runtime.db.schema.internal.SchemaManagedDataSourceAdapter"/>
+</scr:component>

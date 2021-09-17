@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+	<div class="func-unit"
+		style="width: 80%; margin-left: auto; margin-right: auto; margin-top: 5em">
+		<p:panelGrid>
+			<p:row style="border: 0">
+				<p:column colspan="2" style="padding-bottom: 1em; border: 0">
+					<ui:fragment rendered="#{not fileViewPolicyBean.canView(entity)}">
+						<p>
+							<h:outputFormat value="#{_msgs['view.noPreviewFmt']}">
+								<f:param value="#{fileDisplayBean.getLocalDisplayName(entity)}" />
+								<f:param value="#{fileViewPolicyBean.getViewTitle(entity)}" />
+							</h:outputFormat>
+						</p>
+					</ui:fragment>
+				</p:column>
+			</p:row>
+			<p:row style="border: 0">
+				<p:column
+					style="vertical-align: top; text-align: center; border: 0; width: 40%">
+					<p:commandLink
+						action="#{fileDownloadController.download(urlFileSelectionBean.selectedEntity, grantSelectionBean.singleSelection, userTokenBean)}">
+						<p:graphicImage library="type-icons"
+							name="#{mimeTypeBean.getIconFor(entity.contentType)}"
+							style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 0.5em; margin-top: 0.5em; width: 10em" />
+					</p:commandLink>
+
+					<p:commandButton id="confirmDownload"
+						icon="ui-icon ui-icon-download"
+						value="#{_msgs['view.confirmDownload']}"
+						action="#{fileDownloadController.download(urlFileSelectionBean.selectedEntity, grantSelectionBean.singleSelection, userTokenBean)}"
+						styleClass="download-link" style="display: inline-block">
+					</p:commandButton>
+				</p:column>
+
+				<p:column style="border: 0">
+					<ag:simpleField label="#{_msgs['view.fileSize.label']}"
+						description="#{_msgs['view.fileSize.description']}">
+						<h:outputText
+							value="#{ag:formatByteSizeSI(urlFileSelectionBean.singleSelection.fileSize)}" />
+					</ag:simpleField>
+					<ag:simpleField label="#{_msgs['view.contentType.label']}"
+						description="#{_msgs['view.contentType.description']}">
+						<h:outputText
+							title="#{urlFileSelectionBean.singleSelection.contentType}"
+							value="#{mimeTypeBean.getDisplayType(urlFileSelectionBean.singleSelection.contentType)}" />
+					</ag:simpleField>
+					<ag:simpleField label="#{_msgs['view.owner.label']}"
+						description="#{_msgs['view.owner.description']}">
+						<fs:userOrGrant
+							user="#{urlFileSelectionBean.singleSelection.owner}"
+							showTooltip="true" />
+					</ag:simpleField>
+					<ag:simpleField label="#{_msgs['view.creator.label']}"
+						description="#{_msgs['view.creator.description']}"
+						onlyIf="#{not empty urlFileSelectionBean.singleSelection.creator or not empty urlFileSelectionBean.singleSelection.creatorGrant}">
+						<fs:userOrGrant showTooltip="true"
+							user="#{urlFileSelectionBean.singleSelection.creator}"
+							grant="#{urlFileSelectionBean.singleSelection.creatorGrant}" />
+					</ag:simpleField>
+
+					<ag:simpleField readOnly="true"
+						rendered="#{filePermissionBean.isOwner(urlFileSelectionBean.selectedEntity)}"
+						title="#{localeSettingsBean.formatDateTime(urlFileSelectionBean.selectedEntity.created, 'LL')}"
+						value="#{localeSettingsBean.formatDateTimeRelative(urlFileSelectionBean.selectedEntity.created)}"
+						label="#{_msgs['view.created.label']}"
+						description="#{_msgs['view.created.description']}" />
+
+					<ag:simpleField label="#{_msgs['view.lastModifier.label']}"
+						description="#{_msgs['view.lastModifier.description']}"
+						onlyIf="{not empty urlFileSelectionBean.selectedEntity.lastModifier or not empty urlFileSelectionBean.selectedEntity.lastModifiedGrant}">
+						<fs:userOrGrant showTooltip="true"
+							user="#{urlFileSelectionBean.selectedEntity.lastModifier}"
+							grant="#{urlFileSelectionBean.selectedEntity.lastModifiedGrant}" />
+					</ag:simpleField>
+
+					<ag:simpleField readOnly="true" styleClass="ui-widget"
+						title="#{localeSettingsBean.formatDateTime(urlFileSelectionBean.selectedEntity.lastModified, 'LL')}"
+						value="#{localeSettingsBean.formatDateTimeRelative(urlFileSelectionBean.selectedEntity.lastModified)}"
+						label="#{_msgs['view.lastModified.label']}"
+						description="#{_msgs['view.lastModified.description']}" />
+				</p:column>
+
+
+			</p:row>
+		</p:panelGrid>
+	</div>
+</ui:composition>

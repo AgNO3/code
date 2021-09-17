@@ -1,0 +1,62 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+<composite:interface>
+
+	<composite:attribute name="value" required="true"
+		type="java.security.cert.X509Certificate" />
+
+	<composite:attribute name="concise" required="false"
+		type="java.lang.Boolean" default="false" />
+
+</composite:interface>
+
+<composite:implementation>
+	<ag:simpleField readOnly="true"
+		outputStyle="font-size: 11pt; word-break: break-all; white-space: pre-wrap;"
+		label="#{_bm.get('crypto.subject')}"
+		value="#{certificateUtil.formatPrincipalName(cc.attrs.value.subjectX500Principal)}" />
+	<ag:simpleField readOnly="true"
+		outputStyle="font-size: 11pt; word-break: break-all; white-space: pre-wrap;"
+		label="#{_bm.get('crypto.issuer')}"
+		value="#{certificateUtil.formatPrincipalName(cc.attrs.value.issuerX500Principal)}" />
+	<ag:simpleField readOnly="true" onlyIf="#{not cc.attrs.concise}"
+		label="#{_bm.get('crypto.version')}" value="#{cc.attrs.value.version}" />
+	<ag:simpleField readOnly="true" label="#{_bm.get('crypto.serial')}"
+		value="#{certificateUtil.formatSerial(cc.attrs.value)}" />
+	<ag:simpleField readOnly="true" onlyIf="#{not cc.attrs.concise}"
+		label="#{_bm.get('crypto.validityPeriod')}"
+		outputStyle="#{certificateUtil.getValidityStyle(cc.attrs.value)}"
+		value="#{certificateUtil.formatValidity(cc.attrs.value)}" />
+	<ag:simpleField readOnly="true" onlyIf="#{not cc.attrs.concise}"
+		outputStyle="font-family: monospace !important; font-size: 10pt; white-space: pre-wrap;"
+		label="#{_bm.get('crypto.fingerprintSHA256')}"
+		value="#{certificateUtil.formatFingerprintSHA256(cc.attrs.value)}" />
+	<ag:simpleField readOnly="true"
+		label="#{_bm.get('crypto.certificateAuthority')}"
+		value="#{certificateUtil.formatBasicConstraints(cc.attrs.value)}" />
+	<ag:simpleField readOnly="true"
+		onlyIf="#{not empty cc.attrs.value.keyUsage}"
+		label="#{_bm.get('crypto.keyUsage')}"
+		value="#{certificateUtil.formatKeyUsage(cc.attrs.value)}" />
+	<ag:simpleField onlyIf="#{not empty cc.attrs.value.extendedKeyUsage}"
+		readOnly="true" label="#{_bm.get('crypto.extendedKeyUsage')}"
+		value="#{certificateUtil.formatExtendedKeyUsage(cc.attrs.value)}" />
+	<ag:simpleField
+		onlyIf="#{not empty cc.attrs.value.subjectAlternativeNames}"
+		readOnly="true" label="#{_bm.get('crypto.subjectAltNames')}"
+		collection="true"
+		value="#{certificateUtil.mapSubjectAltNames(cc.attrs.value)}" />
+	<ag:simpleField
+		onlyIf="#{not certificateUtil.emptyExtensions(cc.attrs.value)}"
+		readOnly="true" label="#{_bm.get('crypto.extensions')}"
+		collection="true" outputStyle="white-space: pre"
+		value="#{certificateUtil.formatExtensions(cc.attrs.value)}" />
+
+</composite:implementation>
+</html>

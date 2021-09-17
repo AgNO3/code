@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.fileshare.model.query"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-from-default="QUALIFIED" namespace="urn:agno3:fileshare:1.0:model:query">
+		<xml-ns prefix="fsm" namespace-uri="urn:agno3:fileshare:1.0:model" />
+		<xml-ns prefix="fsq" namespace-uri="urn:agno3:fileshare:1.0:model:query" />
+		<xml-ns prefix="user" namespace-uri="urn:agno3:security:1.0:principal" />
+	</xml-schema>
+
+	<java-types>
+		<java-type name="SubjectQueryResult" xml-accessor-type="NONE">
+			<xml-type name="subjectQueryResultType" />
+			<xml-root-element name="subjectResult" />
+			<java-attributes>
+				<xml-element name="id" java-attribute="id">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.UUIDAdapter" />
+				</xml-element>
+				<xml-element name="type" java-attribute="type" />
+				<xml-element name="trustLevel" java-attribute="trustLevel" />
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="UserQueryResult" xml-accessor-type="NONE">
+			<xml-type name="userQueryResultType" />
+			<xml-root-element name="userResult" />
+			<java-attributes>
+				<xml-element name="principal" java-attribute="principal" />
+				<xml-element name="userDisplayName"
+					java-attribute="userDisplayName" />
+				<xml-element name="nameSource" java-attribute="nameSource" />
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="GroupQueryResult" xml-accessor-type="NONE">
+			<xml-type name="groupQueryResultType" />
+			<xml-root-element name="groupResult" />
+			<java-attributes>
+				<xml-element name="realm" java-attribute="realm" />
+				<xml-element name="name" java-attribute="name" />
+			</java-attributes>
+		</java-type>
+	</java-types>
+</xml-bindings>

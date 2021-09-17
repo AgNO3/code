@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.config.crypto.truststore"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		namespace="urn:agno3:model:1.0:crypto:truststores">
+		<xml-ns prefix="hcryptts" namespace-uri="urn:agno3:model:1.0:crypto:truststores" />
+		<xml-ns prefix="cmr" namespace-uri="urn:agno3:model:1.0:realm" />
+	</xml-schema>
+
+	<java-types>
+
+		<java-type name="TruststoresConfig" xml-accessor-type="NONE">
+
+			<xml-type name="truststoresConfigType"
+				factory-class="eu.agno3.orchestrator.config.crypto.truststore.ObjectFactory"
+				factory-method="createTruststoresConfig" />
+
+			<xml-root-element name="truststoresConfig" />
+
+			<java-attributes>
+				<xml-element name="truststore" java-attribute="truststores">
+					<xml-element-wrapper name="truststores" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="TruststoresConfigMutable"
+			xml-accessor-type="NONE">
+			<xml-type name="truststoresConfigTypeMutable"
+				factory-class="eu.agno3.orchestrator.config.crypto.truststore.ObjectFactory"
+				factory-method="createTruststoresConfig" />
+		</java-type>
+
+
+		<java-type name="TruststoreConfig" xml-accessor-type="NONE">
+
+			<xml-type name="truststoreConfigType"
+				factory-class="eu.agno3.orchestrator.config.crypto.truststore.ObjectFactory"
+				factory-method="createTruststoreConfig" />
+
+			<xml-root-element name="truststoreConfig" />
+
+			<java-attributes>
+				<xml-element name="alias" java-attribute="alias" />
+
+				<xml-element name="trustLibrary" java-attribute="trustLibrary" />
+				<xml-element name="revocationConfig" java-attribute="revocationConfiguration" />
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="TruststoreConfigMutable" xml-accessor-type="NONE">
+			<xml-type name="truststoreConfigTypeMutable"
+				factory-class="eu.agno3.orchestrator.config.crypto.truststore.ObjectFactory"
+				factory-method="createTruststoreConfig" />
+		</java-type>
+
+
+		<java-type name="RevocationConfig" xml-accessor-type="NONE">
+			<xml-type name="revocationConfigType"
+				factory-class="eu.agno3.orchestrator.config.crypto.truststore.ObjectFactory"
+				factory-method="createRevocationConfig" />
+
+			<xml-root-element name="revocationConfig" />
+			<java-attributes>
+				<xml-attribute name="checkOnlyEndEntity" java-attribute="checkOnlyEndEntity" />
+				<xml-element name="networkTimeout" java-attribute="networkTimeout">
+					<xml-java-type-adapter value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+									
+				<xml-element name="crlCheckLevel" java-attribute="crlCheckLevel" />
+				<xml-element name="crlOnDemandDownload" java-attribute="onDemandCRLDownload" />
+				<xml-element name="crlOnDemandCacheSize" java-attribute="onDemandCRLCacheSize" />
+				<xml-element name="crlUpdateInterval" java-attribute="crlUpdateInterval">
+					<xml-java-type-adapter value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+				
+				<xml-element name="ocspCheckLevel" java-attribute="ocspCheckLevel" />
+				<xml-element name="ocspCacheSize" java-attribute="ocspCacheSize" />
+				
+				<xml-element name="ocspUseTrustedResponder" java-attribute="useTrustedResponder" />
+				<xml-element name="ocspTrustedResponderCheckAll" java-attribute="trustedResponderCheckAll" />
+				<xml-element name="ocspTrustedResponderUri" java-attribute="trustedResponderUri">
+					<xml-java-type-adapter value="eu.agno3.orchestrator.types.uri.XmlURIAdapter" />
+				</xml-element>
+				<xml-element name="ocspTrustedResponderTrustCertificate" java-attribute="trustedResponderTrustCertificate">
+					<xml-java-type-adapter value="eu.agno3.orchestrator.types.entities.crypto.XmlX509CertEntryAdapter" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="RevocationConfigMutable" xml-accessor-type="NONE">
+			<xml-type name="revocationConfigTypeMutable"
+				factory-class="eu.agno3.orchestrator.config.crypto.truststore.ObjectFactory"
+				factory-method="createRevocationConfig" />
+		</java-type>
+
+	</java-types>
+
+</xml-bindings>
+

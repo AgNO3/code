@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:sc="urn:agno3:component:1.0:config" xmlns:m="urn:agno3:message:1.0:base" xmlns:gc="urn:agno3:gui:1.0:config" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:gui:1.0:config" elementFormDefault="qualified">
+   <xsd:import schemaLocation="urn:agno3:message:1.0:base" namespace="urn:agno3:message:1.0:base"/>
+   <xsd:import schemaLocation="urn:agno3:component:1.0:config" namespace="urn:agno3:component:1.0:config"/>
+   <xsd:complexType name="guiConfigRequest">
+      <xsd:complexContent>
+         <xsd:extension base="m:xmlMarshallableMessage">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="guiConfigResponse">
+      <xsd:complexContent>
+         <xsd:extension base="m:xmlMarshallableMessage">
+            <xsd:sequence>
+               <xsd:element name="config" type="gc:guiConfig" minOccurs="0"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="guiConfig">
+      <xsd:complexContent>
+         <xsd:extension base="sc:componentConfig">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:element name="guiConfigRequest" type="gc:guiConfigRequest"/>
+   <xsd:element name="guiConfigResponse" type="gc:guiConfigResponse"/>
+   <xsd:element name="guiConfig" type="gc:guiConfig"/>
+</xsd:schema>

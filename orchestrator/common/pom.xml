@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.orchestrator.common</groupId>
+    <artifactId>common-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>common-parent</relativePath>
+  </parent>
+  <packaging>pom</packaging>
+  <name>Orchestrator/Common Maven Module</name>
+  <artifactId>common</artifactId>
+  
+  <modules>
+  	<module>common-parent</module>
+
+  	<module>types</module>
+  	<module>system</module>
+  	<module>config</module>
+  	<module>jobs</module>
+
+	<module>agent-common</module>
+	<module>server-common</module>
+	<module>gui-common</module>
+	<module>bootstrap-common</module>
+	<module>crypto-common</module>
+  </modules>
+
+</project>

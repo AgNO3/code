@@ -1,0 +1,739 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet author="mbechler (generated)" id="1475247099895-1">
+		<createTable schemaName="APP" tableName="config_logger">
+			<column name="IPANONYMIZATIONTYPE" type="INTEGER" />
+			<column name="RETENTIONDAYS" type="INTEGER" />
+			<column name="ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-2">
+		<createTable schemaName="APP" tableName="config_logger_AUD">
+			<column name="ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="IPANONYMIZATIONTYPE" type="INTEGER" />
+			<column name="RETENTIONDAYS" type="INTEGER" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-3">
+		<createTable schemaName="APP" tableName="config_terms">
+			<column name="TERMSLIBRARY" type="VARCHAR(255)" />
+			<column name="ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-4">
+		<createTable schemaName="APP" tableName="config_terms_AUD">
+			<column name="ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="TERMSLIBRARY" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-5">
+		<createTable schemaName="APP" tableName="config_terms_config_terms_def">
+			<column name="CONFIG_TERMS_ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="TERMS_ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-6">
+		<createTable schemaName="APP"
+			tableName="config_terms_config_terms_def_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_TERMS_ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="TERMS_ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-7">
+		<createTable schemaName="APP" tableName="config_terms_def">
+			<column name="APPLYTYPE" type="INTEGER" />
+			<column name="PERSISTACCEPTANCE" type="BOOLEAN" />
+			<column name="PRIORITY" type="INTEGER" />
+			<column name="TERMSID" type="VARCHAR(255)" />
+			<column name="UPDATED" type="TIMESTAMP" />
+			<column name="ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-8">
+		<createTable schemaName="APP" tableName="config_terms_def_AUD">
+			<column name="ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="APPLYTYPE" type="INTEGER" />
+			<column name="PERSISTACCEPTANCE" type="BOOLEAN" />
+			<column name="PRIORITY" type="INTEGER" />
+			<column name="TERMSID" type="VARCHAR(255)" />
+			<column name="UPDATED" type="TIMESTAMP" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-9">
+		<createTable schemaName="APP" tableName="config_terms_def_desc">
+			<column name="CONFIG_TERMS_DEF_ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="MSG" type="VARCHAR(255)" />
+			<column name="LOCALE" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-10">
+		<createTable schemaName="APP" tableName="config_terms_def_desc_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_TERMS_DEF_ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="MSG" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="LOCALE" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-11">
+		<createTable schemaName="APP" tableName="config_terms_def_excroles">
+			<column name="CONFIG_TERMS_DEF_ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="EXCLUDEROLES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-12">
+		<createTable schemaName="APP" tableName="config_terms_def_excroles_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_TERMS_DEF_ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="EXCLUDEROLES" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-13">
+		<createTable schemaName="APP" tableName="config_terms_def_incroles">
+			<column name="CONFIG_TERMS_DEF_ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="INCLUDEROLES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-14">
+		<createTable schemaName="APP" tableName="config_terms_def_incroles_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_TERMS_DEF_ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="INCLUDEROLES" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-15">
+		<createTable schemaName="APP" tableName="config_terms_def_title">
+			<column name="CONFIG_TERMS_DEF_ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="MSG" type="VARCHAR(255)" />
+			<column name="LOCALE" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-16">
+		<createTable schemaName="APP" tableName="config_terms_def_title_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_TERMS_DEF_ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="MSG" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="LOCALE" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-17">
+		<addPrimaryKey columnNames="CONFIG_TERMS_ID, TERMS_ID"
+			schemaName="APP" tableName="config_terms_config_terms_def" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-18">
+		<addPrimaryKey columnNames="CONFIG_TERMS_DEF_ID, LOCALE"
+			schemaName="APP" tableName="config_terms_def_desc" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-19">
+		<addPrimaryKey columnNames="CONFIG_TERMS_DEF_ID, LOCALE"
+			schemaName="APP" tableName="config_terms_def_title" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-20">
+		<addPrimaryKey columnNames="ID" constraintName="config_loggerPK"
+			schemaName="APP" tableName="config_logger" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-21">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_logger_AUDPK"
+			schemaName="APP" tableName="config_logger_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-22">
+		<addPrimaryKey columnNames="ID" constraintName="config_termsPK"
+			schemaName="APP" tableName="config_terms" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-23">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_terms_AUDPK"
+			schemaName="APP" tableName="config_terms_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-24">
+		<addPrimaryKey columnNames="REV, CONFIG_TERMS_ID, TERMS_ID"
+			constraintName="config_terms_config_terms_def_AUDPK" schemaName="APP"
+			tableName="config_terms_config_terms_def_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-25">
+		<addPrimaryKey columnNames="ID" constraintName="config_terms_defPK"
+			schemaName="APP" tableName="config_terms_def" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-26">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_terms_def_AUDPK"
+			schemaName="APP" tableName="config_terms_def_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-27">
+		<addPrimaryKey columnNames="REV, CONFIG_TERMS_DEF_ID, MSG, LOCALE"
+			constraintName="config_terms_def_desc_AUDPK" schemaName="APP"
+			tableName="config_terms_def_desc_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-28">
+		<addPrimaryKey columnNames="REV, CONFIG_TERMS_DEF_ID, EXCLUDEROLES"
+			constraintName="config_terms_def_excroles_AUDPK" schemaName="APP"
+			tableName="config_terms_def_excroles_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-29">
+		<addPrimaryKey columnNames="REV, CONFIG_TERMS_DEF_ID, INCLUDEROLES"
+			constraintName="config_terms_def_incroles_AUDPK" schemaName="APP"
+			tableName="config_terms_def_incroles_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-30">
+		<addPrimaryKey columnNames="REV, CONFIG_TERMS_DEF_ID, MSG, LOCALE"
+			constraintName="config_terms_def_title_AUDPK" schemaName="APP"
+			tableName="config_terms_def_title_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-31">
+		<createIndex indexName="FK_FK32VVEBMJ2E3VG7JHVCRJTTRRB"
+			schemaName="APP" tableName="config_terms_def_title_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-32">
+		<createIndex indexName="FK_FK3FOI8USPNCPKPXTNRT17PKK0B"
+			schemaName="APP" tableName="config_logger">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-33">
+		<createIndex indexName="FK_FK48QV0R8MQ1CRACGMR4WTAUP4X"
+			schemaName="APP" tableName="config_terms_def_desc">
+			<column name="CONFIG_TERMS_DEF_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-34">
+		<createIndex indexName="FK_FK4M45HPFVVDLP2RJ3O358GY35N"
+			schemaName="APP" tableName="config_terms_def_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-35">
+		<createIndex indexName="FK_FK53TACUIQ2F7GB0IA4I7DGMXXD"
+			schemaName="APP" tableName="config_terms_def_excroles_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-36">
+		<createIndex indexName="FK_FK5S6X6XTUCPODD24542SLJ6EHE"
+			schemaName="APP" tableName="config_terms">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-37">
+		<createIndex indexName="FK_FK5WS0RJPJUMDQ2PY3WSVFDK64Q"
+			schemaName="APP" tableName="config_terms_def_title">
+			<column name="CONFIG_TERMS_DEF_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-38">
+		<createIndex indexName="FK_FK9KENMTEEDUTN18JSJP0EP5CGF"
+			schemaName="APP" tableName="config_terms_def_desc_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-39">
+		<createIndex indexName="FK_FKBI31Y91DNXS27D5K5JLXVX21C"
+			schemaName="APP" tableName="config_terms_def">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-40">
+		<createIndex indexName="FK_FKD6HAT6K7AENBCRNTTFDSHOGH4"
+			schemaName="APP" tableName="config_terms_def_excroles">
+			<column name="CONFIG_TERMS_DEF_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-41">
+		<createIndex indexName="FK_FKFLOET9RBSBYRXCYO3CRTEHI0V"
+			schemaName="APP" tableName="config_terms_config_terms_def_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-42">
+		<createIndex indexName="FK_FKGO30IXJN3HEUYMKDENDNXNA51"
+			schemaName="APP" tableName="config_logger_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-43">
+		<createIndex indexName="FK_FKMFQXFC6SEH9GE5P0UDL5UOIKT"
+			schemaName="APP" tableName="config_terms_config_terms_def">
+			<column name="CONFIG_TERMS_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-44">
+		<createIndex indexName="FK_FKN44MFIY6J55X2FK0KI785B46R"
+			schemaName="APP" tableName="config_terms_def_incroles_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-45">
+		<createIndex indexName="FK_FKOPLBNKLS46CCMKT6VEE7SCQ1F"
+			schemaName="APP" tableName="config_terms_def_incroles">
+			<column name="CONFIG_TERMS_DEF_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-46">
+		<createIndex indexName="FK_FKQ522T364FPUT5AH2Y9HT32RG8"
+			schemaName="APP" tableName="config_terms_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-47">
+		<createIndex indexName="FK_FKSD3OOAN9CWGLLTBCU7OL8TQ3W"
+			schemaName="APP" tableName="config_terms_config_terms_def">
+			<column name="TERMS_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-48">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_terms_def_title_AUD" baseTableSchemaName="APP"
+			constraintName="FK32VVEBMJ2E3VG7JHVCRJTTRRB" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-49">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_logger" baseTableSchemaName="APP"
+			constraintName="FK3FOI8USPNCPKPXTNRT17PKK0B" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-50">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_TERMS_DEF_ID"
+			baseTableName="config_terms_def_desc" baseTableSchemaName="APP"
+			constraintName="FK48QV0R8MQ1CRACGMR4WTAUP4X" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_terms_def"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-51">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_terms_def_AUD" baseTableSchemaName="APP"
+			constraintName="FK4M45HPFVVDLP2RJ3O358GY35N" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID,REV" referencedTableName="config_AUD"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-52">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_terms_def_excroles_AUD" baseTableSchemaName="APP"
+			constraintName="FK53TACUIQ2F7GB0IA4I7DGMXXD" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-53">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_terms" baseTableSchemaName="APP"
+			constraintName="FK5S6X6XTUCPODD24542SLJ6EHE" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-54">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_TERMS_DEF_ID"
+			baseTableName="config_terms_def_title" baseTableSchemaName="APP"
+			constraintName="FK5WS0RJPJUMDQ2PY3WSVFDK64Q" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_terms_def"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-55">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_terms_def_desc_AUD" baseTableSchemaName="APP"
+			constraintName="FK9KENMTEEDUTN18JSJP0EP5CGF" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-56">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_terms_def" baseTableSchemaName="APP"
+			constraintName="FKBI31Y91DNXS27D5K5JLXVX21C" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-57">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_TERMS_DEF_ID"
+			baseTableName="config_terms_def_excroles" baseTableSchemaName="APP"
+			constraintName="FKD6HAT6K7AENBCRNTTFDSHOGH4" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_terms_def"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-58">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_terms_config_terms_def_AUD"
+			baseTableSchemaName="APP" constraintName="FKFLOET9RBSBYRXCYO3CRTEHI0V"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-59">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_logger_AUD" baseTableSchemaName="APP"
+			constraintName="FKGO30IXJN3HEUYMKDENDNXNA51" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID,REV" referencedTableName="config_AUD"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-60">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_TERMS_ID"
+			baseTableName="config_terms_config_terms_def" baseTableSchemaName="APP"
+			constraintName="FKMFQXFC6SEH9GE5P0UDL5UOIKT" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_terms"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-61">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_terms_def_incroles_AUD" baseTableSchemaName="APP"
+			constraintName="FKN44MFIY6J55X2FK0KI785B46R" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-62">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_TERMS_DEF_ID"
+			baseTableName="config_terms_def_incroles" baseTableSchemaName="APP"
+			constraintName="FKOPLBNKLS46CCMKT6VEE7SCQ1F" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_terms_def"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-63">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_terms_AUD" baseTableSchemaName="APP"
+			constraintName="FKQ522T364FPUT5AH2Y9HT32RG8" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID,REV" referencedTableName="config_AUD"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1475247099895-64">
+		<addForeignKeyConstraint baseColumnNames="TERMS_ID"
+			baseTableName="config_terms_config_terms_def" baseTableSchemaName="APP"
+			constraintName="FKSD3OOAN9CWGLLTBCU7OL8TQ3W" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_terms_def"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476802856841-1">
+		<addColumn schemaName="APP" tableName="config_web_endpoint">
+			<column name="HPKPREPORTONLY" type="boolean" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476802856841-2">
+		<addColumn schemaName="APP" tableName="config_web_endpoint_AUD">
+			<column name="HPKPREPORTONLY" type="boolean" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1477475524780-1">
+		<createTable schemaName="APP" tableName="config_runtime_debug_pkg">
+			<column name="CONFIG_RUNTIME_ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="DEBUGPACKAGES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1477475524780-2">
+		<createTable schemaName="APP" tableName="config_runtime_debug_pkg_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_RUNTIME_ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="DEBUGPACKAGES" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1477475524780-3">
+		<createTable schemaName="APP" tableName="config_runtime_trace_pkg">
+			<column name="CONFIG_RUNTIME_ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="TRACEPACKAGES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1477475524780-4">
+		<createTable schemaName="APP" tableName="config_runtime_trace_pkg_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_RUNTIME_ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="TRACEPACKAGES" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1477475524780-5">
+		<addPrimaryKey columnNames="REV, CONFIG_RUNTIME_ID, DEBUGPACKAGES"
+			constraintName="config_runtime_debug_pkg_AUDPK" schemaName="APP"
+			tableName="config_runtime_debug_pkg_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1477475524780-6">
+		<addPrimaryKey columnNames="REV, CONFIG_RUNTIME_ID, TRACEPACKAGES"
+			constraintName="config_runtime_trace_pkg_AUDPK" schemaName="APP"
+			tableName="config_runtime_trace_pkg_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1477475524780-7">
+		<createIndex indexName="FK_FK4745KPGE3UGMKQHJHLTTOAKAU"
+			schemaName="APP" tableName="config_runtime_trace_pkg_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1477475524780-8">
+		<createIndex indexName="FK_FKFKTLF5JOF815KHFQV1N9OXLWI"
+			schemaName="APP" tableName="config_runtime_debug_pkg_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1477475524780-9">
+		<createIndex indexName="FK_FKHJVROP6PLQ26GBRPKIPOSD5F2"
+			schemaName="APP" tableName="config_runtime_debug_pkg">
+			<column name="CONFIG_RUNTIME_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1477475524780-10">
+		<createIndex indexName="FK_FKMXFRKBN52MON7D8NGHRSQKSWW"
+			schemaName="APP" tableName="config_runtime_trace_pkg">
+			<column name="CONFIG_RUNTIME_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1477475524780-11">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_runtime_trace_pkg_AUD" baseTableSchemaName="APP"
+			constraintName="FK4745KPGE3UGMKQHJHLTTOAKAU" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1477475524780-12">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_runtime_debug_pkg_AUD" baseTableSchemaName="APP"
+			constraintName="FKFKTLF5JOF815KHFQV1N9OXLWI" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1477475524780-13">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_RUNTIME_ID"
+			baseTableName="config_runtime_debug_pkg" baseTableSchemaName="APP"
+			constraintName="FKHJVROP6PLQ26GBRPKIPOSD5F2" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_runtime"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1477475524780-14">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_RUNTIME_ID"
+			baseTableName="config_runtime_trace_pkg" baseTableSchemaName="APP"
+			constraintName="FKMXFRKBN52MON7D8NGHRSQKSWW" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_runtime"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1484237065943-1">
+		<addColumn schemaName="APP" tableName="config_web_ldap">
+			<column name="SASLMECHANISM" type="varchar(255 BYTE)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1484237065943-2">
+		<addColumn schemaName="APP" tableName="config_web_ldap_AUD">
+			<column name="SASLMECHANISM" type="varchar(255 BYTE)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1484237065943-3">
+		<addColumn schemaName="APP" tableName="config_web_ldap">
+			<column name="SOCKETTIMEOUT" type="bigint" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1484237065943-4">
+		<addColumn schemaName="APP" tableName="config_web_ldap_AUD">
+			<column name="SOCKETTIMEOUT" type="bigint" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1484237065944-1">
+		<addColumn schemaName="APP" tableName="config_web_ldap">
+			<column name="SASLREALM" type="varchar(255 BYTE)" />
+		</addColumn>
+		<addColumn schemaName="APP" tableName="config_web_ldap">
+			<column name="SASLQOP" type="varchar(255 BYTE)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1484237065944-2">
+		<addColumn schemaName="APP" tableName="config_web_ldap_AUD">
+			<column name="SASLREALM" type="varchar(255 BYTE)" />
+		</addColumn>
+		<addColumn schemaName="APP" tableName="config_web_ldap_AUD">
+			<column name="SASLQOP" type="varchar(255 BYTE)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1484500285439-1">
+		<createTable schemaName="APP" tableName="config_web_sslclient_pinkeys">
+			<column name="CONFIG_WEB_SSLCLIENT_ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="PINNEDPUBLICKEYS_KEYID" type="VARCHAR(128)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1484500285439-2">
+		<createTable schemaName="APP" tableName="config_web_sslclient_pinkeys_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_WEB_SSLCLIENT_ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="PINNEDPUBLICKEYS_KEYID" type="VARCHAR(128)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1484500285439-3">
+		<addColumn schemaName="APP" tableName="config_web_sslclient">
+			<column name="PUBLICKEYPINMODE" type="varchar(255 BYTE)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1484500285439-4">
+		<addColumn schemaName="APP" tableName="config_web_sslclient_AUD">
+			<column name="PUBLICKEYPINMODE" type="varchar(255 BYTE)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1484500285439-5">
+		<addPrimaryKey columnNames="CONFIG_WEB_SSLCLIENT_ID, PINNEDPUBLICKEYS_KEYID"
+			schemaName="APP" tableName="config_web_sslclient_pinkeys" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1484500285439-6">
+		<addPrimaryKey columnNames="REV, CONFIG_WEB_SSLCLIENT_ID, PINNEDPUBLICKEYS_KEYID"
+			constraintName="config_web_sslclient_pinkeys_AUDPK" schemaName="APP"
+			tableName="config_web_sslclient_pinkeys_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1484500285439-7">
+		<createIndex indexName="FK_FKAP9CLM7211PC7WO71YKBEFURP"
+			schemaName="APP" tableName="config_web_sslclient_pinkeys">
+			<column name="PINNEDPUBLICKEYS_KEYID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1484500285439-8">
+		<createIndex indexName="FK_FKFT7WXLE2WJI5VUVKWBL8F9R71"
+			schemaName="APP" tableName="config_web_sslclient_pinkeys_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1484500285439-9">
+		<createIndex indexName="FK_FKQ94PD1N1E7AUL3WA2UHW47V05"
+			schemaName="APP" tableName="config_web_sslclient_pinkeys">
+			<column name="CONFIG_WEB_SSLCLIENT_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1484500285439-10">
+		<addForeignKeyConstraint baseColumnNames="PINNEDPUBLICKEYS_KEYID"
+			baseTableName="config_web_sslclient_pinkeys" baseTableSchemaName="APP"
+			constraintName="FKAP9CLM7211PC7WO71YKBEFURP" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="KEYID" referencedTableName="config_crypto_public_keys"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1484500285439-11">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_web_sslclient_pinkeys_AUD" baseTableSchemaName="APP"
+			constraintName="FKFT7WXLE2WJI5VUVKWBL8F9R71" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1484500285439-12">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_WEB_SSLCLIENT_ID"
+			baseTableName="config_web_sslclient_pinkeys" baseTableSchemaName="APP"
+			constraintName="FKQ94PD1N1E7AUL3WA2UHW47V05" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_web_sslclient"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+</databaseChangeLog>

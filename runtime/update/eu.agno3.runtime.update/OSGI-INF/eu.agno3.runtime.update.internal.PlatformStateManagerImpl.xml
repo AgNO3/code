@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" immediate="true" name="eu.agno3.runtime.update.internal.PlatformStateManagerImpl" activate="activate" deactivate="deactivate" configuration-pid="platformManager">
+    <property name="objectName" value="eu.agno3.runtime.update:type=PlatformState"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.update.PlatformStateManager"/>
+        <provide interface="eu.agno3.runtime.update.internal.PlatformStateManagerImpl"/>
+        <provide interface="eu.agno3.runtime.update.RefreshListener"/>
+        <provide interface="eu.agno3.runtime.configloader.ReconfigurationListener"/>
+        <provide interface="eu.agno3.runtime.update.PlatformStateMXBean"/>
+        <provide interface="eu.agno3.runtime.jmx.MBean"/>
+    </service>
+    <reference name="Listener" interface="eu.agno3.runtime.update.PlatformStateListener" cardinality="0..n" policy="dynamic" bind="bindListener" unbind="unbindListener"/>
+    <reference name="ApplicationStateProvider" interface="eu.agno3.runtime.update.ApplicationStateProvider" cardinality="0..1" policy="dynamic" bind="bindApplicationStateProvider" unbind="unbindApplicationStateProvider"/>
+    <reference name="StartupMonitor" interface="org.eclipse.osgi.service.runnable.StartupMonitor" cardinality="0..1" policy="dynamic" bind="bindStartupMonitor" unbind="unbindStartupMonitor"/>
+    <implementation class="eu.agno3.runtime.update.internal.PlatformStateManagerImpl"/>
+</scr:component>

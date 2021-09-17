@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:shiro="http://shiro.ops4j.org/tags"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0"
+	template="/tpl/common/template.xhtml">
+
+	<ui:param name="at" value="${'files'}" />
+	<ui:param name="subtitle"
+		value="#{fileDisplayBean.getEntityLocalDisplayName(fileRootSelectionBean.root)}" />
+	<ui:param name="resumeupload_update" value="fileTable" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="token" value="#{userTokenBean.token}"
+				required="false" />
+			<f:viewParam name="root"
+				value="#{fileRootSelectionBean.selectedRootIdEncoded}"
+				required="false" />
+			<f:viewParam name="type"
+				value="#{fileRootSelectionBean.selectedType}" required="false" />
+			<f:viewParam name="grant"
+				value="#{fileRootSelectionBean.selectedRootGrantId}"
+				converter="#{uuidConverter}" required="false" />
+			<f:viewParam name="rootType"
+				value="#{fileRootSelectionBean.selectedRootType}" required="false" />
+			<f:viewParam name="peer"
+				value="#{fileRootSelectionBean.selectedPeer}" required="false" />
+			<f:viewParam name="query" value="#{fileRootSelectionBean.query}"
+				required="false" />
+			<f:viewParam name="offset" value="#{fileRootSelectionBean.offset}"
+				required="false" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<ui:include src="/tpl/fileView.xhtml" />
+	</ui:define>
+
+	<ui:define name="menu">
+		<ui:include src="/tpl/filesMenu.xhtml">
+			<ui:param name="at" value="${at}" />
+			<ui:param name="rootGrant" value="#{fileRootSelectionBean.rootGrant}" />
+		</ui:include>
+	</ui:define>
+</ui:composition>

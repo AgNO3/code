@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.runtime.security.web.internal.OSGIWebSecurityManager" factory="eu.agno3.runtime.security.web.internal.OSGIWebSecurityManager" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="org.apache.shiro.web.mgt.WebSecurityManager"/>
+    </service>
+    <reference name="Realm" interface="org.apache.shiro.realm.Realm" cardinality="0..n" policy="dynamic" target="(_doesnotexist=*)" bind="bindRealm" unbind="unbindRealm"/>
+    <implementation class="eu.agno3.runtime.security.web.internal.OSGIWebSecurityManager"/>
+</scr:component>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:shiro="http://shiro.ops4j.org/tags">
+
+
+
+	<p:dataTable id="auditTable" value="#{entityHistoryTable.model}"
+		styleClass="audit-table" var="log" paginator="true"
+		paginatorPosition="bottom" lazy="true"
+		rows="#{entityHistoryTable.pageSize}" paginatorAlwaysVisible="false">
+
+		<f:facet name="header">
+			<p:toolbar>
+				<f:facet name="left">
+					<p:selectOneRadio id="auditFilterSelection"
+						value="#{entityHistoryTable.filter}" layout="lineDirection">
+						<p:ajax event="change" listener="#{entityHistoryTable.refresh()}"
+							update="auditTable" />
+						<f:selectItem itemLabel="#{_msgs['audit.filter.content']}"
+							itemValue="content" />
+						<f:selectItem itemLabel="#{_msgs['audit.filter.share']}"
+							itemValue="share" />
+						<f:selectItem itemLabel="#{_msgs['audit.filter.all']}"
+							itemValue="all" />
+					</p:selectOneRadio>
+				</f:facet>
+
+				<f:facet name="right">
+					<div style="display: inline-block; vertical-align: middle">
+						<h:outputFormat value="#{_msgs['audit.retentionTimeFmt']}">
+							<f:param value="#{entityHistoryTable.retentionTime}" />
+						</h:outputFormat>
+					</div>
+
+					<p:commandButton
+						style="margin-left: 1em; display: inline-block; vertical-align: middle"
+						actionListener="#{entityHistoryTable.refresh()}"
+						icon="ui-icon-refresh" update="auditTable" />
+				</f:facet>
+			</p:toolbar>
+		</f:facet>
+
+		<p:column style="width: 1em">
+			<p:rowToggler />
+		</p:column>
+
+		<p:column headerText="#{_msgs['audit.date.header']}"
+			style="width: 10em">
+			<h:outputText
+				title="#{localeSettingsBean.formatTimestamp(log.timestamp, 'SM')}"
+				value="#{localeSettingsBean.formatTimestampRelative(log.timestamp)}" />
+		</p:column>
+
+		<p:column headerText="#{_msgs['audit.item.header']}">
+			<h:outputText
+				styleClass="ui-icon ui-icon-inline #{auditFormatterBean.getActionIcon(urlFileSelectionBean.singleSelectionId, log)}"
+				title="#{auditFormatterBean.formatAction(urlFileSelectionBean.singleSelectionId, log)}" />
+
+			<h:outputText rendered="#{log.severity != 'AUDIT'}"
+				title="#{msgs.formatEL('audit.statusFmt', log.status)}"
+				styleClass="ui-icon ui-icon-inline ui-icon-alert ui-state-error" />
+
+			<h:outputText rendered="#{log.severity == 'AUDIT'}"
+				styleClass="ui-icon ui-icon-inline ui-icon-blank" />
+
+			<h:outputText style="font-weight: bold"
+				value="#{auditFormatterBean.getEntityName(urlFileSelectionBean.singleSelectionId,log)}" />
+
+			<h:outputText style="margin-left: 0.4em"
+				value="#{auditFormatterBean.getExtraInfo(urlFileSelectionBean.singleSelectionId,log)}" />
+
+		</p:column>
+		<p:column headerText="#{_msgs['audit.user.header']}"
+			style="width: 25%">
+			<h:outputText
+				styleClass="ui-icon ui-icon-inline #{auditFormatterBean.getSubjectIcon(log)}" />
+			<h:outputText value="#{auditFormatterBean.formatUser(log)}" />
+			<h:outputText rendered="#{not empty log.grant}" value="#{log.grant}" />
+		</p:column>
+
+		<p:rowExpansion>
+			<dl class="properties">
+				<ui:fragment
+					rendered="#{currentUserBean.hasPermission('audit:readIp')}">
+					<dt>
+						<h:outputText value="#{_msgs['audit.props.remoteAddr']}" />
+					</dt>
+					<dd>
+						<h:outputText value="#{log.remoteAddr}" />
+					</dd>
+				</ui:fragment>
+				<ui:fragment rendered="#{not empty log.policyViolation}">
+					<dt>
+						<h:outputText value="#{_msgs['audit.props.policyViolation']}" />
+					</dt>
+					<dd>
+						<h:outputText value="#{log.policyViolation}" />
+					</dd>
+				</ui:fragment>
+				<ui:repeat value="#{log.properties.entrySet()}" var="e">
+					<dt>
+						<h:outputText value="#{e.key}" />
+					</dt>
+					<dd>
+						<h:outputText value="#{e.value}" />
+					</dd>
+				</ui:repeat>
+			</dl>
+		</p:rowExpansion>
+	</p:dataTable>
+
+</ui:composition>

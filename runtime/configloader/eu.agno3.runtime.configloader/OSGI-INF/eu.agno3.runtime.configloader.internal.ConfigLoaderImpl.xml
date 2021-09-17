@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.runtime.configloader.internal.ConfigLoaderImpl" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.configloader.ConfigLoader"/>
+    </service>
+    <reference name="ConfigAdmin" interface="org.osgi.service.cm.ConfigurationAdmin" cardinality="1..1" policy="static" bind="setConfigAdmin" unbind="unsetConfigAdmin"/>
+    <reference name="ReconfigurationListener" interface="eu.agno3.runtime.configloader.ReconfigurationListener" cardinality="0..n" policy="dynamic" bind="bindReconfigurationListener" unbind="unbindReconfigurationListener"/>
+    <implementation class="eu.agno3.runtime.configloader.internal.ConfigLoaderImpl"/>
+</scr:component>

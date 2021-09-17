@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.agent.server.sysinfo.internal.AgentSystemInformationServiceImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.ws.common.SOAPWebService"/>
+    </service>
+    <reference name="AgentSysInfoTracker" interface="eu.agno3.orchestrator.agent.server.sysinfo.internal.AgentSystemInformationTracker" cardinality="1..1" policy="static" bind="setAgentSysInfoTracker" unbind="unsetAgentSysInfoTracker"/>
+    <reference name="Context" interface="eu.agno3.orchestrator.config.model.base.server.context.DefaultServerServiceContext" cardinality="1..1" policy="static" bind="setContext" unbind="unsetContext"/>
+    <reference name="AgentService" interface="eu.agno3.orchestrator.config.model.realm.server.service.AgentServerService" cardinality="1..1" policy="static" bind="setAgentService" unbind="unsetAgentService"/>
+    <reference name="ObjectAccessControl" interface="eu.agno3.orchestrator.config.model.realm.server.service.ObjectAccessControl" cardinality="1..1" policy="static" bind="setObjectAccessControl" unbind="unsetObjectAccessControl"/>
+    <implementation class="eu.agno3.orchestrator.agent.server.sysinfo.internal.AgentSystemInformationServiceImpl"/>
+</scr:component>

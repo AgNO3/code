@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="update-feature"
+      label="Update"
+      version="0.0.90"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <plugin
+         id="eu.agno3.runtime.update"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.runtime.update.console"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" immediate="true" name="eu.agno3.runtime.update.internal.TrustEngineImpl">
+    <property name="osgi.signedcontent.trust.engine" value="agno3"/>
+    <service servicefactory="false">
+        <provide interface="org.eclipse.osgi.service.security.TrustEngine"/>
+    </service>
+    <reference name="TrustChecker" interface="eu.agno3.runtime.crypto.tls.TrustChecker" cardinality="1..1" policy="static" bind="setTrustChecker" unbind="unsetTrustChecker"/>
+    <reference name="GlobalTrustConfiguration" interface="eu.agno3.runtime.crypto.tls.TrustConfiguration" cardinality="0..1" policy="static" target="(instanceId=client)" bind="setGlobalTrustConfiguration" unbind="unsetGlobalTrustConfiguration"/>
+    <reference name="TrustConfiguration" interface="eu.agno3.runtime.update.UpdateTrustConfiguration" cardinality="1..1" policy="static" bind="setTrustConfiguration" unbind="unsetTrustConfiguration"/>
+    <implementation class="eu.agno3.runtime.update.internal.TrustEngineImpl"/>
+</scr:component>

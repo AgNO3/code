@@ -1,0 +1,22 @@
+Bundle-SymbolicName: eu.agno3.runtime.scheduler
+Bundle-Version: 0.0.18
+Bundle-Name: Scheduler
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.runtime.ldap.filter;version="0.0.6",
+ eu.agno3.runtime.util.osgi;version="0.0.92",
+ org.apache.commons.lang3;version="3.1.0",
+ org.apache.log4j;version="1.2.15",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.osgi.util.tracker;version="1.5.1",
+ org.quartz;version="2.2.1",
+ org.quartz.impl;version="2.2.1",
+ org.quartz.simpl;version="2.2.1",
+ org.quartz.spi;version="2.2.1",
+ org.quartz.utils;version="2.2.1"
+Service-Component: OSGI-INF/*.xml
+Bundle-ActivationPolicy: lazy
+Export-Package: eu.agno3.runtime.scheduler;version="0.0.18"

@@ -1,0 +1,142 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+<composite:interface>
+	<composite:attribute name="deferred" required="false" default="true" />
+	<composite:attribute name="subject" required="true"
+		type="eu.agno3.fileshare.model.SubjectInfo" />
+	<composite:attribute name="noCheckPerm" required="false"
+		default="false" />
+</composite:interface>
+
+<composite:implementation>
+
+	<p:outputPanel global="false" deferred="${cc.attrs.deferred}"
+		deferredMode="visible" styleClass="user-details"
+		style="padding: 0.5em; width: 15em; color: #{userTrustBean.getDisplayTrustLevelColor(cc.attrs.subject)}"
+		rendered="#{not empty cc.attrs.subject.id and subjectDisplayBean.isGroup(cc.attrs.subject) and (cc.attrs.noCheckPerm or currentUserBean.hasAnyPermission('subjects:query:details','manage:subjects:list'))}">
+		<span style="color: inherit"
+			class="ui-icon #{userTrustBean.getNameIconClass(cc.attrs.subject)} ui-icon-inline" />
+		<h:outputFormat
+			styleClass="groupname-display #{userTrustBean.getNameDisplayClass(cc.attrs.subject)}"
+			style="font-weight: bold; display: inline-block"
+			value="#{_msgs['userDetail.groupDisplayFmt']}">
+			<f:param value="#{cc.attrs.subject.name}" />
+		</h:outputFormat>
+
+		<h:outputFormat styleClass="realm"
+			rendered="#{authInfoBean.multiRealm and not empty cc.attrs.subject.realm}"
+			style="font-weight: bold; display: inline-block; margin-left: 0.5em"
+			value="({0})">
+			<f:param value="#{cc.attrs.subject.realm}" />
+		</h:outputFormat>
+
+
+		<h:outputText style="display: block"
+			value="#{userTrustBean.getDisplayTrustLevelMessage(cc.attrs.subject)}" />
+	</p:outputPanel>
+
+	<p:outputPanel global="false" deferred="${cc.attrs.deferred}"
+		styleClass="user-details" deferredMode="visible"
+		style="padding: 0.5em; width: 15em; color: #{userTrustBean.getDisplayTrustLevelColor(cc.attrs.subject)}"
+		rendered="#{not empty cc.attrs.subject.id and subjectDisplayBean.isUser(cc.attrs.subject) and (cc.attrs.noCheckPerm or currentUserBean.hasAnyPermission('subjects:query:details','manage:subjects:list'))}">
+
+		<span style="color: inherit"
+			class="ui-icon #{userTrustBean.getNameIconClass(cc.attrs.subject)} ui-icon-inline" />
+		<h:outputText
+			styleClass="username-display #{userTrustBean.getNameDisplayClass(subject)}"
+			style="font-weight: bold; display: inline-block"
+			value="#{subjectDisplayBean.getNameFromDetails(userDetailsCacheBean.getUserDetails(cc.attrs.subject.id), cc.attrs.subject.principal.userName)}" />
+
+
+		<h:outputFormat styleClass="realm"
+			rendered="#{authInfoBean.multiRealm}"
+			style="font-weight: bold; display: inline-block; margin-left: 0.5em"
+			value="({0})">
+			<f:param value="#{cc.attrs.subject.realm}" />
+		</h:outputFormat>
+
+		<h:outputText style="display: block"
+			value="#{userTrustBean.getDisplayTrustLevelMessage(cc.attrs.subject)}" />
+
+		<p:fieldset styleClass="verified"
+			legend="#{_msgs['userDetail.verified.title']}"
+			rendered="#{userDetailsCacheBean.haveVerifiedUserDetails(cc.attrs.subject.id)}">
+			<p:outputPanel
+				rendered="#{userDetailsCacheBean.getUserDetails(cc.attrs.subject.id).preferredNameVerified and not empty userDetailsCacheBean.getUserDetails(cc.attrs.subject.id).preferredName}">
+				<p:outputLabel for="preferredName"
+					value="#{_msgs['userDetail.name.label']}" />
+				<h:outputText id="preferredName"
+					style="display: block; font-style: italic"
+					value="#{userDetailsCacheBean.getUserDetails(cc.attrs.subject.id).preferredName}" />
+			</p:outputPanel>
+
+			<p:outputPanel
+				rendered="#{userDetailsCacheBean.getUserDetails(cc.attrs.subject.id).mailAddressVerified and 
+					not empty userDetailsCacheBean.getUserDetails(cc.attrs.subject.id).mailAddress}">
+				<p:outputLabel for="mailAddress"
+					value="#{_msgs['userDetail.mailAddress.label']}" />
+				<p:outputPanel id="mailAddress" style="display: block">
+					<span class="ui-icon ui-icon-inline ui-icon-mail-closed"
+						style="color: inherit" />
+					<h:outputText
+						value="#{userDetailsCacheBean.getUserDetails(cc.attrs.subject.id).mailAddress}" />
+				</p:outputPanel>
+			</p:outputPanel>
+
+			<p:outputLabel for="jobTitle"
+				value="#{_msgs['userDetail.jobTitle.label']}"
+				rendered="#{not empty userDetailsCacheBean.getUserDetails(cc.attrs.subject.id).jobTitle}" />
+			<h:outputText id="jobTitle"
+				style="font-style: italic; display: block"
+				value="#{userDetailsCacheBean.getUserDetails(cc.attrs.subject.id).jobTitle}" />
+
+			<p:outputLabel for="organization"
+				value="#{_msgs['userDetail.organization.label']}"
+				rendered="#{not empty userDetailsCacheBean.getUserDetails(cc.attrs.subject.id).organization}" />
+			<h:outputText id="organization"
+				style="font-weight: bold; display: block"
+				value="#{userDetailsCacheBean.getUserDetails(cc.attrs.subject.id).organization}" />
+
+			<p:outputLabel for="organizationUnit"
+				value="#{_msgs['userDetail.organizationUnit.label']}"
+				rendered="#{not empty userDetailsCacheBean.getUserDetails(cc.attrs.subject.id).organizationUnit}" />
+			<h:outputText id="organizationUnit" style="display: block"
+				value="#{userDetailsCacheBean.getUserDetails(cc.attrs.subject.id).organizationUnit}" />
+		</p:fieldset>
+
+		<p:fieldset styleClass="user-supplied"
+			rendered="#{userDetailsCacheBean.haveUnverifiedUserDetails(cc.attrs.subject.id)}">
+			<f:facet name="legend">
+				<h:outputText value="#{_msgs['userDetail.unverified.title']}" />
+				<span class="ui-icon ui-icon-inline ui-icon-alert"
+					style="color: inherit" />
+			</f:facet>
+			<p:outputPanel
+				rendered="#{not userDetailsCacheBean.getUserDetails(cc.attrs.subject.id).preferredNameVerified and not empty userDetailsCacheBean.getUserDetails(cc.attrs.subject.id).preferredName}">
+				<p:outputLabel for="preferredNameUnv"
+					value="#{_msgs['userDetail.name.label']}" />
+				<h:outputText id="preferredNameUnv"
+					style="display: block; font-style: italic"
+					value="#{userDetailsCacheBean.getUserDetails(cc.attrs.subject.id).preferredName}" />
+			</p:outputPanel>
+			<p:outputPanel
+				rendered="#{not userDetailsCacheBean.getUserDetails(cc.attrs.subject.id).mailAddressVerified and not empty userDetailsCacheBean.getUserDetails(cc.attrs.subject.id).mailAddress}">
+				<p:outputLabel for="mailAddressUnv"
+					value="#{_msgs['userDetail.mailAddress.label']}" />
+				<p:outputPanel id="mailAddressUnv" style="display: block">
+					<span class="ui-icon ui-icon-inline ui-icon-mail-closed" />
+					<h:outputText
+						value="#{userDetailsCacheBean.getUserDetails(cc.attrs.subject.id).mailAddress}" />
+				</p:outputPanel>
+			</p:outputPanel>
+		</p:fieldset>
+	</p:outputPanel>
+</composite:implementation>
+</html>
+

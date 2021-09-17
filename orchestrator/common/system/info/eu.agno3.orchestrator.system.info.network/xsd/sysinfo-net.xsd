@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:si="urn:agno3:model:1.0:system:info" xmlns:tnet="urn:agno3:model:1.0:types:net" xmlns:ni="urn:agno3:model:1.0:system:info:network" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:model:1.0:system:info:network" elementFormDefault="qualified">
+   <xsd:import schemaLocation="urn:agno3:model:1.0:system:info" namespace="urn:agno3:model:1.0:system:info"/>
+   <xsd:import schemaLocation="urn:agno3:model:1.0:types:net" namespace="urn:agno3:model:1.0:types:net"/>
+   <xsd:complexType name="networkInformation">
+      <xsd:complexContent>
+         <xsd:extension base="si:systemInformation">
+            <xsd:sequence>
+               <xsd:element name="dnsServers" minOccurs="0">
+                  <xsd:complexType>
+                     <xsd:sequence>
+                        <xsd:element name="server" type="tnet:networkAddress" minOccurs="0" maxOccurs="unbounded"/>
+                     </xsd:sequence>
+                  </xsd:complexType>
+               </xsd:element>
+               <xsd:element name="interfaces" minOccurs="0">
+                  <xsd:complexType>
+                     <xsd:sequence>
+                        <xsd:element name="interface" type="ni:interface" minOccurs="0" maxOccurs="unbounded"/>
+                     </xsd:sequence>
+                  </xsd:complexType>
+               </xsd:element>
+               <xsd:element name="routes" minOccurs="0">
+                  <xsd:complexType>
+                     <xsd:sequence>
+                        <xsd:element name="route" type="ni:routeType" minOccurs="0" maxOccurs="unbounded"/>
+                     </xsd:sequence>
+                  </xsd:complexType>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="interface">
+      <xsd:sequence>
+         <xsd:element name="ifAlias" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="dhcpLeases" minOccurs="0">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="lease" type="ni:dhcpLeaseType" minOccurs="0" maxOccurs="unbounded"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="displayName" type="xsd:string" minOccurs="0"/>
+         <xsd:choice minOccurs="0">
+            <xsd:element ref="tnet:mac"/>
+            <xsd:element ref="tnet:hwAddress"/>
+         </xsd:choice>
+         <xsd:element name="addresses" minOccurs="0">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="address" type="tnet:networkType" minOccurs="0" maxOccurs="unbounded"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="subInterfaces" minOccurs="0">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="subInterface" type="ni:interface" minOccurs="0" maxOccurs="unbounded"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+      </xsd:sequence>
+      <xsd:attribute name="index" type="xsd:int" use="required"/>
+      <xsd:attribute name="status" type="ni:interfaceStatus"/>
+      <xsd:attribute name="type" type="ni:interfaceType"/>
+      <xsd:attribute name="mtu" type="xsd:int" use="required"/>
+      <xsd:attribute name="name" type="xsd:string" use="required"/>
+      <xsd:attribute name="v4configType" type="ni:v4ConfigurationType"/>
+      <xsd:attribute name="v6configType" type="ni:v6ConfigurationType"/>
+   </xsd:complexType>
+   <xsd:complexType name="routeType">
+      <xsd:sequence>
+         <xsd:element name="ifname" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="network" type="tnet:networkType" minOccurs="0"/>
+         <xsd:element name="source" type="tnet:networkType" minOccurs="0"/>
+         <xsd:element name="gateway" type="tnet:networkAddress" minOccurs="0"/>
+         <xsd:element name="metric" type="xsd:int"/>
+         <xsd:element name="ref" type="xsd:int"/>
+         <xsd:element name="use" type="xsd:int"/>
+         <xsd:element name="flags" minOccurs="0">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="flag" type="ni:routeFlags" minOccurs="0" maxOccurs="unbounded"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="mtu" type="xsd:int"/>
+         <xsd:element name="window" type="xsd:int"/>
+         <xsd:element name="irtt" type="xsd:int"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="dhcpLeaseType">
+      <xsd:sequence>
+         <xsd:element name="network" type="tnet:networkType" minOccurs="0"/>
+         <xsd:element name="expires" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="rebind" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="renew" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="type" type="ni:dhcpAssociationType" minOccurs="0"/>
+         <xsd:element name="status" type="ni:dhcpLeaseStatus" minOccurs="0"/>
+         <xsd:element name="options" type="ni:dhcpOptionsType" minOccurs="0"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="dhcpOptionsType">
+      <xsd:sequence>
+         <xsd:element name="option" type="ni:dhcpOptionType" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="dhcpOptionType">
+      <xsd:sequence>
+         <xsd:element name="key" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="values" minOccurs="0">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="value" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:element name="networkInformation" type="ni:networkInformation"/>
+   <xsd:element name="networkInterface" type="ni:interface"/>
+   <xsd:element name="route" type="ni:routeType"/>
+   <xsd:element name="dhcpLease" type="ni:dhcpLeaseType"/>
+   <xsd:element name="dhcpOptions" type="ni:dhcpOptionsType"/>
+   <xsd:element name="dhcpOption" type="ni:dhcpOptionType"/>
+   <xsd:simpleType name="interfaceStatus">
+      <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="UNKNOWN"/>
+         <xsd:enumeration value="DOWN"/>
+         <xsd:enumeration value="UP"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="interfaceType">
+      <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="UNKNOWN"/>
+         <xsd:enumeration value="ETH"/>
+         <xsd:enumeration value="VIRTUAL"/>
+         <xsd:enumeration value="PPP"/>
+         <xsd:enumeration value="LOOPBACK"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="v4ConfigurationType">
+      <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="DISABLED"/>
+         <xsd:enumeration value="STATIC"/>
+         <xsd:enumeration value="DHCP"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="v6ConfigurationType">
+      <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="DISABLED"/>
+         <xsd:enumeration value="STATIC"/>
+         <xsd:enumeration value="STATELESS"/>
+         <xsd:enumeration value="DHCP"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="routeFlags">
+      <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="UP"/>
+         <xsd:enumeration value="GATEWAY"/>
+         <xsd:enumeration value="HOST"/>
+         <xsd:enumeration value="DYNAMIC"/>
+         <xsd:enumeration value="DYNAMIC_MODIFIED"/>
+         <xsd:enumeration value="REJECT"/>
+         <xsd:enumeration value="ANYCAST"/>
+         <xsd:enumeration value="FALLBACK"/>
+         <xsd:enumeration value="V6_ND"/>
+         <xsd:enumeration value="V6_RA_ADDRCONF"/>
+         <xsd:enumeration value="V6_RA_PREFIX_RT"/>
+         <xsd:enumeration value="V6_RA_ROUTEINFO"/>
+         <xsd:enumeration value="LINKLOCAL"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="dhcpAssociationType">
+      <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="V4"/>
+         <xsd:enumeration value="BOOTP"/>
+         <xsd:enumeration value="V6_TA"/>
+         <xsd:enumeration value="V6_NA"/>
+         <xsd:enumeration value="V6_PD"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:simpleType name="dhcpLeaseStatus">
+      <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="ACTIVE"/>
+         <xsd:enumeration value="RELEASED"/>
+         <xsd:enumeration value="EXPIRED"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+</xsd:schema>

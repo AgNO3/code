@@ -1,0 +1,27 @@
+Bundle-SymbolicName: eu.agno3.runtime.db
+Bundle-Version: 0.0.166
+Bundle-Name: Database Service
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.runtime.crypto;version="0.0.72",
+ eu.agno3.runtime.db;version="0.0.10",
+ eu.agno3.runtime.ldap.filter;version="0.0.6",
+ eu.agno3.runtime.util.log;version="0.0.66",
+ eu.agno3.runtime.util.osgi;version="0.0.66",
+ eu.agno3.runtime.util.serialization;version="0.0.66",
+ org.apache.commons.dbcp2;version="2.1.1",
+ org.apache.commons.dbcp2.managed;version="2.1.1",
+ org.apache.commons.lang3;version="3.6.0",
+ org.apache.commons.pool2;version="2.4.2",
+ org.apache.commons.pool2.impl;version="2.4.2",
+ org.apache.log4j;version="1.2.15",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.cm;version="1.4.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.osgi.service.jdbc;version="1.0.0",
+ org.osgi.util.tracker;version="1.5.1"
+Export-Package: eu.agno3.runtime.db;version="0.0.166";uses:="javax.sql,javax.transaction.xa",
+ eu.agno3.runtime.db.embedded;version="0.0.166";uses:="javax.sql,org.osgi.service.component,org.osgi.service.jdbc"
+Service-Component: OSGI-INF/*.xml

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	template="/tpl/common/dialog.xhtml">
+	<ui:param name="title"
+		value="#{msgs.formatEL('realms.adRekeyDomain.titleFmt', adRealmContext.domain)}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="instance"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}">
+			</f:viewParam>
+
+			<f:viewParam name="domain" value="#{adRealmContext.domain}"
+				required="true" requiredMessage="#{_gui['require.param']}">
+			</f:viewParam>
+		</f:metadata>
+	</ui:define>
+
+
+	<ui:define name="content">
+		<h:form>
+			<ag:dialogContextHolder />
+
+			<p:messages autoUpdate="true" />
+
+			<p:fieldset
+				legend="#{msgs.formatEL('realms.adRekeyDomain.titleFmt', adRealmContext.domain)}">
+
+				<div class="buttons">
+					<p:commandButton action="#{adRealmContext.rekey()}"
+						icon="ui-icon-check"
+						value="#{_gui['realms.adRekeyDomain.confirm']}" />
+
+					<p:commandButton immediate="true" action="#{dialog.close}"
+						icon="ui-icon-cancel" styleClass="close-button"
+						value="#{_gui['realms.adRekeyDomain.cancel']}" />
+				</div>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

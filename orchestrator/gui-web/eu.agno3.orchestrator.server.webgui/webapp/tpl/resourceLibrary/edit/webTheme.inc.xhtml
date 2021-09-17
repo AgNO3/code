@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+	<p:toolbar id="fileToolbar" styleClass="file-toolbar">
+		<f:facet name="left">
+			<ui:include src="/tpl/resourceLibrary/fileMenu.xhtml">
+				<ui:param name="update"
+					value="${'@form:editor:fileEditor @form:editor'}" />
+			</ui:include>
+		</f:facet>
+	</p:toolbar>
+
+
+	<p:messages autoUpdate="true" showDetail="true" />
+
+	<p:panelGrid id="editor">
+		<p:row>
+			<p:column>
+				<ui:include src="/tpl/resourceLibrary/defaultFileTree.xhtml">
+					<ui:param name="update"
+						value="${'@form:editor:fileEditor @form:editor @form:fileToolbar'}" />
+				</ui:include>
+			</p:column>
+
+			<p:column>
+				<p:fieldset legend="#{_gui['resourceLibrary.createFile.title']}"
+					rendered="#{resourceLibraryFileEditorBean.inCreateMode}">
+
+					<ag:simpleField
+						label="#{_gui['resourceLibrary.webTheme.templateType.label']}"
+						description="#{_gui['resourceLibrary.webTheme.templateType.description']}"
+						inputId="type">
+						<p:selectOneMenu id="type" required="true"
+							value="#{webThemeLibraryFileEditorBean.createType}">
+							<f:selectItems value="#{webThemeLibraryFileEditorBean.types}" />
+							<p:ajax event="change" update="@composite:@parent:customPanel" />
+						</p:selectOneMenu>
+					</ag:simpleField>
+
+					<p:outputPanel id="customPanel">
+						<ag:simpleField id="fileNameField"
+							label="#{_gui['resourceLibrary.fileName.label']}"
+							description="#{_gui['resourceLibrary.fileName.description']}"
+							inputId="filename"
+							onlyIf="#{webThemeLibraryFileEditorBean.createType == 'custom'}">
+							<p:inputText id="filename" required="true"
+								value="#{resourceLibraryFileEditorBean.createFilename}" />
+						</ag:simpleField>
+
+						<ag:simpleField label="#{_gui['resourceLibrary.upload.label']}"
+							description="#{_gui['resourceLibrary.upload.description']}"
+							inputId="createUpload"
+							onlyIf="#{webThemeLibraryFileEditorBean.createType == 'custom'}">
+							<p:fileUpload id="createUpload" mode="advanced" auto="true"
+								sizeLimit="500000"
+								fileUploadListener="#{resourceLibraryFileEditorBean.createFromUpload}"
+								update="@form:editor" />
+
+							<p:commandButton id="createButton" icon="ui-icon-plusthick"
+								action="#{webThemeLibraryFileEditorBean.doCreate()}"
+								value="#{_gui['resourceLibrary.createFile.confirm']}"
+								update="@form:editor" />
+
+							<p:commandButton immediate="true" icon="ui-icon-cancel"
+								action="#{resourceLibraryFileEditorBean.cancelCreate}"
+								value="#{_gui['resourceLibrary.createFile.cancel']}"
+								update="@form:editor" />
+						</ag:simpleField>
+
+						<ui:fragment
+							rendered="#{webThemeLibraryFileEditorBean.createType != 'custom'}">
+							<ui:include src="/tpl/resourceLibrary/createFileCommon.xhtml">
+								<ui:param name="fileEditorBean"
+									value="#{webThemeLibraryFileEditorBean}" />
+							</ui:include>
+						</ui:fragment>
+					</p:outputPanel>
+
+
+				</p:fieldset>
+
+				<p:outputPanel id="fileEditor">
+					<p:outputPanel
+						rendered="#{not empty resourceLibraryFileEditorBean.selectedFile and not resourceLibraryFileEditorBean.inCreateMode}">
+						<p:outputPanel
+							rendered="#{webThemeLibraryFileEditorBean.fileType == 'facelet' or webThemeLibraryFileEditorBean.fileType == 'css'}">
+							<ui:include src="/tpl/resourceLibrary/rawTextFileEditor.xhtml">
+								<ui:param name="textEditorBean"
+									value="#{webThemeLibraryFileEditorBean}" />
+								<ui:param name="mode"
+									value="#{webThemeLibraryFileEditorBean.editorMode}" />
+								<ui:param name="readonly"
+									value="#{resourceLibraryFileEditorBean.selectedFile.inherited}" />
+							</ui:include>
+						</p:outputPanel>
+						<p:outputPanel
+							rendered="#{webThemeLibraryFileEditorBean.fileType == 'binary'}">
+							<ui:include src="/tpl/resourceLibrary/binaryFileEditor.xhtml" />
+						</p:outputPanel>
+					</p:outputPanel>
+				</p:outputPanel>
+			</p:column>
+		</p:row>
+	</p:panelGrid>
+</ui:composition>

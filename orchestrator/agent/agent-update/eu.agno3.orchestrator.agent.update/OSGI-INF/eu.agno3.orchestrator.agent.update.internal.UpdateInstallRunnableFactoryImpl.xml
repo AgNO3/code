@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.agent.update.internal.UpdateInstallRunnableFactoryImpl">
+    <property name="jobType" value="eu.agno3.orchestrator.system.update.jobs.UpdateInstallJob"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.agent.update.UpdateInstallRunnableFactory"/>
+        <provide interface="eu.agno3.orchestrator.jobs.exec.JobRunnableFactory"/>
+    </service>
+    <reference name="AgentConnector" interface="eu.agno3.orchestrator.agent.connector.AgentServerConnector" cardinality="1..1" policy="static" bind="setAgentConnector" unbind="unsetAgentConnector"/>
+    <reference name="UpdateJobFactory" interface="eu.agno3.orchestrator.agent.update.UpdateJobFactory" cardinality="1..1" policy="static" bind="setUpdateJobFactory" unbind="unsetUpdateJobFactory"/>
+    <reference name="UpdateDescriptorGenerator" interface="eu.agno3.orchestrator.agent.update.UpdateDescriptorGenerator" cardinality="1..1" policy="static" bind="setUpdateDescriptorGenerator" unbind="unsetUpdateDescriptorGenerator"/>
+    <reference name="ServiceReconfigurator" interface="eu.agno3.orchestrator.agent.update.ServiceReconfigurator" cardinality="1..1" policy="static" bind="setServiceReconfigurator" unbind="unsetServiceReconfigurator"/>
+    <reference name="ServiceManager" interface="eu.agno3.orchestrator.jobs.agent.service.ServiceManager" cardinality="1..1" policy="static" bind="setServiceManager" unbind="unsetServiceManager"/>
+    <reference name="ExecutionConfig" interface="eu.agno3.orchestrator.system.base.execution.ExecutionConfig" cardinality="1..1" policy="static" bind="setExecutionConfig" unbind="unsetExecutionConfig"/>
+    <reference name="RunnerFactory" interface="eu.agno3.orchestrator.system.base.execution.RunnerFactory" cardinality="1..1" policy="static" bind="setRunnerFactory" unbind="unsetRunnerFactory"/>
+    <implementation class="eu.agno3.orchestrator.agent.update.internal.UpdateInstallRunnableFactoryImpl"/>
+</scr:component>

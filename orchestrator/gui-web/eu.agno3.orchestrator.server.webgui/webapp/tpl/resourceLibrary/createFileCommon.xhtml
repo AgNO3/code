@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+	<p:focus />
+	<p:defaultCommand target="createButton" />
+
+	<ag:simpleField label="#{_gui['resourceLibrary.createMode.label']}"
+		description="#{_gui['resourceLibrary.createMode.description']}">
+		<p:selectOneRadio layout="lineDirection"
+			value="#{fileEditorBean.createMode}">
+			<f:selectItem itemValue="0"
+				itemLabel="#{_gui['resourceLibrary.createMode.empty']}" />
+			<f:selectItem itemValue="1"
+				itemLabel="#{_gui['resourceLibrary.createMode.default']}" />
+			<f:selectItem itemValue="2"
+				itemLabel="#{_gui['resourceLibrary.createMode.copy']}"
+				itemDisabled="#{empty resourceLibraryEditorBean.paths}" />
+			<p:ajax event="change" update="createOptionPanel" />
+		</p:selectOneRadio>
+
+		<p:outputPanel id="createOptionPanel">
+			<p:selectOneMenu style="margin-top: 0.5em"
+				rendered="#{fileEditorBean.createMode == 2}"
+				required="#{fileEditorBean.createMode == 2}"
+				value="#{fileEditorBean.createCopyPath}">
+				<f:selectItems value="#{resourceLibraryEditorBean.paths}" />
+			</p:selectOneMenu>
+		</p:outputPanel>
+	</ag:simpleField>
+
+	<div class="buttons">
+		<p:commandButton id="createButton" icon="ui-icon-plusthick"
+			action="#{fileEditorBean.doCreate()}" update="editor"
+			value="#{_gui['resourceLibrary.createFile.confirm']}" />
+
+		<p:commandButton immediate="true" icon="ui-icon-cancel"
+			styleClass="close-button" action="#{fileEditorBean.cancelCreate}"
+			value="#{_gui['resourceLibrary.createFile.cancel']}" update="editor" />
+	</div>
+
+</ui:composition>

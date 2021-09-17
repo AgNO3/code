@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.agent.system.info.internal.BaseSystemInformationContextImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.agent.system.info.BaseSystemInformationContext"/>
+    </service>
+    <reference name="PlatformInformationProvider" interface="eu.agno3.orchestrator.system.info.platform.PlatformInformationProvider" cardinality="1..1" policy="static" bind="setPlatformInformationProvider" unbind="unsetPlatformInformationProvider"/>
+    <reference name="StorageInformationProvider" interface="eu.agno3.orchestrator.system.info.storage.StorageInformationProvider" cardinality="1..1" policy="static" bind="setStorageInformationProvider" unbind="unsetStorageInformationProvider"/>
+    <reference name="NetworkInformationProvider" interface="eu.agno3.orchestrator.system.info.network.NetworkInformationProvider" cardinality="1..1" policy="static" bind="setNetworkInformationProvider" unbind="unsetNetworkInformationProvider"/>
+    <implementation class="eu.agno3.orchestrator.agent.system.info.internal.BaseSystemInformationContextImpl"/>
+</scr:component>

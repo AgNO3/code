@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/tpl/common/raw.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:agsec="http://agno3.eu/ns/jsfsec/taglib/1.0">
+	<ui:param name="subtitle" value="#{_msgs.loginTitle}" />
+	<ui:param name="bodyStyle" value="${'no-frame'}" />
+
+	<ui:define name="metadata">
+		<f:event listener="#{agsec_loginController.preRenderViewListener}"
+			type="preRenderView" />
+
+		<f:viewParam name="disableAutoLogin" required="false"
+			value="#{agsec_loginController.disableAutoLogin}" />
+
+		<f:viewParam name="realm" required="false"
+			value="#{agsec_loginController.selectedLoginRealmId}" />
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="login">
+			<agsec:loginBox id="lbox" extraUpdate="loginExtraActions"
+				terms="#{termsBean}">
+				<f:facet name="bottom">
+					<p:outputPanel
+						rendered="#{registrationBean.isRegistrationEnabled(agsec_loginController.selectedLoginRealmId) or registrationBean.haveLostPasswordUrl(agsec_loginController.selectedLoginRealmId)}"
+						id="loginExtraActions"
+						styleClass="login-extra-actions ui-light-border">
+						<p:link
+							rendered="#{registrationBean.isRegistrationEnabled(agsec_loginController.selectedLoginRealmId)}"
+							outcome="/auth/register.xhtml">
+							<!-- 
+								 -->
+							<span class="ui-icon ui-icon-inline ui-icon-person" />
+							<!--
+ 								 -->
+							<h:outputText value="#{_msgs['login.register']}" />
+						</p:link>
+
+						<p:link
+							rendered="#{registrationBean.haveLostPasswordUrl(agsec_loginController.selectedLoginRealmId)}"
+							href="#{registrationBean.getLostPasswordUrl(agsec_loginController.selectedLoginRealmId, null)}">
+							<!-- 
+								 -->
+							<span class="ui-icon ui-icon-inline ui-icon-key" />
+							<!-- 
+								 -->
+							<h:outputText value="#{_msgs['login.lostPassword']}" />
+						</p:link>
+					</p:outputPanel>
+				</f:facet>
+			</agsec:loginBox>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="fileshare-ldap-feature"
+      label="Fileshare LDAP Feature"
+      version="0.0.1.qualifier"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <plugin
+         id="eu.agno3.fileshare.service.ldap"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
+         
+   <includes
+     id="ldap-client-feature"
+     version="0.0.0"/>
+
+   <includes
+         id="deps-unboundid-ldap-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="security-ldap-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="security-krb-feature"
+         version="0.0.0"/>
+
+</feature>

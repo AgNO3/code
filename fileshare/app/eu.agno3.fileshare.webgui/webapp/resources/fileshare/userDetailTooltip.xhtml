@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0">
+
+<composite:interface>
+	<composite:attribute name="for" required="true" />
+	<composite:attribute name="subject" required="true"
+		type="eu.agno3.fileshare.model.SubjectInfo" />
+	<composite:attribute name="deferred" required="false" default="true" />
+	<composite:attribute name="noCheckPerm" required="false"
+		default="false" />
+</composite:interface>
+
+<composite:implementation>
+
+	<p:tooltip for="@composite:@parent:${cc.attrs.for}"
+		rendered="#{not empty cc.attrs.subject.id and (cc.attrs.noCheckPerm or currentUserBean.hasAnyPermission('subjects:query:details','manage:subjects:list'))}">
+		<fs:userDetails subject="#{cc.attrs.subject}"
+			deferred="#{cc.attrs.deferred}" grant="#{cc.attrs.grant}"
+			noCheckPerm="#{cc.attrs.noCheckPerm}" />
+	</p:tooltip>
+</composite:implementation>
+</html>
+

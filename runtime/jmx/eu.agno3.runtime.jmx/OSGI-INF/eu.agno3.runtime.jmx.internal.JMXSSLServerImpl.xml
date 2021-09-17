@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" immediate="true" name="eu.agno3.runtime.jmx.internal.JMXSSLServerImpl" configuration-policy="require" activate="activate" deactivate="deactivate" configuration-pid="jmx.server.ssl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.jmx.JMXServer"/>
+    </service>
+    <reference name="TLSContext" interface="eu.agno3.runtime.crypto.tls.TLSContext" cardinality="1..1" policy="static" bind="setTLSContext" unbind="unsetTLSContext"/>
+    <reference name="MBeanServer" interface="javax.management.MBeanServer" cardinality="1..1" policy="static" bind="setMBeanServer" unbind="unsetMBeanServer"/>
+    <implementation class="eu.agno3.runtime.jmx.internal.JMXSSLServerImpl"/>
+</scr:component>

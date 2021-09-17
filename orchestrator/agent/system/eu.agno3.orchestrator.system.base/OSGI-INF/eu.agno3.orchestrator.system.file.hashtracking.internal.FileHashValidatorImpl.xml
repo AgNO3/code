@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.system.file.hashtracking.internal.FileHashValidatorImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.system.file.hashtracking.FileHashValidator"/>
+    </service>
+    <reference name="HashTracker" interface="eu.agno3.orchestrator.system.file.hashtracking.FileHashTracker" cardinality="1..1" policy="static" bind="setHashTracker" unbind="unsetHashTracker"/>
+    <implementation class="eu.agno3.orchestrator.system.file.hashtracking.internal.FileHashValidatorImpl"/>
+</scr:component>

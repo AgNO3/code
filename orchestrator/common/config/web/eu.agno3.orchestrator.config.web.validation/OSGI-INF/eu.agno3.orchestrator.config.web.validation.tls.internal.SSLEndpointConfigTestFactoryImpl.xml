@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.orchestrator.config.web.validation.tls.internal.SSLEndpointConfigTestFactoryImpl" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.config.web.validation.SSLEndpointConfigTestFactory"/>
+    </service>
+    <reference name="TLSContextProvider" interface="eu.agno3.runtime.crypto.tls.TLSContextProvider" cardinality="1..1" policy="static" bind="setTLSContextProvider" unbind="unsetTLSContextProvider"/>
+    <reference name="DefaultHostnameVerifier" interface="javax.net.ssl.HostnameVerifier" cardinality="1..1" policy="static" target="(instanceId=default)" bind="setDefaultHostnameVerifier" unbind="unsetDefaultHostnameVerifier"/>
+    <reference name="GlobalTrustManager" interface="javax.net.ssl.TrustManagerFactory" cardinality="1..1" policy="static" target="(instanceId=global)" bind="setGlobalTrustManager" unbind="unsetGlobalTrustManager"/>
+    <implementation class="eu.agno3.orchestrator.config.web.validation.tls.internal.SSLEndpointConfigTestFactoryImpl"/>
+</scr:component>

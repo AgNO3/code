@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.agent.update.server.internal.PeriodicUpdateJob">
+    <property name="jobType" value="eu.agno3.orchestrator.agent.update.server.internal.PeriodicUpdateJob"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.scheduler.TriggeredJob"/>
+    </service>
+    <reference name="UpdateCheckFactory" interface="eu.agno3.orchestrator.agent.update.server.internal.UpdateCheckJobRunnableFactory" cardinality="1..1" policy="static" bind="setUpdateCheckFactory" unbind="unsetUpdateCheckFactory"/>
+    <implementation class="eu.agno3.orchestrator.agent.update.server.internal.PeriodicUpdateJob"/>
+</scr:component>

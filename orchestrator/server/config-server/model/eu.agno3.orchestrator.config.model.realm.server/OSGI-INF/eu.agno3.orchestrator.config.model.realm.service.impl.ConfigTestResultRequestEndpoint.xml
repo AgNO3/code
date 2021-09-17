@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.config.model.realm.service.impl.ConfigTestResultRequestEndpoint">
+    <property name="msgType" value="eu.agno3.orchestrator.config.model.msg.ConfigTestResultUpdateRequest"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.messaging.listener.RequestEndpoint"/>
+    </service>
+    <reference name="ResultCache" interface="eu.agno3.orchestrator.config.model.realm.service.impl.ConfigTestResultCache" cardinality="1..1" policy="static" bind="setResultCache" unbind="unsetResultCache"/>
+    <reference name="MessageSource" interface="eu.agno3.runtime.messaging.addressing.MessageSource" cardinality="1..1" policy="static" bind="setMessageSource" unbind="unsetMessageSource"/>
+    <implementation class="eu.agno3.orchestrator.config.model.realm.service.impl.ConfigTestResultRequestEndpoint"/>
+</scr:component>

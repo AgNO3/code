@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.orchestrator.system.packagekit.internal.SystemUpdateManagerImpl" activate="activate" deactivate="deactivate" configuration-pid="systemUpdate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.system.packagekit.SystemUpdateManager"/>
+        <provide interface="eu.agno3.orchestrator.system.base.SystemService"/>
+    </service>
+    <reference name="DBusClient" interface="eu.agno3.orchestrator.system.dbus.SystemDBusClient" cardinality="1..1" policy="static" bind="setDBusClient" unbind="unsetDBusClient"/>
+    <implementation class="eu.agno3.orchestrator.system.packagekit.internal.SystemUpdateManagerImpl"/>
+</scr:component>

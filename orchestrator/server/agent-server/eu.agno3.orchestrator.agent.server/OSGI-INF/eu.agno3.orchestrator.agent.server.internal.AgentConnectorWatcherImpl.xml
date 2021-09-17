@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.agent.server.internal.AgentConnectorWatcherImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.agent.server.internal.AgentConnectorWatcherImpl"/>
+        <provide interface="eu.agno3.orchestrator.agent.server.AgentConnectorWatcher"/>
+    </service>
+    <reference name="Context" interface="eu.agno3.orchestrator.config.model.base.server.context.DefaultServerServiceContext" cardinality="1..1" policy="static" bind="setContext" unbind="unsetContext"/>
+    <reference name="AgentLifecycleListener" interface="eu.agno3.orchestrator.agent.server.AgentLifecycleListener" cardinality="0..n" policy="dynamic" bind="bindAgentLifecycleListener" unbind="unbindAgentLifecycleListener"/>
+    <reference name="AgentConfigProvider" interface="eu.agno3.orchestrator.agent.server.AgentConfigurationProvider" cardinality="1..1" policy="static" bind="setAgentConfigProvider" unbind="unsetAgentConfigProvider"/>
+    <reference name="CertificateTracker" interface="eu.agno3.orchestrator.server.base.component.ComponentCertificateTracker" cardinality="1..1" policy="static" bind="setCertificateTracker" unbind="unsetCertificateTracker"/>
+    <implementation class="eu.agno3.orchestrator.agent.server.internal.AgentConnectorWatcherImpl"/>
+</scr:component>

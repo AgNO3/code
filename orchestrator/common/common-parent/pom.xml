@@ -1,0 +1,134 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>eu.agno3</groupId>
+		<artifactId>project-parent</artifactId>
+		<version>0.0.46</version>
+		<relativePath/>
+	</parent>
+	<artifactId>common-parent</artifactId>
+	<packaging>pom</packaging>
+	<groupId>eu.agno3.orchestrator.common</groupId>
+	<name>Orchestrator/Common Parent POM</name>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<build>
+		<plugins>
+
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<extensions>true</extensions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-source-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-packaging-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-p2-plugin</artifactId>
+				<configuration>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<configuration>
+					<bundleStartLevel combine.children="append">
+
+						<bundle>
+							<id>org.apache.cxf.cxf-api</id>
+							<level>2</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>org.apache.cxf.cxf-core</id>
+							<level>2</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>org.apache.cxf.cxf-rt-wsdl</id>
+							<level>2</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>org.apache.cxf.cxf-rt-databinding-jaxb</id>
+							<level>2</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>org.apache.cxf.cxf-rt-bindings-soap</id>
+							<level>2</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>org.apache.cxf.cxf-rt-transports-http</id>
+							<level>2</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>org.apache.cxf.cxf-rt-bindings-xml</id>
+							<level>2</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>org.apache.cxf.cxf-rt-frontend-jaxws</id>
+							<level>2</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>org.apache.cxf.cxf-rt-frontend-simple</id>
+							<level>2</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.crypto</id>
+							<level>2</level>
+							<autoStart>true</autoStart>
+						</bundle>
+					</bundleStartLevel>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-scr-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>xml-maven-plugin</artifactId>
+			</plugin>
+
+		</plugins>
+	</build>
+</project>

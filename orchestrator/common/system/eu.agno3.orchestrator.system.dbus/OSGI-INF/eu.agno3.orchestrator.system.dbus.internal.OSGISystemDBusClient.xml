@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.orchestrator.system.dbus.internal.OSGISystemDBusClient" activate="activate" deactivate="deactivate">
+    <service servicefactory="true">
+        <provide interface="eu.agno3.orchestrator.system.dbus.SystemDBusClient"/>
+    </service>
+    <reference name="ConnHolder" interface="eu.agno3.orchestrator.system.dbus.internal.DBUSSystemConnectionHolder" cardinality="1..1" policy="static" bind="setConnHolder" unbind="unsetConnHolder"/>
+    <implementation class="eu.agno3.orchestrator.system.dbus.internal.OSGISystemDBusClient"/>
+</scr:component>

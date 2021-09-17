@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0"
+	template="/tpl/common/dialog.xhtml">
+
+	<ui:param name="title"
+		value="#{msgs.formatEL('actions.info.titleFmt', fileDisplayBean.getLocalDisplayName(urlFileSelectionBean.selectedEntity))}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="entity"
+				value="#{urlFileSelectionBean.encodedSingleSelection}"
+				required="true" />
+
+			<f:viewParam name="grant"
+				value="#{grantSelectionBean.encodedSingleSelection}"
+				required="false" />
+
+			<f:viewParam name="token" value="#{userTokenBean.token}"
+				required="false" />
+
+			<f:viewParam name="tab" value="#{infoTabsBean.tab}" required="false" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form" method="POST" enctype="multipart/form-data">
+			<ag:dialogContextHolder />
+
+			<ag:dialogCrumps />
+
+			<p:hotkey bind="esc" action="#{dialog.close}" immediate="true" />
+
+			<input type="hidden" name="token" value="#{userTokenBean.token}" />
+
+			<div class="breadcrumbs">
+				<p:breadCrumb id="pathDisplay" styleClass="root-display"
+					homeDisplay="text" model="#{infoFilePathBreadcrumbBean.model}" />
+			</div>
+
+			<p:messages autoUpdate="true" />
+
+			<p:tabView activeIndex="#{infoTabsBean.activeIndex}">
+				<p:ajax event="tabChange" update=":form:pathDisplay" />
+
+				<p:tab title="#{_msgs['actions.info.props.title']}">
+					<p:fieldset styleClass="func-unit" id="general"
+						legend="#{_msgs['actions.info.props.general.title']}">
+						<ag:simpleField
+							readOnly="#{not filePermissionBean.isOwner(urlFileSelectionBean.selectedEntity) or empty urlFileSelectionBean.selectedEntity or not urlFileSelectionBean.selectedEntity.hasParent()}"
+							value="#{fileDisplayBean.getLocalDisplayName(urlFileSelectionBean.selectedEntity)}"
+							label="#{_msgs['actions.info.props.general.name.label']}"
+							description="#{_msgs['actions.info.props.general.name.description']}">
+							<p:inplace id="fileName" editor="true"
+								saveLabel="#{_msgs['actions.info.props.general.name.set']}"
+								cancelLabel="#{_msgs['actions.info.props.general.name.cancel']}">
+								<p:ajax event="save"
+									listener="#{entityInfoController.renameEntity(urlFileSelectionBean.singleSelection, fileRenameBean.newName)}"
+									update="fileName" />
+								<p:ajax event="cancel" listener="#{fileRenameBean.clear()}"
+									update="fileName" />
+								<f:facet name="output">
+									<h:outputText
+										value="#{fileDisplayBean.getLocalDisplayName(urlFileSelectionBean.selectedEntity)}" />
+									<span class="ui-icon ui-icon-inline ui-icon-pencil" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText filter="true" value="#{fileRenameBean.newName}"
+										required="#{not filePermissionBean.isOwner(urlFileSelectionBean.selectedEntity) or empty urlFileSelectionBean.selectedEntity}" />
+								</f:facet>
+							</p:inplace>
+						</ag:simpleField>
+
+						<ag:simpleField
+							onlyIf="#{filePermissionBean.isOwner(urlFileSelectionBean.selectedEntity)}"
+							readOnly="true"
+							value="#{fileDisplayBean.getFullPath(urlFileSelectionBean.selectedEntity)}"
+							label="#{_msgs['actions.info.props.general.path.label']}"
+							description="#{_msgs['actions.info.props.general.path.description']}" />
+
+						<ag:simpleField
+							label="#{_msgs['actions.info.props.general.owner.label']}"
+							description="#{_msgs['actions.info.props.general.owner.description']}">
+							<fs:userOrGrant showTooltip="true"
+								user="#{urlFileSelectionBean.selectedEntity.owner}" />
+						</ag:simpleField>
+
+
+						<ag:simpleField
+							onlyIf="#{not empty urlFileSelectionBean.selectedEntity and fileDisplayBean.isFile(urlFileSelectionBean.selectedEntity) 
+									and currentUserBean.hasPermission('entity:changeExpirationDate') and 
+									filePermissionBean.canEditOrEditSelfEntity(urlFileSelectionBean.selectedEntity, grantSelectionBean.singleSelection)}"
+							label="#{_msgs['actions.info.props.general.expiration.label']}"
+							description="#{_msgs['actions.info.props.general.expiration.description']}">
+
+							<p:outputPanel id="expiration"
+								styleClass="date-editor hover-shade-background"
+								style="display: inline-block">
+								<p:outputPanel id="expiresOutput" style="display: inline-block">
+									<h:outputText
+										rendered="#{not empty expirationEditorBean.expires}"
+										value="#{localeSettingsBean.formatDateTime(expirationEditorBean.expires, 'L-')}" />
+									<h:outputText rendered="#{empty expirationEditorBean.expires}"
+										value="#{_msgs['actions.info.props.general.expiration.never']}" />
+								</p:outputPanel>
+
+								<span class="ui-icon ui-icon-calendar ui-icon-inline"
+									title="#{_msgs['actions.info.props.general.expiration.set']}" />
+							</p:outputPanel>
+
+							<p:overlayPanel widgetVar="expirePanel" appendToBody="false"
+								dynamic="false" for="expiration" showCloseIcon="true">
+								<p:calendar id="expiresCal" mode="inline"
+									locale="#{localeSettingsBean.dateLocale}"
+									timeZone="#{localeSettingsBean.timeZone}"
+									value="#{expirationEditorBean.expires}"
+									converter="#{dateTimeConverter}"
+									mindate="#{expirationEditorBean.minExpires}"
+									maxdate="#{expirationEditorBean.maxExpires}">
+									<p:ajax event="dateSelect"
+										listener="#{entityInfoController.updateExpirationDate(urlFileSelectionBean.selectedEntity, expirationEditorBean.expires)}"
+										update="expiresOutput" oncomplete="PF('expirePanel').hide();" />
+								</p:calendar>
+								<p:commandButton
+									rendered="#{expirationEditorBean.canUnsetExpiration()}"
+									actionListener="#{expirationEditorBean.unset}"
+									update="expiresOutput expiresCal"
+									value="#{_msgs['actions.info.props.general.expiration.unset']}"
+									icon="ui-icon-closethick"
+									oncomplete="PF('expirePanel').hide();" />
+							</p:overlayPanel>
+
+						</ag:simpleField>
+
+						<ag:simpleField
+							onlyIf="#{not empty urlFileSelectionBean.selectedEntity and fileDisplayBean.isFile(urlFileSelectionBean.selectedEntity) and 
+									(not currentUserBean.hasPermission('entity:changeExpirationDate') or 
+									not filePermissionBean.canEditOrEditSelfEntity(urlFileSelectionBean.selectedEntity, grantSelectionBean.singleSelection))}"
+							label="#{_msgs['actions.info.props.general.expiration.label']}"
+							description="#{_msgs['actions.info.props.general.expiration.description']}">
+							<p:outputPanel id="expiration"
+								styleClass="date-editor hover-shade-background"
+								style="display: inline-block">
+								<p:outputPanel id="expiresOutput" style="display: inline-block">
+									<h:outputText
+										rendered="#{not empty expirationEditorBean.expires}"
+										value="#{localeSettingsBean.formatDateTime(expirationEditorBean.expires, 'L-')}" />
+									<h:outputText rendered="#{empty expirationEditorBean.expires}"
+										value="#{_msgs['actions.info.props.general.expiration.never']}" />
+								</p:outputPanel>
+							</p:outputPanel>
+						</ag:simpleField>
+
+
+						<ag:simpleField
+							readOnly="#{not empty urlFileSelectionBean.selectedEntity and not securityLabelBean.isSecurityLabelChangeAllowed(urlFileSelectionBean.selectedEntity, grantSelectionBean.singleSelection)}"
+							value="#{urlFileSelectionBean.selectedEntity.securityLabel}"
+							readOnlyValueMapper="#{securityLabelBean.translateSecurityLabel}"
+							inputId="securityLabel"
+							label="#{_msgs['actions.info.props.general.securityLabel.label']}"
+							description="#{_msgs['actions.info.props.general.securityLabel.description']}">
+
+							<p:outputPanel id="securityLabel">
+								<ui:fragment rendered="#{not securityLabelEditorBean.editing}">
+									<p:commandLink action="#{securityLabelEditorBean.edit}"
+										style="text-decoration: none; padding: 0.1em"
+										styleClass="ui-inplace-display hover-shade-background ui-corner-all"
+										update="securityLabel">
+										<h:outputText
+											value=" #{securityLabelBean.translateSecurityLabel(urlFileSelectionBean.selectedEntity.securityLabel)}" />
+										<span class="ui-icon ui-icon-inline ui-icon-pencil" />
+									</p:commandLink>
+								</ui:fragment>
+
+								<ui:fragment rendered="#{securityLabelEditorBean.editing}">
+									<p:selectOneMenu id="selectLabel" filter="true"
+										filterMatchMode="contains" style="vertical-align: baseline"
+										value="#{securityLabelEditorBean.label}">
+
+										<p:ajax event="change"
+											listener="#{securityLabelEditorBean.changeLabel}"
+											update="securityLabel" />
+
+										<f:selectItems
+											value="#{securityLabelBean.getDefinedAndFulfilledLabelsHigherThan(securityLabelBean.getParentLabel(urlFileSelectionBean.selectedEntity))}" />
+									</p:selectOneMenu>
+
+
+									<p:overlayPanel rendered="#{securityLabelEditorBean.blocked}"
+										widgetVar="blockedOverlay" dynamic="false">
+										<p:outputPanel id="blockedInfo">
+											<p>
+												<h:outputFormat styleClass="ui-messages-warn-summary"
+													value="#{_msgs['actions.info.props.general.securityLabel.containsLowerFmt']}">
+													<f:param value="#{securityLabelEditorBean.numBlockers}" />
+												</h:outputFormat>
+											</p>
+
+											<div class="buttons">
+
+												<p:commandButton
+													value="#{_msgs['actions.info.props.general.securityLabel.set']}"
+													update="securityLabel"
+													action="#{securityLabelEditorBean.save}"
+													icon="ui-icon-check" />
+
+												<p:commandButton
+													value="#{_msgs['actions.info.props.general.securityLabel.cancel']}"
+													update="securityLabel"
+													action="#{securityLabelEditorBean.cancel}"
+													icon="ui-icon-cancel" />
+											</div>
+										</p:outputPanel>
+									</p:overlayPanel>
+								</ui:fragment>
+
+								<ag:dialogOpenButton widgetVar="setLabelRecursiveButton"
+									icon="ui-icon-alert" style="display: none"
+									rendered="#{filePermissionBean.isOwner(urlFileSelectionBean.selectedEntity)}"
+									dialog="/actions/recursiveSetLabel.xhtml?root=#{urlFileSelectionBean.singleSelectionId}&amp;label=#{securityLabelEditorBean.label}&amp;grant=#{grantSelectionBean.encodedSingleSelection}#{userTokenBean.tokenQueryArg}"
+									value="#{_msgs['actions.info.props.general.securityLabel.setRecursive']}"
+									title="#{_msgs['actions.info.props.general.securityLabel.setRecursiveTitle']}">
+									<p:ajax event="return"
+										listener="#{securityLabelEditorBean.cancel}"
+										update="securityLabel" />
+								</ag:dialogOpenButton>
+							</p:outputPanel>
+						</ag:simpleField>
+
+
+						<ag:simpleField
+							label="#{_msgs['actions.info.props.general.created.label']}"
+							description="#{_msgs['actions.info.props.general.created.description']}">
+
+							<fs:userOrGrant showTooltip="true"
+								style="display: inline-block; margin-right: 1em"
+								rendered="#{not empty urlFileSelectionBean.selectedEntity.creator or 
+									not empty urlFileSelectionBean.selectedEntity.creatorGrant}"
+								user="#{urlFileSelectionBean.selectedEntity.creator}"
+								grant="#{urlFileSelectionBean.selectedEntity.creatorGrant}" />
+
+							<h:outputText styleClass="create-date"
+								value="#{localeSettingsBean.formatDateTime(urlFileSelectionBean.selectedEntity.created, 'MS')}" />
+						</ag:simpleField>
+
+						<ag:simpleField
+							label="#{_msgs['actions.info.props.general.lastModified.label']}"
+							description="#{_msgs['actions.info.props.general.lastModified.description']}">
+
+							<fs:userOrGrant showTooltip="true"
+								style="display: inline-block; margin-right: 1em"
+								rendered="#{not empty urlFileSelectionBean.selectedEntity.lastModifier or 
+										not empty urlFileSelectionBean.selectedEntity.lastModifiedGrant}"
+								user="#{urlFileSelectionBean.selectedEntity.lastModifier}"
+								grant="#{urlFileSelectionBean.selectedEntity.lastModifiedGrant}" />
+
+							<h:outputText styleClass="mod-date"
+								value="#{localeSettingsBean.formatDateTime(urlFileSelectionBean.selectedEntity.lastModified, 'MS')}" />
+						</ag:simpleField>
+
+					</p:fieldset>
+
+					<p:fieldset id="grant" styleClass="func-unit"
+						rendered="#{not empty grantSelectionBean.singleSelection}"
+						legend="#{_msgs['actions.info.props.grant.title']}">
+
+						<ag:simpleField readOnly="true"
+							value="#{sharePermissionsBean.formatPermissions(grantSelectionBean.singleSelection.permissions)}"
+							label="#{_msgs['actions.info.props.grant.permissions.label']}"
+							description="#{_msgs['actions.info.props.grant.permissions.description']}" />
+							
+						<ag:simpleField readOnly="true"
+							value="#{localeSettingsBean.formatDateTime(grantSelectionBean.singleSelection.expires, 'MS')}"
+							label="#{_msgs['actions.info.props.grant.expires.label']}"
+							description="#{_msgs['actions.info.props.grant.expires.description']}" />
+
+						<ag:simpleField
+							label="#{_msgs['actions.info.props.grant.created.label']}"
+							description="#{_msgs['actions.info.props.grant.created.description']}"
+							onlyIf="#{not empty grantSelectionBean.singleSelection.creator}">
+
+							<fs:userOrGrant showTooltip="true"
+								style="display: inline-block; margin-right: 1em"
+								user="#{grantSelectionBean.singleSelection.creator}" />
+
+							<h:outputText styleClass="create-date"
+								value="#{localeSettingsBean.formatDateTime(grantSelectionBean.singleSelection.created, 'MS')}" />
+						</ag:simpleField>
+
+
+						<ag:simpleField
+							label="#{_msgs['actions.info.props.grant.target.label']}"
+							description="#{_msgs['actions.info.props.grant.target.description']}"
+							onlyIf="#{shareDisplayBean.isSubjectGrant(grantSelectionBean.singleSelection) and shareDisplayBean.hasTarget(grantSelectionBean.singleSelection)}">
+							<span
+								class="ui-icon #{subjectDisplayBean.getSubjectIconClass(grantSelectionBean.singleSelection.target)} ui-icon-inline" />
+							<h:outputText id="targetName"
+								value="#{subjectDisplayBean.getSubjectDisplayName(grantSelectionBean.singleSelection.target)}" />
+
+							<fs:userDetailTooltip
+								subject="#{grantSelectionBean.singleSelection.target}"
+								rendered="#{shareDisplayBean.isSubjectGrant(grantSelectionBean.singleSelection) and subjectDisplayBean.isUser(grantSelectionBean.singleSelection.target)}"
+								for="targetName" deferred="false"
+								userId="#{grantSelectionBean.singleSelection.target.id}"
+								userName="#{subjectDisplayBean.getSubjectDisplayName(grantSelectionBean.singleSelection.target)}" />
+						</ag:simpleField>
+
+						
+					</p:fieldset>
+
+					<p:fieldset id="file" styleClass="func-unit"
+						rendered="#{fileDisplayBean.isFile(urlFileSelectionBean.selectedEntity)}"
+						legend="#{_msgs['actions.info.props.file.title']}">
+
+						<ag:simpleField readOnly="true"
+							value="#{ag:formatByteSizeSI(urlFileSelectionBean.selectedEntity.fileSize)}"
+							label="#{_msgs['actions.info.props.file.fileSize.label']}"
+							description="#{_msgs['actions.info.props.file.fileSize.description']}" />
+
+						<ag:simpleField
+							readOnly="#{not empty urlFileSelectionBean.selectedEntity and not mimeTypeBean.isMimeTypeChangeAllowed(urlFileSelectionBean.selectedEntity)}"
+							value="#{urlFileSelectionBean.selectedEntity.contentType}"
+							inputId="contentType"
+							label="#{_msgs['actions.info.props.file.contentType.label']}"
+							description="#{_msgs['actions.info.props.file.contentType.description']}">
+							<p:inplace id="contentType" editor="true"
+								saveLabel="#{_msgs['actions.info.props.file.contentType.set']}"
+								cancelLabel="#{_msgs['actions.info.props.file.contentType.cancel']}">
+								<p:ajax event="save"
+									listener="#{entityInfoController.updateMimeType(urlFileSelectionBean.singleSelection)}"
+									update="contentType" />
+								<p:ajax event="cancel"
+									listener="#{urlFileSelectionBean.refreshSelection()}"
+									update="contentType" />
+								<f:facet name="output">
+									<h:outputText
+										value="#{urlFileSelectionBean.selectedEntity.contentType}" />
+									<span class="ui-icon ui-icon-inline ui-icon-pencil" />
+								</f:facet>
+								<f:facet name="input">
+									<p:selectOneMenu filter="true" filterMatchMode="contains"
+										style="width: 60%"
+										value="#{urlFileSelectionBean.selectedEntity.contentType}"
+										required="#{not mimeTypeBean.isMimeTypeChangeAllowed(urlFileSelectionBean.selectedEntity)}">
+
+										<f:selectItems value="#{mimeTypeBean.allowedMimeTypes}" />
+									</p:selectOneMenu>
+								</f:facet>
+							</p:inplace>
+						</ag:simpleField>
+
+						<ag:simpleField readOnly="true"
+							rendered="#{not empty urlFileSelectionBean.selectedEntity.contentEncoding}"
+							value="#{urlFileSelectionBean.selectedEntity.contentEncoding}"
+							label="#{_msgs['actions.info.props.file.contentEncoding.label']}"
+							description="#{_msgs['actions.info.props.file.contentEncoding.description']}" />
+					</p:fieldset>
+
+					<p:fieldset id="directory" styleClass="func-unit"
+						rendered="#{fileDisplayBean.isDirectory(urlFileSelectionBean.selectedEntity)}"
+						legend="#{_msgs['actions.info.props.directory.title']}">
+
+						<ag:simpleField
+							rendered="#{filePermissionBean.isOwner(urlFileSelectionBean.selectedEntity)}"
+							value="#{urlFileSelectionBean.selectedEntity.sendNotifications}"
+							label="#{_msgs['actions.info.props.directory.sendNotifications.label']}"
+							description="#{_msgs['actions.info.props.directory.sendNotifications.description']}">
+							<p:selectBooleanCheckbox
+								value="#{urlFileSelectionBean.selectedEntity.sendNotifications}">
+								<p:ajax event="change"
+									listener="#{directoryModifyBean.updateSendNotifications}"
+									update="@this" />
+							</p:selectBooleanCheckbox>
+						</ag:simpleField>
+
+						<ag:simpleField
+							readOnly="#{not filePermissionBean.isOwner(urlFileSelectionBean.selectedEntity)}"
+							value="#{urlFileSelectionBean.selectedEntity.allowFileOverwrite}"
+							label="#{_msgs['actions.info.props.directory.allowFileOverwrite.label']}"
+							description="#{_msgs['actions.info.props.directory.allowFileOverwrite.description']}">
+							<p:selectBooleanCheckbox
+								value="#{urlFileSelectionBean.selectedEntity.allowFileOverwrite}">
+								<p:ajax event="change"
+									listener="#{directoryModifyBean.updateAllowFileOverwrite}"
+									update="@this" />
+							</p:selectBooleanCheckbox>
+						</ag:simpleField>
+
+						<ag:simpleField readOnly="true"
+							onlyIf="#{not empty urlFileSelectionBean.selectedEntity.childrenSize}"
+							value="#{ag:formatByteSizeSI(urlFileSelectionBean.selectedEntity.childrenSize)}"
+							label="#{_msgs['actions.info.props.directory.childrenSize.label']}"
+							description="#{_msgs['actions.info.props.directory.childrenSize.description']}" />
+					</p:fieldset>
+				</p:tab>
+
+
+				<p:tab title="#{_msgs['actions.info.history.title']}"
+					rendered="#{filePermissionBean.isOwner(urlFileSelectionBean.selectedEntity)}">
+					<p:fieldset id="history" styleClass="func-unit"
+						legend="#{_msgs['actions.info.history.title']}">
+						<ui:include src="/tpl/audit/entity.xhtml" />
+					</p:fieldset>
+				</p:tab>
+
+			</p:tabView>
+
+			<div class="buttons">
+				<p:commandButton immediate="true" action="#{dialog.close}"
+					styleClass="close-button" icon="#{dialog.closeIcon}"
+					title="#{dialog.closeDescription}" value="#{dialog.closeLabel}" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

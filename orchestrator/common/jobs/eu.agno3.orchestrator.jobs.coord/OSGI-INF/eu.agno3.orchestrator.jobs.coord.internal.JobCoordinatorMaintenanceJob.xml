@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.jobs.coord.internal.JobCoordinatorMaintenanceJob">
+    <property name="jobType" value="eu.agno3.orchestrator.jobs.coord.internal.JobCoordinatorMaintenanceJob"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.scheduler.TriggeredJob"/>
+    </service>
+    <reference name="Coordinator" interface="eu.agno3.orchestrator.jobs.JobCoordinator" cardinality="1..1" policy="static" bind="setCoordinator" unbind="unsetCoordinator"/>
+    <reference name="TransactionManager" interface="eu.agno3.runtime.transaction.TransactionService" cardinality="1..1" policy="static" bind="setTransactionManager" unbind="unsetTransactionManager"/>
+    <implementation class="eu.agno3.orchestrator.jobs.coord.internal.JobCoordinatorMaintenanceJob"/>
+</scr:component>

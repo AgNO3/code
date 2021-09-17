@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="orchconfig-feature"
+      label="Orchestrator Orchestrator Configuration Feature"
+      version="0.0.1.qualifier"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <requires>
+      <import feature="validation-feature" version="0.0.1.qualifier"/>
+      <import feature="ws-common-feature" version="0.0.1.qualifier"/>
+      <import feature="model-base-common-feature" version="0.0.1.qualifier"/>
+      <import feature="realm-model-feature" version="0.0.1.qualifier"/>
+      <import feature="hostconfig-feature" version="0.0.1.qualifier"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.orchestrator.config.orchestrator"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.config.orchestrator.i18n"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

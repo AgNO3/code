@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/tpl/structure/service/template.xhtml">
+	<ui:param name="serviceSubtitle"
+		value="#{_gui['structure.service.disable']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="service"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+			<f:viewParam name="anchor"
+				value="#{structureViewContext.selectedAnchorId}" required="false" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<p:confirmDialog global="true"
+			visible="#{not empty structureViewContext.selectedService}"
+			header="#{_gui['structure.service.disable.confirmTitle']}"
+			widgetVar="confirmDisable" severity="alert">
+			<f:facet name="message">
+				<h:outputFormat
+					value="#{_gui['structure.service.disable.confirmMessageFmt']}">
+					<f:param
+						value="#{structureUtil.getDisplayName(structureViewContext.selectedService)}" />
+				</h:outputFormat>
+				<p:messages id="messages" />
+			</f:facet>
+
+			<div class="buttons">
+
+				<p:commandButton action="#{serviceController.disable}"
+					includeViewParams="true"
+					value="#{_gui['structure.service.disable.confirmYes']}"
+					update="messages" />
+				<p:button
+					outcome="#{structureUtil.getOutcomeForObjectOverview(structureViewContext.selectedService, structureViewContext.selectedAnchor)}"
+					styleClass="close-button"
+					value="#{_gui['structure.service.disable.confirmNo']}"
+					onclick="PF('confirmDisable').hide();" />
+			</div>
+		</p:confirmDialog>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<p:tabView id="aspects" rendered="#{not empty configContext.current}"
+		dynamic="true" cache="false" processOnChange="true">
+		<p:tab title="#{_config_hostconfig['hostconfig.general']}"
+			id="general">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:hostconfig:identification"
+				context="#{configContext}" path="hostIdentification"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:hostconfig:datetime"
+				context="#{configContext}" path="dateTimeConfiguration"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+
+		<p:tab title="#{_config_hostconfig['hostconfig.nameservice']}"
+			id="nameservice">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:hostconfig:resolver"
+				context="#{configContext}" path="resolverConfiguration"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+
+		<p:tab title="#{_config_hostconfig['hostconfig.network']}"
+			id="network">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:hostconfig:network"
+				context="#{configContext}" path="networkConfiguration"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+
+		<p:tab title="#{_config_hostconfig['hostconfig.storage']}"
+			id="storage">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:hostconfig:storage"
+				context="#{configContext}" path="storageConfiguration"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+
+		<p:tab title="#{_config_hostconfig['hostconfig.mailing']}"
+			id="mailing">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:hostconfig:mailing"
+				context="#{configContext}" path="mailingConfiguration"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+
+		<p:tab title="#{_config_hostconfig['hostconfig.keysAndTrust']}"
+			id="keystores">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:crypto:keystores"
+				context="#{configContext}" path="keystoreConfiguration"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:crypto:truststores"
+				context="#{configContext}" path="trustConfiguration"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+
+		<p:tab title="#{_config_hostconfig['hostconfig.realms']}" id="realms">
+			<orch:objectEditor objectType="urn:agno3:objects:1.0:realms:realms"
+				context="#{configContext}" path="realmsConfiguration"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+
+		<p:tab title="#{_config_hostconfig['hostconfig.advanced']}"
+			id="advanced">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:hostconfig:system"
+				context="#{configContext}" path="systemConfiguration"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+	</p:tabView>
+</ui:composition>

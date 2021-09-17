@@ -1,0 +1,10 @@
+Bundle-SymbolicName: eu.agno3.runtime.webdav.jcr-server-fragment
+Bundle-Version: 0.0.40
+Bundle-Name: WebDAV Jackrabbit JCR Server Fragment
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Export-Package: org.apache.jackrabbit.webdav.simple
+Fragment-Host: org.apache.jackrabbit.jackrabbit-jcr-server
+
+

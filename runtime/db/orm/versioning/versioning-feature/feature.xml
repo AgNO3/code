@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="versioning-feature"
+      label="Database ORM Versioning/Auditing Feature"
+      version="0.0.166"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <requires>
+      <import feature="db-feature"/>
+      <import feature="orm-feature"/>
+      <import feature="deps-hibernate-envers-feature"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.runtime.db.orm.versioning"
+         download-size="0"
+         install-size="0"
+         version="0.0.166"
+         unpack="false"/>
+
+</feature>

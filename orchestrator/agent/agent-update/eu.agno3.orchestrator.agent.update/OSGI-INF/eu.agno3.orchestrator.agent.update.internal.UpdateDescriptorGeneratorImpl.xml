@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.agent.update.internal.UpdateDescriptorGeneratorImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.agent.update.UpdateDescriptorGenerator"/>
+    </service>
+    <reference name="ConfigRepository" interface="eu.agno3.orchestrator.jobs.agent.system.ConfigRepository" cardinality="1..1" policy="static" bind="setConfigRepository" unbind="unsetConfigRepository"/>
+    <reference name="RuntimeServiceUpdater" interface="eu.agno3.orchestrator.agent.update.RuntimeServiceUpdater" cardinality="1..1" policy="static" bind="setRuntimeServiceUpdater" unbind="unsetRuntimeServiceUpdater"/>
+    <reference name="ServiceTypeRegistry" interface="eu.agno3.orchestrator.config.model.descriptors.ServiceTypeRegistry" cardinality="1..1" policy="static" bind="setServiceTypeRegistry" unbind="unsetServiceTypeRegistry"/>
+    <reference name="SystemUpdateManager" interface="eu.agno3.orchestrator.system.packagekit.SystemUpdateManager" cardinality="1..1" policy="static" bind="setSystemUpdateManager" unbind="unsetSystemUpdateManager"/>
+    <implementation class="eu.agno3.orchestrator.agent.update.internal.UpdateDescriptorGeneratorImpl"/>
+</scr:component>

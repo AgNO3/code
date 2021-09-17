@@ -1,0 +1,117 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+<composite:interface
+	componentType="eu.agno3.orchestrator.server.webgui.components.KrbKeyEditorComponent">
+	<composite:attribute name="value" required="true" />
+	<composite:attribute name="realm" required="false" />
+	<composite:attribute name="realmType" required="false" />
+	<composite:attribute name="initialAdd" required="false" />
+</composite:interface>
+
+<composite:implementation>
+
+	<p:outputPanel>
+
+		<p:dataTable id="keytabKeys" value="#{cc.value}" var="entry">
+			<p:column>
+				<h:outputText value="#{entry.principal}" />
+			</p:column>
+
+			<p:column style="width: 10%">
+				<h:outputText value="#{entry.kvno}" />
+			</p:column>
+
+			<p:column style="width: 20%">
+				<h:outputText value="#{cc.translateAlgorithm(entry.algorithm)}" />
+			</p:column>
+
+			<p:column style="width: 5%" styleClass="actionColumn">
+				<p:commandLink immediate="true" action="#{cc.removeKey(entry)}"
+					update="keytabKeys" styleClass="ui-icon ui-icon-trash" />
+			</p:column>
+		</p:dataTable>
+
+		<p:selectOneRadio id="keyAddType" value="#{cc.keyAddType}"
+			rendered="#{not empty cc.keyAddType}">
+			<f:selectItem itemLabel="#{_gui['krbKeyEditor.keyAddType.keytab']}"
+				itemValue="keytab" />
+			<f:selectItem itemLabel="#{_gui['krbKeyEditor.keyAddType.password']}"
+				itemValue="password" />
+			<p:ajax event="change" update="@parent" />
+		</p:selectOneRadio>
+
+		<p:commandButton rendered="#{empty cc.keyAddType}" immediate="true"
+			actionListener="#{cc.doAdd}" icon="ui-icon-plusthick" process="@this"
+			update="@parent" />
+
+		<ag:simpleField id="principalField" inputId="principal"
+			label="#{_gui['krbKeyEditor.principal.label']}"
+			description="#{_gui['krbKeyEditor.principal.description']}"
+			onlyIf="#{cc.keyAddType == 'password'}">
+			<p:inputText id="principal" required="#{cc.keyAddType == 'password'}"
+				value="#{cc.passwordKeyPrincipal}" />
+			<h:outputFormat rendered="#{not empty cc.attrs.realm}"
+				value="#{_gui['krbKeyEditor.realmAppendFmt']}">
+				<f:param value="#{cc.attrs.realm}" />
+			</h:outputFormat>
+		</ag:simpleField>
+
+		<ag:simpleField id="passwordField" inputId="keyPassword"
+			label="#{_gui['krbKeyEditor.password.label']}"
+			description="#{_gui['krbKeyEditor.password.description']}"
+			onlyIf="#{cc.keyAddType == 'password'}">
+			<p:password id="keyPassword" redisplay="true" autocomplete="false"
+				required="#{cc.keyAddType == 'password'}" value="#{cc.passwordKey}" />
+		</ag:simpleField>
+
+		<ag:simpleField inputId="keyPasswordConfirm"
+			label="#{_gui['krbKeyEditor.passwordConfirm.label']}"
+			description="#{_gui['krbKeyEditor.passwordConfirm.description']}"
+			onlyIf="#{cc.keyAddType == 'password'}">
+			<p:password id="keyPasswordConfirm" redisplay="true"
+				autocomplete="false" required="#{cc.keyAddType == 'password'}"
+				value="#{cc.passwordKeyConfirm}" />
+		</ag:simpleField>
+
+		<ag:simpleField inputId="keyPasswordKvno"
+			label="#{_gui['krbKeyEditor.kvno.label']}"
+			description="#{_gui['krbKeyEditor.kvno.description']}"
+			onlyIf="#{cc.keyAddType == 'password'}">
+			<p:inputText id="keyPasswordKvno" value="#{cc.passwordKeyKVNO}" />
+		</ag:simpleField>
+
+		<ag:simpleField inputId="keyPasswordETypes"
+			label="#{_gui['krbKeyEditor.etypes.label']}"
+			description="#{_gui['krbKeyEditor.etypes.description']}"
+			onlyIf="#{cc.keyAddType == 'password'}">
+			<p:selectManyCheckbox id="keyPasswordETypes" layout="pageDirection"
+				value="#{cc.passwordKeyETypes}">
+				<f:selectItems value="#{cc.availableEnctypeAlgos}" var="etype"
+					itemValue="#{etype}" itemLabel="#{cc.translateAlgorithm(etype)}" />
+			</p:selectManyCheckbox>
+		</ag:simpleField>
+
+		<p:commandButton id="addPassword" process="@parent"
+			rendered="#{cc.keyAddType == 'password'}" icon="ui-icon-key"
+			value="#{_gui['krbKeyEditor.confirmPassword']}"
+			actionListener="#{cc.addPasswordKeys}" update="@parent" />
+
+		<ag:simpleField inputId="keytabUpload"
+			label="#{_gui['krbKeyEditor.uploadKeytab.label']}"
+			description="#{_gui['krbKeyEditor.uploadKeytab.description']}"
+			onlyIf="#{cc.keyAddType == 'keytab'}">
+			<p:fileUpload styleClass="small" id="keytabUpload" auto="true"
+				fileUploadListener="#{cc.handleKeytabUpload}"
+				update="@composite:@parent:keytabKeys" />
+		</ag:simpleField>
+
+	</p:outputPanel>
+
+</composite:implementation>
+</html>

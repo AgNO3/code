@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="bindAddresses" path="bindAddresses"
+		minLevel="2" collection="true">
+		<ag:setEditor id="bindAddresses"
+			factoryMethod="#{setEditorUtilBean.makeEmptyString}"
+			comparator="#{setEditorUtilBean.stringComparator}"
+			value="#{current.bindAddresses}">
+			<p:column>
+				<p:autoComplete id="bindAddresses" dropdown="true"
+					converter="#{ipAddressConverter}"
+					completeMethod="#{webEndpointConfigBean.getAddressCompleter(outerWrapper).complete}"
+					value="#{item.value}" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="bindInterface" path="bindInterface"
+		minLevel="2">
+		<p:autoComplete id="bindInterface" dropdown="true"
+			completeMethod="#{webEndpointConfigBean.getInterfaceCompleter(outerWrapper).complete}"
+			value="#{current.bindInterface}" />
+	</orch:objectFieldEditor>
+
+
+	<orch:objectFieldEditor inputId="bindPort" path="bindPort" minLevel="2"
+		onlyIf="#{not outerWrapper.getParameter('hideContext')}">
+		<p:inputText id="bindPort" value="#{current.bindPort}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="disableSSL" path="disableSSL"
+		minLevel="2"
+		onlyIf="#{not outerWrapper.getParameter('hideDisableSSL')}"
+		update="@composite:@parent:tlsSettings">
+		<p:selectBooleanCheckbox id="disableSSL" value="#{current.disableSSL}">
+			<p:ajax event="change" update="@composite:@parent:tlsSettings" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+
+	<orch:objectFieldEditor inputId="contextPath" path="contextPath"
+		minLevel="2" onlyIf="#{not outerWrapper.getParameter('hideContext')}">
+		<p:inputText id="contextPath" value="#{current.contextPath}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="sessionInactiveTimeout"
+		path="sessionInactiveTimeout" minLevel="2"
+		readOnlyValueMapper="#{dateFormatter.formatDurationObject}">
+		<ag:inputDuration id="sessionInactiveTimeout"
+			value="#{current.sessionInactiveTimeout}" minUnit="minutes"
+			maxUnit="hours" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="behindReverseProxy" minLevel="3"
+		onlyIf="#{not outerWrapper.getParameter('hideReverseProxy')}"
+		path="behindReverseProxy" update="@composite:@parent:revProxySettings">
+		<p:selectBooleanCheckbox id="behindReverseProxy"
+			value="#{current.behindReverseProxy}">
+			<p:ajax event="change" update="@composite:@parent:revProxySettings" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+	<p:outputPanel id="revProxySettings"
+		rendered="not outerWrapper.getParameter('hideReverseProxy')}">
+		<p:outputPanel
+			rendered="#{current.behindReverseProxy or (current.behindReverseProxy == null and defaults.behindReverseProxy)}">
+			<orch:objectEditor minLevel="3"
+				objectType="urn:agno3:objects:1.0:web:revproxy"
+				context="#{configContext}" path="reverseProxyConfig"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:outputPanel>
+	</p:outputPanel>
+
+
+
+	<p:outputPanel id="tlsSettings">
+		<p:outputPanel
+			rendered="#{(current.disableSSL != null and not current.disableSSL) or (current.disableSSL == null and not defaults.disableSSL)}">
+			<orch:objectEditor objectType="urn:agno3:objects:1.0:web:sslendpoint"
+				context="#{configContext}" path="sslEndpointConfiguration"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}">
+			</orch:objectEditor>
+		</p:outputPanel>
+	</p:outputPanel>
+
+	<!-- 
+
+    // hpkp
+    private Boolean enableHPKP;
+    private Set<PublicKeyEntry> hpkpPinnedCerts = new HashSet<>();
+    private Boolean hpkpIncludeSubdomains;
+    private Duration hpkpPinningTimeout;
+    private URI hpkpReportUri;
+
+    // hsts
+    private Boolean enableHSTS;
+    private Duration hstsTimeout;
+    private Boolean hstsIncludeSubdomains;
+    private Boolean hstsAcceptPreload;
+     -->
+
+
+	<orch:objectFieldEditor inputId="enableHSTS" path="enableHSTS"
+		minLevel="2" onlyIf="#{not outerWrapper.getParameter('hideHSTS')}"
+		update="@composite:@parent:hstsSettings">
+		<p:selectBooleanCheckbox id="enableHSTS" value="#{current.enableHSTS}">
+			<p:ajax event="change" update="@composite:@parent:hstsSettings" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+	<p:outputPanel id="hstsSettings">
+		<p:outputPanel
+			rendered="#{current.enableHSTS or (current.enableHSTS == null and defaults.enableHSTS)}">
+			<orch:objectFieldEditor inputId="hstsTimeout" path="hstsTimeout"
+				minLevel="2"
+				readOnlyValueMapper="#{dateFormatter.formatDurationObject}">
+				<ag:inputDuration minUnit="days" maxUnit="years" id="hstsTimeout"
+					value="#{current.hstsTimeout}" />
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="hstsIncludeSubdomains"
+				path="hstsIncludeSubdomains" minLevel="2">
+				<p:selectBooleanCheckbox id="hstsIncludeSubdomains"
+					value="#{current.hstsIncludeSubdomains}" />
+			</orch:objectFieldEditor>
+
+			<orch:objectFieldEditor inputId="hstsAcceptPreload"
+				path="hstsAcceptPreload" minLevel="2">
+				<p:selectBooleanCheckbox id="hstsAcceptPreload"
+					value="#{current.hstsAcceptPreload}" />
+			</orch:objectFieldEditor>
+
+		</p:outputPanel>
+	</p:outputPanel>
+
+
+</ui:composition>

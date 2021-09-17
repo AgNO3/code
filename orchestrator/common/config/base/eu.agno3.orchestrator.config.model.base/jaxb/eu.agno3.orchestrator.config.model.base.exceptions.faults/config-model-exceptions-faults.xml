@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.config.model.base.exceptions.faults"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:base:exceptions:faults">
+		<xml-ns prefix="ex" namespace-uri="urn:agno3:model:1.0:base:exceptions:faults" />
+		<xml-ns prefix="cmv" namespace-uri="urn:agno3:model:1.0:validation" />
+	</xml-schema>
+
+
+	<java-types>
+		<java-type name="ModelObjectFault" xml-accessor-type="NONE">
+		
+			<xml-type name="ModelObjectFault" />
+
+			<java-attributes>
+				<xml-element name="objectType" java-attribute="objectType" />
+				<xml-element name="id" java-attribute="id" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ModelObjectConflictFault"
+			xml-accessor-type="NONE">
+
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ModelObjectNotFoundFault"
+			xml-accessor-type="NONE">
+			
+			<xml-root-element name="ModelObjectNotFoundFault"/>
+			<xml-type name="ModelObjectNotFoundFault"/>
+
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ModelObjectModifiedFault"
+			xml-accessor-type="NONE">
+
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ModelObjectIdentifierConflictFault"
+			xml-accessor-type="NONE">
+
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ModelObjectReferentialIntegrityFault"
+			xml-accessor-type="NONE">
+
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+
+
+
+		<java-type name="ModelObjectValidationFault"
+			xml-accessor-type="NONE">
+
+			<xml-root-element name="validationFault" />
+			<xml-type name="violationFault" />
+
+			<java-attributes>
+				<xml-element name="violation" java-attribute="entries"
+					container-type="java.util.HashSet">
+					<xml-element-wrapper name="violations"
+						required="true" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+	
+
+		<java-type name="ModelServiceFault" xml-accessor-type="NONE">
+		
+			<xml-type name="ModelServiceFault"/>
+
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ModelServiceInternalFault"
+			xml-accessor-type="NONE">
+
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ModelServiceRollbackFault"
+			xml-accessor-type="NONE">
+
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+		
+		
+		<java-type name="AgentFault"
+			xml-accessor-type="NONE">
+			
+			<xml-root-element name="agentFault" />
+			<xml-type name="agentFault" />
+
+			<java-attributes>
+				<xml-element name="agentId" java-attribute="agentId" />
+				<xml-element name="instanceName" java-attribute="instanceName" />
+			</java-attributes>
+		</java-type>
+		
+		
+		<java-type name="AgentDetachedFault"
+			xml-accessor-type="NONE">
+			
+			<xml-root-element name="agentDetachedFault" />
+			<xml-type name="agentDetachedFault" />
+
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+		
+		<java-type name="AgentOfflineFault"
+			xml-accessor-type="NONE">
+			
+			<xml-root-element name="agentOfflineFault" />
+			<xml-type name="agentOfflineFault" />
+
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+		
+		<java-type name="AgentCommunicationErrorFault"
+			xml-accessor-type="NONE">
+			
+			<xml-root-element name="agentCommFault" />
+			<xml-type name="agentCommFault" />
+
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+		
+		
+		<java-type name="RemoteCallErrorFault"
+			xml-accessor-type="NONE">
+			
+			<xml-root-element name="remoteCallErrorFault" />
+			<xml-type name="remoteCallErrorFault" />
+
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+	</java-types>
+
+</xml-bindings>
+

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.agent.system.info.internal.SystemInformationRefresherImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.agent.system.info.SystemInformationRefresher"/>
+        <provide interface="eu.agno3.orchestrator.system.base.SystemService"/>
+    </service>
+    <reference name="PlatformInfoProvider" interface="eu.agno3.orchestrator.system.info.platform.PlatformInformationProvider" cardinality="1..1" policy="static" bind="setPlatformInfoProvider" unbind="unsetPlatformInfoProvider"/>
+    <reference name="NetworkInformationProvider" interface="eu.agno3.orchestrator.system.info.network.NetworkInformationProvider" cardinality="1..1" policy="static" bind="setNetworkInformationProvider" unbind="unsetNetworkInformationProvider"/>
+    <reference name="StorageInformationProvider" interface="eu.agno3.orchestrator.system.info.storage.StorageInformationProvider" cardinality="1..1" policy="static" bind="setStorageInformationProvider" unbind="unsetStorageInformationProvider"/>
+    <reference name="MessageClient" interface="eu.agno3.runtime.messaging.client.MessagingClient" cardinality="1..1" policy="static" bind="setMessageClient" unbind="unsetMessageClient"/>
+    <implementation class="eu.agno3.orchestrator.agent.system.info.internal.SystemInformationRefresherImpl"/>
+</scr:component>

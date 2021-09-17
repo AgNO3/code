@@ -1,0 +1,39 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+	<composite:interface
+		componentType="eu.agno3.runtime.security.web.gui.terms.TermsAcceptance">
+		<composite:attribute name="terms"
+			type="eu.agno3.runtime.security.web.gui.terms.TermsBean" />
+		<composite:attribute name="toAccept" />
+	</composite:interface>
+
+	<composite:implementation>
+		<ui:repeat value="#{cc.attrs.toAccept}" var="term">
+			<ag:simpleField label="#{cc.attrs.terms.getTermsLabel(term.id)}"
+				onlyIf="#{not cc.getAcceptance(term).accepted}"
+				description="#{cc.attrs.terms.getTermsDescription(term.id)}"
+				inputId="acceptTerm">
+				<p:selectBooleanCheckbox id="acceptTerm" required="true"
+					value="#{cc.getAcceptance(term).accepted}" />
+				<h:outputFormat styleClass="terms-extra inline-space" value="#{_login['terms.check.label']}">
+					<f:param value="#{cc.attrs.terms.getTermsLabel(term.id)}" />
+				</h:outputFormat>
+
+				<h:outputLink target="_blank"
+					styleClass="terms-view inline-space button ui-button ui-widget"
+					rendered="#{not empty cc.attrs.terms.getViewLocation(term.id)}"
+					value="#{request.contextPath}#{cc.attrs.terms.getViewLocation(term.id)}">
+					<span class="ui-icon ui-icon-inline ui-icon-extlink" />
+					<h:outputText value="#{_login['terms.view']}" />
+				</h:outputLink>
+			</ag:simpleField>
+		</ui:repeat>
+	</composite:implementation>
+</html>

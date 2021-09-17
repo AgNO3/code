@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.jsf.config.SecureSerialFactory" activate="activate" configuration-pid="jsf.serial">
+    <service servicefactory="false">
+        <provide interface="org.apache.myfaces.shared.util.serial.SerialFactory"/>
+    </service>
+    <reference name="SecureRandomProvider" interface="eu.agno3.runtime.crypto.random.SecureRandomProvider" cardinality="1..1" policy="static" bind="setSecureRandomProvider" unbind="unsetSecureRandomProvider"/>
+    <reference name="SecretKeyProvider" interface="eu.agno3.runtime.crypto.secret.SecretKeyProvider" cardinality="1..1" policy="static" bind="setSecretKeyProvider" unbind="unsetSecretKeyProvider"/>
+    <implementation class="eu.agno3.runtime.jsf.config.SecureSerialFactory"/>
+</scr:component>

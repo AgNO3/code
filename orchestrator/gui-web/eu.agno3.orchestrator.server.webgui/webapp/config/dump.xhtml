@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	template="/tpl/common/raw.xhtml">
+	<ui:param name="title"
+		value="#{msgs.formatEL('config.dump.titleFmt', configUtil.getDisplayNameFor(configDumper.object), configUtil.getDisplayTypeName(configDumper.object))}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="object" value="#{configDumper.objectId}"
+				required="true" requiredMessage="#{_gui['require.param.objectId']}">
+			</f:viewParam>
+		</f:metadata>
+	</ui:define>
+
+
+	<ui:define name="content">
+		<h:form>
+			<ag:dialogContextHolder />
+
+			<div class="dialogButtons">
+				<p:commandButton icon="ui-icon-arrowrefresh-1-e"
+					title="#{_gui['config.dump.reload']}" update="dumpTabs"
+					resetValues="true" />
+			</div>
+
+			<p:messages autoUpdate="true" />
+
+			<p:tabView id="dumpTabs" dynamic="true" cache="true">
+				<p:tab title="#{_gui['config.dump.current.title']}">
+					<p:inputTextarea value="#{configDumper.formattedConfig}"
+						style="width: 100%" rows="25" readonly="true" />
+				</p:tab>
+
+				<p:tab title="#{_gui['config.dump.effective.title']}">
+					<p:inputTextarea value="#{configDumper.formattedEffectiveConfig}"
+						style="width: 100%" rows="25" readonly="true" />
+				</p:tab>
+
+				<p:tab title="#{_gui['config.dump.defaults.title']}">
+					<p:inputTextarea value="#{configDumper.formattedDefaultConfig}"
+						style="width: 100%" rows="25" readonly="true" />
+				</p:tab>
+
+				<p:tab title="#{_gui['config.dump.inherited.title']}">
+					<p:inputTextarea value="#{configDumper.formattedInheritedConfig}"
+						style="width: 100%" rows="25" readonly="true" />
+				</p:tab>
+
+				<p:tab title="#{_gui['config.dump.enforced.title']}">
+					<p:inputTextarea value="#{configDumper.formattedEnforcedConfig}"
+						style="width: 100%" rows="25" readonly="true" />
+				</p:tab>
+
+
+			</p:tabView>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.fileshare.service.config.internal.TrustLevelConfigurationImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.service.config.TrustLevelConfiguration"/>
+    </service>
+    <reference name="TrustLevel" interface="eu.agno3.fileshare.model.TrustLevel" cardinality="0..n" policy="dynamic" bind="bindTrustLevel" unbind="unbindTrustLevel" updated="modifiedTrustLevel"/>
+    <implementation class="eu.agno3.fileshare.service.config.internal.TrustLevelConfigurationImpl"/>
+</scr:component>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.fileshare.service.policy.internal.PolicyEvaluatorImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.service.api.internal.PolicyEvaluator"/>
+    </service>
+    <reference name="Context" interface="eu.agno3.fileshare.service.api.internal.DefaultServiceContext" cardinality="1..1" policy="static" bind="setContext" unbind="unsetContext"/>
+    <reference name="AccessControl" interface="eu.agno3.fileshare.security.AccessControlService" cardinality="1..1" policy="static" bind="setAccessControl" unbind="unsetAccessControl"/>
+    <reference name="PolicyRule" interface="eu.agno3.fileshare.service.policy.internal.PolicyRule" cardinality="0..n" policy="static" bind="bindPolicyRule" unbind="unbindPolicyRule"/>
+    <reference name="ResourceBundleService" interface="eu.agno3.runtime.i18n.ResourceBundleService" cardinality="1..1" policy="static" bind="setResourceBundleService" unbind="unsetResourceBundleService"/>
+    <implementation class="eu.agno3.fileshare.service.policy.internal.PolicyEvaluatorImpl"/>
+</scr:component>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.jobs.agent.system.internal.FileHashValidationJob">
+    <property name="jobType" value="eu.agno3.orchestrator.agent.crypto.truststore.internal.CRLUpdateJob"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.scheduler.TriggeredJob"/>
+    </service>
+    <reference name="HashValidator" interface="eu.agno3.orchestrator.system.file.hashtracking.FileHashValidator" cardinality="1..1" policy="static" bind="setHashValidator" unbind="unsetHashValidator"/>
+    <implementation class="eu.agno3.orchestrator.jobs.agent.system.internal.FileHashValidationJob"/>
+</scr:component>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="fileshare-orch-common-feature"
+      label="Fileshare Orchestrator Common Feature"
+      version="0.0.1.qualifier"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <includes
+         id="fileshare-common-feature"
+         version="0.0.0"/>
+
+   <requires>
+      <import feature="model-base-common-feature" version="0.0.1.qualifier"/>
+      <import feature="realm-model-feature" version="0.0.1.qualifier"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.fileshare.orch.common"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.fileshare.orch.common.i18n"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

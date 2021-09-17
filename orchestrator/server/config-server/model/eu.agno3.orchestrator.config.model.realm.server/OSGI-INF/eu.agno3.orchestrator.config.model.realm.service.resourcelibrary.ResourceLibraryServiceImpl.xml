@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.orchestrator.config.model.realm.service.resourcelibrary.ResourceLibraryServiceImpl" activate="activate" configuration-pid="resourceLibrary">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.config.model.realm.service.ResourceLibraryService"/>
+        <provide interface="eu.agno3.orchestrator.config.model.realm.server.service.ResourceLibraryServerService"/>
+        <provide interface="eu.agno3.runtime.ws.common.SOAPWebService"/>
+    </service>
+    <reference name="Context" interface="eu.agno3.orchestrator.config.model.base.server.context.DefaultServerServiceContext" cardinality="1..1" policy="static" bind="setContext" unbind="unsetContext"/>
+    <reference name="PersistenceUtil" interface="eu.agno3.orchestrator.config.model.realm.server.util.PersistenceUtil" cardinality="1..1" policy="static" bind="setPersistenceUtil" unbind="unsetPersistenceUtil"/>
+    <reference name="ObjectAccessControl" interface="eu.agno3.orchestrator.config.model.realm.server.service.ObjectAccessControl" cardinality="1..1" policy="static" bind="setObjectAccessControl" unbind="unsetObjectAccessControl"/>
+    <reference name="ObjectPoolProvider" interface="eu.agno3.orchestrator.config.model.realm.server.util.ObjectPoolProvider" cardinality="1..1" policy="static" bind="setObjectPoolProvider" unbind="unsetObjectPoolProvider"/>
+    <reference name="AgentService" interface="eu.agno3.orchestrator.config.model.realm.server.service.AgentServerService" cardinality="1..1" policy="static" bind="setAgentService" unbind="unsetAgentService"/>
+    <reference name="MessagingClient" interface="eu.agno3.runtime.messaging.client.MessagingClient" cardinality="1..1" policy="static" bind="setMessagingClient" unbind="unsetMessagingClient"/>
+    <reference name="ResourceLibraryRegistry" interface="eu.agno3.orchestrator.config.model.descriptors.ResourceLibraryRegistry" cardinality="1..1" policy="static" bind="setResourceLibraryRegistry" unbind="unsetResourceLibraryRegistry"/>
+    <implementation class="eu.agno3.orchestrator.config.model.realm.service.resourcelibrary.ResourceLibraryServiceImpl"/>
+</scr:component>

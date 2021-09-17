@@ -1,0 +1,22 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.orchestrator.common</groupId>
+    <artifactId>system</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>info</artifactId>
+  <name>Orchestrator System Information</name>
+  <packaging>pom</packaging>
+
+  <modules>
+		<module>eu.agno3.orchestrator.system.info</module>
+		<module>eu.agno3.orchestrator.system.info.api</module>
+
+		<module>eu.agno3.orchestrator.system.info.network</module>
+		<module>eu.agno3.orchestrator.system.info.storage</module>
+		<module>eu.agno3.orchestrator.system.info.platform</module>
+		<module>sysinfo-base-feature</module>
+
+  </modules>
+</project>

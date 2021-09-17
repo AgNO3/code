@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.config.model.validation"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:validation">
+		<xml-ns prefix="cmv" namespace-uri="urn:agno3:model:1.0:validation" />
+		<xml-ns prefix="cmb" namespace-uri="urn:agno3:model:1.0:base" />
+	</xml-schema>
+
+	<java-types>
+
+		<java-type name="ViolationEntry" xml-accessor-type="NONE">
+			<xml-type name="violationEntryType"
+				factory-class="eu.agno3.orchestrator.config.model.validation.ObjectFactory"
+				factory-method="createViolationEntry" />
+			<xml-root-element name="violationEntry" />
+			<java-attributes>
+				<xml-attribute name="level" java-attribute="level" />
+				<xml-attribute name="objectType" java-attribute="objectType" />
+				<xml-attribute name="messageTemplate" java-attribute="messageTemplate" />
+
+				<xml-element name="elem" java-attribute="path">
+					<xml-element-wrapper name="path" />
+				</xml-element>
+
+				<xml-element name="arg" java-attribute="messageArgs">
+					<xml-element-wrapper name="msgArgs" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ConfigTestParams" xml-accessor-type="NONE">
+			<xml-type name="configTestParamsType" />
+			<xml-root-element name="configTestParams" />
+		</java-type>
+
+
+		<java-type name="ConfigTestResultImpl" xml-accessor-type="NONE">
+			<xml-type name="configTestResultType" />
+			<xml-root-element name="configTestResult" />
+
+			<java-attributes>
+				<xml-attribute name="state" java-attribute="state" />
+				<xml-attribute name="defaultObjectType" java-attribute="defaultObjectType" />
+				<xml-attribute name="testId" java-attribute="testId">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.UUIDAdapter" />
+				</xml-attribute>
+
+				<xml-element name="entry" java-attribute="entries">
+					<xml-element-wrapper name="entries" />
+				</xml-element>
+
+
+				<xml-element name="violation" java-attribute="violations">
+					<xml-element-wrapper name="violations" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ConfigTestResultEntry" xml-accessor-type="NONE">
+			<xml-type name="configTestResultEntryType" />
+			<xml-root-element name="configTestResultEntry" />
+			<java-attributes>
+				<xml-attribute name="severity" java-attribute="severity" />
+				<xml-attribute name="objectType" java-attribute="objectType" />
+				<xml-attribute name="messageTemplate" java-attribute="messageTemplate" />
+
+				<xml-element name="arg" java-attribute="messageArgs">
+					<xml-element-wrapper name="msgArgs" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+	</java-types>
+
+</xml-bindings>

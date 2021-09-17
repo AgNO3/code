@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.fileshare.service.vfs.fs.FilesystemVFS" configuration-policy="require" activate="activate" deactivate="deactivate" configuration-pid="vfs.fs">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.vfs.VFS"/>
+    </service>
+    <reference name="RecursiveModTracker" interface="eu.agno3.fileshare.service.api.internal.RecursiveModificationTimeTracker" cardinality="1..1" policy="static" bind="setRecursiveModTracker" unbind="unsetRecursiveModTracker"/>
+    <implementation class="eu.agno3.fileshare.service.vfs.fs.FilesystemVFS"/>
+</scr:component>

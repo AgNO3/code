@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<p:outputPanel id="logTablePanel">
+		<orch:logView logBean="#{consoleLogEventTable}"
+			widgetVar="consoleLogTable" showHeader="false"
+			style="width: 100%; height: 100%; margin: 0" refreshTimer="5"
+			followOnly="true" />
+	</p:outputPanel>
+</ui:composition>

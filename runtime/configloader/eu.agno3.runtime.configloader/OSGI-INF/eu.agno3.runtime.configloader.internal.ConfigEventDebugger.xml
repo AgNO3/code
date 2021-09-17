@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.runtime.configloader.internal.ConfigEventDebugger" activate="activate">
+    <service servicefactory="false">
+        <provide interface="org.osgi.service.cm.ConfigurationListener"/>
+        <provide interface="org.osgi.framework.SynchronousBundleListener"/>
+    </service>
+    <implementation class="eu.agno3.runtime.configloader.internal.ConfigEventDebugger"/>
+</scr:component>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.runtime.db.orm.internal.HibernateConfigurationRegistryImpl" activate="activate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.db.orm.hibernate.HibernateConfigurationListener"/>
+        <provide interface="eu.agno3.runtime.db.orm.hibernate.HibernateConfigurationRegistry"/>
+    </service>
+    <implementation class="eu.agno3.runtime.db.orm.internal.HibernateConfigurationRegistryImpl"/>
+</scr:component>

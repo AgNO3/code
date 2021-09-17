@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="cdi-feature"
+      label="CDI Feature"
+      version="0.0.36"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <requires>
+      <import feature="deps-javax-feature" version="0.0.12"/>
+      <import feature="deps-openwebbeans-feature" version="1.2.4.AG3"/>
+      <import feature="deps-pax-cdi-feature" version="0.7.0.AG1"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.runtime.cdi"
+         download-size="0"
+         install-size="0"
+         version="0.0.36"
+         unpack="false"/>
+
+</feature>

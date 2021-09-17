@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:fsadm="http://agno3.eu/ns/jsf/fsadm/taglib/1.0"
+	template="/tpl/common/dialog.xhtml">
+
+	<ui:param name="title" value="#{_gui['security.addUser.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="service"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form" method="POST" enctype="multipart/form-data">
+			<ag:dialogContextHolder />
+
+			<ag:dialogCrumps />
+
+			<p:hotkey bind="esc" action="#{dialog.close}" immediate="true" />
+			<p:messages autoUpdate="true" />
+
+			<p:focus />
+			<p:fieldset legend="#{_gui['security.addUser.title']}">
+				<ag:simpleField label="#{_gui['security.addUser.userName.label']}"
+					description="#{_gui['security.addUser.userName.description']}"
+					inputId="userName">
+					<p:inputText id="userName"
+						value="#{orch_userCreateContext.userName}" required="true" />
+				</ag:simpleField>
+
+				<ag:passwordInput value="#{orch_userCreateContext.password}"
+					checker="#{orch_userController.passwordPolicy}" />
+
+				<ag:simpleField
+					label="#{_gui['security.addUser.forcePasswordChange.label']}"
+					description="#{_gui['security.addUser.forcePasswordChange.description']}"
+					inputId="forcePasswordChange">
+					<p:selectBooleanCheckbox id="forcePasswordChange"
+						value="#{orch_userCreateContext.forcePasswordChange}" />
+				</ag:simpleField>
+
+				<ag:simpleField label="#{_gui['security.addUser.disabled.label']}"
+					description="#{_gui['security.addUser.disabled.description']}"
+					inputId="disabled">
+					<p:selectBooleanCheckbox id="disabled"
+						value="#{orch_userCreateContext.disabled}" />
+				</ag:simpleField>
+
+
+				<ag:simpleField label="#{_gui['security.addUser.roles.label']}"
+					description="#{_gui['security.addUser.roles.description']}">
+					<p:dataTable styleClass="list-table" id="roleTable"
+						scrollable="true" scrollHeight="250"
+						value="#{orch_subjectRolesBean.model}" paginator="false"
+						var="role" rowKey="#{role}" rowSelectMode="checkbox"
+						dblClickSelection="true"
+						selection="#{orch_userCreateContext.roles}">
+
+						<p:column selectionMode="multiple" style="width: 20px" />
+						<p:column>
+							<h:outputText id="roleName" value="#{role}" />
+						</p:column>
+					</p:dataTable>
+				</ag:simpleField>
+			</p:fieldset>
+
+			<div class="buttons">
+				<p:commandButton id="confirm" process="@form"
+					icon="ui-icon-plusthick"
+					action="#{orch_userController.createUser(orch_userCreateContext)}"
+					value="#{_gui['security.addUser.confirm']}" />
+
+
+				<p:commandButton id="confirmAndContinue" process="@form"
+					icon="ui-icon-plusthick"
+					action="#{orch_userController.createMoreUsers(orch_userCreateContext)}"
+					value="#{_gui['security.addUser.confirmMulti']}" />
+
+				<p:commandButton immediate="true" action="#{dialog.close}"
+					styleClass="close-button inline" icon="#{dialog.closeIcon}"
+					title="#{dialog.closeDescription}"
+					value="#{_gui['security.addUser.cancel']}" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

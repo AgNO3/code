@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.runtime.console.osgi.internal.BundleCommandProvider" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.console.CommandProvider"/>
+    </service>
+    <reference name="BundleUpdater" interface="eu.agno3.runtime.update.BundleUpdater" cardinality="1..1" policy="static" bind="setBundleUpdater" unbind="unsetBundleUpdater"/>
+    <implementation class="eu.agno3.runtime.console.osgi.internal.BundleCommandProvider"/>
+</scr:component>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0"
+	template="/tpl/structure/instance/template.xhtml">
+	<ui:param name="instanceSubtitle"
+		value="#{_gui['structure.instance.license.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="instance"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<p:messages autoUpdate="true" />
+
+
+			<p:fieldset style="func-unit"
+				legend="#{_gui['structure.instance.license.active.title']}"
+				rendered="#{not empty instanceLicensingBean.assignedLicense}">
+				<ag:simpleField
+					rendered="#{not empty instanceLicensingBean.assignedLicense.description}"
+					label="#{_gui['structure.instance.license.info.description.label']}"
+					description="#{_gui['structure.instance.license.info.description.description']}"
+					readOnly="true"
+					value="#{instanceLicensingBean.assignedLicense.description}" />
+				<ag:simpleField readOnly="true"
+					label="#{_gui['structure.instance.license.info.licensedTo.label']}"
+					description="#{_gui['structure.instance.license.info.licensedTo.description']}"
+					value="#{instanceLicensingBean.assignedLicense.licensedTo}" />
+				<ag:simpleField readOnly="true"
+					label="#{_gui['structure.instance.license.info.issueDate.label']}"
+					description="#{_gui['structure.instance.license.info.issueDate.description']}"
+					value="#{localeSettingsBean.formatDateTime(instanceLicensingBean.assignedLicense.issueDate, 'M-')}" />
+				<ag:simpleField readOnly="true"
+					label="#{_gui['structure.instance.license.info.expirationDate.label']}"
+					description="#{_gui['structure.instance.license.info.expirationDate.description']}"
+					value="#{localeSettingsBean.formatDateTime(instanceLicensingBean.assignedLicense.expirationDate, 'M-')}" />
+
+
+				<div class="func-unit-buttons">
+					<p:commandButton
+						value="#{_gui['structure.instance.license.remove.label']}"
+						icon="ui-icon-trash"
+						action="#{instanceLicensingBean.removeLicense}" update="@form" />
+				</div>
+			</p:fieldset>
+
+			<p:fieldset style="func-unit"
+				legend="#{_gui['structure.instance.license.unlicensed.title']}"
+				rendered="#{empty instanceLicensingBean.assignedLicense}">
+				<p>
+					<h:outputText
+						rendered="#{empty instanceLicensingBean.demoExpiration}"
+						value="#{_gui['structure.instance.license.unlicensed.noExpireMsg']}" />
+					<h:outputFormat
+						rendered="#{not empty instanceLicensingBean.demoExpiration}"
+						value="#{_gui['structure.instance.license.unlicensed.expireFmt']}">
+						<f:param
+							value="#{localeSettingsBean.formatDateTime(instanceLicensingBean.demoExpiration, 'M-')}" />
+					</h:outputFormat>
+				</p>
+			</p:fieldset>
+
+			<p:fieldset styleClass="func-unit"
+				legend="#{_gui['structure.instance.license.assign.title']}"
+				rendered="#{not empty instanceLicensingBean.availableLicenses}">
+				<p:selectOneMenu value="#{instanceLicensingBean.selectedLicenseId}">
+					<f:selectItem
+						itemLabel="#{_gui['structure.instance.license.assign.noSelection']}"
+						itemValue="" noSelectionOption="true" />
+					<f:selectItems value="#{instanceLicensingBean.availableLicenses}"
+						var="lic" itemValue="#{lic.licenseId}"
+						itemLabel="#{instanceLicensingBean.getDisplayLabel(lic)}" />
+					<p:ajax event="itemSelect"
+						listener="#{instanceLicensingBean.licenseSelected}"
+						update="selectionDisplay" />
+				</p:selectOneMenu>
+
+				<p:outputPanel id="selectionDisplay">
+					<p:outputPanel
+						rendered="#{not empty instanceLicensingBean.selectedLicense}">
+
+						<ag:simpleField
+							rendered="#{not empty instanceLicensingBean.selectedLicense.description}"
+							label="#{_gui['structure.instance.license.info.description.label']}"
+							description="#{_gui['structure.instance.license.info.description.description']}"
+							readOnly="true"
+							value="#{instanceLicensingBean.selectedLicense.description}" />
+						<ag:simpleField readOnly="true"
+							label="#{_gui['structure.instance.license.info.licensedTo.label']}"
+							description="#{_gui['structure.instance.license.info.licensedTo.description']}"
+							value="#{instanceLicensingBean.selectedLicense.licensedTo}" />
+						<ag:simpleField readOnly="true"
+							label="#{_gui['structure.instance.license.info.issueDate.label']}"
+							description="#{_gui['structure.instance.license.info.issueDate.description']}"
+							value="#{localeSettingsBean.formatDateTime(instanceLicensingBean.selectedLicense.issueDate, 'M-')}" />
+						<ag:simpleField readOnly="true"
+							label="#{_gui['structure.instance.license.info.expirationDate.label']}"
+							description="#{_gui['structure.instance.license.info.expirationDate.description']}"
+							value="#{localeSettingsBean.formatDateTime(instanceLicensingBean.selectedLicense.expirationDate, 'M-')}" />
+
+						<div class="func-unit-buttons">
+							<p:commandButton
+								value="#{_gui['structure.instance.license.assign.label']}"
+								action="#{instanceLicensingBean.assignLicense}" update="@form" />
+						</div>
+					</p:outputPanel>
+				</p:outputPanel>
+			</p:fieldset>
+
+			<p:fieldset styleClass="func-unit"
+				legend="#{_gui['structure.instance.license.set.title']}">
+				<p:outputPanel>
+					<p:inputTextarea value="#{instanceLicensingBean.addLicenseData}"
+						cols="80" />
+					<br />
+					<p:commandButton
+						value="#{_gui['structure.instance.license.set.label']}"
+						icon="ui-icon-plus"
+						action="#{instanceLicensingBean.addAndAssignLicense}" />
+					<p:fileUpload styleClass="small" auto="true"
+						fileUploadListener="#{instanceLicensingBean.handleFileUpload}"
+						update="@form" sizeLimit="100000" />
+				</p:outputPanel>
+			</p:fieldset>
+
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

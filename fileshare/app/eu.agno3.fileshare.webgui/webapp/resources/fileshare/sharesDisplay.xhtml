@@ -1,0 +1,307 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0">
+
+<composite:interface>
+	<composite:attribute name="grants" required="true"
+		type="java.util.List" />
+	<composite:attribute name="localEntity" required="true" />
+	<composite:attribute name="emptyMessage" required="false" />
+	<composite:attribute name="legend" required="false" />
+	<composite:attribute name="returnLabel" />
+	<composite:attribute name="inheritedDialogPrefix" />
+	<composite:attribute name="update" />
+
+	<composite:facet name="bottom" />
+</composite:interface>
+
+<composite:implementation>
+	<h:outputScript library="fileshare" name="overlayfix.js" />
+	<h:outputScript library="fileshare" name="fileshare.js" />
+	<p:dataTable widgetVar="shareTable" value="#{cc.attrs.grants}"
+		id="grantTable" var="grant" rowExpandMode="single"
+		styleClass="list-table shares-table"
+		emptyMessage="#{cc.attrs.emptyMessage}">
+		<p:column>
+			<p:outputPanel id="grantDisplay" styleClass="grant-display"
+				style="display: inline">
+				<h:panelGroup rendered="#{shareDisplayBean.isSubjectGrant(grant)}">
+					<span
+						class="ui-icon #{subjectDisplayBean.getSubjectIconClass(grant.target)} ui-icon-inline" />
+					<h:outputText id="grantTargetName"
+						value="#{subjectDisplayBean.getSubjectDisplayName(grant.target)}" />
+
+				</h:panelGroup>
+				<h:panelGroup
+					rendered="#{shareDisplayBean.isMailGrant(grant) and not grant.passwordProtected}">
+					<span class="ui-icon ui-icon-inline ui-icon-mail-closed" />
+					<h:outputText value="#{grant.mailAddress}" />
+				</h:panelGroup>
+
+				<p:link
+					rendered="#{shareDisplayBean.isMailGrant(grant) and grant.passwordProtected}"
+					href="#"
+					onclick="PF('shareTable').toggleExpansion($(this)); return false;">
+					<span class="ui-icon ui-icon-inline ui-icon-mail-closed" />
+					<h:outputText value="#{grant.mailAddress}" />
+					<span class="ui-icon ui-icon-inline ui-icon-triangle-1-s" />
+				</p:link>
+
+				<p:link rendered="#{shareDisplayBean.isTokenGrant(grant)}" href="#"
+					onclick="PF('shareTable').toggleExpansion($(this)); return false;">
+					<span class="ui-icon ui-icon-inline ui-icon-link" />
+					<h:outputFormat rendered="#{not empty grant.identifier}"
+						value="#{_msgs['sharesDisplay.linkFmt']}">
+						<f:param value="#{grant.identifier}" />
+					</h:outputFormat>
+					<h:outputText rendered="#{empty grant.identifier}"
+						value="#{_msgs['sharesDisplay.linkAnon']}" />
+					<span class="ui-icon ui-icon-inline ui-icon-triangle-1-s" />
+				</p:link>
+			</p:outputPanel>
+
+			<h:outputText
+				rendered="#{(shareDisplayBean.isTokenGrant(grant) or shareDisplayBean.isMailGrant(grant)) and grant.passwordProtected}"
+				styleClass="ui-icon ui-icon-inline ui-icon-key" style="float: right"
+				title="#{_msgs['sharesDisplay.passwordProtected']}" />
+
+			<p:tooltip appendToBody="false" dynamic="false" for="grantDisplay"
+				widgetVar="grant_tt_${grant.id}" showEvent="mouseenter"
+				hideEvent="mouseleave">
+				<fs:grantDetails grant="#{grant}" />
+			</p:tooltip>
+		</p:column>
+
+		<p:rowExpansion>
+			<p:outputPanel styleClass="links-share share-expansion"
+				rendered="#{shareDisplayBean.isTokenGrant(grant)}">
+
+				<p:fieldset styleClass="func-unit invert">
+					<ag:simpleField label="#{_msgs['actions.share.link.link.label']}"
+						inputId="viewURL"
+						description="#{_msgs['actions.share.link.link.description']}">
+
+						<p:commandButton styleClass="copy-button" type="button"
+							icon="ui-icon-copy"
+							onclick="copyShareLink($(this).closest('div').find('input.shrlink'));"
+							title="#{_msgs['actions.share.link.copy']}" />
+
+						<p:inputText id="viewURL" styleClass="shrlink" readonly="true"
+							style="width: 90%"
+							onfocus="this.setSelectionRange(0, this.value.length)"
+							onclick="this.setSelectionRange(0, this.value.length)"
+							value="#{tokenRedisplayBean.getShareFor(grant).viewURL}" />
+
+
+						<div style="height: 2em; padding-left: 3em; margin-top: 0.3em">
+							<h:outputText styleClass="copy-success" style="display: none;"
+								value="#{_msgs['actions.share.link.copySuccess']}" />
+							<h:outputText styleClass="copy-failure"
+								style="display: none; color: red"
+								value="#{_msgs['actions.share.link.copyFailure']}" />
+						</div>
+					</ag:simpleField>
+
+					<ag:simpleField rendered="#{grant.passwordProtected}"
+						label="#{_msgs['actions.share.link.passwordDisplay.label']}"
+						description="#{_msgs['actions.share.link.passwordDisplay.description']}"
+						readOnly="true" value="#{grant.password}" />
+
+					<ag:simpleField id="identifierField"
+						label="#{_msgs['actions.share.link.identifier.label']}"
+						description="#{_msgs['actions.share.link.identifier.description']}"
+						inputId="identifier">
+						<p:inputText id="identifier"
+							value="#{grantInfoBean.wrapperFor(grant).identifier}" />
+					</ag:simpleField>
+
+					<ag:simpleField id="commentField"
+						label="#{_msgs['actions.share.link.comment.label']}"
+						description="#{_msgs['actions.share.link.comment.description']}"
+						inputId="comment">
+						<p:inputTextarea style="margin-left: -4px; width: 100%"
+							id="comment" value="#{grantInfoBean.wrapperFor(grant).comment}" />
+					</ag:simpleField>
+
+					<div class="func-unit-buttons">
+						<p:commandLink process="commentField identifierField"
+							styleClass="ui-button button" update="grantTable">
+							<span class="ui-icon ui-icon-check ui-icon-inline" />
+							<h:outputText style="display: inline-block"
+								value="#{_msgs['actions.share.link.comment.update']}" />
+						</p:commandLink>
+
+						<p:commandLink process="@this"
+							resetValues="commandField identifierField"
+							styleClass="ui-button button" update="grantTable"
+							onclick="PF('shareTable').collapseAllRows();">
+							<span class="ui-icon ui-icon-cancel ui-icon-inline" />
+							<h:outputText style="display: inline-block"
+								value="#{_msgs['actions.share.link.comment.cancel']}" />
+						</p:commandLink>
+					</div>
+
+				</p:fieldset>
+			</p:outputPanel>
+
+			<p:outputPanel styleClass="links-share" style="padding: 0.5em"
+				rendered="#{shareDisplayBean.isMailGrant(grant)}">
+				<ag:simpleField rendered="#{grant.passwordProtected}"
+					label="#{_msgs['actions.share.link.passwordDisplay.label']}"
+					description="#{_msgs['actions.share.link.passwordDisplay.description']}"
+					readOnly="true" value="#{grant.password}" />
+			</p:outputPanel>
+
+		</p:rowExpansion>
+
+		<p:column style="width: 25%; text-align: right">
+			<p:outputPanel id="sharePermDisplay">
+				<h:commandLink id="permWarning"
+					style="display: inline-block; vertical-align: middle"
+					onclick="return false;"
+					rendered="#{grant.effectivePerms != grant.perms}"
+					styleClass="ui-icon ui-state-error ui-icon-alert ui-icon-inline" />
+
+				<p:tooltip rendered="#{grant.effectivePerms != grant.perms}"
+					appendToBody="false" dynamic="false" for="permWarning">
+					<ui:fragment
+						rendered="#{grant.inheritedPerms != grant.effectivePerms and grant.groupPerms != grant.effectivePerms}">
+						<h:outputText
+							value="#{_msgs['sharesDisplay.permWarningEffective']}" />
+						<ul>
+							<ui:repeat
+								value="#{sharePermissionsBean.getImpliedPermissions(grant.effectivePerms)}"
+								var="perm">
+								<li><h:outputText value="#{perm}" /></li>
+							</ui:repeat>
+						</ul>
+					</ui:fragment>
+
+					<ui:fragment rendered="#{grant.inheritedPerms != 0}">
+						<h:outputText
+							value="#{_msgs['sharesDisplay.permWarningInherited']}" />
+						<ul>
+							<ui:repeat
+								value="#{sharePermissionsBean.getImpliedPermissions(grant.inheritedPerms)}"
+								var="perm">
+								<li><h:outputText value="#{perm}" /></li>
+							</ui:repeat>
+						</ul>
+					</ui:fragment>
+
+					<ui:fragment rendered="#{grant.groupPerms != 0}">
+						<h:outputText value="#{_msgs['sharesDisplay.permWarningGroup']}" />
+						<ul>
+							<ui:repeat
+								value="#{sharePermissionsBean.getImpliedPermissions(grant.groupPerms)}"
+								var="perm">
+								<li><h:outputText value="#{perm}" /></li>
+							</ui:repeat>
+						</ul>
+					</ui:fragment>
+				</p:tooltip>
+				<p:selectOneMenu id="inheritedPermissions"
+					style="width: 6em; display: inline-block; vertical-align: middle"
+					converter="#{fakeStringConverter}"
+					value="#{sharePermissionsBean.getBestMatch(grant.effectivePerms)}"
+					rendered="#{grant.entity.entityKey != cc.attrs.localEntity.entityKey}"
+					disabled="true">
+					<f:selectItems
+						value="#{sharePermissionsBean.getPermissionOptions(grant.entity)}" />
+				</p:selectOneMenu>
+				<p:selectOneMenu id="dirPermissions"
+					style="width: 6em; display: inline-block; vertical-align: middle"
+					value="#{grantInfoBean.wrapperFor(grant).permissions}"
+					rendered="#{grant.entity.entityKey == cc.attrs.localEntity.entityKey}"
+					disabled="false">
+					<p:ajax event="change" update="grantTable" />
+					<f:selectItems
+						value="#{sharePermissionsBean.getPermissionOptions(grant.entity)}" />
+				</p:selectOneMenu>
+			</p:outputPanel>
+		</p:column>
+
+		<p:column style="width: 20%">
+			<h:outputText value="#{_msgs['sharesDisplay.sharedVia']}"
+				rendered="#{grant.entity.entityKey != cc.attrs.localEntity.entityKey}" />
+			<ag:dialogOpenCommandLink closable="true"
+				rendered="#{grant.entity.entityKey != cc.attrs.localEntity.entityKey}"
+				dialog="#{cc.attrs.inheritedDialogPrefix}&amp;entity=#{grant.entity.entityKey}"
+				returnLabel="#{cc.attrs.returnLabel}">
+				<p:ajax event="return" update="@composite"
+					listener="#{fileSharesBean.refresh()}" />
+				<h:outputText
+					value="#{fileDisplayBean.getLocalDisplayName(grant.entity)}" />
+				<span class="ui-icon ui-icon-goto-up ui-icon-inline" />
+			</ag:dialogOpenCommandLink>
+			<p:outputPanel id="expirationPanel"
+				styleClass="date-editor hover-shade-background"
+				rendered="#{grant.entity.entityKey == cc.attrs.localEntity.entityKey}"
+				style="display: inline-block">
+
+				<span class="ui-icon ui-icon-calendar ui-icon-inline"
+					title="#{_msgs['sharesDisplay.expiration.set']}" />
+				<p:outputPanel id="expirationValue" style="display:inline-block">
+					<h:outputText id="realValue" style="font-style: italic"
+						rendered="#{not empty grant.expires}"
+						value="#{localeSettingsBean.formatDateTime(grant.expires, 'S-')}" />
+					<h:outputText id="neverValue" rendered="#{empty grant.expires}"
+						value="#{_msgs['sharesDisplay.expiration.never']}" />
+				</p:outputPanel>
+
+			</p:outputPanel>
+			<p:overlayPanel
+				rendered="#{grant.entity.entityKey == cc.attrs.localEntity.entityKey}"
+				widgetVar="expirePanel_#{grant.id}" appendToBody="false"
+				dynamic="false" for="expirationPanel" showCloseIcon="true">
+				<p:calendar mode="inline" locale="#{localeSettingsBean.dateLocale}"
+					timeZone="#{localeSettingsBean.timeZone}" value="#{grant.expires}"
+					converter="#{dateTimeConverter}" mindate="#{grantInfoBean.minDate}"
+					maxdate="#{grantInfoBean.getMaxDate(grant)}">
+					<p:ajax event="dateSelect"
+						listener="#{grantInfoBean.wrapperFor(grant).handleExpirySelect}"
+						update="@composite:grantTable"
+						oncomplete="PF('expirePanel_#{grant.id}').hide();" />
+				</p:calendar>
+				<p:commandButton rendered="#{grantInfoBean.canRemoveExpiry(grant)}"
+					actionListener="#{grantInfoBean.wrapperFor(grant).handleRemoveExpiry}"
+					update="@composite:grantTable"
+					value="#{_msgs['sharesDisplay.expiration.unset']}"
+					icon="ui-icon-closethick"
+					oncomplete="PF('expirePanel_#{grant.id}').hide();" />
+			</p:overlayPanel>
+		</p:column>
+
+		<p:column style="width: 2em; text-align: right">
+			<p:commandLink
+				rendered="#{grant.entity.entityKey == cc.attrs.localEntity.entityKey}"
+				styleClass="ui-icon ui-icon-trash ui-icon-inline"
+				onclick="PF('revokePanel_#{grant.id}').show(); return false;"
+				id="revokeButton" title="#{_msgs['sharesDisplay.revoke']}"
+				update="@composite:grantTable"></p:commandLink>
+
+			<p:overlayPanel id="revokePanel" appendToBody="false" dynamic="false"
+				rendered="#{grant.entity.entityKey == cc.attrs.localEntity.entityKey}"
+				widgetVar="revokePanel_#{grant.id}" style="right: 0"
+				dismissable="false">
+
+				<p:commandButton style="display:inline-block"
+					action="#{shareController.revokeGrant(grant)}"
+					value="#{_msgs['sharesDisplay.revoke.confirm']}"
+					update="@composite:grantTable" icon="ui-icon-check" />
+
+				<p:commandButton value="#{_msgs['sharesDisplay.revoke.cancel']}"
+					style="display:inline-block"
+					oncomplete="PF('revokePanel_#{grant.id}').hide()"
+					icon="ui-icon-cancel" />
+			</p:overlayPanel>
+		</p:column>
+	</p:dataTable>
+</composite:implementation>
+</html>
+

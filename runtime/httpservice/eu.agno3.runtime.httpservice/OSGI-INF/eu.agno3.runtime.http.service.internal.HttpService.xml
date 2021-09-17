@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" immediate="true" name="eu.agno3.runtime.http.service.internal.HttpService" activate="activate" deactivate="deactivate" configuration-pid="http.service">
+    <property name="connectors" value="http"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.http.service.HttpServiceInfo"/>
+    </service>
+    <reference name="GuardHandler" interface="eu.agno3.runtime.http.service.internal.GuardHandlerImpl" cardinality="1..1" policy="static" bind="setGuardHandler" unbind="unsetGuardHandler"/>
+    <reference name="MBeanServer" interface="javax.management.MBeanServer" cardinality="0..1" policy="dynamic" bind="bindMBeanServer" unbind="unbindMBeanServer"/>
+    <reference name="ConnectorFactory" interface="eu.agno3.runtime.http.service.connector.ConnectorFactory" cardinality="0..n" policy="dynamic" bind="bindConnectorFactory" unbind="unbindConnectorFactory" updated="updatedConnectorFactory"/>
+    <implementation class="eu.agno3.runtime.http.service.internal.HttpService"/>
+</scr:component>

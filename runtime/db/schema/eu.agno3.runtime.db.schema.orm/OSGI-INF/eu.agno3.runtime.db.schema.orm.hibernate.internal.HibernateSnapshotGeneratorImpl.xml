@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.runtime.db.schema.orm.hibernate.internal.HibernateSnapshotGeneratorImpl" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="liquibase.snapshot.SnapshotGenerator"/>
+        <provide interface="eu.agno3.runtime.db.schema.orm.hibernate.HibernateSnapshotGenerator"/>
+    </service>
+    <reference name="ConfigRegistry" interface="eu.agno3.runtime.db.orm.hibernate.HibernateConfigurationRegistry" cardinality="1..1" policy="static" bind="setConfigRegistry" unbind="unsetConfigRegistry"/>
+    <reference name="OwnershipStrategyFactory" interface="eu.agno3.runtime.db.schema.orm.hibernate.HibernateOwnershipStrategyFactory" cardinality="1..1" policy="static" bind="setOwnershipStrategyFactory" unbind="unsetOwnershipStrategyFactory"/>
+    <implementation class="eu.agno3.runtime.db.schema.orm.hibernate.internal.HibernateSnapshotGeneratorImpl"/>
+</scr:component>

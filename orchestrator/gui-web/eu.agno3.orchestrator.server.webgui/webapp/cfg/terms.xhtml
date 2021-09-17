@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<orch:objectFieldEditor inputId="termsLibrary" path="termsLibrary">
+		<p:inputText id="termsLibrary" value="#{current.termsLibrary}" />
+	</orch:objectFieldEditor>
+
+	<orch:multiObjectEditor objectType="urn:agno3:objects:1.0:terms:def"
+		context="#{configContext}" path="terms" subTemplate="#{isTemplate}"
+		readOnly="#{isReadOnly}" listLabel="#{termsConfigBean.labelFor}"
+		collectionType="set" setComparator="#{termsConfigBean.comparator}"
+		clone="#{roleConfigBean.cloneObject}" />
+</ui:composition>

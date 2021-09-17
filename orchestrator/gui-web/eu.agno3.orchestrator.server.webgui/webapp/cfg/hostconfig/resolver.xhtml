@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<orch:objectFieldEditor inputId="autoconfigureDns"
+		path="autoconfigureDns">
+		<p:selectBooleanCheckbox id="autoconfigureDns"
+			value="#{current.autoconfigureDns}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="nameservers" path="nameservers"
+		collection="true">
+		<ag:listEditor id="nameservers" value="#{current.nameservers}"
+			maxItems="3">
+			<p:column style="width: 70%">
+				<p:inputText style="width: 100%;" id="nameserver"
+					label="#{_config_hostconfig['hostconfig.resolver.nameservers.nameserver']}"
+					value="#{item.value}" converter="#{ipAddressConverter}" />
+				<p:message for="nameserver" />
+			</p:column>
+		</ag:listEditor>
+	</orch:objectFieldEditor>
+
+	<ag:simpleField styleClass="noLabel" id="networkStatusField"
+		onlyIf="#{configContextUtil.isInstance(configContext)}">
+		<ag:dialogOpenButton id="networkStatusButton" icon="ui-icon-info"
+			dialog="/structure/instance/sysinfo/network.dialog.xhtml?anchor=#{structureViewContext.selectedAnchorId}&amp;instance=#{configContextUtil.getInstance(configContext).id}"
+			closable="true"
+			value="#{_gui['structure.instance.sysinfo.network.label']}">
+			<p:ajax event="return" />
+		</ag:dialogOpenButton>
+	</ag:simpleField>
+	
+	
+	<ag:simpleField styleClass="noLabel" id="testResolverField">
+		<ag:dialogOpenButton title="#{_config_hostconfig['test.resolver.title']}"
+			icon="ui-icon-check" style="display: block"
+			value="#{_config_hostconfig['test.resolver.label']}" closable="true"
+			process="@form" dialog="#{configTestUtil.makeTestLink(outerWrapper)}">
+			<p:ajax event="return" />
+		</ag:dialogOpenButton>
+	</ag:simpleField>
+</ui:composition>

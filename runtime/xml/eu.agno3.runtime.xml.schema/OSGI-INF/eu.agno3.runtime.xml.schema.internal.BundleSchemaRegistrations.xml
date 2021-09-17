@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.runtime.xml.schema.internal.BundleSchemaRegistrations" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="org.osgi.util.tracker.BundleTrackerCustomizer"/>
+    </service>
+    <reference name="URLRegFactory" interface="eu.agno3.runtime.xml.schema.internal.URLSchemaRegistrationFactory" cardinality="1..1" policy="static" bind="setURLRegFactory" unbind="unsetURLRegFactory"/>
+    <reference name="ValidationConfig" interface="eu.agno3.runtime.xml.schema.SchemaValidationConfig" cardinality="1..1" policy="static" bind="setValidationConfig" unbind="unsetValidationConfig"/>
+    <implementation class="eu.agno3.runtime.xml.schema.internal.BundleSchemaRegistrations"/>
+</scr:component>

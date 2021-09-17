@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.orchestrator.bootstrap.server.service.impl.BootstrapServiceImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.bootstrap.service.BootstrapService"/>
+        <provide interface="eu.agno3.orchestrator.bootstrap.server.service.BootstrapServerService"/>
+        <provide interface="eu.agno3.runtime.ws.common.SOAPWebService"/>
+    </service>
+    <reference name="Context" interface="eu.agno3.orchestrator.config.model.base.server.context.DefaultServerServiceContext" cardinality="1..1" policy="static" bind="setContext" unbind="unsetContext"/>
+    <reference name="ObjectAccessControl" interface="eu.agno3.orchestrator.config.model.realm.server.service.ObjectAccessControl" cardinality="1..1" policy="static" bind="setObjectAccessControl" unbind="unsetObjectAccessControl"/>
+    <reference name="DefaultRealmServicesContext" interface="eu.agno3.orchestrator.config.model.realm.server.service.DefaultRealmServicesContext" cardinality="1..1" policy="static" bind="setDefaultRealmServicesContext" unbind="unsetDefaultRealmServicesContext"/>
+    <reference name="PersistenceUtil" interface="eu.agno3.orchestrator.config.model.realm.server.util.PersistenceUtil" cardinality="1..1" policy="static" bind="setPersistenceUtil" unbind="unsetPersistenceUtil"/>
+    <reference name="JobCoordinator" interface="eu.agno3.orchestrator.jobs.JobCoordinator" cardinality="1..1" policy="static" bind="setJobCoordinator" unbind="unsetJobCoordinator"/>
+    <reference name="WebKeystoreConfig" interface="eu.agno3.runtime.crypto.tls.KeyStoreConfiguration" cardinality="0..1" policy="dynamic" target="(instanceId=web)" bind="setWebKeystoreConfig" unbind="unsetWebKeystoreConfig"/>
+    <reference name="BootstrapPlugin" interface="eu.agno3.orchestrator.bootstrap.BootstrapPlugin" cardinality="0..n" policy="static" bind="bindBootstrapPlugin" unbind="unbindBootstrapPlugin" policy-option="greedy"/>
+    <reference name="ResourceLibraryService" interface="eu.agno3.orchestrator.config.model.realm.server.service.ResourceLibraryServerService" cardinality="1..1" policy="static" bind="setResourceLibraryService" unbind="unsetResourceLibraryService"/>
+    <implementation class="eu.agno3.orchestrator.bootstrap.server.service.impl.BootstrapServiceImpl"/>
+</scr:component>

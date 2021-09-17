@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.jobs.compound"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:job:1.0:compound">
+		<xml-ns prefix="compj" namespace-uri="urn:agno3:job:1.0:compound" />
+		<xml-ns prefix="j" namespace-uri="urn:agno3:job:1.0:base" />
+		<xml-ns prefix="xsd" namespace-uri="http://www.w3.org/2001/XMLSchema" />
+		<xml-ns prefix="user" namespace-uri="urn:agno3:security:1.0:principal" />
+	</xml-schema>
+
+	<xml-java-type-adapters>
+		<xml-java-type-adapter type="org.joda.time.DateTime"
+			value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter"
+			value-type="datetime" />
+	</xml-java-type-adapters>
+
+	<java-types>
+
+		<java-type name="CompoundJob" xml-accessor-type="NONE">
+			<xml-type name="compoundJob"  />
+			<xml-root-element name="compoundJob" />
+
+			<java-attributes>
+				<xml-element name="name" java-attribute="name" />
+				
+				<xml-element name="job" java-attribute="jobs">
+					<xml-element-wrapper name="jobs" />
+				</xml-element>
+				
+				<xml-element name="weight" java-attribute="weights">
+					<xml-element-wrapper name="weights" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+	</java-types>
+
+</xml-bindings>

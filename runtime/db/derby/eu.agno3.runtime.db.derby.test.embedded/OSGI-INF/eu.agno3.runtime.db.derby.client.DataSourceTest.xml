@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.runtime.db.derby.client.DataSourceTest" activate="servicesSetUp">
+    <reference name="TestXADataSource" interface="javax.sql.XADataSource" cardinality="1..1" policy="static" target="(&amp;(osgi.jdbc.driver.class=org.apache.derby.jdbc.EmbeddedDriver)(dataSourceName=test2)(user=readwrite))" bind="setTestXADataSource" unbind="unsetTestXADataSource"/>
+    <reference name="TestDataSource" interface="javax.sql.DataSource" cardinality="1..1" policy="static" target="(&amp;(osgi.jdbc.driver.class=org.apache.derby.jdbc.EmbeddedDriver)(dataSourceName=test2)(user=readwrite)(dataSourceType=xa))" bind="setTestDataSource" unbind="unsetTestDataSource"/>
+    <reference name="TestDataSourceUtil" interface="eu.agno3.runtime.db.DataSourceUtil" cardinality="1..1" policy="static" target="(&amp;(dataSourceName=test2)(user=readwrite))" bind="setTestDataSourceUtil" unbind="unsetTestDataSourceUtil"/>
+    <reference name="TransactionManager" interface="javax.transaction.TransactionManager" cardinality="1..1" policy="static" bind="setTransactionManager" unbind="unsetTransactionManager"/>
+    <implementation class="eu.agno3.runtime.db.derby.client.DataSourceTest"/>
+</scr:component>

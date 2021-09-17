@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.crypto.pkcs11.internal.PKCS11TokenConfigurationImpl" configuration-policy="require" activate="activate" deactivate="deactivate" modified="modified" configuration-pid="pkcs11.token">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.crypto.pkcs11.PKCS11TokenConfiguration"/>
+    </service>
+    <reference name="PKCS11Util" interface="eu.agno3.runtime.crypto.pkcs11.PKCS11Util" cardinality="1..1" policy="static" bind="setPKCS11Util" unbind="unsetPKCS11Util"/>
+    <implementation class="eu.agno3.runtime.crypto.pkcs11.internal.PKCS11TokenConfigurationImpl"/>
+</scr:component>

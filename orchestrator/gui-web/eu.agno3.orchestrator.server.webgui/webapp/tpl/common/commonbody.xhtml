@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<h:form>
+		<orch:eventListener />
+		<p:ajaxExceptionHandler
+			type="javax.faces.application.ViewExpiredException"
+			update="expiredDialog"
+			onexception="PF('expiredDialog').show(); PF('pinger').stop(); $(window).unbind('beforeunload')" />
+
+		<p:ajaxExceptionHandler
+			type="javax.enterprise.context.NonexistentConversationException"
+			update="expiredDialog"
+			onexception="PF('expiredDialog').show(); PF('pinger').stop(); $(window).unbind('beforeunload');" />
+
+
+
+		<p:poll interval="30" widgetVar="pinger" listener="#{pingBean.ping}"
+			process="@this" update="@this" onerror="OrchUtils.showConnectionLost()"
+			oncomplete="OrchUtils.hideConnectionLost()" />
+
+
+		<h:outputStylesheet library="agno3" name="library.static.css" />
+
+		<noscript>
+			<div class="jsUnvailable">
+				<div class="background"></div>
+				<div class="content">
+					<h:outputText value="#{_gui['error.noJSmessage']}" />
+				</div>
+			</div>
+		</noscript>
+
+		<p:dialog id="expiredDialog"
+			header="#{_gui['errors.viewExpiredTitle']}" widgetVar="expiredDialog"
+			height="200px">
+
+			<p>
+				<h:outputText value="#{_gui['errors.viewExpiredMessage']}" />
+			</p>
+
+			<p:link rendered="#{not dialog.inDialog()}"
+				href="#{uriUtil.getSavedFullRequestWithoutConversation()}"
+				value="#{_gui['errors.reloadPage']}" />
+		</p:dialog>
+	</h:form>
+</ui:composition>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" immediate="true" name="eu.agno3.runtime.messaging.broker.impl.BrokerServiceImpl" configuration-policy="require" activate="activate" deactivate="deactivate" configuration-pid="messaging.broker">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.messaging.broker.EmbeddedBrokerService"/>
+    </service>
+    <reference name="MBeanServer" interface="javax.management.MBeanServer" cardinality="0..1" policy="static" bind="setMBeanServer" unbind="unsetMBeanServer"/>
+    <reference name="Transport" interface="eu.agno3.runtime.messaging.broker.transport.TransportFactory" cardinality="0..n" policy="dynamic" bind="bindTransport" unbind="unbindTransport"/>
+    <reference name="Plugin" interface="eu.agno3.runtime.messaging.broker.PrioritizedBrokerPlugin" cardinality="0..n" policy="static" bind="bindPlugin" unbind="unbindPlugin"/>
+    <reference name="AuthenticationPlugin" interface="eu.agno3.runtime.messaging.broker.auth.BrokerAuthenticationPlugin" cardinality="1..1" policy="static" bind="setAuthenticationPlugin" unbind="unsetAuthenticationPlugin"/>
+    <reference name="AuthorizationPlugin" interface="eu.agno3.runtime.messaging.broker.auth.BrokerAuthorizationPlugin" cardinality="1..1" policy="static" bind="setAuthorizationPlugin" unbind="unsetAuthorizationPlugin"/>
+    <implementation class="eu.agno3.runtime.messaging.broker.impl.BrokerServiceImpl"/>
+</scr:component>

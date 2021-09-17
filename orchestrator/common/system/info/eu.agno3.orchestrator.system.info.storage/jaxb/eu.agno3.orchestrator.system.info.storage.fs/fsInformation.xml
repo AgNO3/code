@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.system.info.storage.fs"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:system:info:storage:fs">
+		<xml-ns prefix="fs" namespace-uri="urn:agno3:model:1.0:system:info:storage:fs" />
+	</xml-schema>
+
+	<java-types>
+		<java-type name="FileSystem" xml-accessor-type="NONE">
+			<xml-type name="fileSystem" />
+			<xml-root-element name="fs" />
+
+			<java-attributes>
+				<xml-attribute name="id" java-attribute="identifier" />
+				<xml-attribute name="type" java-attribute="fsType" />
+
+				<xml-element name="uuid" java-attribute="uuid" required="false">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.UUIDAdapter" />
+				</xml-element>
+				<xml-element name="label" java-attribute="label"
+					required="false" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="DataFileSystem" xml-accessor-type="NONE">
+			<xml-type name="dataFileSystem"
+				factory-class="eu.agno3.orchestrator.system.info.storage.fs.ObjectFactory"
+				factory-method="createDataFileSystem" />
+			<xml-root-element name="dataFileSystem" />
+
+			<java-attributes>
+				<xml-element name="mountPoint" java-attribute="mountPoints">
+					<xml-element-wrapper name="mountPoints" />
+				</xml-element>
+				<xml-element name="totalSpace" java-attribute="totalSpace"
+					required="false" />
+				<xml-element name="usableSpace" java-attribute="usableSpace"
+					required="false" />
+				<xml-element name="uncapturedSpace" java-attribute="uncapturedSpace"
+					required="false" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="SwapFileSystem" xml-accessor-type="NONE">
+			<xml-type name="swapFileSystem"
+				factory-class="eu.agno3.orchestrator.system.info.storage.fs.ObjectFactory"
+				factory-method="createSwapFileSystem" />
+			<xml-root-element name="swapFileSystem" />
+
+			<java-attributes>
+				<xml-attribute name="active" java-attribute="active" />
+			</java-attributes>
+		</java-type>
+
+
+	</java-types>
+
+</xml-bindings>

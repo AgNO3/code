@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.orchestrator.agent.crypto.truststore.internal.CRLUpdateJob" configuration-policy="require" activate="activate" modified="modified" configuration-pid="truststore.crlupdate">
+    <property name="jobType" value="eu.agno3.orchestrator.agent.crypto.truststore.internal.CRLUpdateJob"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.scheduler.TriggeredJob"/>
+    </service>
+    <reference name="TruststoresManager" interface="eu.agno3.orchestrator.agent.crypto.truststore.TruststoresManager" cardinality="1..1" policy="static" bind="setTruststoresManager" unbind="unsetTruststoresManager"/>
+    <reference name="CRLUpdater" interface="eu.agno3.orchestrator.agent.crypto.truststore.CRLUpdater" cardinality="1..1" policy="static" bind="setCRLUpdater" unbind="unsetCRLUpdater"/>
+    <implementation class="eu.agno3.orchestrator.agent.crypto.truststore.internal.CRLUpdateJob"/>
+</scr:component>

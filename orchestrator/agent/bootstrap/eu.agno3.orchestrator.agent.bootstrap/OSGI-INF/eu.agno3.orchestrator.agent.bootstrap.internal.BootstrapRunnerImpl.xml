@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.orchestrator.agent.bootstrap.internal.BootstrapRunnerImpl" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.agent.bootstrap.internal.BootstrapRunnerImpl"/>
+    </service>
+    <reference name="BootstrapConfigProvider" interface="eu.agno3.orchestrator.agent.bootstrap.BootstrapConfigurationProvider" cardinality="1..1" policy="static" bind="setBootstrapConfigProvider" unbind="unsetBootstrapConfigProvider"/>
+    <reference name="ConfigurationAdmin" interface="org.osgi.service.cm.ConfigurationAdmin" cardinality="1..1" policy="static" bind="setConfigurationAdmin" unbind="unsetConfigurationAdmin"/>
+    <reference name="ServiceSystem" interface="eu.agno3.orchestrator.system.base.service.ServiceSystem" cardinality="1..1" policy="static" bind="setServiceSystem" unbind="unsetServiceSystem"/>
+    <reference name="AgentConnectorConfig" interface="eu.agno3.orchestrator.server.connector.ServerConnectorConfiguration" cardinality="1..1" policy="static" bind="setAgentConnectorConfig" unbind="unsetAgentConnectorConfig"/>
+    <reference name="AgentServerConnector" interface="eu.agno3.orchestrator.agent.connector.AgentServerConnector" cardinality="0..1" policy="dynamic" bind="setAgentServerConnector" unbind="unsetAgentServerConnector"/>
+    <reference name="MessagingClient" interface="eu.agno3.runtime.messaging.client.MessagingClient" cardinality="0..1" policy="dynamic" bind="setMessagingClient" unbind="unsetMessagingClient"/>
+    <reference name="BootstrapCrypto" interface="eu.agno3.orchestrator.agent.bootstrap.internal.BootstrapCryptoRunnerImpl" cardinality="1..1" policy="static" bind="setBootstrapCrypto" unbind="unsetBootstrapCrypto"/>
+    <reference name="ConfigLoader" interface="eu.agno3.runtime.configloader.ConfigLoader" cardinality="1..1" policy="static" bind="setConfigLoader" unbind="unsetConfigLoader"/>
+    <reference name="ServerConfigJobBuilder" interface="eu.agno3.orchestrator.config.orchestrator.agent.OrchestratorConfigJobBuilder" cardinality="1..1" policy="static" bind="setServerConfigJobBuilder" unbind="unsetServerConfigJobBuilder"/>
+    <reference name="HostConfigJobBuilder" interface="eu.agno3.orchestrator.config.hostconfig.agent.HostConfigJobBuilder" cardinality="1..1" policy="static" bind="setHostConfigJobBuilder" unbind="unsetHostConfigJobBuilder"/>
+    <reference name="ExecutorFactory" interface="eu.agno3.orchestrator.jobs.coord.ExecutorFactory" cardinality="1..1" policy="static" bind="setExecutorFactory" unbind="unsetExecutorFactory"/>
+    <reference name="ObjectTypeRegistry" interface="eu.agno3.orchestrator.config.model.descriptors.ObjectTypeRegistry" cardinality="1..1" policy="static" bind="setObjectTypeRegistry" unbind="unsetObjectTypeRegistry"/>
+    <reference name="ConfigRepository" interface="eu.agno3.orchestrator.jobs.agent.system.ConfigRepository" cardinality="1..1" policy="static" bind="setConfigRepository" unbind="unsetConfigRepository"/>
+    <reference name="XmlMarshaller" interface="eu.agno3.runtime.xml.binding.XmlMarshallingService" cardinality="1..1" policy="static" bind="setXmlMarshaller" unbind="unsetXmlMarshaller"/>
+    <reference name="PlatformStateManager" interface="eu.agno3.runtime.update.PlatformStateManager" cardinality="1..1" policy="static" bind="setPlatformStateManager" unbind="unsetPlatformStateManager"/>
+    <implementation class="eu.agno3.orchestrator.agent.bootstrap.internal.BootstrapRunnerImpl"/>
+</scr:component>

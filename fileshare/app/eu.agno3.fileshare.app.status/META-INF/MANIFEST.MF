@@ -1,0 +1,25 @@
+Bundle-SymbolicName: eu.agno3.fileshare.app.status
+Bundle-Version: 0.0.1.qualifier
+Bundle-Name: Fileshare Application
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.fileshare.service.api.internal,
+ eu.agno3.fileshare.service.config;version="0.0.1.qualifier",
+ eu.agno3.fileshare.webdav;version="0.0.1.qualifier",
+ eu.agno3.runtime.console;version="0.0.2",
+ eu.agno3.runtime.http.service;version="0.0.122",
+ eu.agno3.runtime.http.service.webapp;version="0.0.136",
+ eu.agno3.runtime.update;version="0.0.40",
+ javassist;version="3.18.0.GA",
+ javassist.util.proxy;version="3.18.0.GA",
+ javax.persistence;version="2.0.0",
+ org.apache.log4j,
+ org.fusesource.jansi;version="1.9.0",
+ org.hibernate.proxy;version="4.2.3",
+ org.newsclub.net.unix;version="1.3.0",
+ org.osgi.framework;version="1.8.0",
+ org.osgi.service.cm;version="1.4.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0"
+Service-Component: OSGI-INF/*.xml

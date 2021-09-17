@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0"
+	template="/tpl/common/dialog.xhtml">
+	<ui:param name="title"
+		value="#{_gui['hardware.storage.rescanDrives.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="instance"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<ag:dialogContextHolder />
+
+			<p:messages autoUpdate="true" />
+
+
+			<p:fieldset legend="#{_gui['hardware.storage.rescanDrives.title']}">
+
+				<p class="ui-message ui-message-warning">
+					<h:outputFormat
+						value="#{_gui['hardware.storage.rescanDrives.msgFmt']}">
+						<f:param
+							value="#{structureUtil.getDisplayName(structureViewContext.selectedInstance)}" />
+					</h:outputFormat>
+				</p>
+
+				<div class="buttons">
+					<p:commandButton
+						action="#{diskManageController.rescan(structureViewContext.selectedInstance)}"
+						icon="ui-icon-check"
+						value="#{_gui['hardware.storage.rescanDrives.confirm']}" />
+
+					<p:commandButton action="#{dialog.close}" styleClass="close-button"
+						icon="#{dialog.closeIcon}" title="#{dialog.closeDescription}"
+						value="#{_gui['hardware.storage.rescanDrives.cancel']}" />
+				</div>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

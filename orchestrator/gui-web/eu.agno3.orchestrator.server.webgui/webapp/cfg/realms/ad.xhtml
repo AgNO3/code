@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<p:tabView>
+
+		<p:tab title="#{_gui['realms.manage.ad.domain.title']}">
+			<p:fieldset>
+				<orch:objectFieldEditor inputId="realmName" path="realmName"
+					readOnlyIfPersistent="true"
+					update="@composite:@parent:liveFields">
+					<p:inputText id="realmName" value="#{current.realmName}">
+						<p:ajax event="change"
+							update="@composite:@parent:liveFields" />
+					</p:inputText>
+				</orch:objectFieldEditor>
+
+				<p:outputPanel id="liveFields">
+					<ag:simpleField id="statusField"
+						onlyIf="#{configContextUtil.isInstance(configContext)}"
+						label="Status">
+						<p:outputPanel id="status">
+							<h:outputText
+								value="#{realmConfigBean.getRealmStatus(outerWrapper)}" />
+						</p:outputPanel>
+					</ag:simpleField>
+
+					<ag:simpleField styleClass="noLabel" id="realmManageField"
+						onlyIf="#{configContextUtil.isInstance(configContext) and realmConfigBean.isRealmConfigured(outerWrapper)}">
+						<ag:dialogOpenButton icon="ui-icon-key" id="realmManageButton"
+							dialog="/realms/manageDialog.xhtml?instance=#{configContextUtil.getInstance(configContext).id}&amp;selectRealm=#{realmConfigBean.getRealmName(outerWrapper, 'urn:agno3:objects:1.0:realms:ad')}"
+							disabled="#{empty realmConfigBean.getRealmName(outerWrapper, 'urn:agno3:objects:1.0:realms:ad') or not configContextUtil.isOnline(configContext)}"
+							closable="true"
+							title="#{configContextUtil.getDisabledMessage(configContext)}"
+							value="#{_gui['realms.manage.ad']}">
+							<p:ajax event="return" listener="#{realmStatusBean.refresh()}"
+								update="@composite:@parent:statusField:status" />
+						</ag:dialogOpenButton>
+					</ag:simpleField>
+				</p:outputPanel>
+			</p:fieldset>
+		</p:tab>
+
+		<p:tab title="#{_gui['realms.manage.ad.joinopts.title']}">
+			<p:fieldset>
+				<orch:objectFieldEditor inputId="doJoin"
+					update="@composite:@parent:joinedOptions" path="doJoin">
+					<p:selectBooleanCheckbox id="doJoin" value="#{current.doJoin}">
+						<p:ajax event="change" update="@composite:@parent:joinedOptions" />
+					</p:selectBooleanCheckbox>
+				</orch:objectFieldEditor>
+
+				<p:outputPanel id="joinedOptions">
+					<p:outputPanel
+						rendered="#{current.doJoin != null and not current.doJoin}">
+						<orch:objectFieldEditor inputId="doRekey" path="doRekey">
+							<p:selectBooleanCheckbox id="doRekey" value="#{current.doRekey}" />
+						</orch:objectFieldEditor>
+						<orch:objectFieldEditor inputId="doLeave" path="doLeave">
+							<p:selectBooleanCheckbox id="doLeave" value="#{current.doLeave}" />
+						</orch:objectFieldEditor>
+					</p:outputPanel>
+				</p:outputPanel>
+
+				<orch:objectFieldEditor inputId="joinType" path="joinType"
+					update="@composite:@parent:joinOptions"
+					readOnlyValueMapper="#{realmConfigBean.translateADJoinType}">
+					<p:selectOneMenu id="joinType" value="#{current.joinType}">
+						<p:ajax event="change" update="@composite:@parent:joinOptions" />
+						<f:selectItems value="#{realmConfigBean.adJoinTypes}" var="t"
+							itemValue="#{t}"
+							itemLabel="#{realmConfigBean.translateADJoinType(t)}"
+							itemDescription="#{realmConfigBean.translateADJoinTypeDescription(t)}" />
+					</p:selectOneMenu>
+				</orch:objectFieldEditor>
+
+				<p:outputPanel id="joinOptions">
+					<p:outputPanel
+						rendered="#{current.joinType == 'JOIN_ACCOUNT' or 
+				(current.joinType == null and defaults.joinType == 'JOIN_ACCOUNT')}">
+						<p>
+							<h:outputText
+								value="#{_config_realm['realms.ad.joinType.joinAccount.warn']}" />
+						</p>
+						<orch:objectFieldEditor inputId="joinUser" path="joinUser">
+							<p:inputText id="joinUser" value="#{current.joinUser}" />
+						</orch:objectFieldEditor>
+						<orch:objectFieldEditor inputId="joinPassword" path="joinPassword">
+							<p:password id="joinPassword" autocomplete="false"
+								redisplay="true" value="#{current.joinPassword}" />
+						</orch:objectFieldEditor>
+					</p:outputPanel>
+					<p:outputPanel
+						rendered="#{current.joinType == 'CUSTOM_MACHINE_PASSWORD' or 
+				(current.joinType == null and defaults.joinType == 'CUSTOM_MACHINE_PASSWORD')}">
+						<orch:objectFieldEditor inputId="customMachineJoinPassword"
+							path="customMachineJoinPassword">
+							<p:password id="customMachineJoinPassword" autocomplete="false"
+								redisplay="true" value="#{current.customMachineJoinPassword}" />
+						</orch:objectFieldEditor>
+					</p:outputPanel>
+				</p:outputPanel>
+			</p:fieldset>
+		</p:tab>
+
+		<p:tab title="#{_gui['realms.manage.ad.advanced.title']}">
+			<p:fieldset>
+				<orch:objectFieldEditor inputId="overrideLocalHostname" minLevel="2"
+					path="overrideLocalHostname">
+					<p:inputText id="overrideLocalHostname"
+						value="#{current.overrideLocalHostname}" />
+				</orch:objectFieldEditor>
+
+				<orch:objectFieldEditor inputId="securityLevel" minLevel="2"
+					path="securityLevel"
+					readOnlyValueMapper="#{realmConfigBean.translateSecurityLevel}">
+					<p:selectOneMenu id="securityLevel"
+						value="#{current.securityLevel}">
+						<f:selectItems value="#{realmConfigBean.securityLevels}"
+							var="level" itemValue="#{level}"
+							itemLabel="#{realmConfigBean.translateSecurityLevel(level)}"
+							itemDescription="#{realmConfigBean.translateSecurityLevelDescription(level)}" />
+					</p:selectOneMenu>
+				</orch:objectFieldEditor>
+
+				<orch:objectFieldEditor inputId="allowSMB1" minLevel="2"
+					path="allowSMB1" update="@composite:@parent:disableSMB2Field">
+					<p:selectBooleanCheckbox id="allowSMB1"
+						value="#{current.allowSMB1}">
+						<p:ajax event="change"
+							update="@composite:@parent:disableSMB2Field" />
+					</p:selectBooleanCheckbox>
+				</orch:objectFieldEditor>
+
+				<p:outputPanel id="disableSMB2Field">
+					<orch:objectFieldEditor inputId="disableSMB2" minLevel="2"
+						path="disableSMB2"
+						onlyIf="#{current.allowSMB1 or (current.allowSMB1 == null and defaults.allowSMB1)}">
+						<p:selectBooleanCheckbox id="disableSMB2"
+							value="#{current.disableSMB2}" />
+					</orch:objectFieldEditor>
+				</p:outputPanel>
+
+				<orch:objectFieldEditor inputId="rekeyMachineAccount" minLevel="2"
+					update="@composite:@parent:machineRekeyIntervalConfig"
+					path="rekeyMachineAccount">
+					<p:selectBooleanCheckbox id="rekeyMachineAccount"
+						value="#{current.rekeyMachineAccount}">
+						<p:ajax event="change"
+							update="@composite:@parent:machineRekeyIntervalConfig" />
+					</p:selectBooleanCheckbox>
+				</orch:objectFieldEditor>
+
+				<p:outputPanel id="machineRekeyIntervalConfig">
+					<orch:objectFieldEditor inputId="machineRekeyInterval" minLevel="2"
+						readOnlyValueMapper="#{dateFormatter.formatDurationObject}"
+						onlyIf="#{current.rekeyMachineAccount or (current.rekeyMachineAccount == null and defaults.rekeyMachineAccount)}"
+						path="machineRekeyInterval">
+						<ag:inputDuration id="machineRekeyInterval"
+							value="#{current.machineRekeyInterval}" minUnit="days"
+							maxUnit="days" />
+					</orch:objectFieldEditor>
+				</p:outputPanel>
+
+				<orch:objectFieldEditor inputId="maximumTicketLifetime" minLevel="3"
+					readOnlyValueMapper="#{dateFormatter.formatDurationObject}"
+					path="maximumTicketLifetime">
+					<ag:inputDuration id="maximumTicketLifetime"
+						value="#{current.maximumTicketLifetime}" minUnit="hours"
+						maxUnit="days" />
+				</orch:objectFieldEditor>
+
+				<orch:objectFieldEditor inputId="machineBaseDN" path="machineBaseDN"
+					minLevel="2">
+					<p:inputText id="machineBaseDN" value="#{current.machineBaseDN}" />
+				</orch:objectFieldEditor>
+
+				<orch:objectFieldEditor inputId="domainMappings"
+					path="domainMappings" collection="true" minLevel="3">
+					<ag:listEditor id="domainMappings"
+						value="#{current.domainMappings}">
+						<p:column style="width: 70%">
+							<p:inputText style="width: 100%;" id="mappedDomain"
+								label="#{_gui['realms.manage.mappedDomain.label']}"
+								value="#{item.value}" />
+							<p:message for="mappedDomain" />
+						</p:column>
+					</ag:listEditor>
+				</orch:objectFieldEditor>
+			</p:fieldset>
+		</p:tab>
+
+		<p:tab title="#{_gui['realms.manage.ad.spns.title']}"
+			rendered="#{userPreferences.enableExperimentalFeatures}">
+			<p:fieldset>
+				<orch:multiObjectEditor
+					toptitle="#{configLocalizationProvider.getFieldName('urn:agno3:objects:1.0:realms:ad', 'importKeytabs')}"
+					minLevel="2" objectType="urn:agno3:objects:1.0:realms:keytab"
+					context="#{configContext}" path="importKeytabs"
+					subTemplate="#{isTemplate}" readOnly="#{isReadOnly}"
+					listLabel="#{realmKeytabEntryBean.labelFor}"
+					setComparator="#{realmKeytabEntryBean.comparator}"
+					collectionType="set" clone="#{realmKeytabEntryBean.cloneObject}" />
+			</p:fieldset>
+		</p:tab>
+	</p:tabView>
+</ui:composition>

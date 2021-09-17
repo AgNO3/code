@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="ipv6Enabled" path="ipv6Enabled"
+		update="@composite:@parent" process="@composite:@parent">
+		<p:selectBooleanCheckbox id="ipv6Enabled"
+			value="#{current.ipv6Enabled}">
+			<p:ajax update="@composite:@parent" process="@composite:@parent" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+
+	<p:tabView rendered="#{not outerWrapper.getParameter('hideChildren')}"
+		dynamic="true" cache="false" processOnChange="true">
+		<p:tab
+			title="#{_config_hostconfig['hostconfig.network.interfaceConfiguration']}">
+			<orch:objectEditor context="#{configContext}"
+				objectType="urn:agno3:objects:1.0:hostconfig:network:interfaces"
+				path="interfaceConfiguration" subTemplate="#{isTemplate}"
+				readOnly="#{isReadOnly}" />
+		</p:tab>
+
+		<p:tab
+			title="#{_config_hostconfig['hostconfig.network.routingConfiguration']}">
+			<orch:objectEditor context="#{configContext}"
+				objectType="urn:agno3:objects:1.0:hostconfig:network:routing"
+				path="routingConfiguration" subTemplate="#{isTemplate}"
+				readOnly="#{isReadOnly}" />
+		</p:tab>
+	</p:tabView>
+
+	<ag:simpleField styleClass="noLabel" id="testNetworkField">
+		<ag:dialogOpenButton title="#{_config_hostconfig['test.network.title']}"
+			icon="ui-icon-check" style="display: block"
+			value="#{_config_hostconfig['test.network.label']}" closable="true"
+			process="@form" dialog="#{configTestUtil.makeTestLink(outerWrapper)}">
+			<p:ajax event="return" />
+		</ag:dialogOpenButton>
+	</ag:simpleField>
+</ui:composition>

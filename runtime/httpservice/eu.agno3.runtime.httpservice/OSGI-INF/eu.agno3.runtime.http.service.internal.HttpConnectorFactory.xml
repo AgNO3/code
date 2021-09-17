@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.http.service.internal.HttpConnectorFactory" configuration-policy="require" activate="updateConfig" modified="updateConfig" configuration-pid="httpservice.connector.http">
+    <property name="protocol" value="http"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.http.service.connector.ConnectorFactory"/>
+    </service>
+    <reference name="ReverseProxyConfig" interface="eu.agno3.runtime.http.service.ReverseProxyConfig" cardinality="0..1" policy="static" bind="bindReverseProxyConfig" unbind="unbindReverseProxyConfig" policy-option="greedy"/>
+    <implementation class="eu.agno3.runtime.http.service.internal.HttpConnectorFactory"/>
+</scr:component>

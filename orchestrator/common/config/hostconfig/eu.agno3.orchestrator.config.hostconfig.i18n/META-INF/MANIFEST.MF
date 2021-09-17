@@ -1,0 +1,6 @@
+Bundle-SymbolicName: eu.agno3.orchestrator.config.hostconfig.i18n
+Bundle-Version: 0.0.1.qualifier
+Bundle-Name: Orchestrator Configuration Management Host Configuration I18N
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2

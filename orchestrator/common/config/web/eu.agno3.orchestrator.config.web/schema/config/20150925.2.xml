@@ -1,0 +1,1254 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+	<changeSet author="mbechler (generated)" id="1443182418915-1">
+		<createTable tableName="config_runtime">
+			<column name="MEMORYLIMIT" type="BIGINT" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-2">
+		<createTable tableName="config_runtime_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="MEMORYLIMIT" type="BIGINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-3">
+		<createTable tableName="config_web_endpoint">
+			<column name="BEHINDREVERSEPROXY" type="BOOLEAN" />
+			<column name="BINDINTERFACE" type="VARCHAR(255)" />
+			<column name="BINDPORT" type="INT" />
+			<column name="CONTEXTPATH" type="VARCHAR(255)" />
+			<column name="DISABLESSL" type="BOOLEAN" />
+			<column name="ENABLEHPKP" type="BOOLEAN" />
+			<column name="ENABLEHSTS" type="BOOLEAN" />
+			<column name="HPKPINCLUDESUBDOMAINS" type="BOOLEAN" />
+			<column name="HPKPPINNINGTIMEOUT" type="BIGINT" />
+			<column name="HPKPREPORTURI" type="VARCHAR(255)" />
+			<column name="HSTSACCEPTPRELOAD" type="BOOLEAN" />
+			<column name="HSTSINCLUDESUBDOMAINS" type="BOOLEAN" />
+			<column name="HSTSTIMEOUT" type="BIGINT" />
+			<column name="SESSIONINACTIVETIMEOUT" type="BIGINT" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVERSEPROXYCONFIG_ID" type="BINARY(16)" />
+			<column name="SSLENDPOINTCONFIGURATION_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-4">
+		<createTable tableName="config_web_endpoint_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="BEHINDREVERSEPROXY" type="BOOLEAN" />
+			<column name="BINDINTERFACE" type="VARCHAR(255)" />
+			<column name="BINDPORT" type="INT" />
+			<column name="CONTEXTPATH" type="VARCHAR(255)" />
+			<column name="DISABLESSL" type="BOOLEAN" />
+			<column name="ENABLEHPKP" type="BOOLEAN" />
+			<column name="ENABLEHSTS" type="BOOLEAN" />
+			<column name="HPKPINCLUDESUBDOMAINS" type="BOOLEAN" />
+			<column name="HPKPPINNINGTIMEOUT" type="BIGINT" />
+			<column name="HPKPREPORTURI" type="VARCHAR(255)" />
+			<column name="HSTSACCEPTPRELOAD" type="BOOLEAN" />
+			<column name="HSTSINCLUDESUBDOMAINS" type="BOOLEAN" />
+			<column name="HSTSTIMEOUT" type="BIGINT" />
+			<column name="SESSIONINACTIVETIMEOUT" type="BIGINT" />
+			<column name="REVERSEPROXYCONFIG_ID" type="BINARY(16)" />
+			<column name="SSLENDPOINTCONFIGURATION_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-5">
+		<createTable tableName="config_web_endpoint_bind">
+			<column name="CONFIG_WEB_ENDPOINT_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ADDR" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-6">
+		<createTable tableName="config_web_endpoint_bind_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_WEB_ENDPOINT_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ADDR" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-7">
+		<createTable tableName="config_web_hpkp_pinned">
+			<column name="CONFIG_WEB_ENDPOINT_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="HPKPPINNEDKEYS_KEYID" type="VARCHAR(128)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-8">
+		<createTable tableName="config_web_hpkp_pinned_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_WEB_ENDPOINT_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="HPKPPINNEDKEYS_KEYID" type="VARCHAR(128)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-9">
+		<createTable tableName="config_web_icap">
+			<column name="OVERRIDEREQUESTURI" type="VARCHAR(255)" />
+			<column name="SENDICAPSINREQUESTURI" type="BOOLEAN" />
+			<column name="SOCKETTIMEOUT" type="BIGINT" />
+			<column name="SSLCLIENTMODE" type="INT" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="SSLCLIENTCONFIGURATION_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-10">
+		<createTable tableName="config_web_icap_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="OVERRIDEREQUESTURI" type="VARCHAR(255)" />
+			<column name="SENDICAPSINREQUESTURI" type="BOOLEAN" />
+			<column name="SOCKETTIMEOUT" type="BIGINT" />
+			<column name="SSLCLIENTMODE" type="INT" />
+			<column name="SSLCLIENTCONFIGURATION_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-11">
+		<createTable tableName="config_web_icap_servers">
+			<column name="CONFIG_WEB_ICAP_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="SERVERS" type="VARCHAR(255)" />
+			<column name="IDX" type="INT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-12">
+		<createTable tableName="config_web_icap_servers_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_WEB_ICAP_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="SERVERS" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="IDX" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-13">
+		<createTable tableName="config_web_ldap">
+			<column name="AUTHTYPE" type="INT" />
+			<column name="BASEDN" type="VARCHAR(255)" />
+			<column name="BINDDN" type="VARCHAR(255)" />
+			<column name="PASSWORD" type="VARCHAR(255)" />
+			<column name="SASLUSERNAME" type="VARCHAR(255)" />
+			<column name="SERVERTYPE" type="VARCHAR(255)" />
+			<column name="SRVDOMAIN" type="VARCHAR(255)" />
+			<column name="SSLCLIENTMODE" type="INT" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="SSLCLIENTCONFIGURATION_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-14">
+		<createTable tableName="config_web_ldap_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="AUTHTYPE" type="INT" />
+			<column name="BASEDN" type="VARCHAR(255)" />
+			<column name="BINDDN" type="VARCHAR(255)" />
+			<column name="PASSWORD" type="VARCHAR(255)" />
+			<column name="SASLUSERNAME" type="VARCHAR(255)" />
+			<column name="SERVERTYPE" type="VARCHAR(255)" />
+			<column name="SRVDOMAIN" type="VARCHAR(255)" />
+			<column name="SSLCLIENTMODE" type="INT" />
+			<column name="SSLCLIENTCONFIGURATION_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-15">
+		<createTable tableName="config_web_ldap_obj">
+			<column name="ATTRIBUTESTYLE" type="VARCHAR(255)" />
+			<column name="BASEDN" type="VARCHAR(255)" />
+			<column name="CUSTOMFILTER" type="VARCHAR(255)" />
+			<column name="SCOPE" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-16">
+		<createTable tableName="config_web_ldap_obj_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ATTRIBUTESTYLE" type="VARCHAR(255)" />
+			<column name="BASEDN" type="VARCHAR(255)" />
+			<column name="CUSTOMFILTER" type="VARCHAR(255)" />
+			<column name="SCOPE" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-17">
+		<createTable tableName="config_web_ldap_obj_attr">
+			<column name="ATTRIBUTEID" type="VARCHAR(255)" />
+			<column name="ATTRIBUTENAME" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-18">
+		<createTable tableName="config_web_ldap_obj_attr_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ATTRIBUTEID" type="VARCHAR(255)" />
+			<column name="ATTRIBUTENAME" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-19">
+		<createTable tableName="config_web_ldap_obj_config_web_ldap_obj_attr">
+			<column name="CONFIG_WEB_LDAP_OBJ_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="CUSTOMATTRIBUTEMAPPINGS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-20">
+		<createTable tableName="config_web_ldap_obj_config_web_ldap_obj_attr_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_WEB_LDAP_OBJ_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="CUSTOMATTRIBUTEMAPPINGS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-21">
+		<createTable tableName="config_web_ldap_servers">
+			<column name="CONFIG_WEB_LDAP_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="SERVERS" type="VARCHAR(255)" />
+			<column name="IDX" type="INT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-22">
+		<createTable tableName="config_web_ldap_servers_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_WEB_LDAP_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="SERVERS" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="IDX" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-23">
+		<createTable tableName="config_web_revproxy">
+			<column name="FORWARDEDHOSTHEADER" type="VARCHAR(255)" />
+			<column name="FORWARDEDPORTHEADER" type="VARCHAR(255)" />
+			<column name="FORWARDEDREMOTEADDRHEADER" type="VARCHAR(255)" />
+			<column name="FORWARDEDSSLCIPHERSHEADER" type="VARCHAR(255)" />
+			<column name="FORWARDEDSSLCIPHERSTYPE" type="INT" />
+			<column name="FORWARDEDSSLMATCHHEADER" type="VARCHAR(255)" />
+			<column name="FORWARDEDSSLMATCHVALUE" type="VARCHAR(255)" />
+			<column name="OVERRIDEURI" type="VARCHAR(255)" />
+			<column name="PROXYTYPE" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-24">
+		<createTable tableName="config_web_revproxy_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="FORWARDEDHOSTHEADER" type="VARCHAR(255)" />
+			<column name="FORWARDEDPORTHEADER" type="VARCHAR(255)" />
+			<column name="FORWARDEDREMOTEADDRHEADER" type="VARCHAR(255)" />
+			<column name="FORWARDEDSSLCIPHERSHEADER" type="VARCHAR(255)" />
+			<column name="FORWARDEDSSLCIPHERSTYPE" type="INT" />
+			<column name="FORWARDEDSSLMATCHHEADER" type="VARCHAR(255)" />
+			<column name="FORWARDEDSSLMATCHVALUE" type="VARCHAR(255)" />
+			<column name="OVERRIDEURI" type="VARCHAR(255)" />
+			<column name="PROXYTYPE" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-25">
+		<createTable tableName="config_web_revproxy_trusted">
+			<column name="CONFIG_WEB_REVPROXY_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ADDR" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-26">
+		<createTable tableName="config_web_revproxy_trusted_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_WEB_REVPROXY_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ADDR" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-27">
+		<createTable tableName="config_web_smtp">
+			<column name="AUTHENABLED" type="BOOLEAN" />
+			<column name="OVERRIDEDEFAULTFROMADDRESS" type="VARCHAR(255)" />
+			<column name="OVERRIDEDEFAULTFROMNAME" type="VARCHAR(255)" />
+			<column name="OVERRIDEEHLOHOSTNAME" type="VARCHAR(255)" />
+			<column name="SERVERURI" type="VARCHAR(255)" />
+			<column name="SMTPPASSWORD" type="VARCHAR(255)" />
+			<column name="SMTPUSER" type="VARCHAR(255)" />
+			<column name="SOCKETTIMEOUT" type="BIGINT" />
+			<column name="SSLCLIENTMODE" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="SSLCLIENTCONFIGURATION_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-28">
+		<createTable tableName="config_web_smtp_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="AUTHENABLED" type="BOOLEAN" />
+			<column name="OVERRIDEDEFAULTFROMADDRESS" type="VARCHAR(255)" />
+			<column name="OVERRIDEDEFAULTFROMNAME" type="VARCHAR(255)" />
+			<column name="OVERRIDEEHLOHOSTNAME" type="VARCHAR(255)" />
+			<column name="SERVERURI" type="VARCHAR(255)" />
+			<column name="SMTPPASSWORD" type="VARCHAR(255)" />
+			<column name="SMTPUSER" type="VARCHAR(255)" />
+			<column name="SOCKETTIMEOUT" type="BIGINT" />
+			<column name="SSLCLIENTMODE" type="VARCHAR(255)" />
+			<column name="SSLCLIENTCONFIGURATION_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-29">
+		<createTable tableName="config_web_smtp_auth">
+			<column name="CONFIG_WEB_SMTP_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="AUTHMECHANISMS" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-30">
+		<createTable tableName="config_web_smtp_auth_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_WEB_SMTP_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="AUTHMECHANISMS" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-31">
+		<createTable tableName="config_web_sslclient">
+			<column name="DISABLECERTIFICATEVERIFICATION" type="BOOLEAN" />
+			<column name="DISABLEHOSTNAMEVERIFICATION" type="BOOLEAN" />
+			<column name="SECURITYMODE" type="INT" />
+			<column name="TRUSTSTOREALIAS" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-32">
+		<createTable tableName="config_web_sslclient_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="DISABLECERTIFICATEVERIFICATION" type="BOOLEAN" />
+			<column name="DISABLEHOSTNAMEVERIFICATION" type="BOOLEAN" />
+			<column name="SECURITYMODE" type="INT" />
+			<column name="TRUSTSTOREALIAS" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-33">
+		<createTable tableName="config_web_sslendpoint">
+			<column name="KEYALIAS" type="VARCHAR(255)" />
+			<column name="KEYSTOREALIAS" type="VARCHAR(255)" />
+			<column name="SECURITYMODE" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-34">
+		<createTable tableName="config_web_sslendpoint_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="KEYALIAS" type="VARCHAR(255)" />
+			<column name="KEYSTOREALIAS" type="VARCHAR(255)" />
+			<column name="SECURITYMODE" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-35">
+		<createTable tableName="config_web_sslendpoint_ciphers">
+			<column name="CONFIG_WEB_SSLENDPOINT_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="CUSTOMCIPHERS" type="VARCHAR(255)" />
+			<column name="CIPHER_IDX" type="INT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-36">
+		<createTable tableName="config_web_sslendpoint_ciphers_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_WEB_SSLENDPOINT_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="CUSTOMCIPHERS" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="CIPHER_IDX" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-37">
+		<createTable tableName="config_web_sslendpoint_protocols">
+			<column name="CONFIG_WEB_SSLENDPOINT_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="CUSTOMPROTOCOLS" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-38">
+		<createTable tableName="config_web_sslendpoint_protocols_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_WEB_SSLENDPOINT_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="CUSTOMPROTOCOLS" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-39">
+		<addPrimaryKey columnNames="CONFIG_WEB_ENDPOINT_ID, ADDR"
+			tableName="config_web_endpoint_bind" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-40">
+		<addPrimaryKey columnNames="CONFIG_WEB_ENDPOINT_ID, HPKPPINNEDKEYS_KEYID"
+			tableName="config_web_hpkp_pinned" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-41">
+		<addPrimaryKey columnNames="CONFIG_WEB_ICAP_ID, IDX"
+			tableName="config_web_icap_servers" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-42">
+		<addPrimaryKey columnNames="CONFIG_WEB_LDAP_OBJ_ID, CUSTOMATTRIBUTEMAPPINGS_ID"
+			tableName="config_web_ldap_obj_config_web_ldap_obj_attr" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-43">
+		<addPrimaryKey columnNames="CONFIG_WEB_LDAP_ID, IDX"
+			tableName="config_web_ldap_servers" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-44">
+		<addPrimaryKey columnNames="CONFIG_WEB_REVPROXY_ID, ADDR"
+			tableName="config_web_revproxy_trusted" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-45">
+		<addPrimaryKey columnNames="CONFIG_WEB_SSLENDPOINT_ID, CIPHER_IDX"
+			tableName="config_web_sslendpoint_ciphers" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-46">
+		<addPrimaryKey columnNames="ID" constraintName="config_runtimePK"
+			tableName="config_runtime" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-47">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_runtime_AUDPK"
+			tableName="config_runtime_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-48">
+		<addPrimaryKey columnNames="ID" constraintName="config_web_endpointPK"
+			tableName="config_web_endpoint" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-49">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_web_endpoint_AUDPK"
+			tableName="config_web_endpoint_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-50">
+		<addPrimaryKey columnNames="REV, CONFIG_WEB_ENDPOINT_ID, ADDR"
+			constraintName="config_web_endpoint_bind_AUDPK" tableName="config_web_endpoint_bind_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-51">
+		<addPrimaryKey columnNames="REV, CONFIG_WEB_ENDPOINT_ID, HPKPPINNEDKEYS_KEYID"
+			constraintName="config_web_hpkp_pinned_AUDPK" tableName="config_web_hpkp_pinned_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-52">
+		<addPrimaryKey columnNames="ID" constraintName="config_web_icapPK"
+			tableName="config_web_icap" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-53">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_web_icap_AUDPK"
+			tableName="config_web_icap_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-54">
+		<addPrimaryKey columnNames="REV, CONFIG_WEB_ICAP_ID, SERVERS, IDX"
+			constraintName="config_web_icap_servers_AUDPK" tableName="config_web_icap_servers_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-55">
+		<addPrimaryKey columnNames="ID" constraintName="config_web_ldapPK"
+			tableName="config_web_ldap" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-56">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_web_ldap_AUDPK"
+			tableName="config_web_ldap_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-57">
+		<addPrimaryKey columnNames="ID" constraintName="config_web_ldap_objPK"
+			tableName="config_web_ldap_obj" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-58">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_web_ldap_obj_AUDPK"
+			tableName="config_web_ldap_obj_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-59">
+		<addPrimaryKey columnNames="ID" constraintName="config_web_ldap_obj_attrPK"
+			tableName="config_web_ldap_obj_attr" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-60">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_web_ldap_obj_attr_AUDPK" tableName="config_web_ldap_obj_attr_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-61">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_WEB_LDAP_OBJ_ID, CUSTOMATTRIBUTEMAPPINGS_ID"
+			constraintName="config_web_ldap_obj_config_web_ldap_obj_attr_AUDPK"
+			tableName="config_web_ldap_obj_config_web_ldap_obj_attr_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-62">
+		<addPrimaryKey columnNames="REV, CONFIG_WEB_LDAP_ID, SERVERS, IDX"
+			constraintName="config_web_ldap_servers_AUDPK" tableName="config_web_ldap_servers_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-63">
+		<addPrimaryKey columnNames="ID" constraintName="config_web_revproxyPK"
+			tableName="config_web_revproxy" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-64">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_web_revproxy_AUDPK"
+			tableName="config_web_revproxy_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-65">
+		<addPrimaryKey columnNames="REV, CONFIG_WEB_REVPROXY_ID, ADDR"
+			constraintName="config_web_revproxy_trusted_AUDPK" tableName="config_web_revproxy_trusted_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-66">
+		<addPrimaryKey columnNames="ID" constraintName="config_web_smtpPK"
+			tableName="config_web_smtp" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-67">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_web_smtp_AUDPK"
+			tableName="config_web_smtp_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-68">
+		<addPrimaryKey columnNames="REV, CONFIG_WEB_SMTP_ID, AUTHMECHANISMS"
+			constraintName="config_web_smtp_auth_AUDPK" tableName="config_web_smtp_auth_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-69">
+		<addPrimaryKey columnNames="ID" constraintName="config_web_sslclientPK"
+			tableName="config_web_sslclient" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-70">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_web_sslclient_AUDPK"
+			tableName="config_web_sslclient_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-71">
+		<addPrimaryKey columnNames="ID" constraintName="config_web_sslendpointPK"
+			tableName="config_web_sslendpoint" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-72">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_web_sslendpoint_AUDPK" tableName="config_web_sslendpoint_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-73">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_WEB_SSLENDPOINT_ID, CUSTOMCIPHERS, CIPHER_IDX"
+			constraintName="config_web_sslendpoint_ciphers_AUDPK" tableName="config_web_sslendpoint_ciphers_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-74">
+		<addPrimaryKey columnNames="REV, CONFIG_WEB_SSLENDPOINT_ID, CUSTOMPROTOCOLS"
+			constraintName="config_web_sslendpoint_protocols_AUDPK" tableName="config_web_sslendpoint_protocols_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-75">
+		<createIndex indexName="FK_FK_37TOB5EWE6T685V8TFCYWKL8E"
+			tableName="config_web_endpoint">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-76">
+		<createIndex indexName="FK_FK_3BRYRGL11F18X3PB6IB7BGKQB"
+			tableName="config_web_sslendpoint_ciphers_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-77">
+		<createIndex indexName="FK_FK_4NGL2UUM0SIYY0FDLL0IQN1W5"
+			tableName="config_web_ldap_obj_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-78">
+		<createIndex indexName="FK_FK_4XSW6SPCQSO666S0L82T0GT5K"
+			tableName="config_web_sslclient">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-79">
+		<createIndex indexName="FK_FK_566PJ5FGIB9IU319PQP93UWOO"
+			tableName="config_web_hpkp_pinned">
+			<column name="CONFIG_WEB_ENDPOINT_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-80">
+		<createIndex indexName="FK_FK_5MV29AU9O7QJQ28UEJNGX02EK"
+			tableName="config_web_endpoint_bind_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-81">
+		<createIndex indexName="FK_FK_7XEPK4QPULI4NBCV21SP5N9JQ"
+			tableName="config_web_endpoint_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-82">
+		<createIndex indexName="FK_FK_84LVVJJAU1DTPUSKGTUCO67U9"
+			tableName="config_web_icap">
+			<column name="SSLCLIENTCONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-83">
+		<createIndex indexName="FK_FK_983M4RE75FLGWBRSVWV9QVYCW"
+			tableName="config_web_ldap_servers_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-84">
+		<createIndex indexName="FK_FK_9G7PG3QT69IKGHWLNJNII7D45"
+			tableName="config_web_ldap_servers">
+			<column name="CONFIG_WEB_LDAP_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-85">
+		<createIndex indexName="FK_FK_A6M6UCD1C1NO9W2UWU9MM2MWN"
+			tableName="config_web_sslendpoint_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-86">
+		<createIndex indexName="FK_FK_A8X3KXVUR23K896FMCI6BJUYR"
+			tableName="config_web_smtp_auth_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-87">
+		<createIndex indexName="FK_FK_ALJ0JCIIFM90H6HPXFLD8I0LS"
+			tableName="config_web_smtp">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-88">
+		<createIndex indexName="FK_FK_BJUHOO0TSK607AA1LPRO225U2"
+			tableName="config_web_icap_servers_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-89">
+		<createIndex indexName="FK_FK_BV135DXBTD988L9DHC80KG3NI"
+			tableName="config_web_ldap_obj_config_web_ldap_obj_attr">
+			<column name="CONFIG_WEB_LDAP_OBJ_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-90">
+		<createIndex indexName="FK_FK_C9YM1NILTMLYKXI6EFOFGAEY6"
+			tableName="config_web_sslendpoint">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-91">
+		<createIndex indexName="FK_FK_CW7RP5WXCMKQGVYOCUR2PQIOY"
+			tableName="config_web_icap">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-92">
+		<createIndex indexName="FK_FK_EAO27XFLFTKAF6JX2NIAFEXI9"
+			tableName="config_web_endpoint">
+			<column name="REVERSEPROXYCONFIG_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-93">
+		<createIndex indexName="FK_FK_ETDUJLVWR3TH32N0HXAS9MWDN"
+			tableName="config_web_icap_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-94">
+		<createIndex indexName="FK_FK_F6ND69BD1DWFYTY76N3J60077"
+			tableName="config_web_hpkp_pinned_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-95">
+		<createIndex indexName="FK_FK_F8CGG7H16F7IH4LU7XGXHAWEM"
+			tableName="config_web_revproxy_trusted_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-96">
+		<createIndex indexName="FK_FK_G1Q07JNMD35BYKLCCX1RK2QW8"
+			tableName="config_web_endpoint_bind">
+			<column name="CONFIG_WEB_ENDPOINT_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-97">
+		<createIndex indexName="FK_FK_G7VUDCAIFC6PJJCQEUPEORFG3"
+			tableName="config_web_ldap_obj_config_web_ldap_obj_attr_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-98">
+		<createIndex indexName="FK_FK_GGGW7SPG337BQOGGUDCS96675"
+			tableName="config_runtime">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-99">
+		<createIndex indexName="FK_FK_HO1G4S4828L02BVHGJ7ONNT4C"
+			tableName="config_web_revproxy_trusted">
+			<column name="CONFIG_WEB_REVPROXY_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-100">
+		<createIndex indexName="FK_FK_HUBFGF8U5LN28HFGIWCV5MO94"
+			tableName="config_web_sslendpoint_ciphers">
+			<column name="CONFIG_WEB_SSLENDPOINT_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-101">
+		<createIndex indexName="FK_FK_IBA902RC2TJ0S4CJCCQO5L8Q5"
+			tableName="config_web_revproxy">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-102">
+		<createIndex indexName="FK_FK_J2CYUPD3I5FYGF5E25TYGWHLK"
+			tableName="config_web_ldap">
+			<column name="SSLCLIENTCONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-103">
+		<createIndex indexName="FK_FK_J9WUJMVMMTRJ8EKEN6YTGWRXQ"
+			tableName="config_web_sslclient_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-104">
+		<createIndex indexName="FK_FK_LA84MJENIGCWIAJSJ8VCUL2XH"
+			tableName="config_web_ldap_obj_config_web_ldap_obj_attr">
+			<column name="CUSTOMATTRIBUTEMAPPINGS_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-105">
+		<createIndex indexName="FK_FK_M0M0SMFM8GI9UVJU4BTJA7LNU"
+			tableName="config_web_revproxy_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-106">
+		<createIndex indexName="FK_FK_M2H0IBDJIGXFTCCN7767V8QAJ"
+			tableName="config_web_hpkp_pinned">
+			<column name="HPKPPINNEDKEYS_KEYID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-107">
+		<createIndex indexName="FK_FK_M6U3J9XJVQC4UDKJDJGAHT2OC"
+			tableName="config_web_icap_servers">
+			<column name="CONFIG_WEB_ICAP_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-108">
+		<createIndex indexName="FK_FK_M8NINQU7YPT0KS3571RNGMSUA"
+			tableName="config_web_ldap_obj_attr">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-109">
+		<createIndex indexName="FK_FK_MJYKF8V81GGMWGS44DJTX0PEY"
+			tableName="config_web_smtp_auth">
+			<column name="CONFIG_WEB_SMTP_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-110">
+		<createIndex indexName="FK_FK_N4VO40AGAFB85AWS08X34NQRI"
+			tableName="config_web_sslendpoint_protocols">
+			<column name="CONFIG_WEB_SSLENDPOINT_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-111">
+		<createIndex indexName="FK_FK_NPDF2G38KE2517WKVUE0SAHUK"
+			tableName="config_web_smtp">
+			<column name="SSLCLIENTCONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-112">
+		<createIndex indexName="FK_FK_PPR6WBWNV54V57H4VE662QIRS"
+			tableName="config_web_smtp_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-113">
+		<createIndex indexName="FK_FK_QRPOT08IH0L27RMV7J2PH88W7"
+			tableName="config_web_ldap_obj_attr_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-114">
+		<createIndex indexName="FK_FK_QY9SRL0UD4RPUWH1S90N9G4PI"
+			tableName="config_web_ldap_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-115">
+		<createIndex indexName="FK_FK_R1I1MXMKTX2REUGMYQ6JJSLYK"
+			tableName="config_web_ldap">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-116">
+		<createIndex indexName="FK_FK_RSOF6OSV8YGSWNVGXA9BHA52K"
+			tableName="config_web_ldap_obj">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-117">
+		<createIndex indexName="FK_FK_SMJS52ES48Q9R5YDAPXP901HP"
+			tableName="config_runtime_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-118">
+		<createIndex indexName="FK_FK_T6EVFVOQ7POCQHI152MDFNHYV"
+			tableName="config_web_endpoint">
+			<column name="SSLENDPOINTCONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-119">
+		<createIndex indexName="FK_FK_TQ6TJPP02N907A0TG4UMF0O8E"
+			tableName="config_web_sslendpoint_protocols_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-120">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_web_endpoint" constraintName="FK_37TOB5EWE6T685V8TFCYWKL8E"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-121">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_web_sslendpoint_ciphers_AUD" constraintName="FK_3BRYRGL11F18X3PB6IB7BGKQB"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-122">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_web_ldap_obj_AUD" constraintName="FK_4NGL2UUM0SIYY0FDLL0IQN1W5"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-123">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_web_sslclient" constraintName="FK_4XSW6SPCQSO666S0L82T0GT5K"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-124">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_WEB_ENDPOINT_ID"
+			baseTableName="config_web_hpkp_pinned" constraintName="FK_566PJ5FGIB9IU319PQP93UWOO"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_web_endpoint" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-125">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_web_endpoint_bind_AUD" constraintName="FK_5MV29AU9O7QJQ28UEJNGX02EK"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-126">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_web_endpoint_AUD" constraintName="FK_7XEPK4QPULI4NBCV21SP5N9JQ"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-127">
+		<addForeignKeyConstraint baseColumnNames="SSLCLIENTCONFIGURATION_ID"
+			baseTableName="config_web_icap" constraintName="FK_84LVVJJAU1DTPUSKGTUCO67U9"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_web_sslclient" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-128">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_web_ldap_servers_AUD" constraintName="FK_983M4RE75FLGWBRSVWV9QVYCW"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-129">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_WEB_LDAP_ID"
+			baseTableName="config_web_ldap_servers" constraintName="FK_9G7PG3QT69IKGHWLNJNII7D45"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_web_ldap" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-130">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_web_sslendpoint_AUD" constraintName="FK_A6M6UCD1C1NO9W2UWU9MM2MWN"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-131">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_web_smtp_auth_AUD" constraintName="FK_A8X3KXVUR23K896FMCI6BJUYR"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-132">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_web_smtp" constraintName="FK_ALJ0JCIIFM90H6HPXFLD8I0LS"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-133">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_web_icap_servers_AUD" constraintName="FK_BJUHOO0TSK607AA1LPRO225U2"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-134">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_WEB_LDAP_OBJ_ID"
+			baseTableName="config_web_ldap_obj_config_web_ldap_obj_attr"
+			constraintName="FK_BV135DXBTD988L9DHC80KG3NI" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_web_ldap_obj" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-135">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_web_sslendpoint" constraintName="FK_C9YM1NILTMLYKXI6EFOFGAEY6"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-136">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_web_icap" constraintName="FK_CW7RP5WXCMKQGVYOCUR2PQIOY"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-137">
+		<addForeignKeyConstraint baseColumnNames="REVERSEPROXYCONFIG_ID"
+			baseTableName="config_web_endpoint" constraintName="FK_EAO27XFLFTKAF6JX2NIAFEXI9"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_web_revproxy" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-138">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_web_icap_AUD" constraintName="FK_ETDUJLVWR3TH32N0HXAS9MWDN"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-139">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_web_hpkp_pinned_AUD" constraintName="FK_F6ND69BD1DWFYTY76N3J60077"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-140">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_web_revproxy_trusted_AUD" constraintName="FK_F8CGG7H16F7IH4LU7XGXHAWEM"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-141">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_WEB_ENDPOINT_ID"
+			baseTableName="config_web_endpoint_bind" constraintName="FK_G1Q07JNMD35BYKLCCX1RK2QW8"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_web_endpoint" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-142">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_web_ldap_obj_config_web_ldap_obj_attr_AUD"
+			constraintName="FK_G7VUDCAIFC6PJJCQEUPEORFG3" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-143">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_runtime" constraintName="FK_GGGW7SPG337BQOGGUDCS96675"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-144">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_WEB_REVPROXY_ID"
+			baseTableName="config_web_revproxy_trusted" constraintName="FK_HO1G4S4828L02BVHGJ7ONNT4C"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_web_revproxy" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-145">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_WEB_SSLENDPOINT_ID"
+			baseTableName="config_web_sslendpoint_ciphers" constraintName="FK_HUBFGF8U5LN28HFGIWCV5MO94"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_web_sslendpoint" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-146">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_web_revproxy" constraintName="FK_IBA902RC2TJ0S4CJCCQO5L8Q5"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-147">
+		<addForeignKeyConstraint baseColumnNames="SSLCLIENTCONFIGURATION_ID"
+			baseTableName="config_web_ldap" constraintName="FK_J2CYUPD3I5FYGF5E25TYGWHLK"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_web_sslclient" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-148">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_web_sslclient_AUD" constraintName="FK_J9WUJMVMMTRJ8EKEN6YTGWRXQ"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-149">
+		<addForeignKeyConstraint baseColumnNames="CUSTOMATTRIBUTEMAPPINGS_ID"
+			baseTableName="config_web_ldap_obj_config_web_ldap_obj_attr"
+			constraintName="FK_LA84MJENIGCWIAJSJ8VCUL2XH" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_web_ldap_obj_attr" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-150">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_web_revproxy_AUD" constraintName="FK_M0M0SMFM8GI9UVJU4BTJA7LNU"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-151">
+		<addForeignKeyConstraint baseColumnNames="HPKPPINNEDKEYS_KEYID"
+			baseTableName="config_web_hpkp_pinned" constraintName="FK_M2H0IBDJIGXFTCCN7767V8QAJ"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="KEYID"
+			referencedTableName="config_crypto_public_keys" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-152">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_WEB_ICAP_ID"
+			baseTableName="config_web_icap_servers" constraintName="FK_M6U3J9XJVQC4UDKJDJGAHT2OC"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_web_icap" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-153">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_web_ldap_obj_attr" constraintName="FK_M8NINQU7YPT0KS3571RNGMSUA"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-154">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_WEB_SMTP_ID"
+			baseTableName="config_web_smtp_auth" constraintName="FK_MJYKF8V81GGMWGS44DJTX0PEY"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_web_smtp" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-155">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_WEB_SSLENDPOINT_ID"
+			baseTableName="config_web_sslendpoint_protocols" constraintName="FK_N4VO40AGAFB85AWS08X34NQRI"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_web_sslendpoint" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-156">
+		<addForeignKeyConstraint baseColumnNames="SSLCLIENTCONFIGURATION_ID"
+			baseTableName="config_web_smtp" constraintName="FK_NPDF2G38KE2517WKVUE0SAHUK"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_web_sslclient" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-157">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_web_smtp_AUD" constraintName="FK_PPR6WBWNV54V57H4VE662QIRS"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-158">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_web_ldap_obj_attr_AUD" constraintName="FK_QRPOT08IH0L27RMV7J2PH88W7"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-159">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_web_ldap_AUD" constraintName="FK_QY9SRL0UD4RPUWH1S90N9G4PI"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-160">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_web_ldap" constraintName="FK_R1I1MXMKTX2REUGMYQ6JJSLYK"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-161">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_web_ldap_obj" constraintName="FK_RSOF6OSV8YGSWNVGXA9BHA52K"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-162">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_runtime_AUD" constraintName="FK_SMJS52ES48Q9R5YDAPXP901HP"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-163">
+		<addForeignKeyConstraint baseColumnNames="SSLENDPOINTCONFIGURATION_ID"
+			baseTableName="config_web_endpoint" constraintName="FK_T6EVFVOQ7POCQHI152MDFNHYV"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_web_sslendpoint" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418915-164">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_web_sslendpoint_protocols_AUD" constraintName="FK_TQ6TJPP02N907A0TG4UMF0O8E"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1465978131588-1" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addColumn schemaName="APP" tableName="config_runtime">
+            <column name="AUTOMEMORYLIMIT" type="boolean"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1465978131588-2" objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+        <addColumn schemaName="APP" tableName="config_runtime_AUD">
+            <column name="AUTOMEMORYLIMIT" type="boolean"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

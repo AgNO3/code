@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="label" path="label">
+		<p:inputText id="label" value="#{current.label}" />
+	</orch:objectFieldEditor>
+
+
+	<orch:objectFieldEditor inputId="sortPriority" path="sortPriority">
+		<p:spinner id="sortPriority" value="#{current.sortPriority}" min="0"
+			max="1000" size="2" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor id="allowedShareTypes" path="allowedShareTypes"
+		collection="true"
+		readOnlyValueMapper="#{fs_securityPolicyBean.translateGrantType}">
+		<p:selectManyCheckbox id="allowedShareTypes"
+			value="#{current.allowedShareTypes}"
+			converter="#{fs_grantTypeConverter}">
+			<f:selectItems value="#{fs_securityPolicyBean.grantTypes}" var="type"
+				itemLabel="#{fs_securityPolicyBean.translateGrantType(type)}" />
+		</p:selectManyCheckbox>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor id="requireAnyRole" path="requireAnyRole"
+		minLevel="2" collection="true">
+		<ag:setEditor id="requireAnyRole" value="#{current.requireAnyRole}"
+			comparator="#{setEditorUtilBean.stringComparator}"
+			factoryMethod="#{setEditorUtilBean.makeEmptyString}">
+			<p:column>
+				<p:autoComplete dropdown="true"
+					completeMethod="#{fs_authenticationConfigBean.getRoleCompleter(outerWrapper).complete}"
+					value="#{item.value}" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor id="disallowRoles" path="disallowRoles"
+		minLevel="2" collection="true">
+		<ag:setEditor id="disallowRoles" value="#{current.disallowRoles}"
+			comparator="#{setEditorUtilBean.stringComparator}"
+			factoryMethod="#{setEditorUtilBean.makeEmptyString}">
+			<p:column>
+				<p:autoComplete dropdown="true"
+					completeMethod="#{fs_authenticationConfigBean.getRoleCompleter(outerWrapper).complete}"
+					value="#{item.value}" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+
+	<p:fieldset
+		legend="#{fs_cfgmsgs.bundle['fileshare.securityPolicy.transport.title']}">
+		<orch:objectFieldEditor inputId="disallowWebDAVAccess" minLevel="2"
+			path="disallowWebDAVAccess">
+			<p:selectBooleanCheckbox id="disallowWebDAVAccess"
+				value="#{current.disallowWebDAVAccess}" />
+		</orch:objectFieldEditor>
+
+
+		<orch:objectFieldEditor inputId="transportRequireEncryption"
+			path="transportRequireEncryption">
+			<p:selectBooleanCheckbox id="transportRequireEncryption"
+				value="#{current.transportRequireEncryption}" />
+		</orch:objectFieldEditor>
+
+		<orch:objectFieldEditor inputId="transportRequirePFS" minLevel="3"
+			path="transportRequirePFS">
+			<p:selectBooleanCheckbox id="transportRequirePFS"
+				value="#{current.transportRequirePFS}" />
+		</orch:objectFieldEditor>
+
+		<orch:objectFieldEditor inputId="transportMinHashBlockSize"
+			minLevel="3" path="transportMinHashBlockSize">
+			<p:spinner id="transportMinHashBlockSize"
+				value="#{current.transportMinHashBlockSize}" min="0" max="512"
+				size="3" />
+		</orch:objectFieldEditor>
+
+		<orch:objectFieldEditor inputId="transportMinKeySize" minLevel="3"
+			path="transportMinKeySize">
+			<p:spinner id="transportMinKeySize"
+				value="#{current.transportMinKeySize}" min="0" max="256" size="3" />
+		</orch:objectFieldEditor>
+	</p:fieldset>
+
+
+	<p:fieldset
+		legend="#{fs_cfgmsgs.bundle['fileshare.securityPolicy.expiration.title']}">
+
+		<orch:objectFieldEditor inputId="enableDefaultExpiration"
+			path="enableDefaultExpiration"
+			update="@composite:@parent:expirationSettings">
+			<p:selectBooleanCheckbox id="enableDefaultExpiration"
+				value="#{current.enableDefaultExpiration}">
+				<p:ajax event="change"
+					update="@composite:@parent:expirationSettings" />
+			</p:selectBooleanCheckbox>
+		</orch:objectFieldEditor>
+
+		<p:outputPanel id="expirationSettings">
+			<p:outputPanel
+				rendered="#{current.enableDefaultExpiration or (current.enableDefaultExpiration == null and defaults.enableDefaultExpiration)}">
+				<orch:objectFieldEditor inputId="defaultExpirationDuration"
+					path="defaultExpirationDuration"
+					readOnlyValueMapper="#{dateFormatter.formatDurationObject}">
+					<ag:inputDuration id="defaultExpirationDuration"
+						value="#{current.defaultExpirationDuration}" minUnit="days" />
+				</orch:objectFieldEditor>
+
+				<orch:objectFieldEditor inputId="restrictExpirationDuration"
+					path="restrictExpirationDuration" minLevel="2"
+					update="@composite:@parent:maxExpirationSettings">
+					<p:selectBooleanCheckbox id="restrictExpirationDuration"
+						value="#{current.restrictExpirationDuration}">
+						<p:ajax event="change"
+							update="@composite:@parent:maxExpirationSettings" />
+					</p:selectBooleanCheckbox>
+				</orch:objectFieldEditor>
+
+				<p:outputPanel id="maxExpirationSettings">
+					<orch:objectFieldEditor inputId="maximumExpirationDuration"
+						onlyIf="#{current.restrictExpirationDuration or (current.restrictExpirationDuration == null and defaults.restrictExpirationDuration)}"
+						path="maximumExpirationDuration" minLevel="2"
+						readOnlyValueMapper="#{dateFormatter.formatDurationObject}">
+						<ag:inputDuration id="maximumExpirationDuration"
+							value="#{current.maximumExpirationDuration}" minUnit="days" />
+					</orch:objectFieldEditor>
+				</p:outputPanel>
+			</p:outputPanel>
+		</p:outputPanel>
+
+
+		<orch:objectFieldEditor inputId="enableShareExpiration"
+			path="enableShareExpiration"
+			update="@composite:@parent:lifetimeSettings">
+			<p:selectBooleanCheckbox id="enableShareExpiration"
+				value="#{current.enableShareExpiration}">
+				<p:ajax event="change" update="@composite:@parent:lifetimeSettings" />
+			</p:selectBooleanCheckbox>
+		</orch:objectFieldEditor>
+
+		<p:outputPanel id="lifetimeSettings">
+			<p:outputPanel
+				rendered="#{current.enableShareExpiration or (current.enableShareExpiration == null and defaults.enableShareExpiration)}">
+				<orch:objectFieldEditor inputId="defaultShareLifetime"
+					path="defaultShareLifetime"
+					readOnlyValueMapper="#{dateFormatter.formatDurationObject}">
+					<ag:inputDuration id="defaultShareLifetime"
+						value="#{current.defaultShareLifetime}" minUnit="days" />
+				</orch:objectFieldEditor>
+
+				<orch:objectFieldEditor inputId="restrictShareLifetime"
+					path="restrictShareLifetime" minLevel="2"
+					update="@composite:@parent:maxLifetimeSettings">
+					<p:selectBooleanCheckbox id="restrictShareLifetime"
+						value="#{current.restrictShareLifetime}">
+						<p:ajax event="change"
+							update="@composite:@parent:maxLifetimeSettings" />
+					</p:selectBooleanCheckbox>
+				</orch:objectFieldEditor>
+
+				<p:outputPanel id="maxLifetimeSettings">
+					<orch:objectFieldEditor inputId="maximumShareLifetime" minLevel="2"
+						onlyIf="#{current.restrictShareLifetime or (current.restrictShareLifetime == null and defaults.restrictShareLifetime)}"
+						path="maximumShareLifetime"
+						readOnlyValueMapper="#{dateFormatter.formatDurationObject}">
+						<ag:inputDuration id="maximumShareLifetime"
+							value="#{current.maximumShareLifetime}" minUnit="days" />
+					</orch:objectFieldEditor>
+				</p:outputPanel>
+			</p:outputPanel>
+		</p:outputPanel>
+	</p:fieldset>
+
+	<p:fieldset
+		legend="#{fs_cfgmsgs.bundle['fileshare.securityPolicy.tokenPasswords.title']}">
+		<orch:objectFieldEditor inputId="minTokenPasswordEntropy" minLevel="2"
+			path="minTokenPasswordEntropy">
+			<p:spinner id="minTokenPasswordEntropy"
+				value="#{current.minTokenPasswordEntropy}" min="0" max="256"
+				size="3" />
+		</orch:objectFieldEditor>
+
+		<orch:objectFieldEditor inputId="requireTokenPassword"
+			path="requireTokenPassword">
+			<p:selectBooleanCheckbox id="requireTokenPassword"
+				value="#{current.requireTokenPassword}" />
+		</orch:objectFieldEditor>
+
+		<orch:objectFieldEditor inputId="noUserTokenPasswords" minLevel="2"
+			path="noUserTokenPasswords">
+			<p:selectBooleanCheckbox id="noUserTokenPasswords"
+				value="#{current.noUserTokenPasswords}" />
+		</orch:objectFieldEditor>
+	</p:fieldset>
+
+</ui:composition>

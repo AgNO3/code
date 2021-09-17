@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+
+	<orch:objectFieldEditor inputId="autoconfigureV4Routes"
+		path="autoconfigureV4Routes"
+		update="@composite:@parent:v4defaultRouteSettings">
+		<p:selectBooleanCheckbox id="autoconfigureV4Routes"
+			value="#{current.autoconfigureV4Routes}">
+			<p:ajax event="change"
+				update="@composite:@parent:v4defaultRouteSettings" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="autoconfigureV6Routes"
+		path="autoconfigureV6Routes"
+		onlyIf="#{networkConfigBean.isIpv6Enabled(outerWrapper)}"
+		update="@composite:@parent:v6defaultRouteSettings">
+		<p:selectBooleanCheckbox id="autoconfigureV6Routes"
+			value="#{current.autoconfigureV6Routes}">
+			<p:ajax event="change"
+				update="@composite:@parent:v6defaultRouteSettings" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+	<p:outputPanel id="v4defaultRouteSettings">
+		<p:outputPanel
+			rendered="#{(current.autoconfigureV4Routes != null and not current.autoconfigureV4Routes) or 
+						(current.autoconfigureV4Routes == null and not defaults.autoconfigureV4Routes)}">
+			<orch:objectFieldEditor inputId="defaultRouteV4"
+				path="defaultRouteV4"
+				readOnlyValueMapper="#{routeEntryBean.readOnlyRouteDisplay}"
+				clone="#{routeEntryBean.clone}">
+				<p:inputText id="defaultRouteV4"
+					value="#{current.defaultRouteV4.gateway}"
+					converter="#{ipAddressConverter}">
+					<f:attribute name="v4" value="true" />
+					<f:attribute name="v6" value="false" />
+					<f:attribute name="allowTypes" value="unicast" />
+					<p:ajax process="@composite" event="change"
+						update="v4DefaultRouteDevice" />
+				</p:inputText>
+
+				<p:outputLabel styleClass="inlineLabel" for="v4DefaultRouteDevice"
+					value="#{_config_hostconfig['hostconfig.network.routing.route.device']}" />
+
+				<p:autoComplete id="v4DefaultRouteDevice" dropdown="true" size="8"
+					required="#{not empty current.defaultRouteV4.gateway}"
+					completeMethod="#{interfaceEntryBean.getInterfaceCompleter(outerWrapper).complete}"
+					value="#{current.defaultRouteV4.device}" />
+			</orch:objectFieldEditor>
+		</p:outputPanel>
+	</p:outputPanel>
+
+	<p:outputPanel id="v6defaultRouteSettings">
+		<p:outputPanel
+			rendered="#{networkConfigBean.isIpv6Enabled(outerWrapper) and ((current.autoconfigureV6Routes != null and not current.autoconfigureV6Routes) or 
+						(current.autoconfigureV6Routes == null and not defaults.autoconfigureV6Routes))}">
+			<orch:objectFieldEditor inputId="defaultRouteV6"
+				path="defaultRouteV6"
+				readOnlyValueMapper="#{routeEntryBean.readOnlyRouteDisplay}"
+				clone="#{routeEntryBean.clone}">
+
+				<p:inputText id="defaultRouteV6"
+					value="#{current.defaultRouteV6.gateway}"
+					converter="#{ipAddressConverter}">
+					<f:attribute name="v4" value="false" />
+					<f:attribute name="v6" value="true" />
+					<f:attribute name="allowTypes" value="unicast" />
+					<p:ajax process="@composite" event="change"
+						update="v6DefaultRouteDevice" />
+				</p:inputText>
+
+				<p:outputLabel styleClass="inlineLabel" for="v6DefaultRouteDevice"
+					value="#{_config_hostconfig['hostconfig.network.routing.route.device']}" />
+
+				<p:autoComplete id="v6DefaultRouteDevice" dropdown="true" size="8"
+					required="#{not empty current.defaultRouteV6.gateway}"
+					completeMethod="#{interfaceEntryBean.getInterfaceCompleter(outerWrapper).complete}"
+					value="#{current.defaultRouteV6.device}" />
+			</orch:objectFieldEditor>
+		</p:outputPanel>
+	</p:outputPanel>
+
+	<orch:objectFieldEditor inputId="staticRoutes" path="staticRoutes"
+		minLevel="2" styleClass="fullWidth" collection="true"
+		readOnlyValueMapper="#{routeEntryBean.readOnlyRouteDisplay}"
+		clone="#{routeEntryBean.clone}">
+
+		<ag:setEditor id="staticRoutes" styleClass="showHeader"
+			style="width: 100%" value="#{current.staticRoutes}"
+			comparator="#{routeEntryBean.comparator}"
+			factoryMethod="#{routeEntryBean.createNew()}">
+
+			<p:column
+				headerText="#{_config_hostconfig['hostconfig.network.routing.route.target']}">
+				<p:inputText id="target"
+					label="#{_config_hostconfig['hostconfig.network.routing.route.target']}"
+					value="#{item.value.target}"
+					converter="#{networkSpecificationConverter}"
+					title="#{_config_hostconfig['hostconfig.network.routing.route.target.title']}">
+					<f:attribute name="requireNetworkAddress" value="true" />
+				</p:inputText>
+				<p:watermark
+					value="#{_config_hostconfig['hostconfig.network.routing.route.target.watermark']}"
+					for="target" />
+			</p:column>
+
+			<p:column
+				headerText="#{_config_hostconfig['hostconfig.network.routing.route.gateway']}">
+				<p:inputText id="gateway"
+					label="#{_config_hostconfig['hostconfig.network.routing.route.gateway']}"
+					disabled="#{routeEntryBean.gatewayDisabledFor(item.value.routeType)}"
+					value="#{item.value.gateway}" converter="#{ipAddressConverter}" />
+			</p:column>
+
+			<p:column style="width: 6em"
+				headerText="#{_config_hostconfig['hostconfig.network.routing.route.device']}">
+				<p:autoComplete id="device"
+					label="#{_config_hostconfig['hostconfig.network.routing.route.device']}"
+					dropdown="true"
+					completeMethod="#{interfaceEntryBean.getInterfaceCompleter(outerWrapper).complete}"
+					disabled="#{routeEntryBean.deviceDisabledFor(item.value.routeType)}"
+					value="#{item.value.device}" />
+			</p:column>
+
+			<p:column style="width: 7em"
+				headerText="#{_config_hostconfig['hostconfig.network.routing.route.routeType']}">
+				<p:selectOneMenu style="width: auto;" id="routeType"
+					value="#{item.value.routeType}">
+					<f:selectItems value="#{routeEntryBean.routeTypes}" var="type"
+						itemLabel="#{type.name()}" itemValue="#{type}" />
+					<p:ajax event="change" update="gateway device" />
+				</p:selectOneMenu>
+			</p:column>
+
+			<p:column style="width: 0.4em">
+				<h:outputText
+					rendered="#{routeEntryBean.hasAdvancedOptions(item.value)}"
+					value="#{_config_hostconfig['hostconfig.network.routing.route.haveAdvOptions']}" />
+			</p:column>
+
+			<p:column style="width: 1.2em">
+				<p:rowToggler />
+			</p:column>
+
+			<p:rowExpansion>
+				<p:panelGrid styleClass="verticalFields">
+					<p:row>
+						<p:column styleClass="fieldHeader" style="width: 35%">
+							<p:outputLabel styleClass="small" for="sourceAddress"
+								value="#{_config_hostconfig['hostconfig.network.routing.route.sourceAddress']}" />
+						</p:column>
+
+						<p:column styleClass="fieldHeader" style="width: 10%">
+							<p:outputLabel styleClass="small" for="mtu"
+								value="#{_config_hostconfig['hostconfig.network.routing.route.mtu']}" />
+						</p:column>
+
+						<p:column styleClass="fieldHeader" style="width: 10%">
+							<p:outputLabel styleClass="small" for="advmss"
+								value="#{_config_hostconfig['hostconfig.network.routing.route.advMss']}" />
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+							<p:inputText id="sourceAddress"
+								label="#{_config_hostconfig['hostconfig.network.routing.route.sourceAddress']}"
+								value="#{item.value.sourceAddress}"
+								converter="#{ipAddressConverter}" />
+						</p:column>
+
+						<p:column>
+							<p:inputText id="mtu"
+								label="#{_config_hostconfig['hostconfig.network.routing.route.mtu']}"
+								size="5" value="#{item.value.mtu}" />
+						</p:column>
+
+						<p:column>
+							<p:inputText id="advmss"
+								label="#{_config_hostconfig['hostconfig.network.routing.route.advMss']}"
+								size="5" value="#{item.value.advmss}" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:rowExpansion>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+</ui:composition>

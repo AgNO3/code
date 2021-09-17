@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:shiro="http://shiro.ops4j.org/tags"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0">
+
+	<p:menuButton
+		rendered="#{currentUserBean.isAuthenticated() or not empty fileRootSelectionBean.selectedRootGrantId}"
+		value="" styleClass="icon-only">
+		<p:menuitem
+			rendered="#{not currentUserBean.isAuthenticated() and not empty fileRootSelectionBean.selectedRootGrantId}"
+			icon="ui-icon-folder-open"
+			title="#{_msgs['menu.shared.description']}"
+			value="#{_msgs['menu.shared.title']}"
+			action="#{navigationController.shareRootFiles}" />
+		<p:menuitem
+			rendered="#{currentUserBean.isAuthenticated() and not empty fileRootSelectionBean.userRoot}"
+			icon="ui-icon-folder-open" title="#{fileTreeBean.rootDescription}"
+			value="#{fileTreeBean.rootTitle}"
+			action="#{navigationController.files}" />
+		<p:menuitem rendered="#{currentUserBean.isAuthenticated()}"
+			icon="ui-icon-share" title="#{_msgs['menu.allshared.description']}"
+			value="#{_msgs['menu.allshared.title']}"
+			action="#{navigationController.allSharedFiles}" />
+		<p:menuitem rendered="#{currentUserBean.isAuthenticated()}"
+			disabled="#{not currentUserMembershipBean.haveAnyGroups()}"
+			icon="ui-icon-groups" title="#{_msgs['menu.groups.description']}"
+			value="#{_msgs['menu.groups.title']}"
+			action="#{navigationController.groups}" />
+		<p:menuitem rendered="#{currentUserBean.isAuthenticated()}"
+			disabled="#{not currentUserMembershipBean.haveAnyGroups()}"
+			icon="ui-icon-person" title="#{_msgs['menu.peers.description']}"
+			value="#{_msgs['menu.peers.title']}"
+			action="#{navigationController.peers}" />
+		<p:menuitem rendered="#{currentUserBean.isAuthenticated()}"
+			icon="ui-icon-star" title="#{_msgs['menu.favorites.description']}"
+			value="#{_msgs['menu.favorites.title']}"
+			action="#{navigationController.favorites}" />
+		<p:menuitem
+			rendered="#{currentUserBean.hasPermission('manage:subjects:list')}"
+			icon="ui-icon-gear" title="#{_msgs['menu.admin.description']}"
+			value="#{_msgs['menu.admin.title']}"
+			action="#{navigationController.userManagement}" />
+	</p:menuButton>
+</ui:composition>

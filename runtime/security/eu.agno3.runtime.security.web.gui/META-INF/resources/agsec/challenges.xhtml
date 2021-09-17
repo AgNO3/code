@@ -1,0 +1,101 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+<composite:interface>
+	<composite:attribute name="challenges" />
+	<composite:attribute name="terms"
+		type="eu.agno3.runtime.security.web.gui.terms.TermsBean" />
+</composite:interface>
+
+<composite:implementation>
+	<ui:repeat var="challenge" value="#{cc.attrs.challenges}">
+		<ui:fragment rendered="#{challenge.type == 'username'}">
+			<ag:simpleField id="usernameChallengeField"
+				label="#{_login[challenge.labelId]}"
+				description="#{_login[challenge.descriptionId]}"
+				inputId="usernameChallenge">
+				<p:inputText id="usernameChallenge" disabled="#{challenge.complete}"
+					required="#{challenge.required and not challenge.complete}"
+					value="#{challenge.response}" />
+			</ag:simpleField>
+		</ui:fragment>
+		<ui:fragment
+			rendered="#{challenge.type == 'password' and not challenge.complete}">
+			<ag:simpleField label="#{_login[challenge.labelId]}"
+				description="#{_login[challenge.descriptionId]}"
+				inputId="passwordChallenge">
+				<p:password id="passwordChallenge"
+					required="#{challenge.required and not challenge.complete}"
+					requiredMessage="#{_login['password.required']}"
+					value="#{challenge.response}" />
+			</ag:simpleField>
+		</ui:fragment>
+		<ui:fragment
+			rendered="#{challenge.type == 'pwchange' and not challenge.complete}">
+			<ag:passwordInput checker="#{agsec_loginController.passwordPolicy}"
+				value="#{challenge.response}"
+				minimumEntropy="#{challenge.minimumEntropy}"
+				optional="#{not challenge.required}"
+				passwordLabel="#{_login[challenge.labelId]}"
+				passwordDescription="#{_login[challenge.descriptionId]}"
+				confirmLabel="#{_login[challenge.confirmLabelId]}"
+				confirmDescription="#{_login[challenge.confirmDescriptionId]}" />
+		</ui:fragment>
+		<ui:fragment
+			rendered="#{challenge.type == 'otp' and not challenge.complete}">
+			<ag:simpleField label="#{_login['pin']}"
+				description="#{_login['pin.description']}" inputId="pin">
+				<p:password id="pin" autocomplete="false"
+					required="#{challenge.required and not challenge.complete}"
+					value="#{challenge.response}" />
+			</ag:simpleField>
+		</ui:fragment>
+		<ui:fragment
+			rendered="#{challenge.type == 'message' and not challenge.complete}">
+			<div class="ui-messages ui-widget">
+				<div class="ui-messages-#{challenge.severity}">
+					<span class="ui-messages-#{challenge.severity}-icon" />
+					<h:outputFormat
+						styleClass="ui-messages-#{challenge.severity}-summary"
+						value="#{_login[challenge.messageId]}">
+						<f:param value="#{challenge.argument1}" />
+						<f:param value="#{challenge.argument2}" />
+						<f:param value="#{challenge.argument3}" />
+						<f:param value="#{challenge.argument4}" />
+						<f:param value="#{challenge.argument5}" />
+					</h:outputFormat>
+				</div>
+			</div>
+		</ui:fragment>
+		<ui:fragment
+			rendered="#{challenge.type == 'terms' and not challenge.complete and not empty cc.attrs.terms}">
+			<ag:simpleField label="#{cc.attrs.terms.getTermsLabel(challenge.id)}"
+				description="#{cc.attrs.terms.getTermsDescription(challenge.id)}"
+				inputId="acceptTerm">
+				<p:selectBooleanCheckbox id="acceptTerm"
+					disabled="#{challenge.complete}"
+					required="#{challenge.required and not challenge.complete}"
+					value="#{challenge.response}" />
+				<h:outputFormat styleClass="terms-extra inline-space"
+					value="#{_login['terms.check.label']}">
+					<f:param value="#{cc.attrs.terms.getTermsLabel(challenge.id)}" />
+				</h:outputFormat>
+
+				<h:outputLink target="_blank"
+					styleClass="terms-view inline-space button ui-button ui-widget"
+					rendered="#{not empty cc.attrs.terms.getViewLocation(challenge.id)}"
+					value="#{request.contextPath}#{cc.attrs.terms.getViewLocation(challenge.id)}">
+					<span class="ui-icon ui-icon-inline ui-icon-extlink" />
+					<h:outputText value="#{_login['terms.view']}" />
+				</h:outputLink>
+			</ag:simpleField>
+		</ui:fragment>
+	</ui:repeat>
+</composite:implementation>
+</html>

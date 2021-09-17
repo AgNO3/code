@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.fileshare.service.internal.FileshareUserInitializerImpl" configuration-policy="require" activate="activate" configuration-pid="user.init">
+    <reference name="EntityTransactionService" interface="eu.agno3.runtime.db.orm.EntityTransactionService" cardinality="1..1" policy="static" target="(persistenceUnit=auth)" bind="bindEntityTransactionService" unbind="unbindEntityTransactionService"/>
+    <reference name="LocalUserService" interface="eu.agno3.fileshare.security.LocalUserService" cardinality="1..1" policy="static" bind="setLocalUserService" unbind="unsetLocalUserService"/>
+    <reference name="PermissionService" interface="eu.agno3.fileshare.security.PermissionsService" cardinality="1..1" policy="static" bind="setPermissionService" unbind="unsetPermissionService"/>
+    <reference name="RoleMappingService" interface="eu.agno3.fileshare.security.RoleMappingService" cardinality="1..1" policy="static" bind="setRoleMappingService" unbind="unsetRoleMappingService"/>
+    <reference name="UserService" interface="eu.agno3.fileshare.service.api.internal.UserServiceInternal" cardinality="1..1" policy="static" bind="setUserService" unbind="unsetUserService"/>
+    <implementation class="eu.agno3.fileshare.service.internal.FileshareUserInitializerImpl"/>
+</scr:component>

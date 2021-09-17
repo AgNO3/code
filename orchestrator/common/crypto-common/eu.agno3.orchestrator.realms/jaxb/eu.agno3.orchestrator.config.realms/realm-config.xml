@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.config.realms"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		namespace="urn:agno3:model:1.0:realms">
+		<xml-ns prefix="cmr" namespace-uri="urn:agno3:model:1.0:realm" />
+		<xml-ns prefix="realmc" namespace-uri="urn:agno3:model:1.0:realms" />
+		<xml-ns prefix="realmsi" namespace-uri="urn:agno3:model:1.0:realms:info" />
+	</xml-schema>
+
+	<java-types>
+
+		<java-type name="RealmsConfig" xml-accessor-type="NONE">
+
+			<xml-type name="realmsConfigType"
+				factory-class="eu.agno3.orchestrator.config.realms.ObjectFactory"
+				factory-method="createRealmsConfig" />
+
+			<xml-root-element name="realmsConfig" />
+
+			<java-attributes>
+				<xml-element name="realm" java-attribute="realms">
+					<xml-element-wrapper name="realms" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="RealmConfig" xml-accessor-type="NONE"
+			abstract="true">
+			<xml-type name="realmConfigType" />
+
+			<xml-root-element name="realmConfig" />
+
+			<java-attributes>
+				<xml-element name="realmName" java-attribute="realmName" />
+				<xml-element name="realmType" java-attribute="realmType" />
+
+				<xml-element name="securityLevel" java-attribute="securityLevel" />
+
+				<xml-element name="overrideLocalHostname"
+					java-attribute="overrideLocalHostname" />
+
+				<xml-element name="mappedDomain" java-attribute="domainMappings">
+					<xml-element-wrapper name="mappedDomains" />
+				</xml-element>
+
+				<xml-element name="caPath" java-attribute="caPaths">
+					<xml-element-wrapper name="caPaths" />
+				</xml-element>
+
+				<xml-element name="importKeytab" java-attribute="importKeytabs">
+					<xml-element-wrapper name="importKeytabs" />
+				</xml-element>
+
+
+				<xml-element name="rekeyServices" java-attribute="rekeyServices" />
+
+				<xml-element name="serviceRekeyInterval" java-attribute="serviceRekeyInterval">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+
+				<xml-element name="maximumTicketLifetime"
+					java-attribute="maximumTicketLifetime">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="KRBRealmConfig" xml-accessor-type="NONE">
+
+			<xml-type name="krbRealmConfigType"
+				factory-class="eu.agno3.orchestrator.config.realms.ObjectFactory"
+				factory-method="createKRBRealmConfig" />
+
+			<xml-root-element name="krbRealmConfig" />
+
+			<java-attributes>
+
+				<xml-element name="adminServer" java-attribute="adminServer" />
+				<xml-element name="kpasswdServer" java-attribute="kpasswdServer" />
+
+				<xml-element name="kdc" java-attribute="kdcs">
+					<xml-element-wrapper name="kdcs" />
+				</xml-element>
+
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ADRealmConfig" xml-accessor-type="NONE">
+
+			<xml-type name="adRealmConfigType"
+				factory-class="eu.agno3.orchestrator.config.realms.ObjectFactory"
+				factory-method="createADRealmConfig" />
+
+			<xml-root-element name="adRealmConfig" />
+
+			<java-attributes>
+				<xml-element name="overrideMachineAccount"
+					java-attribute="overrideMachineAccount" />
+				<xml-element name="overrideNetbiosHostname"
+					java-attribute="overrideNetbiosHostname" />
+				<xml-element name="overrideNetbiosDomainName"
+					java-attribute="overrideNetbiosDomainName" />
+				<xml-element name="machineBaseDN" java-attribute="machineBaseDN" />
+
+				<xml-element name="rekeyMachineAccount" java-attribute="rekeyMachineAccount" />
+
+				<xml-element name="machineRekeyInterval" java-attribute="machineRekeyInterval">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+
+				<xml-element name="updateDns" java-attribute="updateDns" />
+				<xml-element name="updateDnsForceSecure" java-attribute="updateDnsForceSecure" />
+				<xml-element name="updateDnsTtl" java-attribute="updateDnsTtl">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+				<xml-element name="updateDnsFromInterface"
+					java-attribute="updateDnsFromInterface" />
+
+				<xml-element name="doJoin" java-attribute="doJoin" />
+				<xml-element name="doRekey" java-attribute="doRekey" />
+				<xml-element name="doLeave" java-attribute="doLeave" />
+				
+				
+				<xml-element name="allowSMB1" java-attribute="allowSMB1" />
+				<xml-element name="disableSMB2" java-attribute="disableSMB2" />
+
+				<xml-element name="joinType" java-attribute="joinType" />
+				<xml-element name="joinUser" java-attribute="joinUser" />
+				<xml-element name="joinPassword" java-attribute="joinPassword" />
+				<xml-element name="customMachineJoinPassword"
+					java-attribute="customMachineJoinPassword" />
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="KerberosConfig" xml-accessor-type="NONE">
+
+			<xml-type name="kerberosConfigType"
+				factory-class="eu.agno3.orchestrator.config.realms.ObjectFactory"
+				factory-method="createKerberosConfig" />
+
+			<xml-root-element name="kerberosConfig" />
+
+			<java-attributes>
+				<xml-element name="dnsLookupKDC" java-attribute="dnsLookupKDC" />
+				<xml-element name="dnsLookupRealm" java-attribute="dnsLookupRealm" />
+
+				<xml-element name="allowWeakCrypto" java-attribute="allowWeakCrypto" />
+				<xml-element name="enctype" java-attribute="permittedEnctypes">
+					<xml-element-wrapper name="permittedEnctypes" />
+				</xml-element>
+				<xml-element name="enctype" java-attribute="defaultTicketEnctypes">
+					<xml-element-wrapper name="defaultTicketEnctypes" />
+				</xml-element>
+				<xml-element name="enctype" java-attribute="defaultTGSEnctypes">
+					<xml-element-wrapper name="defaultTGSEnctypes" />
+				</xml-element>
+
+				<xml-element name="disableAddresses" java-attribute="disableAddresses" />
+
+				<xml-element name="defaultTGTRenewable" java-attribute="defaultTGTRenewable" />
+				<xml-element name="defaultTGTProxiable" java-attribute="defaultTGTProxiable" />
+				<xml-element name="defaultTGTForwardable"
+					java-attribute="defaultTGTForwardable" />
+
+				<xml-element name="maxClockskew" java-attribute="maxClockskew">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+				<xml-element name="kdcTimeout" java-attribute="kdcTimeout">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+
+				<xml-element name="maxRetries" java-attribute="maxRetries" />
+				<xml-element name="udpPreferenceLimit" java-attribute="udpPreferenceLimit" />
+
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="CAPathEntry" xml-accessor-type="NONE">
+			<xml-type name="caPathEntryType"
+				factory-class="eu.agno3.orchestrator.config.realms.ObjectFactory"
+				factory-method="createCAPathEntry" />
+
+			<xml-root-element name="caPathEntry" />
+
+			<java-attributes>
+				<xml-element name="targetRealm" java-attribute="targetRealm" />
+				<xml-element name="nextRealm" java-attribute="nextRealm" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="KeytabEntry" xml-accessor-type="NONE">
+
+			<xml-type name="keytabEntryType"
+				factory-class="eu.agno3.orchestrator.config.realms.ObjectFactory"
+				factory-method="createKeytabEntry" />
+
+			<xml-root-element name="keytabEntry" />
+			<java-attributes>
+				<xml-element name="keytabId" java-attribute="keytabId" />
+				<xml-element name="importKey" java-attribute="keyImportEntries">
+					<xml-element-wrapper name="importKeys" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+
+	</java-types>
+
+</xml-bindings>
+

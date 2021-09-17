@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="mbechler (generated)" id="1451922724696-1">
+        <createTable schemaName="APP" tableName="service_state_cache">
+            <column name="SERVICEID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="RUNTIMESTATE" type="VARCHAR(255)"/>
+            <column name="VERSION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1451922724696-2">
+        <addPrimaryKey columnNames="SERVICEID" constraintName="service_state_cachePK" schemaName="APP" tableName="service_state_cache"/>
+    </changeSet>
+</databaseChangeLog>

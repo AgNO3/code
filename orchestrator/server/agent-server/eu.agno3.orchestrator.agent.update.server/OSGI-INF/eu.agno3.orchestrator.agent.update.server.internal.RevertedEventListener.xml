@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.agent.update.server.internal.RevertedEventListener">
+    <property name="eventType" value="eu.agno3.orchestrator.system.update.msg.SystemRevertedEvent"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.messaging.listener.EventListener"/>
+    </service>
+    <reference name="UpdateService" interface="eu.agno3.orchestrator.agent.update.server.UpdateServiceInternal" cardinality="1..1" policy="static" bind="setUpdateService" unbind="unsetUpdateService"/>
+    <reference name="InstanceService" interface="eu.agno3.orchestrator.config.model.realm.server.service.InstanceServerService" cardinality="1..1" policy="static" bind="setInstanceService" unbind="unsetInstanceService"/>
+    <implementation class="eu.agno3.orchestrator.agent.update.server.internal.RevertedEventListener"/>
+</scr:component>

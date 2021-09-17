@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.runtime.update.internal.UpdateManagerProviderImpl" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.update.UpdateManagerProvider"/>
+    </service>
+    <reference name="FrameworkAdmin" interface="org.eclipse.equinox.internal.provisional.frameworkadmin.FrameworkAdmin" cardinality="1..1" policy="static" bind="setFrameworkAdmin" unbind="unsetFrameworkAdmin"/>
+    <reference name="ProvAgentProvider" interface="org.eclipse.equinox.p2.core.IProvisioningAgentProvider" cardinality="1..1" policy="static" bind="setProvAgentProvider" unbind="unsetProvAgentProvider"/>
+    <reference name="UpdateConfiguration" interface="eu.agno3.runtime.update.UpdateConfiguration" cardinality="1..1" policy="static" bind="setUpdateConfiguration" unbind="unsetUpdateConfiguration"/>
+    <reference name="Configurator" interface="org.eclipse.equinox.internal.provisional.configurator.Configurator" cardinality="1..1" policy="static" bind="setConfigurator" unbind="unsetConfigurator"/>
+    <reference name="Transport" interface="org.eclipse.equinox.internal.p2.repository.Transport" cardinality="1..1" policy="static" bind="setTransport" unbind="unsetTransport"/>
+    <implementation class="eu.agno3.runtime.update.internal.UpdateManagerProviderImpl"/>
+</scr:component>

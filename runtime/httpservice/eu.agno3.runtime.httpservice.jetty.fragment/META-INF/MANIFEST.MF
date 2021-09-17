@@ -1,0 +1,12 @@
+Bundle-SymbolicName: eu.agno3.runtime.httpservice.jetty.fragment
+Bundle-Version: 0.0.154
+Bundle-Name: JSF MyFaces Fragment
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Fragment-Host: org.eclipse.jetty.osgi.boot
+Export-Package: eu.agno3.runtime.httpservice.jetty.fragment;version="0.0.154",
+ org.eclipse.jetty.osgi.boot.internal.webapp;version="9.4.10",
+ org.eclipse.jetty.osgi.boot.utils.internal;version="9.4.10"
+
+

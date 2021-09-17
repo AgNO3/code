@@ -1,0 +1,57 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.orchestrator.agent</groupId>
+    <artifactId>agent-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../agent-parent</relativePath>
+  </parent>
+  <artifactId>system</artifactId>
+  <packaging>pom</packaging>
+  <name>Orchestrator Agent System Integration Module</name>
+  <modules>
+	<module>eu.agno3.orchestrator.system.test.tpl</module>
+	<module>eu.agno3.orchestrator.system.base</module>
+	<module>eu.agno3.orchestrator.system.base.test</module>
+  	<module>eu.agno3.orchestrator.system.logind</module>
+	<module>eu.agno3.orchestrator.system.init.systemd</module>
+	<module>eu.agno3.orchestrator.system.init.systemd.test</module>
+  	<module>info</module>
+  	<module>agent-system-feature</module>
+  	<module>eu.agno3.orchestrator.system.logsink</module>
+  	<module>eu.agno3.orchestrator.system.cfgfiles</module>
+  	<module>eu.agno3.orchestrator.agent.system.packagekit</module>
+  	<module>eu.agno3.orchestrator.system.packagekit.test</module>
+  </modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<configuration>
+					<bundleStartLevel combine.children="append">
+
+						<bundle>
+							<id>eu.agno3.runtime.xml</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.xml.schema</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>eu.agno3.runtime.xml.binding</id>
+							<level>3</level>
+							<autoStart>true</autoStart>
+						</bundle>
+					</bundleStartLevel>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

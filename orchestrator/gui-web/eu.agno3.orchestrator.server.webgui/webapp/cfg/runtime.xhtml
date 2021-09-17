@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<orch:objectFieldEditor inputId="autoMemoryLimit" minLevel="2"
+		path="autoMemoryLimit" update="@composite:@parent:memoryLimitSettings">
+		<p:selectBooleanCheckbox id="autoMemoryLimit"
+			value="#{current.autoMemoryLimit}">
+			<p:ajax event="change"
+				update="@composite:@parent:memoryLimitSettings" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+	<p:outputPanel id="memoryLimitSettings">
+		<p:outputPanel
+			rendered="#{(current.autoMemoryLimit != null and not current.autoMemoryLimit) or (current.autoMemoryLimit == null and not defaults.autoMemoryLimit)}">
+			<orch:objectFieldEditor inputId="memoryLimit" path="memoryLimit"
+				minLevel="2"
+				readOnlyValueMapper="#{byteSizeFormatter.formatByteSize}">
+				<ag:inputSize id="memoryLimit" value="#{current.memoryLimit}"
+					si="false" minUnit="MB" max="GB" />
+			</orch:objectFieldEditor>
+		</p:outputPanel>
+	</p:outputPanel>
+</ui:composition>

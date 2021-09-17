@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="tpl-feature"
+      label="Runtime Templating Feature"
+      version="0.0.10"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <requires>
+      <import feature="deps-freemarker-feature"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.runtime.tpl"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

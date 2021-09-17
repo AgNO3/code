@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.orchestrator.system.test.tpl.TemplateTest" activate="servicesSetUp">
+    <reference name="RunnerFactory" interface="eu.agno3.orchestrator.system.base.execution.RunnerFactory" cardinality="1..1" policy="static" bind="setRunnerFactory" unbind="unsetRunnerFactory"/>
+    <reference name="TplConfig" interface="freemarker.template.Configuration" cardinality="1..1" policy="static" bind="setTplConfig" unbind="unsetTplConfig"/>
+    <implementation class="eu.agno3.orchestrator.system.test.tpl.TemplateTest"/>
+</scr:component>

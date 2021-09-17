@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.fileshare.service.internal.BrowseServiceImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.service.api.internal.BrowseServiceInternal"/>
+        <provide interface="eu.agno3.fileshare.service.BrowseService"/>
+    </service>
+    <reference name="ServiceContext" interface="eu.agno3.fileshare.service.api.internal.DefaultServiceContext" cardinality="1..1" policy="static" bind="setServiceContext" unbind="unsetServiceContext"/>
+    <reference name="UserService" interface="eu.agno3.fileshare.service.api.internal.UserServiceInternal" cardinality="1..1" policy="static" bind="setUserService" unbind="unsetUserService"/>
+    <reference name="AccessControlService" interface="eu.agno3.fileshare.security.AccessControlService" cardinality="1..1" policy="static" bind="setAccessControlService" unbind="unsetAccessControlService"/>
+    <reference name="PolicyEvaluator" interface="eu.agno3.fileshare.service.api.internal.PolicyEvaluator" cardinality="1..1" policy="static" bind="setPolicyEvaluator" unbind="unsetPolicyEvaluator"/>
+    <reference name="VFSService" interface="eu.agno3.fileshare.service.api.internal.VFSServiceInternal" cardinality="1..1" policy="static" bind="setVFSService" unbind="unsetVFSService"/>
+    <reference name="RecursiveModTracker" interface="eu.agno3.fileshare.service.api.internal.RecursiveModificationTimeTracker" cardinality="1..1" policy="static" bind="setRecursiveModTracker" unbind="unsetRecursiveModTracker"/>
+    <implementation class="eu.agno3.fileshare.service.internal.BrowseServiceImpl"/>
+</scr:component>

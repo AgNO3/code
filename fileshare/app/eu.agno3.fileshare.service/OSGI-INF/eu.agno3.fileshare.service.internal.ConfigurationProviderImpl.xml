@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.fileshare.service.internal.ConfigurationProviderImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.service.ConfigurationProvider"/>
+    </service>
+    <reference name="ViewPolicyConfiguration" interface="eu.agno3.fileshare.service.config.ViewPolicyConfiguration" cardinality="1..1" policy="static" bind="setViewPolicyConfiguration" unbind="unsetViewPolicyConfiguration"/>
+    <reference name="MimeTypePolicyConfiguration" interface="eu.agno3.fileshare.service.config.MimeTypePolicyConfiguration" cardinality="1..1" policy="static" bind="setMimeTypePolicyConfiguration" unbind="unsetMimeTypePolicyConfiguration"/>
+    <reference name="UserConfiguration" interface="eu.agno3.fileshare.service.config.UserConfiguration" cardinality="1..1" policy="static" bind="setUserConfiguration" unbind="unsetUserConfiguration"/>
+    <reference name="SecurityPolicyConfiguration" interface="eu.agno3.fileshare.service.config.SecurityPolicyConfiguration" cardinality="1..1" policy="static" bind="setSecurityPolicyConfiguration" unbind="unsetSecurityPolicyConfiguration"/>
+    <reference name="NotificationConfiguration" interface="eu.agno3.fileshare.service.config.NotificationConfiguration" cardinality="1..1" policy="static" bind="setNotificationConfiguration" unbind="unsetNotificationConfiguration"/>
+    <reference name="FrontendConfiguration" interface="eu.agno3.fileshare.service.config.FrontendConfiguration" cardinality="1..1" policy="static" bind="setFrontendConfiguration" unbind="unsetFrontendConfiguration"/>
+    <reference name="QuotaConfiguration" interface="eu.agno3.fileshare.service.config.QuotaConfiguration" cardinality="1..1" policy="static" bind="setQuotaConfiguration" unbind="unsetQuotaConfiguration"/>
+    <reference name="TrustLevelConfiguration" interface="eu.agno3.fileshare.service.config.TrustLevelConfiguration" cardinality="1..1" policy="static" bind="setTrustLevelConfiguration" unbind="unsetTrustLevelConfiguration"/>
+    <reference name="SearchConfiguration" interface="eu.agno3.fileshare.service.config.SearchConfiguration" cardinality="1..1" policy="static" bind="setSearchConfiguration" unbind="unsetSearchConfiguration"/>
+    <implementation class="eu.agno3.fileshare.service.internal.ConfigurationProviderImpl"/>
+</scr:component>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.db.orm.tx.CMTTransactionServiceImpl" configuration-policy="require" configuration-pid="orm.tx.cmt">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.db.orm.EntityTransactionService"/>
+    </service>
+    <reference name="EntityManagerFactory" interface="javax.persistence.EntityManagerFactory" cardinality="1..1" policy="static" bind="bindEntityManagerFactory" unbind="unbindEntityManagerFactory"/>
+    <reference name="TransactionService" interface="eu.agno3.runtime.transaction.TransactionService" cardinality="1..1" policy="static" bind="bindTransactionService" unbind="unbindTransactionService"/>
+    <implementation class="eu.agno3.runtime.db.orm.tx.CMTTransactionServiceImpl"/>
+</scr:component>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	template="/tpl/common/dialog.xhtml">
+
+	<ui:param name="title" value="#{_msgs['actions.resumeUploads.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="token" value="#{userTokenBean.token}"
+				required="false" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form" method="POST" enctype="multipart/form-data">
+			<ag:dialogContextHolder />
+
+			<p:hotkey bind="esc" action="#{dialog.close}" immediate="true" />
+			<p:messages autoUpdate="true" />
+
+			<input type="hidden" name="token" value="#{userTokenBean.token}" />
+
+			<p:poll interval="10" listener="#{resumableUploadsBean.refresh()}"
+				update="resumeTable" />
+
+			<p:fieldset styleClass="func-unit">
+				<f:facet name="legend">
+					<h:outputText value="#{_msgs['actions.resumeUploads.title']}" />
+					<h:commandLink action="#{resumableUploadsBean.refresh()}"
+						title="#{_msgs['actions.resumeUploads.refreshTitle']}"
+						update="resumeTable">
+						<span class="ui-icon ui-icon-inline ui-icon-refresh" />
+					</h:commandLink>
+				</f:facet>
+
+				<p:dataTable id="resumeTable" value="#{resumableUploadsBean.model}"
+					var="itm" emptyMessage="#{_msgs['actions.resumeUploads.empty']}">
+					<p:column
+						headerText="#{_msgs['actions.resumeUploads.locationHeader']}">
+						<h:outputFormat
+							value="#{_msgs['actions.resumeUploads.fileNameFmt']}">
+							<f:param
+								value="#{fileDisplayBean.getLocalDisplayName(itm.target)}" />
+							<f:param value="#{itm.localName}" />
+						</h:outputFormat>
+					</p:column>
+					<p:column
+						headerText="#{_msgs['actions.resumeUploads.statusHeader']}"
+						style="text-align: right; width: 6em">
+						<h:outputText
+							value="#{resumableUploadsBean.translateStatus(itm.state)}" />
+					</p:column>
+					<p:column
+						headerText="#{_msgs['actions.resumeUploads.progressHeader']}"
+						style="text-align: right; width: 9em">
+						<h:outputFormat
+							value="#{_msgs['actions.resumeUploads.progressFmt']}">
+							<f:param value="#{resumableUploadsBean.getProgressPercent(itm)}" />
+							<f:param value="#{ag:formatByteSizeSI(itm.completeSize)}" />
+						</h:outputFormat>
+					</p:column>
+					<p:column headerText="#{_msgs['actions.resumeUploads.sizeHeader']}"
+						style="text-align: right; width: 6em">
+						<h:outputText value="#{ag:formatByteSizeSI(itm.totalSize)}" />
+					</p:column>
+
+					<p:column styleClass="action-column always-visible">
+						<p:commandLink styleClass="ui-icon ui-icon-resume ui-icon-inline"
+							onclick="PF('resumePanel_#{itm.target.entityKey}#{itm.reference}').show(); return false;"
+							rendered="#{not itm.externalSource and itm.state == 'UPLOADING'}"
+							id="resumeButton"
+							title="#{_msgs['actions.resumeUploads.resume.title']}" update="" />
+
+						<p:overlayPanel id="resumePanel" appendToBody="false"
+							dynamic="false"
+							widgetVar="resumePanel_#{itm.target.entityKey}#{itm.reference}"
+							style="right: 0" dismissable="false">
+
+							<ag:dialogOpenButton id="resumeSubmitButton"
+								dialog="/actions/resumeUpload.xhtml?token=#{userTokenBean.token}&amp;target=#{itm.target.entityKey}&amp;reference=#{itm.reference}"
+								action="#{resumableUploadsBean.reownUpload(itm)}"
+								icon="ui-icon-check" style="display:inline-block"
+								value="#{_msgs['actions.resumeUploads.resume.confirm']}">
+								<p:ajax event="return"
+									listener="#{resumableUploadsBean.refresh()}"
+									update="resumeTable" />
+							</ag:dialogOpenButton>
+
+							<p:commandButton
+								value="#{_msgs['actions.resumeUploads.resume.cancel']}"
+								style="display:inline-block"
+								oncomplete="PF('resumePanel_#{itm.target.entityKey}#{itm.reference}').hide()"
+								icon="ui-icon-cancel" />
+						</p:overlayPanel>
+
+						<ag:dialogOpenCommandLink
+							title="#{_msgs['actions.resumeUploads.resume.title']}"
+							dialog="/actions/resumeUpload.xhtml?token=#{userTokenBean.token}&amp;target=#{itm.target.entityKey}&amp;reference=#{itm.reference}"
+							action="#{resumableUploadsBean.reownUpload(itm)}"
+							rendered="#{not itm.externalSource and itm.state == 'FAILED'}"
+							styleClass="ui-icon ui-icon-inline ui-icon-resume">
+							<p:ajax event="return"
+								listener="#{resumableUploadsBean.refresh()}"
+								update="resumeTable" />
+						</ag:dialogOpenCommandLink>
+
+
+						<ag:dialogOpenCommandLink
+							title="#{_msgs['actions.resumeUploads.resume.title']}"
+							dialog="/actions/resumeUpload.xhtml?token=#{userTokenBean.token}&amp;target=#{itm.target.entityKey}&amp;reference=#{itm.reference}"
+							rendered="#{itm.externalSource and itm.state == 'FAILED'}"
+							styleClass="ui-icon ui-icon-inline ui-icon-resume">
+							<p:ajax event="return"
+								listener="#{resumableUploadsBean.refresh()}"
+								update="resumeTable" />
+						</ag:dialogOpenCommandLink>
+					</p:column>
+
+					<p:column styleClass="action-column always-visible last">
+						<p:commandLink styleClass="ui-icon ui-icon-trash ui-icon-inline"
+							onclick="PF('discardPanel_#{itm.target.entityKey}#{itm.reference}').show(); return false;"
+							rendered="#{not itm.externalSource or itm.state != 'UPLOADING'}"
+							id="discardButton"
+							title="#{_msgs['actions.resumeUploads.discard.title']}" update="" />
+
+						<p:overlayPanel id="discardPanel" appendToBody="false"
+							dynamic="false"
+							widgetVar="discardPanel_#{itm.target.entityKey}#{itm.reference}"
+							style="right: 0" dismissable="false">
+
+							<p:commandButton id="discardSubmitButton"
+								style="display:inline-block"
+								action="#{resumableUploadsBean.discard(itm)}"
+								value="#{_msgs['actions.resumeUploads.discard.confirm']}"
+								update="resumeTable" icon="ui-icon-check" />
+
+							<p:commandButton
+								value="#{_msgs['actions.resumeUploads.discard.cancel']}"
+								style="display:inline-block"
+								oncomplete="PF('discardPanel_#{itm.target.entityKey}#{itm.reference}').hide()"
+								icon="ui-icon-cancel" />
+						</p:overlayPanel>
+					</p:column>
+				</p:dataTable>
+			</p:fieldset>
+
+			<div class="buttons">
+				<p:commandButton immediate="true" action="#{dialog.close}"
+					styleClass="close-button" icon="#{dialog.closeIcon}"
+					title="#{dialog.closeDescription}" value="#{dialog.closeLabel}" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

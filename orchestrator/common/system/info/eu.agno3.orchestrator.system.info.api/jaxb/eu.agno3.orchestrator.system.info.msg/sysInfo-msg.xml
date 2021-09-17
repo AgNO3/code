@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.system.info.msg"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:system:info:msg">
+		<xml-ns prefix="m" namespace-uri="urn:agno3:message:1.0:base" />
+		<xml-ns prefix="am" namespace-uri="urn:agno3:agent:1.0:msg" />
+		<xml-ns prefix="si" namespace-uri="urn:agno3:model:1.0:system:info" />
+		<xml-ns prefix="sim" namespace-uri="urn:agno3:model:1.0:system:info:msg" />
+		<xml-ns prefix="ni" namespace-uri="urn:agno3:model:1.0:system:info:network" />
+		<xml-ns prefix="pi" namespace-uri="urn:agno3:model:1.0:system:info:platform" />
+		<xml-ns prefix="s" namespace-uri="urn:agno3:model:1.0:system:info:storage" />
+	</xml-schema>
+
+	<java-types>
+		<java-type name="RefreshRequest" xml-accessor-type="NONE">
+			<xml-type name="refreshRequest" />
+			<xml-root-element name="refreshRequest" />
+
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="AgentSystemInformation" xml-accessor-type="NONE">
+			<xml-type name="agentSystemInformation" />
+
+			<java-attributes>
+				<xml-element name="platform" java-attribute="platformInformation" required="true" />
+				<xml-element name="network" java-attribute="networkInformation" required="true" />
+				<xml-element name="storage" java-attribute="storageInformation" required="true" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="RefreshResponse" xml-accessor-type="NONE">
+			<xml-type name="refreshResponse" />
+			<xml-root-element name="refreshResponse" />
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="SystemInformationUpdatedEvent"
+			xml-accessor-type="NONE">
+			<xml-type name="sysInfoUpdatedEvent" />
+			<xml-root-element name="sysInfoUpdatedEvent" />
+			<java-attributes>
+				<xml-element name="info" java-attribute="systemInfo" />
+			</java-attributes>
+		</java-type>
+
+	</java-types>
+
+</xml-bindings>

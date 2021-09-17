@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.config.web.validation.smtp.internal.SMTPConfigurationTestPlugin">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.config.model.realm.validation.ConfigTestPlugin"/>
+    </service>
+    <reference name="TransportFactory" interface="eu.agno3.runtime.mail.SMTPTransportFactory" cardinality="1..1" policy="static" bind="setTransportFactory" unbind="unsetTransportFactory"/>
+    <reference name="SSLEndpointFactory" interface="eu.agno3.orchestrator.config.web.validation.SSLEndpointConfigTestFactory" cardinality="1..1" policy="static" bind="setSSLEndpointFactory" unbind="unsetSSLEndpointFactory"/>
+    <implementation class="eu.agno3.orchestrator.config.web.validation.smtp.internal.SMTPConfigurationTestPlugin"/>
+</scr:component>

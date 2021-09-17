@@ -1,0 +1,4 @@
+# Plugins bundles somehow otherwise end up with the default start level
+instructions.configure = \
+   setStartLevel(startLevel:10); \
+   markStarted(started: true);

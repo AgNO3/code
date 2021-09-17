@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.config.model.realm.service.impl.ConfigTestResultEventListener">
+    <property name="eventType" value="eu.agno3.orchestrator.config.model.events.ConfigTestResultUpdateEvent"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.messaging.listener.EventListener"/>
+    </service>
+    <reference name="ResultCache" interface="eu.agno3.orchestrator.config.model.realm.service.impl.ConfigTestResultCache" cardinality="1..1" policy="static" bind="setResultCache" unbind="unsetResultCache"/>
+    <implementation class="eu.agno3.orchestrator.config.model.realm.service.impl.ConfigTestResultEventListener"/>
+</scr:component>

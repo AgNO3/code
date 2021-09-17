@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<p:panel id="hostupdates"
+		header="#{_gui['structure.instance.dashboard.update.title']}">
+
+		<div>
+			<div class="info">
+				<p:outputPanel
+					rendered="#{not empty updateContextBean.latestDescriptor}">
+					<p:outputLabel value="#{_gui['structure.instance.dashboard.update.availableVersion']}" for="availVersion" />
+					<h:outputText id="availVersion"
+						value="#{updateContextBean.latestDescriptor.sequence}" />
+				</p:outputPanel>
+
+
+				<p:outputPanel rendered="#{not empty updateContextBean.status}">
+					<p:outputLabel value="#{_gui['structure.instance.dashboard.update.installedVersion']}" for="installedUpdate" />
+					<h:outputText id="installedUpdate"
+						value="#{updateContextBean.currentSequence}" />
+
+					<p:outputPanel
+						rendered="#{updateContextBean.overrideStream != 'RELEASE'}">
+						<p:outputLabel value="#{_gui['structure.instance.dashboard.update.stream']}" for="curStream" />
+						<h:outputText id="curStream"
+							value="#{updateContextBean.currentStream}" />
+					</p:outputPanel>
+
+					<p:outputPanel
+						rendered="#{not empty updateContextBean.currentInstallDate}">
+						<p:outputLabel value="#{_gui['structure.instance.dashboard.update.lastUpdate']}" for="lastUpdated" />
+						<h:outputText id="lastUpdated"
+							value="#{dateTimeUtil.formatDateTime(updateContextBean.currentInstallDate)}" />
+					</p:outputPanel>
+				</p:outputPanel>
+			</div>
+
+
+			<p:outputPanel
+				rendered="#{not empty updateContextBean.latestDescriptor}">
+				<p:commandButton action="#{updateContextBean.install}"
+					value="#{_gui['structure.instance.update.install']}">
+					<p:confirm
+						header="#{_gui['structure.instance.update.install.promptHeader']}"
+						message="#{_gui['structure.instance.update.install.promptMsg']}"
+						icon="ui-icon-question" />
+				</p:commandButton>
+			</p:outputPanel>
+			<p:outputPanel rendered="#{updateContextBean.rebootIndicated}">
+				<p:commandButton
+					value="#{_gui['structure.instance.update.reboot.confirm']}"
+					icon="ui-icon-refresh" action="#{instancePowerController.reboot}"
+					disabled="#{not agentStateTracker.isAgentOnline(structureViewContext.selectedInstance)}">
+					<p:confirm
+						header="#{_gui['structure.instance.update.reboot.promptHeader']}"
+						message="#{_gui['structure.instance.update.reboot.promptMsg']}"
+						icon="ui-icon-question" />
+				</p:commandButton>
+			</p:outputPanel>
+		</div>
+
+		<p:outputPanel rendered="#{updateContextBean.updateState != 'UPTODATE'}">
+			<div class="indicator update-state #{updateContextBean.updateState}"
+				style="width: 80%; margin-top: 1em;">
+				<h:outputText value="#{updateContextBean.translatedUpdateState}" />
+			</div>
+		</p:outputPanel>
+	</p:panel>
+</ui:composition>

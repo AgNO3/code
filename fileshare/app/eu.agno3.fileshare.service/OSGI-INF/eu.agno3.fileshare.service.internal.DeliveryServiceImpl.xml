@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.fileshare.service.internal.DeliveryServiceImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.service.api.internal.DeliveryService"/>
+    </service>
+    <reference name="ServiceContext" interface="eu.agno3.fileshare.service.api.internal.DefaultServiceContext" cardinality="1..1" policy="static" bind="setServiceContext" unbind="unsetServiceContext"/>
+    <reference name="AccessControlService" interface="eu.agno3.fileshare.security.AccessControlService" cardinality="1..1" policy="static" bind="setAccessControlService" unbind="unsetAccessControlService"/>
+    <reference name="PolicyEvaluator" interface="eu.agno3.fileshare.service.api.internal.PolicyEvaluator" cardinality="1..1" policy="static" bind="setPolicyEvaluator" unbind="unsetPolicyEvaluator"/>
+    <reference name="UADetector" interface="eu.agno3.runtime.http.ua.UADetector" cardinality="1..1" policy="static" bind="setUADetector" unbind="unsetUADetector"/>
+    <reference name="VFSService" interface="eu.agno3.fileshare.service.api.internal.VFSServiceInternal" cardinality="1..1" policy="static" bind="setVFSService" unbind="unsetVFSService"/>
+    <reference name="LinkService" interface="eu.agno3.fileshare.service.LinkService" cardinality="1..1" policy="static" bind="setLinkService" unbind="unsetLinkService"/>
+    <implementation class="eu.agno3.fileshare.service.internal.DeliveryServiceImpl"/>
+</scr:component>

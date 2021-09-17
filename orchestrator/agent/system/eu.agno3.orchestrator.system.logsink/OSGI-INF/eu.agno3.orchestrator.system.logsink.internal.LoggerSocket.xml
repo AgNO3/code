@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" immediate="true" name="eu.agno3.orchestrator.system.logsink.internal.LoggerSocket" configuration-policy="require" activate="activate" deactivate="deactivate" configuration-pid="logsink">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.system.logsink.internal.LoggerSocket"/>
+    </service>
+    <implementation class="eu.agno3.orchestrator.system.logsink.internal.LoggerSocket"/>
+</scr:component>

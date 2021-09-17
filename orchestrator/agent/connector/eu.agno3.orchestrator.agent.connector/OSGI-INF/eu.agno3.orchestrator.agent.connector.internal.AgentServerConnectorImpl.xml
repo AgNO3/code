@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" immediate="true" name="eu.agno3.orchestrator.agent.connector.internal.AgentServerConnectorImpl" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.agent.connector.AgentServerConnector"/>
+        <provide interface="eu.agno3.orchestrator.server.connector.ServerConnector"/>
+    </service>
+    <reference name="MessagingClientFactory" interface="eu.agno3.runtime.messaging.client.MessagingClientFactory" cardinality="1..1" policy="static" bind="setMessagingClientFactory" unbind="unsetMessagingClientFactory"/>
+    <reference name="TLSContext" interface="eu.agno3.runtime.crypto.tls.TLSContext" cardinality="1..1" policy="static" target="(subsystem=agent/client)" bind="setTLSContext" unbind="unsetTLSContext"/>
+    <reference name="ServerConnectorConfig" interface="eu.agno3.orchestrator.server.connector.ServerConnectorConfiguration" cardinality="1..1" policy="static" bind="setServerConnectorConfig" unbind="unsetServerConnectorConfig" updated="setServerConnectorConfig"/>
+    <implementation class="eu.agno3.orchestrator.agent.connector.internal.AgentServerConnectorImpl"/>
+</scr:component>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+	<p:toolbar>
+		<f:facet name="left">
+			<p:commandButton icon="ui-icon-disk"
+				title="#{_gui['resourceLibrary.textEditor.save']}"
+				disabled="#{readonly}"
+				oncomplete="clean();"
+				action="#{textEditorBean.save()}" />
+
+			<p:commandButton icon="ui-icon-cancel"
+				title="#{_gui['resourceLibrary.textEditor.revert']}"
+				disabled="#{readonly}"
+				oncomplete="clean();"
+				action="#{textEditorBean.revert()}" update="fileEditor" />
+		</f:facet>
+		<f:facet name="right">
+			<h:outputText value="#{resourceLibraryFileEditorBean.filename}" />
+		</f:facet>
+	</p:toolbar>
+
+	<pe:codeMirror widgetVar="codeMirrorEditor" id="codeMirror"
+		mode="#{mode}" style="min-height: 30em" readonly="#{readonly}"
+		theme="eclipse" value="#{textEditorBean.text}" lineNumbers="true">
+		<p:ajax event="change" process="" update="" 
+			onstart="dirty(); return false;" />
+	</pe:codeMirror>
+
+	<p:fileUpload rendered="#{not readonly}" id="createUpload"
+		mode="advanced" auto="true"
+		label="#{_gui['resourceLibrary.textEditor.replaceWithUpload']}"
+		sizeLimit="500000"
+		oncomplete="dirty();"
+		fileUploadListener="#{textEditorBean.onUpload}" update="fileEditor" />
+</ui:composition>

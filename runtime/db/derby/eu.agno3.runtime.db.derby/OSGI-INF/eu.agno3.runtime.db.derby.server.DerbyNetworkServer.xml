@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.db.derby.server.DerbyNetworkServer" configuration-policy="require" activate="activate" deactivate="deactivate" configuration-pid="db.server.derby.networked">
+    <property name="osgi.jdbc.driver.class" value="org.apache.derby.jdbc.ClientDriver"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.db.embedded.EmbeddedDBServer"/>
+        <provide interface="eu.agno3.runtime.db.derby.DerbyServer"/>
+    </service>
+    <reference name="AssocDataSourceFactory" interface="org.osgi.service.jdbc.DataSourceFactory" cardinality="1..1" policy="static" target="(osgi.jdbc.driver.class=org.apache.derby.jdbc.ClientDriver)" bind="setAssocDataSourceFactory" unbind="unsetAssocDataSourceFactory"/>
+    <reference name="DerbyAuthenticatorBackend" interface="eu.agno3.runtime.db.derby.auth.DerbyAuthenticatorBackend" cardinality="1..1" policy="static" bind="setDerbyAuthenticatorBackend" unbind="unsetDerbyAuthenticatorBackend"/>
+    <reference name="SecretKeyProvider" interface="eu.agno3.runtime.crypto.secret.SecretKeyProvider" cardinality="1..1" policy="static" bind="setSecretKeyProvider" unbind="unsetSecretKeyProvider"/>
+    <reference name="DerbyGlobalConfig" interface="eu.agno3.runtime.db.derby.server.DerbyGlobalConfig" cardinality="1..1" policy="static" bind="setDerbyGlobalConfig" unbind="unsetDerbyGlobalConfig"/>
+    <reference name="DerbyNetworkListener" interface="eu.agno3.runtime.db.derby.server.DerbyNetworkListener" cardinality="1..1" policy="static" bind="setDerbyNetworkListener" unbind="unsetDerbyNetworkListener"/>
+    <reference name="AuthConfiguration" interface="eu.agno3.runtime.db.derby.auth.internal.DerbyAuthConfiguration" cardinality="1..1" policy="static" bind="setAuthConfiguration" unbind="unsetAuthConfiguration" updated="updatedAuthConfiguration"/>
+    <reference name="UserAuthenticator" interface="org.apache.derby.authentication.UserAuthenticator" cardinality="1..1" policy="static" bind="bindUserAuthenticator" unbind="unbindUserAuthenticator"/>
+    <implementation class="eu.agno3.runtime.db.derby.server.DerbyNetworkServer"/>
+</scr:component>

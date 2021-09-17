@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	template="/tpl/common/dialog.xhtml">
+	<ui:param name="title"
+		value="#{_gui['crypto.keystore.deleteKey.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="instance"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}">
+			</f:viewParam>
+
+			<f:viewParam name="keystore" value="#{keystoreContext.keystore}"
+				required="true" requiredMessage="#{_gui['require.param']}">
+			</f:viewParam>
+
+			<f:viewParam name="key" value="#{keystoreContext.keyAlias}"
+				required="true" requiredMessage="#{_gui['require.param']}">
+			</f:viewParam>
+		</f:metadata>
+	</ui:define>
+
+
+	<ui:define name="content">
+		<h:form>
+			<ag:dialogContextHolder />
+
+			<p:messages autoUpdate="true" />
+
+			<p:fieldset
+				legend="#{_gui['crypto.keystore.deleteKey.title']}">
+
+				<p>
+					<h:outputText value="#{_gui['crypto.keystore.deleteKey.prompt']}" />
+				</p>
+				
+				<p:outputPanel
+					rendered="#{not empty keystoreContext.displayKeyAlias}">
+					<ag:simpleField readOnly="true"
+						value="#{keystoreContext.displayKeyAlias}"
+						label="#{_gui['crypto.keystore.deleteKey.keyAlias']}" />
+				</p:outputPanel>
+
+				<p:outputPanel
+					rendered="#{not empty keystoreContext.keyInfo.certificateChain}">
+					<ag:certificateDisplay concise="true"
+						value="#{keystoreContext.certificate}" />
+				</p:outputPanel>
+
+				<p:outputPanel
+					rendered="#{empty keystoreContext.keyInfo.certificateChain}">
+					<ag:simpleField readOnly="true"
+						value="#{keystoreContext.publicKeyFingerprint}"
+						label="#{_gui['crypto.keystore.deleteKey.fingerprint']}" />
+				</p:outputPanel>
+
+				<div class="buttons">
+					<p:commandButton action="#{keystoreContext.deleteKey()}"
+						icon="ui-icon-trash"
+						value="#{_gui['crypto.keystore.deleteKey.confirm']}" />
+
+					<p:commandButton immediate="true" action="#{dialog.close}"
+						styleClass="close-button" icon="ui-icon-cancel"
+						value="#{_gui['crypto.keystore.deleteKey.cancel']}" />
+				</div>
+			</p:fieldset>
+
+			<div style="height: 4em" />
+
+		</h:form>
+	</ui:define>
+</ui:composition>

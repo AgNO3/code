@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0"
+	template="/tpl/structure/service/template.xhtml">
+	<ui:param name="serviceSubtitle"
+		value="#{_gui['structure.service.dashboard.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="service"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+			<f:viewParam name="anchor"
+				value="#{structureViewContext.selectedAnchorId}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<p:toolbar id="dashboardToolbar" styleClass="dashboard-toolbar">
+				<f:facet name="left">
+					<p:menuButton value="#{_gui['structure.service.actions']}">
+						<p:menuitem icon="ui-icon-cancel"
+							value="#{_gui['structure.service.actions.disable']}"
+							disabled="#{not serviceDashboardBean.isAgentOnline()}"
+							outcome="/structure/service/disable.xhtml?faces-redirect=true&amp;service=#{structureViewContext.selectedService.id}&amp;anchor=#{structureViewContext.selectedAnchor.id}"
+							rendered="#{serviceDashboardBean.canDeactivate()}" />
+						<p:menuitem icon="ui-icon-play"
+							value="#{_gui['structure.service.actions.enable']}"
+							rendered="#{serviceDashboardBean.canActivate()}"
+							action="#{serviceController.enable}"
+							disabled="#{not serviceDashboardBean.isAgentOnline() or (structureViewContext.selectedService.state != 'UNKNOWN' and structureViewContext.selectedService.state != 'UNCONFIGURED')}" />
+						<p:menuitem icon="ui-icon-arrowreturnthick-1-n"
+							value="#{_gui['structure.service.actions.restart']}"
+							disabled="#{not serviceDashboardBean.isAgentOnline()}"
+							outcome="/structure/service/restart.xhtml?faces-redirect=true&amp;service=#{structureViewContext.selectedService.id}&amp;anchor=#{structureViewContext.selectedAnchor.id}"
+							rendered="#{serviceDashboardBean.canDeactivate()}" />
+						<p:menuitem icon="ui-icon-trash"
+							value="#{_gui['structure.service.actions.delete']}"
+							rendered="#{userPreferences.enableMultiHostManagement}"
+							outcome="/structure/service/delete.xhtml?faces-redirect=true&amp;service=#{structureViewContext.selectedService.id}&amp;anchor=#{structureViewContext.selectedAnchor.id}"
+							disabled="#{not serviceDashboardBean.canDelete()}" />
+					</p:menuButton>
+
+					<p:outputLabel for="configState"
+						value="#{_gui['structure.service.state.configState']}"
+						style="margin-left: 0.4em" />
+					<p:outputPanel id="configState"
+						styleClass="config-state-display indicator #{structureViewContext.selectedService.state}"
+						title="#{structureUtil.translateConfigStateDescription(structureViewContext.selectedService.state)}">
+						<span
+							class="ui-icon ui-icon-inline #{structureUtil.iconForConfigState(structureViewContext.selectedService.state)}" />
+						<h:outputText
+							value="#{structureUtil.translateConfigState(structureViewContext.selectedService.state)}" />
+					</p:outputPanel>
+
+					<p:outputLabel for="runtimeState"
+						value="#{_gui['structure.service.state.runtimeState']}"
+						style="margin-left: 0.4em"
+						rendered="#{not empty structureViewContext.selectedService.state and structureViewContext.selectedService.state != 'UNKNOWN'}" />
+					<p:outputPanel id="runtimeState"
+						rendered="#{not empty structureViewContext.selectedService.state and structureViewContext.selectedService.state != 'UNKNOWN'}"
+						styleClass="runtime-state-display indicator #{serviceDashboardBean.getRuntimeState()}">
+						<span
+							class="ui-icon ui-icon-inline #{serviceDashboardBean.getRuntimeStateIcon()}" />
+						<h:outputText
+							value="#{serviceDashboardBean.getTranslatedRuntimeState()}" />
+					</p:outputPanel>
+				</f:facet>
+
+				<f:facet name="right">
+					<p:outputPanel style="margin: 0.3em; font-weight: initial">
+						<p:outputLabel for="serviceType" style="display: inline"
+							value="#{_gui['structure.service.dashboard.type']}" />
+						<b><h:outputText id="serviceType"
+								value="#{structureUtil.getServiceTypeDisplayName(structureViewContext.selectedService.serviceType)}" /></b>
+						<p:outputLabel for="serviceName"
+							style="display: inline; margin: 0.2em"
+							rendered="#{not empty structureViewContext.selectedService.displayName}"
+							value="#{_gui['structure.service.dashboard.name']}" />
+						<ui:fragment
+							rendered="#{not empty structureViewContext.selectedService.displayName}">
+							<q><h:outputText id="serviceName"
+									value="#{structureViewContext.displayName}" /></q>
+						</ui:fragment>
+						<p:outputLabel for="instance"
+							style="display: inline; margin: 0.2em"
+							value="#{_gui['structure.service.dashboard.instance']}" />
+						<p:link id="instance"
+							value="#{structureUtil.getDisplayName(structureViewContext.parentForSelection)}"
+							outcome="#{structureUtil.getOutcomeForObjectOverview(structureViewContext.parentForSelection)}" />
+					</p:outputPanel>
+				</f:facet>
+			</p:toolbar>
+
+
+			<p:remoteCommand name="refreshDashboardState"
+				update="dashboardToolbar"
+				actionListener="#{serviceDashboardBean.refresh()}" />
+
+			<orch:event
+				pattern="/service/#{structureViewContext.selectedService.id}/(.*)_status">
+					console.log('State change, refresh');
+					refreshDashboardState();
+				</orch:event>
+
+			<p:messages />
+
+			<p:fieldset
+				legend="#{_gui['structure.service.dashboard.logs.title']}"
+				style="padding-left: 0; padding-right:0; padding-bottom: 0">
+				<orch:logView logBean="#{dashboardLogEventTable}"
+					widgetVar="dashboardLogTable" showHeader="false"
+					style="width: 100%; height: 100%; margin: 0" refreshTimer="5"
+					followOnly="true" />
+			</p:fieldset>
+
+
+			<h:outputScript>
+				// <!-- 
+				$(document).ready(function() {
+					PF('dashboardLogTable_logTimer').restart();
+				});
+				// -->
+			</h:outputScript>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

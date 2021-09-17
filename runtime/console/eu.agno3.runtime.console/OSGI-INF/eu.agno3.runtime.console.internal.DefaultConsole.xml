@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" enabled="true" immediate="true" name="eu.agno3.runtime.console.internal.DefaultConsole" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.console.internal.DefaultConsole"/>
+    </service>
+    <reference name="ConsoleFactory" interface="eu.agno3.runtime.console.ConsoleFactory" cardinality="1..1" policy="static" bind="setConsoleFactory" unbind="unsetConsoleFactory"/>
+    <reference name="ShutdownHandler" interface="eu.agno3.runtime.console.ShutdownHandler" cardinality="1..1" policy="static" bind="setShutdownHandler" unbind="unsetShutdownHandler"/>
+    <implementation class="eu.agno3.runtime.console.internal.DefaultConsole"/>
+</scr:component>

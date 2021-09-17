@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="i18n-feature"
+      label="Internationalization Feature"
+      version="0.0.18"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <plugin
+         id="eu.agno3.runtime.i18n"
+         download-size="0"
+         install-size="0"
+         version="0.0.18"
+         unpack="false"/>
+
+</feature>

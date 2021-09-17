@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
+
+	<name>agno3</name>
+
+	<ordering>
+		<after>
+			<name>extval</name>
+			<name>primefaces</name>
+		</after>
+	</ordering>
+
+	<factory>
+		<application-factory>eu.agno3.runtime.jsf.config.OSGIApplicationFactory</application-factory>
+	</factory>
+
+	<application>
+		<message-bundle>eu.agno3.runtime.jsf.i18n.messages</message-bundle>
+		<navigation-handler>eu.agno3.runtime.jsf.view.stacking.handlers.DialogNavigationHandlerImpl</navigation-handler>
+		<resource-handler>eu.agno3.runtime.jsf.config.JSFResourceHandlerWrapper</resource-handler>
+
+		<default-validators>
+			<validator-id>stringDefaultValidator</validator-id>
+		</default-validators>
+	</application>
+
+	<lifecycle>
+		<phase-listener>eu.agno3.runtime.jsf.view.stacking.handlers.DialogPreRestoreViewPhaseListener</phase-listener>
+		<phase-listener>eu.agno3.runtime.jsf.view.stacking.handlers.DialogPostUpdateModelPhaseListener</phase-listener>
+		<phase-listener>eu.agno3.runtime.jsf.config.ProfilingPhaseListener</phase-listener>
+		<phase-listener>eu.agno3.runtime.jsf.types.uri.URLPostRestoreViewPhaseListener</phase-listener>
+	</lifecycle>
+
+	<factory>
+		<external-context-factory>eu.agno3.runtime.jsf.config.OSGIExternalContextFactory</external-context-factory>
+		<partial-view-context-factory>eu.agno3.runtime.jsf.config.renderkit.HeaderPartialViewContextWrapperFactory</partial-view-context-factory>
+	</factory>
+
+	<converter>
+		<converter-for-class>java.util.UUID</converter-for-class>
+		<converter-class>eu.agno3.runtime.jsf.types.uuid.UUIDConverter</converter-class>
+	</converter>
+
+	<validator>
+		<validator-id>stringDefaultValidator</validator-id>
+		<validator-class>eu.agno3.runtime.jsf.validation.DefaultStringValidator</validator-class>
+	</validator>
+
+
+	<component>
+		<component-type>eu.agno3.runtime.jsf.components.CertificateEditor</component-type>
+		<component-class>eu.agno3.runtime.jsf.components.crypto.CertificateEditor</component-class>
+	</component>
+
+	<component>
+		<component-type>eu.agno3.runtime.jsf.components.CertificateChainEditor</component-type>
+		<component-class>eu.agno3.runtime.jsf.components.crypto.CertificateChainEditor</component-class>
+	</component>
+
+	<component>
+		<component-type>eu.agno3.runtime.jsf.components.RSAPrivateKeyEditor</component-type>
+		<component-class>eu.agno3.runtime.jsf.components.crypto.RSAPrivateKeyEditor</component-class>
+	</component>
+
+	<component>
+		<component-type>eu.agno3.runtime.jsf.components.RSAPublicKeyEditor</component-type>
+		<component-class>eu.agno3.runtime.jsf.components.crypto.RSAPublicKeyEditor</component-class>
+	</component>
+
+	<component>
+		<component-type>eu.agno3.runtime.jsf.components.InputDuration</component-type>
+		<component-class>eu.agno3.runtime.jsf.components.duration.InputDuration</component-class>
+	</component>
+
+	<component>
+		<component-type>eu.agno3.runtime.jsf.components.SimpleField</component-type>
+		<component-class>eu.agno3.runtime.jsf.components.simplefield.SimpleField</component-class>
+	</component>
+
+	<component>
+		<component-type>eu.agno3.runtime.jsf.components.PasswordEntropy</component-type>
+		<component-class>eu.agno3.runtime.jsf.components.pwstrength.PasswordEntropy</component-class>
+	</component>
+
+	<component>
+		<component-type>eu.agno3.runtime.jsf.components.PasswordInput</component-type>
+		<component-class>eu.agno3.runtime.jsf.components.pwstrength.PasswordInput</component-class>
+	</component>
+
+	<component>
+		<component-type>org.primefaces.component.TabView</component-type>
+		<component-class>org.primefaces.fixed.component.tabview.TabViewFixed</component-class>
+	</component>
+
+	<component>
+		<component-type>org.primefaces.component.TreeTable</component-type>
+		<component-class>org.primefaces.fixed.component.treetable.TreeTableFixed</component-class>
+	</component>
+
+	<component>
+		<component-type>eu.agno3.runtime.jsf.components.ListEditor</component-type>
+		<component-class>eu.agno3.runtime.jsf.components.listeditor.ListEditor</component-class>
+	</component>
+
+	<component>
+		<component-type>eu.agno3.runtime.jsf.components.SetEditor</component-type>
+		<component-class>eu.agno3.runtime.jsf.components.listeditor.SetEditor</component-class>
+	</component>
+
+	<component>
+		<component-type>eu.agno3.runtime.jsf.components.SelectOrAdd</component-type>
+		<component-class>eu.agno3.runtime.jsf.components.selectoradd.SelectOrAdd</component-class>
+	</component>
+
+
+	<component>
+		<component-type>eu.agno3.runtime.jsf.components.InputSize</component-type>
+		<component-class>eu.agno3.runtime.jsf.components.sizeeditor.InputSize</component-class>
+	</component>
+
+
+	<component>
+		<component-type>eu.agno3.runtime.jsf.components.LocalizedStringEditor</component-type>
+		<component-class>eu.agno3.runtime.jsf.components.localestr.LocalizedStringEditor</component-class>
+	</component>
+
+	<component>
+		<component-type>eu.agno3.runtime.jsf.components.InputUri</component-type>
+		<component-class>eu.agno3.runtime.jsf.components.urieditor.InputUri</component-class>
+	</component>
+
+	<component>
+		<component-type>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenButton</component-type>
+		<component-class>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenButton</component-class>
+	</component>
+
+
+	<component>
+		<component-type>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenMenuItem</component-type>
+		<component-class>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenMenuItem</component-class>
+	</component>
+
+	<component>
+		<component-type>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenHotkey</component-type>
+		<component-class>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenHotkey</component-class>
+	</component>
+
+	<component>
+		<component-type>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenCommandLink</component-type>
+		<component-class>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenCommandLink</component-class>
+	</component>
+
+	<component>
+		<component-type>eu.agno3.runtime.jsf.view.stacking.components.DialogContextHolder</component-type>
+		<component-class>eu.agno3.runtime.jsf.view.stacking.components.DialogContextHolder</component-class>
+	</component>
+
+	<component>
+		<component-type>eu.agno3.runtime.jsf.view.stacking.components.DialogBreadcrumps</component-type>
+		<component-class>eu.agno3.runtime.jsf.view.stacking.components.DialogBreadcrumps</component-class>
+	</component>
+
+	<component>
+		<component-type>eu.agno3.runtime.jsf.components.TreeMenu</component-type>
+		<component-class>eu.agno3.runtime.jsf.components.treemenu.TreeMenu</component-class>
+	</component>
+
+	<component>
+		<component-type>org.primefaces.component.DataTable</component-type>
+		<component-class>org.primefaces.fixed.component.datatable.DataTableFixed</component-class>
+	</component>
+
+	<component>
+		<component-type>org.primefaces.component.Toolbar</component-type>
+		<component-class>org.primefaces.fixed.component.toolbar.ExtendedToolbar</component-class>
+	</component>
+	
+	<component>
+		<component-type>org.primefaces.component.Wizard</component-type>
+		<component-class>org.primefaces.fixed.component.wizard.WizardFixed</component-class>
+	</component>
+
+	<render-kit>
+		<render-kit-id>HTML_BASIC</render-kit-id>
+		<render-kit-class>eu.agno3.runtime.jsf.config.renderkit.HeaderHtmlRenderKitImpl</render-kit-class>
+	</render-kit>
+
+	<render-kit>
+		<renderer>
+			<component-family>org.primefaces.component</component-family>
+			<renderer-type>org.primefaces.component.FileUploadRenderer</renderer-type>
+			<renderer-class>org.primefaces.fixed.component.fileupload.FileUploadRendererFixed</renderer-class>
+		</renderer>
+		<renderer>
+			<component-family>org.primefaces.component</component-family>
+			<renderer-type>org.primefaces.component.TreeTableRenderer</renderer-type>
+			<renderer-class>org.primefaces.fixed.component.treetable.TreeTableRendererFixed</renderer-class>
+		</renderer>
+		<renderer>
+			<component-family>org.primefaces.component</component-family>
+			<renderer-type>org.primefaces.component.DataTableRenderer</renderer-type>
+			<renderer-class>org.primefaces.fixed.component.datatable.DataTableRendererFixed</renderer-class>
+		</renderer>
+		<renderer>
+			<component-family>org.primefaces.component</component-family>
+			<renderer-type>org.primefaces.component.AjaxStatusRenderer</renderer-type>
+			<renderer-class>org.primefaces.fixed.component.ajaxstatus.FixedAjaxStatusRenderer</renderer-class>
+		</renderer>
+		<renderer>
+			<component-family>org.primefaces.component</component-family>
+			<renderer-type>org.primefaces.component.ToolbarRenderer</renderer-type>
+			<renderer-class>org.primefaces.fixed.component.toolbar.ExtendedToolbarRenderer</renderer-class>
+		</renderer>
+		<renderer>
+			<component-family>org.primefaces.component</component-family>
+			<renderer-type>org.primefaces.component.WizardRenderer</renderer-type>
+			<renderer-class>org.primefaces.fixed.component.wizard.WizardRendererFixed</renderer-class>
+		</renderer>
+		
+		
+		<renderer>
+			<component-family>eu.agno3.jsf.components</component-family>
+			<renderer-type>eu.agno3.runtime.jsf.components.TreeMenuRenderer</renderer-type>
+			<renderer-class>eu.agno3.runtime.jsf.components.treemenu.TreeMenuRenderer</renderer-class>
+		</renderer>
+
+		<renderer>
+			<component-family>eu.agno3.jsf.dialog</component-family>
+			<renderer-type>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenButtonRenderer</renderer-type>
+			<renderer-class>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenButtonRenderer</renderer-class>
+		</renderer>
+
+		<renderer>
+			<component-family>eu.agno3.jsf.dialog</component-family>
+			<renderer-type>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenHotkeyRenderer</renderer-type>
+			<renderer-class>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenHotkeyRenderer</renderer-class>
+		</renderer>
+
+		<renderer>
+			<component-family>eu.agno3.jsf.dialog</component-family>
+			<renderer-type>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenCommandLinkRenderer</renderer-type>
+			<renderer-class>eu.agno3.runtime.jsf.view.stacking.components.DialogOpenCommandLinkRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+</faces-config>

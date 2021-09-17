@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="whitelistMimeTypes"
+		path="whitelistMimeTypes" collection="true">
+		<ag:setEditor id="whitelistMimeTypes"
+			value="#{current.whitelistMimeTypes}"
+			comparator="#{mimeTypeUtilBean.comparator}"
+			factoryMethod="#{setEditorUtilBean.makeEmptyString}">
+			<p:column>
+				<p:autoComplete value="#{item.value}" style="width: 100%"
+					maxResults="10"
+					completeMethod="#{mimeTypeUtilBean.completer.complete}" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="blacklistMimeTypes"
+		path="blacklistMimeTypes" collection="true">
+		<ag:setEditor id="blacklistMimeTypes"
+			value="#{current.blacklistMimeTypes}"
+			comparator="#{mimeTypeUtilBean.comparator}"
+			factoryMethod="#{setEditorUtilBean.makeEmptyString}">
+			<p:column>
+				<p:autoComplete value="#{item.value}" style="width: 100%"
+					maxResults="10"
+					completeMethod="#{mimeTypeUtilBean.completer.complete}" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="fallbackMimeType" minLevel="2"
+		path="fallbackMimeType">
+		<p:inputText id="fallbackMimeType" value="#{current.fallbackMimeType}" />
+	</orch:objectFieldEditor>
+	<orch:objectFieldEditor inputId="useUserSuppliedTypeInfo" minLevel="2"
+		path="useUserSuppliedTypeInfo">
+		<p:selectBooleanCheckbox id="useUserSuppliedTypeInfo"
+			value="#{current.useUserSuppliedTypeInfo}" />
+	</orch:objectFieldEditor>
+	<orch:objectFieldEditor inputId="allowMimeTypeChanges" minLevel="2"
+		path="allowMimeTypeChanges">
+		<p:selectBooleanCheckbox id="allowMimeTypeChanges"
+			value="#{current.allowMimeTypeChanges}" />
+	</orch:objectFieldEditor>
+
+	<p:tabView id="contentTabs">
+		<p:tab title="#{fs_cfgmsgs.bundle['fileshare.content.preview']}"
+			id="preview">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:fileshare:content:preview"
+				context="#{configContext}" path="previewConfig"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+
+		<p:tab title="#{fs_cfgmsgs.bundle['fileshare.content.search']}"
+			id="search">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:fileshare:content:search"
+				context="#{configContext}" path="searchConfig"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+
+		<p:tab title="#{fs_cfgmsgs.bundle['fileshare.content.scan']}"
+			id="scan">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:fileshare:content:scan"
+				context="#{configContext}" path="scanConfig"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+	</p:tabView>
+
+</ui:composition>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.system.cfgfiles.internal.ResourceLibraryListRequestEndpoint">
+    <property name="msgType" value="eu.agno3.orchestrator.config.model.realm.resourcelibrary.ResourceLibraryListRequest"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.messaging.listener.RequestEndpoint"/>
+    </service>
+    <reference name="MessageSource" interface="eu.agno3.runtime.messaging.addressing.MessageSource" cardinality="1..1" policy="static" bind="setMessageSource" unbind="unsetMessageSource"/>
+    <reference name="SynchronizationHandler" interface="eu.agno3.orchestrator.system.cfgfiles.ResourceLibrarySynchronizationHandler" cardinality="1..n" policy="dynamic" bind="bindSynchronizationHandler" unbind="unbindSynchronizationHandler"/>
+    <implementation class="eu.agno3.orchestrator.system.cfgfiles.internal.ResourceLibraryListRequestEndpoint"/>
+</scr:component>

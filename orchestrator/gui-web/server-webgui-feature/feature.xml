@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="server-webgui-feature"
+      label="Orchestrator Server WebGUI Feature"
+      version="0.0.1.qualifier"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <includes
+         id="deps-jsf-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="jsf-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-openwebbeans-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="cdi-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-pax-cdi-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-jetty-websocket-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="jsf-types-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="cdi-comet-feature"
+         version="0.0.0"/>
+
+   <requires>
+      <import plugin="eu.agno3.orchestrator.gui"/>
+      <import plugin="eu.agno3.orchestrator.gui.connector"/>
+      <import plugin="eu.agno3.orchestrator.server"/>
+      <import plugin="eu.agno3.orchestrator.server.connector"/>
+      <import feature="net-krb-feature" version="0.0.24"/>
+      <import feature="deps-shiro-cas-feature" version="1.2.4.AG1"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.orchestrator.server.webgui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.server.gui.async"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

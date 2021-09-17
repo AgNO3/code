@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<p:outputPanel id="serversPanel">
+		<orch:objectFieldEditor inputId="servers" path="servers"
+			collection="true">
+			<ag:listEditor id="servers"
+				factoryMethod="#{setEditorUtilBean.makeEmptyURI}"
+				value="#{current.servers}">
+				<p:column>
+					<ag:inputUri fields="scheme,host,port,path"
+						defaultScheme="#{icapClientConfigBean.getScheme(outerWrapper)}"
+						hostWidth="10em !important" pathWidth="7em !important"
+						defaultPort="#{icapClientConfigBean.getDefaultPort(outerWrapper)}"
+						defaultPath="/" readOnly="scheme" value="#{item.value}" />
+				</p:column>
+			</ag:listEditor>
+		</orch:objectFieldEditor>
+	</p:outputPanel>
+
+	<orch:objectFieldEditor inputId="sslClientMode" path="sslClientMode"
+		update="@composite:@parent:sslSettings,@composite:@parent:serversPanel"
+		readOnlyValueMapper="#{sslClientConfigBean.translateClientMode}">
+		<p:selectOneMenu id="sslClientMode" value="#{current.sslClientMode}">
+			<f:selectItems value="#{sslClientConfigBean.clientModes}" var="mode"
+				itemLabel="#{sslClientConfigBean.translateClientMode(mode)}" />
+			<p:ajax event="change"
+				process="@this,@composite:@parent:serversPanel"
+				update="@composite:@parent:sslSettings,@composite:@parent:serversPanel" />
+		</p:selectOneMenu>
+	</orch:objectFieldEditor>
+
+
+	<orch:objectFieldEditor inputId="socketTimeout" path="socketTimeout"
+		minLevel="2"
+		readOnlyValueMapper="#{dateFormatter.formatDurationObject}">
+		<ag:inputDuration id="socketTimeout" minUnit="seconds"
+			maxUnit="seconds" value="#{current.socketTimeout}" />
+	</orch:objectFieldEditor>
+
+	<p:outputPanel id="sslSettings">
+		<p:outputPanel
+			rendered="#{(current.sslClientMode != null and current.sslClientMode != 'DISABLE') or (current.sslClientMode == null and defaults.sslClientMode != 'DISABLE')}">
+
+			<orch:objectFieldEditor inputId="sendICAPSInRequestUri"
+				path="sendICAPSInRequestUri" minLevel="3">
+				<p:selectBooleanCheckbox id="sendICAPSInRequestUri"
+					value="#{current.sendICAPSInRequestUri}" />
+			</orch:objectFieldEditor>
+
+			<orch:objectEditor objectType="urn:agno3:objects:1.0:web:sslclient"
+				context="#{configContext}" path="sslClientConfiguration"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+
+		</p:outputPanel>
+	</p:outputPanel>
+	
+	<ag:simpleField styleClass="noLabel" id="testICAPField"
+		onlyIf="#{empty outerWrapper.getParameter('hideTest')}">
+		<ag:dialogOpenButton title="#{_config_web['test.icap.title']}"
+			icon="ui-icon-check" style="display: block"
+			value="#{_config_web['test.icap.label']}" closable="true"
+			process="@form" dialog="#{configTestUtil.makeTestLink(outerWrapper)}">
+			<p:ajax event="return"
+				listener="#{configTestInteractionUtil.makeReturnWrapper(cc, web_icap_testBean).onReturn}"
+				update="@composite:@parent:sslSettings"/>
+		</ag:dialogOpenButton>
+	</ag:simpleField>
+
+</ui:composition>

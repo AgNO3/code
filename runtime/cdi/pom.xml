@@ -1,0 +1,19 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.runtime</groupId>
+    <artifactId>runtime-parent</artifactId>
+    <version>0.1.254</version>
+    <relativePath></relativePath>
+  </parent>
+  <artifactId>cdi</artifactId>
+  <packaging>pom</packaging>
+  <name>CDI Module</name>
+  <version>0.0.36</version>
+  <modules>
+  	<module>eu.agno3.runtime.cdi</module>
+  	<module>cdi-feature</module>
+  	<module>eu.agno3.runtime.cdi.comet</module>
+  	<module>cdi-comet-feature</module>
+  </modules>
+</project>

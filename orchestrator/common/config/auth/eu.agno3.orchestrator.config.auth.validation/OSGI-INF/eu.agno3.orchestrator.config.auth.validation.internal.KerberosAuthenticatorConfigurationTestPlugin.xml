@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.config.auth.validation.internal.KerberosAuthenticatorConfigurationTestPlugin">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.config.model.realm.validation.ConfigTestPlugin"/>
+    </service>
+    <reference name="ADRealmManager" interface="eu.agno3.runtime.net.krb5.KrbRealmManager" cardinality="1..1" policy="static" bind="setADRealmManager" unbind="unsetADRealmManager"/>
+    <implementation class="eu.agno3.orchestrator.config.auth.validation.internal.KerberosAuthenticatorConfigurationTestPlugin"/>
+</scr:component>

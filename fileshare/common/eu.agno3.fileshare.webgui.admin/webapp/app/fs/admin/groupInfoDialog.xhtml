@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:fsadm="http://agno3.eu/ns/jsf/fsadm/taglib/1.0"
+	template="/tpl/common/dialog.xhtml">
+
+	<ui:param name="title"
+		value="#{fs_adm_msgs.formatEL('group.info.titleFmt', app_fs_adm_subjectDisplayBean.getGroupDisplayName(app_fs_adm_groupSelectionBean.singleSelection))}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<ui:include src="/tpl/app/fs/admin/metadata.xhtml" />
+			<f:viewParam name="group"
+				value="#{app_fs_adm_groupSelectionBean.encodedSingleSelection}"
+				required="true" />
+			<f:viewParam name="group"
+				value="#{app_fs_adm_subjectSelectionBean.encodedSingleSelection}"
+				required="true" />
+		</f:metadata>
+	</ui:define>
+
+
+	<ui:define name="content">
+		<h:form id="form" method="POST" enctype="multipart/form-data">
+			<ag:dialogContextHolder />
+
+			<ag:dialogCrumps />
+
+			<p:hotkey bind="esc" action="#{dialog.close}" immediate="true" />
+			<p:messages autoUpdate="true" />
+
+			<p:tabView>
+				<p:tab id="membersSection"
+					title="#{_fs_adm_msg['group.members.title']}">
+					<p:fieldset styleClass="func-unit"
+						legend="#{_fs_adm_msg['group.members.title']}">
+						<p:outputPanel id="members">
+							<ul
+								style="list-style-type: none; margin-top: 0; padding-left: 0; width: 40%">
+								<ui:repeat var="member"
+									value="#{app_fs_adm_groupMembersBean.membersModel}">
+									<li><span
+										class="ui-icon ui-icon-inline #{app_fs_adm_subjectDisplayBean.getSubjectIconClass(member)}" />
+										<ag:dialogOpenCommandLink
+											rendered="#{app_fs_adm_subjectDisplayBean.isGroup(member)}"
+											value="#{app_fs_adm_subjectDisplayBean.getSubjectDisplayName(member)}"
+											dialog="#{app_fs_adm_integration.wrapDialog('/app/fs/admin/groupInfoDialog.xhtml?group='.concat(member.id))}"
+											returnLabel="#{_fs_adm_msg['group.info.title']}"
+											title="#{_fs_adm_msg['groups.showDetail']}">
+											<p:ajax event="return" />
+										</ag:dialogOpenCommandLink> <ag:dialogOpenCommandLink
+											rendered="#{app_fs_adm_subjectDisplayBean.isUser(member)}"
+											value="#{app_fs_adm_subjectDisplayBean.getSubjectDisplayName(member)}"
+											dialog="#{app_fs_adm_integration.wrapDialog('/app/fs/admin/userInfoDialog.xhtml?user='.concat(member.id))}"
+											returnLabel="#{_fs_adm_msg['group.info.title']}"
+											title="#{_fs_adm_msg['users.showUserDetails']}">
+											<p:ajax event="return" />
+										</ag:dialogOpenCommandLink> <p:commandLink
+											rendered="#{app_fs_adm_permission.hasPermission('manage:groups:removeMember')}"
+											title="#{_fs_adm_msg['group.members.remove']}"
+											style="float: right"
+											styleClass="ui-icon ui-icon-trash ui-icon-inline"
+											action="#{app_fs_adm_groupsController.removeGroupMember(app_fs_adm_groupSelectionBean, member.id)}"
+											update="@parent:@parent:@parent" /></li>
+								</ui:repeat>
+							</ul>
+
+							<p:outputPanel
+								rendered="#{app_fs_adm_permission.hasPermission('manage:groups:addMember')}">
+								<h:outputText value="#{_fs_adm_msg['group.members.selectAdd']}" />
+								<br />
+								<p:autoComplete id="subjectAddSelector" style="margin: 5px"
+									widgetVar="subjectAddSelector"
+									binding="#{app_fs_adm_subjectAutocompleteBean.component}"
+									value="#{app_fs_adm_subjectAutocompleteBean.value}"
+									completeMethod="#{app_fs_adm_groupMembersBean.completeAddableSubjects}"
+									converter="#{app_fs_adm_subjectQueryResultConverter}"
+									maxResults="20" dropdown="true" var="subject"
+									itemValue="#{subject}"
+									itemLabel="#{app_fs_adm_subjectDisplayBean.getSubjectDisplayName(subject)}"
+									forceSelection="true">
+
+									<p:ajax event="itemSelect"
+										listener="#{app_fs_adm_groupMembersBean.onSubjectAddSelect}"
+										process="subjectAddSelector" update="members"
+										oncomplete="PF('subjectAddSelector').jq.find('input').val('')" />
+
+									<p:column>
+										<span
+											class="ui-icon #{app_fs_adm_subjectDisplayBean.getSubjectIconClass(subject)} ui-icon-inline" />
+										<h:outputText
+											value="#{app_fs_adm_subjectDisplayBean.getSubjectDisplayName(subject)}" />
+									</p:column>
+								</p:autoComplete>
+							</p:outputPanel>
+						</p:outputPanel>
+					</p:fieldset>
+					<div class="buttons">
+						<p:commandButton immediate="true" action="#{dialog.close}"
+							styleClass="close-button"
+							style="display: inline-block; vertical-align: middle; margin-top: 0.5em"
+							icon="#{dialog.closeIcon}" title="#{dialog.closeDescription}"
+							value="#{dialog.closeLabel}" />
+					</div>
+				</p:tab>
+
+				<p:tab id="settingsSection"
+					title="#{_fs_adm_msg['group.settings.title']}">
+					<p:fieldset styleClass="func-unit"
+						legend="#{_fs_adm_msg['group.settings.info.title']}">
+						<ag:simpleField label="#{_fs_adm_msg['group.creator.label']}"
+							onlyIf="#{not empty app_fs_adm_groupSelectionBean.singleSelection.creator}"
+							description="#{_fs_adm_msg['group.creator.description']}"
+							readOnly="true"
+							value="#{app_fs_adm_groupSelectionBean.singleSelection.creator.principal}" />
+					</p:fieldset>
+					<p:fieldset styleClass="func-unit"
+						legend="#{_fs_adm_msg['group.quota.title']}">
+						<ag:simpleField
+							value="#{app_fs_adm_groupSelectionBean.singleSelection.quota}"
+							readOnlyValueMapper="#{app_fs_adm_quotaFormatter.format}"
+							readOnly="#{not app_fs_adm_permission.hasPermission('manage:groups:changeQuota')}"
+							inputId="quota" label="#{_fs_adm_msg['group.quota.label']}"
+							description="#{_fs_adm_msg['group.quota.description']}">
+
+							<p:inplace id="quota" editor="true"
+								saveLabel="#{_fs_adm_msg['group.quota.set']}"
+								cancelLabel="#{_fs_adm_msg['group.quota.revert']}">
+								<p:ajax event="save"
+									listener="#{app_fs_adm_groupQuotaEditor.setQuota()}"
+									update="quota" />
+								<p:ajax event="cancel"
+									listener="#{app_fs_adm_groupQuotaEditor.revert()}"
+									update="quota" />
+								<f:facet name="output">
+									<h:outputText
+										rendered="#{not empty app_fs_adm_groupSelectionBean.singleSelection.quota}"
+										value="#{app_fs_adm_quotaFormatter.format(app_fs_adm_groupSelectionBean.singleSelection.quota)}" />
+									<h:outputText
+										rendered="#{empty app_fs_adm_groupSelectionBean.singleSelection.quota}"
+										value="#{_fs_adm_msg['group.quota.disabled']}" />
+									<span class="ui-icon ui-icon-inline ui-icon-pencil" />
+								</f:facet>
+								<f:facet name="input">
+									<fsadm:quotaEditor
+										quotaEnabled="#{app_fs_adm_groupQuotaEditor.quotaEnabled}"
+										quotaSize="#{app_fs_adm_groupQuotaEditor.quotaSize}"
+										quotaExponent="#{app_fs_adm_groupQuotaEditor.quotaExponent}" />
+								</f:facet>
+							</p:inplace>
+						</ag:simpleField>
+					</p:fieldset>
+
+					<p:fieldset styleClass="func-unit"
+						legend="#{_fs_adm_msg['group.notification.title']}">
+						<ag:simpleField
+							label="#{_fs_adm_msg['group.disableNotifications.label']}"
+							inputId="disableNotifications"
+							value="#{app_fs_adm_groupSelectionBean.singleSelection.disableNotifications}"
+							readOnly="#{not app_fs_adm_permission.hasPermission('manage:groups:changeNotifySettings')}"
+							description="#{_fs_adm_msg['group.disableNotifications.description']}">
+							<p:selectBooleanCheckbox id="disableNotifications"
+								value="#{app_fs_adm_groupSelectionBean.singleSelection.disableNotifications}">
+								<p:ajax event="change"
+									listener="#{app_fs_adm_groupSettingsBean.updateDisableNotification}"
+									update="@composite:@parent" />
+							</p:selectBooleanCheckbox>
+						</ag:simpleField>
+
+						<ag:simpleField
+							label="#{_fs_adm_msg['group.notificationOverrideAddress.label']}"
+							value="#{app_fs_adm_groupSelectionBean.singleSelection.notificationOverrideAddress}"
+							readOnly="#{not app_fs_adm_permission.hasPermission('manage:groups:changeNotifySettings')}"
+							description="#{_fs_adm_msg['group.notificationOverrideAddress.description']}">
+							<p:inplace editor="true">
+								<p:ajax event="save"
+									listener="#{app_fs_adm_groupSettingsBean.updateNotificationAddress}"
+									update="@composite:@parent" />
+								<p:ajax event="cancel"
+									listener="#{app_fs_adm_groupSettingsBean.reset}"
+									update="@composite:@parent" />
+								<f:facet name="output">
+									<h:outputText
+										rendered="#{not empty app_fs_adm_groupSelectionBean.singleSelection.notificationOverrideAddress}"
+										value="#{app_fs_adm_groupSelectionBean.singleSelection.notificationOverrideAddress}" />
+
+									<h:outputText
+										rendered="#{empty app_fs_adm_groupSelectionBean.singleSelection.notificationOverrideAddress}"
+										value="#{_fs_adm_msg['group.notificationOverrideAddress.unset']}" />
+									<span class="ui-icon ui-icon-inline ui-icon-pencil" />
+								</f:facet>
+
+								<f:facet name="input">
+									<p:inputText id="notificationOverrideAddress"
+										value="#{app_fs_adm_groupSelectionBean.singleSelection.notificationOverrideAddress}">
+									</p:inputText>
+								</f:facet>
+							</p:inplace>
+						</ag:simpleField>
+
+						<ag:simpleField label="#{_fs_adm_msg['group.groupLocale.label']}"
+							inputId="groupLocale"
+							value="#{app_fs_adm_groupSelectionBean.singleSelection.groupLocale}"
+							readOnly="#{not app_fs_adm_permission.hasPermission('manage:groups:changeNotifySettings')}"
+							onlyIf="#{not empty app_fs_adm_groupSelectionBean.singleSelection.notificationOverrideAddress}"
+							description="#{_fs_adm_msg['group.groupLocale.description']}">
+
+							<p:inplace editor="true">
+								<p:ajax event="save"
+									listener="#{app_fs_adm_groupSettingsBean.updateGroupLocale}"
+									update="@composite:@parent" />
+								<p:ajax event="cancel"
+									listener="#{app_fs_adm_groupSettingsBean.reset}"
+									update="@composite:@parent" />
+
+								<f:facet name="output">
+									<h:outputText
+										rendered="#{not empty app_fs_adm_groupSelectionBean.singleSelection.groupLocale}"
+										value="#{app_fs_adm_groupSelectionBean.singleSelection.groupLocale}" />
+
+									<h:outputText
+										rendered="#{empty app_fs_adm_groupSelectionBean.singleSelection.groupLocale}"
+										value="#{_fs_adm_msg['group.groupLocale.default']}" />
+									<span class="ui-icon ui-icon-inline ui-icon-pencil" />
+								</f:facet>
+
+								<f:facet name="input">
+									<p:selectOneMenu id="groupLocale" filter="true"
+										value="#{app_fs_adm_groupSelectionBean.singleSelection.groupLocale}"
+										converter="#{localeConverter}">
+										<f:selectItem
+											itemLabel="#{_fs_adm_msg['group.groupLocale.default']}"
+											noSelectionOption="true" />
+										<f:selectItems value="#{localeModelBean.model}" var="locale"
+											itemValue="#{locale}"
+											itemLabel="#{localeModelBean.getLocaleLabel(locale)}" />
+									</p:selectOneMenu>
+								</f:facet>
+							</p:inplace>
+						</ag:simpleField>
+					</p:fieldset>
+					<div class="buttons">
+						<p:commandButton immediate="true" action="#{dialog.close}"
+							styleClass="close-button"
+							style="display: inline-block; vertical-align: middle; margin-top: 0.5em"
+							icon="#{dialog.closeIcon}" title="#{dialog.closeDescription}"
+							value="#{dialog.closeLabel}" />
+					</div>
+				</p:tab>
+
+
+				<p:tab title="#{_fs_adm_msg['permissions.title']}"
+					rendered="#{app_fs_adm_permission.hasPermission('manage:roles:list')}">
+					<p:panelGrid id="roles" style="width: 100%">
+						<p:row>
+							<p:column style="width: 50%; vertical-align: top">
+								<p:fieldset styleClass="func-unit"
+									legend="#{_fs_adm_msg['permissions.roles.title']}">
+									<p:dataTable styleClass="list-table" id="roleTable"
+										value="#{app_fs_adm_subjectRolesBean.model}" paginator="false"
+										var="role" rowKey="#{role}" rowSelectMode="checkbox"
+										dblClickSelection="#{app_fs_adm_permission.hasPermission('manage:roles:modify')}"
+										selection="#{app_fs_adm_subjectRolesBean.subjectRoles}">
+
+										<p:ajax event="rowSelectCheckbox"
+											listener="#{app_fs_adm_subjectRolesBean.onSelect}"
+											update="@parent:@parent:@parent:@parent" />
+										<p:ajax event="rowUnselectCheckbox"
+											listener="#{app_fs_adm_subjectRolesBean.onUnselect}"
+											update="@parent:@parent:@parent:@parent" />
+
+										<p:column
+											rendered="#{app_fs_adm_permission.hasPermission('manage:roles:modify')}"
+											selectionMode="multiple" style="width: 20px" />
+										<p:column>
+											<h:outputText id="roleName"
+												value="#{app_fs_adm_roleDisplayBean.getRoleDisplayName(role)}" />
+											<p:tooltip for="roleName">
+												<h:outputText
+													value="#{app_fs_adm_roleDisplayBean.getRoleDescription(role)}" />
+											</p:tooltip>
+										</p:column>
+									</p:dataTable>
+
+									<p:outputPanel
+										rendered="#{app_fs_adm_permission.hasPermission('manage:roles:modify')}">
+										<p:inputText id="customRoleAdd"
+											value="#{app_fs_adm_subjectRolesBean.addCustom}" />
+
+										<p:commandButton icon="ui-icon-plusthick"
+											action="#{app_fs_adm_subjectRolesBean.doAddCustom()}"
+											value="#{_fs_adm_msg['permissions.roles.add.label']}"
+											title="#{_fs_adm_msg['permissions.roles.add.description']}"
+											update="roleTable effectiveRoleTable customRoleAdd" />
+									</p:outputPanel>
+								</p:fieldset>
+							</p:column>
+							<p:column style="width: 50%; vertical-align: top">
+
+								<p:fieldset styleClass="func-unit"
+									legend="#{_fs_adm_msg['permissions.rolesEffective.title']}">
+									<p:dataTable styleClass="list-table" id="effectiveRoleTable"
+										value="#{app_fs_adm_subjectRolesBean.effectiveRoleModel}"
+										paginator="false" var="role">
+
+										<p:column>
+											<h:outputText id="roleName"
+												value="#{app_fs_adm_roleDisplayBean.getRoleDisplayName(role)}" />
+											<p:tooltip for="roleName">
+												<h:outputText
+													value="#{app_fs_adm_roleDisplayBean.getRoleDescription(role)}" />
+											</p:tooltip>
+											<p:commandLink
+												rendered="#{app_fs_adm_permission.hasPermission('manage:roles:modify') and app_fs_adm_subjectRolesBean.isCustomRole(role)}"
+												style="float: right"
+												styleClass="ui-icon ui-icon-inline ui-icon-closethick"
+												title="#{_fs_adm_msg['permissions.roles.remove.description']}"
+												action="#{app_fs_adm_subjectRolesBean.removeCustom(role)}"
+												update="effectiveRoleTable" />
+										</p:column>
+									</p:dataTable>
+								</p:fieldset>
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+					<div class="buttons">
+						<p:commandButton immediate="true" action="#{dialog.close}"
+							styleClass="close-button"
+							style="display: inline-block; vertical-align: middle; margin-top: 0.5em"
+							icon="#{dialog.closeIcon}" title="#{dialog.closeDescription}"
+							value="#{dialog.closeLabel}" />
+					</div>
+				</p:tab>
+			</p:tabView>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

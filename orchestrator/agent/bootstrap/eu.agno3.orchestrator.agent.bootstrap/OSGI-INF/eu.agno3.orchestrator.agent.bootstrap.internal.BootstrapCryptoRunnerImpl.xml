@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.agent.bootstrap.internal.BootstrapCryptoRunnerImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.agent.bootstrap.internal.BootstrapCryptoRunnerImpl"/>
+    </service>
+    <reference name="KeyStoresManager" interface="eu.agno3.orchestrator.agent.crypto.keystore.KeystoresManager" cardinality="1..1" policy="static" bind="setKeyStoresManager" unbind="unsetKeyStoresManager"/>
+    <reference name="TrustStoresManager" interface="eu.agno3.orchestrator.agent.crypto.truststore.TruststoresManager" cardinality="1..1" policy="static" bind="setTrustStoresManager" unbind="unsetTrustStoresManager"/>
+    <reference name="X509Util" interface="eu.agno3.runtime.crypto.x509.X509Util" cardinality="1..1" policy="static" bind="setX509Util" unbind="unsetX509Util"/>
+    <implementation class="eu.agno3.orchestrator.agent.bootstrap.internal.BootstrapCryptoRunnerImpl"/>
+</scr:component>

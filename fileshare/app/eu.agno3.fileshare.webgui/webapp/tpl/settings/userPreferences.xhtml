@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough">
+
+	<p:fieldset styleClass="func-unit"
+		legend="#{_msgs['prefs.appearance.title']}">
+		<ag:simpleField
+			label="#{_msgs['prefs.appearance.treeFileView.label']}"
+			description="#{_msgs['prefs.appearance.treeFileView.description']}"
+			inputId="treeFileView">
+			<p:selectBooleanCheckbox id="treeFileView"
+				value="#{userPreferencesBean.treeFileView}" />
+		</ag:simpleField>
+	</p:fieldset>
+
+
+	<p:fieldset styleClass="func-unit"
+		legend="#{_msgs['prefs.i18n.title']}">
+		<ag:simpleField label="#{_msgs['prefs.i18n.overrideLocale.label']}"
+			description="#{_msgs['prefs.i18n.overrideLocale.description']}"
+			inputId="overrideLocale">
+			<p:selectOneMenu id="overrideLocale" filter="true"
+				value="#{userPreferencesBean.overrideLocale}"
+				converter="#{localeConverter}">
+				<f:selectItem
+					itemLabel="#{_msgs['prefs.i18n.overrideLocale.default']}"
+					noSelectionOption="true" />
+				<f:selectItems value="#{localeModelBean.model}" var="locale"
+					itemValue="#{locale}"
+					itemLabel="#{localeModelBean.getLocaleLabel(locale)}" />
+			</p:selectOneMenu>
+
+			<h:outputFormat
+				style="display: inline-block; vertical-align: top; margin-left: 1em"
+				rendered="#{empty userPreferencesBean.overrideLocale}"
+				value="#{_msgs['prefs.i18n.overrideLocale.detectedFmt']}">
+				<f:param
+					value="#{localeModelBean.getLocaleLabel(facesContext.viewRoot.locale)}" />
+			</h:outputFormat>
+		</ag:simpleField>
+
+		<ag:simpleField
+			label="#{_msgs['prefs.i18n.overrideDateLocale.label']}"
+			description="#{_msgs['prefs.i18n.overrideDateLocale.description']}"
+			inputId="overrideDateLocale">
+			<p:selectOneMenu id="overrideDateLocale" filter="true"
+				value="#{userPreferencesBean.overrideDateLocale}"
+				converter="#{localeConverter}">
+				<f:selectItem
+					itemLabel="#{_msgs['prefs.i18n.overrideDateLocale.default']}"
+					noSelectionOption="true" />
+				<f:selectItems value="#{localeModelBean.model}" var="locale"
+					itemValue="#{locale}"
+					itemLabel="#{localeModelBean.getLocaleLabel(locale)}" />
+			</p:selectOneMenu>
+		</ag:simpleField>
+
+		<ag:simpleField label="#{_msgs['prefs.i18n.overrideTimezone.label']}"
+			description="#{_msgs['prefs.i18n.overrideTimezone.description']}"
+			inputId="overrideTimezone">
+			<p:selectOneMenu id="overrideTimezone"
+				value="#{userPreferencesBean.overrideTimezone}" filter="true"
+				filterMatchMode="contains" var="tz" converter="#{timeZoneConverter}"
+				style="width: 20em" panelStyle="width: 30em">
+				<f:selectItem
+					itemLabel="#{msgs.formatEL('prefs.i18n.overrideTimezone.defaultFmt',localeSettingsBean.defaultTimeZoneDisplayName)}"
+					noSelectionOption="true" />
+				<f:selectItems value="${timeZoneInfo.selectItems}" var="tzInfo"
+					itemValue="${tzInfo.tz}"
+					itemLabel="#{msgs.formatEL('prefs.i18n.overrideTimezone.itemFmt', tzInfo.displayId, tzInfo.tzShortName)}"
+					itemDescription="#{tzInfo.tzName}" />
+
+				<p:column>
+					<h:outputText rendered="#{not empty tz}"
+						value="#{timeZoneInfo.getDisplayId(tz)}" />
+					<h:outputText rendered="#{empty tz}"
+						value="#{_msgs['prefs.i18n.overrideTimezone.default']}" />
+				</p:column>
+
+				<p:column>
+					<h:outputText rendered="#{not empty tz}"
+						value="#{timeZoneInfo.getShortName(tz)}" />
+					<h:outputText rendered="#{empty tz}"
+						value="#{localeSettingsBean.defaultTimeZoneDisplayName}" />
+				</p:column>
+
+				<p:column>
+					<h:outputText rendered="#{not empty tz}"
+						value="#{timeZoneInfo.getOffset(tz)}" />
+					<h:outputText rendered="#{empty tz}"
+						value="#{localeSettingsBean.defaultTimeZoneOffset}" />
+				</p:column>
+			</p:selectOneMenu>
+		</ag:simpleField>
+	</p:fieldset>
+
+	<p:fieldset styleClass="func-unit"
+		legend="#{_msgs['prefs.notification.title']}">
+		<ag:simpleField
+			label="#{_msgs['prefs.notification.disableExpirationNotification.label']}"
+			description="#{_msgs['prefs.notification.disableExpirationNotification.description']}"
+			inputId="disableExpirationNotification">
+			<p:selectBooleanCheckbox id="disableExpirationNotification"
+				value="#{userPreferencesBean.disableExpirationNotification}" />
+		</ag:simpleField>
+	</p:fieldset>
+
+</ui:composition>

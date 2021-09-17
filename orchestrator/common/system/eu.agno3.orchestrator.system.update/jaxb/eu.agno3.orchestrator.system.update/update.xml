@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.system.update"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:system:update">
+		<xml-ns prefix="su" namespace-uri="urn:agno3:model:1.0:system:update" />
+	</xml-schema>
+
+	<java-types>
+		<java-type name="UpdateDescriptor" xml-accessor-type="NONE">
+			<xml-type name="updateDescriptorType" />
+			<xml-root-element name="updateDescriptor" />
+			<java-attributes>
+				<xml-attribute name="sequence" java-attribute="sequence" />
+				<xml-attribute name="imageType" java-attribute="imageType" />
+
+				<xml-element name="releaseDate" java-attribute="releaseDate">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter" />
+				</xml-element>
+
+				<xml-element name="changeLogRef" java-attribute="changeLogRef">
+					<xml-java-type-adapter
+						value="eu.agno3.orchestrator.types.uri.XmlURIAdapter" />
+				</xml-element>
+
+				<xml-element name="include" java-attribute="includes">
+					<xml-element-wrapper name="includes" />
+				</xml-element>
+
+				<xml-element name="service" java-attribute="descriptors">
+					<xml-element-wrapper name="services" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="UpdateDescriptorRef" xml-accessor-type="NONE">
+			<xml-type name="updateDescriptorRefType" />
+			<xml-root-element name="updateDescriptorRef" />
+
+			<java-attributes>
+				<xml-attribute name="stream" java-attribute="stream" />
+				<xml-attribute name="sequence" java-attribute="sequence" />
+				<xml-attribute name="imageType" java-attribute="imageType" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ServiceUpdateDescriptor" xml-accessor-type="NONE">
+			<xml-type name="serviceUpdateDescriptorType" />
+			<xml-root-element name="serviceUpdateDescriptor" />
+
+			<java-attributes>
+				<xml-attribute name="serviceType" java-attribute="serviceType"
+					required="true" />
+
+				<xml-element name="unit" java-attribute="units">
+					<xml-element-wrapper name="units" />
+				</xml-element>
+
+				<xml-element name="service" java-attribute="reconfigureServices">
+					<xml-element-wrapper name="reconfigure" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="AbstractServiceUpdateUnit" abstract="true"
+			xml-accessor-type="NONE">
+			<xml-type name="serviceUpdateUnitType" />
+
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="P2UpdateUnit" xml-accessor-type="NONE">
+			<xml-type name="p2UpdateUnitType" />
+
+			<java-attributes>
+				<xml-attribute name="forceOffline" java-attribute="forceOffline" />
+				<xml-element name="repository" java-attribute="repositories">
+					<xml-element-wrapper name="repositories" />
+					<xml-java-type-adapter
+						value="eu.agno3.orchestrator.types.uri.XmlURIAdapter" />
+				</xml-element>
+
+				<xml-element name="target" java-attribute="targets">
+					<xml-element-wrapper name="targets" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="P2FeatureTarget" xml-accessor-type="NONE">
+			<xml-type name="p2FeatureTarget" />
+			<java-attributes>
+				<xml-attribute name="featureId" java-attribute="featureId"
+					required="true" />
+				<xml-attribute name="featureVersion" java-attribute="featureVersion"
+					required="true" />
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="SystemUpdateUnit" xml-accessor-type="NONE">
+			<xml-type name="systemUpdateUnitType" />
+
+			<java-attributes>
+				<xml-element name="repository" java-attribute="repository" />
+				<xml-element name="target" java-attribute="targetProfile">
+					<xml-element-wrapper name="targets" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="SystemPackageTarget" xml-accessor-type="NONE">
+			<xml-type name="sysPackageTarget" />
+			<java-attributes>
+				<xml-attribute name="package" java-attribute="packageName" />
+
+				<xml-attribute name="repository" java-attribute="targetRepository"
+					required="false" />
+				<xml-attribute name="suggestReboot" java-attribute="suggestReboot"
+					required="false" />
+
+				<xml-element name="version" java-attribute="targetVersions">
+					<xml-element-wrapper name="versions" />
+				</xml-element>
+
+				<xml-element name="doBefore" java-attribute="beforeInstructions" />
+
+				<xml-element name="doAfter" java-attribute="afterInstructions" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ServiceInstruction" xml-accessor-type="NONE">
+			<xml-type name="serviceInstruction" />
+			<java-attributes>
+				<xml-attribute name="service" java-attribute="serviceName" />
+				<xml-attribute name="action" java-attribute="type" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="UpdateException" xml-accessor-type="NONE">
+			<xml-type name="updateExceptionType" />
+
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="InstanceUpdateStatus" xml-accessor-type="NONE">
+			<xml-type name="instanceUpdateStatusType" />
+			<xml-root-element name="instanceUpdateStataus" />
+
+			<java-attributes>
+    			<xml-attribute name="state" java-attribute="state" />
+    			<xml-attribute name="imageType" java-attribute="imageType" />
+    			<xml-attribute name="currentStream" java-attribute="currentStream" />
+    			<xml-attribute name="currentSequence" java-attribute="currentSequence" />
+    			<xml-attribute name="currentInstallDate" java-attribute="currentInstallDate">
+    				<xml-java-type-adapter value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter" />
+    			</xml-attribute>
+    			
+    			<xml-element name="rebootIndicated" java-attribute="rebootIndicated" required="false" />
+    			
+    			<xml-element name="descriptorStream" java-attribute="descriptorStream" required="false" />
+    			<xml-element name="latestDescriptor" java-attribute="latestDescriptor" required="false" />
+    			
+    			<xml-element name="revertStream" java-attribute="revertStream" required="false" />
+    			<xml-element name="revertSequence" java-attribute="revertSequence" required="false" />
+    			<xml-element name="revertTimestamp" java-attribute="revertTimestamp" required="false">
+    				<xml-java-type-adapter value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter" />
+    			</xml-element>
+			</java-attributes>
+		</java-type>
+	</java-types>
+
+</xml-bindings>

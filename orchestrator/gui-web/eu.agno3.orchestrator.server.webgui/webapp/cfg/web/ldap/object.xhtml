@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="attributeStyle" path="attributeStyle"
+		minLevel="2"
+		onlyIf="#{not outerWrapper.getParameter('fixedSchemaStyle')}">
+		<p:selectOneMenu id="attributeStyle" value="#{current.attributeStyle}">
+			<f:selectItem itemValue="LDAP"
+				itemLabel="#{_config_web['web.ldap.object.style.ldap.label']}"
+				itemDescription="#{_config_web['web.ldap.object.style.ldap.description']}" />
+			<f:selectItem itemValue="LDAP_UNIQUE"
+				itemLabel="#{_config_web['web.ldap.object.style.ldapunique.label']}"
+				itemDescription="#{_config_web['web.ldap.object.style.ldapunique.description']}" />
+			<f:selectItem itemValue="POSIX"
+				itemLabel="#{_config_web['web.ldap.object.style.posix.label']}"
+				itemDescription="#{_config_web['web.ldap.object.style.posix.description']}" />
+		</p:selectOneMenu>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="baseDN" path="baseDN" minLevel="2">
+		<p:inputText id="baseDN" value="#{current.baseDN}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="customFilter" path="customFilter"
+		minLevel="3">
+		<p:inputText id="customFilter" value="#{current.customFilter}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="scope" path="scope" minLevel="3"
+		readOnlyValueMapper="#{ldapClientConfigBean.translateSearchScope}">
+		<p:selectOneMenu id="scope" value="#{current.scope}">
+			<f:selectItems value="#{ldapClientConfigBean.searchScopes}"
+				var="scope"
+				itemLabel="#{ldapClientConfigBean.translateSearchScope(scope)}" />
+		</p:selectOneMenu>
+	</orch:objectFieldEditor>
+</ui:composition>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="fileshare-orch-webgui-feature"
+      label="Fileshare Orchestrator WebGui Feature"
+      version="0.0.1.qualifier"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <includes
+         id="fileshare-orch-common-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="fileshare-common-gui-feature"
+         version="0.0.0"/>
+
+   <requires>
+      <import feature="server-webgui-feature" version="0.0.1.qualifier"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.fileshare.orch.webgui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.fileshare.webgui.admin"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

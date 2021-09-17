@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.system.info.platform"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:system:info:platform">
+		<xml-ns prefix="si" namespace-uri="urn:agno3:model:1.0:system:info" />
+		<xml-ns prefix="pi" namespace-uri="urn:agno3:model:1.0:system:info:platform" />
+	</xml-schema>
+
+	<java-types>
+		<java-type name="PlatformInformation" xml-accessor-type="NONE">
+
+
+			<xml-type name="platformInformation"
+				factory-class="eu.agno3.orchestrator.system.info.platform.ObjectFactory"
+				factory-method="createPlatformInformation" />
+
+			<xml-root-element name="platformInformation" />
+
+			<java-attributes>
+				<xml-attribute name="type" java-attribute="platformType" required="true" />
+				<xml-element name="agentId" java-attribute="agentId" required="true">
+					<xml-java-type-adapter value="eu.agno3.runtime.xml.binding.adapter.UUIDAdapter" />
+				</xml-element>
+ 				<xml-element name="cpu" java-attribute="cpuInformation" required="true" />
+				<xml-element name="memory" java-attribute="memoryInformation" required="true" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="MemoryInformation" xml-accessor-type="NONE">
+			<xml-root-element name="memoryInformation" />
+
+			<xml-type name="memoryInformation"
+				factory-class="eu.agno3.orchestrator.system.info.platform.ObjectFactory"
+				factory-method="createMemoryInformation" />
+
+			<java-attributes>
+				<xml-attribute name="totalPhysical"
+					java-attribute="totalPhysicalMemory">
+					<xml-schema-type name="unsignedLong" />
+				</xml-attribute>
+
+				<xml-attribute name="totalUsedPhysical"
+					java-attribute="currentPhysicalMemoryUsedTotal" write-only="true">
+					<xml-schema-type name="unsignedLong" />
+				</xml-attribute>
+
+				<xml-attribute name="usedBuffersPhyiscal"
+					java-attribute="currentPhysicalMemoryUsedBuffers">
+					<xml-schema-type name="unsignedLong" />
+				</xml-attribute>
+
+				<xml-attribute name="usedCachePhyiscal"
+					java-attribute="currentPhysicalMemoryUsedCache">
+					<xml-schema-type name="unsignedLong" />
+				</xml-attribute>
+
+				<xml-attribute name="freePhyiscal"
+					java-attribute="currentPhysicalMemoryFree">
+					<xml-schema-type name="unsignedLong" />
+				</xml-attribute>
+
+				<xml-attribute name="totalSwap" java-attribute="totalSwapMemory">
+					<xml-schema-type name="unsignedLong" />
+				</xml-attribute>
+
+				<xml-attribute name="freeSwap" java-attribute="currentSwapMemoryFree">
+					<xml-schema-type name="unsignedLong" />
+				</xml-attribute>
+
+				<xml-attribute name="usedSwap" java-attribute="currentSwapMemoryUsed"
+					write-only="true">
+					<xml-schema-type name="unsignedLong" />
+				</xml-attribute>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="CPUInformation" xml-accessor-type="NONE">
+			<xml-root-element name="cpuInformation" />
+			<xml-type name="cpuInformation"
+				factory-class="eu.agno3.orchestrator.system.info.platform.ObjectFactory"
+				factory-method="createCpuInformation" />
+
+			<java-attributes>
+				<xml-attribute name="physicalCPUs" java-attribute="totalCPUCount" />
+				<xml-attribute name="load1" java-attribute="load1" />
+				<xml-attribute name="load5" java-attribute="load5" />
+				<xml-attribute name="load15" java-attribute="load15" />
+				
+
+				<xml-element name="core" java-attribute="cpuCores"
+					container-type="java.util.ArrayList">
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="CPUCore" xml-accessor-type="NONE">
+			<xml-root-element name="cpuCore" />
+			<xml-type name="cpuCore"
+				factory-class="eu.agno3.orchestrator.system.info.platform.ObjectFactory"
+				factory-method="createCpuCore" />
+
+			<java-attributes>
+				<xml-attribute name="physicalIndex" java-attribute="physicalIndex" />
+				<xml-attribute name="coreIndex" java-attribute="coreIndex" />
+
+				<xml-element name="model" java-attribute="model" />
+				<xml-element name="clockFrequency" java-attribute="maximumFrequency" />
+				<xml-element name="cacheSize" java-attribute="cacheSize" />
+
+				<xml-element name="features" java-attribute="features"
+					container-type="java.util.HashSet">
+					<xml-element-wrapper name="features" />
+				</xml-element>
+
+			</java-attributes>
+		</java-type>
+	</java-types>
+
+</xml-bindings>

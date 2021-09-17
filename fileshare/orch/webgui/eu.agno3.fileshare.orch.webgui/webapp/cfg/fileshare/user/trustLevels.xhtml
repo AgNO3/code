@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="groupTrustLevel"
+		path="groupTrustLevel">
+		<p:autoComplete id="groupTrustLevel"
+			value="#{current.groupTrustLevel}" dropdown="true"
+			completeMethod="#{fs_trustLevelBean.getCompleter(outerWrapper).complete}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="mailTrustLevel" path="mailTrustLevel">
+		<p:autoComplete id="mailTrustLevel" value="#{current.mailTrustLevel}"
+			dropdown="true"
+			completeMethod="#{fs_trustLevelBean.getCompleter(outerWrapper).complete}" />
+	</orch:objectFieldEditor>
+
+
+	<orch:objectFieldEditor inputId="linkTrustLevel" path="linkTrustLevel">
+		<p:autoComplete id="linkTrustLevel" value="#{current.linkTrustLevel}"
+			dropdown="true"
+			completeMethod="#{fs_trustLevelBean.getCompleter(outerWrapper).complete}" />
+	</orch:objectFieldEditor>
+
+	<orch:multiObjectEditor toptitle="Defined Trust levels" minLevel="2"
+		objectType="urn:agno3:objects:1.0:fileshare:user:trustLevel"
+		context="#{configContext}" path="trustLevels"
+		subTemplate="#{isTemplate}" readOnly="#{isReadOnly}"
+		listLabel="#{fs_trustLevelBean.labelFor}" collectionType="set"
+		setComparator="#{fs_trustLevelBean.comparator}"
+		clone="#{fs_trustLevelBean.cloneObject}" />
+
+
+</ui:composition>

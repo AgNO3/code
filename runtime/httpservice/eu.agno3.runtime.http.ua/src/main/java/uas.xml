@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE uasdata SYSTEM "http://user-agent-string.info/rpc/uasxmldata.dtd">
+<uasdata>
+	<description>
+		<label>UA detection data</label>
+		<version>2017.04.20</version>
+	</description>
+	<data>
+		<robots>
+		</robots>
+		<operating_systems>
+		</operating_systems>
+		<browsers>
+			<browser>
+				<id>1</id>
+				<type>0</type>
+				<name>Firefox</name>
+			</browser>
+			<browser>
+				<id>2</id>
+				<type>0</type>
+				<name>Opera</name>
+			</browser>
+			<browser>
+				<id>3</id>
+				<type>0</type>
+				<name>Safari</name>
+			</browser>
+			<browser>
+				<id>4</id>
+				<type>0</type>
+				<name>IE</name>
+			</browser>
+			<browser>
+				<id>5</id>
+				<type>0</type>
+				<name>Chrome</name>
+			</browser>
+			<browser>
+				<id>6</id>
+				<type>3</type>
+				<name>IE Mobile</name>
+			</browser>
+			<browser>
+				<id>7</id>
+				<type>3</type>
+				<name>Mobile Firefox</name>
+			</browser>
+			<browser>
+				<id>8</id>
+				<type>3</type>
+				<name>Android browser</name>
+			</browser>
+			<browser>
+				<id>9</id>
+				<type>3</type>
+				<name>Chrome Mobile</name>
+			</browser>
+		</browsers>
+		<browser_types>
+			<browser_type>
+				<id>0</id>
+				<type>Browser</type>
+			</browser_type>
+			<browser_type>
+				<id>3</id>
+				<type>Mobile Browser</type>
+			</browser_type>
+			<browser_type>
+				<id>20</id>
+				<type>Other</type>
+			</browser_type>
+		</browser_types>
+		<browsers_reg>
+			<browser_reg>
+				<order>10</order>
+				<browser_id>6</browser_id>
+				<regstring>/IEMobile[\/ ]([0-9\.]+)/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>20</order>
+				<browser_id>9</browser_id>
+				<regstring>/^Mozilla.*Android.*AppleWebKit.*CrMo\/([0-9\.]+)/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>30</order>
+				<browser_id>9</browser_id>
+				<regstring>/^Mozilla.*AppleWebKit.*Chrome\/([0-9\.]+).*Mobile Safari/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>40</order>
+				<browser_id>9</browser_id>
+				<regstring>/^Mozilla.*iPhone.*AppleWebKit.*CriOS\/([0-9\.]+).*Mobile.*Safari/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>50</order>
+				<browser_id>9</browser_id>
+				<regstring>/^Mozilla.*iPad.*AppleWebKit.*CriOS\/([0-9\.]+).*Mobile.*Safari/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>70</order>
+				<browser_id>8</browser_id>
+				<regstring>/^Mozilla.*Linux.*Android.*WebKit.*Version\/([0-9\.]+)/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>80</order>
+				<browser_id>7</browser_id>
+				<regstring>/^Mozilla.*rv:[0-9\.]+.*gecko\/[0-9]+.*Fennec\/([0-9a-z\+\-\.]+).*/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>90</order>
+				<browser_id>7</browser_id>
+				<regstring>/^Mozilla.*Mobile.*rv.*Gecko.*Firefox\/([0-9\.]+)/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>100</order>
+				<browser_id>2</browser_id>
+				<regstring>/^Mozilla.*AppleWebKit.*Chrome.*OPR\/([0-9\.]+)/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>110</order>
+				<browser_id>7</browser_id>
+				<regstring>/^Mozilla.*Tablet.*rv.*Gecko.*Firefox\/([0-9\.]+)/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>120</order>
+				<browser_id>4</browser_id>
+				<regstring>/^Mozilla.*Windows NT\..*Chrome.*Safari.*Edge\/([0-9\.]+)/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>130</order>
+				<browser_id>5</browser_id>
+				<regstring>/^Mozilla.*Chrome\/([0-9a-z\+\-\.]+).*/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>140</order>
+				<browser_id>2</browser_id>
+				<regstring>/^Opera\/[0-9\.]+.*Presto\/[0-9\.]+ Version\/([0-9\.]+)$/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>150</order>
+				<browser_id>1</browser_id>
+				<regstring>/^Mozilla.*rv:[0-9\.]+.*gecko.*firefox\/([0-9a-z\+\-\.]+).*/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>160</order>
+				<browser_id>6</browser_id>
+				<regstring>/^Mozilla.*MSIE.*Windows (CE|Phone)/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>170</order>
+				<browser_id>2</browser_id>
+				<regstring>/^Mozilla.*Opera ([0-9][0-9a-z\+\-\.]+).*/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>180</order>
+				<browser_id>1</browser_id>
+				<regstring>/^Mozilla.*\/[0-9\.]+.*Gecko.*Firefox.*/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>190</order>
+				<browser_id>2</browser_id>
+				<regstring>/^Opera[ \/]([0-9a-z\+\-\.]+).*/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>200</order>
+				<browser_id>6</browser_id>
+				<regstring>/^Mozilla.*MSIE ([0-9\.]+).*XBLWP7/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>210</order>
+				<browser_id>3</browser_id>
+				<regstring>/^Mozilla.*AppleWebKit.*\/[0-9a-z\+\-\.]+.*Version\/([0-9a-z\+\-\.]+).*Safari\/[0-9a-z\+\-\.]+.*/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>220</order>
+				<browser_id>3</browser_id>
+				<regstring>/^Mozilla.*AppleWebKit.*\/[0-9a-z\+\-\.]+.*Safari\/([0-9a-z\+\-\.]+).*/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>230</order>
+				<browser_id>4</browser_id>
+				<regstring>/^Mozilla\/5.0 \(IE ([0-9\.]+); Windows/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>240</order>
+				<browser_id>4</browser_id>
+				<regstring>/^Mozilla\/4.0 \(compatible; MSIE ([0-9\.]+); Windows/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>250</order>
+				<browser_id>4</browser_id>
+				<regstring>/^Mozilla\/.*MSIE ([0-9b\.]+).*/si</regstring>
+			</browser_reg>
+			<browser_reg>
+				<order>260</order>
+				<browser_id>6</browser_id>
+				<regstring>/MSIE ([0-9a-z\+\-\.]+).*Windows CE/si</regstring>
+			</browser_reg>
+		</browsers_reg>
+		<browsers_os>
+		</browsers_os>
+		<operating_systems_reg>
+		</operating_systems_reg>
+		<devices>
+		</devices>
+		<devices_reg>
+		</devices_reg>
+	</data>
+</uasdata>

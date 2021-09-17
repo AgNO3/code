@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="orm-feature"
+      label="Database ORM Feature"
+      version="0.0.166"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <requires>
+      <import feature="deps-javax-feature" version="0.0.1.qualifier"/>
+      <import feature="deps-hibernate-orm-feature" version="0.0.1.qualifier"/>
+      <import feature="db-feature" version="0.0.1.qualifier"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.runtime.db.orm"
+         download-size="0"
+         install-size="0"
+         version="0.0.166"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.runtime.db.orm.console"
+         download-size="0"
+         install-size="0"
+         version="0.0.166"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.runtime.db.orm.api"
+         download-size="0"
+         install-size="0"
+         version="0.0.166"
+         unpack="false"/>
+
+</feature>

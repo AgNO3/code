@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="security-feature"
+      label="Security Feature"
+      version="0.0.214"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <requires>
+	<import feature="deps-shiro-feature" version="0.0.1.qualifier"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.runtime.security"
+         download-size="0"
+         install-size="0"
+         version="0.0.214"
+         unpack="false"/>
+
+</feature>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+	<changeSet author="mbechler (generated)" id="1443873798400-1">
+		<addColumn tableName="config_realms_adrealm">
+			<column name="MACHINEREKEYINTERVAL" type="bigint" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443873798400-2">
+		<addColumn tableName="config_realm_base">
+			<column name="MAXIMUMTICKETLIFETIME" type="bigint" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443873798400-3">
+		<addColumn tableName="config_realms_adrealm">
+			<column name="REKEYMACHINEACCOUNT" type="boolean" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443873798400-4">
+		<addColumn tableName="config_realm_base">
+			<column name="REKEYSERVICES" type="boolean" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443873798400-5">
+		<addColumn tableName="config_realm_base">
+			<column name="SERVICEREKEYINTERVAL" type="bigint" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443873798400-6">
+		<addColumn tableName="config_realms_adrealm_AUD">
+			<column name="MACHINEREKEYINTERVAL" type="bigint" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443873798400-7">
+		<addColumn tableName="config_realm_base_AUD">
+			<column name="MAXIMUMTICKETLIFETIME" type="bigint" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443873798400-8">
+		<addColumn tableName="config_realms_adrealm_AUD">
+			<column name="REKEYMACHINEACCOUNT" type="boolean" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443873798400-9">
+		<addColumn tableName="config_realm_base_AUD">
+			<column name="REKEYSERVICES" type="boolean" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443873798400-10">
+		<addColumn tableName="config_realm_base_AUD">
+			<column name="SERVICEREKEYINTERVAL" type="bigint" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1456088133549-1">
+		<addColumn schemaName="APP" tableName="config_realm_base">
+			<column name="SECURITYLEVEL" type="varchar(255)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1456088133549-2">
+		<addColumn schemaName="APP" tableName="config_realm_base_AUD">
+			<column name="SECURITYLEVEL" type="varchar(255)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1492596482439-1">
+		<addColumn schemaName="APP" tableName="config_realms_adrealm">
+			<column name="UPDATEDNS" type="boolean" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1492596482439-2">
+		<addColumn schemaName="APP" tableName="config_realms_adrealm_AUD">
+			<column name="UPDATEDNS" type="boolean" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1492596482439-3">
+		<addColumn schemaName="APP" tableName="config_realms_adrealm">
+			<column name="UPDATEDNSFORCESECURE" type="boolean" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1492596482439-4">
+		<addColumn schemaName="APP" tableName="config_realms_adrealm_AUD">
+			<column name="UPDATEDNSFORCESECURE" type="boolean" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1492596482439-5">
+		<addColumn schemaName="APP" tableName="config_realms_adrealm">
+			<column name="UPDATEDNSFROMINTERFACE" type="varchar(255 BYTE)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1492596482439-6">
+		<addColumn schemaName="APP" tableName="config_realms_adrealm_AUD">
+			<column name="UPDATEDNSFROMINTERFACE" type="varchar(255 BYTE)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1492596482439-7">
+		<addColumn schemaName="APP" tableName="config_realms_adrealm">
+			<column name="UPDATEDNSTTL" type="bigint" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1492596482439-8">
+		<addColumn schemaName="APP" tableName="config_realms_adrealm_AUD">
+			<column name="UPDATEDNSTTL" type="bigint" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1498146697118-1">
+        <addColumn schemaName="APP" tableName="config_realms_adrealm">
+            <column name="CUSTOMMACHINEJOINPASSWORD" type="varchar(255 BYTE)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1498146697118-2">
+        <addColumn schemaName="APP" tableName="config_realms_adrealm_AUD">
+            <column name="CUSTOMMACHINEJOINPASSWORD" type="varchar(255 BYTE)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1498146697118-3">
+        <addColumn schemaName="APP" tableName="config_realms_adrealm">
+            <column name="DOJOIN" type="boolean"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1498146697118-4">
+        <addColumn schemaName="APP" tableName="config_realms_adrealm_AUD">
+            <column name="DOJOIN" type="boolean"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1498146697118-5">
+        <addColumn schemaName="APP" tableName="config_realms_adrealm">
+            <column name="DOLEAVE" type="boolean"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1498146697118-6">
+        <addColumn schemaName="APP" tableName="config_realms_adrealm_AUD">
+            <column name="DOLEAVE" type="boolean"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1498146697118-7">
+        <addColumn schemaName="APP" tableName="config_realms_adrealm">
+            <column name="DOREKEY" type="boolean"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1498146697118-8">
+        <addColumn schemaName="APP" tableName="config_realms_adrealm_AUD">
+            <column name="DOREKEY" type="boolean"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1498146697118-9">
+        <addColumn schemaName="APP" tableName="config_realms_adrealm">
+            <column name="JOINPASSWORD" type="varchar(255 BYTE)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1498146697118-10">
+        <addColumn schemaName="APP" tableName="config_realms_adrealm_AUD">
+            <column name="JOINPASSWORD" type="varchar(255 BYTE)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1498146697118-11">
+        <addColumn schemaName="APP" tableName="config_realms_adrealm">
+            <column name="JOINTYPE" type="varchar(255 BYTE)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1498146697118-12">
+        <addColumn schemaName="APP" tableName="config_realms_adrealm_AUD">
+            <column name="JOINTYPE" type="varchar(255 BYTE)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1498146697118-13">
+        <addColumn schemaName="APP" tableName="config_realms_adrealm">
+            <column name="JOINUSER" type="varchar(255 BYTE)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1498146697118-14">
+        <addColumn schemaName="APP" tableName="config_realms_adrealm_AUD">
+            <column name="JOINUSER" type="varchar(255 BYTE)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1498998404169-1">
+        <addColumn schemaName="APP" tableName="config_realms_adrealm">
+            <column name="ALLOWSMB1" type="boolean"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1498998404169-2">
+        <addColumn schemaName="APP" tableName="config_realms_adrealm_AUD">
+            <column name="ALLOWSMB1" type="boolean"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1498998404169-3">
+        <addColumn schemaName="APP" tableName="config_realms_adrealm">
+            <column name="DISABLESMB2" type="boolean"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1498998404169-4">
+        <addColumn schemaName="APP" tableName="config_realms_adrealm_AUD">
+            <column name="DISABLESMB2" type="boolean"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

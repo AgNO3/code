@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	template="/tpl/structure/group/template.xhtml">
+	<ui:param name="groupSubtitle"
+		value="#{_gui['structure.group.add.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="parentGroup"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<p:messages showDetail="false" autoUpdate="true" />
+
+		<h:form>
+			<p:fieldset legend="#{_gui['structure.group.add.title']}">
+				<ag:simpleField
+					label="#{_gui['structure.group.add.parentGroup.label']}"
+					description="#{_gui['structure.group.add.parentGroup.description']}"
+					readOnly="true"
+					value="#{structureViewContext.selectedGroup.displayName}" />
+
+				<ag:simpleField
+					label="#{_gui['structure.group.add.displayName.label']}"
+					description="#{_gui['structure.group.add.displayName.description']}"
+					inputId="displayName">
+					<p:inputText id="displayName"
+						value="#{structuralGroupAddContext.newGroup.displayName}" />
+				</ag:simpleField>
+
+				<div class="buttons">
+					<p:commandButton icon="ui-icon-plusthick"
+						action="#{structuralGroupAddController.add}" 
+						value="#{_gui['structure.group.add.confirm']}"
+						includeViewParams="true" />
+
+					<p:commandButton icon="ui-icon-cancel" styleClass="close-button"
+						immediate="true" value="#{_gui['structure.group.add.cancel']}"
+						action="#{structureUtil.getOutcomeForObjectOverview(structureViewContext.selectedGroup)}" />
+				</div>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

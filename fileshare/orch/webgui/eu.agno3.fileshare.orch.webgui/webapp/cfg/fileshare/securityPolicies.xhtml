@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<orch:objectFieldEditor inputId="defaultEntityLabel" minLevel="2"
+		path="defaultEntityLabel">
+		<p:autoComplete dropdown="true"
+			completeMethod="#{fs_securityPolicyBean.getCompleter(outerWrapper).complete}"
+			id="defaultEntityLabel" value="#{current.defaultEntityLabel}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="defaultRootLabel" minLevel="2"
+		path="defaultRootLabel">
+		<p:autoComplete dropdown="true"
+			completeMethod="#{fs_securityPolicyBean.getCompleter(outerWrapper).complete}"
+			id="defaultRootLabel" value="#{current.defaultRootLabel}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="defaultSharePasswordBits" minLevel="2"
+		path="defaultSharePasswordBits">
+		<p:spinner id="defaultSharePasswordBits" min="0" max="256" size="4"
+			value="#{current.defaultSharePasswordBits}" />
+	</orch:objectFieldEditor>
+
+
+	<orch:objectFieldEditor inputId="userLabelRules" path="userLabelRules"
+		minLevel="2" collection="true">
+		<ag:listEditor id="userLabelRules" value="#{current.userLabelRules}"
+			factoryMethod="#{fs_securityPolicyBean.makeUserLabelRule}">
+			<p:column>
+				<p:autoComplete dropdown="true"
+					completeMethod="#{fs_authenticationConfigBean.getRoleCompleter(outerWrapper).complete}"
+					value="#{item.value.matchRole}" />
+			</p:column>
+			<p:column>
+				<p:autoComplete dropdown="true"
+					completeMethod="#{fs_securityPolicyBean.getCompleter(outerWrapper).complete}"
+					value="#{item.value.assignLabel}" />
+			</p:column>
+		</ag:listEditor>
+	</orch:objectFieldEditor>
+
+	<orch:multiObjectEditor
+		objectType="urn:agno3:objects:1.0:fileshare:securityPolicy"
+		context="#{configContext}" path="policies" subTemplate="#{isTemplate}"
+		readOnly="#{isReadOnly}" listLabel="#{fs_securityPolicyBean.labelFor}"
+		collectionType="set"
+		setComparator="#{fs_securityPolicyBean.comparator}"
+		clone="#{fs_securityPolicyBean.cloneObject}" />
+
+</ui:composition>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0"
+	template="/tpl/common/raw.xhtml">
+	<ui:param name="title" value="#{_gui['user.preferences.expert.title']}" />
+
+
+	<ui:define name="content">
+		<h:form id="expertSettingsForm">
+			
+			<p:fieldset legend="#{_gui['user.preferences.expert.title']}">
+
+				<p:outputPanel styleClass="ui-messages-warn">
+					<span class="ui-messages-warn-icon" />
+					<span class="ui-messages-warn-summary"> <h:outputText
+							value="#{_gui['user.preferences.expert.message']}" />
+					</span>
+				</p:outputPanel>
+				
+				<p:messages autoUpdate="true" />
+
+				<ag:simpleField
+					label="#{_gui['user.preferences.prefs.multiHostManage.label']}"
+					description="#{_gui['user.preferences.prefs.multiHostManage.description']}"
+					inputId="enableMultiHostManagement">
+					<p:selectBooleanCheckbox id="enableMultiHostManagement"
+						value="#{userPreferences.enableMultiHostManagement}" />
+				</ag:simpleField>
+
+				<ag:simpleField
+					label="#{_gui['user.preferences.prefs.experimental.label']}"
+					description="#{_gui['user.preferences.prefs.experimental.description']}"
+					inputId="enableExperimentalFeatures">
+					<p:selectBooleanCheckbox id="enableExperimentalFeatures"
+						value="#{userPreferences.enableExperimentalFeatures}" />
+				</ag:simpleField>
+
+				<ag:simpleField
+					label="#{_gui['user.preferences.prefs.developer.label']}"
+					description="#{_gui['user.preferences.prefs.developer.description']}"
+					inputId="enableDeveloperMode">
+					<p:selectBooleanCheckbox id="enableDeveloperMode"
+						value="#{userPreferences.enableDeveloperMode}" />
+				</ag:simpleField>
+			</p:fieldset>
+
+			<div class="buttons">
+				<p:commandButton action="#{expertPreferenceController.saveGoHome}"
+					icon="ui-icon-check" value="#{_gui['user.preferences.prefs.save']}" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

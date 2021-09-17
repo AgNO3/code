@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="jobs-feature"
+      label="Orchestrator Job Coordination Feature"
+      version="0.0.1.qualifier"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <requires>
+      <import feature="deps-javax-feature" version="0.0.1.qualifier"/>
+      <import feature="deps-apache-commons-feature" version="0.0.1.qualifier"/>
+      <import feature="messaging-feature" version="0.0.1.qualifier"/>
+      <import feature="ws-common-feature" version="0.0.1.201405050009"/>
+   </requires>
+
+   <plugin
+         id="eu.agno3.orchestrator.jobs"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:shiro="http://shiro.ops4j.org/tags"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0">
+	<p:outputPanel id="menuPanel">
+		<ul>
+			<li
+				class="#{navigationController.getStyleClass(at, 'userManagement')}"><div>
+					<p:commandLink action="#{navigationController.userManagement}"
+						styleClass="menu-item">
+
+						<span class="ui-icon ui-icon-inline ui-icon-person" />
+						<h:outputText value="#{_msgs['admin.menu.users']}" />
+					</p:commandLink>
+				</div></li>
+
+			<li
+				class="#{navigationController.getStyleClass(at, 'groupManagement')}"><div>
+					<p:commandLink action="#{navigationController.groupManagement}"
+						styleClass="menu-item">
+
+						<span class="ui-icon ui-icon-inline ui-icon-person" />
+						<h:outputText value="#{_msgs['admin.menu.groups']}" />
+					</p:commandLink>
+				</div></li>
+
+			<li><div>
+					<p:commandLink action="#{navigationController.files}"
+						styleClass="menu-item">
+						<span class="ui-icon ui-icon-inline ui-icon-arrowthickstop-1-w" />
+						<h:outputText value="#{_msgs['admin.menu.back']}" />
+					</p:commandLink>
+				</div></li>
+		</ul>
+	</p:outputPanel>
+</ui:composition>

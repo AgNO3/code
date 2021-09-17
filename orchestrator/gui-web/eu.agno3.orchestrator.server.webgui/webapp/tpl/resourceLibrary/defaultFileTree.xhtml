@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:p="http://primefaces.org/ui">
+	<p:tree value="#{resourceLibraryEditorBean.filesModel}" id="fileTree"
+		style="height: 100%; min-height: 20em; width: auto" nodeVar="node"
+		var="file" styleClass="files-tree" selectionMode="single"
+		selection="#{resourceLibraryFileEditorBean.selectedFile}">
+
+		<p:ajax event="select" update="${update}" />
+		<p:ajax event="unselect" update="${update}" />
+
+		<p:treeNode type="folder" icon="ui-icon-folder-open"
+			styleClass="#{node.styleClass}">
+			<h:outputText value="#{file.path}" />
+
+			<ag:dialogOpenCommandLink
+				styleClass="ui-icon ui-icon-inline ui-icon-extlink"
+				rendered="#{file.inherited}"
+				title="#{resourceLibraryFileEditorBean.getInheritedTitle(file)}"
+				dialog="#{resourceLibraryController.editLibraryDialog(file.anchorId, file.libraryId, resourceLibraryEditorBean.libraryType)}">
+				<p:ajax event="return" listener="#{resourceLibraryFileEditorBean.refresh()}" update="${update}" />
+			</ag:dialogOpenCommandLink>
+		</p:treeNode>
+
+		<p:treeNode type="file" icon="ui-icon-document-b"
+			styleClass="#{node.styleClass}">
+			<h:outputText value="#{file.path}" />
+
+			<ag:dialogOpenCommandLink
+				styleClass="ui-icon ui-icon-inline ui-icon-extlink"
+				rendered="#{file.inherited}"
+				title="#{resourceLibraryFileEditorBean.getInheritedTitle(file)}"
+				dialog="#{resourceLibraryController.editLibraryDialog(file.anchorId, file.libraryId, resourceLibraryEditorBean.libraryType)}">
+				<p:ajax event="return" listener="#{resourceLibraryFileEditorBean.refresh()}" update="${update}" />
+			</ag:dialogOpenCommandLink>
+		</p:treeNode>
+	</p:tree>
+
+	<p:blockUI block="fileTree" trigger="" widgetVar="fileTreeBlocker">
+		<h:outputText
+			value="#{_gui['resourceLibrary.defaultFileTree.unsafedMsg']}" />
+	</p:blockUI>
+
+
+	<h:outputScript>
+	// <!--		
+	   	function dirty() {
+	   		PF('fileTreeBlocker').show();
+	   		$('.file-toolbar .ui-button, .ui-button.close-button').each(function(i,elem) {
+	   			widgetFromJq($(elem)).disable();
+	   		});
+	   	}
+	   	
+	   	function clean() {
+	   		PF('fileTreeBlocker').hide();
+	   		$('.file-toolbar .ui-button, .ui-button.close-button').each(function(i,elem) {
+	   			widgetFromJq($(elem)).enable();
+	   		});
+	   	}
+	// -->
+	</h:outputScript>
+</ui:composition>

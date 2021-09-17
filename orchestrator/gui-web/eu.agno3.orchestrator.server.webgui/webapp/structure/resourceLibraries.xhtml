@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	template="/tpl/common/template.xhtml">
+	<ui:param name="subtitle" value="#{resourceLibraryTableBean.subtitle}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="anchor"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<p:toolbar>
+				<f:facet name="left">
+					<ag:dialogOpenButton id="addLibrary" image="ui-icon-plus"
+						title="#{_gui['structure.resourceLibraries.addLibrary']}"
+						dialog="/resourceLibrary/add.xhtml?anchor=#{structureViewContext.selectedObjectId}">
+						<p:ajax event="return"
+							listener="#{resourceLibraryTableBean.refresh()}"
+							update="libraries" />
+					</ag:dialogOpenButton>
+				</f:facet>
+			</p:toolbar>
+
+			<p:messages />
+
+			<p:dataTable id="libraries" value="#{resourceLibraryTableBean.model}"
+				var="obj">
+				<p:column
+					headerText="#{_gui['structure.resourceLibraries.libraryName']}">
+					<p:commandLink
+						action="#{resourceLibraryController.editLibrary(obj)}"
+						value="#{obj.name}" />
+				</p:column>
+
+				<p:column width="40%"
+					headerText="#{_gui['structure.resourceLibraries.libraryType']}">
+					<h:outputText value="#{obj.type}" />
+				</p:column>
+
+				<p:column styleClass="action-column last">
+					<ag:dialogOpenCommandLink rendered="#{not obj.builtin}"
+						id="removeLibrary"
+						styleClass="ui-icon ui-icon-inline ui-icon-trash"
+						title="#{_gui['structure.resourceLibraries.removeLibrary']}"
+						dialog="/resourceLibrary/remove.xhtml?anchor=#{structureViewContext.selectedObjectId}&amp;library=#{obj.id}">
+						<p:ajax event="return"
+							listener="#{resourceLibraryTableBean.refresh()}"
+							update="libraries" />
+					</ag:dialogOpenCommandLink>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

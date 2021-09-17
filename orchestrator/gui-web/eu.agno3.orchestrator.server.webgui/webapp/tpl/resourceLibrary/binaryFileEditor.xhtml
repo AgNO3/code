@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+	<ag:simpleField
+		label="#{_gui['resourceLibrary.binaryEditor.filename.label']}"
+		description="#{_gui['resourceLibrary.binaryEditor.filename.description']}"
+		readOnly="true" value="#{resourceLibraryFileEditorBean.filename}" />
+
+	<ag:simpleField
+		label="#{_gui['resourceLibrary.binaryEditor.upload.label']}"
+		description="#{_gui['resourceLibrary.binaryEditor.upload.description']}"
+		inputId="createUpload" onlyIf="#{not inherited}">
+		<p:fileUpload id="createUpload" mode="advanced" auto="true"
+			sizeLimit="500000"
+			fileUploadListener="#{resourceLibraryFileEditorBean.updateFromUpload}"
+			update="@composite:@parent:fileNameField:filename" />
+	</ag:simpleField>
+</ui:composition>

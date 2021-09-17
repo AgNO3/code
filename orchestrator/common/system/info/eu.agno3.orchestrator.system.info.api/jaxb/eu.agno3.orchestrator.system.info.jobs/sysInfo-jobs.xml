@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.system.info.jobs"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:system:info:jobs">
+		<xml-ns prefix="j" namespace-uri="urn:agno3:job:1.0:base" />
+		<xml-ns prefix="user" namespace-uri="urn:agno3:security:1.0:principal" />
+		<xml-ns prefix="si" namespace-uri="urn:agno3:model:1.0:system:info" />
+	</xml-schema>
+
+	<java-types>
+		<java-type name="RescanDrivesJob" xml-accessor-type="NONE">
+			<xml-type name="rescanDrivesJobType" />
+			<xml-root-element name="rescanDrivesJob" />
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ExpandVolumeJob" xml-accessor-type="NONE">
+			<xml-type name="expandVolumeJobType" />
+			<xml-root-element name="expandVolumeJob" />
+			<java-attributes>
+				<xml-element name="driveId" java-attribute="driveId" />
+				<xml-element name="volume" java-attribute="volume" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="InitializeDriveJob" xml-accessor-type="NONE">
+			<xml-type name="initializeDriveJobType" />
+			<xml-root-element name="initializeDriveJob" />
+			<java-attributes>
+				<xml-element name="creationInformation" java-attribute="creationInfo" />
+			</java-attributes>
+		</java-type>
+	</java-types>
+
+</xml-bindings>

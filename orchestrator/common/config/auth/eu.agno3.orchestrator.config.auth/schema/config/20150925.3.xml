@@ -1,0 +1,2292 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+	<changeSet author="mbechler (generated)" id="1443185760921-1">
+		<createTable tableName="auth_ldap_roles_always">
+			<column name="CONFIG_AUTH_LDAP_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ALWAYSADDROLES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-2">
+		<createTable tableName="auth_ldap_roles_always_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTH_LDAP_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ALWAYSADDROLES" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-3">
+		<createTable tableName="config_auth_ad">
+			<column name="ACCEPTNTLMFALLBACK" type="BOOLEAN" />
+			<column name="ACCEPTONLYLOCAL" type="BOOLEAN" />
+			<column name="ALLOWPASSWORDFALLBACK" type="BOOLEAN" />
+			<column name="DISABLEPACVALIDATION" type="BOOLEAN" />
+			<column name="DISABLEPACS" type="BOOLEAN" />
+			<column name="DOMAIN" type="VARCHAR(255)" />
+			<column name="ENABLESYNCHRONIZATION" type="BOOLEAN" />
+			<column name="GROUPSYNCBASE" type="VARCHAR(255)" />
+			<column name="GROUPSYNCFILTER" type="VARCHAR(255)" />
+			<column name="KEYTAB" type="VARCHAR(255)" />
+			<column name="REJECTNONADPRINCIPALS" type="BOOLEAN" />
+			<column name="REQUIREDOMAINUSERGROUP" type="BOOLEAN" />
+			<column name="SENDNTLMCHALLENGE" type="BOOLEAN" />
+			<column name="SERVICENAME" type="VARCHAR(255)" />
+			<column name="USERSYNCBASE" type="VARCHAR(255)" />
+			<column name="USERSYNCFILTER" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="SYNCOPTIONS_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-4">
+		<createTable tableName="config_auth_ad_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ACCEPTNTLMFALLBACK" type="BOOLEAN" />
+			<column name="ACCEPTONLYLOCAL" type="BOOLEAN" />
+			<column name="ALLOWPASSWORDFALLBACK" type="BOOLEAN" />
+			<column name="DISABLEPACVALIDATION" type="BOOLEAN" />
+			<column name="DISABLEPACS" type="BOOLEAN" />
+			<column name="DOMAIN" type="VARCHAR(255)" />
+			<column name="ENABLESYNCHRONIZATION" type="BOOLEAN" />
+			<column name="GROUPSYNCBASE" type="VARCHAR(255)" />
+			<column name="GROUPSYNCFILTER" type="VARCHAR(255)" />
+			<column name="KEYTAB" type="VARCHAR(255)" />
+			<column name="REJECTNONADPRINCIPALS" type="BOOLEAN" />
+			<column name="REQUIREDOMAINUSERGROUP" type="BOOLEAN" />
+			<column name="SENDNTLMCHALLENGE" type="BOOLEAN" />
+			<column name="SERVICENAME" type="VARCHAR(255)" />
+			<column name="USERSYNCBASE" type="VARCHAR(255)" />
+			<column name="USERSYNCFILTER" type="VARCHAR(255)" />
+			<column name="SYNCOPTIONS_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-5">
+		<createTable tableName="config_auth_ad_accdomsid">
+			<column name="CONFIG_AUTH_AD_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ACCEPTDOMAINSIDS" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-6">
+		<createTable tableName="config_auth_ad_accdomsid_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTH_AD_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ACCEPTDOMAINSIDS" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-7">
+		<createTable tableName="config_auth_ad_acceptprinc">
+			<column name="CONFIG_AUTH_AD_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ACCEPTPRINCIPALPATTERNS" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-8">
+		<createTable tableName="config_auth_ad_acceptprinc_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTH_AD_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ACCEPTPRINCIPALPATTERNS" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-9">
+		<createTable tableName="config_auth_ad_config_auth_rolemap_pattern">
+			<column name="CONFIG_AUTH_AD_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PRINCIPALADDROLES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-10">
+		<createTable tableName="config_auth_ad_config_auth_rolemap_pattern_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTH_AD_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PRINCIPALADDROLES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-11">
+		<createTable tableName="config_auth_ad_config_auth_rolemap_static">
+			<column name="CONFIG_AUTH_AD_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="SIDROLES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-12">
+		<createTable tableName="config_auth_ad_config_auth_rolemap_static_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTH_AD_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="SIDROLES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-13">
+		<createTable tableName="config_auth_ad_rejdomsid">
+			<column name="CONFIG_AUTH_AD_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REJECTDOMAINSIDS" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-14">
+		<createTable tableName="config_auth_ad_rejdomsid_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTH_AD_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REJECTDOMAINSIDS" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-15">
+		<createTable tableName="config_auth_ad_rejectprinc">
+			<column name="CONFIG_AUTH_AD_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REJECTPRINCIPALPATTERNS" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-16">
+		<createTable tableName="config_auth_ad_rejectprinc_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTH_AD_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REJECTPRINCIPALPATTERNS" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-17">
+		<createTable tableName="config_auth_ad_rejsid">
+			<column name="CONFIG_AUTH_AD_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REJECTSIDS" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-18">
+		<createTable tableName="config_auth_ad_rejsid_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTH_AD_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REJECTSIDS" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-19">
+		<createTable tableName="config_auth_ad_reqsid">
+			<column name="CONFIG_AUTH_AD_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REQUIREDSIDS" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-20">
+		<createTable tableName="config_auth_ad_reqsid_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTH_AD_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REQUIREDSIDS" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-21">
+		<createTable tableName="config_auth_ad_roles">
+			<column name="CONFIG_AUTH_AD_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ALWAYSADDROLES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-22">
+		<createTable tableName="config_auth_ad_roles_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTH_AD_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ALWAYSADDROLES" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-23">
+		<createTable tableName="config_auth_base">
+			<column name="REALM" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-24">
+		<createTable tableName="config_auth_base_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="REALM" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-25">
+		<createTable tableName="config_auth_krb5">
+			<column name="ALLOWPASSWORDFALLBACK" type="BOOLEAN" />
+			<column name="KERBEROSREALM" type="VARCHAR(255)" />
+			<column name="KEYTABALIAS" type="VARCHAR(255)" />
+			<column name="SERVICENAME" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-26">
+		<createTable tableName="config_auth_krb5_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ALLOWPASSWORDFALLBACK" type="BOOLEAN" />
+			<column name="KERBEROSREALM" type="VARCHAR(255)" />
+			<column name="KEYTABALIAS" type="VARCHAR(255)" />
+			<column name="SERVICENAME" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-27">
+		<createTable tableName="config_auth_krb5_accept">
+			<column name="CONFIG_AUTH_KRB5_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ACCEPTPRINCIPALPATTERNS" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-28">
+		<createTable tableName="config_auth_krb5_accept_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTH_KRB5_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ACCEPTPRINCIPALPATTERNS" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-29">
+		<createTable tableName="config_auth_krb5_config_auth_rolemap_pattern">
+			<column name="CONFIG_AUTH_KRB5_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PRINCIPALADDROLES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-30">
+		<createTable tableName="config_auth_krb5_config_auth_rolemap_pattern_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTH_KRB5_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PRINCIPALADDROLES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-31">
+		<createTable tableName="config_auth_krb5_reject">
+			<column name="CONFIG_AUTH_KRB5_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REJECTPRINCIPALPATTERNS" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-32">
+		<createTable tableName="config_auth_krb5_reject_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTH_KRB5_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REJECTPRINCIPALPATTERNS" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-33">
+		<createTable tableName="config_auth_krb5_roles">
+			<column name="CONFIG_AUTH_KRB5_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ALWAYSADDROLES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-34">
+		<createTable tableName="config_auth_krb5_roles_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTH_KRB5_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ALWAYSADDROLES" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-35">
+		<createTable tableName="config_auth_ldap">
+			<column name="ADDGROUPNAMEASROLE" type="BOOLEAN" />
+			<column name="DISABLEAUTHENTICATION" type="BOOLEAN" />
+			<column name="ENABLESYNCHRONIZATION" type="BOOLEAN" />
+			<column name="ENFORCEPASSWORDPOLICY" type="BOOLEAN" />
+			<column name="ENFORCEPASSWORDPOLICYONCHANGE" type="BOOLEAN" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONNECTIONCONFIG_ID" type="BINARY(16)" />
+			<column name="SCHEMACONFIG_ID" type="BINARY(16)" />
+			<column name="SYNCOPTIONS_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-36">
+		<createTable tableName="config_auth_ldap_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ADDGROUPNAMEASROLE" type="BOOLEAN" />
+			<column name="DISABLEAUTHENTICATION" type="BOOLEAN" />
+			<column name="ENABLESYNCHRONIZATION" type="BOOLEAN" />
+			<column name="ENFORCEPASSWORDPOLICY" type="BOOLEAN" />
+			<column name="ENFORCEPASSWORDPOLICYONCHANGE" type="BOOLEAN" />
+			<column name="CONNECTIONCONFIG_ID" type="BINARY(16)" />
+			<column name="SCHEMACONFIG_ID" type="BINARY(16)" />
+			<column name="SYNCOPTIONS_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-37">
+		<createTable tableName="config_auth_ldap_config_auth_rolemap_pattern">
+			<column name="CONFIG_AUTH_LDAP_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PATTERNROLEMAPPINGS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-38">
+		<createTable tableName="config_auth_ldap_config_auth_rolemap_pattern_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTH_LDAP_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PATTERNROLEMAPPINGS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-39">
+		<createTable tableName="config_auth_ldap_config_auth_rolemap_static">
+			<column name="CONFIG_AUTH_LDAP_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="STATICROLEMAPPINGS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-40">
+		<createTable tableName="config_auth_ldap_config_auth_rolemap_static_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTH_LDAP_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="STATICROLEMAPPINGS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-41">
+		<createTable tableName="config_auth_ldap_scheme">
+			<column name="RECURSIVERESOLVEGROUPS" type="BOOLEAN" />
+			<column name="REFERENCESAREDNS" type="BOOLEAN" />
+			<column name="USEFORWARDGROUPS" type="BOOLEAN" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="GROUPSCHEMA_ID" type="BINARY(16)" />
+			<column name="USERSCHEMA_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-42">
+		<createTable tableName="config_auth_ldap_scheme_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="RECURSIVERESOLVEGROUPS" type="BOOLEAN" />
+			<column name="REFERENCESAREDNS" type="BOOLEAN" />
+			<column name="USEFORWARDGROUPS" type="BOOLEAN" />
+			<column name="GROUPSCHEMA_ID" type="BINARY(16)" />
+			<column name="USERSCHEMA_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-43">
+		<createTable tableName="config_auth_ldap_scheme_config_web_ldap_obj_attr">
+			<column name="CONFIG_AUTH_LDAP_SCHEME_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="OPERATIONALATTRIBUTEMAPPINGS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-44">
+		<createTable tableName="config_auth_ldap_scheme_config_web_ldap_obj_attr_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTH_LDAP_SCHEME_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="OPERATIONALATTRIBUTEMAPPINGS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-45">
+		<createTable tableName="config_auth_ldap_sync">
+			<column name="PAGESIZE" type="INT" />
+			<column name="REMOVEUSINGUUID" type="BOOLEAN" />
+			<column name="SYNCINTERVAL" type="BIGINT" />
+			<column name="SYNCHRONIZEREMOVALS" type="BOOLEAN" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-46">
+		<createTable tableName="config_auth_ldap_sync_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="PAGESIZE" type="INT" />
+			<column name="REMOVEUSINGUUID" type="BOOLEAN" />
+			<column name="SYNCINTERVAL" type="BIGINT" />
+			<column name="SYNCHRONIZEREMOVALS" type="BOOLEAN" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-47">
+		<createTable tableName="config_auth_pwpolicy">
+			<column name="ENABLEAGECHECK" type="BOOLEAN" />
+			<column name="ENTROPYLOWERLIMIT" type="INT" />
+			<column name="IGNOREUNKNOWNAGE" type="BOOLEAN" />
+			<column name="MAXIMUMPASSWORDAGE" type="BIGINT" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-48">
+		<createTable tableName="config_auth_pwpolicy_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ENABLEAGECHECK" type="BOOLEAN" />
+			<column name="ENTROPYLOWERLIMIT" type="INT" />
+			<column name="IGNOREUNKNOWNAGE" type="BOOLEAN" />
+			<column name="MAXIMUMPASSWORDAGE" type="BIGINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-49">
+		<createTable tableName="config_auth_ratelimit">
+			<column name="CLEANINTERVAL" type="BIGINT" />
+			<column name="DISABLEGLOBALDELAY" type="BOOLEAN" />
+			<column name="DISABLELAXSOURCECHECK" type="BOOLEAN" />
+			<column name="DISABLEUSERLOCKOUT" type="BOOLEAN" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-50">
+		<createTable tableName="config_auth_ratelimit_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CLEANINTERVAL" type="BIGINT" />
+			<column name="DISABLEGLOBALDELAY" type="BOOLEAN" />
+			<column name="DISABLELAXSOURCECHECK" type="BOOLEAN" />
+			<column name="DISABLEUSERLOCKOUT" type="BOOLEAN" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-51">
+		<createTable tableName="config_auth_rolemap_pattern">
+			<column name="PATTERN" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-52">
+		<createTable tableName="config_auth_rolemap_pattern_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="PATTERN" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-53">
+		<createTable tableName="config_auth_rolemap_pattern_roles">
+			<column name="CONFIG_AUTH_ROLEMAP_PATTERN_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ADDROLES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-54">
+		<createTable tableName="config_auth_rolemap_pattern_roles_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTH_ROLEMAP_PATTERN_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ADDROLES" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-55">
+		<createTable tableName="config_auth_rolemap_static">
+			<column name="INSTANCE" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-56">
+		<createTable tableName="config_auth_rolemap_static_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="INSTANCE" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-57">
+		<createTable tableName="config_auth_rolemap_static_roles">
+			<column name="CONFIG_AUTH_ROLEMAP_STATIC_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ADDROLES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-58">
+		<createTable tableName="config_auth_rolemap_static_roles_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTH_ROLEMAP_STATIC_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ADDROLES" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-59">
+		<createTable tableName="config_auth_roles_role">
+			<column name="HIDDEN" type="BOOLEAN" />
+			<column name="ROLEID" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-60">
+		<createTable tableName="config_auth_roles_role_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="HIDDEN" type="BOOLEAN" />
+			<column name="ROLEID" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-61">
+		<createTable tableName="config_auth_roles_role_desc">
+			<column name="CONFIG_AUTH_ROLES_ROLE_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="MSG" type="VARCHAR(255)" />
+			<column name="LOCALE" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-62">
+		<createTable tableName="config_auth_roles_role_desc_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTH_ROLES_ROLE_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="MSG" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="LOCALE" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-63">
+		<createTable tableName="config_auth_roles_role_permissions">
+			<column name="CONFIG_AUTH_ROLES_ROLE_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PERMISSIONS" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-64">
+		<createTable tableName="config_auth_roles_role_permissions_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTH_ROLES_ROLE_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PERMISSIONS" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-65">
+		<createTable tableName="config_auth_roles_role_title">
+			<column name="CONFIG_AUTH_ROLES_ROLE_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="MSG" type="VARCHAR(255)" />
+			<column name="LOCALE" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-66">
+		<createTable tableName="config_auth_roles_role_title_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTH_ROLES_ROLE_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="MSG" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="LOCALE" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-67">
+		<createTable tableName="config_auth_roles_static">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-68">
+		<createTable tableName="config_auth_roles_static_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-69">
+		<createTable tableName="config_auth_roles_static_config_auth_roles_role">
+			<column name="CONFIG_AUTH_ROLES_STATIC_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ROLES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-70">
+		<createTable tableName="config_auth_roles_static_config_auth_roles_role_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTH_ROLES_STATIC_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ROLES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-71">
+		<createTable tableName="config_auths">
+			<column name="ALLOWINSECUREAUTH" type="BOOLEAN" />
+			<column name="ENABLELOCALAUTH" type="BOOLEAN" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="LOGINRATELIMIT_ID" type="BINARY(16)" />
+			<column name="PASSWORDPOLICY_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-72">
+		<createTable tableName="config_auths_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ALLOWINSECUREAUTH" type="BOOLEAN" />
+			<column name="ENABLELOCALAUTH" type="BOOLEAN" />
+			<column name="LOGINRATELIMIT_ID" type="BINARY(16)" />
+			<column name="PASSWORDPOLICY_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-73">
+		<createTable tableName="config_auths_config_auth_base">
+			<column name="CONFIG_AUTHS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="AUTHENTICATORS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-74">
+		<createTable tableName="config_auths_config_auth_base_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_AUTHS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="AUTHENTICATORS_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-75">
+		<addPrimaryKey columnNames="CONFIG_AUTH_AD_ID, PRINCIPALADDROLES_ID"
+			tableName="config_auth_ad_config_auth_rolemap_pattern" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-76">
+		<addPrimaryKey columnNames="CONFIG_AUTH_AD_ID, SIDROLES_ID"
+			tableName="config_auth_ad_config_auth_rolemap_static" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-77">
+		<addPrimaryKey columnNames="CONFIG_AUTH_KRB5_ID, PRINCIPALADDROLES_ID"
+			tableName="config_auth_krb5_config_auth_rolemap_pattern" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-78">
+		<addPrimaryKey columnNames="CONFIG_AUTH_LDAP_ID, PATTERNROLEMAPPINGS_ID"
+			tableName="config_auth_ldap_config_auth_rolemap_pattern" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-79">
+		<addPrimaryKey columnNames="CONFIG_AUTH_LDAP_ID, STATICROLEMAPPINGS_ID"
+			tableName="config_auth_ldap_config_auth_rolemap_static" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-80">
+		<addPrimaryKey
+			columnNames="CONFIG_AUTH_LDAP_SCHEME_ID, OPERATIONALATTRIBUTEMAPPINGS_ID"
+			tableName="config_auth_ldap_scheme_config_web_ldap_obj_attr" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-81">
+		<addPrimaryKey columnNames="CONFIG_AUTH_ROLES_ROLE_ID, LOCALE"
+			tableName="config_auth_roles_role_desc" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-82">
+		<addPrimaryKey columnNames="CONFIG_AUTH_ROLES_ROLE_ID, LOCALE"
+			tableName="config_auth_roles_role_title" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-83">
+		<addPrimaryKey columnNames="CONFIG_AUTH_ROLES_STATIC_ID, ROLES_ID"
+			tableName="config_auth_roles_static_config_auth_roles_role" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-84">
+		<addPrimaryKey columnNames="CONFIG_AUTHS_ID, AUTHENTICATORS_ID"
+			tableName="config_auths_config_auth_base" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-85">
+		<addPrimaryKey columnNames="REV, CONFIG_AUTH_LDAP_ID, ALWAYSADDROLES"
+			constraintName="auth_ldap_roles_always_AUDPK" tableName="auth_ldap_roles_always_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-86">
+		<addPrimaryKey columnNames="ID" constraintName="config_auth_adPK"
+			tableName="config_auth_ad" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-87">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_auth_ad_AUDPK"
+			tableName="config_auth_ad_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-88">
+		<addPrimaryKey columnNames="REV, CONFIG_AUTH_AD_ID, ACCEPTDOMAINSIDS"
+			constraintName="config_auth_ad_accdomsid_AUDPK" tableName="config_auth_ad_accdomsid_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-89">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_AUTH_AD_ID, ACCEPTPRINCIPALPATTERNS"
+			constraintName="config_auth_ad_acceptprinc_AUDPK" tableName="config_auth_ad_acceptprinc_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-90">
+		<addPrimaryKey columnNames="REV, CONFIG_AUTH_AD_ID, PRINCIPALADDROLES_ID"
+			constraintName="config_auth_ad_config_auth_rolemap_pattern_AUDPK"
+			tableName="config_auth_ad_config_auth_rolemap_pattern_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-91">
+		<addPrimaryKey columnNames="REV, CONFIG_AUTH_AD_ID, SIDROLES_ID"
+			constraintName="config_auth_ad_config_auth_rolemap_static_AUDPK"
+			tableName="config_auth_ad_config_auth_rolemap_static_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-92">
+		<addPrimaryKey columnNames="REV, CONFIG_AUTH_AD_ID, REJECTDOMAINSIDS"
+			constraintName="config_auth_ad_rejdomsid_AUDPK" tableName="config_auth_ad_rejdomsid_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-93">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_AUTH_AD_ID, REJECTPRINCIPALPATTERNS"
+			constraintName="config_auth_ad_rejectprinc_AUDPK" tableName="config_auth_ad_rejectprinc_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-94">
+		<addPrimaryKey columnNames="REV, CONFIG_AUTH_AD_ID, REJECTSIDS"
+			constraintName="config_auth_ad_rejsid_AUDPK" tableName="config_auth_ad_rejsid_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-95">
+		<addPrimaryKey columnNames="REV, CONFIG_AUTH_AD_ID, REQUIREDSIDS"
+			constraintName="config_auth_ad_reqsid_AUDPK" tableName="config_auth_ad_reqsid_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-96">
+		<addPrimaryKey columnNames="REV, CONFIG_AUTH_AD_ID, ALWAYSADDROLES"
+			constraintName="config_auth_ad_roles_AUDPK" tableName="config_auth_ad_roles_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-97">
+		<addPrimaryKey columnNames="ID" constraintName="config_auth_basePK"
+			tableName="config_auth_base" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-98">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_auth_base_AUDPK"
+			tableName="config_auth_base_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-99">
+		<addPrimaryKey columnNames="ID" constraintName="config_auth_krb5PK"
+			tableName="config_auth_krb5" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-100">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_auth_krb5_AUDPK"
+			tableName="config_auth_krb5_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-101">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_AUTH_KRB5_ID, ACCEPTPRINCIPALPATTERNS"
+			constraintName="config_auth_krb5_accept_AUDPK" tableName="config_auth_krb5_accept_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-102">
+		<addPrimaryKey columnNames="REV, CONFIG_AUTH_KRB5_ID, PRINCIPALADDROLES_ID"
+			constraintName="config_auth_krb5_config_auth_rolemap_pattern_AUDPK"
+			tableName="config_auth_krb5_config_auth_rolemap_pattern_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-103">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_AUTH_KRB5_ID, REJECTPRINCIPALPATTERNS"
+			constraintName="config_auth_krb5_reject_AUDPK" tableName="config_auth_krb5_reject_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-104">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_AUTH_KRB5_ID, ALWAYSADDROLES"
+			constraintName="config_auth_krb5_roles_AUDPK" tableName="config_auth_krb5_roles_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-105">
+		<addPrimaryKey columnNames="ID" constraintName="config_auth_ldapPK"
+			tableName="config_auth_ldap" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-106">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_auth_ldap_AUDPK"
+			tableName="config_auth_ldap_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-107">
+		<addPrimaryKey columnNames="REV, CONFIG_AUTH_LDAP_ID, PATTERNROLEMAPPINGS_ID"
+			constraintName="config_auth_ldap_config_auth_rolemap_pattern_AUDPK"
+			tableName="config_auth_ldap_config_auth_rolemap_pattern_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-108">
+		<addPrimaryKey columnNames="REV, CONFIG_AUTH_LDAP_ID, STATICROLEMAPPINGS_ID"
+			constraintName="config_auth_ldap_config_auth_rolemap_static_AUDPK"
+			tableName="config_auth_ldap_config_auth_rolemap_static_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-109">
+		<addPrimaryKey columnNames="ID" constraintName="config_auth_ldap_schemePK"
+			tableName="config_auth_ldap_scheme" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-110">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_auth_ldap_scheme_AUDPK" tableName="config_auth_ldap_scheme_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-111">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_AUTH_LDAP_SCHEME_ID, OPERATIONALATTRIBUTEMAPPINGS_ID"
+			constraintName="config_auth_ldap_scheme_config_web_ldap_obj_attr_AUDPK"
+			tableName="config_auth_ldap_scheme_config_web_ldap_obj_attr_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-112">
+		<addPrimaryKey columnNames="ID" constraintName="config_auth_ldap_syncPK"
+			tableName="config_auth_ldap_sync" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-113">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_auth_ldap_sync_AUDPK"
+			tableName="config_auth_ldap_sync_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-114">
+		<addPrimaryKey columnNames="ID" constraintName="config_auth_pwpolicyPK"
+			tableName="config_auth_pwpolicy" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-115">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_auth_pwpolicy_AUDPK"
+			tableName="config_auth_pwpolicy_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-116">
+		<addPrimaryKey columnNames="ID" constraintName="config_auth_ratelimitPK"
+			tableName="config_auth_ratelimit" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-117">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_auth_ratelimit_AUDPK"
+			tableName="config_auth_ratelimit_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-118">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_auth_rolemap_patternPK" tableName="config_auth_rolemap_pattern" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-119">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_auth_rolemap_pattern_AUDPK" tableName="config_auth_rolemap_pattern_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-120">
+		<addPrimaryKey columnNames="REV, CONFIG_AUTH_ROLEMAP_PATTERN_ID, ADDROLES"
+			constraintName="config_auth_rolemap_pattern_roles_AUDPK" tableName="config_auth_rolemap_pattern_roles_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-121">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_auth_rolemap_staticPK" tableName="config_auth_rolemap_static" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-122">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_auth_rolemap_static_AUDPK" tableName="config_auth_rolemap_static_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-123">
+		<addPrimaryKey columnNames="REV, CONFIG_AUTH_ROLEMAP_STATIC_ID, ADDROLES"
+			constraintName="config_auth_rolemap_static_roles_AUDPK" tableName="config_auth_rolemap_static_roles_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-124">
+		<addPrimaryKey columnNames="ID" constraintName="config_auth_roles_rolePK"
+			tableName="config_auth_roles_role" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-125">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_auth_roles_role_AUDPK" tableName="config_auth_roles_role_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-126">
+		<addPrimaryKey columnNames="REV, CONFIG_AUTH_ROLES_ROLE_ID, MSG, LOCALE"
+			constraintName="config_auth_roles_role_desc_AUDPK" tableName="config_auth_roles_role_desc_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-127">
+		<addPrimaryKey columnNames="REV, CONFIG_AUTH_ROLES_ROLE_ID, PERMISSIONS"
+			constraintName="config_auth_roles_role_permissions_AUDPK" tableName="config_auth_roles_role_permissions_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-128">
+		<addPrimaryKey columnNames="REV, CONFIG_AUTH_ROLES_ROLE_ID, MSG, LOCALE"
+			constraintName="config_auth_roles_role_title_AUDPK" tableName="config_auth_roles_role_title_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-129">
+		<addPrimaryKey columnNames="ID" constraintName="config_auth_roles_staticPK"
+			tableName="config_auth_roles_static" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-130">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_auth_roles_static_AUDPK" tableName="config_auth_roles_static_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-131">
+		<addPrimaryKey columnNames="REV, CONFIG_AUTH_ROLES_STATIC_ID, ROLES_ID"
+			constraintName="config_auth_roles_static_config_auth_roles_role_AUDPK"
+			tableName="config_auth_roles_static_config_auth_roles_role_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-132">
+		<addPrimaryKey columnNames="ID" constraintName="config_authsPK"
+			tableName="config_auths" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-133">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_auths_AUDPK"
+			tableName="config_auths_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-134">
+		<addPrimaryKey columnNames="REV, CONFIG_AUTHS_ID, AUTHENTICATORS_ID"
+			constraintName="config_auths_config_auth_base_AUDPK" tableName="config_auths_config_auth_base_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-135">
+		<createIndex indexName="FK_FK_1D1NQ8433652WU6QP0OFGRTDG"
+			tableName="config_auth_ldap_sync_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-136">
+		<createIndex indexName="FK_FK_2JUHLGX78Y6GKPE8V07JXNA6W"
+			tableName="config_auth_ldap_config_auth_rolemap_pattern">
+			<column name="CONFIG_AUTH_LDAP_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-137">
+		<createIndex indexName="FK_FK_33669G7JWP26IQWKUFQTSOO3J"
+			tableName="config_auth_ad">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-138">
+		<createIndex indexName="FK_FK_3PGRMUQ30HIY04DD2K0ITRFHG"
+			tableName="config_auth_ad_config_auth_rolemap_pattern">
+			<column name="CONFIG_AUTH_AD_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-139">
+		<createIndex indexName="FK_FK_3QFOADBRCQ3DGCIXQYONQ9KFB"
+			tableName="config_auth_krb5_config_auth_rolemap_pattern">
+			<column name="PRINCIPALADDROLES_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-140">
+		<createIndex indexName="FK_FK_3R2XJUJKLI66AB0WWUGP77OOV"
+			tableName="config_auth_ad_config_auth_rolemap_pattern">
+			<column name="PRINCIPALADDROLES_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-141">
+		<createIndex indexName="FK_FK_44MFQ24NW5UEYNIH8WLKNLBVA"
+			tableName="config_auths_config_auth_base">
+			<column name="AUTHENTICATORS_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-142">
+		<createIndex indexName="FK_FK_4N3AWKIGQIRI2G6K3TLJPRQK2"
+			tableName="config_auth_ldap_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-143">
+		<createIndex indexName="FK_FK_4NEJCNQ7B8VR3EQ55KMA7ON68"
+			tableName="config_auth_rolemap_static_roles">
+			<column name="CONFIG_AUTH_ROLEMAP_STATIC_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-144">
+		<createIndex indexName="FK_FK_53PR3HO42ESFN9GCHJC2TJCJG"
+			tableName="config_auth_roles_role_permissions">
+			<column name="CONFIG_AUTH_ROLES_ROLE_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-145">
+		<createIndex indexName="FK_FK_5JW5A1VNR1AJNY7MPMVDWHUKU"
+			tableName="config_auth_ldap_scheme">
+			<column name="GROUPSCHEMA_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-146">
+		<createIndex indexName="FK_FK_64WW6JLOMNVDSKSQLAX35K51C"
+			tableName="config_auths_config_auth_base">
+			<column name="CONFIG_AUTHS_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-147">
+		<createIndex indexName="FK_FK_6A673QUYTHR0XQ8MCAJEJHHEG"
+			tableName="config_auth_ad_config_auth_rolemap_static">
+			<column name="SIDROLES_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-148">
+		<createIndex indexName="FK_FK_6JVXK7H3IYE917LPMN9TAIEK0"
+			tableName="config_auth_ad_roles_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-149">
+		<createIndex indexName="FK_FK_6XU87YU5RH3RC1A8N74H4PM2I"
+			tableName="config_auth_base_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-150">
+		<createIndex indexName="FK_FK_7126PICKX627SHEM4E38JG8E2"
+			tableName="config_auth_ad_rejectprinc">
+			<column name="CONFIG_AUTH_AD_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-151">
+		<createIndex indexName="FK_FK_72NSL9FI3PU34C3IDR2QSAQOP"
+			tableName="auth_ldap_roles_always_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-152">
+		<createIndex indexName="FK_FK_74FOR9DYL1GLVDNPV80321DFA"
+			tableName="config_auth_ldap_config_auth_rolemap_pattern_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-153">
+		<createIndex indexName="FK_FK_7Y1CBG01W3HLJOSND1IPDAO7S"
+			tableName="config_auth_ldap_scheme_config_web_ldap_obj_attr">
+			<column name="CONFIG_AUTH_LDAP_SCHEME_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-154">
+		<createIndex indexName="FK_FK_7YX30KUJCJKAWOERWAIQ8HS72"
+			tableName="config_auth_ratelimit_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-155">
+		<createIndex indexName="FK_FK_9IUMB6OTEK55T5XJJWH3O54Q0"
+			tableName="config_auth_ad_rejdomsid">
+			<column name="CONFIG_AUTH_AD_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-156">
+		<createIndex indexName="FK_FK_A13NNOI62K5K6UWUBDQI3FY1X"
+			tableName="config_auth_roles_role">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-157">
+		<createIndex indexName="FK_FK_ABIY1W3LAYPY3A75N89J8PJAC"
+			tableName="config_auth_ldap_config_auth_rolemap_pattern">
+			<column name="PATTERNROLEMAPPINGS_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-158">
+		<createIndex indexName="FK_FK_AD2IU13DO40O27XS97KWM4D6H"
+			tableName="config_auth_roles_static">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-159">
+		<createIndex indexName="FK_FK_AEV7ROQGNSUOF6KG1KFN0YDM4"
+			tableName="config_auth_krb5_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-160">
+		<createIndex indexName="FK_FK_BGN41Q3BF939VUEBQB7KOQVUM"
+			tableName="config_auth_ldap">
+			<column name="SYNCOPTIONS_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-161">
+		<createIndex indexName="FK_FK_BLKF5K2R9G2CH1WRHIPGJEU0I"
+			tableName="config_auth_rolemap_static_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-162">
+		<createIndex indexName="FK_FK_C9M0UKM01QEC8YCT6JNIILI0J"
+			tableName="config_auth_roles_static_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-163">
+		<createIndex indexName="FK_FK_CKVR39HMRTMONKOHD2VX3GNR1"
+			tableName="config_auth_rolemap_pattern_roles">
+			<column name="CONFIG_AUTH_ROLEMAP_PATTERN_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-164">
+		<createIndex indexName="FK_FK_CN8193B57P09JFO6AE4IJTMM6"
+			tableName="config_auth_roles_role_desc_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-165">
+		<createIndex indexName="FK_FK_CP0UW3Q9GNWWAVO5SEWR8ELF5"
+			tableName="config_auth_roles_role_desc">
+			<column name="CONFIG_AUTH_ROLES_ROLE_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-166">
+		<createIndex indexName="FK_FK_CX62K52O6UKY88NMIIPXR5U0M"
+			tableName="config_auth_krb5_config_auth_rolemap_pattern">
+			<column name="CONFIG_AUTH_KRB5_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-167">
+		<createIndex indexName="FK_FK_D1J5K24DEW4RPMBCCS0B4N2OU"
+			tableName="config_auth_ldap_scheme_config_web_ldap_obj_attr">
+			<column name="OPERATIONALATTRIBUTEMAPPINGS_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-168">
+		<createIndex indexName="FK_FK_D7NKPXUAKOLCGFKIJ396SX6WO"
+			tableName="config_auth_ldap">
+			<column name="CONNECTIONCONFIG_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-169">
+		<createIndex indexName="FK_FK_D88CBMC5XAVW7Y58VFGL3LA0J"
+			tableName="config_auth_ad">
+			<column name="SYNCOPTIONS_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-170">
+		<createIndex indexName="FK_FK_DHX6YJ7MORP5XR9J7S8TL3WXI"
+			tableName="config_auth_ad_accdomsid">
+			<column name="CONFIG_AUTH_AD_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-171">
+		<createIndex indexName="FK_FK_EQAI3RIL7DOCTAO35ERAH3VM0"
+			tableName="config_auth_roles_role_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-172">
+		<createIndex indexName="FK_FK_F91IRV6B2RC5F5UTXMXK2S5R"
+			tableName="config_auths">
+			<column name="PASSWORDPOLICY_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-173">
+		<createIndex indexName="FK_FK_FGVHPO2LPJTADRFALCQQ4GMEC"
+			tableName="config_auth_ad_config_auth_rolemap_static_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-174">
+		<createIndex indexName="FK_FK_FKN3T1A8HEQ86NAQTGIX25CTI"
+			tableName="config_auth_ldap_config_auth_rolemap_static">
+			<column name="STATICROLEMAPPINGS_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-175">
+		<createIndex indexName="FK_FK_G0TP00OFMTB2M50F37GB30F22"
+			tableName="config_auth_ad_roles">
+			<column name="CONFIG_AUTH_AD_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-176">
+		<createIndex indexName="FK_FK_GAPRSDL9HB4Q1ED4AR89OFXWF"
+			tableName="config_auth_ad_rejdomsid_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-177">
+		<createIndex indexName="FK_FK_H78O1QTNNDL7TJXMWEGYOPD1E"
+			tableName="config_auth_roles_static_config_auth_roles_role">
+			<column name="CONFIG_AUTH_ROLES_STATIC_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-178">
+		<createIndex indexName="FK_FK_H7BHWNN8O7W0W3DHG0N9UXLHU"
+			tableName="config_auth_ldap_config_auth_rolemap_static">
+			<column name="CONFIG_AUTH_LDAP_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-179">
+		<createIndex indexName="FK_FK_H9D98OCG72TERW2AIRMDX6GH9"
+			tableName="config_auth_ad_rejsid">
+			<column name="CONFIG_AUTH_AD_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-180">
+		<createIndex indexName="FK_FK_HUK1R0MPQDOUFD7GC6H8N6O5V"
+			tableName="config_auth_ldap_scheme_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-181">
+		<createIndex indexName="FK_FK_I6RIPXA8KRAK976YS1NMJSL5B"
+			tableName="config_auth_krb5_roles">
+			<column name="CONFIG_AUTH_KRB5_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-182">
+		<createIndex indexName="FK_FK_IUEBHIAY2ANEO80KYV55QX0O1"
+			tableName="config_auth_roles_static_config_auth_roles_role_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-183">
+		<createIndex indexName="FK_FK_IWO0HBJCHRY74SY0WN1KF3RPY"
+			tableName="config_auth_ad_config_auth_rolemap_pattern_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-184">
+		<createIndex indexName="FK_FK_JAKDJQV4K043JOIUEO3S6021J"
+			tableName="config_auth_roles_static_config_auth_roles_role">
+			<column name="ROLES_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-185">
+		<createIndex indexName="FK_FK_K6GLNBXB78912VP4TVHNJ03ES"
+			tableName="config_auth_ad_reqsid_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-186">
+		<createIndex indexName="FK_FK_KEK78HVCELDOCU1ERAUOB5PV5"
+			tableName="config_auth_ratelimit">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-187">
+		<createIndex indexName="FK_FK_KIC6D0A53ATA6659CDX82DDK4"
+			tableName="config_auth_krb5_roles_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-188">
+		<createIndex indexName="FK_FK_KJXVK8JXVCBOHOQFT323017XL"
+			tableName="config_auth_ldap">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-189">
+		<createIndex indexName="FK_FK_KQ7EO9OUKPXUAUX8AOLAI9DDP"
+			tableName="config_auth_base">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-190">
+		<createIndex indexName="FK_FK_KT6IPOXP7DVD8BWY2EN5QQBGY"
+			tableName="config_auth_ad_rejectprinc_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-191">
+		<createIndex indexName="FK_FK_KW3COPGXRGQ8W7GKPCH7WXBWH"
+			tableName="config_auth_ad_reqsid">
+			<column name="CONFIG_AUTH_AD_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-192">
+		<createIndex indexName="FK_FK_LM1NEIHLLWJ9NDTJU3O1DQIEM"
+			tableName="config_auths">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-193">
+		<createIndex indexName="FK_FK_M214BNN95MPBN81WVMLGCCO2S"
+			tableName="config_auth_rolemap_static">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-194">
+		<createIndex indexName="FK_FK_M756XATOA3K4FQH4O9HDBN0RG"
+			tableName="config_auth_krb5_reject">
+			<column name="CONFIG_AUTH_KRB5_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-195">
+		<createIndex indexName="FK_FK_M8JP7282LEJIHGIH5LGF1ISJJ"
+			tableName="config_auth_krb5_accept">
+			<column name="CONFIG_AUTH_KRB5_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-196">
+		<createIndex indexName="FK_FK_M96G8F5K3T4TYHACDIC014LFW"
+			tableName="config_auth_rolemap_pattern_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-197">
+		<createIndex indexName="FK_FK_MTS9DY1LOSOO06Y3ASENE3QE4"
+			tableName="config_auth_roles_role_title">
+			<column name="CONFIG_AUTH_ROLES_ROLE_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-198">
+		<createIndex indexName="FK_FK_N95B4DPY5C2WSL1NWSSBKGWCJ"
+			tableName="config_auth_rolemap_pattern_roles_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-199">
+		<createIndex indexName="FK_FK_NI3MS241FTBW1HDFP6UWVYSHG"
+			tableName="config_auths_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-200">
+		<createIndex indexName="FK_FK_NTL8EDJW75P0S7CJ3L9GBN8AJ"
+			tableName="config_auth_roles_role_title_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-201">
+		<createIndex indexName="FK_FK_NV51V1VKO7I1YYS2AMYHBBKS"
+			tableName="config_auth_roles_role_permissions_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-202">
+		<createIndex indexName="FK_FK_OHWIQJCSSNYA9E5PB79BGXHES"
+			tableName="config_auth_ldap_sync">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-203">
+		<createIndex indexName="FK_FK_OMYL2T9PH99JIEOE97L9E0UWH"
+			tableName="config_auth_ad_rejsid_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-204">
+		<createIndex indexName="FK_FK_OR5S312PR972ADS4THYXIFRKQ"
+			tableName="config_auths">
+			<column name="LOGINRATELIMIT_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-205">
+		<createIndex indexName="FK_FK_ORFTJ0EQK132QBG7MCTJXEE1N"
+			tableName="config_auth_krb5">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-206">
+		<createIndex indexName="FK_FK_P1ASFL82GEM2HFGJ4N9S8BGJQ"
+			tableName="config_auth_ldap">
+			<column name="SCHEMACONFIG_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-207">
+		<createIndex indexName="FK_FK_P1QTJGWJ9O7U9W37HB5WK0EDM"
+			tableName="config_auth_rolemap_pattern">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-208">
+		<createIndex indexName="FK_FK_PO9H33WR8QHCLP4G1CTE8E6TS"
+			tableName="config_auth_rolemap_static_roles_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-209">
+		<createIndex indexName="FK_FK_Q1LJBXPGG01WKX3NQ85TTF2VC"
+			tableName="config_auth_krb5_reject_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-210">
+		<createIndex indexName="FK_FK_QIVJF56VMKJRHR8JR448GTBRE"
+			tableName="config_auth_ldap_scheme">
+			<column name="USERSCHEMA_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-211">
+		<createIndex indexName="FK_FK_QLP7IEK5MP90OBR09HQK47UXE"
+			tableName="config_auth_ldap_scheme">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-212">
+		<createIndex indexName="FK_FK_QMA2DT7LKPQ0L3JBSNGFT6OXE"
+			tableName="config_auth_ad_acceptprinc_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-213">
+		<createIndex indexName="FK_FK_R0ERAPTXACBYXV4YKR5K1IN3O"
+			tableName="config_auth_ad_config_auth_rolemap_static">
+			<column name="CONFIG_AUTH_AD_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-214">
+		<createIndex indexName="FK_FK_R756X484W27E4M8H0NDFDHVJV"
+			tableName="config_auth_ad_accdomsid_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-215">
+		<createIndex indexName="FK_FK_RD7NAUSOLP9134572DWK44XMA"
+			tableName="config_auths_config_auth_base_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-216">
+		<createIndex indexName="FK_FK_RIIPYWQB9H1PP77DN4MC2IU5V"
+			tableName="config_auth_ldap_scheme_config_web_ldap_obj_attr_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-217">
+		<createIndex indexName="FK_FK_RTIJDRNQHTREXKJNAV1W6F0BF"
+			tableName="config_auth_ad_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-218">
+		<createIndex indexName="FK_FK_S853XA6FWEUPAR8DO6FPKSYD7"
+			tableName="config_auth_pwpolicy">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-219">
+		<createIndex indexName="FK_FK_SCIJQGPCWVXGVO5TKTMOKAX1F"
+			tableName="config_auth_ldap_config_auth_rolemap_static_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-220">
+		<createIndex indexName="FK_FK_SR9GRT55PBO95D8XL10UHVB8S"
+			tableName="auth_ldap_roles_always">
+			<column name="CONFIG_AUTH_LDAP_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-221">
+		<createIndex indexName="FK_FK_T3YOM0ERJPMM3CX7993GWUPN1"
+			tableName="config_auth_ad_acceptprinc">
+			<column name="CONFIG_AUTH_AD_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-222">
+		<createIndex indexName="FK_FK_T5QOBE6H7CS42LU241TB3I63J"
+			tableName="config_auth_krb5_config_auth_rolemap_pattern_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-223">
+		<createIndex indexName="FK_FK_T6YHQI4RGJIOAR02KBK16G210"
+			tableName="config_auth_krb5_accept_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-224">
+		<createIndex indexName="FK_FK_UMAC4HT85EMKNHUYYE9A1OIH"
+			tableName="config_auth_pwpolicy_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-225">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_auth_ldap_sync_AUD" constraintName="FK_1D1NQ8433652WU6QP0OFGRTDG"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-226">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTH_LDAP_ID"
+			baseTableName="config_auth_ldap_config_auth_rolemap_pattern"
+			constraintName="FK_2JUHLGX78Y6GKPE8V07JXNA6W" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_auth_ldap" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-227">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_auth_ad" constraintName="FK_33669G7JWP26IQWKUFQTSOO3J"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_base" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-228">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTH_AD_ID"
+			baseTableName="config_auth_ad_config_auth_rolemap_pattern"
+			constraintName="FK_3PGRMUQ30HIY04DD2K0ITRFHG" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_auth_ad" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-229">
+		<addForeignKeyConstraint baseColumnNames="PRINCIPALADDROLES_ID"
+			baseTableName="config_auth_krb5_config_auth_rolemap_pattern"
+			constraintName="FK_3QFOADBRCQ3DGCIXQYONQ9KFB" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_auth_rolemap_pattern" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-230">
+		<addForeignKeyConstraint baseColumnNames="PRINCIPALADDROLES_ID"
+			baseTableName="config_auth_ad_config_auth_rolemap_pattern"
+			constraintName="FK_3R2XJUJKLI66AB0WWUGP77OOV" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_auth_rolemap_pattern" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-231">
+		<addForeignKeyConstraint baseColumnNames="AUTHENTICATORS_ID"
+			baseTableName="config_auths_config_auth_base" constraintName="FK_44MFQ24NW5UEYNIH8WLKNLBVA"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_base" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-232">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_auth_ldap_AUD" constraintName="FK_4N3AWKIGQIRI2G6K3TLJPRQK2"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_auth_base_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-233">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTH_ROLEMAP_STATIC_ID"
+			baseTableName="config_auth_rolemap_static_roles" constraintName="FK_4NEJCNQ7B8VR3EQ55KMA7ON68"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_auth_rolemap_static" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-234">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTH_ROLES_ROLE_ID"
+			baseTableName="config_auth_roles_role_permissions" constraintName="FK_53PR3HO42ESFN9GCHJC2TJCJG"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_roles_role" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-235">
+		<addForeignKeyConstraint baseColumnNames="GROUPSCHEMA_ID"
+			baseTableName="config_auth_ldap_scheme" constraintName="FK_5JW5A1VNR1AJNY7MPMVDWHUKU"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_web_ldap_obj" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-236">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTHS_ID"
+			baseTableName="config_auths_config_auth_base" constraintName="FK_64WW6JLOMNVDSKSQLAX35K51C"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auths" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-237">
+		<addForeignKeyConstraint baseColumnNames="SIDROLES_ID"
+			baseTableName="config_auth_ad_config_auth_rolemap_static"
+			constraintName="FK_6A673QUYTHR0XQ8MCAJEJHHEG" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_auth_rolemap_static" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-238">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_auth_ad_roles_AUD" constraintName="FK_6JVXK7H3IYE917LPMN9TAIEK0"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-239">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_auth_base_AUD" constraintName="FK_6XU87YU5RH3RC1A8N74H4PM2I"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-240">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTH_AD_ID"
+			baseTableName="config_auth_ad_rejectprinc" constraintName="FK_7126PICKX627SHEM4E38JG8E2"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_ad" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-241">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="auth_ldap_roles_always_AUD" constraintName="FK_72NSL9FI3PU34C3IDR2QSAQOP"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-242">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_auth_ldap_config_auth_rolemap_pattern_AUD"
+			constraintName="FK_74FOR9DYL1GLVDNPV80321DFA" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-243">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTH_LDAP_SCHEME_ID"
+			baseTableName="config_auth_ldap_scheme_config_web_ldap_obj_attr"
+			constraintName="FK_7Y1CBG01W3HLJOSND1IPDAO7S" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_auth_ldap_scheme" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-244">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_auth_ratelimit_AUD" constraintName="FK_7YX30KUJCJKAWOERWAIQ8HS72"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-245">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTH_AD_ID"
+			baseTableName="config_auth_ad_rejdomsid" constraintName="FK_9IUMB6OTEK55T5XJJWH3O54Q0"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_ad" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-246">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_auth_roles_role" constraintName="FK_A13NNOI62K5K6UWUBDQI3FY1X"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-247">
+		<addForeignKeyConstraint baseColumnNames="PATTERNROLEMAPPINGS_ID"
+			baseTableName="config_auth_ldap_config_auth_rolemap_pattern"
+			constraintName="FK_ABIY1W3LAYPY3A75N89J8PJAC" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_auth_rolemap_pattern" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-248">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_auth_roles_static" constraintName="FK_AD2IU13DO40O27XS97KWM4D6H"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-249">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_auth_krb5_AUD" constraintName="FK_AEV7ROQGNSUOF6KG1KFN0YDM4"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_auth_base_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-250">
+		<addForeignKeyConstraint baseColumnNames="SYNCOPTIONS_ID"
+			baseTableName="config_auth_ldap" constraintName="FK_BGN41Q3BF939VUEBQB7KOQVUM"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_ldap_sync" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-251">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_auth_rolemap_static_AUD" constraintName="FK_BLKF5K2R9G2CH1WRHIPGJEU0I"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-252">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_auth_roles_static_AUD" constraintName="FK_C9M0UKM01QEC8YCT6JNIILI0J"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-253">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTH_ROLEMAP_PATTERN_ID"
+			baseTableName="config_auth_rolemap_pattern_roles" constraintName="FK_CKVR39HMRTMONKOHD2VX3GNR1"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_auth_rolemap_pattern" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-254">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_auth_roles_role_desc_AUD" constraintName="FK_CN8193B57P09JFO6AE4IJTMM6"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-255">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTH_ROLES_ROLE_ID"
+			baseTableName="config_auth_roles_role_desc" constraintName="FK_CP0UW3Q9GNWWAVO5SEWR8ELF5"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_roles_role" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-256">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTH_KRB5_ID"
+			baseTableName="config_auth_krb5_config_auth_rolemap_pattern"
+			constraintName="FK_CX62K52O6UKY88NMIIPXR5U0M" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_auth_krb5" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-257">
+		<addForeignKeyConstraint baseColumnNames="OPERATIONALATTRIBUTEMAPPINGS_ID"
+			baseTableName="config_auth_ldap_scheme_config_web_ldap_obj_attr"
+			constraintName="FK_D1J5K24DEW4RPMBCCS0B4N2OU" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_web_ldap_obj_attr" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-258">
+		<addForeignKeyConstraint baseColumnNames="CONNECTIONCONFIG_ID"
+			baseTableName="config_auth_ldap" constraintName="FK_D7NKPXUAKOLCGFKIJ396SX6WO"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_web_ldap" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-259">
+		<addForeignKeyConstraint baseColumnNames="SYNCOPTIONS_ID"
+			baseTableName="config_auth_ad" constraintName="FK_D88CBMC5XAVW7Y58VFGL3LA0J"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_ldap_sync" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-260">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTH_AD_ID"
+			baseTableName="config_auth_ad_accdomsid" constraintName="FK_DHX6YJ7MORP5XR9J7S8TL3WXI"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_ad" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-261">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_auth_roles_role_AUD" constraintName="FK_EQAI3RIL7DOCTAO35ERAH3VM0"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-262">
+		<addForeignKeyConstraint baseColumnNames="PASSWORDPOLICY_ID"
+			baseTableName="config_auths" constraintName="FK_F91IRV6B2RC5F5UTXMXK2S5R"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_pwpolicy" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-263">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_auth_ad_config_auth_rolemap_static_AUD"
+			constraintName="FK_FGVHPO2LPJTADRFALCQQ4GMEC" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-264">
+		<addForeignKeyConstraint baseColumnNames="STATICROLEMAPPINGS_ID"
+			baseTableName="config_auth_ldap_config_auth_rolemap_static"
+			constraintName="FK_FKN3T1A8HEQ86NAQTGIX25CTI" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_auth_rolemap_static" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-265">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTH_AD_ID"
+			baseTableName="config_auth_ad_roles" constraintName="FK_G0TP00OFMTB2M50F37GB30F22"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_ad" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-266">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_auth_ad_rejdomsid_AUD" constraintName="FK_GAPRSDL9HB4Q1ED4AR89OFXWF"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-267">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTH_ROLES_STATIC_ID"
+			baseTableName="config_auth_roles_static_config_auth_roles_role"
+			constraintName="FK_H78O1QTNNDL7TJXMWEGYOPD1E" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_auth_roles_static" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-268">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTH_LDAP_ID"
+			baseTableName="config_auth_ldap_config_auth_rolemap_static"
+			constraintName="FK_H7BHWNN8O7W0W3DHG0N9UXLHU" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_auth_ldap" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-269">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTH_AD_ID"
+			baseTableName="config_auth_ad_rejsid" constraintName="FK_H9D98OCG72TERW2AIRMDX6GH9"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_ad" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-270">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_auth_ldap_scheme_AUD" constraintName="FK_HUK1R0MPQDOUFD7GC6H8N6O5V"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-271">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTH_KRB5_ID"
+			baseTableName="config_auth_krb5_roles" constraintName="FK_I6RIPXA8KRAK976YS1NMJSL5B"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_krb5" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-272">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_auth_roles_static_config_auth_roles_role_AUD"
+			constraintName="FK_IUEBHIAY2ANEO80KYV55QX0O1" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-273">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_auth_ad_config_auth_rolemap_pattern_AUD"
+			constraintName="FK_IWO0HBJCHRY74SY0WN1KF3RPY" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-274">
+		<addForeignKeyConstraint baseColumnNames="ROLES_ID"
+			baseTableName="config_auth_roles_static_config_auth_roles_role"
+			constraintName="FK_JAKDJQV4K043JOIUEO3S6021J" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_auth_roles_role" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-275">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_auth_ad_reqsid_AUD" constraintName="FK_K6GLNBXB78912VP4TVHNJ03ES"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-276">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_auth_ratelimit" constraintName="FK_KEK78HVCELDOCU1ERAUOB5PV5"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-277">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_auth_krb5_roles_AUD" constraintName="FK_KIC6D0A53ATA6659CDX82DDK4"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-278">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_auth_ldap" constraintName="FK_KJXVK8JXVCBOHOQFT323017XL"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_base" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-279">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_auth_base" constraintName="FK_KQ7EO9OUKPXUAUX8AOLAI9DDP"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-280">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_auth_ad_rejectprinc_AUD" constraintName="FK_KT6IPOXP7DVD8BWY2EN5QQBGY"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-281">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTH_AD_ID"
+			baseTableName="config_auth_ad_reqsid" constraintName="FK_KW3COPGXRGQ8W7GKPCH7WXBWH"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_ad" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-282">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_auths" constraintName="FK_LM1NEIHLLWJ9NDTJU3O1DQIEM"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-283">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_auth_rolemap_static" constraintName="FK_M214BNN95MPBN81WVMLGCCO2S"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-284">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTH_KRB5_ID"
+			baseTableName="config_auth_krb5_reject" constraintName="FK_M756XATOA3K4FQH4O9HDBN0RG"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_krb5" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-285">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTH_KRB5_ID"
+			baseTableName="config_auth_krb5_accept" constraintName="FK_M8JP7282LEJIHGIH5LGF1ISJJ"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_krb5" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-286">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_auth_rolemap_pattern_AUD" constraintName="FK_M96G8F5K3T4TYHACDIC014LFW"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-287">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTH_ROLES_ROLE_ID"
+			baseTableName="config_auth_roles_role_title" constraintName="FK_MTS9DY1LOSOO06Y3ASENE3QE4"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_roles_role" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-288">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_auth_rolemap_pattern_roles_AUD" constraintName="FK_N95B4DPY5C2WSL1NWSSBKGWCJ"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-289">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_auths_AUD" constraintName="FK_NI3MS241FTBW1HDFP6UWVYSHG"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-290">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_auth_roles_role_title_AUD" constraintName="FK_NTL8EDJW75P0S7CJ3L9GBN8AJ"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-291">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_auth_roles_role_permissions_AUD"
+			constraintName="FK_NV51V1VKO7I1YYS2AMYHBBKS" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-292">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_auth_ldap_sync" constraintName="FK_OHWIQJCSSNYA9E5PB79BGXHES"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-293">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_auth_ad_rejsid_AUD" constraintName="FK_OMYL2T9PH99JIEOE97L9E0UWH"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-294">
+		<addForeignKeyConstraint baseColumnNames="LOGINRATELIMIT_ID"
+			baseTableName="config_auths" constraintName="FK_OR5S312PR972ADS4THYXIFRKQ"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_ratelimit" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-295">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_auth_krb5" constraintName="FK_ORFTJ0EQK132QBG7MCTJXEE1N"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_base" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-296">
+		<addForeignKeyConstraint baseColumnNames="SCHEMACONFIG_ID"
+			baseTableName="config_auth_ldap" constraintName="FK_P1ASFL82GEM2HFGJ4N9S8BGJQ"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_ldap_scheme" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-297">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_auth_rolemap_pattern" constraintName="FK_P1QTJGWJ9O7U9W37HB5WK0EDM"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-298">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_auth_rolemap_static_roles_AUD" constraintName="FK_PO9H33WR8QHCLP4G1CTE8E6TS"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-299">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_auth_krb5_reject_AUD" constraintName="FK_Q1LJBXPGG01WKX3NQ85TTF2VC"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-300">
+		<addForeignKeyConstraint baseColumnNames="USERSCHEMA_ID"
+			baseTableName="config_auth_ldap_scheme" constraintName="FK_QIVJF56VMKJRHR8JR448GTBRE"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_web_ldap_obj" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-301">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_auth_ldap_scheme" constraintName="FK_QLP7IEK5MP90OBR09HQK47UXE"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-302">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_auth_ad_acceptprinc_AUD" constraintName="FK_QMA2DT7LKPQ0L3JBSNGFT6OXE"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-303">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTH_AD_ID"
+			baseTableName="config_auth_ad_config_auth_rolemap_static"
+			constraintName="FK_R0ERAPTXACBYXV4YKR5K1IN3O" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_auth_ad" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-304">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_auth_ad_accdomsid_AUD" constraintName="FK_R756X484W27E4M8H0NDFDHVJV"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-305">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_auths_config_auth_base_AUD" constraintName="FK_RD7NAUSOLP9134572DWK44XMA"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-306">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_auth_ldap_scheme_config_web_ldap_obj_attr_AUD"
+			constraintName="FK_RIIPYWQB9H1PP77DN4MC2IU5V" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-307">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_auth_ad_AUD" constraintName="FK_RTIJDRNQHTREXKJNAV1W6F0BF"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_auth_base_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-308">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_auth_pwpolicy" constraintName="FK_S853XA6FWEUPAR8DO6FPKSYD7"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-309">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_auth_ldap_config_auth_rolemap_static_AUD"
+			constraintName="FK_SCIJQGPCWVXGVO5TKTMOKAX1F" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-310">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTH_LDAP_ID"
+			baseTableName="auth_ldap_roles_always" constraintName="FK_SR9GRT55PBO95D8XL10UHVB8S"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_ldap" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-311">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_AUTH_AD_ID"
+			baseTableName="config_auth_ad_acceptprinc" constraintName="FK_T3YOM0ERJPMM3CX7993GWUPN1"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_auth_ad" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-312">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_auth_krb5_config_auth_rolemap_pattern_AUD"
+			constraintName="FK_T5QOBE6H7CS42LU241TB3I63J" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-313">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_auth_krb5_accept_AUD" constraintName="FK_T6YHQI4RGJIOAR02KBK16G210"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="REVISION"
+			referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443185760921-314">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_auth_pwpolicy_AUD" constraintName="FK_UMAC4HT85EMKNHUYYE9A1OIH"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+</databaseChangeLog>

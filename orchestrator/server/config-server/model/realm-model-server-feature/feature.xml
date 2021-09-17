@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="realm-model-server-feature"
+      label="Orchestrator Configuration Management Realm Model Server Feature"
+      version="0.0.1.qualifier"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <includes
+         id="model-base-common-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="model-base-client-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="realm-model-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="model-base-server-feature"
+         version="0.0.0"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.config.model.realm.server"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

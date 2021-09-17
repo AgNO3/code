@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.crypto.truststore.internal.TruststoreConfigImpl" configuration-policy="require" activate="activate" modified="modified" configuration-pid="truststore">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.crypto.truststore.TruststoreConfig"/>
+        <provide interface="eu.agno3.runtime.crypto.tls.TrustConfiguration"/>
+    </service>
+    <reference name="TruststoresConfig" interface="eu.agno3.runtime.crypto.truststore.TruststoresConfig" cardinality="1..1" policy="static" bind="setTruststoresConfig" unbind="unsetTruststoresConfig"/>
+    <reference name="PKIXParameterFactory" interface="eu.agno3.runtime.crypto.tls.PKIXParameterFactory" cardinality="1..1" policy="static" bind="setPKIXParameterFactory" unbind="unsetPKIXParameterFactory"/>
+    <reference name="RevocationConfigReader" interface="eu.agno3.runtime.crypto.truststore.revocation.RevocationConfigReader" cardinality="1..1" policy="static" bind="setRevocationConfigReader" unbind="unsetRevocationConfigReader"/>
+    <implementation class="eu.agno3.runtime.crypto.truststore.internal.TruststoreConfigImpl"/>
+</scr:component>

@@ -1,0 +1,36 @@
+Bundle-SymbolicName: eu.agno3.orchestrator.system.cfgfiles
+Bundle-Version: 0.0.1.qualifier
+Bundle-Name: Runtime Configuration File Support
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.orchestrator.agent.msg.addressing;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.config.model.realm;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.config.model.realm.resourcelibrary,
+ eu.agno3.orchestrator.server.messaging.addressing;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.system.base;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.system.base.execution;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.system.base.execution.exception;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.system.base.execution.impl;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.system.base.execution.result;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.system.base.units.file;version="0.0.1.qualifier",
+ eu.agno3.orchestrator.system.file.util;version="0.0.1.qualifier",
+ eu.agno3.runtime.messaging;version="0.0.40",
+ eu.agno3.runtime.messaging.addressing;version="0.0.40",
+ eu.agno3.runtime.messaging.listener;version="0.0.40",
+ eu.agno3.runtime.messaging.msg;version="0.0.40",
+ eu.agno3.runtime.messaging.xml;version="0.0.40",
+ org.apache.commons.codec.binary;version="1.10.0",
+ org.apache.commons.collections4;version="4.0.0",
+ org.apache.commons.io;version="2.4.0",
+ org.apache.commons.io.filefilter;version="2.4.0",
+ org.apache.commons.lang3;version="3.1.0",
+ org.apache.log4j;version="1.2.15",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.osgi.util.tracker;version="1.5.1"
+Service-Component: OSGI-INF/*.xml
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.jdt.annotation;bundle-version="[2.0.0,3.0.0)";resolution:=optional
+Export-Package: eu.agno3.orchestrator.system.cfgfiles

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
+
+	<application>
+		<locale-config>
+			<default-locale>en</default-locale>
+		</locale-config>
+
+		<resource-bundle>
+			<base-name>eu.agno3.orchestrator.server.webgui.messages</base-name>
+			<var>_gui</var>
+		</resource-bundle>
+
+		<resource-bundle>
+			<base-name>eu.agno3.orchestrator.config.hostconfig</base-name>
+			<var>_config_hostconfig</var>
+		</resource-bundle>
+		
+		<resource-bundle>
+			<base-name>eu.agno3.orchestrator.config.orchestrator</base-name>
+			<var>_config_orch</var>
+		</resource-bundle>
+
+		<resource-bundle>
+			<base-name>eu.agno3.orchestrator.config.web</base-name>
+			<var>_config_web</var>
+		</resource-bundle>
+
+		<resource-bundle>
+			<base-name>eu.agno3.orchestrator.config.auth</base-name>
+			<var>_config_auth</var>
+		</resource-bundle>
+		
+		<resource-bundle>
+			<base-name>eu.agno3.orchestrator.config.realms</base-name>
+			<var>_config_realm</var>
+		</resource-bundle>
+		
+		<resource-bundle>
+			<base-name>eu.agno3.orchestrator.config.crypto</base-name>
+			<var>_config_crypto</var>
+		</resource-bundle>
+
+		<el-resolver>org.primefaces.fixed.exceptionhandler.PrimeExceptionHandlerELResolver</el-resolver>
+	</application>
+
+	<protected-views>
+		<!-- This is suboptimal, default protected and exclusions would be much 
+			saner -->
+		<!-- Every view that has a view action or preRenderView that is not idempotent 
+			(i.e. does perform some action on GET) has to be added here -->
+			
+		<!-- Resource library editors may create the target library on load -->
+		<url-pattern>/resourceLibrary/*</url-pattern>
+	</protected-views>
+
+	<factory>
+		<exception-handler-factory>org.primefaces.fixed.exceptionhandler.PrimeExceptionHandlerFactory</exception-handler-factory>
+	</factory>
+
+
+
+	<component>
+		<component-type>eu.agno3.orchestrator.server.webgui.components.ObjectEditor</component-type>
+		<component-class>eu.agno3.orchestrator.server.webgui.components.ObjectEditor</component-class>
+	</component>
+
+	<component>
+		<component-type>eu.agno3.orchestrator.server.webgui.components.MultiObjectEditor</component-type>
+		<component-class>eu.agno3.orchestrator.server.webgui.components.MultiObjectEditor</component-class>
+	</component>
+
+	<component>
+		<component-type>eu.agno3.orchestrator.server.webgui.components.MultiInheritanceObjectEditor</component-type>
+		<component-class>eu.agno3.orchestrator.server.webgui.components.MultiInheritanceObjectEditor</component-class>
+	</component>
+
+	<component>
+		<component-type>eu.agno3.orchestrator.server.webgui.components.ObjectFieldEditor</component-type>
+		<component-class>eu.agno3.orchestrator.server.webgui.components.ObjectFieldEditor</component-class>
+	</component>
+
+	<component>
+		<component-type>eu.agno3.orchestrator.server.webgui.components.EventComponent</component-type>
+		<component-class>eu.agno3.orchestrator.server.webgui.components.EventComponent</component-class>
+	</component>
+
+	<component>
+		<component-type>eu.agno3.orchestrator.server.webgui.components.KrbKeyEditorComponent</component-type>
+		<component-class>eu.agno3.orchestrator.server.webgui.components.KrbKeyEditorComponent</component-class>
+	</component>
+
+	<component>
+		<component-type>eu.agno3.orchestrator.server.webgui.components.InputSid</component-type>
+		<component-class>eu.agno3.orchestrator.server.webgui.components.InputSid</component-class>
+	</component>
+	
+	<component>
+		<component-type>eu.agno3.orchestrator.server.webgui.components.DirtyStateHolder</component-type>
+		<component-class>eu.agno3.orchestrator.server.webgui.components.DirtyStateHolder</component-class>
+	</component>
+</faces-config>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<ag:simpleField styleClass="noLabel"
+		onlyIf="#{configContextUtil.isInstance(configContext)}">
+		<ag:dialogOpenButton icon="ui-icon-pencil"
+			disabled="#{not configContextUtil.isOnline(configContext)}"
+			title="#{configContextUtil.getDisabledMessage(configContext)}"
+			dialog="/app/fs/admin/manageUsers.dialog.xhtml?anchor=#{structureViewContext.selectedAnchorId}&amp;service=#{structureViewContext.selectedObjectId}"
+			closable="true" value="#{_fs_orch_msg['users.manage']}">
+			<p:ajax event="return" />
+		</ag:dialogOpenButton>
+
+		<ag:dialogOpenButton icon="ui-icon-pencil"
+			disabled="#{not configContextUtil.isOnline(configContext)}"
+			title="#{configContextUtil.getDisabledMessage(configContext)}"
+			dialog="/app/fs/admin/manageGroups.dialog.xhtml?anchor=#{structureViewContext.selectedAnchorId}&amp;service=#{structureViewContext.selectedObjectId}"
+			closable="true" value="#{_fs_orch_msg['groups.manage']}">
+			<p:ajax event="return" />
+		</ag:dialogOpenButton>
+	</ag:simpleField>
+
+	<orch:objectFieldEditor inputId="defaultRoles" collection="true"
+		path="defaultRoles" minLevel="2">
+		<ag:setEditor id="defaultRoles"
+			comparator="#{setEditorUtilBean.stringComparator}"
+			factoryMethod="#{setEditorUtilBean.makeEmptyString}"
+			value="#{current.defaultRoles}">
+			<p:column>
+				<p:autoComplete dropdown="true"
+					completeMethod="#{fs_authenticationConfigBean.getRoleCompleter(outerWrapper).complete}"
+					value="#{item.value}" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="noSubjectRootRoles" collection="true"
+		path="noSubjectRootRoles" minLevel="2">
+		<ag:setEditor id="noSubjectRootRoles"
+			comparator="#{setEditorUtilBean.stringComparator}"
+			factoryMethod="#{setEditorUtilBean.makeEmptyString}"
+			value="#{current.noSubjectRootRoles}">
+			<p:column>
+				<p:autoComplete dropdown="true"
+					completeMethod="#{fs_authenticationConfigBean.getRoleCompleter(outerWrapper).complete}"
+					value="#{item.value}" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+
+
+	<p:tabView id="contentTabs">
+		<p:tab title="#{fs_cfgmsgs.bundle['fileshare.user.quota']}" id="quota">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:fileshare:user:quota"
+				context="#{configContext}" path="quotaConfig"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+
+		<p:tab title="#{fs_cfgmsgs.bundle['fileshare.user.terms']}" id="terms">
+			<orch:objectEditor objectType="urn:agno3:objects:1.0:terms"
+				context="#{configContext}" path="termsConfig"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+
+		<p:tab title="#{fs_cfgmsgs.bundle['fileshare.user.selfService']}"
+			id="selfservice">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:fileshare:user:selfService"
+				context="#{configContext}" path="selfServiceConfig"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+
+
+		<p:tab title="#{fs_cfgmsgs.bundle['fileshare.user.trustLevels']}"
+			id="trustLevels">
+			<orch:objectEditor
+				objectType="urn:agno3:objects:1.0:fileshare:user:trustLevels"
+				context="#{configContext}" path="userTrustLevelConfig"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:tab>
+
+
+	</p:tabView>
+
+</ui:composition>

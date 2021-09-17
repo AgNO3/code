@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:tnet="urn:agno3:model:1.0:types:net" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:model:1.0:types:net" elementFormDefault="qualified">
+   <xsd:complexType name="hardwareAddress" abstract="true"/>
+   <xsd:complexType name="macAddress">
+      <xsd:complexContent>
+         <xsd:extension base="tnet:hardwareAddress">
+            <xsd:sequence>
+               <xsd:element name="addr" type="xsd:string" minOccurs="0"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="networkAddress" abstract="true"/>
+   <xsd:complexType name="abstractIPAddress" abstract="true">
+      <xsd:complexContent>
+         <xsd:extension base="tnet:networkAddress">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="iPv4Address">
+      <xsd:complexContent>
+         <xsd:extension base="tnet:abstractIPAddress">
+            <xsd:sequence>
+               <xsd:element name="addr" type="xsd:string" minOccurs="0"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="iPv6Address">
+      <xsd:complexContent>
+         <xsd:extension base="tnet:abstractIPAddress">
+            <xsd:sequence>
+               <xsd:element name="addr" type="xsd:string" minOccurs="0"/>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="networkType">
+      <xsd:sequence>
+         <xsd:choice>
+            <xsd:element ref="tnet:ip4Address"/>
+            <xsd:element ref="tnet:ipAddress"/>
+            <xsd:element ref="tnet:address"/>
+            <xsd:element ref="tnet:ip6Address"/>
+         </xsd:choice>
+      </xsd:sequence>
+      <xsd:attribute name="prefixLength" type="xsd:short" use="required"/>
+   </xsd:complexType>
+   <xsd:element name="hwAddress" type="tnet:hardwareAddress"/>
+   <xsd:element name="mac" type="tnet:macAddress"/>
+   <xsd:element name="address" type="tnet:networkAddress"/>
+   <xsd:element name="ipAddress" type="tnet:abstractIPAddress"/>
+   <xsd:element name="ip4Address" type="tnet:iPv4Address"/>
+   <xsd:element name="ip6Address" type="tnet:iPv6Address"/>
+   <xsd:element name="network" type="tnet:networkType"/>
+</xsd:schema>

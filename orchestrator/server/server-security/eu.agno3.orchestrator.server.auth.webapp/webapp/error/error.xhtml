@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" template="/tpl/common/raw.xhtml">
+	<ui:param name="title" value="#{_msgs['error.unknown.title']}" />
+	<ui:define name="content">
+		<h1>
+			<h:outputText value="#{_msgs['error.unknown.heading']}" />
+		</h1>
+
+		<input type="hidden" name="closable" value="${'true'}" />
+
+		<p>
+			<h:outputText value="#{_msgs['error.unknown.message']}" />
+		</p>
+
+		<script>
+			(function(window) {
+				if (window.location !== window.top.location) {
+					window.top.location = window.location;
+				}
+			})(this);
+		</script>
+
+		<h:panelGroup rendered="#{not empty pfExceptionHandler.type}">
+			<h2>
+				<h:outputText value="#{pfExceptionHandler.type}" />
+			</h2>
+
+			<q><h:outputText value="#{pfExceptionHandler.message}" /></q>
+
+			<h:outputLink value="#{uriUtil.getCurrentBaseUriWithTrailingSlash()}">
+				<h:outputText value="#{_msgs['error.unknown.continue']}" />
+			</h:outputLink>
+
+			<blockquote>
+				<h:outputText escape="false"
+					value="#{pfExceptionHandler.formattedStackTrace}" />
+			</blockquote>
+		</h:panelGroup>
+
+		<h:panelGroup rendered="#{empty pfExceptionHandler.type}">
+			<h2>
+				<h:outputText value="#{_msgs['error.unknown.unknown']}" />
+			</h2>
+			<h:outputLink value="#{uriUtil.getCurrentBaseUriWithTrailingSlash()}">
+				<h:outputText value="#{_msgs['error.unknown.continue']}" />
+			</h:outputLink>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>

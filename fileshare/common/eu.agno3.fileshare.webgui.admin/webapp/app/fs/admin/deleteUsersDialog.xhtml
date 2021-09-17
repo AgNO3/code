@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	template="/tpl/common/dialog.xhtml">
+
+	<ui:param name="title" value="#{_fs_adm_msg['users.delete.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<ui:include src="/tpl/app/fs/admin/metadata.xhtml" />
+			<f:viewParam name="users"
+				value="#{app_fs_adm_userSelectionBean.encodedMultiSelection}"
+				required="true" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form" method="POST" enctype="multipart/form-data">
+			<ag:dialogContextHolder />
+
+			<p:hotkey bind="esc" action="#{dialog.close}" immediate="true" />
+			<p:messages autoUpdate="true" />
+
+			<p:fieldset legend="#{_fs_adm_msg['users.delete.title']}">
+
+				<p style="width: 90%">
+					<h:outputText value="#{_fs_adm_msg['users.delete.confirmMessage']}" />
+				</p>
+
+				<ul style="list-style-type: none; margin-bottom: 2em">
+					<ui:repeat var="user"
+						value="#{app_fs_adm_userSelectionBean.multiSelection}">
+						<li><span
+							class="ui-icon #{app_fs_adm_subjectDisplayBean.getSubjectIconClass(user)} ui-icon-inline" />
+							<h:outputText id="userName"
+								value="#{app_fs_adm_subjectDisplayBean.getSubjectDisplayName(user)}" /></li>
+					</ui:repeat>
+				</ul>
+
+				<div class="buttons">
+					<p:commandButton id="confirm" icon="ui-icon-trash"
+						action="#{app_fs_adm_userController.deleteUsers(app_fs_adm_userSelectionBean)}"
+						value="#{_fs_adm_msg['users.delete.confirm']}" />
+
+					<p:commandButton immediate="true" action="#{dialog.close}"
+						styleClass="close-button inline" icon="#{dialog.closeIcon}"
+						title="#{dialog.closeDescription}"
+						value="#{_fs_adm_msg['users.delete.cancel']}" />
+				</div>
+			</p:fieldset>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

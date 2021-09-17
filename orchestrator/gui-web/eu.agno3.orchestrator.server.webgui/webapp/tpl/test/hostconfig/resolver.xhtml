@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<p:fieldset styleClass="func-unit">
+		<ag:simpleField inputId="hostname"
+			label="#{_config_hostconfig['test.resolver.hostname.label']}"
+			description="#{_config_hostconfig['test.resolver.hostname.description']}">
+			<p:inputText id="hostname" required="true"
+				value="#{hc_resolver_testBean.hostname}" />
+		</ag:simpleField>
+	</p:fieldset>
+
+	<ui:include src="/tpl/test/results.xhtml">
+		<ui:param name="serviceTestBean" value="#{hc_resolver_testBean}" />
+		<ui:param name="configContext" value="#{configContext}" />
+	</ui:include>
+</ui:composition>

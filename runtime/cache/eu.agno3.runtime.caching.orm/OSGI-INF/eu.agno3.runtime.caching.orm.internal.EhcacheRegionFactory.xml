@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.caching.orm.internal.EhcacheRegionFactory" configuration-policy="require" activate="activate" configuration-pid="db.orm.cache">
+    <service servicefactory="false">
+        <provide interface="org.hibernate.cache.spi.RegionFactory"/>
+    </service>
+    <implementation class="eu.agno3.runtime.caching.orm.internal.EhcacheRegionFactory"/>
+</scr:component>

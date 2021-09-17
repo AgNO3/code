@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0"
+	template="/tpl/common/dialog.xhtml">
+	<ui:param name="title"
+		value="#{msgs.formatEL('config.test.titleFmt', configLocalizationProvider.getTypeName(configTestBean.objectType))}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<ui:include src="/tpl/config/testParams.xhtml" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="testConfigForm" enctype="multipart/form-data">
+			<input type="hidden" name="cid"
+				value="#{templateConfigContext.conversation.id}" />
+
+			<ag:dialogContextHolder />
+
+			<p:messages autoUpdate="true" showDetail="true" />
+
+			<ui:include src="${configTestBean.testTemplate}">
+				<ui:param name="configContext" value="#{templateConfigContext}" />
+			</ui:include>
+		</h:form>
+	</ui:define>
+</ui:composition>

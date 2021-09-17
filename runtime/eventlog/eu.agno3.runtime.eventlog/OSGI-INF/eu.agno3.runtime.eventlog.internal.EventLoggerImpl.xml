@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.eventlog.internal.EventLoggerImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.eventlog.EventLogger"/>
+        <provide interface="eu.agno3.runtime.eventlog.internal.EventLoggerImpl"/>
+    </service>
+    <reference name="Anonymizer" interface="eu.agno3.runtime.eventlog.LogAnonymizer" cardinality="1..1" policy="static" bind="setAnonymizer" unbind="unsetAnonymizer"/>
+    <reference name="LoggerBackend" interface="eu.agno3.runtime.eventlog.EventLoggerBackend" cardinality="0..n" policy="dynamic" bind="bindLoggerBackend" unbind="unbindLoggerBackend"/>
+    <implementation class="eu.agno3.runtime.eventlog.internal.EventLoggerImpl"/>
+</scr:component>

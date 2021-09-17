@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.xml.schema.internal.SchemaServiceImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.xml.schema.SchemaService"/>
+    </service>
+    <reference name="NamespaceResolver" interface="eu.agno3.runtime.xml.schema.PackageToNamespaceResolver" cardinality="0..1" policy="dynamic" bind="setNamespaceResolver" unbind="unsetNamespaceResolver"/>
+    <reference name="XMLParserFactory" interface="eu.agno3.runtime.xml.XmlParserFactory" cardinality="1..1" policy="static" bind="setXMLParserFactory" unbind="unsetXMLParserFactory"/>
+    <reference name="SchemaRegistry" interface="eu.agno3.runtime.xml.schema.SchemaRegistry" cardinality="1..1" policy="static" bind="setSchemaRegistry" unbind="unsetSchemaRegistry"/>
+    <reference name="SchemaRegistration" interface="eu.agno3.runtime.xml.schema.SchemaRegistration" cardinality="0..n" policy="dynamic" bind="bindSchemaRegistration" unbind="unbindSchemaRegistration"/>
+    <implementation class="eu.agno3.runtime.xml.schema.internal.SchemaServiceImpl"/>
+</scr:component>

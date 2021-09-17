@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="mail-feature"
+      label="Mail Runtime Feature"
+      version="0.0.44"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <requires>
+   </requires>
+
+   <plugin
+         id="eu.agno3.runtime.mail"
+         download-size="0"
+         install-size="0"
+         version="0.0.44"
+         unpack="false"/>
+
+</feature>

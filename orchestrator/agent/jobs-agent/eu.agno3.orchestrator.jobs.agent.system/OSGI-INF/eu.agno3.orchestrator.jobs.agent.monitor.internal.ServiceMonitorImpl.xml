@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" immediate="true" name="eu.agno3.orchestrator.jobs.agent.monitor.internal.ServiceMonitorImpl" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.jobs.agent.monitor.internal.ServiceMonitorImpl"/>
+        <provide interface="eu.agno3.orchestrator.jobs.agent.monitor.ServiceMonitor"/>
+        <provide interface="eu.agno3.orchestrator.system.base.SystemService"/>
+    </service>
+    <reference name="EventProducer" interface="eu.agno3.orchestrator.agent.connector.QueueingEventProducer" cardinality="1..1" policy="static" bind="setEventProducer" unbind="unsetEventProducer"/>
+    <reference name="ServiceManager" interface="eu.agno3.orchestrator.jobs.agent.service.ServiceManager" cardinality="0..1" policy="static" bind="setServiceManager" unbind="unsetServiceManager" policy-option="greedy"/>
+    <reference name="ConfigRepository" interface="eu.agno3.orchestrator.jobs.agent.system.ConfigRepository" cardinality="1..1" policy="static" bind="setConfigRepository" unbind="unsetConfigRepository"/>
+    <implementation class="eu.agno3.orchestrator.jobs.agent.monitor.internal.ServiceMonitorImpl"/>
+</scr:component>

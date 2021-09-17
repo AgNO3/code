@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="alias" path="alias" readOnlyIfPersistent="true" hideIfSimplified="true">
+		<p:inputText id="alias" value="#{current.alias}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="interfaceIndex" path="interfaceIndex">
+		<p:inputText id="interfaceIndex" size="2"
+			value="#{current.interfaceIndex}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="hardwareAddress"
+		path="hardwareAddress">
+		<p:inputText id="hardwareAddress" value="#{current.hardwareAddress}"
+			converter="#{hwAddressConverter}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="v4AddressConfigurationType"
+		path="v4AddressConfigurationType" update="@composite:@parent" process="@composite:@parent"
+		readOnlyValueMapper="#{interfaceEntryBean.translateAddressConfigurationTypeV4}">
+
+		<p:selectOneMenu id="v4AddressConfigurationType"
+			value="#{current.v4AddressConfigurationType}">
+			<p:ajax event="change" process="@composite:@parent"
+				update="@composite:@parent" />
+			<f:selectItems
+				value="#{interfaceEntryBean.addressConfigurationTypesV4}" var="itm"
+				itemLabel="#{interfaceEntryBean.translateAddressConfigurationTypeV4(itm)}" />
+		</p:selectOneMenu>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="v6AddressConfigurationType"
+		path="v6AddressConfigurationType" update="@composite:@parent" process="@composite:@parent"
+		readOnlyValueMapper="#{interfaceEntryBean.translateAddressConfigurationTypeV6}"
+		onlyIf="#{networkConfigBean.isIpv6Enabled(outerWrapper)}">
+
+		<p:selectOneMenu id="v6AddressConfigurationType"
+			value="#{current.v6AddressConfigurationType}">
+			<p:ajax event="change" process="@composite:@parent"
+				update="@composite:@parent" />
+			<f:selectItems
+				value="#{interfaceEntryBean.addressConfigurationTypesV6}" var="itm"
+				itemLabel="#{interfaceEntryBean.translateAddressConfigurationTypeV6(itm)}" />
+		</p:selectOneMenu>
+	</orch:objectFieldEditor>
+
+
+	<orch:objectFieldEditor id="staticAddressesEditor"
+		inputId="staticAddresses" path="staticAddresses" collection="true"
+		onlyIf="#{interfaceEntryBean.shouldShowStaticAddresses(current,defaults,enforced)}">
+
+		<ag:setEditor id="staticAddresses" value="#{current.staticAddresses}"
+			factoryMethod="#{interfaceEntryBean.makeStaticAddress}"
+			comparator="#{interfaceEntryBean.staticAddressComparator}">
+
+			<p:column>
+				<p:inputText style="width: 100%;" id="staticAddress"
+					label="#{_config_hostconfig['hostconfig.network.interface.staticAddresses.addr']}"
+					value="#{item.value}" converter="#{networkSpecificationConverter}">
+				</p:inputText>
+				<p:watermark
+					value="#{_config_hostconfig['hostconfig.network.interface.staticAddresses.addr.watermark']}"
+					for="staticAddress" />
+				<p:message for="staticAddress" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+
+
+	<orch:objectFieldEditor inputId="overrideHardwareAddress"
+		path="overrideHardwareAddress" minLevel="2">
+		<p:inputText id="overrideHardwareAddress" minLevel="2"
+			value="#{current.overrideHardwareAddress}"
+			converter="#{hwAddressConverter}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="mediaType" minLevel="2"
+		path="mediaType"
+		readOnlyValueMapper="#{interfaceEntryBean.translateMediaType}">
+
+		<p:selectOneMenu id="mediaType" value="#{current.mediaType}">
+			<f:selectItems value="#{interfaceEntryBean.mediaTypes}" var="itm"
+				itemLabel="#{interfaceEntryBean.translateMediaType(itm)}" />
+		</p:selectOneMenu>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="mtu" path="mtu" minLevel="2">
+		<p:inputText id="mtu" value="#{current.mtu}" size="5" />
+	</orch:objectFieldEditor>
+
+</ui:composition>

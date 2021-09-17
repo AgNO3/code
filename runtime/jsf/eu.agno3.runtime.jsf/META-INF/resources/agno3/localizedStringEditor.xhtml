@@ -1,0 +1,56 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+
+<composite:interface
+	componentType="eu.agno3.runtime.jsf.components.LocalizedStringEditor">
+
+	<composite:attribute name="value" required="true" type="java.util.Map" />
+</composite:interface>
+
+<composite:implementation>
+	<div class="localized-string-editor">
+
+		<p:dataTable id="list" var="e" value="#{cc.value.entrySet()}"
+			rowStatePreserved="true"
+			emptyMessage="#{_bm.get('localeStringEditor.noStrings')}">
+			<p:column>
+				<h:outputText value="#{e.key}" />
+			</p:column>
+			<p:column style="width: 70%">
+				<p:inputText style="width: 100%"
+					value="#{cc.getValueWrapper(e.key).value}" />
+			</p:column>
+			<p:column style="width: 2em">
+				<p:commandButton icon="ui-icon-trash"
+					title="#{_bm.get('localeStringEditor.remove')}"
+					action="#{cc.doRemove(e.key)}" process="@composite" update="list">
+					<p:resetInput target="list" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+
+		<p:selectOneMenu filter="true" value="#{cc.addLocale}"
+			converter="#{localeConverter}">
+			<f:selectItem
+				itemLabel="#{_bm.get('localeStringEditor.defaultLocale')}"
+				noSelectionOption="true" />
+			<f:selectItems value="#{localeModelBean.model}" var="locale"
+				itemValue="#{locale}"
+				itemLabel="#{localeModelBean.getLocaleLabel(locale)}" />
+		</p:selectOneMenu>
+
+		<p:commandButton icon="ui-icon-circle-plus"
+			title="#{_bm.get('localeStringEditor.add')}" action="#{cc.doAdd}"
+			process="@composite" update="list">
+			<p:resetInput target="list" />
+		</p:commandButton>
+	</div>
+</composite:implementation>
+</html>
+

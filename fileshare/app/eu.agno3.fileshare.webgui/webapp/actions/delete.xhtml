@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	template="/tpl/common/dialog.xhtml">
+
+	<ui:param name="title" value="#{_msgs['actions.delete.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="files"
+				value="#{urlFileSelectionBean.encodedMultiSelection}"
+				required="true" />
+
+			<f:viewParam name="grant"
+				value="#{grantSelectionBean.encodedSingleSelection}"
+				required="false" />
+
+			<f:viewParam name="token" value="#{userTokenBean.token}"
+				required="false" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form" method="POST" enctype="multipart/form-data">
+			<ag:dialogContextHolder />
+
+			<p:hotkey bind="esc" action="#{dialog.close}" immediate="true" />
+			<p:hotkey bind="y"
+				action="#{fileController.multiDeleteDialog(urlFileSelectionBean.selectedEntities)}" />
+			<p:messages autoUpdate="true" />
+
+			<input type="hidden" name="token" value="#{userTokenBean.token}" />
+
+			<p:fieldset styleClass="func-unit"
+				legend="#{_msgs['actions.delete.title']}">
+
+				<p>
+					<h:outputFormat value="#{_msgs['actions.delete.msg']}" />
+				</p>
+
+				<ul style="list-style-type: none; padding-left: 0;">
+					<ui:repeat value="#{urlFileSelectionBean.selectedEntities}"
+						var="selected">
+						<li><span
+							class="ui-icon ui-icon-inline #{fileDisplayBean.getTypeIconCollapsed(selected)}" />
+							<h:outputText value="${selected.localName}" /> <h:outputFormat
+								style="margin-left: 0.5em"
+								rendered="#{fileDisplayBean.isDirectory(selected) and not selected.isEmpty() and not empty selected.numChildren}"
+								value="#{_msgs['actions.delete.folderNotEmptyFmt']}">
+								<f:param value="#{selected.numChildren}" />
+							</h:outputFormat> <h:outputFormat style="margin-left: 0.5em"
+								rendered="#{fileDisplayBean.isDirectory(selected) and selected.isEmpty()}"
+								value="#{_msgs['actions.delete.folderEmpty']}" /></li>
+					</ui:repeat>
+				</ul>
+
+				<h:panelGroup
+					rendered="#{empty urlFileSelectionBean.selectedEntities}">
+					<p>
+						<h:outputText value="#{_msgs['actions.delete.emptyMsg']}" />
+					</p>
+				</h:panelGroup>
+			</p:fieldset>
+
+			<div class="buttons">
+				<p:commandButton id="confirm" icon="ui-icon-trash"
+					disabled="#{empty urlFileSelectionBean.selectedEntities}"
+					action="#{fileController.multiDeleteDialog(urlFileSelectionBean.selectedEntities)}"
+					value="#{_msgs['actions.delete.confirm']}" />
+
+				<p:commandButton immediate="true" action="#{dialog.close}"
+					styleClass="close-button inline" icon="#{dialog.closeIcon}"
+					title="#{dialog.closeDescription}"
+					value="#{_msgs['actions.delete.cancel']}" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

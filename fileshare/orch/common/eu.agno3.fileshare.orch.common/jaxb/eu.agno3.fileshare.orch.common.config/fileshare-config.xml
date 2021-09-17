@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.fileshare.orch.common.config"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:fileshare">
+		<xml-ns prefix="fileshc" namespace-uri="urn:agno3:model:1.0:fileshare" />
+		<xml-ns prefix="cmr" namespace-uri="urn:agno3:model:1.0:realm" />
+		<xml-ns prefix="webc" namespace-uri="urn:agno3:model:1.0:web" />
+		<xml-ns prefix="authc" namespace-uri="urn:agno3:model:1.0:auth" />
+		<xml-ns prefix="loggerc" namespace-uri="urn:agno3:model:1.0:logger" />
+		<xml-ns prefix="termsc" namespace-uri="urn:agno3:model:1.0:terms" />
+		<xml-ns prefix="locstr" namespace-uri="urn:agno3:xml:1.0:localestr" />
+		<xml-ns prefix="hc" namespace-uri="urn:agno3:model:1.0:hostconfig" />
+	</xml-schema>
+
+	<java-types>
+		<java-type name="FileshareConfiguration" xml-accessor-type="NONE">
+
+			<xml-type name="fileshareConfigType"
+				factory-class="eu.agno3.fileshare.orch.common.config.ObjectFactory"
+				factory-method="createFileshareConfiguration" />
+
+			<xml-root-element name="fileshareConfig" />
+
+			<java-attributes>
+				<xml-element name="web" java-attribute="webConfiguration" />
+				<xml-element name="user" java-attribute="userConfiguration" />
+				<xml-element name="auth" java-attribute="authConfiguration" />
+				<xml-element name="content" java-attribute="contentConfiguration" />
+				<xml-element name="notification" java-attribute="notificationConfiguration" />
+				<xml-element name="securityPolicy" java-attribute="securityPolicyConfiguration" />
+				<xml-element name="storage" java-attribute="storageConfiguration" />
+				<xml-element name="advanced" java-attribute="advancedConfiguration" />
+				<xml-element name="logger" java-attribute="loggerConfiguration" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="FileshareConfigurationMutable"
+			xml-accessor-type="NONE">
+			<xml-type name="fileshareConfigMutable"
+				factory-class="eu.agno3.fileshare.orch.common.config.ObjectFactory"
+				factory-method="createFileshareConfiguration" />
+		</java-type>
+
+
+		<java-type name="FileshareContentConfig" xml-accessor-type="NONE">
+
+			<xml-type name="fileshareContentConfigType"
+				factory-class="eu.agno3.fileshare.orch.common.config.ObjectFactory"
+				factory-method="createFileshareContentConfig" />
+
+			<xml-root-element name="fileshareContentConfig" />
+
+			<java-attributes>
+				<xml-element name="allowMimeTypeChanges" java-attribute="allowMimeTypeChanges" />
+
+				<xml-element name="mimeType" java-attribute="blacklistMimeTypes">
+					<xml-element-wrapper name="blacklistMimeTypes" />
+				</xml-element>
+
+				<xml-element name="mimeType" java-attribute="whitelistMimeTypes">
+					<xml-element-wrapper name="whitelistMimeTypes" />
+				</xml-element>
+
+				<xml-element name="fallbackMimeType" java-attribute="fallbackMimeType" />
+				<xml-element name="useUserSuppliedTypeInfo"
+					java-attribute="useUserSuppliedTypeInfo" />
+
+				<xml-element name="previewConfig" java-attribute="previewConfig" />
+				<xml-element name="searchConfig" java-attribute="searchConfig" />
+				<xml-element name="scanConfig" java-attribute="scanConfig" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="FileshareContentPreviewConfig"
+			xml-accessor-type="NONE">
+
+			<xml-type name="fileshareContentPreviewConfigType"
+				factory-class="eu.agno3.fileshare.orch.common.config.ObjectFactory"
+				factory-method="createFileshareContentPreviewConfig" />
+
+			<xml-root-element name="fileshareContentPreviewConfig" />
+			<java-attributes>
+				<xml-element name="mimeType" java-attribute="previewMimeTypes">
+					<xml-element-wrapper name="previewMimeTypes" />
+				</xml-element>
+
+				<xml-element name="mimeType" java-attribute="previewSafeMimeTypes">
+					<xml-element-wrapper name="previewSafeMimeTypes" />
+				</xml-element>
+
+				<xml-element name="mimeType" java-attribute="previewNoSandboxMimeTypes">
+					<xml-element-wrapper name="previewNoSandboxMimeTypes" />
+				</xml-element>
+
+				<xml-element name="mimeType" java-attribute="previewRelaxedCSPMimeTypes">
+					<xml-element-wrapper name="previewRelaxedCSPMimeTypes" />
+				</xml-element>
+
+				<xml-element name="limitPreviewFileSize" java-attribute="limitPreviewFileSize" />
+				<xml-element name="maxPreviewFileSize" java-attribute="maxPreviewFileSize" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="FileshareContentSearchConfig"
+			xml-accessor-type="NONE">
+
+			<xml-type name="fileshareContentSearchConfigType"
+				factory-class="eu.agno3.fileshare.orch.common.config.ObjectFactory"
+				factory-method="createFileshareContentSearchConfig" />
+
+			<xml-root-element name="fileshareContentSearchConfig" />
+			<java-attributes>
+				<xml-element name="searchDisabled" java-attribute="searchDisabled" />
+				<xml-element name="searchAllowPaging" java-attribute="searchAllowPaging" />
+				<xml-element name="searchPageSize" java-attribute="searchPageSize" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="FileshareContentScanConfig"
+			xml-accessor-type="NONE">
+
+			<xml-type name="fileshareContentScanConfigType"
+				factory-class="eu.agno3.fileshare.orch.common.config.ObjectFactory"
+				factory-method="createFileshareContentScanConfig" />
+
+			<xml-root-element name="fileshareContentScanConfig" />
+			<java-attributes>
+				<xml-element name="enableICAP" java-attribute="enableICAP" />
+				<xml-element name="icapConfig" java-attribute="icapConfig" />
+			</java-attributes>
+		</java-type>
+
+
+
+		<java-type name="FileshareNotificationConfig"
+			xml-accessor-type="NONE">
+
+			<xml-type name="fileshareNotificationConfigType"
+				factory-class="eu.agno3.fileshare.orch.common.config.ObjectFactory"
+				factory-method="createFileshareNotificationConfig" />
+
+			<xml-root-element name="fileshareNotificationConfig" />
+
+			<java-attributes>
+				<xml-element name="notificationDisabled" java-attribute="notificationDisabled" />
+
+				<xml-element name="templateLibrary" java-attribute="templateLibrary" />
+				<xml-element name="defaultNotificationLocale"
+					java-attribute="defaultNotificationLocale" />
+
+				<xml-element name="defaultSenderName" java-attribute="defaultSenderName" />
+				<xml-element name="defaultSenderAddress" java-attribute="defaultSenderAddress" />
+				<xml-element name="adminContactAddress" java-attribute="adminContactAddress" />
+
+				<xml-element name="sendAsUserNotificationDomain"
+					java-attribute="sendAsUserNotificationDomains">
+					<xml-element-wrapper name="sendAsUserNotificationDomains" />
+				</xml-element>
+
+				<xml-element name="footer" java-attribute="footer" />
+
+				<xml-element name="expirationNotificationPeriod"
+					java-attribute="expirationNotificationPeriod">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="FileshareSecurityPolicyConfig"
+			xml-accessor-type="NONE">
+
+			<xml-type name="fileshareSecurityPolicyConfigType"
+				factory-class="eu.agno3.fileshare.orch.common.config.ObjectFactory"
+				factory-method="createFileshareSecurityPolicyConfig" />
+
+			<xml-root-element name="fileshareSecurityPolicyConfig" />
+
+			<java-attributes>
+				<xml-element name="defaultEntityLabel" java-attribute="defaultEntityLabel" />
+				<xml-element name="defaultRootLabel" java-attribute="defaultRootLabel" />
+				<xml-element name="defaultSharePasswordBits"
+					java-attribute="defaultSharePasswordBits" />
+
+
+				<xml-element name="rule" java-attribute="userLabelRules">
+					<xml-element-wrapper name="userLabelRules" />
+				</xml-element>
+
+				<xml-element name="policy" java-attribute="policies">
+					<xml-element-wrapper name="policies" />
+				</xml-element>
+
+
+			</java-attributes>
+		</java-type>
+
+
+
+		<java-type name="FileshareSecurityPolicy" xml-accessor-type="NONE">
+
+			<xml-type name="fileshareSecurityPolicyType"
+				factory-class="eu.agno3.fileshare.orch.common.config.ObjectFactory"
+				factory-method="createFileshareSecurityPolicy" />
+
+			<xml-root-element name="fileshareSecurityPolicy" />
+
+			<java-attributes>
+				<xml-element name="label" java-attribute="label" />
+				<xml-element name="sortPriority" java-attribute="sortPriority" />
+
+				<xml-element name="type" java-attribute="allowedShareTypes">
+					<xml-element-wrapper name="allowedShareTypes" />
+				</xml-element>
+
+				<xml-element name="disallowWebDAVAccess" java-attribute="disallowWebDAVAccess" />
+
+				<xml-element name="enableDefaultExpiration"
+					java-attribute="enableDefaultExpiration" />
+				<xml-element name="defaultExpirationDuration"
+					java-attribute="defaultExpirationDuration">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+
+				<xml-element name="restrictExpirationDuration"
+					java-attribute="restrictExpirationDuration" />
+				<xml-element name="maximumExpirationDuration"
+					java-attribute="maximumExpirationDuration">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+				<xml-element name="restrictShareLifetime"
+					java-attribute="restrictShareLifetime" />
+				<xml-element name="maximumShareLifetime" java-attribute="maximumShareLifetime">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+				<xml-element name="enableShareExpiration"
+					java-attribute="enableShareExpiration" />
+				<xml-element name="defaultShareLifetime" java-attribute="defaultShareLifetime">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+
+				<xml-element name="afterShareGracePeriod"
+					java-attribute="afterShareGracePeriod">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+
+				<xml-element name="transportRequireEncryption"
+					java-attribute="transportRequireEncryption" />
+				<xml-element name="transportRequirePFS" java-attribute="transportRequirePFS" />
+				<xml-element name="transportMinHashBlockSize"
+					java-attribute="transportMinHashBlockSize" />
+				<xml-element name="transportMinKeySize" java-attribute="transportMinKeySize" />
+
+				<xml-element name="role" java-attribute="requireAnyRole">
+					<xml-element-wrapper name="requireAnyRole" />
+				</xml-element>
+
+				<xml-element name="role" java-attribute="disallowRoles">
+					<xml-element-wrapper name="disallowRoles" />
+				</xml-element>
+
+				<xml-element name="minTokenPasswordEntropy"
+					java-attribute="minTokenPasswordEntropy" />
+				<xml-element name="requireTokenPassword" java-attribute="requireTokenPassword" />
+				<xml-element name="noUserTokenPasswords" java-attribute="noUserTokenPasswords" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="FileshareUserLabelRule" xml-accessor-type="NONE">
+
+			<xml-type name="fileshareUserLabelRuleType"
+				factory-class="eu.agno3.fileshare.orch.common.config.ObjectFactory"
+				factory-method="createFileshareUserLabelRule" />
+
+			<xml-root-element name="fileshareUserLabelRule" />
+			<java-attributes>
+				<xml-element name="match" java-attribute="matchRole" />
+				<xml-element name="label" java-attribute="assignLabel" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="FileshareUserConfig" xml-accessor-type="NONE">
+
+			<xml-type name="fileshareUserConfigType"
+				factory-class="eu.agno3.fileshare.orch.common.config.ObjectFactory"
+				factory-method="createFileshareUserConfig" />
+
+			<xml-root-element name="fileshareUserConfig" />
+
+			<java-attributes>
+				<xml-element name="quotaConfig" java-attribute="quotaConfig" />
+				<xml-element name="selfServiceConfig" java-attribute="selfServiceConfig" />
+				<xml-element name="userTrustLevelConfig" java-attribute="userTrustLevelConfig" />
+				<xml-element name="termsConfig" java-attribute="termsConfig" />
+
+				<xml-element name="role" java-attribute="defaultRoles">
+					<xml-element-wrapper name="defaultRoles" />
+				</xml-element>
+
+				<xml-element name="role" java-attribute="noSubjectRootRoles">
+					<xml-element-wrapper name="noSubjectRootRoles" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="FileshareUserQuotaConfig"
+			xml-accessor-type="NONE">
+
+			<xml-type name="fileshareUserQuotaConfigType"
+				factory-class="eu.agno3.fileshare.orch.common.config.ObjectFactory"
+				factory-method="createFileshareUserQuotaConfig" />
+
+			<xml-root-element name="fileshareUserQuotaConfig" />
+			<java-attributes>
+				<xml-element name="rule" java-attribute="defaultQuotaRules">
+					<xml-element-wrapper name="defaultQuotaRules" />
+				</xml-element>
+
+				<xml-element name="enableDefaultQuota" java-attribute="enableDefaultQuota" />
+				<xml-element name="globalDefaultQuota" java-attribute="globalDefaultQuota" />
+				<xml-element name="disableSizeTrackingWithoutQuota"
+					java-attribute="disableSizeTrackingWithoutQuota" />
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="FileshareUserTrustLevelConfig"
+			xml-accessor-type="NONE">
+			<xml-type name="fileshareUserTrustLevelConfigType"
+				factory-class="eu.agno3.fileshare.orch.common.config.ObjectFactory"
+				factory-method="createFileshareUserTrustLevelConfig" />
+
+			<xml-root-element name="fileshareUserTrustLevelConfig" />
+
+			<java-attributes>
+				<xml-element name="groupTrustLevel" java-attribute="groupTrustLevel" />
+				<xml-element name="mailTrustLevel" java-attribute="mailTrustLevel" />
+				<xml-element name="linkTrustLevel" java-attribute="linkTrustLevel" />
+
+				<xml-element name="level" java-attribute="trustLevels">
+					<xml-element-wrapper name="trustLevels" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="FileshareUserTrustLevel" xml-accessor-type="NONE">
+			<xml-type name="fileshareUserTrustLevelType"
+				factory-class="eu.agno3.fileshare.orch.common.config.ObjectFactory"
+				factory-method="createFileshareUserTrustLevel" />
+
+			<xml-root-element name="fileshareUserTrustLevel" />
+
+			<java-attributes>
+				<xml-element name="trustLevelId" java-attribute="trustLevelId" />
+				<xml-element name="title" java-attribute="title" />
+				<xml-element name="color" java-attribute="color" />
+
+				<xml-element name="msg" java-attribute="messages">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.localestr.LocalizedStringAdapter" />
+				</xml-element>
+
+				<xml-element name="match" java-attribute="matchRoles">
+					<xml-element-wrapper name="matchRoles" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="FileshareUserSelfServiceConfig"
+			xml-accessor-type="NONE">
+
+			<xml-type name="fileshareUserSelfServiceConfigType"
+				factory-class="eu.agno3.fileshare.orch.common.config.ObjectFactory"
+				factory-method="createFileshareUserSelfServiceConfig" />
+
+			<xml-root-element name="fileshareUserSelfServiceConfig" />
+
+			<java-attributes>
+
+
+				<xml-element name="registrationEnabled" java-attribute="registrationEnabled" />
+				<xml-element name="registrationUserExpiration"
+					java-attribute="registrationUserExpiration">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+				<xml-element name="registrationUserExpires"
+					java-attribute="registrationUserExpires" />
+				<xml-element name="registrationTokenLifetime"
+					java-attribute="registrationTokenLifetime">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+				<xml-element name="role" java-attribute="registrationUserRoles">
+					<xml-element-wrapper name="registrationUserRoles" />
+				</xml-element>
+
+				<xml-element name="invitationEnabled" java-attribute="invitationEnabled" />
+				<xml-element name="invitationTokenLifetime"
+					java-attribute="invitationTokenLifetime">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+				<xml-element name="invitationUserExpires"
+					java-attribute="invitationUserExpires" />
+				<xml-element name="invitationUserExpiration"
+					java-attribute="invitationUserExpiration">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+				<xml-element name="role" java-attribute="invitationUserRoles">
+					<xml-element-wrapper name="invitationUserRoles" />
+				</xml-element>
+				<xml-element name="trustInvitedUserNames"
+					java-attribute="trustInvitedUserNames" />
+				<xml-element name="allowInvitingUserExtension"
+					java-attribute="allowInvitingUserExtension" />
+
+				<xml-element name="localPasswordRecoveryEnabled"
+					java-attribute="localPasswordRecoveryEnabled" />
+				<xml-element name="passwordRecoveryTokenLifetime"
+					java-attribute="passwordRecoveryTokenLifetime">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+
+
+		<java-type name="FileshareQuotaRule" xml-accessor-type="NONE">
+
+			<xml-type name="fileshareQuotaRuleType"
+				factory-class="eu.agno3.fileshare.orch.common.config.ObjectFactory"
+				factory-method="createFileshareQuotaRule" />
+
+			<xml-root-element name="fileshareQuotaRule" />
+
+			<java-attributes>
+				<xml-element name="matchRole" java-attribute="matchRole" />
+				<xml-element name="quota" java-attribute="quota" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="FileshareAuthConfig" xml-accessor-type="NONE">
+
+			<xml-type name="fileshareAuthConfigType"
+				factory-class="eu.agno3.fileshare.orch.common.config.ObjectFactory"
+				factory-method="createFileshareAuthConfig" />
+
+			<xml-root-element name="fileshareAuthConfig" />
+
+			<java-attributes>
+				<xml-element name="authenticators" java-attribute="authenticators"
+					type="eu.agno3.orchestrator.config.auth.AuthenticatorsConfig" />
+
+				<xml-element name="roles" java-attribute="roleConfig"
+					type="eu.agno3.orchestrator.config.auth.StaticRolesConfig" />
+
+
+				<xml-element name="role" java-attribute="noSynchronizationRoles">
+					<xml-element-wrapper name="noSynchronizationRoles" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="FileshareWebConfig" xml-accessor-type="NONE">
+
+			<xml-type name="fileshareWebConfigType"
+				factory-class="eu.agno3.fileshare.orch.common.config.ObjectFactory"
+				factory-method="createFileshareWebConfig" />
+
+			<xml-root-element name="fileshareWebConfig" />
+
+			<java-attributes>
+				<xml-element name="enableWebDAV" java-attribute="enableWebDAV" />
+				<xml-element name="webDAVAllowSetModificationTime"
+					java-attribute="webDAVAllowSetModificationTime" />
+
+				<xml-element name="themeLibrary" java-attribute="themeLibrary" />
+				<xml-element name="overrideBaseURI" java-attribute="overrideBaseURI">
+					<xml-java-type-adapter
+						value="eu.agno3.orchestrator.types.uri.XmlURIAdapter" />
+				</xml-element>
+
+				<xml-element name="perSessionIncompleteSizeLimitEnabled"
+					java-attribute="perSessionIncompleteSizeLimitEnabled" required="false" />
+
+				<xml-element name="perSessionIncompleteSizeLimit"
+					java-attribute="perSessionIncompleteSizeLimit" />
+				<xml-element name="sessionIncompleteExpireDuration"
+					java-attribute="sessionIncompleteExpireDuration">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+
+				<xml-element name="perUserIncompleteSizeLimitEnabled"
+					java-attribute="perUserIncompleteSizeLimitEnabled" required="false" />
+				<xml-element name="perUserIncompleteSizeLimit"
+					java-attribute="perUserIncompleteSizeLimit" />
+				<xml-element name="userIncompleteExpireDuration"
+					java-attribute="userIncompleteExpireDuration">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+
+				<xml-element name="intentTimeout" java-attribute="intentTimeout">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDurationAdapter" />
+				</xml-element>
+
+
+				<xml-element name="defaultUploadChunkSize"
+					java-attribute="defaultUploadChunkSize" required="false" />
+				<xml-element name="maximumUploadChunkSize"
+					java-attribute="maximumUploadChunkSize" required="false" />
+				<xml-element name="optimalUploadChunkCount"
+					java-attribute="optimalUploadChunkCount" required="false" />
+
+				<xml-element name="webEndpointConfig" java-attribute="webEndpointConfig"
+					type="eu.agno3.orchestrator.config.web.WebEndpointConfig" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="FileshareStorageConfig" xml-accessor-type="NONE">
+
+			<xml-type name="fileshareStorageConfigType"
+				factory-class="eu.agno3.fileshare.orch.common.config.ObjectFactory"
+				factory-method="createFileshareStorageConfig" />
+
+			<xml-root-element name="fileshareStorageConfig" />
+
+			<java-attributes>
+				<xml-element name="localStorage" java-attribute="localStorage" />
+				<xml-element name="fileStorage" java-attribute="fileStorage" />
+
+				<xml-element name="passthroughGroup" java-attribute="passthroughGroups">
+					<xml-element-wrapper name="passtroughGroups" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="FilesharePassthroughGroup"
+			xml-accessor-type="NONE">
+			<xml-type name="filesharePassthroughGroupType" />
+			<xml-root-element name="filesharePassthroughGroup" />
+
+			<java-attributes>
+				<xml-element name="groupName" java-attribute="groupName" />
+				<xml-element name="securityPolicy" java-attribute="securityPolicy" />
+				<xml-element name="allowSharing" java-attribute="allowSharing" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="FileshareCIFSPassthroughGroup"
+			xml-accessor-type="NONE">
+			<xml-type name="fileshareCIFSPassthroughGroupType"
+				factory-class="eu.agno3.fileshare.orch.common.config.ObjectFactory"
+				factory-method="createFileshareCIFSPassthroughGroup" />
+			<xml-root-element name="fileshareCIFSPassthroughGroup" />
+			<java-attributes>
+				<xml-element name="uncPath" java-attribute="uncPath" />
+				<xml-element name="username" java-attribute="username" />
+				<xml-element name="password" java-attribute="password" />
+				<xml-element name="domain" java-attribute="domain" />
+				<xml-element name="authType" java-attribute="authType" />
+				<xml-element name="authRealm" java-attribute="authRealm" />
+				<xml-element name="authKeytab" java-attribute="authKeytab" />
+				<xml-element name="enableSigning" java-attribute="enableSigning" />
+				<xml-element name="allowSMB1" java-attribute="allowSMB1" />
+				<xml-element name="disableSMB2" java-attribute="disableSMB2" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="FileshareAdvancedConfig" xml-accessor-type="NONE">
+
+			<xml-type name="fileshareAdvancedConfigType"
+				factory-class="eu.agno3.fileshare.orch.common.config.ObjectFactory"
+				factory-method="createFileshareAdvancedConfig" />
+
+			<xml-root-element name="fileshareAdvancedConfig" />
+
+			<java-attributes>
+				<xml-element name="runtimeConfiguration" java-attribute="runtimeConfiguration" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="FileshareLoggerConfig" xml-accessor-type="NONE">
+
+			<xml-type name="fileshareLoggerConfigType"
+				factory-class="eu.agno3.fileshare.orch.common.config.ObjectFactory"
+				factory-method="createFileshareLoggerConfig" />
+
+			<xml-root-element name="fileshareLoggerConfig" />
+
+			<java-attributes>
+				<xml-element name="unauth" java-attribute="unauthLoggerConfig" />
+				<xml-element name="default" java-attribute="defaultLoggerConfig" />
+			</java-attributes>
+		</java-type>
+	</java-types>
+
+</xml-bindings>

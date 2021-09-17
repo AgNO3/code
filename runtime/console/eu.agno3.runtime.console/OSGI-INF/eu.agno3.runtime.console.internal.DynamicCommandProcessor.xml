@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" immediate="true" name="eu.agno3.runtime.console.internal.DynamicCommandProcessor">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.console.internal.DynamicCommandProcessor"/>
+        <provide interface="org.apache.felix.service.command.CommandProcessor"/>
+    </service>
+    <reference name="ServiceRegistry" interface="eu.agno3.runtime.console.internal.ServiceRegistry" cardinality="1..1" policy="static" bind="setServiceRegistry" unbind="unsetServiceRegistry"/>
+    <reference name="CommandProvider" interface="eu.agno3.runtime.console.CommandProvider" cardinality="0..n" policy="static" bind="bindCommandProvider" unbind="unbindCommandProvider"/>
+    <implementation class="eu.agno3.runtime.console.internal.DynamicCommandProcessor"/>
+</scr:component>

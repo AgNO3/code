@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="eu.agno3.fileshare.service.internal.CleanupRunner" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.service.internal.CleanupRunner"/>
+    </service>
+    <reference name="ServiceContext" interface="eu.agno3.fileshare.service.api.internal.DefaultServiceContext" cardinality="1..1" policy="static" bind="setServiceContext" unbind="unsetServiceContext"/>
+    <reference name="NotificationService" interface="eu.agno3.fileshare.service.api.internal.NotificationService" cardinality="1..1" policy="static" bind="setNotificationService" unbind="unsetNotificationService"/>
+    <reference name="TokenTracker" interface="eu.agno3.fileshare.service.api.internal.SingleUseTokenService" cardinality="1..1" policy="static" bind="setTokenTracker" unbind="unsetTokenTracker"/>
+    <implementation class="eu.agno3.fileshare.service.internal.CleanupRunner"/>
+</scr:component>

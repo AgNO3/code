@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="validation-feature"
+      label="Validation Feature"
+      version="0.0.44"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <requires>
+      <import feature="deps-hibernate-validator-feature" version="5.3.4.AG1"/>
+   </requires>
+
+   
+   <plugin
+         id="eu.agno3.runtime.validation"
+         download-size="0"
+         install-size="0"
+         version="0.0.44"
+         unpack="false"/>
+         
+
+</feature>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<input type="hidden" name="cid"
+		value="#{configContext.conversation.id}" />
+
+	<p:toolbar id="configToolbar" styleClass="config-toolbar">
+		<f:facet name="left">
+			<ui:insert name="saveActions" />
+
+			<p:outputPanel rendered="#{guiFeatureConfig.showDevTools}"
+				styleClass="indicator dirty-indicator">
+				<span class="ui-icon ui-icon-inline ui-icon-disk" />
+				<h:outputText value="#{_gui['config.unsafedMsg']}" />
+			</p:outputPanel>
+
+			<p:outputPanel rendered="#{guiFeatureConfig.showDevTools and not configContext.abstract}"
+				id="configState"
+				styleClass="config-state-display indicator #{configContext.state}"
+				title="#{structureUtil.translateConfigStateDescription(configContext.state)}">
+				<span
+					class="ui-icon ui-icon-inline #{structureUtil.iconForConfigState(configContext.state)}" />
+				<h:outputText
+					value="#{structureUtil.translateConfigState(configContext.state)}" />
+			</p:outputPanel>
+		</f:facet>
+
+		<f:facet name="right">
+			<p:selectOneMenu id="detailLevelPicker" styleClass="ays-ignore"
+				style="display: inline-block; vertical-align: baseline; margin-top: 2px; width: 8em"
+				value="#{configContext.detailLevel}">
+				<p:ajax event="change" process="@form" update="@form" />
+				<f:selectItems value="#{configContextUtil.detailLevels}" />
+			</p:selectOneMenu>
+			<ag:dialogOpenButton
+				rendered="#{guiFeatureConfig.showDevTools and not empty configContext.current.id}"
+				immediate="true" style="line-height: 1.0;" id="dumpConfigButton"
+				icon="ui-icon-print" closable="true"
+				title="#{_gui['structure.service.config.dump']}"
+				dialog="/config/dump?object=#{configContext.current.id}"
+				returnLabel="#{_gui['structure.service.config.title']}">
+				<p:ajax event="return" />
+			</ag:dialogOpenButton>
+			<ag:dialogOpenButton
+				rendered="#{userPreferences.enableExperimentalFeatures and not empty configContext.current.id}"
+				immediate="true" style="line-height: 1.0;" id="revisionsButton"
+				icon=" ui-icon-clock" closable="true"
+				title="#{_gui['structure.service.config.revisions']}"
+				dialog="/config/revisions?object=#{configContext.current.id}"
+				returnLabel="#{_gui['structure.service.config.title']}">
+				<p:ajax event="return" />
+			</ag:dialogOpenButton>
+			<ag:dialogOpenButton immediate="true" style="line-height: 1.0;"
+				rendered="#{guiFeatureConfig.showDevTools}" id="usageButton"
+				icon="ui-icon-transferthick-e-w" closable="true"
+				title="#{_gui['structure.service.config.usage']}"
+				dialog="/config/usage?object=#{configContext.current.id}"
+				returnLabel="#{_gui['structure.service.config.title']}">
+				<p:ajax event="return" />
+			</ag:dialogOpenButton>
+		</f:facet>
+	</p:toolbar>
+
+
+	<orch:dirtyStateHolder />
+
+	<ui:fragment rendered="#{not configContext.abstract}">
+		<p:remoteCommand name="refreshConfigState"
+			actionListener="#{configContext.refreshState}" update="configState" />
+		<orch:event pattern="/service/#{configContext.anchor.id}/config_state">
+				console.log('Matched an event, refresh configState');
+				refreshConfigState();
+			</orch:event>
+	</ui:fragment>
+
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="#{_gui['general.yes']}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="#{_gui['general.no']}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+	
+	<h:outputScript library="orch" name="changeTrack.js" target="head" />
+	
+	<h:outputScript>
+		// <!--
+		$(document).ready(function() {
+			$('.config-form').bind('dblclick', '.field.simple .inputComponents .inherited-value', function(ev) {
+				$(ev.target).closest('.inherited-value').parent().find('.edit-inherited').click();
+			});
+		}); 
+		// -->	
+	</h:outputScript>
+
+	<p:focus />
+
+	<p:messages autoUpdate="true" showDetail="true" />
+
+</ui:composition>

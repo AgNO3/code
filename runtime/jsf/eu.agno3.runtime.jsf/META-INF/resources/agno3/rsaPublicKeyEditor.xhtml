@@ -1,0 +1,100 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+<composite:interface
+	componentType="eu.agno3.runtime.jsf.components.RSAPublicKeyEditor">
+
+	<composite:attribute name="value" required="false"
+		type="java.security.interfaces.RSAPublicKey" />
+
+	<composite:attribute name="comment" required="false"
+		type="java.lang.String" />
+
+</composite:interface>
+
+<composite:implementation>
+	<input type="hidden" name="#{cc.clientId}_modified" value="#{cc.modified}" />
+	<h:outputFormat style="font-size: 11pt; word-break: break-all"
+		rendered="#{not empty cc.attrs.value and empty cc.attrs.comment}"
+		value="#{_bm.get('pubkeyEditor.outputFormat')}">
+		<f:param value="#{cc.bitLength}" />
+		<f:param value="#{cc.keyType}" />
+		<f:param value="#{cc.fingerprintSHA256}" />
+	</h:outputFormat>
+	<h:outputFormat style="font-size: 11pt; word-break: break-all"
+		rendered="#{not empty cc.attrs.value and not empty cc.attrs.comment}"
+		value="#{_bm.get('pubkeyEditor.outputFormatWithComment')}">
+		<f:param value="#{cc.bitLength}" />
+		<f:param value="#{cc.keyType}" />
+		<f:param value="#{cc.fingerprintSHA256}" />
+		<f:param value="#{cc.attrs.comment}" />
+	</h:outputFormat>
+	<h:outputText rendered="#{empty cc.attrs.value}"
+		value="#{_bm.get('crypto.noKeySelected')}" />
+		&#160;
+		<div style="float: right">
+		<p:commandButton id="changeKeyButton" icon="ui-icon-key"
+			title="#{_bm.get('crypto.changeKey')}" type="button" />
+		<p:overlayPanel style="min-width: 80%; max-width: 80%"
+			id="changePanel" for="changeKeyButton" dismissable="true"
+			my="left top" at="left bottom">
+			<p:panel id="changePanelContents">
+				<p:messages for="@composite" />
+				<p:commandButton rendered="#{not cc.shouldShowUpdate()}"
+					icon="ui-icon-gear" value="#{_bm.get('crypto.chooseOtherKey')}"
+					immediate="true" actionListener="#{cc.chooseOther}"
+					update="changePanelContents" />
+
+				<p:outputPanel rendered="#{cc.shouldShowUpdate()}">
+					<p:inputTextarea
+						style="font-size: 9pt; font-family: monospace; margin: 0;"
+						autoResize="false" id="textInput" rows="10" cols="70"
+						value="#{cc.textInput}" />
+					<br />
+					<p:commandButton icon="ui-icon-check"
+						title="#{_bm.get('crypto.usePastedKey')}"
+						actionListener="#{cc.useTextInput}" process="@this,textInput"
+						update="@parent:@parent" />
+					<p:fileUpload styleClass="small" id="fileUpload" auto="true"
+						fileUploadListener="#{cc.handleFileUpload}"
+						update="@parent:@parent" sizeLimit="100000" />
+				</p:outputPanel>
+
+				<p:outputPanel rendered="#{not cc.shouldShowUpdate()}">
+					<p:separator />
+					<ag:simpleField label="Type" readOnly="true"
+						value="#{cc.keyTypeFormatted}" />
+					<ag:simpleField label="Comment"
+						onlyIf="#{not empty cc.attrs.comment}" readOnly="true"
+						value="#{cc.attrs.comment}" />
+					<ag:simpleField label="Fingerprint (SHA256)" readOnly="true"
+						outputStyle="font-size: 11pt; word-break: break-all; white-space: pre-wrap;"
+						value="#{cc.fingerprintSHA256}" />
+					<ag:simpleField label="Fingerprint (SSH/SHA256)" readOnly="true"
+						outputStyle="font-size: 11pt; word-break: break-all; white-space: pre-wrap;"
+						value="#{cc.fingerprintSHA256SSH}" />
+					<ag:simpleField label="Fingerprint (SSH/MD5)" readOnly="true"
+						outputStyle="font-size: 11pt; word-break: break-all; white-space: pre-wrap;"
+						value="#{cc.fingerprintMD5SSH}" />
+				</p:outputPanel>
+
+				<p:separator />
+
+				<p:commandButton icon="ui-icon-check"
+					title="#{_bm.get('crypto.acceptKey')}" ajax="true" process="@form"
+					update="@form" onclick="$(this).closest('.ui-overlaypanel').hide()" />
+
+				<p:commandButton icon="ui-icon-cancel" immediate="true" ajax="true"
+					title="#{_bm.get('crypto.revertKey')}" process="@this"
+					actionListener="#{cc.resetValue}"
+					onclick="$(this).closest('.ui-overlaypanel').hide()" />
+			</p:panel>
+		</p:overlayPanel>
+	</div>
+</composite:implementation>
+</html>

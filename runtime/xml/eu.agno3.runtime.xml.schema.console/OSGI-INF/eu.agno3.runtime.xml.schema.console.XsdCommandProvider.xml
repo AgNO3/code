@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.xml.schema.console.XsdCommandProvider">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.console.CommandProvider"/>
+    </service>
+    <reference name="SchemaService" interface="eu.agno3.runtime.xml.schema.SchemaService" cardinality="1..1" policy="dynamic" bind="setSchemaService" unbind="unsetSchemaService"/>
+    <reference name="XmlParserFactory" interface="eu.agno3.runtime.xml.XmlParserFactory" cardinality="1..1" policy="static" bind="setXmlParserFactory" unbind="unsetXmlParserFactory"/>
+    <implementation class="eu.agno3.runtime.xml.schema.console.XsdCommandProvider"/>
+</scr:component>

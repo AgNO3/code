@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.messaging.marshalling.internal.EmptyMessageMarshaller">
+    <property name="msgType" value="eu.agno3.runtime.messaging.msg.impl.EmptyMessage"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.messaging.marshalling.MessageMarshaller"/>
+        <provide interface="eu.agno3.runtime.messaging.marshalling.MessageUnmarshaller"/>
+    </service>
+    <reference name="MessageSourceRegistry" interface="eu.agno3.runtime.messaging.addressing.MessageSourceRegistry" cardinality="1..1" policy="static" bind="setMessageSourceRegistry" unbind="unsetMessageSourceRegistry"/>
+    <implementation class="eu.agno3.runtime.messaging.marshalling.internal.EmptyMessageMarshaller"/>
+</scr:component>

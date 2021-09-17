@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<ui:include src="/cfg/hostconfig/storage/mount/base.xhtml">
+		<ui:param name="configContext" value="#{configContext}" />
+		<ui:param name="current" value="#{current}" />
+		<ui:param name="defaults" value="#{defaults}" />
+		<ui:param name="enforced" value="#{enforced}" />
+		<ui:param name="base" value="#{path}" />
+		<ui:param name="isTemplate" value="#{isTemplate}" />
+		<ui:param name="isSubTemplate" value="#{isSubTemplate}" />
+		<ui:param name="readOnly" value="#{readOnly}" />
+		<ui:param name="outerWrapper" value="#{outerWrapper}" />
+	</ui:include>
+
+	<ag:simpleField styleClass="noLabel"
+		onlyIf="#{configContextUtil.isInstance(configContext)}">
+		<ag:dialogOpenButton icon=" ui-icon-search"
+			disabled="#{not configContextUtil.isOnline(configContext)}"
+			dialog="/structure/instance/sysinfo/storage.dialog.xhtml?anchor=#{structureViewContext.selectedAnchorId}&amp;instance=#{configContextUtil.getInstance(configContext).id}"
+			closable="true" value="#{_gui['hardware.storage.pickVolume']}">
+			<p:ajax event="return"
+				listener="#{localDiskReturnListenerProvider.makeLocalReturnListener(outerWrapper).picked}" />
+		</ag:dialogOpenButton>
+	</ag:simpleField>
+
+	<orch:objectFieldEditor inputId="matchLabel" path="matchLabel">
+		<p:inputText id="matchLabel" value="#{current.matchLabel}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="matchUuid" path="matchUuid">
+		<p:inputText id="matchUuid" value="#{current.matchUuid}" />
+	</orch:objectFieldEditor>
+
+</ui:composition>

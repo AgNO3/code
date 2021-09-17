@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+	<p:toolbar id="fileToolbar">
+		<f:facet name="left">
+			<ui:include src="/tpl/resourceLibrary/fileMenu.xhtml">
+				<ui:param name="update"
+					value="${'@form:editor:fileEditor @form:editor'}" />
+			</ui:include>
+		</f:facet>
+	</p:toolbar>
+
+	<p:messages autoUpdate="true" showDetail="true" />
+
+	<p:panelGrid id="editor">
+		<p:row>
+			<p:column>
+				<ui:include src="/tpl/resourceLibrary/defaultFileTree.xhtml">
+					<ui:param name="update"
+						value="${'@form:editor:fileEditor @form:editor:fileToolbar'}" />
+				</ui:include>
+			</p:column>
+
+			<p:column>
+				<p:fieldset legend="#{_fs_orch_msg['library.mail.createNew']}"
+					rendered="#{resourceLibraryFileEditorBean.inCreateMode}">
+
+					<ag:simpleField label="#{_fs_orch_msg['library.mail.type.label']}"
+						description="#{_fs_orch_msg['library.mail.type.description']}"
+						inputId="type">
+						<p:selectOneMenu id="type" required="true"
+							value="#{fs_mailLibraryFileEditorBean.createType}">
+							<f:selectItems value="#{fs_mailLibraryFileEditorBean.types}" />
+						</p:selectOneMenu>
+					</ag:simpleField>
+
+					<ag:simpleField
+						label="#{_fs_orch_msg['library.mail.subtype.label']}"
+						description="#{_fs_orch_msg['library.mail.subtype.description']}"
+						inputId="subtype">
+						<p:selectOneMenu id="subtype" required="true"
+							value="#{fs_mailLibraryFileEditorBean.createSubtype}">
+							<f:selectItems value="#{fs_mailLibraryFileEditorBean.subtypes}" />
+						</p:selectOneMenu>
+					</ag:simpleField>
+
+					<ag:simpleField id="locale"
+						label="#{_fs_orch_msg['library.mail.locale.label']}"
+						description="#{_fs_orch_msg['library.mail.locale.description']}"
+						inputId="locale">
+						<p:selectOneMenu id="locale" filter="true"
+							value="#{fs_mailLibraryFileEditorBean.createLocale}"
+							converter="#{localeConverter}">
+							<f:selectItem
+								itemLabel="#{_fs_orch_msg['library.mail.locale.default']}"
+								noSelectionOption="true" />
+							<f:selectItems value="#{localeModelBean.model}" var="locale"
+								itemValue="#{locale}"
+								itemLabel="#{localeModelBean.getLocaleLabel(locale)}" />
+						</p:selectOneMenu>
+					</ag:simpleField>
+
+					<ui:include src="/tpl/resourceLibrary/createFileCommon.xhtml">
+						<ui:param name="fileEditorBean"
+							value="#{fs_mailLibraryFileEditorBean}" />
+						<ui:param name="mode" value="${'freemarker'}" />
+					</ui:include>
+				</p:fieldset>
+
+				<ui:include src="/tpl/resourceLibrary/textFileEditor.xhtml">
+					<ui:param name="textEditorBean"
+						value="#{fs_mailLibraryFileEditorBean}" />
+					<ui:param name="readonly"
+						value="#{resourceLibraryFileEditorBean.selectedFile.inherited}" />
+				</ui:include>
+			</p:column>
+		</p:row>
+	</p:panelGrid>
+</ui:composition>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.security.ldap.internal.LDAPRealm" configuration-policy="require" activate="activate" modified="modified" configuration-pid="auth.ldap">
+    <service servicefactory="false">
+        <provide interface="org.apache.shiro.realm.Realm"/>
+        <provide interface="eu.agno3.runtime.security.login.LoginRealm"/>
+        <provide interface="org.apache.shiro.realm.AuthorizingRealm"/>
+    </service>
+    <reference name="LDAPClientFactory" interface="eu.agno3.runtime.ldap.client.LDAPClientFactory" cardinality="1..1" policy="static" bind="setLDAPClientFactory" unbind="unsetLDAPClientFactory"/>
+    <reference name="UserMapper" interface="eu.agno3.runtime.security.UserMapper" cardinality="1..1" policy="static" bind="setUserMapper" unbind="unsetUserMapper"/>
+    <reference name="PermissionMapper" interface="eu.agno3.runtime.security.PermissionMapper" cardinality="1..1" policy="static" bind="setPermissionMapper" unbind="unsetPermissionMapper"/>
+    <reference name="PasswordPolicy" interface="eu.agno3.runtime.security.password.PasswordPolicyChecker" cardinality="1..1" policy="static" bind="setPasswordPolicy" unbind="unsetPasswordPolicy"/>
+    <implementation class="eu.agno3.runtime.security.ldap.internal.LDAPRealm"/>
+</scr:component>

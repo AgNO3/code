@@ -1,0 +1,133 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>eu.agno3</groupId>
+		<artifactId>project-parent</artifactId>
+		<version>0.0.46</version>
+		<relativePath />
+	</parent>
+	<artifactId>runtime-parent</artifactId>
+	<packaging>pom</packaging>
+	<groupId>eu.agno3.runtime</groupId>
+	<name>Runtime Parent POM</name>
+	<version>0.1.254</version>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<extensions>true</extensions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-p2-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>p2-metadata</id>
+						<goals>
+							<goal>p2-metadata</goal>
+						<goal>update-local-index</goal>
+						</goals>
+						<phase>package</phase>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<configuration>
+					<executionEnvironment>JavaSE-1.8</executionEnvironment>
+					<target>
+						<artifact>
+							<groupId>eu.agno3.runtime</groupId>
+							<artifactId>runtime-target-platform</artifactId>
+							<version>0.1.254</version>
+						</artifact>
+					</target>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-source-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<configuration>
+					<providerHint>junit47</providerHint>
+					<bundleStartLevel combine.children="append">
+
+						<bundle>
+							<id>org.apache.cxf.cxf-api</id>
+							<level>2</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>org.apache.cxf.cxf-rt-core</id>
+							<level>2</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>org.apache.cxf.cxf-rt-databinding-jaxb</id>
+							<level>2</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>org.apache.cxf.cxf-rt-bindings-soap</id>
+							<level>2</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>org.apache.cxf.cxf-rt-transports-http</id>
+							<level>2</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>org.apache.cxf.cxf-rt-bindings-xml</id>
+							<level>2</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>org.apache.cxf.cxf-rt-frontend-jaxws</id>
+							<level>2</level>
+							<autoStart>true</autoStart>
+						</bundle>
+
+						<bundle>
+							<id>org.apache.cxf.cxf-rt-frontend-simple</id>
+							<level>2</level>
+							<autoStart>true</autoStart>
+						</bundle>
+					</bundleStartLevel>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-scr-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>xml-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>

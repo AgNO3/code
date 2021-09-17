@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.agent.connector.internal.AgentEventRouterManager">
+    <property name="service.ranking" type="Integer" value="2147483647"/>
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.messaging.routing.EventRouterManager"/>
+    </service>
+    <reference name="ComponentConfig" interface="eu.agno3.orchestrator.agent.config.AgentConfig" cardinality="0..1" policy="dynamic" bind="setComponentConfig" unbind="unsetComponentConfig"/>
+    <implementation class="eu.agno3.orchestrator.agent.connector.internal.AgentEventRouterManager"/>
+</scr:component>

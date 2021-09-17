@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="eu.agno3.runtime.xml.binding.internal.BindingBundleTracker" activate="activate" deactivate="deactivate">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.xml.binding.JAXBContextProvider"/>
+    </service>
+    <reference name="Listener" interface="org.eclipse.persistence.sessions.SessionEventListener" cardinality="0..n" policy="dynamic" bind="bindListener" unbind="unbindListener"/>
+    <reference name="EventAdmin" interface="org.osgi.service.event.EventAdmin" cardinality="1..1" policy="static" bind="setEventAdmin" unbind="unsetEventAdmin"/>
+    <reference name="ValidationConfig" interface="eu.agno3.runtime.xml.schema.SchemaValidationConfig" cardinality="1..1" policy="static" bind="setValidationConfig" unbind="unsetValidationConfig"/>
+    <reference name="SchemaService" interface="eu.agno3.runtime.xml.schema.SchemaService" cardinality="1..1" policy="static" bind="setSchemaService" unbind="unsetSchemaService"/>
+    <implementation class="eu.agno3.runtime.xml.binding.internal.BindingBundleTracker"/>
+</scr:component>

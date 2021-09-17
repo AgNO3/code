@@ -1,0 +1,19 @@
+Bundle-SymbolicName: eu.agno3.runtime.messaging.xml.test.messages
+Bundle-Version: 0.0.124
+Bundle-Name: Messaging XML Marshalling Test Messages
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.runtime.messaging;version="0.0.12",
+ eu.agno3.runtime.messaging.addressing;version="0.0.12",
+ eu.agno3.runtime.messaging.addressing.scopes;version="0.0.12",
+ eu.agno3.runtime.messaging.listener;version="0.0.12",
+ eu.agno3.runtime.messaging.msg;version="0.0.12",
+ eu.agno3.runtime.messaging.msg.impl;version="0.0.12",
+ eu.agno3.runtime.messaging.xml;version="0.0.10",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ eu.agno3.runtime.messaging.xml.adapter;version="0.0.12"
+Export-Package: eu.agno3.runtime.messaging.xml.test.messages.msg;version="0.0.124"
+Service-Component: OSGI-INF/*.xml
+Require-Bundle: org.eclipse.jdt.annotation

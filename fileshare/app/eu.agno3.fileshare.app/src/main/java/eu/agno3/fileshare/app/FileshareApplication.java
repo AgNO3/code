@@ -1,0 +1,41 @@
+/**
+ * © 2013 AgNO3 Gmbh & Co. KG
+ * All right reserved.
+ * 
+ * Created: 05.06.2013 by mbechler
+ */
+package eu.agno3.fileshare.app;
+
+
+import org.eclipse.equinox.app.IApplication;
+import org.eclipse.equinox.app.IApplicationContext;
+
+
+/**
+ * @author mbechler
+ * 
+ */
+public class FileshareApplication implements IApplication {
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.eclipse.equinox.app.IApplication#start(org.eclipse.equinox.app.IApplicationContext)
+     */
+    @Override
+    public Object start ( IApplicationContext context ) {
+        return null;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @see org.eclipse.equinox.app.IApplication#stop()
+     */
+    @Override
+    public void stop () {
+        // nothing here
+    }
+
+}

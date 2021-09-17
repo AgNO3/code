@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<h:outputScript library="agno3" name="library.js" target="head" />
+	<h:outputScript name="jsf.js" library="javax.faces" target="head" />
+
+	<p:ajaxExceptionHandler
+		type="javax.faces.application.ViewExpiredException"
+		update="expiredDialog"
+		onexception="PF('expiredDialog').show(); PF('pinger') ? PF('pinger').stop() : true;" />
+
+	<p:ajaxExceptionHandler
+		type="javax.enterprise.context.NonexistentConversationException"
+		update="expiredDialog"
+		onexception="PF('expiredDialog').show(); PF('pinger') ? PF('pinger').stop() : true;" />
+
+
+	<noscript>
+		<div class="jsUnvailable">
+			<div class="background"></div>
+			<div class="content">
+				<h:outputText value="#{_msgs['error.noJSmessage']}" />
+			</div>
+		</div>
+	</noscript>
+
+	<p:dialog id="expiredDialog"
+		header="#{_msgs['errors.viewExpiredTitle']}" widgetVar="expiredDialog"
+		height="200px">
+
+		<p>
+			<h:outputText value="#{_msgs['errors.viewExpiredMessage']}" />
+		</p>
+
+		<p:link rendered="#{not dialog.inDialog()}"
+			href="#{uriUtil.getSavedFullRequestWithoutConversation()}"
+			value="#{_msgs['errors.reloadPage']}" />
+	</p:dialog>
+</ui:composition>

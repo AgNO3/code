@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectEditor objectType="urn:agno3:objects:1.0:auth:collection"
+		context="#{configContext}" path="authenticatorsConfig"
+		subTemplate="#{isTemplate}" readOnly="#{isReadOnly}">
+		<f:param name="hideDisableLocalAuth" value="#{true}" />
+		<f:param name="hideInsecureAuth" value="#{true}" />
+		<f:param name="overrideInnerEditorTemplate"
+			value="${orch_authenticationConfigBean.getInnerEditorTemplate(configContext)}" />
+	</orch:objectEditor>
+
+
+
+	<orch:objectEditor objectType="urn:agno3:objects:1.0:auth:roles"
+		minLevel="3" context="#{configContext}" path="roleConfig"
+		subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+
+</ui:composition>

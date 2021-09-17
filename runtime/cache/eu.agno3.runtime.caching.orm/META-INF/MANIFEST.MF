@@ -1,0 +1,37 @@
+Bundle-SymbolicName: eu.agno3.runtime.caching.orm
+Bundle-Version: 0.0.24
+Bundle-Name: Runtime Caching for ORM
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.runtime.util.classloading;version="0.0.8",
+ eu.agno3.runtime.caching;version="0.0.2",
+ eu.agno3.runtime.caching.internal;version="0.0.2",
+ eu.agno3.runtime.transaction;version="0.0.8",
+ javax.transaction;version="1.1.0",
+ javax.transaction.xa;version="1.1.0",
+ net.sf.ehcache;version="2.6.9.AG1",
+ net.sf.ehcache.bootstrap;version="2.6.9.AG1",
+ net.sf.ehcache.config;version="2.6.9.AG1",
+ net.sf.ehcache.constructs.classloader;version="2.8.3.AG1",
+ net.sf.ehcache.transaction.manager;version="2.8.3.AG1",
+ net.sf.ehcache.transaction.xa;version="2.8.3.AG1",
+ org.apache.commons.lang3;version="3.1.0",
+ org.apache.log4j;version="1.2.15",
+ org.hibernate.cache;version="5.2.0.Final",
+ org.hibernate.cache.ehcache;version="5.2.0.Final",
+ org.hibernate.cache.ehcache.internal.nonstop;version="5.2.0.Final",
+ org.hibernate.cache.ehcache.internal.regions;version="5.2.0.Final",
+ org.hibernate.cache.ehcache.internal.strategy;version="5.2.0.Final",
+ org.hibernate.cache.ehcache.internal.util;version="5.2.0.Final",
+ org.hibernate.cache.ehcache.management.impl;version="5.2.0.Final",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.framework.wiring;version="1.2.0",
+ org.osgi.service.component;version="1.2.2",
+ org.osgi.service.component.annotations;version="1.2.0"
+Service-Component: OSGI-INF/*.xml
+Require-Bundle: org.hibernate.common.hibernate-commons-annotations;bundle-version="[5.0.0,5.1)",
+ org.hibernate.core;bundle-version="[5.2.0,6.0.0)",
+ eu.agno3.dependencies.envers-api;bundle-version="[5.2.0,6.0.0)",
+ eu.agno3.dependencies.envers-impl;bundle-version="[5.2.0,6.0.0)",
+ org.hibernate.javax.persistence.hibernate-jpa-2.1-api;bundle-version="1.0.0"

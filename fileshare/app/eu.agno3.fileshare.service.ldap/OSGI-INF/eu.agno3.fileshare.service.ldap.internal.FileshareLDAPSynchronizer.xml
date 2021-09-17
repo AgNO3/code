@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" immediate="true" name="eu.agno3.fileshare.service.ldap.internal.FileshareLDAPSynchronizer" configuration-policy="require" activate="activate" deactivate="deactivate" modified="modified" configuration-pid="ldap.sync">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.fileshare.service.ldap.internal.FileshareLDAPSynchronizer"/>
+    </service>
+    <reference name="LDAPUserSynchronizer" interface="eu.agno3.runtime.security.ldap.LDAPUserSynchronizer" cardinality="1..1" policy="static" bind="setLDAPUserSynchronizer" unbind="unsetLDAPUserSynchronizer"/>
+    <reference name="ServiceContext" interface="eu.agno3.fileshare.service.api.internal.DefaultServiceContext" cardinality="1..1" policy="static" bind="setServiceContext" unbind="unsetServiceContext"/>
+    <reference name="UserMapper" interface="eu.agno3.runtime.security.UserMapper" cardinality="1..1" policy="static" bind="setUserMapper" unbind="unsetUserMapper"/>
+    <reference name="LdapClientFactory" interface="eu.agno3.runtime.ldap.client.LDAPClientFactory" cardinality="1..1" policy="static" bind="setLdapClientFactory" unbind="unsetLdapClientFactory"/>
+    <reference name="UserService" interface="eu.agno3.fileshare.service.api.internal.UserServiceInternal" cardinality="1..1" policy="static" bind="setUserService" unbind="unsetUserService"/>
+    <reference name="GroupService" interface="eu.agno3.fileshare.service.api.internal.GroupServiceInternal" cardinality="1..1" policy="static" bind="setGroupService" unbind="unsetGroupService"/>
+    <reference name="LDAPConfigFactory" interface="eu.agno3.runtime.security.ldap.LDAPRealmConfigFactory" cardinality="1..1" policy="static" bind="setLDAPConfigFactory" unbind="unsetLDAPConfigFactory"/>
+    <reference name="UserConfiguration" interface="eu.agno3.fileshare.service.config.UserConfiguration" cardinality="1..1" policy="static" bind="setUserConfiguration" unbind="unsetUserConfiguration" updated="updatedUserConfiguration"/>
+    <reference name="QuotaConfiguration" interface="eu.agno3.fileshare.service.config.QuotaConfiguration" cardinality="1..1" policy="static" bind="setQuotaConfiguration" unbind="unsetQuotaConfiguration" updated="updatedQuotaConfiguration"/>
+    <reference name="SecurityPolicyConfiguration" interface="eu.agno3.fileshare.service.config.SecurityPolicyConfiguration" cardinality="1..1" policy="static" bind="setSecurityPolicyConfiguration" unbind="unsetSecurityPolicyConfiguration" updated="updatedSecurityPolicyConfiguration"/>
+    <implementation class="eu.agno3.fileshare.service.ldap.internal.FileshareLDAPSynchronizer"/>
+</scr:component>

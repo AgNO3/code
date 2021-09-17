@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:fs="http://agno3.eu/ns/jsf/fileshare/taglib/1.0"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="/tpl/common/dialog.xhtml">
+
+	<ui:param name="title"
+		value="#{msgs.formatEL('actions.share.titleFmt',fileDisplayBean.getLocalDisplayName(shareEntitySelection.singleSelection))}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="entity"
+				value="#{urlFileSelectionBean.encodedSingleSelection}"
+				required="false" />
+			<f:viewParam name="tab" value="#{shareTabsBean.tab}" required="false" />
+			<f:viewParam name="peer" value="#{shareTabsBean.peer}"
+				required="false" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form" method="POST" enctype="multipart/form-data">
+			<ag:dialogContextHolder />
+
+			<p:hotkey bind="esc" action="#{dialog.close}" immediate="true" />
+			<h:outputScript library="fileshare" name="fileshare.js" />
+
+			<ag:dialogCrumps />
+
+			<div class="breadcrumbs">
+				<p:breadCrumb id="pathDisplay" styleClass="root-display"
+					homeDisplay="text" model="#{shareFilePathBreadcrumbBean.model}" />
+			</div>
+
+
+
+			<p:fieldset id="topContainer" styleClass="func-unit shares-table">
+				<f:facet name="legend">
+					<h:outputText
+						rendered="#{not empty urlFileSelectionBean.singleSelection}"
+						value="#{_msgs['actions.share.sharedWith.title']}" />
+					<h:outputText
+						rendered="#{empty urlFileSelectionBean.singleSelection or not empty ownedEntityPicker.selection}"
+						value="#{_msgs['actions.share.sharePick.title']}" />
+				</f:facet>
+				<p:outputPanel id="shares"
+					rendered="#{not empty urlFileSelectionBean.singleSelection}">
+					<fs:sharesDisplay grants="#{fileSharesBean.allEffectiveGrants}"
+						legend="#{_msgs['actions.share.sharedWith.title']}"
+						emptyMessage="#{_msgs['actions.share.sharedWith.empty']}"
+						inheritedDialogPrefix="/actions/share.xhtml?tab=#{shareTabsBean.tab}"
+						returnLabel="#{msgs.formatEL('actions.share.titleFmt',fileDisplayBean.getLocalDisplayName(shareEntitySelection.singleSelection))}"
+						localEntity="#{shareEntitySelection.singleSelection}">
+					</fs:sharesDisplay>
+				</p:outputPanel>
+
+				<p:fieldset id="toShare"
+					rendered="#{empty urlFileSelectionBean.singleSelection or not empty ownedEntityPicker.selection}">
+					<ag:simpleField
+						label="#{_msgs['actions.share.sharePick.entity.label']}"
+						description="#{_msgs['actions.share.sharePick.entity.description']}">
+						<fs:picker picker="#{ownedEntityPicker}"
+							update="@composite:@parent:@composite:@parent:shareMenuPanel:shareMenuPanelContent 
+								@composite:@parent:@composite:@parent:sharePanel 
+								@composite:@parent:@composite:@parent:share-menu
+								@composite:@parent:@composite:@parent:shareMenuPanel" />
+					</ag:simpleField>
+				</p:fieldset>
+
+
+				<p:outputPanel id="share-menu" styleClass="func-unit-buttons">
+					<p:link href="#" styleClass="shrbutton button ui-button ui-widget"
+						id="shareButton" onclick="return false;"
+						disabled="#{not empty shareTabsBean.tab or empty shareEntitySelection.singleSelection or not (currentUserBean.hasAnyPermission('share:subjects','share:url','share:mail') or sharePolicyBean.mayShareAny(shareEntitySelection.singleSelection))}">
+						<span class="ui-icon ui-icon-inline ui-icon-share" />
+						<h:outputText value="#{_msgs['share.button.label']}" />
+						<span class="ui-icon ui-icon-triangle-1-s ui-icon-inline" />
+					</p:link>
+
+					<p:overlayPanel id="shareMenuPanel"
+						rendered="#{empty shareTabsBean.tab and ((currentUserBean.hasAnyPermission('share:subjects','share:url','share:mail') or sharePolicyBean.mayShareAny(shareEntitySelection.singleSelection)))}"
+						widgetVar="shareMenu" for="shareButton" styleClass="overlay-menu">
+						<p:panel id="shareMenuPanelContent" style="width: 24em">
+							<div
+								class="ui-menu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix"
+								pass:role="menu">
+								<div class="ui-helper-hidden-accessible" pass:tabindex="0"></div>
+								<ul class="ui-menu-list ui-helper-reset">
+									<li class="ui-menuitem ui-widget" pass:role="menuitem"><p:commandLink
+											rendered="#{currentUserBean.hasPermission('share:subjects') and sharePolicyBean.mayShareToSubjects(shareEntitySelection.singleSelection)}"
+											styleClass="ui-menuitem-link ui-corner-all hover-shade-background"
+											onstart="PF('shareMenu').hide()"
+											action="#{shareTabsBean.subject()}"
+											update="sharePanel share-menu">
+											<span
+												class="ui-menuitem-icon ui-icon ui-icon-inline ui-icon-person" />
+											<span class="ui-menuitem-text"><h:outputText
+													value="#{_msgs['share.subjectShare.menuLabel']}" /></span>
+										</p:commandLink></li>
+									<li class="ui-menuitem ui-widget" pass:role="menuitem"><p:commandLink
+											rendered="#{currentUserBean.hasPermission('share:mail') and sharePolicyBean.mayShareByMail(shareEntitySelection.singleSelection)}"
+											styleClass="ui-menuitem-link ui-corner-all hover-shade-background"
+											onstart="PF('shareMenu').hide()"
+											action="#{shareTabsBean.mail()}"
+											update="sharePanel share-menu">
+											<span
+												class="ui-menuitem-icon ui-icon ui-icon-inline ui-icon-mail-closed" />
+											<span class="ui-menuitem-text"><h:outputText
+													value="#{_msgs['share.mailShare.menuLabel']}" /></span>
+										</p:commandLink></li>
+
+									<li class="ui-menuitem ui-widget" pass:role="menuitem"><p:commandLink
+											rendered="#{currentUserBean.hasPermission('share:url') and sharePolicyBean.mayShareByLink(shareEntitySelection.singleSelection)}"
+											styleClass="ui-menuitem-link ui-corner-all hover-shade-background"
+											onstart="PF('shareMenu').hide()"
+											action="#{shareTabsBean.link()}"
+											update="sharePanel share-menu">
+											<span
+												class="ui-menuitem-icon ui-icon ui-icon-inline ui-icon-link" />
+											<span class="ui-menuitem-text"><h:outputText
+													value="#{_msgs['share.linkShare.menuLabel']}" /></span>
+										</p:commandLink></li>
+								</ul>
+							</div>
+						</p:panel>
+					</p:overlayPanel>
+				</p:outputPanel>
+			</p:fieldset>
+
+
+			<p:messages autoUpdate="true" showDetail="true" />
+
+			<p:outputPanel id="throttleDelay"
+				styleClass="throttle-display ui-messages ui-widget">
+				<p:outputPanel styleClass="ui-messages-fatal"
+					rendered="#{not empty shareThrottleBean.throttleDelay}">
+
+					<span class="ui-messages-fatal-icon" />
+					<span class="ui-messages-fatal-summary"> <h:outputText
+							value="#{_msgs['actions.share.notifyThrottleMsgStart']}" /> <h:outputText
+							styleClass="remain-throttle"
+							value="#{shareThrottleBean.throttleDelay}" /> <h:outputText
+							value="#{_msgs['actions.share.notifyThrottleMsgEnd']}" />
+					</span>
+
+					<pe:timer visible="false" immediate="true"
+						timeout="#{shareThrottleBean.throttleDelay}"
+						ontimerstep="$('.throttle-display').find('.remain-throttle').text(intervalData.current + ' '); "
+						ontimercomplete="$('.throttle-display').hide()"
+						listener="#{shareThrottleBean.throttleComplete()}" process="@this"
+						update="throttleDelay" />
+				</p:outputPanel>
+			</p:outputPanel>
+
+			<p:outputPanel id="sharePanel">
+				<p:outputPanel
+					rendered="#{(not empty shareTabsBean.peer or sharePolicyBean.mayShareToSubjects(shareEntitySelection.singleSelection)) and shareTabsBean.tab == 'subject'}"
+					id="subjectShares">
+
+					<p:focus />
+
+					<p:fieldset id="shareTo"
+						legend="#{_msgs['actions.share.subject.title']}"
+						styleClass="shr-panel func-unit">
+
+
+						<fs:commonShareProps
+							entity="#{shareEntitySelection.singleSelection}"
+							targetId="subjectAddSelector"
+							targetLabel="#{_msgs['actions.share.subject.subject.label']}"
+							shareBean="#{subjectShareBean}">
+							<f:facet name="shareTarget">
+								<p:autoComplete id="subjectAddSelector"
+									style="margin: 0; display: inline-block"
+									styleClass="subject-share-select"
+									widgetVar="subjectAddSelector"
+									binding="#{shareSubjectAutocompleteBean.component}"
+									value="#{subjectShareBean.shareTo}"
+									completeMethod="#{subjectShareBean.completeSubjects}"
+									converter="#{subjectQueryResultConverter}" maxResults="25"
+									dropdown="true" var="subject" itemValue="#{subject}"
+									itemLabel="#{subjectDisplayBean.getSubjectDisplayName(subject)}"
+									groupBy="#{userTrustBean.getDisplayTrustLevelTitle(subject)}"
+									emptyMessage="#{_msgs['actions.share.subject.noUsers']}">
+
+									<p:ajax event="itemSelect"
+										update="@composite:@parent:userInfo @composite:@parent:shareSubjectButton" />
+
+									<f:facet name="itemtip">
+										<fs:userDetails noCheckPerm="true" for="subjectEntry"
+											deferred="false" subject="#{subject}" />
+									</f:facet>
+
+									<p:column>
+										<span
+											class="ui-icon #{userTrustBean.getNameIconClass(subject)} ui-icon-inline" />
+										<h:outputText id="userName"
+											styleClass="username-display #{userTrustBean.getNameDisplayClass(subject)}"
+											style="color: #{userTrustBean.getDisplayTrustLevelColor(subject)}"
+											value="#{subjectDisplayBean.getSubjectDisplayNameOnly(subject)}" />
+									</p:column>
+								</p:autoComplete>
+								<ag:dialogOpenButton styleClass="action-link invite"
+									style="display: inline-block; margin-left: 2.4em"
+									rendered="#{registrationBean.isInvitationEnabled() and currentUserBean.hasPermission('user:inviteUser')}"
+									returnLabel="#{msgs.formatEL('actions.share.titleFmt',fileDisplayBean.getLocalDisplayName(shareEntitySelection.singleSelection))}"
+									closable="true" icon="ui-icon-person"
+									title="#{_msgs['actions.share.subject.inviteUser']}"
+									dialog="/actions/inviteUser.xhtml">
+
+									<p:ajax event="return" update="subjectAddSelector"
+										listener="#{subjectShareBean.invitedReturn}" />
+
+								</ag:dialogOpenButton>
+							</f:facet>
+						</fs:commonShareProps>
+
+
+						<p:outputPanel id="userInfo">
+							<p:outputPanel rendered="#{not empty subjectShareBean.shareTo}">
+								<ag:simpleField
+									label="#{_msgs['actions.share.classification.label']}"
+									description="#{_msgs['actions.share.classification.description']}">
+									<h:outputText
+										style="display: inline-block; color: #{userTrustBean.getDisplayTrustLevelColor(subjectShareBean.shareTo)}"
+										value="#{userTrustBean.getDisplayTrustLevelMessage(subjectShareBean.shareTo)}" />
+
+									<p:commandLink
+										rendered="#{subjectDisplayBean.isUser(subjectShareBean.shareTo)}"
+										id="userInfoIcon" style="margin-left: 0.6em"
+										styleClass="ui-icon ui-icon-info ui-icon-inline" />
+									<fs:userDetailTooltip noCheckPerm="true"
+										rendered="#{subjectDisplayBean.isUser(subjectShareBean.shareTo)}"
+										for="userInfoIcon" subject="#{subjectShareBean.shareTo}" />
+								</ag:simpleField>
+
+								<p:outputPanel
+									rendered="#{subjectShareBean.canSendNotification}">
+
+									<ag:simpleField
+										label="#{_msgs['actions.share.subject.sendNotification.label']}"
+										description="#{_msgs['actions.share.subject.sendNotification.description']}"
+										inputId="sendNotification">
+										<p:selectBooleanCheckbox id="sendNotification"
+											value="#{subjectShareBean.sendNotification}">
+											<p:ajax event="change" update="@composite:@parent" />
+										</p:selectBooleanCheckbox>
+									</ag:simpleField>
+
+
+									<ag:simpleField
+										label="#{_msgs['actions.share.notificationSubject.label']}"
+										description="#{_msgs['actions.share.notificationSubject.description']}"
+										inputId="notificationSubject"
+										onlyIf="#{subjectShareBean.sendNotification}">
+										<p:inputText id="notificationSubject" style="width: 80%"
+											value="#{subjectShareBean.subject}" />
+									</ag:simpleField>
+
+									<ag:simpleField id="subjectMessageField" inputId="message"
+										label="#{_msgs['actions.share.notificationMessage.label']}"
+										description="#{_msgs['actions.share.notificationMessage.description']}"
+										onlyIf="#{subjectShareBean.sendNotification}">
+										<p:outputPanel>
+
+											<p:inputTextarea id="message" cols="60" rows="5"
+												style="width: 80%"
+												rendered="#{not subjectShareBean.inPreview or empty subjectShareBean.messagePreview}"
+												value="#{subjectShareBean.message}" />
+
+
+											<p:outputPanel id="previewPanel" style="width: 100%"
+												rendered="#{subjectShareBean.inPreview and not empty subjectShareBean.messagePreview}">
+												<p:outputPanel id="mailPreview" style="width: 100%">
+													<iframe
+														style="border: 1px solid rgb(200, 200, 200); width: 80%; height: 14em"
+														jsf:id="subjectPreviewFrame" pass:sandbox=""
+														pass:srcdoc="#{mailPreviewBean.getBody(subjectShareBean.messagePreview)}" />
+												</p:outputPanel>
+											</p:outputPanel>
+
+											<p:commandButton update="@parent" id="previewLink"
+												style="display: block" icon="ui-icon-search"
+												value="#{_msgs['actions.share.notificationMessage.preview']}"
+												rendered="#{not subjectShareBean.inPreview  or empty subjectShareBean.messagePreview}"
+												action="#{shareController.generateSubjectPreview(shareEntitySelection.singleSelection, subjectShareBean)}" />
+
+											<p:outputPanel style="display: block"
+												rendered="#{subjectShareBean.inPreview and not empty subjectShareBean.messagePreview}">
+												<p:commandButton update="@parent:@parent" id="editLink"
+													icon="ui-icon-pencil"
+													value="#{_msgs['actions.share.notificationMessage.closePreview']}"
+													action="#{shareController.closeSubjectPreview(subjectShareBean)}" />
+
+												<h:outputText
+													value="#{_msgs['actions.share.notificationMessage.previewLinkMsg']}" />
+											</p:outputPanel>
+
+										</p:outputPanel>
+									</ag:simpleField>
+								</p:outputPanel>
+							</p:outputPanel>
+						</p:outputPanel>
+
+						<div class="grant-buttons func-unit-buttons">
+							<p:commandButton id="shareSubjectButton"
+								disabled="#{empty shareEntitySelection.singleSelection or userTrustBean.isUnclassifiedSubject(subjectShareBean.shareTo)}"
+								action="#{shareController.shareEntityToSubjects(shareEntitySelection.singleSelection, subjectShareBean)}"
+								value="#{_msgs['actions.share.subject.confirm']}"
+								icon="ui-icon-person"
+								update="subjectShares topContainer share-menu throttleDelay" />
+							<p:commandButton action="#{shareTabsBean.cancel()}"
+								value="#{_msgs['actions.share.subject.cancel']}"
+								icon="ui-icon-cancel" update="sharePanel share-menu" />
+						</div>
+					</p:fieldset>
+				</p:outputPanel>
+
+
+				<p:outputPanel
+					rendered="#{(not empty shareTabsBean.peer or sharePolicyBean.mayShareByMail(shareEntitySelection.singleSelection)) and shareTabsBean.tab == 'mail'}"
+					id="mailShares">
+
+					<p:focus />
+
+					<p:fieldset id="shareToMail"
+						legend="#{_msgs['actions.share.mail.title']}"
+						styleClass="shr-panel func-unit">
+
+
+						<fs:commonShareProps
+							entity="#{shareEntitySelection.singleSelection}"
+							shareBean="#{mailShareBean}"
+							targetLabel="#{_msgs['actions.share.mail.mailAddress.label']}"
+							targetId="mailAddress">
+							<f:facet name="shareTarget">
+								<p:autoComplete id="mailAddress"
+									style="margin: 0; box-sizing: border-box; -webkit-box-sizing: border-box;-moz-box-sizing: border-box; width: 100%"
+									completeMethod="#{shareController.completeMailAddress}"
+									maxResults="5" minQueryLength="3" cache="true"
+									value="#{mailShareBean.shareMailAddress}" />
+							</f:facet>
+						</fs:commonShareProps>
+
+						<ag:simpleField
+							label="#{_msgs['actions.share.classification.label']}"
+							description="#{_msgs['actions.share.classification.description']}">
+							<h:outputText
+								style="display: inline-block; color: #{userTrustBean.getDisplayMailTrustLevelColor(mailShareBean.shareMailAddress)}"
+								value="#{userTrustBean.getDisplayMailTrustLevelMessage(mailShareBean.shareMailAddress)}" />
+						</ag:simpleField>
+
+						<ag:simpleField
+							label="#{_msgs['actions.share.passwordProtection.label']}"
+							description="#{_msgs['actions.share.passwordProtection.description']}">
+							<p:outputPanel styleClass="password-protect"
+								rendered="#{not mailShareBean.passwordProtected}">
+								<h:outputText
+									value="#{_msgs['actions.share.passwordProtection.disabled']}" />
+
+								<p:commandButton icon="ui-icon-key"
+									action="#{shareController.enablePasswordProtection(mailShareBean)}"
+									update="@parent:@parent"
+									value="#{_msgs['actions.share.passwordProtection.enable']}" />
+							</p:outputPanel>
+							<p:outputPanel styleClass="password-protect"
+								rendered="#{mailShareBean.passwordProtected}">
+								<p:inputText id="password" value="#{mailShareBean.password}"
+									readonly="#{mailShareBean.noUserPassword()}"
+									onchange="updateEntropyEstimate()"
+									onkeyup="updateEntropyEstimate()" />
+
+								<p:remoteCommand autoRun="false" delay="500"
+									name="updateEntropyEstimate"
+									actionListener="#{mailShareBean.onPasswordChange}"
+									process="password" update="entropyEstimator:output" />
+
+								<ag:passwordEntropy id="entropyEstimator" for="password"
+									rendered="#{not mailShareBean.noUserPassword()}"
+									entropyLowerLimit="#{mailShareBean.policy.minTokenPasswordEntropy}"
+									entropy="#{mailShareBean.estimatedEntropy}" />
+
+								<p:commandButton style="display: inline-block"
+									icon="ui-icon-closethick"
+									rendered="#{not mailShareBean.isRequirePassword()}"
+									action="#{shareController.disablePasswordProtection(mailShareBean)}"
+									update="@parent:@parent"
+									value="#{_msgs['actions.share.passwordProtection.disable']}" />
+
+								<p:commandButton style="display: inline-block"
+									icon="ui-icon-key"
+									action="#{shareController.enablePasswordProtection(mailShareBean)}"
+									update="@parent:@parent"
+									value="#{_msgs['actions.share.passwordProtection.regeneratePassword']}" />
+							</p:outputPanel>
+						</ag:simpleField>
+
+						<ag:simpleField
+							label="#{_msgs['actions.share.notificationSubject.label']}"
+							description="#{_msgs['actions.share.notificationSubject.description']}">
+							<p:inputText style="width: 80%" value="#{mailShareBean.subject}" />
+						</ag:simpleField>
+
+						<ag:simpleField id="mailMessageField" inputId="message"
+							label="#{_msgs['actions.share.notificationMessage.label']}"
+							description="#{_msgs['actions.share.notificationMessage.description']}">
+							<p:outputPanel>
+								<p:inputTextarea id="message" cols="60" rows="5"
+									style="width: 80%"
+									rendered="#{not mailShareBean.inPreview or empty mailShareBean.messagePreview}"
+									value="#{mailShareBean.message}" />
+
+
+								<p:outputPanel id="previewPanel" style="width: 80%"
+									rendered="#{mailShareBean.inPreview and not empty mailShareBean.messagePreview}">
+									<p:outputPanel id="mailPreview" style="width: 100%">
+										<iframe
+											style="border: 1px solid rgb(200, 200, 200); width: 100%; height: 14em"
+											jsf:id="mailPreviewFrame" pass:sandbox=""
+											pass:srcdoc="#{mailPreviewBean.getBody(mailShareBean.messagePreview)}" />
+									</p:outputPanel>
+								</p:outputPanel>
+
+								<p:commandButton update="@parent" id="previewLink"
+									style="display: block" icon="ui-icon-search"
+									rendered="#{not mailShareBean.inPreview  or empty mailShareBean.messagePreview}"
+									action="#{shareController.generateMailPreview(shareEntitySelection.singleSelection, mailShareBean)}"
+									value="#{_msgs['actions.share.notificationMessage.preview']}" />
+
+								<p:outputPanel style="display: block"
+									rendered="#{mailShareBean.inPreview and not empty mailShareBean.messagePreview}">
+									<p:commandButton update="@parent:@parent" id="editLink"
+										icon="ui-icon-pencil"
+										action="#{shareController.closeMailPreview(mailShareBean)}"
+										value="#{_msgs['actions.share.notificationMessage.closePreview']}" />
+
+									<h:outputText
+										value="#{_msgs['actions.share.notificationMessage.previewLinkMsg']}" />
+								</p:outputPanel>
+
+							</p:outputPanel>
+						</ag:simpleField>
+
+						<ag:simpleField inputId="resend"
+							label="#{_msgs['actions.share.mail.resend.label']}"
+							description="#{_msgs['actions.share.mail.resend.description']}"
+							onlyIf="#{mailShareBean.mayResend}">
+							<p:selectBooleanCheckbox id="resend"
+								value="#{mailShareBean.resend}" />
+						</ag:simpleField>
+
+
+						<div class="grant-buttons func-unit-buttons">
+							<p:commandButton id="shareMailButton"
+								disabled="#{empty shareEntitySelection.singleSelection}"
+								action="#{shareController.shareEntityByMail(shareEntitySelection.singleSelection, mailShareBean)}"
+								value="#{_msgs['actions.share.mail.confirm']}"
+								icon="ui-icon-mail-closed"
+								update="mailShares topContainer throttleDelay share-menu" />
+
+							<p:commandButton action="#{shareTabsBean.cancel()}"
+								value="#{_msgs['actions.share.mail.cancel']}"
+								icon="ui-icon-cancel" update="sharePanel share-menu" />
+
+						</div>
+					</p:fieldset>
+				</p:outputPanel>
+
+				<p:outputPanel
+					rendered="#{(not empty shareTabsBean.peer or sharePolicyBean.mayShareByLink(shareEntitySelection.singleSelection)) and shareTabsBean.tab == 'link'}"
+					id="linkShares">
+
+					<p:focus />
+
+					<p:fieldset styleClass="shr-panel func-unit"
+						legend="#{_msgs['actions.share.link.title']}">
+						<p:outputPanel
+							rendered="#{empty tokenSharesBean.generatedTokenShare}"
+							id="shareLink">
+							<fs:commonShareProps
+								update="@composite:@parent:multiShareWarning"
+								entity="#{shareEntitySelection.singleSelection}"
+								targetId="tokenIdentifier"
+								targetLabel="#{_msgs['actions.share.link.identifier.label']}"
+								shareBean="#{tokenSharesBean}">
+								<f:facet name="shareTarget">
+									<p:inputText id="tokenIdentifier"
+										value="#{tokenSharesBean.tokenIdentifier}" />
+								</f:facet>
+							</fs:commonShareProps>
+
+							<p:outputPanel id="multiShareWarning"
+								styleClass="multi-share-warning">
+								<ui:fragment rendered="#{tokenSharesBean.isWriteable()}">
+									<p>
+										<h:outputText
+											value="#{_msgs['actions.share.multiShareWritableWarning']}" />
+									</p>
+								</ui:fragment>
+							</p:outputPanel>
+
+							<ag:simpleField
+								label="#{_msgs['actions.share.classification.label']}"
+								description="#{_msgs['actions.share.classification.description']}">
+								<h:outputText
+									style="display: inline-block; color: #{userTrustBean.getDisplayLinkTrustLevelColor()}"
+									value="#{userTrustBean.getDisplayLinkTrustLevelMessage()}" />
+							</ag:simpleField>
+
+							<ag:simpleField
+								label="#{_msgs['actions.share.passwordProtection.label']}"
+								description="#{_msgs['actions.share.passwordProtection.description']}">
+								<p:outputPanel styleClass="password-protect"
+									rendered="#{not tokenSharesBean.passwordProtected}">
+									<h:outputText
+										value="#{_msgs['actions.share.passwordProtection.disabled']}" />
+
+									<p:commandButton icon="ui-icon-key"
+										action="#{shareController.enablePasswordProtection(tokenSharesBean)}"
+										update="@parent:@parent"
+										value="#{_msgs['actions.share.passwordProtection.enable']}" />
+								</p:outputPanel>
+								<p:outputPanel styleClass="password-protect"
+									rendered="#{tokenSharesBean.passwordProtected}">
+									<p:inputText id="password" value="#{tokenSharesBean.password}"
+										readonly="#{tokenSharesBean.noUserPassword()}"
+										onchange="updateEntropyEstimate()"
+										onkeyup="updateEntropyEstimate()" />
+
+									<p:remoteCommand autoRun="false" delay="500"
+										name="updateEntropyEstimate"
+										actionListener="#{tokenSharesBean.onPasswordChange}"
+										process="password" update="entropyEstimator:output" />
+
+									<ag:passwordEntropy id="entropyEstimator" for="password"
+										rendered="#{not tokenSharesBean.noUserPassword()}"
+										entropyLowerLimit="#{tokenSharesBean.policy.minTokenPasswordEntropy}"
+										entropy="#{tokenSharesBean.estimatedEntropy}" />
+
+									<p:commandButton style="display: inline-block"
+										icon="ui-icon-closethick"
+										rendered="#{not tokenSharesBean.isRequirePassword()}"
+										action="#{shareController.disablePasswordProtection(tokenSharesBean)}"
+										update="@parent:@parent"
+										value="#{_msgs['actions.share.passwordProtection.disable']}" />
+
+									<p:commandButton style="display: inline-block"
+										icon="ui-icon-key"
+										action="#{shareController.enablePasswordProtection(tokenSharesBean)}"
+										update="@parent:@parent"
+										value="#{_msgs['actions.share.passwordProtection.regeneratePassword']}" />
+								</p:outputPanel>
+							</ag:simpleField>
+
+
+							<ag:simpleField
+								label="#{_msgs['actions.share.link.comment.label']}"
+								description="#{_msgs['actions.share.link.comment.description']}"
+								inputId="comment">
+								<p:inputTextarea id="comment" value="#{tokenSharesBean.comment}"
+									style="width: 80%" />
+							</ag:simpleField>
+
+							<div class="grant-buttons func-unit-buttons">
+								<p:commandButton styleClass="grant-button" id="shareLinkButton"
+									action="#{shareController.shareEntityByLink(shareEntitySelection.singleSelection,tokenSharesBean)}"
+									disabled="#{empty shareEntitySelection.singleSelection}"
+									value="#{_msgs['actions.share.link.confirm']}"
+									icon="ui-icon-link" update="linkShares shares share-menu" />
+
+								<p:commandButton action="#{shareTabsBean.cancel()}"
+									value="#{_msgs['actions.share.link.cancel']}"
+									icon="ui-icon-cancel" update="sharePanel share-menu" />
+
+							</div>
+						</p:outputPanel>
+
+						<p:outputPanel id="tokens">
+
+							<p:outputPanel id="tokensDir"
+								rendered="#{not empty tokenSharesBean.generatedTokenShare and fileDisplayBean.isDirectory(shareEntitySelection.singleSelection)}">
+								<p>
+									<h:outputText
+										value="#{_msgs['actions.share.link.directoryMessage']}" />
+								</p>
+							</p:outputPanel>
+
+							<p:outputPanel id="tokensFile"
+								rendered="#{not empty tokenSharesBean.generatedTokenShare and fileDisplayBean.isFile(shareEntitySelection.singleSelection)}">
+								<p>
+									<h:outputText
+										value="#{_msgs['actions.share.link.fileMessage']}" />
+								</p>
+							</p:outputPanel>
+
+							<p:outputPanel styleClass="links-share"
+								rendered="#{not empty tokenSharesBean.generatedTokenShare}">
+								<ag:simpleField
+									label="#{_msgs['actions.share.link.link.label']}"
+									description="#{_msgs['actions.share.link.link.description']}"
+									inputId="viewURL">
+									<p:commandButton styleClass="copy-button" type="button"
+										icon="ui-icon-copy"
+										onclick="copyShareLink($(this).closest('div').find('input.shrlink'));"
+										title="#{_msgs['actions.share.link.copyLink']}" />
+									<p:inputText styleClass="shrlink" id="viewURL" readonly="true"
+										style="width: 90%"
+										onfocus="this.setSelectionRange(0, this.value.length)"
+										onclick="this.setSelectionRange(0, this.value.length)"
+										value="#{tokenSharesBean.generatedTokenShare.viewURL}" />
+
+									<div style="height: 2em; padding-left: 3em; margin-top: 0.3em">
+										<h:outputText styleClass="copy-success" style="display: none;"
+											value="#{_msgs['actions.share.link.copySuccess']}" />
+										<h:outputText styleClass="copy-failure" style="display: none;"
+											value="#{_msgs['actions.share.link.copyFailure']}" />
+									</div>
+								</ag:simpleField>
+
+								<ag:simpleField
+									rendered="#{not empty tokenSharesBean.tokenPassword}"
+									label="#{_msgs['actions.share.link.passwordDisplay.label']}"
+									description="#{_msgs['actions.share.link.passwordDisplay.description']}"
+									readOnly="true" value="#{tokenSharesBean.tokenPassword}" />
+
+
+								<div class="grant-buttons">
+									<p:commandButton styleClass="grant-button"
+										id="shareAnotherLinkButton"
+										action="#{shareController.generateMore(shareEntitySelection.singleSelection)}"
+										value="#{_msgs['actions.share.link.generateNew']}"
+										icon="ui-icon-link"
+										update="linkShares throttleDelay share-menu" />
+
+									<p:commandButton action="#{shareTabsBean.cancel()}"
+										value="#{_msgs['actions.share.link.close']}"
+										icon="ui-icon-cancel" update="sharePanel share-menu" />
+								</div>
+							</p:outputPanel>
+						</p:outputPanel>
+					</p:fieldset>
+				</p:outputPanel>
+			</p:outputPanel>
+			<div class="buttons">
+				<p:commandButton immediate="true" action="#{dialog.close}"
+					styleClass="close-button" icon="#{dialog.closeIcon}"
+					title="#{dialog.closeDescription}" value="#{dialog.closeLabel}" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.config.hostconfig.network"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:hostconfig:network">
+		<xml-ns prefix="hcn" namespace-uri="urn:agno3:model:1.0:hostconfig:network" />
+		<xml-ns prefix="tnet" namespace-uri="urn:agno3:model:1.0:types:net" />
+	</xml-schema>
+
+	<java-types>
+		<java-type name="NetworkConfiguration" xml-accessor-type="NONE">
+
+			<xml-type name="networkConfigType"
+				factory-class="eu.agno3.orchestrator.config.hostconfig.network.ObjectFactory"
+				factory-method="createNetworkConfiguration" />
+
+			<xml-root-element name="networkConfig" />
+
+			<java-attributes>
+				<xml-element name="ipv6Enabled" java-attribute="ipv6Enabled" />
+				<xml-element name="interfaces" java-attribute="interfaceConfiguration" />
+				<xml-element name="routing" java-attribute="routingConfiguration" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="InterfaceConfiguration" xml-accessor-type="NONE">
+
+			<xml-type name="interfaceConfigType"
+				factory-class="eu.agno3.orchestrator.config.hostconfig.network.ObjectFactory"
+				factory-method="createInterfaceConfiguration" />
+
+			<xml-root-element name="interfaceConfig" />
+
+			<java-attributes>
+				<xml-element name="interface" java-attribute="interfaces">
+					<xml-element-wrapper name="interfaces" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="InterfaceEntry" xml-accessor-type="NONE">
+			<xml-type name="interfaceEntryType"
+				factory-class="eu.agno3.orchestrator.config.hostconfig.network.ObjectFactory"
+				factory-method="createInterfaceEntry" />
+
+			<xml-root-element name="interfaceEntry" />
+
+			<java-attributes>
+				<xml-attribute name="index" java-attribute="interfaceIndex" />
+
+				<xml-element name="hwAddr" java-attribute="hardwareAddress" />
+
+				<xml-element name="alias" java-attribute="alias" />
+				<xml-element name="overrideHwAddr" java-attribute="overrideHardwareAddress" />
+
+				<xml-element name="mtu" java-attribute="mtu" />
+				<xml-element name="mediaType" java-attribute="mediaType" />
+				<xml-element name="v4ConfigType" java-attribute="v4AddressConfigurationType" />
+				<xml-element name="v6ConfigType" java-attribute="v6AddressConfigurationType" />
+
+				<xml-element name="staticAddress" java-attribute="staticAddresses">
+					<xml-element-wrapper name="staticAddresses" />
+				</xml-element>
+
+			</java-attributes>
+		</java-type>
+		
+		<java-type name="InterfaceEntryMutable" xml-accessor-type="NONE">
+			<xml-type name="interfaceEntryTypeMutable"
+				factory-class="eu.agno3.orchestrator.config.hostconfig.network.ObjectFactory"
+				factory-method="createInterfaceEntry" />
+		</java-type>
+
+		<java-type name="RoutingConfiguration" xml-accessor-type="NONE">
+
+			<xml-type name="routingConfigType"
+				factory-class="eu.agno3.orchestrator.config.hostconfig.network.ObjectFactory"
+				factory-method="createRoutingConfiguration" />
+
+			<xml-root-element name="routingConfig" />
+
+			<java-attributes>
+				<xml-element name="autoconfigureV4Routes"
+					java-attribute="autoconfigureV4Routes" />
+				<xml-element name="autoconfigureV6Routes"
+					java-attribute="autoconfigureV6Routes" />
+					
+				<xml-element name="defaultRouteV4" java-attribute="defaultRouteV4" />
+				<xml-element name="defaultRouteV6" java-attribute="defaultRouteV6" />
+					
+				<xml-element name="staticRoute" java-attribute="staticRoutes">
+					<xml-element-wrapper name="staticRoutes" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="StaticRouteEntry" xml-accessor-type="NONE">
+
+			<xml-root-element name="routeEntry" />
+			<xml-type name="routeEntryType"
+				factory-class="eu.agno3.orchestrator.config.hostconfig.network.ObjectFactory"
+				factory-method="createStaticRouteEntry" />
+
+			<java-attributes>
+				<xml-attribute name="type" java-attribute="routeType" required="true" />
+
+				<xml-attribute name="mtu" java-attribute="mtu" />
+				<xml-attribute name="advmss" java-attribute="advmss" />
+
+				<xml-element name="target" java-attribute="target" />
+				<xml-element name="gateway" java-attribute="gateway" />
+				<xml-element name="device" java-attribute="device" />
+				<xml-element name="source" java-attribute="sourceAddress" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="StaticRouteEntryMutable" xml-accessor-type="NONE">
+			<xml-type name="routeEntryTypeMutable"
+				factory-class="eu.agno3.orchestrator.config.hostconfig.network.ObjectFactory"
+				factory-method="createStaticRouteEntry" />
+		</java-type>
+		
+		
+		
+		<java-type name="NetworkConfigTestParams"
+			xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.config.model.validation.ConfigTestParams">
+			<xml-type name="networkConfigTestParamsType" />
+			<xml-root-element name="networkAuthTestParams" />
+
+			<java-attributes>
+				<xml-element name="target" java-attribute="target" />
+				<xml-element name="port" java-attribute="port" required="false" />
+				<xml-element name="runPing" java-attribute="runPing" required="false" />
+				<xml-element name="runTraceroute" java-attribute="runTraceroute" required="false" />
+			</java-attributes>
+		</java-type>
+	</java-types>
+
+</xml-bindings>

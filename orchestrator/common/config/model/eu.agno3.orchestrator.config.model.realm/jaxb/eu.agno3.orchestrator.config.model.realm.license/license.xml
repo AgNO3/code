@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.config.model.realm.license"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:realm:license">
+		<xml-ns prefix="cmrl" namespace-uri="urn:agno3:model:1.0:realm:license" />
+		<xml-ns prefix="cmb" namespace-uri="urn:agno3:model:1.0:base" />
+		<xml-ns prefix="m" namespace-uri="urn:agno3:message:1.0:base" />
+		<xml-ns prefix="cmr" namespace-uri="urn:agno3:model:1.0:realm" />
+	</xml-schema>
+
+	<java-types>
+
+		<java-type name="LicenseInfo" xml-accessor-type="NONE">
+
+			<xml-type name="licenseInfoType" />
+			<xml-root-element name="licenseInfo" />
+			<java-attributes>
+				<xml-element name="id" java-attribute="licenseId">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.UUIDAdapter" />
+				</xml-element>
+
+				<xml-element name="licensedTo" java-attribute="licensedTo" />
+				<xml-element name="description" java-attribute="description" />
+
+
+				<xml-element name="assignedTo" java-attribute="assignedTo" />
+				<xml-element name="anchor" java-attribute="anchor" />
+
+				<xml-element name="issued" java-attribute="issueDate">
+					<xml-java-type-adapter value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter" />
+				</xml-element>
+
+				<xml-element name="expires" java-attribute="expirationDate">
+					<xml-java-type-adapter value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter" />
+				</xml-element>
+
+				<xml-element name="limit" java-attribute="licenseLimits">
+					<xml-element-wrapper name="limits" />
+				</xml-element>
+
+				<xml-element name="type" java-attribute="serviceTypes">
+					<xml-element-wrapper name="types" />
+				</xml-element>
+				
+				<xml-element name="data" java-attribute="data">
+					<xml-java-type-adapter value="eu.agno3.runtime.xml.binding.adapter.Base64BinaryAdapter" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+		
+		
+		<java-type name="LimitEntry" xml-accessor-type="NONE">
+			<xml-type name="licenseLimitEntryType" />
+			
+			<java-attributes>
+				<xml-element name="key" java-attribute="key" />
+				<xml-element name="value" java-attribute="value" required="false" />
+			</java-attributes>
+		</java-type>
+		
+		
+		<java-type name="LicenseInfoRequest" xml-accessor-type="NONE">
+			<xml-type name="licenseInfoRequestType" />
+			<xml-root-element name="licenseInfoRequest" />
+			
+			<java-attributes></java-attributes>
+		</java-type>
+		
+		<java-type name="LicenseInfoResponse" xml-accessor-type="NONE">
+			<xml-type name="licenseInfoResponseType" />
+			<xml-root-element name="licenseInfoResponse" />
+			<java-attributes>
+				<xml-element name="info" java-attribute="info" />
+			</java-attributes>
+		</java-type>
+		
+		<java-type name="LicenseSetRequest" xml-accessor-type="NONE">
+			<xml-type name="licenseSetRequestType" />
+			<xml-root-element name="licenseSetRequest" />
+			
+			<java-attributes>
+				<xml-element name="license" java-attribute="license" />
+			</java-attributes>
+		</java-type>
+		
+		
+
+	</java-types>
+
+</xml-bindings>

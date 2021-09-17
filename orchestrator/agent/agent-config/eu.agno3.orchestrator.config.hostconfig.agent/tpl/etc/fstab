@@ -1,0 +1,53 @@
+[#include "/generatedConfig.ftl"]
+/dev/mapper/sys-root    /               ext4    errors=panic,noatime,acl                        0 1
+LABEL=bootPrimary       /boot           ext2    defaults,nodev,noexec,nosuid                    0 2
+/dev/mapper/sys-run     /var            ext4    errors=panic,noatime,nosuid                     0 2
+/dev/mapper/sys-data    /srv            ext4    errors=remount-ro,noatime,nosuid                0 2
+/dev/mapper/sys-swap    swap            swap    sw                                              0 0
+tmpfs                   /tmp            tmpfs   defaults,nosuid,nodev,mode=1777                 0 0
+
+
+# Additional datastores
+[#list cfg.storageConfiguration.mountEntries as mountEntry]
+[#switch mountEntry.mountType]
+[#case "LOCAL"]
+	[#if mountEntry.matchUuid??]
+		[#lt]UUID=${mountEntry.matchUuid}	[#rt]
+	[#else]
+		[#lt]LABEL=${mountEntry.matchLabel}	[#rt]
+	[/#if][#break]
+[#case "NFS"]
+	[#lt]${mountEntry.target.host}:${mountEntry.target.path}	[#rt][#break]
+[#case "CIFS"]
+	[#lt]${mountEntry.uncPath?replace('\\','/')}	[#rt][#break]
+[/#switch]
+/storage/${mountEntry.alias}		[#rt]
+[#switch mountEntry.mountType]
+[#case "LOCAL"]
+	[#lt]ext4			errors=remount-ro,noatime,noexec,nosuid,nodev 0 2[#break]
+[#case "NFS"]
+	[#lt]nfs	_netdev,nosuid,noexec,nodev 0 0[#break]
+[#case "CIFS"]
+	[#lt]cifs	_netdev,uid=storage-${mountEntry.alias},gid=storage-${mountEntry.alias},[#rt]
+	[#lt]forceuid,forcegid,file_mode=0660,dir_mode=0770,nosuid,noexec,nodev,nounix,noacl,[#rt]
+	[#switch mountEntry.authType]
+	[#case "GUEST"]
+		[#t]sec=none,guest[#break]
+	[#case "NTLM"]
+		[#t]sec=ntlm[#if mountEntry.enableSigning]i[/#if][#break]
+	[#case "NTLMv2"]
+		[#t]sec=ntlmv2[#if mountEntry.enableSigning]i[/#if][#break]
+	[#case "NTLMSSP"]
+		[#t]sec=ntlmssp[#if mountEntry.enableSigning]i[/#if][#break]
+	[#case "KERBEROS"]
+		[#t]sec=krb5[#if mountEntry.enableSigning]i[/#if][#break]
+	[/#switch][#if mountEntry.disableSMB2 && mountEntry.allowSMB1]
+		[#t],vers=1.0[#t]
+	[#else]
+		[#t],vers=2.0[#t]
+	[/#if][#if mountEntry.authType != "GUEST" && mountEntry.authType != "KERBEROS"]
+		[#t],credentials=/etc/storage/cifs/${mountEntry.alias}/credentials
+	[/#if][#t]	0 0[#break]
+[/#switch]
+
+[/#list]

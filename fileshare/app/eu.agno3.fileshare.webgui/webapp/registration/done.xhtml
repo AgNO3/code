@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	template="/tpl/common/raw.xhtml">
+
+	<ui:param name="subtitle" value="#{_msgs['registration.done.title']}" />
+
+	<ui:define name="content">
+		<h:form id="form" method="POST" enctype="multipart/form-data">
+
+			<p:messages autoUpdate="true" showDetail="true" />
+
+			<p:fieldset legend="#{_msgs['registration.done.title']}"
+				styleClass="account-created">
+
+				<p:outputPanel style="margin-bottom: 1em">
+					<h:outputText value="#{_msgs['registration.done.msg.begin']}" />
+					<p:link styleClass="inline-link"
+						style="display: block; margin: 0.2em; margin-left: 0.4em"
+						value="#{uriUtil.getCurrentBaseUriWithTrailingSlash()}"
+						href="#{uriUtil.getCurrentBaseUriWithTrailingSlash()}" />
+					<h:outputText value="#{_msgs['registration.done.msg.afterURL']}" />
+					<h:outputText styleClass="inline-block-info"
+						style="display: block; margin: 0.2em; margin-left: 0.4em; font-weight: bold"
+						value="#{currentUserBean.currentUser.principal.userName}" />
+					<h:outputText value="#{_msgs['registration.done.msg.afterUser']}" />
+				</p:outputPanel>
+
+				<div class="buttons">
+					<p:commandButton action="#{navigationController.files}"
+						icon="ui-icon-check"
+						value="#{_msgs['registration.done.completeLabel']}" />
+				</div>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

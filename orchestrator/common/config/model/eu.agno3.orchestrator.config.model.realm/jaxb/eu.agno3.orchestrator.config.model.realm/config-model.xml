@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.config.model.realm"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:realm">
+		<xml-ns prefix="cmb" namespace-uri="urn:agno3:model:1.0:base" />
+		<xml-ns prefix="cmbc" namespace-uri="urn:agno3:model:1.0:base:config" />
+		<xml-ns prefix="cmr" namespace-uri="urn:agno3:model:1.0:realm" />
+		<xml-ns prefix="cmrl" namespace-uri="urn:agno3:model:1.0:realm:resourceLibrary" />
+		<xml-ns prefix="creds" namespace-uri="urn:agno3:security:1.0:credentials" />
+	</xml-schema>
+
+	<java-types>
+		<java-type name="StructuralObject" xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.config.model.base.BaseObject">
+
+			<xml-type name="structuralObjectType" />
+			<xml-root-element name="structuralObject" />
+
+			<java-attributes>
+				<xml-element name="name" java-attribute="displayName" />
+				<xml-element name="overallState" java-attribute="overallState" />
+			</java-attributes>
+		</java-type>
+
+
+
+		<java-type name="StructuralObjectMutable" xml-accessor-type="NONE">
+			<xml-type name="structuralObjectMutable" />
+		</java-type>
+
+
+
+
+		<java-type name="AbstractStructuralObjectImpl"
+			xml-accessor-type="NONE">
+
+			<xml-type name="abstractStructuralObjectType" />
+			<xml-root-element name="abstractStructuralObject" />
+
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="GroupStructuralObject" xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.config.model.realm.StructuralObjectMutable">
+
+			<xml-type name="groupStructuralObjectType"
+				factory-class="eu.agno3.orchestrator.config.model.realm.ObjectFactory"
+				factory-method="createGroupStructuralObject" />
+			<xml-root-element name="groupStructuralObject" />
+
+
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="InstanceStructuralObject"
+			xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.config.model.realm.StructuralObjectMutable">
+
+			<xml-type name="instanceStructuralObjectType"
+				factory-class="eu.agno3.orchestrator.config.model.realm.ObjectFactory"
+				factory-method="createInstanceStructuralObject" />
+			<xml-root-element name="instanceStructuralObject" />
+
+			<java-attributes>
+				<xml-attribute name="imageType" java-attribute="imageType" />
+				<xml-attribute name="releaseStream" java-attribute="releaseStream" />
+
+				<xml-element name="agentId" java-attribute="agentId"
+					type="java.util.UUID" required="false">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.UUIDAdapter" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="InstanceStatus">
+			<xml-type name="instanceStatusType" />
+			<xml-root-element name="instanceStatus" />
+			<java-attributes>
+				<xml-element name="configState" java-attribute="compositeConfigurationState" />
+				<xml-element name="lastUpdated" java-attribute="lastUpdated">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ServiceStructuralObject" xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.config.model.realm.StructuralObjectMutable">
+
+			<xml-type name="serviceStructuralObjectType"
+				factory-class="eu.agno3.orchestrator.config.model.realm.ObjectFactory"
+				factory-method="createServiceStructuralObject" />
+			<xml-root-element name="serviceStructuralObject" />
+
+			<java-attributes>
+				<xml-attribute name="serviceType" java-attribute="serviceType" />
+				<xml-attribute name="state" java-attribute="state" />
+				<xml-attribute name="appliedRevision" java-attribute="appliedRevision" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ConfigurationObject" xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.config.model.base.BaseObject">
+
+			<xml-type name="configurationObjectType" />
+			<xml-root-element name="configurationObject" />
+
+			<java-attributes>
+				<xml-attribute name="name" java-attribute="name"
+					required="false" />
+
+				<xml-attribute name="displayName" java-attribute="displayName"
+					required="false" />
+
+				<xml-attribute name="globalRevision" java-attribute="revision"
+					required="false" />
+
+				<xml-element name="inherits" java-attribute="inherits"
+					required="false">
+					<xml-java-type-adapter
+						value="eu.agno3.orchestrator.config.model.realm.ConfigurationObjectReferenceAdapter" />
+				</xml-element>
+
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ConfigurationObjectReference"
+			xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.config.model.realm.ConfigurationObject">
+
+			<xml-type name="configurationObjectRefType" />
+			<xml-root-element name="configurationObjectRef" />
+
+			<java-attributes>
+				<xml-attribute name="objectTypeName" java-attribute="objectTypeName"
+					required="true" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ConfigurationObjectMutable"
+			xml-accessor-type="NONE" />
+
+		<java-type name="ConfigurationInstance" xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.config.model.realm.ConfigurationObjectMutable">
+
+			<xml-type name="configurationInstanceType" />
+			<xml-root-element name="configurationInstance" />
+
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="ObjectTypeTreeNode" xml-accessor-type="NONE">
+			<xml-type name="objectTypeTreeNodeType" />
+			<xml-root-element name="objectTypeTreeNode" />
+
+			<java-attributes>
+				<xml-attribute name="objectType" java-attribute="objectType" />
+				<xml-element name="child" java-attribute="children">
+					<xml-element-wrapper name="children" required="true" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="ConfigApplyInfo" xml-accessor-type="NONE">
+
+			<xml-type name="configApplyInfoType" />
+			<xml-root-element name="configApplyInfo" />
+
+			<java-attributes>
+				<xml-element name="force" java-attribute="force" />
+				<xml-element name="challengeResponse" java-attribute="challengeResponses"
+					type="eu.agno3.orchestrator.config.model.realm.ConfigApplyChallenge">
+					<xml-element-wrapper name="challengeResponses" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="ConfigApplyChallenge" xml-accessor-type="NONE">
+			<xml-type name="configApplyChallengeType" />
+			<java-attributes>
+			</java-attributes>
+		</java-type>
+
+
+		<java-type name="BaseChallenge" xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.config.model.realm.ConfigApplyChallenge">
+
+			<xml-type name="baseChallengeType" />
+
+			<java-attributes>
+				<xml-attribute name="key" java-attribute="key" />
+				<xml-attribute name="required" java-attribute="required" />
+				<xml-attribute name="messageBase" java-attribute="messageBase"
+					required="false" />
+				<xml-attribute name="labelTemplate" java-attribute="labelTemplate"
+					required="false" />
+				<xml-element name="labelArg" java-attribute="labelArgs">
+					<xml-element-wrapper name="labelArgs" />
+				</xml-element>
+			</java-attributes>
+		</java-type>
+
+		<java-type name="BooleanChallenge" xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.config.model.realm.BaseChallenge">
+
+			<xml-type name="booleanChallengeType" />
+			<xml-root-element name="booleanChallenge" />
+
+			<java-attributes>
+				<xml-attribute name="value" java-attribute="value" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="CredentialChallenge" xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.config.model.realm.BaseChallenge">
+
+			<xml-type name="credentialChallengeType" />
+			<xml-root-element name="credentialChallenge" />
+
+			<java-attributes>
+				<xml-attribute name="username" java-attribute="username"
+					required="false" />
+				<xml-attribute name="password" java-attribute="password"
+					required="false" />
+
+				<xml-element name="wrapped" java-attribute="wrapped"
+					required="false" />
+			</java-attributes>
+		</java-type>
+	</java-types>
+
+</xml-bindings>

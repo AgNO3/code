@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<p:panel id="hostlicense"
+		header="#{_gui['structure.instance.license.title']}">
+
+
+		<div class="info">
+			<p:outputPanel
+				rendered="#{not empty instanceLicensingBean.assignedLicense}">
+
+				<p:outputPanel
+					rendered="#{not empty instanceLicensingBean.assignedLicense.description}">
+					<p:outputLabel
+						value="#{_gui['structure.instance.license.info.description.label']}"
+						for="licenseDesc" />
+					<h:outputText id="licenseDesc"
+						value="#{instanceLicensingBean.assignedLicense.description}" />
+				</p:outputPanel>
+
+				<p:outputLabel
+					value="#{_gui['structure.instance.license.info.licensedTo.label']}"
+					for="licensedTo" />
+				<h:outputText id="licensedTo"
+					value="#{instanceLicensingBean.assignedLicense.licensedTo}" />
+
+				<p:outputLabel
+					value="#{_gui['structure.instance.license.info.expirationDate.label']}"
+					for="licExpiration" />
+				<h:outputText id="licExpiration"
+					value="#{localeSettingsBean.formatDateTime(instanceLicensingBean.assignedLicense.expirationDate, 'M-')}" />
+			</p:outputPanel>
+
+			<p:outputPanel
+				rendered="#{empty instanceLicensingBean.assignedLicense}">
+
+				<p:outputLabel
+					value="#{_gui['structure.instance.license.info.description.label']}"
+					for="demoDesc" />
+				<h:outputText id="demoDesc"
+					value="#{_gui['structure.instance.dashboard.license.unlicensed']}" />
+
+				<p:outputPanel
+					rendered="#{not empty instanceLicensingBean.demoExpiration}">
+					<p:outputLabel
+						value="#{_gui['structure.instance.license.info.expirationDate.label']}"
+						for="demoExpiration" />
+					<h:outputText id="demoExpiration"
+						value="#{localeSettingsBean.formatDateTime(instanceLicensingBean.demoExpiration, 'M-')}" />
+				</p:outputPanel>
+			</p:outputPanel>
+		</div>
+	</p:panel>
+</ui:composition>

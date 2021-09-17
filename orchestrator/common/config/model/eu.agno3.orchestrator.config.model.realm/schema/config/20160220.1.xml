@@ -1,0 +1,113 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+	<changeSet author="mbechler (generated)" id="1455968060559-1">
+		<addUniqueConstraint columnNames="ANCHOR, NAME, TYPE"
+			constraintName="UKqptqylk311vw2ik392hx0dvqh" schemaName="APP"
+			tableName="resource_libraries" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476802856856-1">
+		<createTable schemaName="APP" tableName="licenses">
+			<column name="ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="DATA" type="BLOB" />
+			<column name="EXPIRATION" type="TIMESTAMP" />
+			<column name="ISSUED" type="TIMESTAMP" />
+			<column name="VERSION" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ANCHOR" type="CHAR (16) FOR BIT DATA" />
+			<column name="ASSIGNEDTO" type="CHAR (16) FOR BIT DATA" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476802856856-2">
+		<createTable schemaName="APP" tableName="licenses_serviceTypes">
+			<column name="LICENSES_ID" type="CHAR (16) FOR BIT DATA">
+				<constraints nullable="false" />
+			</column>
+			<column name="SERVICETYPES" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476802856856-3">
+		<addColumn schemaName="APP" tableName="instances">
+			<column name="DEMOEXPIRATION" type="timestamp" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476802856856-4">
+		<addColumn schemaName="APP" tableName="instances_AUD">
+			<column name="DEMOEXPIRATION" type="timestamp" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476802856856-5">
+		<addPrimaryKey columnNames="ID" constraintName="licensesPK"
+			schemaName="APP" tableName="licenses" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476802856856-6">
+		<createIndex indexName="FK_FK2MUUUDUCVAW3CU19M19X09K4Y"
+			schemaName="APP" tableName="licenses">
+			<column name="ANCHOR" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476802856856-7">
+		<createIndex indexName="FK_FK2TCVSRL9MVY3L3GLODF8W3U9H"
+			schemaName="APP" tableName="licenses">
+			<column name="ASSIGNEDTO" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476802856856-8">
+		<createIndex indexName="FK_FKNBVY78R67FKPYK7RTQFICA3FB"
+			schemaName="APP" tableName="licenses_serviceTypes">
+			<column name="LICENSES_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476802856856-9">
+		<addForeignKeyConstraint baseColumnNames="ANCHOR"
+			baseTableName="licenses" baseTableSchemaName="APP"
+			constraintName="FK2MUUUDUCVAW3CU19M19X09K4Y" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="structure"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476802856856-10">
+		<addForeignKeyConstraint baseColumnNames="ASSIGNEDTO"
+			baseTableName="licenses" baseTableSchemaName="APP"
+			constraintName="FK2TCVSRL9MVY3L3GLODF8W3U9H" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="structure"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1476802856856-11">
+		<addForeignKeyConstraint baseColumnNames="LICENSES_ID"
+			baseTableName="licenses_serviceTypes" baseTableSchemaName="APP"
+			constraintName="FKNBVY78R67FKPYK7RTQFICA3FB" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="licenses"
+			referencedTableSchemaName="APP" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1478091848513-1">
+        <addColumn schemaName="APP" tableName="instances">
+            <column name="BOOTSTRAPPASSWORDENTROPY" type="integer"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1478091848513-2">
+        <addColumn schemaName="APP" tableName="instances_AUD">
+            <column name="BOOTSTRAPPASSWORDENTROPY" type="integer"/>
+        </addColumn>
+    </changeSet>
+        <changeSet author="mbechler (generated)" id="1495524030988-1">
+        <addColumn schemaName="APP" tableName="services">
+            <column name="LASTAPPLIED" type="timestamp"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1495524030988-2">
+        <addColumn schemaName="APP" tableName="resource_libraries">
+            <column name="LASTMODIFIED" type="timestamp"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1495524030988-3">
+        <addColumn schemaName="APP" tableName="structure">
+            <column name="RESOURCELIBRARYLASTSYNC" type="timestamp"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

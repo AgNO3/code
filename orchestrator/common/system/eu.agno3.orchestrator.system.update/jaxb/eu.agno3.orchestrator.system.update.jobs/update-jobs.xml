@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.orchestrator.system.update.jobs"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:model:1.0:system:update:jobs">
+		<xml-ns prefix="suj" namespace-uri="urn:agno3:model:1.0:system:update:jobs" />
+		<xml-ns prefix="su" namespace-uri="urn:agno3:model:1.0:system:update" />
+		<xml-ns prefix="j" namespace-uri="urn:agno3:job:1.0:base" />
+	</xml-schema>
+
+	<java-types>
+
+		<java-type name="UpdateJobGroup" xml-accessor-type="NONE"
+			super-type="eu.agno3.orchestrator.jobs.JobGroup">
+			<xml-type name="updateGroup" />
+			<xml-root-element name="updateGroup" />
+		</java-type>
+
+		<java-type name="UpdateInstallJob" xml-accessor-type="NONE">
+			<xml-root-element name="updateInstallJob" />
+			<java-attributes>
+				<xml-attribute name="stream" java-attribute="descriptorStream" />
+				<xml-attribute name="allowReboot" java-attribute="allowReboot" />
+				<xml-element name="descriptor" java-attribute="descriptor" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="UpdateCheckJob" xml-accessor-type="NONE">
+			<xml-root-element name="updateCheckJob" />
+			<java-attributes>
+
+				<xml-element name="stream" java-attribute="updateStreams">
+					<xml-element-wrapper name="streams" />
+				</xml-element>
+
+				<xml-element name="imageType" java-attribute="updateImageTypes">
+					<xml-element-wrapper name="updateImageTypes" />
+				</xml-element>
+
+				<xml-attribute name="retainAfter" java-attribute="retainAfterTime">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter" />
+				</xml-attribute>
+
+				<xml-attribute name="updateBefore" java-attribute="updateBeforeTime">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter" />
+				</xml-attribute>
+
+			</java-attributes>
+		</java-type>
+
+		<java-type name="UpdateRevertJob" xml-accessor-type="NONE">
+			<xml-root-element name="updateRevertJob" />
+			<java-attributes>
+				<xml-attribute name="stream" java-attribute="revertStream" />
+				<xml-attribute name="sequence" java-attribute="revertSequence" />
+			</java-attributes>
+		</java-type>
+
+	</java-types>
+
+</xml-bindings>

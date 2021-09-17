@@ -1,0 +1,50 @@
+Bundle-SymbolicName: eu.agno3.runtime.messaging
+Bundle-Version: 0.0.124
+Bundle-Name: Messaging Base
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: com.atomikos.datasource;version="[4.0.0,4.1)",
+ com.atomikos.datasource.xa.session;version="4.0.4.AG1",
+ com.atomikos.jms;version="[4.0.0,4.1)",
+ com.atomikos.jms.extra;version="[4.0.0,4.1)",
+ eu.agno3.runtime.messaging;version="0.0.12",
+ eu.agno3.runtime.messaging.addressing;version="0.0.12",
+ eu.agno3.runtime.messaging.addressing.scopes;version="0.0.12",
+ eu.agno3.runtime.messaging.client;version="0.0.12",
+ eu.agno3.runtime.messaging.events;version="0.0.12",
+ eu.agno3.runtime.messaging.listener;version="0.0.12",
+ eu.agno3.runtime.messaging.marshalling;version="0.0.12",
+ eu.agno3.runtime.messaging.marshalling.internal;version="0.0.12",
+ eu.agno3.runtime.messaging.msg;version="0.0.12",
+ eu.agno3.runtime.messaging.msg.impl;version="0.0.12",
+ eu.agno3.runtime.messaging.routing;version="0.0.12",
+ eu.agno3.runtime.transaction;version="0.0.8",
+ eu.agno3.runtime.util.osgi;version="0.0.6",
+ eu.agno3.runtime.util.serialization;version="0.0.50",
+ javax.jms;version="1.1.0",
+ javax.transaction;version="1.1.0",
+ org.apache.activemq;version="5.11.0",
+ org.apache.activemq.command;version="5.14.5.AG1",
+ org.apache.commons.lang3;version="3.1.0",
+ org.apache.log4j;version="1.2.15",
+ org.joda.time;version="2.8.1",
+ org.joda.time.base;version="2.8.1",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0",
+ org.osgi.util.tracker;version="1.5.1"
+Service-Component: OSGI-INF/*.xml
+Bundle-ActivationPolicy: lazy
+Export-Package: eu.agno3.runtime.messaging;version="0.0.124";uses:="eu.agno3.runtime.messaging.msg",
+ eu.agno3.runtime.messaging.addressing;version="0.0.124",
+ eu.agno3.runtime.messaging.addressing.scopes;version="0.0.124";uses:="eu.agno3.runtime.messaging.addressing",
+ eu.agno3.runtime.messaging.client;version="0.0.124";uses:="javax.jms,eu.agno3.runtime.messaging.routing,eu.agno3.runtime.messaging.msg",
+ eu.agno3.runtime.messaging.events;version="0.0.124",
+ eu.agno3.runtime.messaging.listener;version="0.0.124";uses:="eu.agno3.runtime.messaging.marshalling,  javax.jms,  eu.agno3.runtime.messaging.msg,  org.osgi.util.tracker,  org.osgi.framework,  org.osgi.service.component",
+ eu.agno3.runtime.messaging.marshalling;version="0.0.124";uses:="eu.agno3.runtime.messaging,  javax.jms,  eu.agno3.runtime.messaging.msg,  eu.agno3.runtime.messaging.addressing",
+ eu.agno3.runtime.messaging.marshalling.internal;version="0.0.124";uses:="eu.agno3.runtime.util.osgi,  eu.agno3.runtime.messaging.msg.impl,  javax.jms,  eu.agno3.runtime.messaging.marshalling,  eu.agno3.runtime.messaging.addressing,  org.osgi.service.component",
+ eu.agno3.runtime.messaging.msg;version="0.0.124";uses:="eu.agno3.runtime.messaging.addressing",
+ eu.agno3.runtime.messaging.msg.impl;version="0.0.124";uses:="eu.agno3.runtime.messaging.msg,eu.agno3.runtime.messaging.addressing",
+ eu.agno3.runtime.messaging.routing;version="0.0.124";uses:="eu.agno3.runtime.messaging,  javax.jms,  eu.agno3.runtime.messaging.msg,  eu.agno3.runtime.messaging.addressing"
+Require-Bundle: org.eclipse.jdt.annotation;bundle-version="[2.0.0,3.0.0)";resolution:=optional

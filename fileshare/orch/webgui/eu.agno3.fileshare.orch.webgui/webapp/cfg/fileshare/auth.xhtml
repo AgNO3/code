@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectEditor objectType="urn:agno3:objects:1.0:auth:collection"
+		context="#{configContext}" path="authenticators"
+		subTemplate="#{isTemplate}" readOnly="#{isReadOnly}">
+		<f:param name="roleCompleter"
+			value="#{fs_authenticationConfigBean.getRoleCompleter(outerWrapper)}" />
+		<f:param name="overrideInnerEditorTemplate"
+			value="${fs_authenticationConfigBean.getInnerEditorTemplate(configContext)}" />
+	</orch:objectEditor>
+
+
+	<orch:objectEditor objectType="urn:agno3:objects:1.0:auth:roles"
+		minLevel="2" context="#{configContext}" path="roleConfig"
+		subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+
+
+	<orch:objectFieldEditor inputId="noSynchronizationRoles"
+		collection="true" minLevel="2" path="noSynchronizationRoles">
+		<ag:setEditor id="noSynchronizationRoles"
+			comparator="#{setEditorUtilBean.stringComparator}"
+			factoryMethod="#{setEditorUtilBean.makeEmptyString}"
+			value="#{current.noSynchronizationRoles}">
+			<p:column>
+				<p:autoComplete dropdown="true"
+					completeMethod="#{fs_authenticationConfigBean.getRoleCompleter(outerWrapper).complete}"
+					value="#{item.value}" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+</ui:composition>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+	<changeSet author="mbechler (generated)" id="1449068764119-1">
+		<createTable schemaName="APP" tableName="update_desc_cache">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DATA" type="BLOB" />
+			<column name="IMAGETYPE" type="VARCHAR(255)" />
+			<column name="LASTUPDATED" type="timestamp" />
+			<column name="SEQUENCE" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="STREAM" type="VARCHAR(255)" />
+			<column name="VERSION" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1449068764119-2">
+		<addPrimaryKey columnNames="ID" constraintName="update_desc_cachePK"
+			schemaName="APP" tableName="update_desc_cache" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1449068764119-3">
+		<addUniqueConstraint columnNames="IMAGETYPE, STREAM, SEQUENCE"
+			constraintName="UK1mvc7auj17063ooc2m42ututa" schemaName="APP"
+			tableName="update_desc_cache" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1450170930024-1">
+        <createTable schemaName="APP" tableName="agent_update_cache">
+            <column name="AGENTID" type="BINARY(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CURRENTSEQUENCE" type="BIGINT"/>
+            <column name="CURRENTSTATE" type="VARCHAR(255)"/>
+            <column name="CURRENTSTREAM" type="VARCHAR(255)"/>
+            <column name="LASTUPDATED" type="timestamp"/>
+            <column name="REBOOTINDICATED" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VERSION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mbechler (generated)" id="1450170930024-2">
+        <addPrimaryKey columnNames="AGENTID" constraintName="agent_update_cachePK" schemaName="APP" tableName="agent_update_cache"/>
+    </changeSet>
+</databaseChangeLog>

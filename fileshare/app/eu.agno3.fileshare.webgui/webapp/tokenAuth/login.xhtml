@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	template="/tpl/common/raw.xhtml">
+	<ui:param name="subtitle" value="#{_msgs['tokenAuth.title']}" />
+	<ui:param name="bodyStyle" value="${'no-frame'}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="token" value="#{userTokenBean.token}"
+				required="false" />
+			<f:viewParam name="grant" value="#{tokenAuthContext.grantId}"
+				required="true" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<input type="hidden" name="token" value="#{userTokenBean.token}" />
+			<h:outputStylesheet library="agsec" name="login.static.css" />
+			<p:panel id="loginBox" styleClass="loginBox"
+				header="#{_msgs['tokenAuth.title']}">
+				<p:messages id="loginMessages" showDetail="true" />
+
+				<p:outputPanel id="throttleDelay"
+					styleClass="throttle-display ui-messages ui-widget">
+					<p:outputPanel styleClass="ui-messages-fatal"
+						rendered="#{not empty tokenAuthContext.throttleDelay}">
+
+						<span class="ui-messages-fatal-icon" />
+						<span class="ui-messages-fatal-summary"> <h:outputText
+								value="#{_login['throttleActive']}" /> <h:outputText
+								styleClass="remain-throttle"
+								value="#{tokenAuthContext.throttleDelay}" /> <h:outputText
+								value="#{_login['throttleActiveUnit']}" />
+						</span>
+
+						<pe:timer visible="false" immediate="true"
+							timeout="#{tokenAuthContext.throttleDelay}"
+							ontimerstep="$('.throttle-display').find('.remain-throttle').text(intervalData.current + ' '); "
+							ontimercomplete="$('.throttle-display').hide()"
+							listener="#{tokenAuthContext.throttleComplete()}" process="@this"
+							update="throttleDelay loginMessages" />
+					</p:outputPanel>
+				</p:outputPanel>
+
+				<h:outputText styleClass="loginMessage"
+					value="#{_msgs['tokenAuth.message']}" />
+
+				<p:outputPanel id="loginFields" styleClass="inputFields">
+					<p:panel id="credentials">
+						<ag:simpleField label="#{_login['password']}" inputId="password">
+							<p:password id="password" required="true" autocomplete="false"
+								requiredMessage="#{_msgs['tokenAuth.password.required']}"
+								value="#{tokenAuthContext.password}" />
+						</ag:simpleField>
+					</p:panel>
+				</p:outputPanel>
+
+				<div class="buttons">
+					<p:commandButton id="loginButton" styleClass="loginButton"
+						action="#{tokenAuthContext.doLogin()}"
+						value="#{_msgs['tokenAuth.confirm']}"
+						update="loginMessages credentials throttleDelay" />
+				</div>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

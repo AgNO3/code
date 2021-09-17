@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+	<orch:objectFieldEditor inputId="serverType" path="serverType"
+		readOnlyValueMapper="#{ldapAuthConfigBean.translateServerType}"
+		update="#{outerWrapper.getParameter('serverTypeChangeUpdate')}">
+		<p:selectOneMenu id="serverType" value="#{current.serverType}">
+			<f:selectItems value="#{ldapAuthConfigBean.serverTypes}" var="type"
+				itemLabel="#{ldapAuthConfigBean.translateServerType(type)}" />
+			<p:ajax event="change"
+				update="#{outerWrapper.getParameter('serverTypeChangeUpdate')} @composite:@parent:serversPanel" />
+		</p:selectOneMenu>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="sslClientMode" path="sslClientMode"
+		update="@composite:@parent:sslSettings @composite:@parent:serversPanel @composite:@parent:authSettings"
+		readOnlyValueMapper="#{sslClientConfigBean.translateClientMode}">
+		<p:selectOneMenu id="sslClientMode" value="#{current.sslClientMode}">
+			<f:selectItems value="#{sslClientConfigBean.clientModes}" var="mode"
+				itemLabel="#{sslClientConfigBean.translateClientMode(mode)}" />
+			<p:ajax event="change"
+				process="@this,@composite:@parent:serversPanel"
+				update="@composite:@parent:sslSettings @composite:@parent:serversPanel @composite:@parent:authSettings" />
+		</p:selectOneMenu>
+	</orch:objectFieldEditor>
+
+	<p:outputPanel id="serversPanel">
+		<orch:objectFieldEditor inputId="servers" path="servers"
+			rendered="#{(current.serverType != null and current.serverType != 'AD') or (current.serverType == null and defaults.serverType != 'AD')}"
+			collection="true">
+			<ag:listEditor id="servers"
+				factoryMethod="#{setEditorUtilBean.makeEmptyURI}"
+				value="#{current.servers}">
+				<p:column>
+					<ag:inputUri fields="scheme,host,port"
+						defaultScheme="#{ldapClientConfigBean.getScheme(outerWrapper)}"
+						hostWidth="18em !important"
+						defaultPort="#{ldapClientConfigBean.getDefaultPort(outerWrapper)}"
+						readOnly="scheme" value="#{item.value}" />
+				</p:column>
+			</ag:listEditor>
+		</orch:objectFieldEditor>
+	</p:outputPanel>
+
+	<orch:objectFieldEditor inputId="srvDomain" path="srvDomain">
+		<p:inputText id="srvDomain" value="#{current.srvDomain}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="baseDN" path="baseDN" minLevel="2">
+		<p:inputText id="baseDN" value="#{current.baseDN}" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="socketTimeout" path="socketTimeout"
+		readOnlyValueMapper="#{dateFormatter.formatDurationObject}"
+		minLevel="2">
+		<ag:inputDuration id="socketTimeout" value="#{current.socketTimeout}"
+			minUnit="seconds" maxUnit="minutes" />
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="authType" path="authType"
+		readOnlyValueMapper="#{ldapAuthConfigBean.translateAuthType}"
+		update="@composite:@parent:authSettings">
+		<p:selectOneMenu id="authType" value="#{current.authType}">
+			<f:selectItems value="#{ldapAuthConfigBean.authTypes}" var="type"
+				itemLabel="#{ldapAuthConfigBean.translateAuthType(type)}" />
+			<p:ajax event="change" update="@composite:@parent:authSettings" />
+		</p:selectOneMenu>
+	</orch:objectFieldEditor>
+
+	<p:outputPanel id="authSettings">
+		<p:outputPanel
+			rendered="#{(current.authType != null and current.authType != 'ANONYMOUS') or (current.authType == null and defaults.authType != 'ANONYMOUS')}">
+			<orch:objectFieldEditor inputId="bindDN" path="bindDN"
+				onlyIf="#{(current.authType != null and current.authType == 'SIMPLE') or (current.authType == null and defaults.authType == 'SIMPLE')}">
+				<p:inputText id="bindDN" value="#{current.bindDN}" />
+			</orch:objectFieldEditor>
+			<p:outputPanel
+				rendered="#{(current.authType != null and current.authType == 'SASL') or (current.authType == null and defaults.authType == 'SASL')}">
+				<orch:objectFieldEditor inputId="saslMechanism" path="saslMechanism"
+					update="@composite:@parent:saslQOPSettings">
+					<p:selectOneMenu id="saslMechanism"
+						value="#{current.saslMechanism}">
+						<f:selectItems value="#{ldapClientConfigBean.saslMechanisms}" />
+						<p:ajax event="change" update="@composite:@parent:saslQOPSettings" />
+					</p:selectOneMenu>
+				</orch:objectFieldEditor>
+				<orch:objectFieldEditor inputId="saslUsername" path="saslUsername">
+					<p:inputText id="saslUsername" value="#{current.saslUsername}" />
+				</orch:objectFieldEditor>
+				<orch:objectFieldEditor inputId="saslRealm" path="saslRealm"
+					minLevel="3">
+					<p:inputText id="saslRealm" value="#{current.saslRealm}" />
+				</orch:objectFieldEditor>
+
+				<p:outputPanel id="saslQOPSettings">
+					<orch:objectFieldEditor inputId="saslQOP" path="saslQOP"
+						onlyIf="#{(current.saslMechanism != null and ldapClientConfigBean.mechanismSupportsQOP(current.saslMechanism)) or (current.saslMechanism  == null and ldapClientConfigBean.mechanismSupportsQOP(defaults.saslMechanism))}"
+						minLevel="3">
+						<p:selectOneMenu id="saslQOP" value="#{current.saslQOP}">
+							<f:selectItems value="#{ldapClientConfigBean.saslQOPs}"
+								var="type"
+								itemLabel="#{ldapClientConfigBean.translateSaslQOP(type)}" />
+						</p:selectOneMenu>
+					</orch:objectFieldEditor>
+				</p:outputPanel>
+			</p:outputPanel>
+			<orch:objectFieldEditor inputId="password" path="password">
+				<p:password redisplay="true" feedback="false" autocomplete="false"
+					id="password" value="#{current.password}" />
+			</orch:objectFieldEditor>
+		</p:outputPanel>
+	</p:outputPanel>
+
+	<p:outputPanel id="sslSettings">
+		<p:outputPanel
+			rendered="#{(current.sslClientMode != null and current.sslClientMode != 'DISABLE') or (current.sslClientMode == null and defaults.sslClientMode != 'DISABLE')}">
+
+			<orch:objectEditor objectType="urn:agno3:objects:1.0:web:sslclient"
+				context="#{configContext}" path="sslClientConfiguration"
+				subTemplate="#{isTemplate}" readOnly="#{isReadOnly}" />
+		</p:outputPanel>
+	</p:outputPanel>
+
+	<ag:simpleField styleClass="noLabel" id="testLDAPField"
+		onlyIf="#{empty outerWrapper.getParameter('hideTest')}">
+		<ag:dialogOpenButton title="#{_config_web['test.ldap.title']}"
+			icon="ui-icon-check" style="display: block"
+			value="#{_config_web['test.ldap.label']}" closable="true"
+			process="@form" dialog="#{configTestUtil.makeTestLink(outerWrapper)}">
+			<p:ajax event="return"
+				listener="#{configTestInteractionUtil.makeReturnWrapper(cc, web_ldap_testBean).onReturn}"
+				update="@composite:@parent:sslSettings"/>
+		</ag:dialogOpenButton>
+	</ag:simpleField>
+
+</ui:composition>

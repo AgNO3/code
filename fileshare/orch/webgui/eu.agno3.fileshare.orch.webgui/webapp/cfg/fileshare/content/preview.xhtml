@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0">
+
+	<orch:objectFieldEditor inputId="limitPreviewFileSize"
+		path="limitPreviewFileSize" minLevel="2"
+		update="@composite:@parent:maxPreviewFileSizeField">
+		<p:selectBooleanCheckbox id="limitPreviewFileSize"
+			value="#{current.limitPreviewFileSize}">
+			<p:ajax event="change"
+				update="@composite:@parent:maxPreviewFileSizeField" />
+		</p:selectBooleanCheckbox>
+	</orch:objectFieldEditor>
+
+	<p:outputPanel id="maxPreviewFileSizeField">
+		<orch:objectFieldEditor minLevel="2"
+			onlyIf="#{current.limitPreviewFileSize or (current.limitPreviewFileSize == null and defaults.limitPreviewFileSize)}"
+			inputId="maxPreviewFileSize" path="maxPreviewFileSize">
+			<ag:inputSize id="maxPreviewFileSize" maxUnit="MB" minUnit="kB"
+				defaultUnit="MB" value="#{current.maxPreviewFileSize}" />
+		</orch:objectFieldEditor>
+	</p:outputPanel>
+
+	<orch:objectFieldEditor inputId="previewMimeTypes"
+		path="previewMimeTypes" collection="true">
+		<ag:setEditor id="previewMimeTypes"
+			value="#{current.previewMimeTypes}"
+			comparator="#{mimeTypeUtilBean.comparator}"
+			factoryMethod="#{setEditorUtilBean.makeEmptyString}">
+			<p:column>
+				<p:autoComplete value="#{item.value}" style="width: 100%"
+					maxResults="10"
+					completeMethod="#{mimeTypeUtilBean.completer.complete}" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="previewSafeMimeTypes" minLevel="2"
+		path="previewSafeMimeTypes" collection="true">
+		<ag:setEditor id="previewSafeMimeTypes"
+			value="#{current.previewSafeMimeTypes}"
+			comparator="#{mimeTypeUtilBean.comparator}"
+			factoryMethod="#{setEditorUtilBean.makeEmptyString}">
+			<p:column>
+				<p:autoComplete value="#{item.value}" style="width: 100%"
+					maxResults="10"
+					completeMethod="#{mimeTypeUtilBean.completer.complete}" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+
+	<orch:objectFieldEditor inputId="previewNoSandboxMimeTypes"
+		minLevel="2" path="previewNoSandboxMimeTypes" collection="true">
+		<ag:setEditor id="previewNoSandboxMimeTypes"
+			value="#{current.previewNoSandboxMimeTypes}"
+			comparator="#{mimeTypeUtilBean.comparator}"
+			factoryMethod="#{setEditorUtilBean.makeEmptyString}">
+			<p:column>
+				<p:autoComplete value="#{item.value}" style="width: 100%"
+					maxResults="10"
+					completeMethod="#{mimeTypeUtilBean.completer.complete}" />
+			</p:column>
+		</ag:setEditor>
+	</orch:objectFieldEditor>
+
+</ui:composition>

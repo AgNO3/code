@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:fsadm="http://agno3.eu/ns/jsf/fsadm/taglib/1.0"
+	template="/tpl/common/dialog.xhtml">
+
+	<ui:param name="title" value="#{_fs_adm_msg['groups.addGroup']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<ui:include src="/tpl/app/fs/admin/metadata.xhtml" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form" method="POST" enctype="multipart/form-data">
+			<ag:dialogContextHolder />
+
+			<ag:dialogCrumps />
+
+			<p:hotkey bind="esc" action="#{dialog.close}" immediate="true" />
+			<p:messages autoUpdate="true" showDetail="true" />
+
+			<p:focus />
+			<p:fieldset legend="#{_fs_adm_msg['groups.addGroup']}">
+				<ag:simpleField label="#{_fs_adm_msg['group.name.label']}"
+					description="#{_fs_adm_msg['group.name.description']}"
+					inputId="groupName">
+					<p:inputText id="groupName" required="true"
+						value="#{app_fs_adm_groupCreateContext.groupName}" />
+				</ag:simpleField>
+
+				<ag:simpleField label="#{_fs_adm_msg['group.quota.label']}"
+					description="#{_fs_adm_msg['group.quota.description']}">
+					<fsadm:quotaEditor
+						quotaEnabled="#{app_fs_adm_groupCreateContext.quotaEnabled}"
+						quotaSize="#{app_fs_adm_groupCreateContext.quotaSize}"
+						quotaExponent="#{app_fs_adm_groupCreateContext.quotaExponent}" />
+				</ag:simpleField>
+
+				<ag:simpleField label="#{_fs_adm_msg['group.createRoot.label']}"
+					inputId="createRoot"
+					description="#{_fs_adm_msg['group.createRoot.description']}">
+					<p:selectBooleanCheckbox id="createRoot"
+						value="#{app_fs_adm_groupCreateContext.createRoot}" />
+				</ag:simpleField>
+
+				<ag:simpleField
+					label="#{_fs_adm_msg['group.disableNotifications.label']}"
+					inputId="disableNotifications"
+					description="#{_fs_adm_msg['group.disableNotifications.description']}">
+					<p:selectBooleanCheckbox id="disableNotifications"
+						value="#{app_fs_adm_groupCreateContext.disableNotifications}" />
+				</ag:simpleField>
+
+				<ag:simpleField
+					label="#{_fs_adm_msg['group.notificationOverrideAddress.label']}"
+					inputId="notificationOverrideAddress"
+					description="#{_fs_adm_msg['group.notificationOverrideAddress.description']}">
+					<p:inputText id="notificationOverrideAddress"
+						value="#{app_fs_adm_groupCreateContext.notificationOverrideAddress}" />
+				</ag:simpleField>
+
+				<ag:simpleField label="#{_fs_adm_msg['group.groupLocale.label']}"
+					inputId="groupLocale"
+					description="#{_fs_adm_msg['group.groupLocale.description']}">
+
+					<p:selectOneMenu id="groupLocale" filter="true"
+						value="#{app_fs_adm_groupCreateContext.groupLocale}"
+						converter="#{localeConverter}">
+						<f:selectItem
+							itemLabel="#{_fs_adm_msg['group.groupLocale.default']}"
+							noSelectionOption="true" />
+						<f:selectItems value="#{localeModelBean.model}" var="locale"
+							itemValue="#{locale}"
+							itemLabel="#{localeModelBean.getLocaleLabel(locale)}" />
+					</p:selectOneMenu>
+				</ag:simpleField>
+
+				<div class="buttons">
+					<p:commandButton id="confirm" icon="ui-icon-plusthick"
+						action="#{app_fs_adm_groupsController.createGroup(app_fs_adm_groupCreateContext)}"
+						value="#{_fs_adm_msg['group.create.confirmButton']}" />
+
+					<p:commandButton immediate="true" action="#{dialog.close}"
+						styleClass="close-button inline" icon="#{dialog.closeIcon}"
+						title="#{dialog.closeDescription}"
+						value="#{_fs_adm_msg['group.create.cancelButton']}" />
+				</div>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

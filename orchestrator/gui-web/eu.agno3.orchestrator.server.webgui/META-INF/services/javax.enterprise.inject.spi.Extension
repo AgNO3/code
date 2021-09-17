@@ -1,0 +1,9 @@
+org.ops4j.pax.cdi.extension.impl.OsgiExtension
+eu.agno3.runtime.cdi.extensions.EagerExtension
+eu.agno3.runtime.jsf.windowscope.WindowScopedContextExtension
+
+# Myfaces
+eu.agno3.runtime.jsf.config.cdi.FixedViewScopeContextExtension
+org.apache.myfaces.flow.cdi.FlowBuilderCDIExtension
+org.apache.myfaces.flow.cdi.FlowScopeCDIExtension
+org.apache.myfaces.cdi.dependent.DependentBeanExtension

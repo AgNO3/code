@@ -1,0 +1,242 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+<composite:interface
+	componentType="eu.agno3.orchestrator.server.webgui.components.MultiObjectEditor">
+	<composite:attribute name="context" required="false"
+		type="eu.agno3.orchestrator.server.webgui.config.ConfigContext" />
+	<composite:attribute name="path" />
+	<composite:attribute name="objectType" required="true" />
+	<composite:attribute name="template" type="java.lang.Boolean"
+		default="false" />
+	<composite:attribute name="subTemplate" type="java.lang.Boolean"
+		default="false" />
+	<composite:attribute name="readOnly" type="java.lang.Boolean"
+		default="false" />
+
+	<composite:attribute name="suppressDefaultAdd" type="java.lang.Boolean"
+		default="false" />
+
+	<composite:attribute name="toptitle" type="java.lang.String"
+		required="false" />
+
+	<composite:attribute name="minLevel" type="java.lang.Integer"
+		default="1" />
+
+
+	<composite:attribute name="simplifyLevel" type="java.lang.Integer"
+		required="false" default="-1" />
+
+	<composite:attribute name="simplifyExpectName" type="java.lang.String"
+		required="false" />
+
+	<composite:attribute name="setComparator" type="java.util.Comparator" />
+
+
+	<composite:attribute name="collectionType" type="java.lang.String"
+		required="true" />
+
+	<composite:attribute name="clone" required="false"
+		method-signature="eu.agno3.orchestrator.config.model.realm.ConfigurationObject (eu.agno3.orchestrator.server.webgui.config.ConfigContext,eu.agno3.orchestrator.config.model.realm.ConfigurationObject)" />
+
+	<composite:attribute name="listLabel"
+		method-signature="java.lang.String (java.lang.Object)" />
+
+	<composite:facet name="top" />
+	<composite:facet name="add" />
+</composite:interface>
+
+<composite:implementation>
+	<p:outputPanel id="multiObjectEditor" styleClass="multi-editor">
+		<p:messages id="msgs" for="#{cc.clientId}" showDetail="true" />
+
+		<composite:renderFacet name="top" />
+
+		<p:outputLabel rendered="#{not empty cc.attrs.toptitle}"
+			styleClass="object-selection-header" for="objectSelection"
+			value="#{cc.attrs.toptitle}" />
+
+		<p:outputPanel rendered="#{not cc.isSimplified()}"
+			id="objectSelection" style="vertical-align: top">
+			<p:selectOneListbox id="objects" value="#{cc.selectedObject}"
+				style="display: inline-block; vertical-align: top; width: 90%; min-height: 4em; max-width: 40em"
+				styleClass="ays-ignore" converter="#{configurationObjectConverter}">
+				<p:ajax event="change" process="multiObjectEditor"
+					update="multiObjectEditor" resetValues="true"
+					listener="#{cc.objectChangedListener}" />
+
+				<f:selectItems value="#{cc.selectOptions}" var="obj"
+					itemValue="#{obj}" itemLabel="#{cc.proxyLabel(obj)}" />
+			</p:selectOneListbox>
+
+			<p:outputPanel style="display: inline-block"
+				styleClass="multi-editor-icons">
+				<p:commandButton
+					rendered="#{not cc.attrs.readOnly and cc.isInEditMode() and cc.shouldShowResetToDefaults()}"
+					styleClass="revert-defaults" style="display: block"
+					icon="ui-icon-cancel" actionListener="#{cc.resetToDefault}"
+					title="#{_gui['config.multiobject.resetToDefault']}"
+					update="multiObjectEditor" resetValues="multiObjectEditor">
+					<p:resetInput target="multiObjectEditor" />
+				</p:commandButton>
+				<p:commandButton
+					rendered="#{not cc.hasEnforcedValues() and not cc.attrs.readOnly and not cc.isInEditMode()}"
+					style="display: block" icon="ui-icon-wrench"
+					styleClass="edit-inherited"
+					title="#{_gui['config.multiobject.editInherited']}"
+					actionListener="#{cc.doEdit}" immediate="true"
+					update="multiObjectEditor">
+					<p:resetInput target="multiObjectEditor" />
+				</p:commandButton>
+				<p:commandButton
+					rendered="#{not cc.attrs.suppressDefaultAdd and not cc.hasEnforcedValues() and not cc.attrs.readOnly and cc.isInEditMode()}"
+					style="display: block" icon="ui-icon-plus" styleClass="add-object"
+					title="#{_gui['config.multiobject.addNewObject']}"
+					actionListener="#{cc.addNew}" process="@composite"
+					update="multiObjectEditor">
+					<p:resetInput target="multiObjectEditor" />
+				</p:commandButton>
+
+				<ui:fragment
+					rendered="#{not cc.hasEnforcedValues() and not cc.attrs.readOnly and cc.isInEditMode()}">
+					<composite:renderFacet name="add">
+						<ui:param name="outerWrapper" value="#{cc.outerWrapper}" />
+					</composite:renderFacet>
+				</ui:fragment>
+			</p:outputPanel>
+
+		</p:outputPanel>
+
+		<p:fieldset styleClass="objectEditor" id="objectFieldset"
+			rendered="#{not empty cc.selectedObject}">
+			<f:facet name="legend">
+				<p:panel rendered="#{not cc.hideHeader()}">
+					<h:outputText styleClass="objectEditorTemplateTitle"
+						value="#{cc.displayTitle}" />
+
+					<h:outputText styleClass="ui-icon ui-icon-inline ui-icon-star"
+						title="#{_gui['config.detailHiddenElements']}"
+						rendered="#{cc.hasHiddenChildren}" />
+
+					<div class="objectEditorTemplateCommands">
+						<p:inplace rendered="#{userPreferences.enableMultiHostManagement and not cc.isSimplified()}">
+							<f:facet name="output">
+								<h:outputText styleClass="inherited"
+									rendered="#{empty cc.selectedLocalInherits}"
+									value="#{cc.defaultsDisplayName}" />
+								<h:outputText styleClass="inherited"
+									rendered="#{not empty cc.selectedLocalInherits}"
+									value="#{configUtil.getDisplayNameFor(cc.selectedLocalInherits)}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:selectOneMenu disabled="#{cc.childrenAreReadOnly()}"
+									id="inherited" value="#{cc.selectedLocalInherits}"
+									converter="#{configurationObjectConverter}">
+									<f:selectItem itemLabel="#{cc.defaultsDisplayName}"
+										noSelectionOption="true" />
+									<f:selectItems value="#{cc.eligibleTemplates}" var="tpl"
+										itemValue="#{tpl}"
+										itemLabel="#{configUtil.getDisplayNameFor(tpl)}" />
+
+									<p:ajax process="objectFieldset" event="change"
+										update="objectFieldset" listener="#{cc.changedInherits}"
+										resetValues="true" />
+
+								</p:selectOneMenu>
+							</f:facet>
+						</p:inplace>
+
+						<h:panelGroup>
+							<p:commandButton rendered="#{guiFeatureConfig.showDevTools}"
+								id="infoButton" icon="ui-icon-info"
+								title="#{_gui['config.objectInfo']}" type="button" />
+							<p:overlayPanel rendered="#{guiFeatureConfig.showDevTools}"
+								for="infoButton">
+								<ul>
+									<li><h:outputFormat
+											value="#{_gui['config.objectInfo.localVersionFmt']}">
+											<f:param value="#{cc.selectedObject.version}" />
+										</h:outputFormat></li>
+									<li><h:outputFormat
+											value="#{_gui['config.objectInfo.globalRevisionFmt']}">
+											<f:param value="#{cc.selectedObject.revision}" />
+										</h:outputFormat></li>
+								</ul>
+							</p:overlayPanel>
+
+
+							<ag:dialogOpenButton
+								rendered="#{false and userPreferences.enableMultiHostManagement and not cc.childrenAreReadOnly()}"
+								immediate="true"
+								id="addTemplateButton" icon="ui-icon-plus"
+								title="#{_gui['config.createNewParentObject']}"
+								dialog="/config/template/addTypeRaw?scope=#{cc.attrs.context.anchor.id}&amp;type=#{cc.attrs.objectType}&amp;cid="
+								returnLabel="#{_gui['config.dialogReturn']}" />
+							<ag:dialogOpenButton
+								rendered="#{userPreferences.enableMultiHostManagement and not cc.childrenAreReadOnly() and not empty cc.selectedLocalInherits.id}"
+								icon="ui-icon-gear"
+								id="editTemplateButton"
+								title="#{_gui['config.editParentObject']}"
+								dialog="/config/template/editDialog?object=#{cc.selectedLocalInherits.id}&amp;cid="
+								returnLabel="#{_gui['config.dialogReturn']}">
+								<p:ajax event="return" listener="#{cc.resetLocalInherits}"
+									update="objectFieldset" />
+							</ag:dialogOpenButton>
+
+							<p:commandButton
+								rendered="#{not cc.childrenAreReadOnly() and not cc.isSimplified()}"
+								icon="ui-icon-trash"
+								styleClass="remove-object"
+								title="#{_gui['config.multiobject.remove']}"
+								actionListener="#{cc.removeSelected}" immediate="true"
+								update="multiObjectEditor">
+								<p:resetInput target="multiObjectEditor" />
+							</p:commandButton>
+
+							<p:commandButton
+								rendered="#{cc.isSimplified() and not cc.hasEnforcedValues() and not cc.attrs.readOnly and not cc.isInEditMode()}"
+								icon="ui-icon-wrench"
+								styleClass="edit-inherited"
+								title="#{_gui['config.multiobject.editInherited']}"
+								actionListener="#{cc.doEdit}" immediate="true"
+								update="multiObjectEditor">
+								<p:resetInput target="multiObjectEditor" />
+							</p:commandButton>
+							<p:commandButton
+								rendered="#{cc.isSimplified() and cc.hasInheritedValues() and cc.isInEditMode() and cc.shouldShowResetToDefaults()}"
+								styleClass="revert-defaults"
+								icon="ui-icon-cancel" actionListener="#{cc.resetToDefault}"
+								title="#{_gui['config.multiobject.resetToDefault']}"
+								update="multiObjectEditor" resetValues="multiObjectEditor">
+								<p:resetInput target="multiObjectEditor" />
+							</p:commandButton>
+						</h:panelGroup>
+					</div>
+				</p:panel>
+			</f:facet>
+
+			<ui:include src="${configUtil.getEditViewFor(cc.attrs.objectType)}">
+				<ui:param name="configContext" value="#{cc.attrs.context}" />
+				<ui:param name="current" value="#{cc.selectedObject}" />
+				<ui:param name="defaults" value="#{cc.selectedObjectDefaults}" />
+				<ui:param name="enforced" value="#{cc.selectedObjectEnforced}" />
+				<ui:param name="base" value="#{cc.attrs.path}" />
+				<ui:param name="isTemplate"
+					value="#{cc.attrs.template or cc.attrs.subTemplate}" />
+				<ui:param name="isSubTemplate" value="#{cc.attrs.subTemplate}" />
+				<ui:param name="isReadOnly" value="#{cc.childrenAreReadOnly()}" />
+				<ui:param name="outerWrapper" value="#{cc.outerWrapper}" />
+			</ui:include>
+		</p:fieldset>
+	</p:outputPanel>
+
+</composite:implementation>
+</html>
+
+
+

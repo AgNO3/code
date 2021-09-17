@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/oxm  http://www.eclipse.org/eclipselink/xsds/eclipselink_oxm_2_4.xsd"
+	package-name="eu.agno3.runtime.security.principal"
+	xml-mapping-metadata-complete="true" version="2.4">
+
+	<xml-schema element-form-default="QUALIFIED"
+		attribute-form-default="UNQUALIFIED" namespace="urn:agno3:security:1.0:principal">
+		<xml-ns prefix="user" namespace-uri="urn:agno3:security:1.0:principal" />
+	</xml-schema>
+
+	<java-types>
+
+		<java-type name="UserPrincipal" xml-accessor-type="NONE">
+			<xml-type name="userPrincType" />
+			<xml-root-element name="userPrinc" />
+
+			<java-attributes>
+				<xml-attribute java-attribute="userId" required="true">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.UUIDAdapter" />
+				</xml-attribute>
+				<xml-attribute java-attribute="userName" required="true" />
+				<xml-attribute java-attribute="realmName" required="true" />
+			</java-attributes>
+		</java-type>
+
+		<java-type name="UserInfo" xml-accessor-type="NONE">
+			<xml-type name="userInfoType"
+				factory-class="eu.agno3.runtime.security.principal.ObjectFactory"
+				factory-method="createUserInfo" />
+			<xml-root-element name="userInfo" />
+
+			<java-attributes>
+				<xml-element name="principal" java-attribute="userPrincipal"
+					required="true" />
+				<xml-element java-attribute="created" required="false">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter" />
+				</xml-element>
+				<xml-element java-attribute="lastPwChange" required="false">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter" />
+				</xml-element>
+				<xml-element java-attribute="pwExpiry" required="false">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter" />
+				</xml-element>
+				<xml-element java-attribute="lastSuccessfulLogin"
+					required="false">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter" />
+				</xml-element>
+				<xml-element java-attribute="lastFailedLogin" required="false">
+					<xml-java-type-adapter
+						value="eu.agno3.runtime.xml.binding.adapter.XmlDateTimeAdapter" />
+				</xml-element>
+				<xml-element java-attribute="failedLoginAttempts"
+					required="false" />
+				<xml-element java-attribute="disabled" required="false" />
+			</java-attributes>
+		</java-type>
+
+	</java-types>
+
+</xml-bindings>

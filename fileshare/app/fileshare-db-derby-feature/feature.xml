@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="fileshare-db-derby-feature"
+      label="Fileshare Derby DB Feature"
+      version="0.0.1.qualifier"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <includes
+         id="db-derby-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="deps-derby-feature"
+         version="0.0.0"/>
+
+</feature>

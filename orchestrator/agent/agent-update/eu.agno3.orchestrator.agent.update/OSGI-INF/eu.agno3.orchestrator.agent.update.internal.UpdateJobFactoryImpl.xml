@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.orchestrator.agent.update.internal.UpdateJobFactoryImpl">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.orchestrator.agent.update.UpdateJobFactory"/>
+    </service>
+    <reference name="ConfigRepository" interface="eu.agno3.orchestrator.jobs.agent.system.ConfigRepository" cardinality="1..1" policy="static" bind="setConfigRepository" unbind="unsetConfigRepository"/>
+    <reference name="ServiceReconfigurator" interface="eu.agno3.orchestrator.agent.update.ServiceReconfigurator" cardinality="1..1" policy="static" bind="setServiceReconfigurator" unbind="unsetServiceReconfigurator"/>
+    <reference name="SystemIntegration" interface="eu.agno3.orchestrator.config.hostconfig.agent.BaseSystemIntegration" cardinality="1..1" policy="static" bind="setSystemIntegration" unbind="unsetSystemIntegration"/>
+    <reference name="ServiceManager" interface="eu.agno3.orchestrator.jobs.agent.service.ServiceManager" cardinality="1..1" policy="static" bind="setServiceManager" unbind="unsetServiceManager"/>
+    <implementation class="eu.agno3.orchestrator.agent.update.internal.UpdateJobFactoryImpl"/>
+</scr:component>

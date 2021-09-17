@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0">
+
+<composite:interface>
+	<composite:attribute name="quotaEnabled" required="true"
+		type="java.lang.Boolean" />
+	<composite:attribute name="quotaSize" required="true"
+		type="java.lang.Long" />
+	<composite:attribute name="quotaExponent" required="true"
+		type="java.lang.Integer" />
+</composite:interface>
+
+<composite:implementation>
+	<div class="quota-editor">
+		<p:selectBooleanCheckbox id="quotaEnabled"
+			style="display: inline-block; vertical-align: top"
+			value="#{cc.attrs.quotaEnabled}"
+			title="#{_fs_adm_msg['quota.toggleEnable']}">
+			<p:ajax event="change" update="quotaSize quotaUnit" />
+		</p:selectBooleanCheckbox>
+
+		<p:spinner id="quotaSize" min="0" size="4"
+			style="display: inline-block; vertical-align: top; margin-left: 0.5em; box-sizing: border-box; -webkit-box-sizing: border-box;-moz-box-sizing: border-box;"
+			disabled="#{not cc.attrs.quotaEnabled}" value="#{cc.attrs.quotaSize}" />
+
+		<p:selectOneMenu id="quotaUnit"
+			style="display: inline-block; vertical-align: top; margin-left: 0.5em;"
+			disabled="#{not cc.attrs.quotaEnabled}"
+			value="#{cc.attrs.quotaExponent}">
+			<f:selectItem itemLabel="#{_fs_adm_msg['quota.units.kilo']}"
+				itemValue="1" />
+			<f:selectItem itemLabel="#{_fs_adm_msg['quota.units.mega']}"
+				itemValue="2" />
+			<f:selectItem itemLabel="#{_fs_adm_msg['quota.units.giga']}"
+				itemValue="3" />
+			<f:selectItem itemLabel="#{_fs_adm_msg['quota.units.tera']}"
+				itemValue="4" />
+		</p:selectOneMenu>
+	</div>
+</composite:implementation>
+</html>
+

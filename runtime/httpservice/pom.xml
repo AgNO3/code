@@ -1,0 +1,25 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>eu.agno3.runtime</groupId>
+    <artifactId>runtime-parent</artifactId>
+    <version>0.1.254</version>
+    <relativePath></relativePath>
+  </parent>
+  <artifactId>httpservice</artifactId>
+  <packaging>pom</packaging>
+  <name>HTTP Service</name>
+  <version>0.0.154</version>
+  <modules>
+  	<module>eu.agno3.runtime.httpservice</module>
+  	<module>eu.agno3.runtime.httpservice.console</module>
+  	<module>eu.agno3.runtime.httpservice.webapp</module>
+  	<module>eu.agno3.runtime.httpservice.test</module>
+  	<module>eu.agno3.runtime.httpservice.jetty.fragment</module>
+  	<module>httpservice-feature</module>
+  	<module>eu.agno3.runtime.http.ua</module>
+  	<module>http-ua-feature</module>
+
+  </modules>
+
+</project>

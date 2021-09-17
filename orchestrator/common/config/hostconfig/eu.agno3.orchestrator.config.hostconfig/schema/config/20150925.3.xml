@@ -1,0 +1,1592 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+	<changeSet author="mbechler (generated)" id="1443182418771-1">
+		<createTable tableName="config_hostconfig">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DATETIMECONFIGURATION_ID" type="BINARY(16)" />
+			<column name="HOSTIDENTIFICATION_ID" type="BINARY(16)" />
+			<column name="KEYSTORECONFIGURATION_ID" type="BINARY(16)" />
+			<column name="MAILINGCONFIGURATION_ID" type="BINARY(16)" />
+			<column name="NETWORKCONFIGURATION_ID" type="BINARY(16)" />
+			<column name="REALMSCONFIGURATION_ID" type="BINARY(16)" />
+			<column name="RESOLVERCONFIGURATION_ID" type="BINARY(16)" />
+			<column name="STORAGECONFIGURATION_ID" type="BINARY(16)" />
+			<column name="SYSTEMCONFIGURATION_ID" type="BINARY(16)" />
+			<column name="TRUSTCONFIGURATION_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-2">
+		<createTable tableName="config_hostconfig_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="DATETIMECONFIGURATION_ID" type="BINARY(16)" />
+			<column name="HOSTIDENTIFICATION_ID" type="BINARY(16)" />
+			<column name="KEYSTORECONFIGURATION_ID" type="BINARY(16)" />
+			<column name="MAILINGCONFIGURATION_ID" type="BINARY(16)" />
+			<column name="NETWORKCONFIGURATION_ID" type="BINARY(16)" />
+			<column name="REALMSCONFIGURATION_ID" type="BINARY(16)" />
+			<column name="RESOLVERCONFIGURATION_ID" type="BINARY(16)" />
+			<column name="STORAGECONFIGURATION_ID" type="BINARY(16)" />
+			<column name="SYSTEMCONFIGURATION_ID" type="BINARY(16)" />
+			<column name="TRUSTCONFIGURATION_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-3">
+		<createTable tableName="config_hostconfig_datetime">
+			<column name="HWCLOCKUTC" type="BOOLEAN" />
+			<column name="NTPENABLED" type="BOOLEAN" />
+			<column name="TIMEZONE" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-4">
+		<createTable tableName="config_hostconfig_datetime_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="HWCLOCKUTC" type="BOOLEAN" />
+			<column name="NTPENABLED" type="BOOLEAN" />
+			<column name="TIMEZONE" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-5">
+		<createTable tableName="config_hostconfig_datetime_ntpservers">
+			<column name="CONFIG_HOSTCONFIG_DATETIME_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="SERVER" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="IDX" type="INT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-6">
+		<createTable tableName="config_hostconfig_datetime_ntpservers_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_HOSTCONFIG_DATETIME_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="SERVER" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="IDX" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-7">
+		<createTable tableName="config_hostconfig_identity">
+			<column name="DOMAINNAME" type="VARCHAR(255)" />
+			<column name="HOSTNAME" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-8">
+		<createTable tableName="config_hostconfig_identity_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="DOMAINNAME" type="VARCHAR(255)" />
+			<column name="HOSTNAME" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-9">
+		<createTable tableName="config_hostconfig_mailing">
+			<column name="MAILINGENABLED" type="BOOLEAN" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="SMTPCONFIGURATION_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-10">
+		<createTable tableName="config_hostconfig_mailing_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="MAILINGENABLED" type="BOOLEAN" />
+			<column name="SMTPCONFIGURATION_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-11">
+		<createTable tableName="config_hostconfig_network">
+			<column name="IPV6ENABLED" type="BOOLEAN" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="INTERFACECONFIGURATION_ID" type="BINARY(16)" />
+			<column name="ROUTINGCONFIGURATION_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-12">
+		<createTable tableName="config_hostconfig_network_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="IPV6ENABLED" type="BOOLEAN" />
+			<column name="INTERFACECONFIGURATION_ID" type="BINARY(16)" />
+			<column name="ROUTINGCONFIGURATION_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-13">
+		<createTable tableName="config_hostconfig_network_interface_entry">
+			<column name="ALIAS" type="VARCHAR(255)" />
+			<column name="HARDWAREADDRESS" type="VARCHAR(255)" />
+			<column name="INTERFACEINDEX" type="INT" />
+			<column name="MEDIATYPE" type="VARCHAR(255)" />
+			<column name="MTU" type="INT" />
+			<column name="OVERRIDEHARDWAREADDRESS" type="VARCHAR(255)" />
+			<column name="V4ADDRESSCONFIGURATIONTYPE" type="VARCHAR(255)" />
+			<column name="V6ADDRESSCONFIGURATIONTYPE" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-14">
+		<createTable tableName="config_hostconfig_network_interface_entry_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ALIAS" type="VARCHAR(255)" />
+			<column name="HARDWAREADDRESS" type="VARCHAR(255)" />
+			<column name="INTERFACEINDEX" type="INT" />
+			<column name="MEDIATYPE" type="VARCHAR(255)" />
+			<column name="MTU" type="INT" />
+			<column name="OVERRIDEHARDWAREADDRESS" type="VARCHAR(255)" />
+			<column name="V4ADDRESSCONFIGURATIONTYPE" type="VARCHAR(255)" />
+			<column name="V6ADDRESSCONFIGURATIONTYPE" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-15">
+		<createTable tableName="config_hostconfig_network_interface_static">
+			<column name="CONFIG_HOSTCONFIG_NETWORK_INTERFACE_ENTRY_ID"
+				type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ADDR" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-16">
+		<createTable tableName="config_hostconfig_network_interface_static_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_HOSTCONFIG_NETWORK_INTERFACE_ENTRY_ID"
+				type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ADDR" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-17">
+		<createTable tableName="config_hostconfig_network_interfaces">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-18">
+		<createTable tableName="config_hostconfig_network_interfaces_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-19">
+		<createTable
+			tableName="config_hostconfig_network_interfaces_config_hostconfig_network_interface_entry">
+			<column name="CONFIG_HOSTCONFIG_NETWORK_INTERFACES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="INTERFACES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-20">
+		<createTable
+			tableName="config_hostconfig_network_interfaces_config_hostconfig_network_interface_entry_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_HOSTCONFIG_NETWORK_INTERFACES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="INTERFACES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-21">
+		<createTable tableName="config_hostconfig_network_routing">
+			<column name="AUTOCONFIGUREV4ROUTES" type="BOOLEAN" />
+			<column name="AUTOCONFIGUREV6ROUTES" type="BOOLEAN" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DEFAULTROUTEV4_ID" type="BINARY(16)" />
+			<column name="DEFAULTROUTEV6_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-22">
+		<createTable tableName="config_hostconfig_network_routing_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="AUTOCONFIGUREV4ROUTES" type="BOOLEAN" />
+			<column name="AUTOCONFIGUREV6ROUTES" type="BOOLEAN" />
+			<column name="DEFAULTROUTEV4_ID" type="BINARY(16)" />
+			<column name="DEFAULTROUTEV6_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-23">
+		<createTable
+			tableName="config_hostconfig_network_routing_config_hostconfig_network_routing_route">
+			<column name="CONFIG_HOSTCONFIG_NETWORK_ROUTING_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="STATICROUTES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-24">
+		<createTable
+			tableName="config_hostconfig_network_routing_config_hostconfig_network_routing_route_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_HOSTCONFIG_NETWORK_ROUTING_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="STATICROUTES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-25">
+		<createTable tableName="config_hostconfig_network_routing_route">
+			<column name="ADVMSS" type="INT" />
+			<column name="DEVICE" type="VARCHAR(255)" />
+			<column name="GATEWAY" type="VARCHAR(255)" />
+			<column name="MTU" type="INT" />
+			<column name="ROUTETYPE" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="SOURCEADDRESS" type="VARCHAR(255)" />
+			<column name="TARGET" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-26">
+		<createTable tableName="config_hostconfig_network_routing_route_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ADVMSS" type="INT" />
+			<column name="DEVICE" type="VARCHAR(255)" />
+			<column name="GATEWAY" type="VARCHAR(255)" />
+			<column name="MTU" type="INT" />
+			<column name="ROUTETYPE" type="VARCHAR(255)" />
+			<column name="SOURCEADDRESS" type="VARCHAR(255)" />
+			<column name="TARGET" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-27">
+		<createTable tableName="config_hostconfig_resolver">
+			<column name="AUTOCONFIGUREDNS" type="BOOLEAN" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-28">
+		<createTable tableName="config_hostconfig_resolver_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="AUTOCONFIGUREDNS" type="BOOLEAN" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-29">
+		<createTable tableName="config_hostconfig_resolver_nameservers">
+			<column name="CONFIG_HOSTCONFIG_RESOLVER_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ADDR" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="IDX" type="INT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-30">
+		<createTable tableName="config_hostconfig_resolver_nameservers_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_HOSTCONFIG_RESOLVER_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ADDR" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="IDX" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-31">
+		<createTable tableName="config_hostconfig_storage">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-32">
+		<createTable tableName="config_hostconfig_storage_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-33">
+		<createTable
+			tableName="config_hostconfig_storage_config_hostconfig_storage_mount">
+			<column name="CONFIG_HOSTCONFIG_STORAGE_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="MOUNTENTRIES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-34">
+		<createTable
+			tableName="config_hostconfig_storage_config_hostconfig_storage_mount_AUD">
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CONFIG_HOSTCONFIG_STORAGE_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="MOUNTENTRIES_ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REVTYPE" type="SMALLINT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-35">
+		<createTable tableName="config_hostconfig_storage_mount">
+			<column name="ALIAS" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-36">
+		<createTable tableName="config_hostconfig_storage_mount_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ALIAS" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-37">
+		<createTable tableName="config_hostconfig_storage_mount_cifs">
+			<column name="AUTHKEYTAB" type="VARCHAR(255)" />
+			<column name="AUTHREALM" type="VARCHAR(255)" />
+			<column name="AUTHTYPE" type="INT" />
+			<column name="DOMAIN" type="VARCHAR(255)" />
+			<column name="ENABLESIGNING" type="BOOLEAN" />
+			<column name="MOUNTTYPE" type="INT" />
+			<column name="PASSWORD" type="VARCHAR(255)" />
+			<column name="UNCPATH" type="VARCHAR(255)" />
+			<column name="USERNAME" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-38">
+		<createTable tableName="config_hostconfig_storage_mount_cifs_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="AUTHKEYTAB" type="VARCHAR(255)" />
+			<column name="AUTHREALM" type="VARCHAR(255)" />
+			<column name="AUTHTYPE" type="INT" />
+			<column name="DOMAIN" type="VARCHAR(255)" />
+			<column name="ENABLESIGNING" type="BOOLEAN" />
+			<column name="MOUNTTYPE" type="INT" />
+			<column name="PASSWORD" type="VARCHAR(255)" />
+			<column name="UNCPATH" type="VARCHAR(255)" />
+			<column name="USERNAME" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-39">
+		<createTable tableName="config_hostconfig_storage_mount_local">
+			<column name="MATCHLABEL" type="VARCHAR(255)" />
+			<column name="MATCHUUID" type="BINARY(16)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-40">
+		<createTable tableName="config_hostconfig_storage_mount_local_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="MATCHLABEL" type="VARCHAR(255)" />
+			<column name="MATCHUUID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-41">
+		<createTable tableName="config_hostconfig_storage_mount_nfs">
+			<column name="AUTHKEYTAB" type="VARCHAR(255)" />
+			<column name="AUTHREALM" type="VARCHAR(255)" />
+			<column name="MOUNTTYPE" type="INT" />
+			<column name="NFSVERSION" type="INT" />
+			<column name="SECURITYTYPE" type="INT" />
+			<column name="TARGET" type="VARCHAR(255)" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-42">
+		<createTable tableName="config_hostconfig_storage_mount_nfs_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="AUTHKEYTAB" type="VARCHAR(255)" />
+			<column name="AUTHREALM" type="VARCHAR(255)" />
+			<column name="MOUNTTYPE" type="INT" />
+			<column name="NFSVERSION" type="INT" />
+			<column name="SECURITYTYPE" type="INT" />
+			<column name="TARGET" type="VARCHAR(255)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-43">
+		<createTable tableName="config_hostconfig_system">
+			<column name="ENABLESSHACCESS" type="BOOLEAN" />
+			<column name="SWAPINESS" type="INT" />
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="AGENTCONFIG_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-44">
+		<createTable tableName="config_hostconfig_system_AUD">
+			<column name="ID" type="BINARY(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REV" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ENABLESSHACCESS" type="BOOLEAN" />
+			<column name="SWAPINESS" type="INT" />
+			<column name="AGENTCONFIG_ID" type="BINARY(16)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-45">
+		<addPrimaryKey columnNames="CONFIG_HOSTCONFIG_DATETIME_ID, IDX"
+			tableName="config_hostconfig_datetime_ntpservers" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-46">
+		<addPrimaryKey columnNames="CONFIG_HOSTCONFIG_NETWORK_INTERFACE_ENTRY_ID, ADDR"
+			tableName="config_hostconfig_network_interface_static" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-47">
+		<addPrimaryKey
+			columnNames="CONFIG_HOSTCONFIG_NETWORK_INTERFACES_ID, INTERFACES_ID"
+			tableName="config_hostconfig_network_interfaces_config_hostconfig_network_interface_entry" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-48">
+		<addPrimaryKey columnNames="CONFIG_HOSTCONFIG_NETWORK_ROUTING_ID, STATICROUTES_ID"
+			tableName="config_hostconfig_network_routing_config_hostconfig_network_routing_route" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-49">
+		<addPrimaryKey columnNames="CONFIG_HOSTCONFIG_RESOLVER_ID, IDX"
+			tableName="config_hostconfig_resolver_nameservers" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-50">
+		<addPrimaryKey columnNames="CONFIG_HOSTCONFIG_STORAGE_ID, MOUNTENTRIES_ID"
+			tableName="config_hostconfig_storage_config_hostconfig_storage_mount" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-51">
+		<addPrimaryKey columnNames="ID" constraintName="config_hostconfigPK"
+			tableName="config_hostconfig" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-52">
+		<addPrimaryKey columnNames="ID, REV" constraintName="config_hostconfig_AUDPK"
+			tableName="config_hostconfig_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-53">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_hostconfig_datetimePK" tableName="config_hostconfig_datetime" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-54">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_hostconfig_datetime_AUDPK" tableName="config_hostconfig_datetime_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-55">
+		<addPrimaryKey columnNames="REV, CONFIG_HOSTCONFIG_DATETIME_ID, SERVER, IDX"
+			constraintName="config_hostconfig_datetime_ntpservers_AUDPK"
+			tableName="config_hostconfig_datetime_ntpservers_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-56">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_hostconfig_identityPK" tableName="config_hostconfig_identity" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-57">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_hostconfig_identity_AUDPK" tableName="config_hostconfig_identity_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-58">
+		<addPrimaryKey columnNames="ID" constraintName="config_hostconfig_mailingPK"
+			tableName="config_hostconfig_mailing" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-59">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_hostconfig_mailing_AUDPK" tableName="config_hostconfig_mailing_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-60">
+		<addPrimaryKey columnNames="ID" constraintName="config_hostconfig_networkPK"
+			tableName="config_hostconfig_network" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-61">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_hostconfig_network_AUDPK" tableName="config_hostconfig_network_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-62">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_hostconfig_network_interface_entryPK"
+			tableName="config_hostconfig_network_interface_entry" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-63">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_hostconfig_network_interface_entry_AUDPK"
+			tableName="config_hostconfig_network_interface_entry_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-64">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_HOSTCONFIG_NETWORK_INTERFACE_ENTRY_ID, ADDR"
+			constraintName="config_hostconfig_network_interface_static_AUDPK"
+			tableName="config_hostconfig_network_interface_static_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-65">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_hostconfig_network_interfacesPK" tableName="config_hostconfig_network_interfaces" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-66">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_hostconfig_network_interfaces_AUDPK"
+			tableName="config_hostconfig_network_interfaces_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-67">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_HOSTCONFIG_NETWORK_INTERFACES_ID, INTERFACES_ID"
+			constraintName="config_hostconfig_network_interfaces_config_hostcon_EC1F02F8_PK"
+			tableName="config_hostconfig_network_interfaces_config_hostconfig_network_interface_entry_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-68">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_hostconfig_network_routingPK" tableName="config_hostconfig_network_routing" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-69">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_hostconfig_network_routing_AUDPK" tableName="config_hostconfig_network_routing_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-70">
+		<addPrimaryKey
+			columnNames="REV, CONFIG_HOSTCONFIG_NETWORK_ROUTING_ID, STATICROUTES_ID"
+			constraintName="config_hostconfig_network_routing_config_hostconfig__5DA7F96_PK"
+			tableName="config_hostconfig_network_routing_config_hostconfig_network_routing_route_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-71">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_hostconfig_network_routing_routePK" tableName="config_hostconfig_network_routing_route" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-72">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_hostconfig_network_routing_route_AUDPK"
+			tableName="config_hostconfig_network_routing_route_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-73">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_hostconfig_resolverPK" tableName="config_hostconfig_resolver" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-74">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_hostconfig_resolver_AUDPK" tableName="config_hostconfig_resolver_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-75">
+		<addPrimaryKey columnNames="REV, CONFIG_HOSTCONFIG_RESOLVER_ID, ADDR, IDX"
+			constraintName="config_hostconfig_resolver_nameservers_AUDPK"
+			tableName="config_hostconfig_resolver_nameservers_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-76">
+		<addPrimaryKey columnNames="ID" constraintName="config_hostconfig_storagePK"
+			tableName="config_hostconfig_storage" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-77">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_hostconfig_storage_AUDPK" tableName="config_hostconfig_storage_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-78">
+		<addPrimaryKey columnNames="REV, CONFIG_HOSTCONFIG_STORAGE_ID, MOUNTENTRIES_ID"
+			constraintName="config_hostconfig_storage_config_hostconfig_storage_77C18272_PK"
+			tableName="config_hostconfig_storage_config_hostconfig_storage_mount_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-79">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_hostconfig_storage_mountPK" tableName="config_hostconfig_storage_mount" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-80">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_hostconfig_storage_mount_AUDPK" tableName="config_hostconfig_storage_mount_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-81">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_hostconfig_storage_mount_cifsPK" tableName="config_hostconfig_storage_mount_cifs" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-82">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_hostconfig_storage_mount_cifs_AUDPK"
+			tableName="config_hostconfig_storage_mount_cifs_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-83">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_hostconfig_storage_mount_localPK" tableName="config_hostconfig_storage_mount_local" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-84">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_hostconfig_storage_mount_local_AUDPK"
+			tableName="config_hostconfig_storage_mount_local_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-85">
+		<addPrimaryKey columnNames="ID"
+			constraintName="config_hostconfig_storage_mount_nfsPK" tableName="config_hostconfig_storage_mount_nfs" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-86">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_hostconfig_storage_mount_nfs_AUDPK" tableName="config_hostconfig_storage_mount_nfs_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-87">
+		<addPrimaryKey columnNames="ID" constraintName="config_hostconfig_systemPK"
+			tableName="config_hostconfig_system" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-88">
+		<addPrimaryKey columnNames="ID, REV"
+			constraintName="config_hostconfig_system_AUDPK" tableName="config_hostconfig_system_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-89">
+		<addUniqueConstraint columnNames="STATICROUTES_ID"
+			constraintName="UK_9UFLMXWMY56WF2IJXMB8OKHWC"
+			tableName="config_hostconfig_network_routing_config_hostconfig_network_routing_route" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-90">
+		<createIndex indexName="FK_FK_13Q3644SBDD8ULCEHB2CTAUOY"
+			tableName="config_hostconfig_resolver_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-91">
+		<createIndex indexName="FK_FK_1LNVWT33HGHAQ52F4NL5F3FTL"
+			tableName="config_hostconfig_network_routing_config_hostconfig_network_routing_route_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-92">
+		<createIndex indexName="FK_FK_2DXJT85RW7NRH1I75838QVK3O"
+			tableName="config_hostconfig_network_interfaces_config_hostconfig_network_interface_entry">
+			<column name="CONFIG_HOSTCONFIG_NETWORK_INTERFACES_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-93">
+		<createIndex indexName="FK_FK_3164XLLDR5HJ3RPN7YTAP4TA1"
+			tableName="config_hostconfig">
+			<column name="REALMSCONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-94">
+		<createIndex indexName="FK_FK_4V7EE7U8QUHWATWY3B7HHK435"
+			tableName="config_hostconfig">
+			<column name="NETWORKCONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-95">
+		<createIndex indexName="FK_FK_4W70WF14FBPJPUCNPVYR9BJ7A"
+			tableName="config_hostconfig_storage_mount_local">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-96">
+		<createIndex indexName="FK_FK_5092EYCKKX5N75JAWLIAMM5TY"
+			tableName="config_hostconfig_network_interfaces_config_hostconfig_network_interface_entry_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-97">
+		<createIndex indexName="FK_FK_5HYFT97IVYTR1MHT9N03O2C3R"
+			tableName="config_hostconfig_network_routing">
+			<column name="DEFAULTROUTEV4_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-98">
+		<createIndex indexName="FK_FK_69E8C8JKIA01NN59L6K7CBF43"
+			tableName="config_hostconfig_storage_mount_nfs_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-99">
+		<createIndex indexName="FK_FK_6LPB3FMULTC9VA1WF8SBY8JRO"
+			tableName="config_hostconfig_mailing">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-100">
+		<createIndex indexName="FK_FK_6V5AQO5V9FNV4ER0T73OOYTBR"
+			tableName="config_hostconfig_network_interface_static">
+			<column name="CONFIG_HOSTCONFIG_NETWORK_INTERFACE_ENTRY_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-101">
+		<createIndex indexName="FK_FK_712EBXECSAK837JWA3BP5QFE1"
+			tableName="config_hostconfig_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-102">
+		<createIndex indexName="FK_FK_77F6FXODNIQ4X1D5T62G7MY0K"
+			tableName="config_hostconfig">
+			<column name="KEYSTORECONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-103">
+		<createIndex indexName="FK_FK_7NM5O6IRN8WO3BXYPQUIM4P6X"
+			tableName="config_hostconfig_system">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-104">
+		<createIndex indexName="FK_FK_8PRUQ1P6BXM4RGUNIM62SO2BV"
+			tableName="config_hostconfig">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-105">
+		<createIndex indexName="FK_FK_8SHRYFM8O03BL5GECA7SQM4RQ"
+			tableName="config_hostconfig_storage_mount">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-106">
+		<createIndex indexName="FK_FK_98Q741M96QU9GAOTFRR7L9RUU"
+			tableName="config_hostconfig_network_routing_config_hostconfig_network_routing_route">
+			<column name="CONFIG_HOSTCONFIG_NETWORK_ROUTING_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-107">
+		<createIndex indexName="FK_FK_9FUAU6391WW9U5QK3URF1Y3VK"
+			tableName="config_hostconfig_network_interfaces_config_hostconfig_network_interface_entry">
+			<column name="INTERFACES_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-108">
+		<createIndex indexName="FK_FK_9UFLMXWMY56WF2IJXMB8OKHWC"
+			tableName="config_hostconfig_network_routing_config_hostconfig_network_routing_route">
+			<column name="STATICROUTES_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-109">
+		<createIndex indexName="FK_FK_A1UHXQPOVRRY7QCOWSHLG7X28"
+			tableName="config_hostconfig">
+			<column name="RESOLVERCONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-110">
+		<createIndex indexName="FK_FK_AHDNO3N5EQB97GUNECTLTCGMV"
+			tableName="config_hostconfig_network">
+			<column name="ROUTINGCONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-111">
+		<createIndex indexName="FK_FK_AW7JSLDEWQRHYVH9AMARMLSDU"
+			tableName="config_hostconfig_network_interfaces">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-112">
+		<createIndex indexName="FK_FK_B10REV601L3BWHB1A6Y9R26GM"
+			tableName="config_hostconfig_storage_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-113">
+		<createIndex indexName="FK_FK_B6SFXTM9MXR30L7LBLX6CB0BP"
+			tableName="config_hostconfig_storage_config_hostconfig_storage_mount">
+			<column name="MOUNTENTRIES_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-114">
+		<createIndex indexName="FK_FK_B86OGHNX5I57XCFMUD6YT803J"
+			tableName="config_hostconfig_datetime">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-115">
+		<createIndex indexName="FK_FK_C9RB5WFDJVTRXQAKV7R8YYUYH"
+			tableName="config_hostconfig_storage">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-116">
+		<createIndex indexName="FK_FK_D54G5LKGB6WIDBK46EEU9WII7"
+			tableName="config_hostconfig_identity">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-117">
+		<createIndex indexName="FK_FK_DAO5UV1CG2500SQM8R95RQMMA"
+			tableName="config_hostconfig_network_interface_static_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-118">
+		<createIndex indexName="FK_FK_DHCDMYAO5NOWYPLSLBOMM7X55"
+			tableName="config_hostconfig_system_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-119">
+		<createIndex indexName="FK_FK_DNIHI6DHH2WTGITTG11GOREO2"
+			tableName="config_hostconfig">
+			<column name="TRUSTCONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-120">
+		<createIndex indexName="FK_FK_EOBYR7316U1WICY58QWDI6FKF"
+			tableName="config_hostconfig_resolver_nameservers_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-121">
+		<createIndex indexName="FK_FK_EP6XKT6VW3Q5Y9AG8PLN2TEHO"
+			tableName="config_hostconfig_resolver">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-122">
+		<createIndex indexName="FK_FK_ERMSPYWFGGC3NYKR59BVKBF61"
+			tableName="config_hostconfig">
+			<column name="HOSTIDENTIFICATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-123">
+		<createIndex indexName="FK_FK_EY5E4YE28QNSSACUAABLC98N3"
+			tableName="config_hostconfig_network_routing_route">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-124">
+		<createIndex indexName="FK_FK_FD7FPDWADUEI1SDV2RK4RW1OE"
+			tableName="config_hostconfig_network_routing_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-125">
+		<createIndex indexName="FK_FK_FJJL1DG442ILXM3D2R8V1IJCJ"
+			tableName="config_hostconfig_mailing">
+			<column name="SMTPCONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-126">
+		<createIndex indexName="FK_FK_GAAUPKHU16SLVQIONHIR0HWUD"
+			tableName="config_hostconfig_datetime_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-127">
+		<createIndex indexName="FK_FK_GG8VNOHIKA05ASEMXPECVF8CE"
+			tableName="config_hostconfig_datetime_ntpservers_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-128">
+		<createIndex indexName="FK_FK_GGV4E6EOD6A920WQYEMV5JP9L"
+			tableName="config_hostconfig_storage_mount_cifs">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-129">
+		<createIndex indexName="FK_FK_GQI7ELXE55EN4H4DERY5AI30I"
+			tableName="config_hostconfig">
+			<column name="SYSTEMCONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-130">
+		<createIndex indexName="FK_FK_HTUBJMBIEDJOCRMUQ75GIIM87"
+			tableName="config_hostconfig">
+			<column name="DATETIMECONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-131">
+		<createIndex indexName="FK_FK_ILVI61UL0SOB0GJAB7FSW9UX5"
+			tableName="config_hostconfig_storage_config_hostconfig_storage_mount_AUD">
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-132">
+		<createIndex indexName="FK_FK_K566975RDMPAWLDL492L05R75"
+			tableName="config_hostconfig_storage_mount_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-133">
+		<createIndex indexName="FK_FK_L0E6W4WB974C17L5S5TY9L7MS"
+			tableName="config_hostconfig_storage_config_hostconfig_storage_mount">
+			<column name="CONFIG_HOSTCONFIG_STORAGE_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-134">
+		<createIndex indexName="FK_FK_L385SVF8DT9OMIKLM9BX4BREA"
+			tableName="config_hostconfig_system">
+			<column name="AGENTCONFIG_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-135">
+		<createIndex indexName="FK_FK_L9HABIKI9MRC11TO1RLWYH4VL"
+			tableName="config_hostconfig_identity_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-136">
+		<createIndex indexName="FK_FK_LRFEVRL0RY3FHFSK1CBETKVOG"
+			tableName="config_hostconfig_resolver_nameservers">
+			<column name="CONFIG_HOSTCONFIG_RESOLVER_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-137">
+		<createIndex indexName="FK_FK_MAVHVY9230VBQIMXVB1TFTD7S"
+			tableName="config_hostconfig_datetime_ntpservers">
+			<column name="CONFIG_HOSTCONFIG_DATETIME_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-138">
+		<createIndex indexName="FK_FK_MGNEOV8YVT7CJRTW1F0WIPUAC"
+			tableName="config_hostconfig_network_interface_entry_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-139">
+		<createIndex indexName="FK_FK_MROKGKWR90OIFF48BVGFY8BO"
+			tableName="config_hostconfig_network_routing">
+			<column name="DEFAULTROUTEV6_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-140">
+		<createIndex indexName="FK_FK_MSJS7N034SQJEEBVYW4MDOJTS"
+			tableName="config_hostconfig_storage_mount_nfs">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-141">
+		<createIndex indexName="FK_FK_MUPJHV1NIGBNS13X045AUGUGM"
+			tableName="config_hostconfig_storage_mount_cifs_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-142">
+		<createIndex indexName="FK_FK_MWONT9C3YAX2METIRLUD7C7G"
+			tableName="config_hostconfig_network">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-143">
+		<createIndex indexName="FK_FK_NCA63XKTOVVX5BXLTO96UPGM8"
+			tableName="config_hostconfig_network_interfaces_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-144">
+		<createIndex indexName="FK_FK_OH8MTV0PYELA5NRM73K19AJ4J"
+			tableName="config_hostconfig_network_interface_entry">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-145">
+		<createIndex indexName="FK_FK_QLPG23ALQ65D5NEQT5MN1OTS1"
+			tableName="config_hostconfig_network">
+			<column name="INTERFACECONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-146">
+		<createIndex indexName="FK_FK_R9JVOBAGAQ6BNBVNBRNKA9VBX"
+			tableName="config_hostconfig_network_routing_route_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-147">
+		<createIndex indexName="FK_FK_RD4N6HNSOTTDFDRFVPNGCX6EW"
+			tableName="config_hostconfig_network_routing">
+			<column name="ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-148">
+		<createIndex indexName="FK_FK_S3FIB880OHCBGLP9926BWH1JQ"
+			tableName="config_hostconfig_storage_mount_local_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-149">
+		<createIndex indexName="FK_FK_S44W6NY4N21TWD599DSPHHKQY"
+			tableName="config_hostconfig">
+			<column name="STORAGECONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-150">
+		<createIndex indexName="FK_FK_T8I17ODVN484TT9JGCHHL5ITM"
+			tableName="config_hostconfig">
+			<column name="MAILINGCONFIGURATION_ID" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-151">
+		<createIndex indexName="FK_FK_T8O3GFYCA7DPQGU8W93YB9SUJ"
+			tableName="config_hostconfig_mailing_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-152">
+		<createIndex indexName="FK_FK_TBAFSCX3JRE0Q1HJ22W0DL67D"
+			tableName="config_hostconfig_network_AUD">
+			<column name="ID" />
+			<column name="REV" />
+		</createIndex>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-153">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_hostconfig_resolver_AUD" constraintName="FK_13Q3644SBDD8ULCEHB2CTAUOY"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-154">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_hostconfig_network_routing_config_hostconfig_network_routing_route_AUD"
+			constraintName="FK_1LNVWT33HGHAQ52F4NL5F3FTL" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-155">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_HOSTCONFIG_NETWORK_INTERFACES_ID"
+			baseTableName="config_hostconfig_network_interfaces_config_hostconfig_network_interface_entry"
+			constraintName="FK_2DXJT85RW7NRH1I75838QVK3O" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_hostconfig_network_interfaces" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-156">
+		<addForeignKeyConstraint baseColumnNames="REALMSCONFIGURATION_ID"
+			baseTableName="config_hostconfig" constraintName="FK_3164XLLDR5HJ3RPN7YTAP4TA1"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_realms" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-157">
+		<addForeignKeyConstraint baseColumnNames="NETWORKCONFIGURATION_ID"
+			baseTableName="config_hostconfig" constraintName="FK_4V7EE7U8QUHWATWY3B7HHK435"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_hostconfig_network" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-158">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_hostconfig_storage_mount_local" constraintName="FK_4W70WF14FBPJPUCNPVYR9BJ7A"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_hostconfig_storage_mount" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-159">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_hostconfig_network_interfaces_config_hostconfig_network_interface_entry_AUD"
+			constraintName="FK_5092EYCKKX5N75JAWLIAMM5TY" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-160">
+		<addForeignKeyConstraint baseColumnNames="DEFAULTROUTEV4_ID"
+			baseTableName="config_hostconfig_network_routing" constraintName="FK_5HYFT97IVYTR1MHT9N03O2C3R"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_hostconfig_network_routing_route" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-161">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_hostconfig_storage_mount_nfs_AUD"
+			constraintName="FK_69E8C8JKIA01NN59L6K7CBF43" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID,REV" referencedTableName="config_hostconfig_storage_mount_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-162">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_hostconfig_mailing" constraintName="FK_6LPB3FMULTC9VA1WF8SBY8JRO"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-163">
+		<addForeignKeyConstraint
+			baseColumnNames="CONFIG_HOSTCONFIG_NETWORK_INTERFACE_ENTRY_ID"
+			baseTableName="config_hostconfig_network_interface_static"
+			constraintName="FK_6V5AQO5V9FNV4ER0T73OOYTBR" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_hostconfig_network_interface_entry" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-164">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_hostconfig_AUD" constraintName="FK_712EBXECSAK837JWA3BP5QFE1"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_instances_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-165">
+		<addForeignKeyConstraint baseColumnNames="KEYSTORECONFIGURATION_ID"
+			baseTableName="config_hostconfig" constraintName="FK_77F6FXODNIQ4X1D5T62G7MY0K"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_crypto_keystores" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-166">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_hostconfig_system" constraintName="FK_7NM5O6IRN8WO3BXYPQUIM4P6X"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-167">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_hostconfig" constraintName="FK_8PRUQ1P6BXM4RGUNIM62SO2BV"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_instances" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-168">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_hostconfig_storage_mount" constraintName="FK_8SHRYFM8O03BL5GECA7SQM4RQ"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-169">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_HOSTCONFIG_NETWORK_ROUTING_ID"
+			baseTableName="config_hostconfig_network_routing_config_hostconfig_network_routing_route"
+			constraintName="FK_98Q741M96QU9GAOTFRR7L9RUU" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_hostconfig_network_routing" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-170">
+		<addForeignKeyConstraint baseColumnNames="INTERFACES_ID"
+			baseTableName="config_hostconfig_network_interfaces_config_hostconfig_network_interface_entry"
+			constraintName="FK_9FUAU6391WW9U5QK3URF1Y3VK" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_hostconfig_network_interface_entry" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-171">
+		<addForeignKeyConstraint baseColumnNames="STATICROUTES_ID"
+			baseTableName="config_hostconfig_network_routing_config_hostconfig_network_routing_route"
+			constraintName="FK_9UFLMXWMY56WF2IJXMB8OKHWC" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_hostconfig_network_routing_route" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-172">
+		<addForeignKeyConstraint baseColumnNames="RESOLVERCONFIGURATION_ID"
+			baseTableName="config_hostconfig" constraintName="FK_A1UHXQPOVRRY7QCOWSHLG7X28"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_hostconfig_resolver" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-173">
+		<addForeignKeyConstraint baseColumnNames="ROUTINGCONFIGURATION_ID"
+			baseTableName="config_hostconfig_network" constraintName="FK_AHDNO3N5EQB97GUNECTLTCGMV"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_hostconfig_network_routing" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-174">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_hostconfig_network_interfaces" constraintName="FK_AW7JSLDEWQRHYVH9AMARMLSDU"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-175">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_hostconfig_storage_AUD" constraintName="FK_B10REV601L3BWHB1A6Y9R26GM"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-176">
+		<addForeignKeyConstraint baseColumnNames="MOUNTENTRIES_ID"
+			baseTableName="config_hostconfig_storage_config_hostconfig_storage_mount"
+			constraintName="FK_B6SFXTM9MXR30L7LBLX6CB0BP" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_hostconfig_storage_mount" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-177">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_hostconfig_datetime" constraintName="FK_B86OGHNX5I57XCFMUD6YT803J"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-178">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_hostconfig_storage" constraintName="FK_C9RB5WFDJVTRXQAKV7R8YYUYH"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-179">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_hostconfig_identity" constraintName="FK_D54G5LKGB6WIDBK46EEU9WII7"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-180">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_hostconfig_network_interface_static_AUD"
+			constraintName="FK_DAO5UV1CG2500SQM8R95RQMMA" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-181">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_hostconfig_system_AUD" constraintName="FK_DHCDMYAO5NOWYPLSLBOMM7X55"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-182">
+		<addForeignKeyConstraint baseColumnNames="TRUSTCONFIGURATION_ID"
+			baseTableName="config_hostconfig" constraintName="FK_DNIHI6DHH2WTGITTG11GOREO2"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_crypto_truststores" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-183">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_hostconfig_resolver_nameservers_AUD"
+			constraintName="FK_EOBYR7316U1WICY58QWDI6FKF" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-184">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_hostconfig_resolver" constraintName="FK_EP6XKT6VW3Q5Y9AG8PLN2TEHO"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-185">
+		<addForeignKeyConstraint baseColumnNames="HOSTIDENTIFICATION_ID"
+			baseTableName="config_hostconfig" constraintName="FK_ERMSPYWFGGC3NYKR59BVKBF61"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_hostconfig_identity" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-186">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_hostconfig_network_routing_route"
+			constraintName="FK_EY5E4YE28QNSSACUAABLC98N3" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-187">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_hostconfig_network_routing_AUD" constraintName="FK_FD7FPDWADUEI1SDV2RK4RW1OE"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-188">
+		<addForeignKeyConstraint baseColumnNames="SMTPCONFIGURATION_ID"
+			baseTableName="config_hostconfig_mailing" constraintName="FK_FJJL1DG442ILXM3D2R8V1IJCJ"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_web_smtp" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-189">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_hostconfig_datetime_AUD" constraintName="FK_GAAUPKHU16SLVQIONHIR0HWUD"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-190">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_hostconfig_datetime_ntpservers_AUD"
+			constraintName="FK_GG8VNOHIKA05ASEMXPECVF8CE" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-191">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_hostconfig_storage_mount_cifs" constraintName="FK_GGV4E6EOD6A920WQYEMV5JP9L"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_hostconfig_storage_mount" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-192">
+		<addForeignKeyConstraint baseColumnNames="SYSTEMCONFIGURATION_ID"
+			baseTableName="config_hostconfig" constraintName="FK_GQI7ELXE55EN4H4DERY5AI30I"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_hostconfig_system" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-193">
+		<addForeignKeyConstraint baseColumnNames="DATETIMECONFIGURATION_ID"
+			baseTableName="config_hostconfig" constraintName="FK_HTUBJMBIEDJOCRMUQ75GIIM87"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_hostconfig_datetime" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-194">
+		<addForeignKeyConstraint baseColumnNames="REV"
+			baseTableName="config_hostconfig_storage_config_hostconfig_storage_mount_AUD"
+			constraintName="FK_ILVI61UL0SOB0GJAB7FSW9UX5" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="REVISION" referencedTableName="revisions" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-195">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_hostconfig_storage_mount_AUD" constraintName="FK_K566975RDMPAWLDL492L05R75"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-196">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_HOSTCONFIG_STORAGE_ID"
+			baseTableName="config_hostconfig_storage_config_hostconfig_storage_mount"
+			constraintName="FK_L0E6W4WB974C17L5S5TY9L7MS" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_hostconfig_storage" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-197">
+		<addForeignKeyConstraint baseColumnNames="AGENTCONFIG_ID"
+			baseTableName="config_hostconfig_system" constraintName="FK_L385SVF8DT9OMIKLM9BX4BREA"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config_runtime" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-198">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_hostconfig_identity_AUD" constraintName="FK_L9HABIKI9MRC11TO1RLWYH4VL"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-199">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_HOSTCONFIG_RESOLVER_ID"
+			baseTableName="config_hostconfig_resolver_nameservers"
+			constraintName="FK_LRFEVRL0RY3FHFSK1CBETKVOG" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config_hostconfig_resolver" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-200">
+		<addForeignKeyConstraint baseColumnNames="CONFIG_HOSTCONFIG_DATETIME_ID"
+			baseTableName="config_hostconfig_datetime_ntpservers" constraintName="FK_MAVHVY9230VBQIMXVB1TFTD7S"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_hostconfig_datetime" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-201">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_hostconfig_network_interface_entry_AUD"
+			constraintName="FK_MGNEOV8YVT7CJRTW1F0WIPUAC" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID,REV" referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-202">
+		<addForeignKeyConstraint baseColumnNames="DEFAULTROUTEV6_ID"
+			baseTableName="config_hostconfig_network_routing" constraintName="FK_MROKGKWR90OIFF48BVGFY8BO"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_hostconfig_network_routing_route" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-203">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_hostconfig_storage_mount_nfs" constraintName="FK_MSJS7N034SQJEEBVYW4MDOJTS"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_hostconfig_storage_mount" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-204">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_hostconfig_storage_mount_cifs_AUD"
+			constraintName="FK_MUPJHV1NIGBNS13X045AUGUGM" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID,REV" referencedTableName="config_hostconfig_storage_mount_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-205">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_hostconfig_network" constraintName="FK_MWONT9C3YAX2METIRLUD7C7G"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-206">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_hostconfig_network_interfaces_AUD"
+			constraintName="FK_NCA63XKTOVVX5BXLTO96UPGM8" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID,REV" referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-207">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_hostconfig_network_interface_entry"
+			constraintName="FK_OH8MTV0PYELA5NRM73K19AJ4J" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-208">
+		<addForeignKeyConstraint baseColumnNames="INTERFACECONFIGURATION_ID"
+			baseTableName="config_hostconfig_network" constraintName="FK_QLPG23ALQ65D5NEQT5MN1OTS1"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_hostconfig_network_interfaces" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-209">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_hostconfig_network_routing_route_AUD"
+			constraintName="FK_R9JVOBAGAQ6BNBVNBRNKA9VBX" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID,REV" referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-210">
+		<addForeignKeyConstraint baseColumnNames="ID"
+			baseTableName="config_hostconfig_network_routing" constraintName="FK_RD4N6HNSOTTDFDRFVPNGCX6EW"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="config" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-211">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_hostconfig_storage_mount_local_AUD"
+			constraintName="FK_S3FIB880OHCBGLP9926BWH1JQ" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="ID,REV" referencedTableName="config_hostconfig_storage_mount_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-212">
+		<addForeignKeyConstraint baseColumnNames="STORAGECONFIGURATION_ID"
+			baseTableName="config_hostconfig" constraintName="FK_S44W6NY4N21TWD599DSPHHKQY"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_hostconfig_storage" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-213">
+		<addForeignKeyConstraint baseColumnNames="MAILINGCONFIGURATION_ID"
+			baseTableName="config_hostconfig" constraintName="FK_T8I17ODVN484TT9JGCHHL5ITM"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID"
+			referencedTableName="config_hostconfig_mailing" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-214">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_hostconfig_mailing_AUD" constraintName="FK_T8O3GFYCA7DPQGU8W93YB9SUJ"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1443182418771-215">
+		<addForeignKeyConstraint baseColumnNames="ID,REV"
+			baseTableName="config_hostconfig_network_AUD" constraintName="FK_TBAFSCX3JRE0Q1HJ22W0DL67D"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION" referencedColumnNames="ID,REV"
+			referencedTableName="config_AUD" />
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1457695661336-1">
+		<addColumn schemaName="APP" tableName="config_hostconfig_storage">
+			<column name="BACKUPSTORAGE" type="varchar(255)" />
+		</addColumn>
+	</changeSet>
+	<changeSet author="mbechler (generated)" id="1457695661336-2">
+		<addColumn schemaName="APP" tableName="config_hostconfig_storage_AUD">
+			<column name="BACKUPSTORAGE" type="varchar(255)" />
+		</addColumn>
+	</changeSet>
+</databaseChangeLog>

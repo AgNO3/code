@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	template="/tpl/common/raw.xhtml">
+	<ui:param name="title" value="#{_gui['resourceLibrary.add.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="anchor"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+		</f:metadata>
+	</ui:define>
+
+
+	<ui:define name="content">
+		<h:form>
+			<ag:dialogContextHolder />
+
+			<p:messages autoUpdate="true" />
+			<p:focus />
+
+			<p:fieldset id="fieldset"
+				legend="#{_gui['resourceLibrary.add.title']}">
+
+				<ag:simpleField label="#{_gui['resourceLibrary.add.name.label']}"
+					description="#{_gui['resourceLibrary.add.name.description']}"
+					inputId="name">
+					<p:inputText id="name" value="#{resourceLibraryAddBean.name}"
+						required="true" />
+				</ag:simpleField>
+
+				<ag:simpleField label="#{_gui['resourceLibrary.add.type.label']}"
+					description="#{_gui['resourceLibrary.add.type.description']}"
+					inputId="type">
+					<p:selectOneMenu id="type" value="#{resourceLibraryAddBean.type}">
+						<f:selectItems value="#{resourceLibraryAddBean.usableTypes}"
+							var="type"
+							itemLabel="#{resourceLibraryAddBean.translateResourceLibraryType(type)}" />
+						<p:ajax event="itemSelect"
+							update="@composite:@parent:parentField:parent"
+							listener="#{resourceLibraryAddBean.typeChanged}" />
+					</p:selectOneMenu>
+				</ag:simpleField>
+
+
+				<ag:simpleField id="parentField"
+					label="#{_gui['resourceLibrary.add.parent.label']}"
+					description="#{_gui['resourceLibrary.add.parent.description']}"
+					inputId="parent">
+					<p:selectOneMenu id="parent"
+						value="#{resourceLibraryAddBean.parent}">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="#{_gui['resourceLibrary.add.parent.none']}" />
+						<f:selectItems value="#{resourceLibraryAddBean.usableParents}"
+							var="parent" itemValue="#{parent.id}" itemLabel="#{parent.name}" />
+					</p:selectOneMenu>
+				</ag:simpleField>
+
+				<div class="buttons">
+					<p:commandButton id="createButton"
+						value="#{_gui['resourceLibrary.add.confirm']}" icon="ui-icon-plus"
+						action="#{resourceLibraryAddBean.add()}" />
+					<p:commandButton immediate="true" action="#{dialog.close}"
+						icon="ui-icon-cancel" styleClass="close-button"
+						value="#{_gui['resourceLibrary.add.cancel']}" />
+				</div>
+
+				<p:defaultCommand target="createButton" scope="fieldset" />
+			</p:fieldset>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

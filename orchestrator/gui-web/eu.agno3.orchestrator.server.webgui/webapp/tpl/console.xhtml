@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="consoleForm">
+		<p:tabView widgetVar="consoleTabs" orientation="left" dynamic="false"
+			activeIndex="#{layout.selectedConsoleTab}">
+			<p:ajax event="tabChange" oncomplete="consoleTabChanged()"
+				listener="#{layout.handleConsoleTabChange}" />
+
+			<p:tab widgetVar="consoleTabs" id="jobTab">
+				<f:facet name="title">
+					<h:outputText styleClass="tab-title"
+						value="#{_gui['console.jobs']}" />
+					<p:commandButton image="ui-icon-arrowrefresh-1-e"
+						alt="#{_gui['console.jobs.refresh']}"
+						action="#{jobsTable.refresh}"
+						process="@parent:jobTab:jobTablePanel"
+						update="@parent:jobTab:jobTablePanel" />
+				</f:facet>
+
+				<ui:include src="/tpl/console/jobs.xhtml" />
+			</p:tab>
+			<p:tab title="">
+				<f:facet name="title">
+					<h:outputText styleClass="tab-title" value="#{_gui['console.log']}" />
+				</f:facet>
+				<ui:include src="/tpl/console/log.xhtml" />
+			</p:tab>
+		</p:tabView>
+
+		<h:outputScript>
+			// <!-- 
+				var tabHandlers  = {
+					0: { // jobs
+						enable: function() {
+						},
+						
+						disable: function() {
+						}
+					},
+					
+					1: { // log
+						enable: function() {
+							if ( PF('consoleLogTable_logTimer') ) {
+								console.log("Enable log");
+								PF('consoleLogTable_logTimer').restart();
+							}
+						},
+						
+						disable: function() {
+							
+							if ( PF('consoleLogTable_logTimer') ) {
+								console.log("Disable log");
+							 	PF('consoleLogTable_logTimer').stop();
+							}
+						}
+					}					
+				}
+			
+				function consoleTabChanged() {
+					var active = PF('consoleTabs').stateHolder.val();
+					for ( var i in tabHandlers ) {
+						if ( i != active ) {
+							tabHandlers[i].disable();
+						} 
+					}
+					tabHandlers[active].enable();
+				}
+				
+				function consoleToggle() {
+					var visible = PF('consoleTabs').jq.is(':visible');
+					var active = PF('consoleTabs').stateHolder.val();
+					
+					if ( ! visible ) {
+						for ( var i in tabHandlers ) {
+							tabHandlers[i].disable();
+						}
+					} else {
+						tabHandlers[active].enable();
+					}
+				}
+				
+				$(document).ready(consoleToggle);
+			// -->
+		</h:outputScript>
+	</h:form>
+</ui:composition>

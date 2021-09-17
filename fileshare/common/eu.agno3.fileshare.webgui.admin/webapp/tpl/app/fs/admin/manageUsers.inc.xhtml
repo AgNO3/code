@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:pass="http://xmlns.jcp.org/jsf/passthrough">
+	<p:messages autoUpdate="true" />
+	<ag:dialogOpenHotkey bind="a"
+		dialog="#{app_fs_adm_integration.wrapDialog('/app/fs/admin/addUserDialog.xhtml')}">
+		<p:ajax event="return"
+			listener="#{app_fs_adm_usersTableBean.refresh()}" update="userTable" />
+	</ag:dialogOpenHotkey>
+
+	<p:dataTable id="userTable" value="#{app_fs_adm_usersTableBean.model}"
+		var="user" binding="#{app_fs_adm_userTableBinding.component}"
+		widgetVar="usersTable" emptyMessage="#{_fs_adm_msg['users.empty']}"
+		selection="#{app_fs_adm_userSelectionBean.multiSelection}" lazy="true"
+		selectionMode="multiple" paginator="true" rows="20"
+		paginatorAlwaysVisible="false" paginatorPosition="top">
+		<f:facet name="header">
+			<p:toolbar id="toolbar">
+				<f:facet name="left">
+					<ag:dialogOpenButton
+						dialog="#{app_fs_adm_integration.wrapDialog('/app/fs/admin/addUserDialog.xhtml')}"
+						returnLabel="#{_fs_adm_msg['users.returnTitle']}" closable="true"
+						rendered="#{app_fs_adm_permission.hasPermission('manage:users:create')}"
+						icon="ui-icon-plusthick" title="#{_fs_adm_msg['users.addUser']}">
+						<p:ajax event="return"
+							listener="#{app_fs_adm_usersTableBean.refresh()}"
+							update="userTable" />
+					</ag:dialogOpenButton>
+				</f:facet>
+
+				<f:facet name="right">
+					<p:commandButton id="refreshButton" icon="ui-icon-arrowrefresh-1-e"
+						title="#{_fs_adm_msg['refreshTable']}" update="userTable"
+						actionListener="#{app_fs_adm_usersTableBean.refresh()}" />
+
+					<ag:dialogOpenButton title="#{_fs_adm_msg['users.deleteUsers']}"
+						disabled="#{empty app_fs_adm_userSelectionBean.multiSelectionIds}"
+						rendered="#{app_fs_adm_permission.hasPermission('manage:users:delete')}"
+						closable="true" returnLabel="#{_fs_adm_msg['users.returnTitle']}"
+						dialog="#{app_fs_adm_integration.wrapDialog('/app/fs/admin/deleteUsersDialog.xhtml?users='.concat(app_fs_adm_userSelectionBean.encodedMultiSelection))}"
+						icon="ui-icon-trash">
+						<p:ajax event="return"
+							listener="#{app_fs_adm_usersTableBean.refreshAndClearSelection()}"
+							update="userTable" />
+					</ag:dialogOpenButton>
+
+					<ag:dialogOpenButton title="#{_fs_adm_msg['users.addToGroup']}"
+						rendered="false"
+						disabled="#{empty app_fs_adm_userSelectionBean.multiSelectionIds}"
+						returnLabel="#{_fs_adm_msg['users.returnTitle']}"
+						dialog="#{app_fs_adm_integration.wrapDialog('/app/fs/admin/addGroupToUsersDialog.xhtml?users='.concat(app_fs_adm_userSelectionBean.encodedMultiSelection))}"
+						closable="true" icon="ui-icon-person">
+						<p:ajax event="return"
+							listener="#{app_fs_adm_usersTableBean.refresh()}"
+							update="userTable"
+							oncomplete="PF('usersTable').unselectAllRows()" />
+					</ag:dialogOpenButton>
+				</f:facet>
+			</p:toolbar>
+			<ui:insert name="header" />
+		</f:facet>
+
+		<p:ajax event="rowSelect"
+			listener="#{app_fs_adm_usersTableBean.onSelect}" update="toolbar" />
+
+		<p:ajax event="rowUnselect"
+			listener="#{app_fs_adm_usersTableBean.onUnselect}" update="toolbar" />
+
+		<p:column headerText="#{_fs_adm_msg['users.userNameHeader']}"
+			width="15%">
+			<ag:dialogOpenCommandLink value="#{user.principal.userName}"
+				closable="true" returnLabel="#{_fs_adm_msg['users.returnTitle']}"
+				title="#{_fs_adm_msg['users.showUserDetails']}"
+				dialog="#{app_fs_adm_integration.wrapDialog('/app/fs/admin/userInfoDialog.xhtml?user='.concat(user.id))}">
+				<p:ajax event="return" update="userTable" />
+			</ag:dialogOpenCommandLink>
+		</p:column>
+
+		<p:column headerText="#{_fs_adm_msg['users.displayNameHeader']}"
+			width="20%">
+			<h:outputText
+				value="#{app_fs_adm_subjectDisplayBean.getSubjectDisplayNameOnly(user)}" />
+		</p:column>
+
+		<p:column headerText="#{_fs_adm_msg['users.realmHeader']}" width="15%">
+			<h:outputText value="#{user.principal.realmName}" />
+		</p:column>
+
+		<p:column headerText="#{_fs_adm_msg['users.quotaHeader']}" width="10%"
+			style="text-align: right">
+			<h:outputText rendered="#{not empty user.quota}"
+				value="#{app_fs_adm_quotaFormatter.format(user.quota)}" />
+			<h:outputText rendered="#{empty user.quota}"
+				value="#{_fs_adm_msg['users.quota.empty']}" />
+		</p:column>
+
+		<p:column headerText="#{_fs_adm_msg['users.labelHeader']}" width="15%">
+			<h:outputText rendered="#{not empty user.securityLabel}"
+				value="#{app_fs_adm_securityLabelBean.translateSecurityLabel(user.securityLabel)}" />
+		</p:column>
+
+		<p:column headerText="#{_fs_adm_msg['users.typeHeader']}" width="10%">
+			<h:outputText value="#{user.type}" />
+		</p:column>
+
+		<p:column styleClass="action-column">
+			<ag:dialogOpenCommandLink
+				styleClass="ui-icon ui-icon-info ui-icon-inline" closable="true"
+				title="#{_fs_adm_msg['users.showUserDetails']}"
+				returnLabel="#{_fs_adm_msg['users.returnTitle']}"
+				dialog="#{app_fs_adm_integration.wrapDialog('/app/fs/admin/userInfoDialog.xhtml?user='.concat(user.id))}">
+				<p:ajax event="return" update="userTable" />
+			</ag:dialogOpenCommandLink>
+		</p:column>
+
+		<p:column styleClass="action-column">
+			<p:commandLink
+				rendered="#{app_fs_adm_permission.hasPermission('manage:users:enable') and app_fs_adm_userAuthInfoBean.canEnable(user)}"
+				styleClass="ui-icon ui-icon-inline ui-icon-unlocked"
+				title="#{_fs_adm_msg['users.enableUser']}" update="userTable"
+				action="#{app_fs_adm_userController.enableUser(user)}">
+			</p:commandLink>
+			<p:commandLink styleClass="ui-icon ui-icon-inline ui-icon-locked"
+				rendered="#{app_fs_adm_permission.hasPermission('manage:users:disable') and app_fs_adm_userAuthInfoBean.canDisable(user)}"
+				title="#{_fs_adm_msg['users.disableUser']}" update="userTable"
+				action="#{app_fs_adm_userController.disableUser(user)}">
+			</p:commandLink>
+		</p:column>
+
+		<p:column styleClass="action-column">
+			<ag:dialogOpenCommandLink
+				styleClass="ui-icon ui-icon-inline ui-icon-key" closable="true"
+				title="#{_fs_adm_msg['users.changeUserPassword']}"
+				returnLabel="#{_fs_adm_msg['users.returnTitle']}"
+				rendered="#{app_fs_adm_permission.hasPermission('manage:users:changePassword') and app_fs_adm_userAuthInfoBean.hasLocalPassword(user)}"
+				dialog="#{app_fs_adm_integration.wrapDialog('/app/fs/admin/changePasswordDialog.xhtml?user='.concat(user.id))}"
+				icon="ui-icon-key">
+				<span />
+				<p:ajax event="return" />
+			</ag:dialogOpenCommandLink>
+		</p:column>
+
+		<p:column styleClass="action-column last">
+			<ag:dialogOpenCommandLink
+				styleClass="ui-icon ui-icon-trash ui-icon-inline" closable="true"
+				title="#{_fs_adm_msg['users.deleteUser']}"
+				returnLabel="#{_fs_adm_msg['users.returnTitle']}"
+				rendered="#{app_fs_adm_permission.hasPermission('manage:users:delete')}"
+				dialog="#{app_fs_adm_integration.wrapDialog('/app/fs/admin/deleteUsersDialog.xhtml?users='.concat(user.id))}">
+				<p:ajax event="return"
+					listener="#{app_fs_adm_usersTableBean.refreshAndClearSelection()}"
+					update="userTable" />
+			</ag:dialogOpenCommandLink>
+		</p:column>
+	</p:dataTable>
+</ui:composition>

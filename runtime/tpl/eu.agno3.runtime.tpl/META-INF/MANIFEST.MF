@@ -1,0 +1,23 @@
+Bundle-SymbolicName: eu.agno3.runtime.tpl
+Bundle-Version: 0.0.10
+Bundle-Name: Runtime Templating
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Import-Package: eu.agno3.runtime.configloader.file;version="0.0.10",
+ eu.agno3.runtime.util.osgi;version="0.0.8",
+ freemarker;version="2.3.21",
+ freemarker.cache;version="2.3.21",
+ freemarker.core;version="2.3.21",
+ freemarker.ext.beans;version="2.3.21",
+ freemarker.template;version="2.3.21",
+ org.apache.commons.lang3;version="3.1.0",
+ org.apache.log4j;version="1.2.15",
+ org.joda.time;version="2.7.0",
+ org.joda.time.base;version="2.7.0",
+ org.osgi.framework;version="1.7.0",
+ org.osgi.service.component;version="1.2.0",
+ org.osgi.service.component.annotations;version="1.2.0"
+Service-Component: OSGI-INF/*.xml
+Bundle-ActivationPolicy: lazy
+Export-Package: eu.agno3.runtime.tpl;version="0.0.10"

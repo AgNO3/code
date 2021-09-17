@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:si="urn:agno3:model:1.0:system:info" xmlns:d="urn:agno3:model:1.0:system:info:storage:drive" xmlns:v="urn:agno3:model:1.0:system:info:storage:volume" xmlns:fs="urn:agno3:model:1.0:system:info:storage:fs" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:s="urn:agno3:model:1.0:system:info:storage" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:model:1.0:system:info:storage" elementFormDefault="qualified">
+   <xsd:import schemaLocation="urn:agno3:model:1.0:system:info" namespace="urn:agno3:model:1.0:system:info"/>
+   <xsd:import schemaLocation="urn:agno3:model:1.0:system:info:storage:drive" namespace="urn:agno3:model:1.0:system:info:storage:drive"/>
+   <xsd:complexType name="storageInformation">
+      <xsd:complexContent>
+         <xsd:extension base="si:systemInformation">
+            <xsd:sequence>
+               <xsd:element name="drives" minOccurs="0">
+                  <xsd:complexType>
+                     <xsd:sequence>
+                        <xsd:element name="drive" type="d:driveInformation" minOccurs="0" maxOccurs="unbounded"/>
+                     </xsd:sequence>
+                  </xsd:complexType>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="volumeCreationInformation">
+      <xsd:sequence>
+         <xsd:element name="drive" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="volume" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="label" type="xsd:string" minOccurs="0"/>
+         <xsd:element name="force" type="xsd:boolean"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:element name="storageInformation" type="s:storageInformation"/>
+   <xsd:element name="volumeCreationInformation" type="s:volumeCreationInformation"/>
+</xsd:schema>

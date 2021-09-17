@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.crypto.wrap.internal.CryptUnwrapperImpl" configuration-policy="require" activate="activate" configuration-pid="cryptUnwrap">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.crypto.wrap.CryptUnwrapper"/>
+    </service>
+    <reference name="TLSConfiguration" interface="eu.agno3.runtime.crypto.tls.InternalTLSConfiguration" cardinality="1..1" policy="static" bind="setTLSConfiguration" unbind="unsetTLSConfiguration"/>
+    <implementation class="eu.agno3.runtime.crypto.wrap.internal.CryptUnwrapperImpl"/>
+</scr:component>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0"
+	template="/tpl/structure/instance/template.xhtml">
+	<ui:param name="instanceSubtitle"
+		value="#{_gui['structure.instance.dashboard.title']}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="instance"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}" />
+			<f:event listener="#{agentSysInfoContext.init}" type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<p:toolbar id="dashboardToolbar" styleClass="dashboard-toolbar">
+				<f:facet name="left">
+					<p:menuButton value="#{_gui['structure.instance.actions']}"
+						rendered="#{subMenuStateBean.haveActionMenu()}"
+						model="#{subMenuStateBean.actionModel}" />
+
+					<p:outputLabel for="agentState"
+						value="#{_gui['structure.instance.state.agentState']}"
+						style="margin-left: 0.4em" />
+					<p:outputPanel id="agentState"
+						styleClass="agent-state-display indicator #{agentStateTracker.getAgentState(structureViewContext.selectedInstance)}">
+						<span
+							class="ui-icon ui-icon-inline #{structureUtil.getAgentStateIcon(structureViewContext.selectedInstance)}" />
+						<h:outputText
+							value="#{structureUtil.getAgentStateForDisplay(structureViewContext.selectedInstance)}" />
+					</p:outputPanel>
+				</f:facet>
+				<f:facet name="right">
+					<p:outputPanel style="margin: 0.3em; font-weight: initial">
+						<p:outputLabel for="instanceName"
+							value="#{_gui['structure.instance.dashboard.name']}" />
+						<b><h:outputText id="instanceName"
+								value="#{structureUtil.getDisplayName(structureViewContext.selectedInstance)}" /></b>
+						<p:outputLabel for="instanceType" style="margin: 0.2em"
+							value="#{_gui['structure.instance.dashboard.type']}" />
+						<h:outputText id="instanceType"
+							value="#{structureUtil.getInstanceImageTypeDisplayName(structureViewContext.selectedInstance)}" />
+						<p:outputLabel for="parent" style="margin: 0.2em"
+							rendered="#{userPreferences.enableMultiHostManagement}"
+							value="#{_gui['structure.instance.dashboard.parent']}" />
+						<p:link id="parent"
+							rendered="#{userPreferences.enableMultiHostManagement}"
+							value="#{structureUtil.getDisplayName(structureViewContext.parentForSelection)}"
+							outcome="#{structureUtil.getOutcomeForObjectOverview(structureViewContext.parentForSelection)}" />
+					</p:outputPanel>
+				</f:facet>
+			</p:toolbar>
+
+			<p:remoteCommand name="refreshDashboardState"
+				update="dashboardToolbar dashboard"
+				actionListener="#{instanceDashboard.refresh(structureViewContext.selectedInstance)}" />
+
+			<orch:event
+				pattern="#{agentStateTracker.getStateListenToString(structureViewContext.selectedInstance)}|/instance/#{structureViewContext.selectedObjectId}/update_status|/instance/#{structureViewContext.selectedObjectId}/sysinfo_update">
+					console.log('State change, refresh');
+					refreshDashboardState();
+				</orch:event>
+
+			<p:messages />
+
+			<p:dashboard id="dashboard" disabled="true" model="#{instanceDashboard.model}">
+				<ui:include src="/tpl/dashboard/host.xhtml" />
+			</p:dashboard>
+		</h:form>
+	</ui:define>
+</ui:composition>

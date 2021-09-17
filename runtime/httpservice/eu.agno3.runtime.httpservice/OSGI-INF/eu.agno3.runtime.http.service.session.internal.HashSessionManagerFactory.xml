@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.http.service.session.internal.HashSessionManagerFactory" configuration-policy="require" activate="activate" configuration-pid="httpservice.session">
+    <service servicefactory="false">
+        <provide interface="eu.agno3.runtime.http.service.session.SessionManagerFactory"/>
+    </service>
+    <reference name="SecureRandomProvider" interface="eu.agno3.runtime.crypto.random.SecureRandomProvider" cardinality="1..1" policy="static" bind="setSecureRandomProvider" unbind="unsetSecureRandomProvider"/>
+    <reference name="SessionBindingGenerator" interface="eu.agno3.runtime.http.service.session.SessionBindingGenerator" cardinality="1..1" policy="static" bind="setSessionBindingGenerator" unbind="unsetSessionBindingGenerator"/>
+    <reference name="SessionListener" interface="javax.servlet.http.HttpSessionListener" cardinality="0..n" policy="dynamic" bind="bindSessionListener" unbind="unbindSessionListener"/>
+    <implementation class="eu.agno3.runtime.http.service.session.internal.HashSessionManagerFactory"/>
+</scr:component>

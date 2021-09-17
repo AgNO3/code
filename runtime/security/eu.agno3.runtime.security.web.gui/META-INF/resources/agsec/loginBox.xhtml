@@ -1,0 +1,122 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:agsec="http://agno3.eu/ns/jsfsec/taglib/1.0">
+
+<composite:interface>
+	<composite:facet name="bottom" />
+	<composite:attribute name="extraUpdate" default="none" />
+	<composite:attribute name="terms"
+		type="eu.agno3.runtime.security.web.gui.terms.TermsBean" />
+</composite:interface>
+
+<composite:implementation>
+	<h:outputStylesheet library="agsec" name="login.static.css"
+		target="head" />
+
+	<p:panel id="loginBox" styleClass="loginBox"
+		header="#{_login['loginRequired']}">
+		<p:messages id="loginMessages" showDetail="true" />
+
+		<p:outputPanel id="throttleDelay"
+			styleClass="throttle-display ui-messages ui-widget">
+			<p:outputPanel styleClass="ui-messages-fatal"
+				rendered="#{not empty agsec_loginController.loginSession.throttleDelay}">
+
+				<span class="ui-messages-fatal-icon" />
+				<span class="ui-messages-fatal-summary"><h:outputText
+						value="#{_login['throttleActive']}" />&#160;<h:outputText
+						styleClass="remain-throttle"
+						value="#{agsec_loginController.loginSession.throttleDelay}" />&#160;<h:outputText
+						value="#{_login['throttleActiveUnit']}" /> </span>
+
+				<pe:timer visible="false" immediate="true"
+					timeout="#{agsec_loginController.loginSession.throttleDelay}"
+					ontimerstep="$('.throttle-display').find('.remain-throttle').text(intervalData.current + ' '); "
+					ontimercomplete="$('.throttle-display').hide()"
+					listener="#{agsec_loginController.throttleComplete()}"
+					process="@this" update="throttleDelay" />
+			</p:outputPanel>
+
+
+			<p:outputPanel styleClass="ui-messages-fatal"
+				rendered="#{not agsec_loginController.checkLoginAllowed()}">
+				<span class="ui-messages-fatal-icon" />
+				<span class="ui-messages-fatal-summary"> <h:outputText
+						value="#{_login['auth.fail.disallowed']}" />
+				</span>
+			</p:outputPanel>
+		</p:outputPanel>
+
+		<h:outputText rendered="#{agsec_loginController.checkLoginAllowed()}"
+			styleClass="loginMessage" value="#{_login['message']}" />
+
+		<p:fieldset id="loginFields" styleClass="inputFields func-unit"
+			rendered="#{agsec_loginController.checkLoginAllowed()}">
+			<ag:simpleField label="#{_login['realm']}"
+				description="#{_login['realm.description']}" inputId="selectRealm"
+				onlyIf="#{agsec_loginController.hasMoreThanOneRealmAvailable()}">
+				<p:selectOneMenu id="selectRealm"
+					required="#{agsec_loginController.hasMoreThanOneRealmAvailable()}"
+					value="#{agsec_loginController.selectedLoginRealmId}">
+					<p:ajax event="change"
+						update="@composite:@parent:credentials
+							@composite:@parent:loginMessages
+							@composite:@parent:loginButton
+							@composite:@parent:bottomElements 
+							@composite:@parent:@parent:${cc.attrs.extraUpdate}"
+						listener="#{agsec_loginController.loginRealmSelected}"
+						resetValues="@composite:@parent:credentials" />
+					<f:selectItems
+						value="#{agsec_loginController.applicableLoginRealms}" var="realm"
+						itemValue="#{realm.id}"
+						itemLabel="#{agsec_loginController.getLoginRealmDisplayName(realm)}" />
+				</p:selectOneMenu>
+			</ag:simpleField>
+
+			<p:panel id="credentials">
+				<agsec:challenges challenges="#{agsec_loginController.challenges}"
+					terms="#{cc.attrs.terms}" />
+			</p:panel>
+		</p:fieldset>
+
+		<div class="loginButtons">
+			<p:commandButton id="loginButton" styleClass="loginButton"
+				rendered="#{agsec_loginController.checkLoginAllowed()}"
+				action="#{agsec_loginController.doLogin}"
+				value="#{_login['doLogin']}" icon="ui-icon-key"
+				update="loginMessages credentials cancelButton throttleDelay ${cc.attrs.extraUpdate}">
+				<p:resetInput target="credentials" />
+			</p:commandButton>
+
+			<p:commandButton id="cancelButton" styleClass="loginButton"
+				rendered="#{agsec_loginController.checkLoginAllowed()}"
+				disabled="#{not agsec_loginController.loginSession.haveState()}"
+				action="#{agsec_loginController.reset}" immediate="true"
+				value="#{_login['reset']}" icon="ui-icon-cancel"
+				update="loginMessages credentials throttleDelay ${cc.attrs.extraUpdate}">
+				<p:resetInput target="credentials" />
+			</p:commandButton>
+		</div>
+
+		<p:outputPanel id="none" />
+
+		<p:outputPanel id="bottomElements">
+			<composite:renderFacet name="bottom" />
+		</p:outputPanel>
+	</p:panel>
+
+
+	<p:blockUI block="loginBox" widgetVar="loginBlock" global="false"
+		trigger="loginButton">
+		<p:graphicImage library="images" name="loading.gif" />
+		<h:outputText value="#{_login['doLoginMessage']}" />
+	</p:blockUI>
+
+</composite:implementation>
+</html>

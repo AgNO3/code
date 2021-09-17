@@ -1,0 +1,32 @@
+Bundle-SymbolicName: eu.agno3.runtime.jsf.myfaces.fragment
+Bundle-Version: 0.0.226
+Bundle-Name: JSF MyFaces Fragment
+Bundle-Vendor: AgNO3 GmbH & Co. KG
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ManifestVersion: 2
+Fragment-Host: org.apache.myfaces.core.bundle
+Import-Package: de.odysseus.el;version="0.0.0", javax.validation;version="1.1"
+Export-Package: eu.agno3.runtime.jsf.myfaces.fragment;version="0.64",
+ org.apache.myfaces.config;version="2.2.0",
+ org.apache.myfaces.config.impl.digester;version="2.2.0",
+ org.apache.myfaces.context;version="2.2.0",
+ org.apache.myfaces.lifecycle;version="2.2.0",
+ org.apache.myfaces.shared.config;version="2.2.0",
+ org.apache.myfaces.view.facelets.compiler;version="2.2.0",
+ org.apache.myfaces.view.facelets.tag;version="2.2.0",
+ org.apache.myfaces.view.facelets.tag.composite;version="2.2.0",
+ org.apache.myfaces.view.facelets.pool;version="2.2.0",
+ org.apache.myfaces.shared.util.serial;version="2.2.0",
+ org.apache.myfaces.shared.util;version="2.2.0",
+ org.apache.myfaces.shared.context.flash;version="2.2.0",
+ org.apache.myfaces.renderkit.html;version="2.2.0",
+ org.apache.myfaces.renderkit;version="2.2.0",
+ org.apache.myfaces.shared.resource;version="2.2.0",
+ org.apache.myfaces.view.facelets.impl;version="2.2.0",
+ org.apache.myfaces.view.facelets;version="2.2.0",
+ org.apache.myfaces.view.facelets.tag.jsf.core;version="2.2.0",
+ org.apache.myfaces.el.unified;version="2.2.0",
+ org.apache.myfaces.el.unified.resolver;version="2.2.0"
+Require-Bundle: eu.agno3.dependencies.primefaces;bundle-version="6.0.0"
+
+

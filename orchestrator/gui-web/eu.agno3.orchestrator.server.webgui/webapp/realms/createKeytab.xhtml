@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ag="http://agno3.eu/ns/jsf/taglib/1.0"
+	xmlns:orch="http://agno3.eu/ns/jsf/orch/taglib/1.0"
+	template="/tpl/common/dialog.xhtml">
+	<ui:param name="title"
+		value="#{msgs.formatEL('realms.createKeytab.titleFmt', krbRealmContext.realm)}" />
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="instance"
+				value="#{structureViewContext.selectedObjectId}" required="true"
+				requiredMessage="#{_gui['require.param.objectId']}">
+			</f:viewParam>
+
+			<f:viewParam name="realm" value="#{krbRealmContext.realm}"
+				required="true" requiredMessage="#{_gui['require.param']}">
+			</f:viewParam>
+
+			<f:viewParam name="realmType" value="#{krbRealmContext.typeString}"
+				required="true" requiredMessage="#{_gui['require.param']}"></f:viewParam>
+
+		</f:metadata>
+	</ui:define>
+
+
+	<ui:define name="content">
+		<h:form>
+			<ag:dialogContextHolder />
+
+			<p:messages autoUpdate="true" />
+
+			<p:fieldset
+				legend="#{msgs.formatEL('realms.createKeytab.titleFmt', krbRealmContext.realm)}">
+
+				<ag:simpleField label="#{_gui['realms.createKeytab.keytab.label']}"
+					description="#{_gui['realms.createKeytab.keytab.description']}"
+					inputId="keytab">
+					<p:inputText value="#{krbRealmContext.keytab}" id="keytab" />
+				</ag:simpleField>
+
+				<ag:simpleField label="#{_gui['realms.createKeytab.keys.label']}"
+					description="#{_gui['realms.createKeytab.keys.description']}">
+					<orch:krbKeyEditor initialAdd="true"
+						realm="#{krbRealmContext.realm}"
+						realmType="#{krbRealmContext.type}"
+						value="#{krbRealmContext.keys}" />
+				</ag:simpleField>
+
+				<div class="buttons">
+					<p:commandButton action="#{krbRealmContext.createKeytab()}"
+						value="#{_gui['realms.createKeytab.confirm']}"
+						icon="ui-icon-check" />
+
+					<p:commandButton immediate="true" action="#{dialog.close}"
+						value="#{_gui['realms.createKeytab.cancel']}"
+						styleClass="close-button" icon="ui-icon-cancel" />
+				</div>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

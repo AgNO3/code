@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="server-base-feature"
+      label="Orchestrator Server Base Feature"
+      version="0.0.1.qualifier"
+      provider-name="AgNO3 GmbH &amp; Co. KG">
+
+   <includes
+         id="server-api-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="agent-server-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="jobs-server-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="hostconfig-server-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="realm-model-server-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="messaging-server-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="sysinfo-base-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="types-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="server-security-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="orchconfig-server-feature"
+         version="0.0.0"/>
+
+   <includes
+         id="gui-server-feature"
+         version="0.0.0"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.server.base"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.bootstrap"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.bootstrap.server"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.server.app"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
+   <plugin
+         id="eu.agno3.orchestrator.server.app.status"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="eu.agno3.orchestrator.server"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

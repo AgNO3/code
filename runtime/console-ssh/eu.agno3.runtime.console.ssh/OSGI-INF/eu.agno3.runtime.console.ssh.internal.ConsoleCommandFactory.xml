@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.0.0" name="eu.agno3.runtime.console.ssh.internal.ConsoleCommandFactory">
+    <service servicefactory="false">
+        <provide interface="org.apache.sshd.server.command.CommandFactory"/>
+    </service>
+    <reference name="CommandProcessor" interface="org.apache.felix.service.command.CommandProcessor" cardinality="1..1" policy="static" bind="setCommandProcessor" unbind="unsetCommandProcessor"/>
+    <implementation class="eu.agno3.runtime.console.ssh.internal.ConsoleCommandFactory"/>
+</scr:component>

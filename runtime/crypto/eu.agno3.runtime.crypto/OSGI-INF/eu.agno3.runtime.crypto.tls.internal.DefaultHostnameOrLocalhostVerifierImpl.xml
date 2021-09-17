@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0" name="eu.agno3.runtime.crypto.tls.internal.DefaultHostnameOrLocalhostVerifierImpl" activate="activate" modified="modified" configuration-pid="tls.verify">
+    <property name="instanceId" value="defaultOrLocalhost"/>
+    <service servicefactory="false">
+        <provide interface="javax.net.ssl.HostnameVerifier"/>
+    </service>
+    <implementation class="eu.agno3.runtime.crypto.tls.internal.DefaultHostnameOrLocalhostVerifierImpl"/>
+</scr:component>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:m="urn:agno3:message:1.0:base" xmlns:am="urn:agno3:agent:1.0:msg" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:agno3:agent:1.0:msg" elementFormDefault="qualified">
+   <xsd:import schemaLocation="urn:agno3:message:1.0:base" namespace="urn:agno3:message:1.0:base"/>
+   <xsd:complexType name="abstractAgentEvent" abstract="true">
+      <xsd:complexContent>
+         <xsd:extension base="m:xmlMarshallableMessage">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="abstractAgentRequestMessage" abstract="true">
+      <xsd:complexContent>
+         <xsd:extension base="m:xmlMarshallableMessage">
+            <xsd:sequence/>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:element name="agentEvent" type="am:abstractAgentEvent"/>
+   <xsd:element name="agentRequest" type="am:abstractAgentRequestMessage"/>
+</xsd:schema>

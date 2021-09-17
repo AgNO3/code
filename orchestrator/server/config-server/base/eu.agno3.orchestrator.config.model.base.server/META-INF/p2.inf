@@ -1,0 +1,3 @@
+instructions.configure = \
+   setStartLevel(startLevel:10); \
+   markStarted(started: true);

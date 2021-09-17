@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{casController.logoutEndpoint}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:param name="title" value="#{_login.title}" />
+
+	<ui:define name="content">
+		<h:form>
+			<p:panel header="#{_login.logoutComplete}" styleClass="loginBox">
+
+				<p:panelGrid cellpadding="10">
+					<p:row>
+						<p:column colspan="2">
+							<h:outputText styleClass="loginMessage"
+								value="#{_login.byeMessage}" />
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column colspan="2">
+							<p:messages />
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column colspan="2">
+							<h:link value="${_login.reloginLink}" outcome="login" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
